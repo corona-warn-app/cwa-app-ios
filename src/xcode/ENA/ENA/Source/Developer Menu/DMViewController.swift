@@ -15,7 +15,6 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 	init(
 		client: Client,
 		restServiceProvider: RestServiceProviding,
-		wifiClient: WifiOnlyHTTPClient,
 		exposureSubmissionService: ExposureSubmissionService,
 		otpService: OTPServiceProviding,
 		coronaTestService: CoronaTestServiceProviding,
@@ -27,7 +26,6 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 	) {
 		self.client = client
 		self.restServiceProvider = restServiceProvider
-		self.wifiClient = wifiClient
 		self.exposureSubmissionService = exposureSubmissionService
 		self.otpService = otpService
 		self.coronaTestService = coronaTestService
@@ -88,6 +86,8 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 			vc = DMHealthCertificateMigrationViewController(store: store)
 		case .cclConfig:
 			vc = DMCCLConfigurationViewController()
+		case .revocationList:
+			vc = DMRevocationListViewController()
 		case .newHttp:
 			vc = DMNHCViewController(
 				store: store,
@@ -109,11 +109,11 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 		case .boosterRules:
 			vc = DMBoosterChoosePersonViewController(store: store, healthCertificateService: healthCertificateService)
 		case .wifiClient:
-			vc = DMWifiClientViewController(wifiClient: wifiClient)
+			vc = DMWifiClientViewController(restService: restServiceProvider)
 		case .checkSubmittedKeys:
 			vc = DMSubmissionStateViewController(
 				client: client,
-				wifiClient: wifiClient,
+				restService: restServiceProvider,
 				delegate: self
 			)
 		case .appConfiguration:
@@ -136,6 +136,9 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 		case .manuallyRequestRisk:
 			vc = nil
 			manuallyRequestRisk()
+		case .deleteRiskFilesAndRequestRisk:
+			vc = nil
+			deleteRiskFilesAndRequestRisk()
 		case .debugRiskCalculation:
 			vc = DMDebugRiskCalculationViewController(store: store)
 		case .onboardingVersion:
@@ -172,6 +175,8 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 			vc = DMAppFeaturesViewController(store: store)
 		case .dscLists:
 			vc = DMDSCListsController(store: store)
+		case .crashApp:
+			vc = DMCrashAppViewController()
 		}
 
 		if let vc = vc {
@@ -185,10 +190,7 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 	// MARK: - Public
 	
 	// MARK: - Internal
-	
-	// internal because of protocol RequiresAppDependencies
-	let wifiClient: WifiOnlyHTTPClient
-	
+		
 	// MARK: - Private
 	
 	private let client: Client
@@ -211,7 +213,7 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 
 	@objc
 	private func sendFakeRequest() {
-		FakeRequestService(client: client, restServiceProvider: restServiceProvider).fakeRequest {
+		FakeRequestService(restServiceProvider: restServiceProvider).fakeRequest {
 			let alert = self.setupErrorAlert(title: "Info", message: "Fake request was sent.")
 			self.present(alert, animated: true) {}
 		}
@@ -244,6 +246,44 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 		)
 		present(alert, animated: true, completion: nil)
 	}
+	
+	private func deleteRiskFilesAndRequestRisk() {
+		let alert = UIAlertController(
+			title: "Manually delete downloaded files and request risk?",
+			message: "⚠️⚠️⚠️ WARNING ⚠️⚠️⚠️\n\n This deletes the last calculated risk, downloded key packages and trace warnings from the store.",
+			preferredStyle: .alert
+		)
+		alert.addAction(
+			UIAlertAction(
+				title: "Cancel",
+				style: .cancel
+			) { _ in
+				alert.dismiss(animated: true, completion: nil)
+			}
+		)
+
+		alert.addAction(
+			UIAlertAction(
+				title: "Delete current risk data and request risk",
+				style: .destructive
+			) { _ in
+				self.store.enfRiskCalculationResult = nil
+				self.store.checkinRiskCalculationResult = nil
+				
+				// Reset packages store.
+				self.downloadedPackagesStore.reset()
+				self.downloadedPackagesStore.open()
+				
+				// Reset downloaded data from event store.
+				self.eventStore.deleteAllTraceWarningPackageMetadata()
+				self.eventStore.deleteAllTraceTimeIntervalMatches()
+				
+				self.riskProvider.requestRisk(userInitiated: true)
+			}
+		)
+		present(alert, animated: true, completion: nil)
+	}
+
 
 	private func makeOnboardingVersionViewController() -> DMDeltaOnboardingViewController {
 		return DMDeltaOnboardingViewController(store: store)

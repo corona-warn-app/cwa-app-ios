@@ -20,9 +20,9 @@ let package = Package(
         .package(url: "https://github.com/corona-warn-app/base45-swift", .branch("distribution/swiftpackage")),
         .package(name: "JSONSchema", url: "https://github.com/eu-digital-green-certificates/JSONSchema.swift", .revision("addef0a5c7ed181d877f1fdfde1e3fc1c6c28cfe")),
         .package(url: "https://github.com/tsolomko/SWCompression.git", .upToNextMajor(from: "4.5.0")),
-        .package(name: "CertLogic", url: "https://github.com/eu-digital-green-certificates/dgc-certlogic-ios", .revision("b2c60391396b3f0e3c4bf0b6b9685cbae4a34c7a")),
+        .package(name: "CertLogic", url: "https://github.com/eu-digital-green-certificates/dgc-certlogic-ios", .revision("448d9d4d1237cfe3cccfc05483ba12f339df883e")),
         .package(url: "https://github.com/corona-warn-app/ASN1Decoder", .upToNextMajor(from: "1.8.1")),
-        .package(name: "ENASecurity", path: "ENA/ENASecurity"),
+        .package(name: "ENASecurity", path: "../ENASecurity"),
         .package(url: "https://github.com/corona-warn-app/json-functions-swift", .upToNextMajor(from: "2.0.3"))
     ],
     targets: [

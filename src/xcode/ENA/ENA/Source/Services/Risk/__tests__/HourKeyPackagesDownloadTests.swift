@@ -11,13 +11,13 @@ class HourKeyPackagesDownloadTests: CWATestCase {
 
 	private lazy var dummyHourResponse: [Int: PackageDownloadResponse] = {
 		let dummyPackage = SAPDownloadedPackage(keysBin: Data(), signature: Data())
-		let dummyResponse = PackageDownloadResponse(package: dummyPackage, etag: "\"tinfoil\"")
+		let dummyResponse = PackageDownloadResponse(package: dummyPackage)
 		return [2: dummyResponse, 3: dummyResponse]
 	}()
 	
 	private lazy var dummyDayResponse: [String: PackageDownloadResponse] = {
 		let dummyPackage = SAPDownloadedPackage(keysBin: Data(), signature: Data())
-		let dummyResponse = PackageDownloadResponse(package: dummyPackage, etag: "\"tinfoil\"")
+		let dummyResponse = PackageDownloadResponse(package: dummyPackage)
 		return ["placeholderDate": dummyResponse]
 	}()
 	
@@ -26,15 +26,16 @@ class HourKeyPackagesDownloadTests: CWATestCase {
 		let store = MockTestStore()
 		let packagesStore: DownloadedPackagesSQLLiteStore = .inMemory()
 		packagesStore.open()
-		let client = ClientMock()
 
-		client.availableDaysAndHours = DaysAndHours(days: ["2020-10-01", "2020-10-02"], hours: [1, 2, 3])
+		// fake successful hours package download
+		let restServiceProvider = RestServiceProviderStub(results: [
+			.success([1, 2, 3])
+		])
 
 		let countryId = "IT"
 		let keyPackageDownload = KeyPackageDownload(
 			downloadedPackagesStore: packagesStore,
-			client: client,
-			wifiClient: client,
+			restService: restServiceProvider,
 			store: store,
 			countryIds: [countryId]
 		)
@@ -66,13 +67,16 @@ class HourKeyPackagesDownloadTests: CWATestCase {
 		try packagesStore.addFetchedHours(dummyHourResponse, day: .formattedToday(), country: countryId)
 
 		let client = ClientMock()
-		client.availableDaysAndHours = DaysAndHours(days: ["2020-10-01", "2020-10-02"], hours: [1, 2, 3, 4])
 		client.downloadedPackage = try XCTUnwrap(dummyHourResponse.values.first)
+
+		// fake successful hours package download
+		let restServiceProvider = RestServiceProviderStub(results: [
+			.success([1, 2, 3, 4])
+		])
 
 		let keyPackageDownload = KeyPackageDownload(
 			downloadedPackagesStore: packagesStore,
-			client: client,
-			wifiClient: client,
+			restService: restServiceProvider,
 			store: store,
 			countryIds: ["IT"]
 		)
@@ -104,13 +108,15 @@ class HourKeyPackagesDownloadTests: CWATestCase {
 		try packagesStore.addFetchedHours(dummyHourResponse, day: .formattedToday(), country: countryId)
 
 		let client = ClientMock()
-		client.availableDaysAndHours = DaysAndHours(days: ["2020-10-01", "2020-10-02"], hours: [2, 3, 4])
 		client.downloadedPackage = try XCTUnwrap(dummyHourResponse.values.first)
 
+		// fake successful hours package download
+		let restServiceProvider = RestServiceProviderStub(results: [
+			.success([2, 3, 4])
+		])
 		let keyPackageDownload = KeyPackageDownload(
 			downloadedPackagesStore: packagesStore,
-			client: client,
-			wifiClient: client,
+			restService: restServiceProvider,
 			store: store,
 			countryIds: ["IT"]
 		)
@@ -146,18 +152,15 @@ class HourKeyPackagesDownloadTests: CWATestCase {
 		}
 		
 		let countryId = "IT"
-		let dummyPackage = PackageDownloadResponse(package: SAPDownloadedPackage(keysBin: Data(), signature: Data()), etag: "\"etag\"")
+		let dummyPackage = PackageDownloadResponse(package: SAPDownloadedPackage(keysBin: Data(), signature: Data()))
 
 		let packagesStore: DownloadedPackagesSQLLiteStore = .inMemory()
 		packagesStore.open()
 		try packagesStore.addFetchedHours([lastHourKey: dummyPackage], day: .formattedToday(), country: countryId)
 
-		let client = ClientMock()
-
 		let keyPackageDownload = KeyPackageDownload(
 			downloadedPackagesStore: packagesStore,
-			client: client,
-			wifiClient: client,
+			restService: RestServiceProviderStub(),
 			store: store,
 			countryIds: [countryId]
 		)
@@ -181,18 +184,21 @@ class HourKeyPackagesDownloadTests: CWATestCase {
 
 		let packagesStore: DownloadedPackagesSQLLiteStore = .inMemory()
 		packagesStore.open()
-		let dummyPackage = PackageDownloadResponse(package: SAPDownloadedPackage(keysBin: Data(), signature: Data()), etag: "\"etag\"")
+		let dummyPackage = PackageDownloadResponse(package: SAPDownloadedPackage(keysBin: Data(), signature: Data()))
 		let countryId = "IT"
 		try packagesStore.addFetchedDays(["2020-10-04": dummyPackage, "2020-10-01": dummyPackage], country: countryId)
 
 		let client = ClientMock()
-		client.availableDaysAndHours = DaysAndHours(days: ["2020-10-02", "2020-10-03", "2020-10-04"], hours: [1, 2])
 		client.downloadedPackage = try XCTUnwrap(dummyHourResponse.values.first)
+
+		// fake successful hours package download
+		let restServiceProvider = RestServiceProviderStub(results: [
+			.success([1, 2])
+		])
 
 		let keyPackageDownload = KeyPackageDownload(
 			downloadedPackagesStore: packagesStore,
-			client: client,
-			wifiClient: client,
+			restService: restServiceProvider,
 			store: store,
 			countryIds: ["IT"]
 		)
@@ -219,25 +225,31 @@ class HourKeyPackagesDownloadTests: CWATestCase {
 		let packagesStore: DownloadedPackagesSQLLiteStore = .inMemory()
 
 		let client = ClientMock()
-		client.availableDaysAndHours = DaysAndHours(days: ["2020-10-02"], hours: [1])
 		client.fetchPackageRequestFailure = .noResponse
+
+		// fake responsed
+		// .success available hours package
+		// .failure on hour package download
+		let restServiceProvider = RestServiceProviderStub(results: [
+			.success([1]),
+			.failure(ServiceError<Error>.invalidResponse)
+		])
 
 		let keyPackageDownload = KeyPackageDownload(
 			downloadedPackagesStore: packagesStore,
-			client: client,
-			wifiClient: client,
+			restService: restServiceProvider,
 			store: store
 		)
 
 		let failureExpectation = expectation(description: "Package download failed.")
 
 		keyPackageDownload.startHourPackagesDownload { result in
+			defer { failureExpectation.fulfill() }
 			switch result {
 			case .success:
 				XCTFail("Success result is not expected.")
 			case .failure(let error):
 				XCTAssertEqual(error, .uncompletedPackages)
-				failureExpectation.fulfill()
 			}
 		}
 
@@ -249,14 +261,14 @@ class HourKeyPackagesDownloadTests: CWATestCase {
 
 		let packagesStore: DownloadedPackagesSQLLiteStore = .inMemory()
 
-		let client = ClientMock()
-		client.availableDaysAndHours = DaysAndHours(days: ["2020-10-02"], hours: [1])
-		client.availablePackageRequestFailure = .noResponse
+		// fake successful hours package download
+		let restServiceProvider = RestServiceProviderStub(results: [
+			.failure(ServiceError<Error>.invalidResponse)
+		])
 
 		let keyPackageDownload = KeyPackageDownload(
 			downloadedPackagesStore: packagesStore,
-			client: client,
-			wifiClient: client,
+			restService: restServiceProvider,
 			store: store
 		)
 
@@ -278,15 +290,16 @@ class HourKeyPackagesDownloadTests: CWATestCase {
 	func test_When_PersistHourPackagesToDatabaseFails_Then_unableToWriteDiagnosisKeysErrorReturned() {
 		let store = MockTestStore()
 
-		let packagesStore = DownloadedPackagesStoreErrorStub(error: DownloadedPackagesSQLLiteStore.StoreError.sqliteError(.unknown))
+		let packagesStore = DownloadedPackagesStoreErrorStub(error: DownloadedPackagesSQLLiteStore.StoreError.sqliteError(.unknown(42)))
 
-		let client = ClientMock()
-		client.availableDaysAndHours = DaysAndHours(days: ["2020-10-02"], hours: [1])
+		// fake successful hours package download
+		let restServiceProvider = RestServiceProviderStub(results: [
+			.success([1])
+		])
 
 		let keyPackageDownload = KeyPackageDownload(
 			downloadedPackagesStore: packagesStore,
-			client: client,
-			wifiClient: client,
+			restService: restServiceProvider,
 			store: store
 		)
 
@@ -310,13 +323,14 @@ class HourKeyPackagesDownloadTests: CWATestCase {
 
 		let packagesStore = DownloadedPackagesStoreErrorStub(error: DownloadedPackagesSQLLiteStore.StoreError.sqliteError(.sqlite_full))
 
-		let client = ClientMock()
-		client.availableDaysAndHours = DaysAndHours(days: ["2020-10-02"], hours: [1])
+		// fake successful hours package download
+		let restServiceProvider = RestServiceProviderStub(results: [
+			.success([1])
+		])
 
 		let keyPackageDownload = KeyPackageDownload(
 			downloadedPackagesStore: packagesStore,
-			client: client,
-			wifiClient: client,
+			restService: restServiceProvider,
 			store: store
 		)
 
@@ -347,7 +361,7 @@ class HourKeyPackagesDownloadTests: CWATestCase {
 		}
 
 		let dummyPackage = SAPDownloadedPackage(keysBin: Data(), signature: Data())
-		let dummyResponse = PackageDownloadResponse(package: dummyPackage, etag: "\"etag\"")
+		let dummyResponse = PackageDownloadResponse(package: dummyPackage)
 
 		let packagesStore: DownloadedPackagesSQLLiteStoreV3 = .inMemory()
 		packagesStore.open()
@@ -355,13 +369,16 @@ class HourKeyPackagesDownloadTests: CWATestCase {
 		try packagesStore.addFetchedHours([lastHourKey: dummyResponse], day: .formattedToday(), country: countryId)
 
 		let client = ClientMock()
-		client.availableDaysAndHours = DaysAndHours(days: [], hours: [lastHourKey])
 		client.downloadedPackage = dummyResponse
+
+		// fake successful hours package download
+		let restServiceProvider = RestServiceProviderStub(results: [
+			.success([lastHourKey])
+		])
 
 		let keyPackageDownload = KeyPackageDownload(
 			downloadedPackagesStore: packagesStore,
-			client: client,
-			wifiClient: client,
+			restService: restServiceProvider,
 			store: store,
 			countryIds: ["IT"]
 		)
@@ -393,21 +410,24 @@ class HourKeyPackagesDownloadTests: CWATestCase {
 		packagesStore.open()
 
 		let dummyPackage = SAPDownloadedPackage(keysBin: Data(), signature: Data())
-		let dummyResponse = PackageDownloadResponse(package: dummyPackage, etag: "\"etag\"")
+		let dummyResponse = PackageDownloadResponse(package: dummyPackage)
 
 		let client = ClientMock()
-		client.availableDaysAndHours = DaysAndHours(days: ["2020-10-01", "2020-10-02", "2020-10-03"], hours: [1, 2])
 		client.downloadedPackage = dummyResponse
+
+		// fake successful hours package download
+		let restServiceProvider = RestServiceProviderStub(results: [
+			.success([1, 2])
+		])
 
 		let keyPackageDownload = KeyPackageDownload(
 			downloadedPackagesStore: packagesStore,
-			client: client,
-			wifiClient: client,
+			restService: restServiceProvider,
 			store: store,
 			countryIds: ["IT"]
 		)
 		
-		let statusDidChangeExpectation = expectation(description: "Status statusDidChange called three times. 1. dheckingForNewPackages, 2. downloading, 3. idle")
+		let statusDidChangeExpectation = expectation(description: "Status statusDidChange called three times. 1. checkingForNewPackages, 2. downloading, 3. idle")
 		statusDidChangeExpectation.expectedFulfillmentCount = 3
 		var numberOfStatusChanges = 0
 
@@ -444,13 +464,16 @@ class HourKeyPackagesDownloadTests: CWATestCase {
 
 		let client = ClientMock()
 		// prepare server response: day package for the day
-		client.availableDaysAndHours = DaysAndHours(days: ["2020-10-09"], hours: [])
 		client.downloadedPackage = try XCTUnwrap(dummyDayResponse.values.first)
+
+		// fake successful day package download
+		let restServiceProvider = RestServiceProviderStub(results: [
+			.success(["2020-10-09"])
+		])
 
 		let keyPackageDownload = KeyPackageDownload(
 			downloadedPackagesStore: packagesStore,
-			client: client,
-			wifiClient: client,
+			restService: restServiceProvider,
 			store: store,
 			countryIds: ["IT"]
 		)

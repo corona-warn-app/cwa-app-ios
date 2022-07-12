@@ -28,7 +28,6 @@ class ENAUITests_02_AppInformation: CWATestCase {
 		appInformationLabel.waitAndTap()
 		
 		XCTAssertTrue(app.cells[AccessibilityIdentifiers.AppInformation.aboutNavigation].waitForExistence(timeout: .medium))
-		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.AppInformation.faqNavigation].waitForExistence(timeout: .medium))
 		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.AppInformation.accessibilityNavigation].waitForExistence(timeout: .medium))
 		XCTAssertTrue(app.cells[AccessibilityIdentifiers.AppInformation.contactNavigation].waitForExistence(timeout: .medium))
 		XCTAssertTrue(app.cells[AccessibilityIdentifiers.AppInformation.privacyNavigation].waitForExistence(timeout: .medium))
@@ -50,24 +49,6 @@ class ENAUITests_02_AppInformation: CWATestCase {
 		app.cells["AppStrings.AppInformation.aboutNavigation"].waitAndTap()
 
 		XCTAssertTrue(app.staticTexts["AppStrings.AppInformation.aboutTitle"].waitForExistence(timeout: .medium))
-	}
-
-	func test_0022_AppInformationFlow_faq() throws {
-		app.launch()
-
-		// only run if onboarding screen is present
-		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.rightBarButtonDescription].waitForExistence(timeout: .medium))
-
-		// assert cells
-		let moreCell = app.cells[AccessibilityIdentifiers.Home.MoreInfoCell.moreCell]
-		let appInformationLabel = moreCell.buttons[AccessibilityIdentifiers.Home.MoreInfoCell.appInformationLabel]
-		appInformationLabel.waitAndTap()
-
-		XCTAssertTrue(app.state == .runningForeground)
-		app.staticTexts[AccessibilityIdentifiers.AppInformation.faqNavigation].waitAndTap()
-		
-		// Check if URL that would get opened is 'https://www.coronawarn.app/de/faq/'
-		XCTAssertTrue(app.alerts.firstMatch.staticTexts["https://www.coronawarn.app/de/faq/"].waitForExistence(timeout: .short))
 	}
 
 	func test_0023_AppInformationFlow_contact() throws {

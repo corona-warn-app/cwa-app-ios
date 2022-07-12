@@ -50,6 +50,8 @@ class HealthCertificatePDFGenerationInfoViewController: DynamicTableViewControll
 		if let dismissHandlingNC = navigationController as? DismissHandlingNavigationController {
 			dismissHandlingNC.setupTransparentNavigationBar()
 		}
+		
+		setupStatusBarViewBackgroundColorIfNeeded()
 	}
 
 	override func viewWillDisappear(_ animated: Bool) {
@@ -58,6 +60,8 @@ class HealthCertificatePDFGenerationInfoViewController: DynamicTableViewControll
 		if let dismissHandlingNC = navigationController as? DismissHandlingNavigationController {
 			dismissHandlingNC.restoreOriginalNavigationBar()
 		}
+		
+		revertStatusBarViewBackgroundColorIfNeeded()
 	}
 	
 	// MARK: - Protocol DismissHandling

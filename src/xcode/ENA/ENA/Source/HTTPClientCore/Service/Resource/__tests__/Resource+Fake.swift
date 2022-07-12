@@ -4,14 +4,15 @@
 
 @testable import ENA
 
-class ResourceFake: Resource {
+struct ResourceFake: Resource {
 	init(
 		locator: Locator = .fake(),
 		type: ServiceType = .caching(),
 		sendResource: PaddingJSONSendResource<DummyResourceModel> = PaddingJSONSendResource<DummyResourceModel>(DummyResourceModel(dummyValue: "SomeValue", requestPadding: "")),
 		receiveResource: JSONReceiveResource<DummyResourceModel> = JSONReceiveResource<DummyResourceModel>(),
 		defaultModel: ResourceFake.Receive.ReceiveModel? = nil,
-		trustEvaluation: TrustEvaluating = DisabledTrustEvaluation()
+		trustEvaluation: TrustEvaluating = DisabledTrustEvaluation(),
+		retryingCount: Int = 0
 	) {
 		self.locator = locator
 		self.type = type
@@ -19,6 +20,7 @@ class ResourceFake: Resource {
 		self.receiveResource = receiveResource
 		self.defaultModel = defaultModel
 		self.trustEvaluation = trustEvaluation
+		self.retryingCount = retryingCount
 	}
 	
 	let locator: Locator
@@ -27,6 +29,7 @@ class ResourceFake: Resource {
 	let receiveResource: JSONReceiveResource<DummyResourceModel>
 	let defaultModel: ResourceFake.Receive.ReceiveModel?
 	let trustEvaluation: TrustEvaluating
+	var retryingCount: Int
 
 	typealias Send = PaddingJSONSendResource<DummyResourceModel>
 	typealias Receive = JSONReceiveResource<DummyResourceModel>

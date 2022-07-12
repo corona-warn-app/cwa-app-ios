@@ -150,20 +150,22 @@ final class HealthCertifiedPersonCoordinator {
 	private func showCertificateReissuanceFlow(
 		for person: HealthCertifiedPerson
 	) {
-		guard let dccReference = person.dccWalletInfo?.certificateReissuance?.certificateToReissue.certificateRef,
-			  let certificate = person.healthCertificate(for: dccReference)
-		else {
-			Log.error("No certificate for reissuance found - stop here")
+		guard let dccCertificateReissuance = person.dccWalletInfo?.certificateReissuance else {
+			Log.error("CertificateReissuance not found - stop here")
 			return
 		}
 
+		guard let certificates = dccCertificateReissuance.certificates, !certificates.isEmpty else {
+			Log.error("Certificates are empty - stop here")
+			return
+		}
+		
 		reissuanceCoordinator = HealthCertificateReissuanceCoordinator(
 			parentViewController: navigationController,
 			healthCertificateService: healthCertificateService,
 			restServiceProvider: restServiceProvider,
 			appConfigProvider: appConfigProvider,
 			healthCertifiedPerson: person,
-			healthCertificate: certificate,
 			cclService: cclService
 		)
 

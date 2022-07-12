@@ -5,6 +5,7 @@
 import UIKit
 import OpenCombine
 
+// swiftlint:disable type_body_length
 class HealthCertificateOverviewViewController: UITableViewController {
 
 	// MARK: - Init
@@ -12,7 +13,9 @@ class HealthCertificateOverviewViewController: UITableViewController {
 	init(
 		viewModel: HealthCertificateOverviewViewModel,
 		cclService: CCLServable,
+		notificationCenter: NotificationCenter = NotificationCenter.default,
 		onInfoBarButtonItemTap: @escaping () -> Void,
+		onExportBarButtonItemTap: @escaping CompletionVoid,
 		onChangeAdmissionScenarioTap: @escaping () -> Void,
 		onCertifiedPersonTap: @escaping (HealthCertifiedPerson) -> Void,
 		onCovPassCheckInfoButtonTap: @escaping () -> Void,
@@ -21,7 +24,9 @@ class HealthCertificateOverviewViewController: UITableViewController {
 	) {
 		self.viewModel = viewModel
 		self.cclService = cclService
+		self.notificationCenter = notificationCenter
 		self.onInfoBarButtonItemTap = onInfoBarButtonItemTap
+		self.onExportBarButtonItemTap = onExportBarButtonItemTap
 		self.onChangeAdmissionScenarioTap = onChangeAdmissionScenarioTap
 		self.onCertifiedPersonTap = onCertifiedPersonTap
 		self.onCovPassCheckInfoButtonTap = onCovPassCheckInfoButtonTap
@@ -33,6 +38,7 @@ class HealthCertificateOverviewViewController: UITableViewController {
 		viewModel.$healthCertifiedPersons
 			.receive(on: DispatchQueue.OCombine(.main))
 			.sink { [weak self] _ in
+				self?.setupBarButtonItems()
 				self?.tableView.reloadData()
 				self?.updateEmptyState()
 			}
@@ -64,11 +70,28 @@ class HealthCertificateOverviewViewController: UITableViewController {
 				self?.tableView.reloadData()
 			}
 			.store(in: &subscriptions)
+		
+		notificationCenter.addObserver(
+			self,
+			selector: #selector(showExportCertificatesTooltipIfNeeded),
+			name: .showExportCertificatesTooltipIfNeeded,
+			object: nil
+		)
+		
+		#if DEBUG
+		if isUITesting {
+			viewModel.store.shouldShowExportCertificatesTooltip = LaunchArguments.healthCertificate.shouldShowExportCertificatesTooltip.boolValue
+		}
+		#endif
 	}
 
 	@available(*, unavailable)
 	required init?(coder _: NSCoder) {
 		fatalError("init(coder:) has intentionally not been implemented")
+	}
+	
+	deinit {
+		notificationCenter.removeObserver(self, name: .showExportCertificatesTooltipIfNeeded, object: nil)
 	}
 
 	// MARK: - Overrides
@@ -76,7 +99,6 @@ class HealthCertificateOverviewViewController: UITableViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
-		setupBarButtonItems()
 		setupTableView()
 
 		navigationItem.largeTitleDisplayMode = .automatic
@@ -84,20 +106,14 @@ class HealthCertificateOverviewViewController: UITableViewController {
 		tableView.backgroundColor = .enaColor(for: .darkBackground)
 		
 		tableView.reloadData()
-		title = AppStrings.HealthCertificate.Overview.title
 	}
 
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
+		title = AppStrings.HealthCertificate.Overview.title
 
 		navigationController?.navigationBar.prefersLargeTitles = true
 		navigationController?.navigationBar.sizeToFit()
-
-		// delay reloadData because scrolling to top may take up to 0.35 sec
-		// otherwise the contentOffSet gets broken
-		DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [tableView] in
-			tableView?.reloadData()
-		}
 	}
 
 	override func viewDidAppear(_ animated: Bool) {
@@ -109,6 +125,8 @@ class HealthCertificateOverviewViewController: UITableViewController {
 		if viewModel.shouldShowAlertAfterRegroup {
 			showAlertAfterRegroup()
 		}
+
+		setupBarButtonItems()
 	}
 
 	// MARK: - Protocol UITableViewDataSource
@@ -169,8 +187,10 @@ class HealthCertificateOverviewViewController: UITableViewController {
 
 	private let viewModel: HealthCertificateOverviewViewModel
 	private let cclService: CCLServable
+	private let notificationCenter: NotificationCenter
 	
 	private let onInfoBarButtonItemTap: () -> Void
+	private let onExportBarButtonItemTap: CompletionVoid
 	private let onChangeAdmissionScenarioTap: () -> Void
 	private let onCertifiedPersonTap: (HealthCertifiedPerson) -> Void
 	private let onCovPassCheckInfoButtonTap: () -> Void
@@ -178,14 +198,43 @@ class HealthCertificateOverviewViewController: UITableViewController {
 	private let showAlertAfterRegroup: () -> Void
 
 	private var subscriptions = Set<AnyCancellable>()
-
+	
+	private var isExportCertificatesBarButtonItemSetup = false
+	
+	private lazy var infoBarButtonItem: UIBarButtonItem = {
+		let infoBarButton = UIBarButtonItem(image: UIImage(imageLiteralResourceName: "Icons_Info"), style: .plain, target: self, action: #selector(infoButtonTapped))
+		infoBarButton.isAccessibilityElement = true
+		infoBarButton.accessibilityLabel = AppStrings.Home.rightBarButtonDescription
+		infoBarButton.accessibilityIdentifier = AccessibilityIdentifiers.Home.rightBarButtonDescription
+		return infoBarButton
+	}()
+	
+	private lazy var spacer: UIBarButtonItem = {
+		let spacer = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
+		spacer.width = 16
+		return spacer
+	}()
+	
+	private lazy var exportCertificatesBarButtonItem: UIBarButtonItem = {
+		// Necesary to use button as custom view, to get `customView` property in `UIBarButtonItem`. Without that, the tooltip cannot be anchored correctly.
+		let button = UIButton(type: .custom)
+		button.setImage(UIImage(imageLiteralResourceName: "Icons_Share"), for: .normal)
+		button.addTarget(self, action: #selector(exportButtonTapped), for: .touchUpInside)
+		button.isAccessibilityElement = true
+		button.accessibilityLabel = AppStrings.HealthCertificate.Navigation.rightBarButtonExportDescription
+		button.accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.Navigation.rightBarButtonExport
+		return UIBarButtonItem(customView: button)
+	}()
+	
 	private func setupBarButtonItems() {
-		let infoButton = UIButton(type: .infoLight)
-		infoButton.addTarget(self, action: #selector(infoButtonTapped), for: .touchUpInside)
-		navigationItem.rightBarButtonItem = UIBarButtonItem(customView: infoButton)
-		navigationItem.rightBarButtonItem?.isAccessibilityElement = true
-		navigationItem.rightBarButtonItem?.accessibilityLabel = AppStrings.Home.rightBarButtonDescription
-		navigationItem.rightBarButtonItem?.accessibilityIdentifier = AccessibilityIdentifiers.Home.rightBarButtonDescription
+		// Don't show share button if list of healthCertifiedPersons is empty
+		if viewModel.healthCertifiedPersons.isEmpty {
+			navigationItem.rightBarButtonItems = [infoBarButtonItem]
+		} else {
+			navigationItem.rightBarButtonItems = [infoBarButtonItem, spacer, exportCertificatesBarButtonItem]
+			isExportCertificatesBarButtonItemSetup = true
+			showExportCertificatesTooltipIfNeeded()
+		}
 	}
 
 	private func setupTableView() {
@@ -207,9 +256,6 @@ class HealthCertificateOverviewViewController: UITableViewController {
 
 		tableView.sectionHeaderHeight = 0
 		tableView.sectionFooterHeight = 0
-
-		// Overestimate to fix auto layout warnings and fix a problem that showed the test cell behind other cells when opening app from the background in manual mode
-		tableView.estimatedRowHeight = 500
 	}
 	
 	private func changeAdmissionScenarioStatusLabelCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -312,6 +358,11 @@ class HealthCertificateOverviewViewController: UITableViewController {
 	@IBAction private func infoButtonTapped() {
 		onInfoBarButtonItemTap()
 	}
+	
+	@objc
+	private func exportButtonTapped() {
+		onExportBarButtonItemTap()
+	}
 
 	private func animateChanges(of cell: UITableViewCell) {
 		// DispatchQueue prevents undefined behaviour in `visibleCells` while cells are being updated
@@ -413,5 +464,40 @@ class HealthCertificateOverviewViewController: UITableViewController {
 				alignmentPadding: alignmentPadding
 			)
 			: nil
+	}
+	
+	@objc
+	private func showExportCertificatesTooltipIfNeeded() {
+		// Don't show tooltip if list of healthCertifiedPersons is empty
+		guard
+			viewModel.store.shouldShowExportCertificatesTooltip,
+			!viewModel.healthCertifiedPersons.isEmpty,
+			isExportCertificatesBarButtonItemSetup else {
+			return
+		}
+
+		let tooltipViewController = TooltipViewController(
+			viewModel: .init(for: .exportCertificates),
+			onClose: { [weak self] in
+				guard let tooltipViewController = self?.presentedViewController as? TooltipViewController else { return }
+				tooltipViewController.dismiss(animated: true)
+			}
+		)
+		
+		tooltipViewController.popoverPresentationController?.barButtonItem = exportCertificatesBarButtonItem
+		tooltipViewController.popoverPresentationController?.permittedArrowDirections = .up
+
+		DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
+			guard
+				let self = self,
+				let view = self.viewIfLoaded, view.window != nil
+			else {
+				return
+			}
+			
+			self.present(tooltipViewController, animated: true) { [weak self] in
+				self?.viewModel.store.shouldShowExportCertificatesTooltip = false
+			}
+		}
 	}
 }

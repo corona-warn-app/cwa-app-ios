@@ -23,6 +23,7 @@ final class DMBoosterRulesViewModel {
 	// MARK: - Internal
 	
 	var showAlert: (UIAlertController) -> Void = { _ in }
+	var onClose: () -> Void = {}
 	var refreshTableView: (IndexSet) -> Void = { _ in }
 	var numberOfSections: Int {
 		TableViewSections.allCases.count
@@ -64,7 +65,8 @@ final class DMBoosterRulesViewModel {
 						mostRelevantCertificate: dccWalletInfo.mostRelevantCertificate,
 						verification: dccWalletInfo.verification,
 						validUntil: dccWalletInfo.validUntil,
-						certificateReissuance: dccWalletInfo.certificateReissuance
+						certificateReissuance: dccWalletInfo.certificateReissuance,
+						certificatesRevokedByInvalidationRules: dccWalletInfo.certificatesRevokedByInvalidationRules
 					)
 					self.refreshTableView([TableViewSections.cachedPassedBoosterRule.rawValue])
 				}

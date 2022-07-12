@@ -7,27 +7,19 @@ import XCTest
 
 class ExposureSubmissionIntroViewModelTests: CWATestCase {
 
-	func test_When_StoreHasNOTestProfile_Then_CreateProfileTileIsReturned() {
+	func test_When_StoreHasTestProfile_Then_AntigenTestProfileTileIsReturned() {
 		let store = MockTestStore()
-		store.antigenTestProfile = nil
-
-		let viewModel = ExposureSubmissionIntroViewModel(
-			onQRCodeButtonTap: { _ in },
-			onFindTestCentersTap: { },
-			onTANButtonTap: { },
-			onHotlineButtonTap: { },
-			onRapidTestProfileTap: { },
-			antigenTestProfileStore: store
+		let antigenTestProfile = AntigenTestProfile(
+			firstName: "Max",
+			lastName: "Mustermann",
+			dateOfBirth: Date(timeIntervalSince1970: 390047238),
+			addressLine: "Blumenstraße 2",
+			zipCode: "43923",
+			city: "Berlin",
+			phoneNumber: "0165434563",
+			email: "sabine.schulz@gmx.com"
 		)
-
-		let profileCell = viewModel.dynamicTableModel.cell(at: IndexPath(row: 2, section: 1))
-
-		XCTAssertEqual(profileCell.tag, "AntigenTestCreateProfileCard")
-	}
-
-	func test_When_StoreHasTestProfile_Then_CreateProfileTileIsReturned() {
-		let store = MockTestStore()
-		store.antigenTestProfile = AntigenTestProfile()
+		store.antigenTestProfiles = [antigenTestProfile]
 
 		let viewModel = ExposureSubmissionIntroViewModel(
 			onQRCodeButtonTap: { _ in },

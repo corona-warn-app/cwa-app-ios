@@ -118,6 +118,7 @@ class HealthCertificateQRCodeCell: UITableViewCell, ReuseIdentifierProviding {
 		let validityStateStackView = UIStackView()
 		validityStateStackView.alignment = .center
 		validityStateStackView.axis = .horizontal
+		validityStateStackView.distribution = .fill
 		validityStateStackView.spacing = 8.0
 
 		return validityStateStackView

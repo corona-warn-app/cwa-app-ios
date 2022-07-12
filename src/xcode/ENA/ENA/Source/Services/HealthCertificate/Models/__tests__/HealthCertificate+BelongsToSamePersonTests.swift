@@ -21,7 +21,7 @@ class HealthCertificate_BelongsToSamePersonTests: XCTestCase {
 		for testCase in testCases {
 			let lhsCertificate = try HealthCertificate(
 				base45: try base45Fake(
-					from: DigitalCovidCertificate.fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
 						name: Name.fake(
 							standardizedFamilyName: testCase.actHolderA.nam.fnt,
 							standardizedGivenName: testCase.actHolderA.nam.gnt
@@ -34,7 +34,7 @@ class HealthCertificate_BelongsToSamePersonTests: XCTestCase {
 			
 			let rhsCertificate = try HealthCertificate(
 				base45: try base45Fake(
-					from: DigitalCovidCertificate.fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
 						name: Name.fake(
 							standardizedFamilyName: testCase.actHolderB.nam.fnt,
 							standardizedGivenName: testCase.actHolderB.nam.gnt

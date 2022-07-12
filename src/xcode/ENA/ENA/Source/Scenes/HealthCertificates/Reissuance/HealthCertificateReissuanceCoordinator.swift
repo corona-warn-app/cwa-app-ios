@@ -14,7 +14,6 @@ final class HealthCertificateReissuanceCoordinator {
 		restServiceProvider: RestServiceProviding,
 		appConfigProvider: AppConfigurationProviding,
 		healthCertifiedPerson: HealthCertifiedPerson,
-		healthCertificate: HealthCertificate,
 		cclService: CCLServable
 	) {
 		self.parentViewController = parentViewController
@@ -22,7 +21,6 @@ final class HealthCertificateReissuanceCoordinator {
 		self.restServiceProvider = restServiceProvider
 		self.appConfigProvider = appConfigProvider
 		self.healthCertifiedPerson = healthCertifiedPerson
-		self.healthCertificate = healthCertificate
 		self.cclService = cclService
 	}
 	
@@ -42,7 +40,6 @@ final class HealthCertificateReissuanceCoordinator {
 	private let restServiceProvider: RestServiceProviding
 	private let appConfigProvider: AppConfigurationProviding
 	private let healthCertifiedPerson: HealthCertifiedPerson
-	private let healthCertificate: HealthCertificate
 	private let cclService: CCLServable
 
 	// MARK: Show Screens
@@ -53,10 +50,12 @@ final class HealthCertificateReissuanceCoordinator {
 			restServiceProvider: restServiceProvider,
 			appConfigProvider: appConfigProvider,
 			cclService: cclService,
-			certificate: healthCertificate,
 			healthCertifiedPerson: healthCertifiedPerson,
 			didTapDataPrivacy: { [weak self] in
 				self?.showDataPrivacy()
+			},
+			didTapAccompanyingCertificatesButton: { [weak self] certificates in
+				self?.showAccompanyingCertificates(certificates: certificates)
 			},
 			onError: { [weak self] error in
 				self?.showReissuanceError(error)
@@ -84,6 +83,18 @@ final class HealthCertificateReissuanceCoordinator {
 			bottomController: footerViewController
 		)
 	}()
+	
+	private func showAccompanyingCertificates(certificates: [HealthCertificate]) {
+		let accompanyingCertificatesViewController = AccompanyingCertificatesViewController(
+			certificates: certificates,
+			certifiedPerson: healthCertifiedPerson,
+			dismiss: { [weak self] in
+				self?.parentViewController.dismiss(animated: true)
+			}
+		)
+		accompanyingCertificatesViewController.navigationItem.largeTitleDisplayMode = .never
+		self.navigationController.pushViewController(accompanyingCertificatesViewController, animated: true)
+	}
 
 	private func showDataPrivacy() {
 		let detailViewController = HTMLViewController(model: AppInformationModel.privacyModel)

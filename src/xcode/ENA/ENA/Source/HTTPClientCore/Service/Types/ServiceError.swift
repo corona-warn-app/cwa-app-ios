@@ -18,10 +18,11 @@ enum ServiceError<RE>: LocalizedError, Equatable where RE: Error {
 	case invalidResponse
 	case invalidResponseType
 	case fakeResponse
+	case noReceiveModelToInterruptLoading
 
 	// MARK: - Protocol LocalizedError
 
-	var errorDescription: String {
+	var errorDescription: String? {
 		switch self {
 		case .invalidRequestError(let resourceError):
 			return "invalidRequestError(\(resourceError))"
@@ -34,13 +35,15 @@ enum ServiceError<RE>: LocalizedError, Equatable where RE: Error {
 		case .resourceError(let resourceError):
 			return "resourceError(\(String(describing: resourceError)))"
 		case .receivedResourceError(let resourceError):
-			return "\(resourceError)"
+			return resourceError.localizedDescription
 		case .invalidResponse:
 			return AppStrings.ExposureSubmissionError.invalidResponse
 		case .invalidResponseType:
 			return AppStrings.ExposureSubmissionError.noResponse
 		case .fakeResponse:
 			return "fakeResponse"
+		case .noReceiveModelToInterruptLoading:
+			return "noReceiveModelToInterruptLoading"
 		}
 	}
 
@@ -72,21 +75,30 @@ enum ServiceError<RE>: LocalizedError, Equatable where RE: Error {
 			return lError.localizedDescription == rError.localizedDescription
 		case (.receivedResourceError, _):
 			return false
+
 		case (.invalidResponse, .invalidResponse):
 			return true
 		case (.invalidResponse, _):
 			return false
+
 		case (.invalidResponseType, .invalidResponseType):
 			return true
 		case (.invalidResponseType, _):
 			return false
+
 		case (.fakeResponse, .fakeResponse):
 			return true
 		case (.fakeResponse, _):
 			return false
+
 		case (.trustEvaluationError, .trustEvaluationError):
 			return true
 		case (.trustEvaluationError, _):
+			return false
+
+		case (.noReceiveModelToInterruptLoading, .noReceiveModelToInterruptLoading):
+			return true
+		case (.noReceiveModelToInterruptLoading, _):
 			return false
 		}
 	}

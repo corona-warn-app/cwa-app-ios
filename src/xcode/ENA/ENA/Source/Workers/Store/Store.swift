@@ -5,6 +5,7 @@
 import Foundation
 import ExposureNotification
 import OpenCombine
+import HealthCertificateToolkit
 
 protocol StoreProtocol: AnyObject {
 
@@ -185,16 +186,19 @@ protocol WarnOthersTimeIntervalStoring {
 
 protocol CoronaTestStoring {
 
-	var pcrTest: PCRTest? { get set }
+	var pcrTest: UserPCRTest? { get set }
 
-	var antigenTest: AntigenTest? { get set }
+	var antigenTest: UserAntigenTest? { get set }
+
+	var familyMemberTests: [FamilyMemberCoronaTest] { get set }
+
 }
 
 protocol AntigenTestProfileStoring: AnyObject {
 
-	var antigenTestProfileSubject: CurrentValueSubject<AntigenTestProfile?, Never> { get }
-
-	var antigenTestProfile: AntigenTestProfile? { get set }
+	var antigenTestProfilesSubject: CurrentValueSubject<[AntigenTestProfile], Never> { get }
+	
+	var antigenTestProfiles: [AntigenTestProfile] { get set }
 
 	var antigenTestProfileInfoScreenShown: Bool { get set }
 
@@ -222,6 +226,18 @@ protocol HealthCertificateStoring: AnyObject {
 
 	/// Flag to inform the user that a regroup after a migration was applied.
 	var shouldShowRegroupingAlert: Bool { get set }
+
+	var expiringSoonAndExpiredNotificationsRemoved: Bool { get set }
+	
+	/// `true` if the user needs to be shown the Export-Certificates tooltip.
+	/// We only show it once. By default the value of this property is `true`.
+	var shouldShowExportCertificatesTooltip: Bool { get set }
+
+}
+
+protocol RevokedCertificatesStoring: AnyObject {
+
+	var revokedCertificates: [String] { get set }
 
 }
 
@@ -290,6 +306,7 @@ protocol Store:
 	ErrorLogUploadHistoryProviding,
 	EventRegistrationCaching,
 	HealthCertificateStoring,
+	RevokedCertificatesStoring,
 	PrivacyPreservingProviding,
 	StatisticsCaching,
 	LocalStatisticsCaching,

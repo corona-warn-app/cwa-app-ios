@@ -6,7 +6,7 @@ import Foundation
 import OpenCombine
 import HealthCertificateToolkit
 
-final class HealthCertificate: Codable, Equatable, Comparable, RecycleBinIdentifiable {
+final class HealthCertificate: Codable, Equatable, Comparable, RecycleBinIdentifiable, Hashable {
 
 	// MARK: - Init
 
@@ -15,19 +15,35 @@ final class HealthCertificate: Codable, Equatable, Comparable, RecycleBinIdentif
 		validityState: HealthCertificateValidityState = .valid,
 		didShowInvalidNotification: Bool = false,
 		didShowBlockedNotification: Bool = false,
+		didShowRevokedNotification: Bool = false,
 		isNew: Bool = false,
-		isValidityStateNew: Bool = false
+		isValidityStateNew: Bool = false,
+		revocationEntries: HealthCertificateRevocationEntries? = nil
 	) throws {
 		self.base45 = base45
 		self.validityState = validityState
 		self.didShowInvalidNotification = didShowInvalidNotification
 		self.didShowBlockedNotification = didShowBlockedNotification
+		self.didShowRevokedNotification = didShowRevokedNotification
 		self.isNew = isNew
 		self.isValidityStateNew = isValidityStateNew
 
-		cborWebTokenHeader = try Self.extractCBORWebTokenHeader(from: base45)
-		digitalCovidCertificate = try Self.extractDigitalCovidCertificate(from: base45)
-		keyIdentifier = Self.extractKeyIdentifier(from: base45)
+		let certificateComponents = try Self.extractCertificateComponents(from: base45)
+		cborWebTokenHeader = certificateComponents.header
+		digitalCovidCertificate = certificateComponents.certificate
+		keyIdentifier = certificateComponents.keyIdentifier
+		
+		if let revocationEntries = revocationEntries {
+			self.revocationEntries = revocationEntries
+		} else {
+			self.revocationEntries = HealthCertificateRevocationEntries(
+				certificate: certificateComponents.certificate,
+				header: certificateComponents.header,
+				signature: certificateComponents.signature,
+				algorithm: certificateComponents.algorithm
+			)
+		}
+
 	}
 
 	required init(from decoder: Decoder) throws {
@@ -39,10 +55,23 @@ final class HealthCertificate: Codable, Equatable, Comparable, RecycleBinIdentif
 		isNew = try container.decodeIfPresent(Bool.self, forKey: .isNew) ?? false
 		didShowInvalidNotification = try container.decodeIfPresent(Bool.self, forKey: .didShowInvalidNotification) ?? false
 		didShowBlockedNotification = try container.decodeIfPresent(Bool.self, forKey: .didShowBlockedNotification) ?? false
-
-		cborWebTokenHeader = try Self.extractCBORWebTokenHeader(from: base45)
-		digitalCovidCertificate = try Self.extractDigitalCovidCertificate(from: base45)
-		keyIdentifier = Self.extractKeyIdentifier(from: base45)
+		didShowRevokedNotification = try container.decodeIfPresent(Bool.self, forKey: .didShowRevokedNotification) ?? false
+		
+		let certificateComponents = try Self.extractCertificateComponents(from: base45)
+		cborWebTokenHeader = certificateComponents.header
+		digitalCovidCertificate = certificateComponents.certificate
+		keyIdentifier = certificateComponents.keyIdentifier
+		
+		if let revocationEntries = try container.decodeIfPresent(HealthCertificateRevocationEntries.self, forKey: .revocationEntries) {
+			self.revocationEntries = revocationEntries
+		} else {
+			self.revocationEntries = HealthCertificateRevocationEntries(
+				certificate: certificateComponents.certificate,
+				header: certificateComponents.header,
+				signature: certificateComponents.signature,
+				algorithm: certificateComponents.algorithm
+			)
+		}
 	}
 
 	// MARK: - Protocol RecycleBinIdentifiable
@@ -62,6 +91,8 @@ final class HealthCertificate: Codable, Equatable, Comparable, RecycleBinIdentif
 		case isValidityStateNew
 		case didShowInvalidNotification
 		case didShowBlockedNotification
+		case didShowRevokedNotification
+		case revocationEntries
 	}
 
 	func encode(to encoder: Encoder) throws {
@@ -73,6 +104,8 @@ final class HealthCertificate: Codable, Equatable, Comparable, RecycleBinIdentif
 		try container.encode(isValidityStateNew, forKey: .isValidityStateNew)
 		try container.encode(didShowInvalidNotification, forKey: .didShowInvalidNotification)
 		try container.encode(didShowBlockedNotification, forKey: .didShowBlockedNotification)
+		try container.encode(didShowRevokedNotification, forKey: .didShowRevokedNotification)
+		try container.encode(revocationEntries, forKey: .revocationEntries)
 	}
 
 	// MARK: - Protocol Equatable
@@ -88,6 +121,12 @@ final class HealthCertificate: Codable, Equatable, Comparable, RecycleBinIdentif
 			return (lhsDate, lhs.cborWebTokenHeader.issuedAt) < (rhsDate, rhs.cborWebTokenHeader.issuedAt)
 		}
 		return false
+	}
+
+	// MARK: - Protocol Hashable
+
+	func hash(into hasher: inout Hasher) {
+		hasher.combine(base45)
 	}
 
 	// MARK: - Internal
@@ -107,7 +146,8 @@ final class HealthCertificate: Codable, Equatable, Comparable, RecycleBinIdentif
 	let base45: Base45
 	let cborWebTokenHeader: CBORWebTokenHeader
 	let digitalCovidCertificate: DigitalCovidCertificate
-	let keyIdentifier: String?
+	let keyIdentifier: String
+	let revocationEntries: HealthCertificateRevocationEntries
 
 	let objectDidChange = OpenCombine.PassthroughSubject<HealthCertificate, Never>()
 
@@ -134,6 +174,14 @@ final class HealthCertificate: Codable, Equatable, Comparable, RecycleBinIdentif
 			}
 		}
 	}
+
+	@DidSetPublished var didShowRevokedNotification: Bool {
+		didSet {
+			if didShowRevokedNotification != oldValue {
+				objectDidChange.send(self)
+			}
+		}
+	}
 				
 	@DidSetPublished var isNew: Bool {
 		didSet {
@@ -149,6 +197,10 @@ final class HealthCertificate: Codable, Equatable, Comparable, RecycleBinIdentif
 				objectDidChange.send(self)
 			}
 		}
+	}
+
+	var hexKeyIdentifier: String {
+		Data(base64Encoded: keyIdentifier)?.toHexString() ?? ""
 	}
 	
 	var version: String {
@@ -247,11 +299,41 @@ final class HealthCertificate: Codable, Equatable, Comparable, RecycleBinIdentif
 		validityState == .valid || validityState == .expiringSoon || (type == .test && validityState == .expired)
 	}
 
-	/// On test certificates only `.valid`, `.invalid`, and `.blocked` states are shown, the `.expiringSoon` and `.expired` states are considered valid as well
+	/// On test certificates only `.valid`, `.invalid`,  `.blocked`, and `.revoked` states are shown, the `.expiringSoon` and `.expired` states are considered valid as well
 	var isConsideredValid: Bool {
 		validityState == .valid || type == .test && (validityState == .expiringSoon || validityState == .expired)
 	}
 
+	var validityStateIsConsideredNewsworthy: Bool {
+		switch validityState {
+		case .valid, .expiringSoon, .expired:
+			return false
+		case .invalid, .blocked, .revoked:
+			return true
+		}
+	}
+
+	var isValidityStateConsiderableForExporting: Bool {
+		switch validityState {
+		case .valid, .expiringSoon, .expired, .invalid:
+			return true
+		case .blocked, .revoked:
+			return false
+		}
+	}
+	
+	var isTypeSpecificCriteriaValid: Bool {
+		switch entry {
+		case .vaccination, .recovery:
+			return true
+		case .test:
+			guard let ageInHours = ageInHours else {
+				return false
+			}
+			return ageInHours <= 72
+		}
+	}
+	
 	lazy var uniqueCertificateIdentifierChunks: [String] = uniqueCertificateIdentifier
 			.dropPrefix("URN:UVCI:")
 			.components(separatedBy: CharacterSet(charactersIn: "/#:"))
@@ -266,25 +348,7 @@ final class HealthCertificate: Codable, Equatable, Comparable, RecycleBinIdentif
 			return recoveryEntry.localDateOfFirstPositiveNAAResult
 		}
 	}()
-	
-	func isBlocked(by blockedIdentifierChunks: [SAP_Internal_V2_DGCBlockedUVCIChunk]) -> Bool {
-		blockedIdentifierChunks.contains {
-			/// Skip if at least one index would be out of bounds
-			guard $0.indices.allSatisfy({ $0 < uniqueCertificateIdentifierChunks.count }) else {
-				return false
-			}
-
-			let blockedChunks = $0.indices
-				.map { uniqueCertificateIdentifierChunks[Int($0)] }
-				.joined(separator: "/")
-
-			let hash = ENAHasher.sha256(blockedChunks)
-			let hashData = hash.dataWithHexString()
-
-			return hashData == $0.hash
-		}
-	}
-	
+		
 	func belongsToSamePerson(_ other: HealthCertificate) -> Bool {
 		// The sanitized dateOfBirth attributes are the same strings
 		guard self.trimmedDateOfBirth == other.trimmedDateOfBirth else {
@@ -320,39 +384,16 @@ final class HealthCertificate: Codable, Equatable, Comparable, RecycleBinIdentif
 	private lazy var trimmedDateOfBirth: String = digitalCovidCertificate.dateOfBirth
 		.trimmingCharacters(in: .whitespaces)
 
-	private static func extractCBORWebTokenHeader(from base45: Base45) throws -> CBORWebTokenHeader {
-		let webTokenHeaderResult = DigitalCovidCertificateAccess().extractCBORWebTokenHeader(from: base45)
-
-		switch webTokenHeaderResult {
-		case .success(let cborWebTokenHeader):
-			return cborWebTokenHeader
+	private static func extractCertificateComponents(from base45: Base45) throws -> DigitalCovidCertificateComponents {
+		let componentsResult = DigitalCovidCertificateAccess().extractCertificateComponents(from: base45)
+		
+		switch componentsResult {
+		case .success(let components):
+			return components
 		case .failure(let error):
-			Log.error("Failed to decode header of health certificate with error", log: .vaccination, error: error)
+			Log.error("Failed to decode health certificate components with error", log: .vaccination, error: error)
 			throw error
 		}
 	}
 
-	private static func extractDigitalCovidCertificate(from base45: Base45) throws -> DigitalCovidCertificate {
-		let certificateResult = DigitalCovidCertificateAccess().extractDigitalCovidCertificate(from: base45)
-
-		switch certificateResult {
-		case .success(let digitalCovidCertificate):
-			return digitalCovidCertificate
-		case .failure(let error):
-			Log.error("Failed to decode health certificate with error", log: .vaccination, error: error)
-			throw error
-		}
-	}
-
-	private static func extractKeyIdentifier(from base45: Base45) -> Base64? {
-		let certificateResult = DigitalCovidCertificateAccess().extractKeyIdentifier(from: base45)
-
-		switch certificateResult {
-		case .success(let keyIdentifier):
-			return keyIdentifier
-		case .failure(let error):
-			Log.error("Failed to decode key identifier (kid) with error", log: .vaccination, error: error)
-			return nil
-		}
-	}
 }

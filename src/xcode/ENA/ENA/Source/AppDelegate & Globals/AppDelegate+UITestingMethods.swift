@@ -43,7 +43,7 @@ extension AppDelegate {
 		if isUITesting {
 			store.antigenTestProfileInfoScreenShown = LaunchArguments.infoScreen.antigenTestProfileInfoScreenShown.boolValue
 			if LaunchArguments.test.antigen.removeAntigenTestProfile.boolValue {
-				store.antigenTestProfile = nil
+				store.antigenTestProfiles = []
 			}
 		}
 	}

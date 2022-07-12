@@ -73,9 +73,9 @@ final class HealthCertifiedPersonViewModel {
 
 	enum TableViewSection: Int, CaseIterable {
 		case header
+		case admissionState
 		case certificateReissuance
 		case boosterNotification
-		case admissionState
 		case vaccinationState
 		case person
 		case certificates
@@ -161,12 +161,12 @@ final class HealthCertifiedPersonViewModel {
 	}
 	
 	var topMostCell: TableViewSection {
-		if certificateReissuanceIsVisible {
+		if admissionStateIsVisible {
+			return .admissionState
+		} else if certificateReissuanceIsVisible {
 			return .certificateReissuance
 		} else if boosterNotificationIsVisible {
 			return .boosterNotification
-		} else if admissionStateIsVisible {
-			return .admissionState
 		} else if vaccinationStateIsVisible {
 			return .vaccinationState
 		} else {
@@ -178,12 +178,12 @@ final class HealthCertifiedPersonViewModel {
 		switch section {
 		case .header:
 			return 1
+		case .admissionState:
+			return admissionStateIsVisible ? 1 : 0
 		case .certificateReissuance:
 			return certificateReissuanceIsVisible ? 1 : 0
 		case .boosterNotification:
 			return boosterNotificationIsVisible ? 1 : 0
-		case .admissionState:
-			return admissionStateIsVisible ? 1 : 0
 		case .vaccinationState:
 			return vaccinationStateIsVisible ? 1 : 0
 		case .person:
@@ -265,6 +265,7 @@ final class HealthCertifiedPersonViewModel {
 			HealthCertificateCellViewModel(
 				healthCertificate: $0,
 				healthCertifiedPerson: person,
+				details: .allDetails,
 				onValidationButtonTap: { [weak self] healthCertificate, loadingStateHandler in
 					self?.didTapValidationButton(healthCertificate, loadingStateHandler)
 				}

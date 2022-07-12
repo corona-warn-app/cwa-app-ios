@@ -73,7 +73,14 @@ final class MockTestStore: Store, PPAnalyticsData {
 	
 	// MARK: - LocalStatisticsCaching
 
-	var localStatistics: [LocalStatisticsMetadata] = []
+	let localStatisticsMetadataQueue = DispatchQueue(label: "com.sap.mockstore.LocalStatisticsMetadata")
+
+	var _localStatistics = [LocalStatisticsMetadata]()
+	var localStatistics: [LocalStatisticsMetadata] {
+		get { localStatisticsMetadataQueue.sync { _localStatistics } }
+		set { localStatisticsMetadataQueue.sync { _localStatistics = newValue } }
+	}
+	
 	var selectedLocalStatisticsRegions: [LocalStatisticsRegion] = []
 
 	// MARK: - PrivacyPreservingProviding
@@ -134,17 +141,18 @@ final class MockTestStore: Store, PPAnalyticsData {
 
 	// MARK: - CoronaTestStoring
 
-	var pcrTest: PCRTest?
-	var antigenTest: AntigenTest?
+	var pcrTest: UserPCRTest?
+	var antigenTest: UserAntigenTest?
+	var familyMemberTests: [FamilyMemberCoronaTest] = []
 
 	// MARK: - AntigenTestProfileStoring
 
-	lazy var antigenTestProfileSubject = {
-		CurrentValueSubject<AntigenTestProfile?, Never>(antigenTestProfile)
+	lazy var antigenTestProfilesSubject = {
+		CurrentValueSubject<[AntigenTestProfile], Never>(antigenTestProfiles)
 	}()
-	var antigenTestProfile: AntigenTestProfile? {
+	var antigenTestProfiles: [AntigenTestProfile] = [] {
 		didSet {
-			antigenTestProfileSubject.value = antigenTestProfile
+			antigenTestProfilesSubject.value = antigenTestProfiles
 		}
 	}
 	var antigenTestProfileInfoScreenShown: Bool = false
@@ -161,6 +169,12 @@ final class MockTestStore: Store, PPAnalyticsData {
 	var lastSelectedScenarioIdentifier: String?
 	var dccAdmissionCheckScenarios: DCCAdmissionCheckScenarios?
 	var shouldShowRegroupingAlert: Bool = false
+	var expiringSoonAndExpiredNotificationsRemoved: Bool = false
+	var shouldShowExportCertificatesTooltip: Bool = true
+
+	// MARK: - RevokedCertificatesStoring
+
+	var revokedCertificates: [String] = []
 
 	// MARK: - Protocol VaccinationCaching
 

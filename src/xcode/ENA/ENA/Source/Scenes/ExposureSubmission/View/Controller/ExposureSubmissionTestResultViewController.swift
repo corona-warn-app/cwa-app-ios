@@ -10,12 +10,10 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, Fo
 	// MARK: - Init
 
 	init(
-		viewModel: ExposureSubmissionTestResultViewModel,
-		exposureSubmissionService: ExposureSubmissionService,
+		viewModel: ExposureSubmissionTestResultModeling,
 		onDismiss: @escaping (TestResult, @escaping (Bool) -> Void) -> Void
 	) {
 		self.viewModel = viewModel
-		self.exposureSubmissionService = exposureSubmissionService
 		self.onDismiss = onDismiss
 		super.init(nibName: nil, bundle: nil)
 	}
@@ -26,6 +24,22 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, Fo
 	}
 
 	// MARK: - Overrides
+	
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+		
+		guard #available(iOS 13, *) else {
+			navigationController?.navigationBar.backgroundColor = .enaColor(for: .backgroundLightGray)
+			navigationController?.navigationBar.barTintColor = .enaColor(for: .backgroundLightGray)
+			navigationController?.navigationBar.shadowImage = nil
+			
+			guard let statusBarView = UIApplication.shared.value(forKeyPath: "statusBarWindow.statusBar") as? UIView else {
+				return
+			}
+			statusBarView.backgroundColor = .enaColor(for: .backgroundLightGray)
+			return
+		}
+	}
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -33,24 +47,18 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, Fo
 		setUpView()
 		setUpBindings()
 	}
-	
+
 	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
 		
-		viewModel.updateWarnOthers()
+		viewModel.evaluateShowing()
 		viewModel.updateTestResultIfPossible()
-	}
-	
-	override func viewWillAppear(_ animated: Bool) {
-		super.viewWillAppear(animated)
-		
-		setUpNavigationBarAppearance()
 	}
 	
 	override func viewWillDisappear(_ animated: Bool) {
 		super.viewWillDisappear(animated)
-		
-		navigationController?.navigationBar.backgroundView?.backgroundColor = .clear
+
+		revertStatusBarViewBackgroundColorIfNeeded()
 	}
 	
 	// MARK: - Protocol ENANavigationControllerWithFooterChild
@@ -67,7 +75,7 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, Fo
 	// MARK: - Protocol DismissHandling
 
 	func wasAttemptedToBeDismissed() {
-		onDismiss(viewModel.coronaTest.testResult) { [weak self] isLoading in
+		onDismiss(viewModel.testResult) { [weak self] isLoading in
 			DispatchQueue.main.async {
 				self?.navigationItem.rightBarButtonItem?.isEnabled = !isLoading
 				self?.footerView?.setLoadingIndicator(isLoading, disable: false, button: .primary)
@@ -79,27 +87,19 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, Fo
 	// MARK: - Private
 	
 	private let onDismiss: (TestResult, @escaping (Bool) -> Void) -> Void
-	private let exposureSubmissionService: ExposureSubmissionService
-	private let viewModel: ExposureSubmissionTestResultViewModel
+	private let viewModel: ExposureSubmissionTestResultModeling
 
 	private var bindings: [AnyCancellable] = []
 
 	private func setUpView() {
-		
-		navigationItem.title = viewModel.title
+		navigationController?.navigationBar.backgroundView?.backgroundColor = .enaColor(for: .background)
 		navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton
 		navigationItem.hidesBackButton = true
-		navigationItem.largeTitleDisplayMode = .always
+		navigationItem.largeTitleDisplayMode = .never
 		
 		view.backgroundColor = .enaColor(for: .background)
 
 		setUpDynamicTableView()
-	}
-
-	private func setUpNavigationBarAppearance() {
-		navigationController?.navigationBar.backgroundView?.backgroundColor = .enaColor(for: .background)
-		navigationController?.navigationBar.prefersLargeTitles = true
-		navigationItem.largeTitleDisplayMode = .always
 	}
 	
 	private func setUpDynamicTableView() {
@@ -123,46 +123,46 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, Fo
 	}
 
 	private func setUpBindings() {
-		viewModel.$dynamicTableViewModel
+		viewModel.dynamicTableViewModelPublisher
 			.sink { [weak self] dynamicTableViewModel in
 				self?.dynamicTableViewModel = dynamicTableViewModel
 				self?.tableView.reloadData()
 			}
 			.store(in: &bindings)
 
-		viewModel.$shouldShowDeletionConfirmationAlert
+		viewModel.shouldShowDeletionConfirmationAlertPublisher
 			.sink { [weak self] shouldShowDeletionConfirmationAlert in
 				guard let self = self, shouldShowDeletionConfirmationAlert else { return }
 
-				self.viewModel.shouldShowDeletionConfirmationAlert = false
+				self.viewModel.shouldShowDeletionConfirmationAlertPublisher.value = false
 
 				self.showDeletionConfirmationAlert()
 			}
 			.store(in: &bindings)
 		
-		viewModel.$shouldAttemptToDismiss
+		viewModel.shouldAttemptToDismissPublisher
 			.sink { [weak self] shouldAttemptToDismiss in
 				guard let self = self, shouldAttemptToDismiss else { return }
 				
-				self.viewModel.shouldAttemptToDismiss = false
+				self.viewModel.shouldAttemptToDismissPublisher.value = false
 				
 				self.wasAttemptedToBeDismissed()
 			}
 			.store(in: &bindings)
 
-		viewModel.$error
+		viewModel.errorPublisher
 			.sink { [weak self] error in
 				guard let self = self, let error = error else { return }
 
-				self.viewModel.error = nil
+				self.viewModel.errorPublisher.value = nil
 
 				let alert = self.setupErrorAlert(message: error.localizedDescription)
 				self.present(alert, animated: true)
 			}
 			.store(in: &bindings)
 		
-		viewModel.$footerViewModel
-			.dropFirst()
+		viewModel.footerViewModelPublisher
+			.receive(on: DispatchQueue.main.ocombine)
 			.sink { [weak self] footerViewModel in
 				guard let self = self, let footerViewModel = footerViewModel else { return }
 				guard let topBottomViewController = self.parent as? TopBottomContainerViewController<ExposureSubmissionTestResultViewController, FooterViewController> else { return }
@@ -194,7 +194,7 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, Fo
 				self?.viewModel.deleteTest()
 			}
 		)
-
+		deleteAction.accessibilityIdentifier = AccessibilityIdentifiers.ExposureSubmissionResult.RemoveAlert.deleteButton
 		alert.addAction(deleteAction)
 		alert.addAction(cancelAction)
 

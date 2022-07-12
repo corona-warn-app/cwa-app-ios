@@ -13,6 +13,20 @@ public protocol DCCSignatureVerifying {
     func validUntilDate(certificate base45: Base45, with signingCertificates: [DCCSigningCertificate]) -> Result<Date, DCCSignatureVerificationError>
 }
 
+public enum DCCSecKeyAlgorithm: Int {
+    case ES256 = -7
+    case PS256 = -37
+
+    var secKeyAlgorithm: SecKeyAlgorithm {
+        switch self {
+        case .ES256:
+            return .ecdsaSignatureMessageX962SHA256
+        case .PS256:
+            return .rsaSignatureMessagePSSSHA256
+        }
+    }
+}
+
 public struct DCCSignatureVerification: DCCSignatureVerifying {
 
     // MARK: - Init
@@ -110,21 +124,7 @@ public struct DCCSignatureVerification: DCCSignatureVerifying {
 
     // MARK: - Private
 
-    private enum Algorithm: Int {
-        case ES256 = -7
-        case PS256 = -37
-
-        var secKeyAlgorithm: SecKeyAlgorithm {
-            switch self {
-            case .ES256:
-                return .ecdsaSignatureMessageX962SHA256
-            case .PS256:
-                return .rsaSignatureMessagePSSSHA256
-            }
-        }
-    }
-
-    private func determineAlgorithm(from coseEntries: [CBOR]) -> Result<Algorithm, DCCSignatureVerificationError> {
+    private func determineAlgorithm(from coseEntries: [CBOR]) -> Result<DCCSecKeyAlgorithm, DCCSignatureVerificationError> {
         guard case let .byteString(protectedHeaderBytes) = coseEntries[0],
            let protectedHeaderCBOR = try? CBORDecoder(input: protectedHeaderBytes).decodeItem(),
            case let .negativeInt(algorithmIdentifier) = protectedHeaderCBOR[1] else {
@@ -133,7 +133,7 @@ public struct DCCSignatureVerification: DCCSignatureVerifying {
 
         // I know its confusing. Please see here how negative integers are handled for CBOR (Major type 1:  a negative integer.): https://datatracker.ietf.org/doc/html/rfc7049#section-2.1
         // And here some rationale for this kind of implementation: https://stackoverflow.com/questions/50584127/rationale-for-cbor-negative-integers
-        guard let algorithm = Algorithm(rawValue: -1 - Int(algorithmIdentifier)) else {
+        guard let algorithm = DCCSecKeyAlgorithm(rawValue: -1 - Int(algorithmIdentifier)) else {
             return .failure(.HC_COSE_NO_ALG)
         }
 

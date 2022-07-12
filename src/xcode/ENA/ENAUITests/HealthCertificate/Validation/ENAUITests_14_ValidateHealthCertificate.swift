@@ -52,6 +52,7 @@ class ENAUITests_14_ValidateHealthCertificate: CWATestCase {
 		app.setLaunchArgument(LaunchArguments.healthCertificate.firstHealthCertificate, to: true)
 		app.setLaunchArgument(LaunchArguments.healthCertificate.invalidCertificateCheck, to: true)
 		app.setLaunchArgument(LaunchArguments.infoScreen.healthCertificateInfoScreenShown, to: true)
+		app.setLaunchArgument(LaunchArguments.healthCertificate.shouldShowExportCertificatesTooltip, to: false)
 		app.launch()
 		
 		// Navigate to Certificates Tab.
@@ -60,6 +61,8 @@ class ENAUITests_14_ValidateHealthCertificate: CWATestCase {
 		// Navigate to the person screen
 		app.cells[AccessibilityIdentifiers.HealthCertificate.Overview.healthCertifiedPersonCell].firstMatch.waitAndTap()
 
+		app.swipeUp()
+		
 		// Open Validation Screen
 		app.buttons[AccessibilityIdentifiers.HealthCertificate.Person.validationButton].waitAndTap(.extraLong)
 
@@ -82,6 +85,8 @@ class ENAUITests_14_ValidateHealthCertificate: CWATestCase {
 
 		// Navigate to the person screen
 		app.cells[AccessibilityIdentifiers.HealthCertificate.Overview.healthCertifiedPersonCell].waitAndTap()
+		
+		app.swipeUp()
 		
 		// Open Validation Screen
 		app.buttons[AccessibilityIdentifiers.HealthCertificate.Person.validationButton].waitAndTap(.extraLong)
@@ -108,7 +113,9 @@ class ENAUITests_14_ValidateHealthCertificate: CWATestCase {
 
 		// Navigate to the person screen
 		app.cells[AccessibilityIdentifiers.HealthCertificate.Overview.healthCertifiedPersonCell].firstMatch.waitAndTap()
-
+		
+		app.swipeUp()
+		
 		// Open Validation Screen
 		app.buttons[AccessibilityIdentifiers.HealthCertificate.Person.validationButton].waitAndTap(.extraLong)
 

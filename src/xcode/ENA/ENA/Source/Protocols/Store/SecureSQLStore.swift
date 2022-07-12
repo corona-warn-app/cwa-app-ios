@@ -4,10 +4,24 @@
 
 import FMDB
 
-enum SecureSQLStoreError: Error {
+enum SecureSQLStoreError: LocalizedError {
 	case database(SQLiteErrorCode)
 	case timeout
 	case migration
+	case failedToCreateQueue
+	
+	var errorDescription: String? {
+		switch self {
+		case .database(let sqlError):
+			return sqlError.localizedDescription
+		case .timeout:
+			return "SecureSQLStoreError.timeout"
+		case .migration:
+			return "SecureSQLStoreError.migration"
+		case .failedToCreateQueue:
+			return "SecureSQLStoreError.failedToCreateQueue"
+		}
+	}
 }
 
 protocol SecureSQLStore {
@@ -94,7 +108,7 @@ extension SecureSQLStore {
 	}
 
 	func dbError(from database: FMDatabase) -> SecureSQLStoreError {
-		let dbError = SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown
+		let dbError = SQLiteErrorCode(rawValue: database.lastErrorCode())
 		return .database(dbError)
 	}
 }

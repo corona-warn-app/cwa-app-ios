@@ -17,7 +17,7 @@ extension Locator {
 		let fake = String(isFake ? 1 : 0)
 		let fakePadding = isFake ? String.getRandomString(of: 36) : ""
 		return Locator(
-			endpoint: .distribution,
+			endpoint: .submission,
 			paths: ["version", "v1", "submission-on-behalf"],
 			method: .post,
 			defaultHeaders: [

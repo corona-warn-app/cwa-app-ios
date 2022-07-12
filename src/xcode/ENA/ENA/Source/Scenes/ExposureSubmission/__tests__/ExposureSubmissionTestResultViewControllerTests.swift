@@ -9,7 +9,7 @@ import HealthCertificateToolkit
 
 class ExposureSubmissionViewControllerTests: CWATestCase {
 
-	private func createVC(coronaTest: CoronaTest) -> ExposureSubmissionTestResultViewController {
+	private func createVC(coronaTest: UserCoronaTest) -> ExposureSubmissionTestResultViewController {
 		let coronaTestService = MockCoronaTestService()
 
 		switch coronaTest.type {
@@ -30,39 +30,38 @@ class ExposureSubmissionViewControllerTests: CWATestCase {
 				onTestDeleted: { },
 				onTestCertificateCellTap: { _, _ in }
 			),
-			exposureSubmissionService: MockExposureSubmissionService(),
 			onDismiss: { _, _ in }
 		)
 	}
 
 	func testPositivePCRState() {
-		let vc = createVC(coronaTest: CoronaTest.pcr(PCRTest.mock(testResult: .positive)))
+		let vc = createVC(coronaTest: .pcr(.mock(testResult: .positive)))
 		_ = vc.view
-		XCTAssertEqual(vc.dynamicTableViewModel.numberOfSection, 1)
+		XCTAssertEqual(vc.dynamicTableViewModel.numberOfSection, 2)
 
-		let header = vc.tableView(vc.tableView, viewForHeaderInSection: 0) as? ExposureSubmissionTestResultHeaderView
+		let header = vc.tableView(vc.tableView, viewForHeaderInSection: 1) as? ExposureSubmissionTestResultHeaderView
 		XCTAssertNotNil(header)
 
-		let cell = vc.tableView(vc.tableView, cellForRowAt: IndexPath(row: 0, section: 0)) as? DynamicTypeTableViewCell
+		let cell = vc.tableView(vc.tableView, cellForRowAt: IndexPath(row: 0, section: 1)) as? DynamicTypeTableViewCell
 		XCTAssertNotNil(cell)
 		XCTAssertEqual(cell?.contentTextLabel.text, AppStrings.ExposureSubmissionPositiveTestResult.noConsentTitle)
 	}
 
 	func testNegativePCRState() {
-		let vc = createVC(coronaTest: CoronaTest.pcr(PCRTest.mock(testResult: .negative)))
+		let vc = createVC(coronaTest: .pcr(.mock(testResult: .negative)))
 		_ = vc.view
-		XCTAssertEqual(vc.dynamicTableViewModel.numberOfSection, 1)
+		XCTAssertEqual(vc.dynamicTableViewModel.numberOfSection, 2)
 
-		let header = vc.tableView(vc.tableView, viewForHeaderInSection: 0) as? ExposureSubmissionTestResultHeaderView
+		let header = vc.tableView(vc.tableView, viewForHeaderInSection: 1) as? ExposureSubmissionTestResultHeaderView
 		XCTAssertNotNil(header)
 	}
 	
 	func testNegativeAntigenState() {
-		let vc = createVC(coronaTest: CoronaTest.antigen(AntigenTest.mock(testResult: .negative)))
+		let vc = createVC(coronaTest: .antigen(.mock(testResult: .negative)))
 		_ = vc.view
-		XCTAssertEqual(vc.dynamicTableViewModel.numberOfSection, 1)
+		XCTAssertEqual(vc.dynamicTableViewModel.numberOfSection, 2)
 
-		let header = vc.tableView(vc.tableView, viewForHeaderInSection: 0) as? AntigenExposureSubmissionNegativeTestResultHeaderView
+		let header = vc.tableView(vc.tableView, viewForHeaderInSection: 1) as? AntigenExposureSubmissionNegativeTestResultHeaderView
 		XCTAssertNotNil(header)
 	}
 }

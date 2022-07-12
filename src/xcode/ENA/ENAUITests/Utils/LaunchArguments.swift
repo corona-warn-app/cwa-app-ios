@@ -18,6 +18,17 @@ struct LaunchArgument {
 	var intValue: Int {
 		UserDefaults.standard.integer(forKey: name)
 	}
+
+	func model<M: Decodable>() -> M? {
+		let decoder = JSONDecoder()
+		guard let stringValue = stringValue,
+			  let data = Data(base64Encoded: stringValue),
+			  let model = try? decoder.decode(M.self, from: data)
+		else {
+			return nil
+		}
+		return model
+	}
 }
 
 /*
@@ -27,6 +38,10 @@ struct LaunchArgument {
  * Please write a comment if you introduce a new launch argument
  */
 enum LaunchArguments {
+
+	enum environment {
+		static let environmentBase64Json = LaunchArgument(name: "environmentBase64Json")
+	}
 
 	enum common {
 		/// Coming from ENF and used to set exposure notification to active
@@ -112,6 +127,22 @@ enum LaunchArguments {
 
 	}
 
+	enum familyMemberTest {
+
+		enum pcr {
+			/// Set the PCR Family Test Result
+			static let testResult = LaunchArgument(name: "pcrTestResult")
+		}
+		
+		enum antigen {
+			/// Set the Antigen Family Test Result
+			static let testResult = LaunchArgument(name: "antigenTestResult")
+		}
+
+		/// Show in family member overview some fake tests for screenshots
+		static let fakeOverview = LaunchArgument(name: "fakeOverview")
+	}
+
 	enum recycleBin {
 		/// To show PCR test in recycle bin
 		static let pcrTest = LaunchArgument(name: "recycleBinPCRTest")
@@ -140,6 +171,7 @@ enum LaunchArguments {
 		static let noHealthCertificate = LaunchArgument(name: "noHealthCertificate")
 		static let firstHealthCertificate = LaunchArgument(name: "firstHealthCertificate")
 		static let firstAndSecondHealthCertificate = LaunchArgument(name: "firstAndSecondHealthCertificate")
+		static let reissuanceCertificates = LaunchArgument(name: "reissuanceCertificates")
 		static let secondHealthCertificate = LaunchArgument(name: "secondHealthCertificate")
 		static let hasBoosterNotification = LaunchArgument(name: "hasBoosterNotification")
 		static let hasCertificateReissuance = LaunchArgument(name: "hasCertificateReissuance")
@@ -154,6 +186,7 @@ enum LaunchArguments {
 		static let invalidCertificateCheck = LaunchArgument(name: "invalidCertificateCheck")
 		static let showTestCertificateOnTestResult = LaunchArgument(name: "showTestCertificateOnTestResult")
 		static let isDCCAdmissionCheckScenariosEnabled = LaunchArgument(name: "isDCCAdmissionCheckScenariosEnabled")
+		static let shouldShowExportCertificatesTooltip = LaunchArgument(name: "shouldShowExportCertificatesTooltip")
 	}
 
 	enum notifications {

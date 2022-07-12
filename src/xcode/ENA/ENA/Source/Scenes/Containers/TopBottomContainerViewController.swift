@@ -5,6 +5,9 @@
 import UIKit
 import OpenCombine
 
+// Just a dummy protocol to compare TopBottomContainerViewController without the generics
+protocol ComparableTopBottomContainerViewControlling {}
+
 protocol FooterViewUpdating {
 	var footerViewHandler: FooterViewHandling? { get }
 
@@ -16,7 +19,7 @@ protocol FooterViewUpdating {
 
 /** a simple container view controller to combine to view controllers vertically (top / bottom) */
 
-class TopBottomContainerViewController<TopViewController: UIViewController, BottomViewController: UIViewController>: UIViewController, DismissHandling, FooterViewUpdating {
+class TopBottomContainerViewController<TopViewController: UIViewController, BottomViewController: UIViewController>: UIViewController, ComparableTopBottomContainerViewControlling, DismissHandling, FooterViewUpdating {
 
 	// MARK: - Init
 
@@ -199,7 +202,10 @@ class TopBottomContainerViewController<TopViewController: UIViewController, Bott
 					  let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else {
 					return
 				}
-				self.footerViewHandler?.didShowKeyboard(keyboardFrame)
+				// add height of footer view to keyboard frame
+				var bottomFrame = self.bottomViewController.view.frame
+				bottomFrame.size.height += keyboardFrame.height
+				self.footerViewHandler?.didShowKeyboard(bottomFrame)
 			}
 			.store(in: &keyboardSubscriptions)
 		

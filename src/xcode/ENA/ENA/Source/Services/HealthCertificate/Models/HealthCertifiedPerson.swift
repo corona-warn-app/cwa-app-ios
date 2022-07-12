@@ -69,8 +69,10 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 					validityState: decodingContainer.validityState ?? .valid,
 					didShowInvalidNotification: decodingContainer.didShowInvalidNotification ?? false,
 					didShowBlockedNotification: decodingContainer.didShowBlockedNotification ?? false,
+					didShowRevokedNotification: decodingContainer.didShowRevokedNotification ?? false,
 					isNew: decodingContainer.isNew ?? false,
-					isValidityStateNew: decodingContainer.isValidityStateNew ?? false
+					isValidityStateNew: decodingContainer.isValidityStateNew ?? false,
+					revocationEntries: decodingContainer.revocationEntries
 				)
 
 				healthCertificates.append(healthCertificate)
@@ -82,8 +84,10 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 					validityState: decodingContainer.validityState ?? .valid,
 					didShowInvalidNotification: decodingContainer.didShowInvalidNotification ?? false,
 					didShowBlockedNotification: decodingContainer.didShowBlockedNotification ?? false,
+					didShowRevokedNotification: decodingContainer.didShowRevokedNotification ?? false,
 					isNew: decodingContainer.isNew ?? false,
 					isValidityStateNew: decodingContainer.isValidityStateNew ?? false,
+					revocationEntries: decodingContainer.revocationEntries,
 					error: error
 				)
 
@@ -176,9 +180,14 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 				isNewBoosterRule = dccWalletInfo?.boosterNotification.identifier != nil
 			}
 
-			if dccWalletInfo?.certificateReissuance != oldValue?.certificateReissuance {
+			var oldReissuanceIdentifier = oldValue?.certificateReissuance?.reissuanceDivision.identifier
+			if let oldCertificateReissuance = oldValue?.certificateReissuance, oldCertificateReissuance.reissuanceDivision.identifier == nil {
+				oldReissuanceIdentifier = "renew"
+			}
+			if dccWalletInfo?.certificateReissuance?.reissuanceDivision.identifier != oldReissuanceIdentifier {
 				isNewCertificateReissuance = dccWalletInfo?.certificateReissuance?.reissuanceDivision.visible == true
 			}
+
 			if oldValue?.admissionState.identifier != nil && dccWalletInfo?.admissionState.identifier != oldValue?.admissionState.identifier {
 				isAdmissionStateChanged = dccWalletInfo?.admissionState.identifier != nil
 			}
@@ -298,6 +307,7 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 					validityState: certificate.validityState,
 					didShowInvalidNotification: certificate.didShowInvalidNotification,
 					didShowBlockedNotification: certificate.didShowBlockedNotification,
+					didShowRevokedNotification: certificate.didShowRevokedNotification,
 					isNew: certificate.isNew,
 					isValidityStateNew: certificate.isValidityStateNew
 				)

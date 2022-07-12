@@ -17,15 +17,15 @@ class MockCoronaTestService: CoronaTestServiceProviding {
 
 	// MARK: - Protocol CoronaTestServiceProviding
 
-	var pcrTest = CurrentValueSubject<PCRTest?, Never>(nil)
-	var antigenTest = CurrentValueSubject<AntigenTest?, Never>(nil)
+	var pcrTest = CurrentValueSubject<UserPCRTest?, Never>(nil)
+	var antigenTest = CurrentValueSubject<UserAntigenTest?, Never>(nil)
 
 	var antigenTestIsOutdated = CurrentValueSubject<Bool, Never>(false)
 
 	var pcrTestResultIsLoading = CurrentValueSubject<Bool, Never>(false)
 	var antigenTestResultIsLoading = CurrentValueSubject<Bool, Never>(false)
 
-	func coronaTest(ofType type: CoronaTestType) -> CoronaTest? {
+	func coronaTest(ofType type: CoronaTestType) -> UserCoronaTest? {
 		switch type {
 		case .pcr:
 			return pcrTest.value.map { .pcr($0) }
@@ -102,7 +102,7 @@ class MockCoronaTestService: CoronaTestServiceProviding {
 		completion(registerRapidPCRTestAndGetResultResult ?? .failure(.noCoronaTestOfRequestedType))
 	}
 	
-	func reregister(coronaTest: CoronaTest) {}
+	func reregister(coronaTest: UserCoronaTest) {}
 
 	func updateTestResults(force: Bool, presentNotification: Bool, completion: @escaping VoidResultHandler) {}
 
@@ -112,7 +112,19 @@ class MockCoronaTestService: CoronaTestServiceProviding {
 		presentNotification: Bool,
 		completion: @escaping TestResultHandler
 	) {
+		switch coronaTestType {
+		case .pcr:
+			pcrTestResultIsLoading.value = true
+		case .antigen:
+			antigenTestResultIsLoading.value = true
+		}
 		onUpdateTestResult(coronaTestType, force, presentNotification)
+		switch coronaTestType {
+		case .pcr:
+			pcrTestResultIsLoading.value = false
+		case .antigen:
+			antigenTestResultIsLoading.value = false
+		}
 		completion(updateTestResultResult ?? .failure(.noCoronaTestOfRequestedType))
 	}
 
@@ -128,6 +140,8 @@ class MockCoronaTestService: CoronaTestServiceProviding {
 
 	func evaluateShowingTest(ofType coronaTestType: CoronaTestType) {}
 
+	func evaluateSavingTestToDiary(ofTestType coronaTestType: CoronaTestType) {}
+	
 	func updatePublishersFromStore() {}
 
 	func migrate() {}

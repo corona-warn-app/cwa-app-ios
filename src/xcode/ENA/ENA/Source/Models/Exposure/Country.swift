@@ -8,18 +8,16 @@ import UIKit
 /// A simple data container representing a country or political region.
 struct Country: Equatable, Codable {
 
-	typealias ID = String
-
-	/// The country identifier. Equals the initializing country code.
-	let id: ID
-
-	/// The localized name of the country using the current locale.
-	let localizedName: String
-
-	/// The flag of the current country, if present.
-	var flag: UIImage? {
-		UIImage(named: "flag.\(id.lowercased())")
+	// MARK: - Init
+	#if !RELEASE
+	init(
+		id: Country.ID,
+		localizedName: String
+	) {
+		self.id = id
+		self.localizedName = localizedName
 	}
+	#endif
 
 	/// Initialize a country with a given `countryCode`. If no valid `countryCode` is given the initializer returns `nil`.
 	///
@@ -40,11 +38,31 @@ struct Country: Equatable, Codable {
 		localizedName = Locale.current.regionName(forCountryCode: countryCode) ?? countryCode
 	}
 
+	// MARK: - Protocol Equatable
+
+	static func == (lhs: Country, rhs: Country) -> Bool {
+		return lhs.id == rhs.id
+	}
+
+	// MARK: - Internal
+
+	typealias ID = String
+
+	/// The country identifier. Equals the initializing country code.
+	let id: ID
+
+	/// The localized name of the country using the current locale.
+	let localizedName: String
+
+	/// The flag of the current country, if present.
+	var flag: UIImage? {
+		UIImage(named: "flag.\(id.lowercased())")
+	}
+
 	static func defaultCountry() -> Country {
 		// swiftlint:disable:next force_unwrapping
 		return Country(countryCode: "DE")!
 	}
-
 }
 
 extension Locale {

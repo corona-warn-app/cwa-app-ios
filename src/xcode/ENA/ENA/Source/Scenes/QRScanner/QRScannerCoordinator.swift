@@ -39,6 +39,7 @@ class QRScannerCoordinator {
 		vaccinationValueSetsProvider: VaccinationValueSetsProviding,
 		exposureSubmissionService: ExposureSubmissionService,
 		coronaTestService: CoronaTestServiceProviding,
+		familyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding,
 		recycleBin: RecycleBin
 	) {
 		self.store = store
@@ -53,6 +54,7 @@ class QRScannerCoordinator {
 		self.vaccinationValueSetsProvider = vaccinationValueSetsProvider
 		self.exposureSubmissionService = exposureSubmissionService
 		self.coronaTestService = coronaTestService
+		self.familyMemberCoronaTestService = familyMemberCoronaTestService
 		self.recycleBin = recycleBin
 	}
 	
@@ -68,9 +70,7 @@ class QRScannerCoordinator {
 		self.parentViewController = parentViewController
 		self.presenter = presenter
 
-		let qrScannerViewController = qrScannerViewController(
-			markCertificateAsNew: presenter != .certificateTab && presenter != .universalScanner(.certificates)
-		)
+		let qrScannerViewController = newQRScannerViewController()
 		self.qrScannerViewController = qrScannerViewController
 
 		let navigationController = UINavigationController(
@@ -93,6 +93,7 @@ class QRScannerCoordinator {
 	private let vaccinationValueSetsProvider: VaccinationValueSetsProviding
 	private let exposureSubmissionService: ExposureSubmissionService
 	private let coronaTestService: CoronaTestServiceProviding
+	private let familyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding
 	private let recycleBin: RecycleBin
 
 	private let activityIndicatorView = QRScannerActivityIndicatorView(title: AppStrings.FileScanner.hudText)
@@ -107,13 +108,10 @@ class QRScannerCoordinator {
 	private var ticketValidationCoordinator: TicketValidationCoordinator?
 	private var fileScannerCoordinator: FileScannerCoordinator?
 
-	private func qrScannerViewController(
-		markCertificateAsNew: Bool
-	) -> QRScannerViewController {
+	private func newQRScannerViewController() -> QRScannerViewController {
 		let qrCodeParser = QRCodeParser(
 			appConfigurationProvider: appConfiguration,
-			healthCertificateService: healthCertificateService,
-			markCertificateAsNew: markCertificateAsNew
+			healthCertificateService: healthCertificateService
 		)
 
 		let qrCodeDetector = QRCodeDetector()
@@ -122,7 +120,6 @@ class QRScannerCoordinator {
 		qrScannerViewController = QRScannerViewController(
 			healthCertificateService: healthCertificateService,
 			appConfiguration: appConfiguration,
-			markCertificateAsNew: markCertificateAsNew,
 			didScan: { [weak self] qrCodeResult in
 				self?.showQRCodeResult(qrCodeResult: qrCodeResult)
 			},
@@ -214,11 +211,6 @@ class QRScannerCoordinator {
 	private func showScannedTestResult(
 		_ testRegistrationInformation: CoronaTestRegistrationInformation
 	) {
-		if let recycleBinItemToRestore = recycleBinItemToRestore(for: testRegistrationInformation) {
-			showTestRestoredFromBinAlert(recycleBinItem: recycleBinItemToRestore)
-			return
-		}
-
 		qrScannerViewController?.dismiss(animated: true) { [weak self] in
 			guard let self = self else { return }
 
@@ -547,113 +539,6 @@ class QRScannerCoordinator {
 		presentationController.present(alert, animated: true)
 	}
 
-	private func showTestRestoredFromBinAlert(
-		recycleBinItem: RecycleBinItem
-	) {
-		let alert = UIAlertController(
-			title: AppStrings.UniversalQRScanner.testRestoredFromBinAlertTitle,
-			message: AppStrings.UniversalQRScanner.testRestoredFromBinAlertMessage,
-			preferredStyle: .alert
-		)
-		alert.addAction(
-			UIAlertAction(
-				title: AppStrings.Common.alertActionOk,
-				style: .default,
-				handler: { [weak self] _ in
-					guard let self = self else { return }
-
-					switch self.recycleBin.canRestore(recycleBinItem) {
-					case .success:
-						self.qrScannerViewController?.dismiss(animated: true) {
-							switch self.presenter {
-							case .submissionFlow, .onBehalfFlow:
-								let parentPresentingViewController = self.parentViewController?.presentingViewController
-
-								// Dismiss submission/on behalf submission flow
-								parentPresentingViewController?.dismiss(animated: true) {
-									self.parentViewController = parentPresentingViewController
-									self.restoreAndShow(recycleBinItem: recycleBinItem)
-								}
-							case .checkinTab, .certificateTab, .universalScanner:
-								self.restoreAndShow(recycleBinItem: recycleBinItem)
-							case .none:
-								break
-							}
-						}
-					case .failure(.testError(.testTypeAlreadyRegistered)):
-						self.showTestOverwriteNotice(recycleBinItem: recycleBinItem)
-					}
-				}
-			)
-		)
-
-		qrScannerViewController?.present(alert, animated: true)
-	}
-
-	private func showTestOverwriteNotice(
-		recycleBinItem: RecycleBinItem
-	) {
-		guard case let .coronaTest(coronaTest) = recycleBinItem.item else {
-			return
-		}
-
-		let footerViewModel = FooterViewModel(
-			primaryButtonName: AppStrings.ExposureSubmission.OverwriteNotice.primaryButton,
-			isSecondaryButtonHidden: true
-		)
-
-		let overwriteNoticeViewController = TestOverwriteNoticeViewController(
-			testType: coronaTest.type,
-			didTapPrimaryButton: { [weak self] in
-				// Dismiss override notice
-				self?.parentViewController?.dismiss(animated: true) {
-					self?.restoreAndShow(recycleBinItem: recycleBinItem)
-				}
-			},
-			didTapCloseButton: { [weak self] in
-				self?.parentViewController?.dismiss(animated: true)
-			}
-		)
-
-		let footerViewController = FooterViewController(footerViewModel)
-		let topBottomViewController = TopBottomContainerViewController(
-			topController: overwriteNoticeViewController,
-			bottomController: footerViewController
-		)
-
-		let navigationController = NavigationControllerWithLargeTitle(rootViewController: topBottomViewController)
-
-		switch self.presenter {
-		case .submissionFlow, .onBehalfFlow:
-			let parentPresentingViewController = self.parentViewController?.presentingViewController
-
-			// Dismiss QR scanner and submission/on behalf submission flow at once
-			parentPresentingViewController?.dismiss(animated: true) {
-				self.parentViewController = parentPresentingViewController
-				self.parentViewController?.present(navigationController, animated: true)
-			}
-		case .checkinTab, .certificateTab, .universalScanner:
-			// Dismiss QR scanner
-			parentViewController?.dismiss(animated: true) {
-				self.parentViewController?.present(navigationController, animated: true)
-			}
-		case .none:
-			break
-		}
-	}
-
-	private func restoreAndShow(recycleBinItem: RecycleBinItem) {
-		guard let parentViewController = self.parentViewController,
-			  case .coronaTest(let coronaTest) = recycleBinItem.item else {
-			return
-		}
-
-		recycleBin.restore(recycleBinItem)
-
-		let exposureSubmissionCoordinator = exposureSubmissionCoordinator(parentViewController: parentViewController)
-		exposureSubmissionCoordinator.start(with: coronaTest.type)
-	}
-
 	private func showActivityIndicator() {
 		guard let scannerView = qrScannerViewController?.view else {
 			Log.error("Failed to get qrScannerViewController - stop", log: .fileScanner)
@@ -879,33 +764,16 @@ class QRScannerCoordinator {
 			parentViewController: parentViewController,
 			exposureSubmissionService: exposureSubmissionService,
 			coronaTestService: coronaTestService,
+			familyMemberCoronaTestService: familyMemberCoronaTestService,
 			healthCertificateService: healthCertificateService,
 			healthCertificateValidationService: healthCertificateValidationService,
 			eventProvider: eventStore,
 			antigenTestProfileStore: store,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
 			healthCertificateValidationOnboardedCountriesProvider: healthCertificateValidationOnboardedCountriesProvider,
-			qrScannerCoordinator: self
+			qrScannerCoordinator: self,
+			recycleBin: recycleBin
 		)
-	}
-
-	private func recycleBinItemToRestore(
-		for testRegistrationInformation: CoronaTestRegistrationInformation
-	) -> RecycleBinItem? {
-		switch testRegistrationInformation {
-		case .pcr(guid: _, qrCodeHash: let qrCodeHash),
-			.antigen(qrCodeInformation: _, qrCodeHash: let qrCodeHash),
-			.rapidPCR(qrCodeInformation: _, qrCodeHash: let qrCodeHash):
-			return store.recycleBinItems.first {
-				guard case .coronaTest(let coronaTest) = $0.item else {
-					return false
-				}
-
-				return coronaTest.qrCodeHash == qrCodeHash
-			}
-		case .teleTAN:
-			return nil
-		}
 	}
 	
 }

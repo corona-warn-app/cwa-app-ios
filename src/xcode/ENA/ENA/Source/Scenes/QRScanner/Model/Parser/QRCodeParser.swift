@@ -19,12 +19,10 @@ class QRCodeParser: QRCodeParsable {
 
 	init(
 		appConfigurationProvider: AppConfigurationProviding,
-		healthCertificateService: HealthCertificateService,
-		markCertificateAsNew: Bool
+		healthCertificateService: HealthCertificateService
 	) {
 		self.appConfigurationProvider = appConfigurationProvider
 		self.healthCertificateService = healthCertificateService
-		self.markCertificateAsNew = markCertificateAsNew
 	}
 
 	// MARK: - Protocol QRCodeParsable
@@ -72,8 +70,7 @@ class QRCodeParser: QRCodeParsable {
 		} else if qrCode.prefix(healthCertificatePrefix.count) == healthCertificatePrefix {
 			// it is a digital certificate
 			parser = HealthCertificateQRCodeParser(
-				healthCertificateService: healthCertificateService,
-				markAsNew: markCertificateAsNew
+				healthCertificateService: healthCertificateService
 			)
 		} else if qrCode.trimmingCharacters(in: .whitespacesAndNewlines).hasPrefix("{") {
 			parser = TicketValidationQRCodeParser()
@@ -98,6 +95,5 @@ class QRCodeParser: QRCodeParsable {
 
 	private let appConfigurationProvider: AppConfigurationProviding
 	private let healthCertificateService: HealthCertificateService
-	private let markCertificateAsNew: Bool
 
 }

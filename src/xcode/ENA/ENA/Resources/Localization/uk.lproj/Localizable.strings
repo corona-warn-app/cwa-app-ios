@@ -122,7 +122,7 @@
 
 "ExposureDetection_Guide_Vaccination_HighRisk" = "Якщо ви ще не зробили щеплення, проконсультуйтеся зі своїм сімейним лікарем після проходження тесту.";
 
-"ExposureDetection_Guide_Title" = "Пройдіть обстеження, навіть якщо у вас немає ніяких симптомів. Якщо ви отримаєте застереження про підвищений ступінь ризику («червона плитка»), ви маєте право на безкоштовний тест. Це не обов’язково має бути ПЛР-тест.";
+"ExposureDetection_Guide_Title" = "Пройдіть тестування, наприклад, швидким тестом на антиген, або використовуйте самотестування – бажано декілька разів, проходячи тест кожні два дні. Якщо тест позитивний, зробіть ПЛР-тест для підтвердження результату.";
 
 "ExposureDetection_Guide_Point1" = "Ви можете знайти можливості тестування тут. Ви також можете звернутися до свого сімейного лікаря або в аптеку.";
 
@@ -460,7 +460,7 @@
 
 "OnboardingInfo_privacyPage_boldText" = "";
 
-"OnboardingInfo_privacyPage_normalText" = "Ви залишитеся анонімними.\nВаші дані повністю зашифровані і передаються під псевдонімом.\n\nКонтролер відповідно до GDPR, стаття 4 (7): \n\nІнститут Роберта Коха\nНордуфер 20\n13353 Берлін\nПрочитайте наші правила щодо конфіденційності даних.\n\nІнформація про конфіденційність даних:";
+"OnboardingInfo_privacyPage_normalText" = "Ви залишитеся анонімними.\nВаші дані повністю зашифровані і передаються під псевдонімом.\n\nКонтролер відповідно до GDPR, стаття 4 (7): \n\nІнститут Роберта Коха\nНордуфер 20\n13353 Берлін, Німеччина\nПрочитайте наші правила щодо конфіденційності даних.\n\nІнформація про конфіденційність даних:";
 
 "OnboardingInfo_enableLoggingOfContactsPage_imageDescription" = "Три людини активували реєстрацію ризиків зараження на своїх пристроях, яка реєструє їхні зустрічі один з одним.";
 
@@ -561,7 +561,7 @@
 
 "ExposureSubmissionDispatch_QRCodeButtonTitle" = "Сканувати QR-код";
 
-"ExposureSubmissionDispatch_QRCodeButtonDescription" = "Отримайте свій результат тесту в застосунку та попередьте інших або запитайте сертифікат тесту на COVID.";
+"ExposureSubmissionDispatch_QRCodeButtonDescription" = "Отримайте свій результат тесту та результати для членів вашої родини та запитайте сертифікат тесту на COVID.";
 
 "ExposureSubmissionDispatch_TANButtonTitle" = "Введіть TAN для ПЛР-тесту";
 
@@ -602,6 +602,8 @@
 "ExposureSubmission_SectionDescription2" = "Зареєструйте свій ПЛР-тест, ввівши TAN у застосунку.";
 
 "ExposureSubmission_CallButtonTitle" = "Зателефонувати";
+
+"ExposureSubmission_CallButtonTitle_Format" = "Зателефонувати %@";
 
 "ExposureSubmission_TANInputButtonTitle" = "Ввести TAN";
 
@@ -673,7 +675,7 @@
 
 "ExposureSubmissionSuccess_RAT_listItem2" = "Державний орган охорони здоров’я може зв’язатися з вами протягом наступних декількох днів.";
 
-"ExposureSubmissionSuccess_listItem2_1" = "Ваш період ізоляції зазвичай становить 10 днів. Уважно стежте за тим, як розвиваються ваші симптоми.";
+"ExposureSubmissionSuccess_listItem2_1" = "Уважно стежте за тим, як розвиваються ваші симптоми.";
 
 "ExposureSubmissionSuccess_listItem2_2" = "Ваш державний орган охорони здоров’я попросить вас створити список людей, з якими ви контактували. Сюди слід включати всіх людей, з якими ви мали тісний контакт (менше 2 метрів, розмова віч-на-віч) більше 10 хвилин протягом двох днів до того, як ви захворіли. Ви можете використовувати для цього свій журнал контактів: просто експортуйте записи, а потім роздрукуйте їх або відправте електронною поштою.";
 
@@ -727,13 +729,17 @@
 
 "ExposureSubmissionResult_CardInvalid" = "Аналіз неможливий";
 
-"ExposureSubmissionResult_CardPending" = "Ваш результат ще недоступний";
+"ExposureSubmissionResult_CardPending" = "Результат ще недоступний";
 
 "ExposureSubmissionResult_Procedure" = "Як це працює:";
 
-"ExposureSubmissionResult_testAdded" = "Ваш тест було додано";
+"ExposureSubmissionResult_testAdded" = "Ваш ПЛР-тест було додано";
+
+"ExposureSubmissionResult_familyMember_testAdded" = "ПЛР-тест додано";
 
 "ExposureSubmissionResult_antigenTestAdded" = "Ваш експрес-тест додано";
+
+"ExposureSubmissionResult_familyMember_antigenTestAdded" = "Експрес-тест було додано";
 
 "ExposureSubmissionResult_antigenTestAddedDesc" = "Результат тесту відображається тут протягом 48 годин.";
 
@@ -744,6 +750,8 @@
 "ExposureSubmissionResult_testNegative" = "Негативний діагноз";
 
 "ExposureSubmissionResult_testNegativeDesc" = "Лабораторні результати вказують на відсутність підтвердження наявності у вас коронавірусу SARS-CoV-2.";
+
+"ExposureSubmissionResult_familyMember_testNegativeDesc" = "Результати лабораторних досліджень не вказують на наявність у тестованої людини коронавірусу SARS-CoV-2.";
 
 "ExposureSubmissionResult_testNegative_furtherInfos_title" = "Інша інформація:";
 
@@ -759,19 +767,29 @@
 
 "ExposureSubmissionResult_testInvalidDesc" = "Виникла проблема з оцінкою вашого тесту. Зв’яжіться з центром тестування або залученою лабораторією, щоб дізнатися, як діяти.";
 
+"ExposureSubmissionResult_familyMember_testInvalidDesc" = "Виникла проблема з оцінкою тесту. Зв’яжіться з центром тестування або залученою лабораторією, щоб дізнатися, як діяти.";
+
 "ExposureSubmissionResult_testExpired" = "Ваш тест неможливо проаналізувати";
 
 "ExposureSubmissionResult_testExpiredDesc" = "Виникла проблема з аналізом вашого тесту. Строк дії вашого QR-коду вже закінчився.";
 
 "ExposureSubmissionResult_testPending" = "Результат вашого тесту ще недоступний";
 
+"ExposureSubmissionResult_familyMember_testPending" = "Результат тесту ще недоступний";
+
 "ExposureSubmissionResult_testPendingDesc" = "Щойно результат тесту стане доступним, він відобразиться в застосунку.\n\nВи також отримаєте результат тесту за межами застосунку. Державні органи охорони здоров’я повідомлять вас, якщо ваш тест буде позитивним.\n\nЯкщо ви отримаєте сповіщення про позитивний результат тесту за межами застосунку, видаліть тест, наразі зареєстрований у застосунку. Зателефонуйте за номером, вказаним у розділі «Запитати TAN», щоб отримати TAN. Потім ви можете використовувати цей TAN, щоб зареєструвати свій результат у застосунку та попередити інших.";
 
+"ExposureSubmissionResult_familyMember_testPendingDesc" = "Щойно результат тесту стане доступним, він відобразиться в застосунку.\nВи також отримаєте результат тесту поза межами застосунку. Державні органи охорони здоров’я повідомлять вас, якщо тест буде позитивним.";
+
 "ExposureSubmissionResult_testCertificate_title" = "Ваш сертифікат тесту на COVID";
+
+"ExposureSubmissionResult_familyMemberTestCertificate_title" = "Сертифікат тесту на COVID";
 
 "ExposureSubmissionResult_testCertificate_testCenterNotSupported" = "Офіційний цифровий сертифікат тесту на COVID не може бути виданий, оскільки цей пункт тестування не підтримує видачу сертифікатів тестування.";
 
 "ExposureSubmissionResult_testCertificate_Pending" = "Ваш офіційний цифровий сертифікат тесту на COVID ще недоступний. Як тільки він стане доступним, він відобразиться у вашому застосунку.";
+
+"ExposureSubmissionResult_familyMemberTestCertificate_Pending" = "Офіційний цифровий сертифікат тесту на COVID ще недоступний. Як тільки він стане доступним, він відобразиться у застосунку.";
 
 "ExposureSubmissionResult_testCertificate_NotRequested" = "За вашим запитом офіційний цифровий сертифікат тесту на COVID не буде видано.";
 
@@ -779,7 +797,11 @@
 
 "ExposureSubmissionResult_antigenTestPending" = "Результат вашого тесту ще недоступний";
 
+"ExposureSubmissionResult_familyMember_antigenTestPending" = "Результат тесту ще недоступний";
+
 "ExposureSubmissionResult_antigenTestPendingDesc" = "Щойно результат тесту стане доступним, він відобразиться в застосунку.";
+
+"ExposureSubmissionResult_familyMember_antigenTestPendingDesc" = "Щойно результат тесту стане доступним, він відобразиться в застосунку.";
 
 "ExposureSubmissionResult_antigenTestPendingContactJournal" = "Результат вашого тесту буде доданий до вашого журналу контактів";
 
@@ -790,6 +812,8 @@
 "ExposureSubmissionResult_pcrTestPendingContactJournalDesc" = "Щойно результат тесту стане доступним, він відобразиться в застосунку.";
 
 "ExposureSubmissionResult_antigenTestNegativDesc" = "Експрес-тест не підтвердив наявність у вас коронавірусу SARS-CoV-2.";
+
+"ExposureSubmissionResult_familyMember_antigenTestNegativDesc" = "Експрес-тест не підтвердив наявність у тестованої особи коронавірусу SARS-CoV-2.";
 
 "ExposureSubmissionResult_WarnOthersConsentGiven" = "Згода «Попередити інших» надана";
 
@@ -918,6 +942,8 @@
 
 "ExposureSubmissionResult_Negative_Antigen_Proof_Desc" = "Щоб підтвердити відображений тут результат, потрібен цифровий Covid-сертифікат ЄС . Якщо під час реєстрації тесту ви запитали цифровий сертифікат тестування і пункт тестування підтримує видачу цифрових сертифікатів, ви можете знайти свій цифровий сертифікат тесту за посиланням, зазначеним вище. Ви також знайдете сертифікат на вкладці «Сертифікати».\nТакож дізнайтеся про критерії визнання та чинності сертифікатів тестів у контексті мети, для якої вам потрібні докази.";
 
+"ExposureSubmissionResult_familyMember_Negative_Antigen_NoProof_Title" = "Функція перевірки";
+
 "ExposureSubmissionResult_Negative_Antigen_NoProof_Title" = "Немає функції перевірки";
 
 "ExposureSubmissionResult_Negative_Antigen_NoProof_Desc" = "Оскільки отриманий тут результат є анонімним, його не можна використовувати як доказ негативного результату експрес-тесту.";
@@ -985,11 +1011,24 @@
 
 "ExposureSubmission_Antigen_Profile_Information_Description_Title" = "Збережіть свої особисті дані у вигляді QR-коду, щоб пришвидшити реєстрацію в пунктах тестування.";
 
-"ExposureSubmission_Antigen_Profile_Information_DescriptionSubHeadline" = "Коли ви створюєте профіль експрес-тесту, вам не доведеться знову заповнювати свої особисті дані перед кожним експрес-тестом.";
+"ExposureSubmission_Antigen_Profile_Information_DescriptionSubHeadline" = "Коли ви створюєте профіль експрес-тесту, вам не доведеться знову заповнювати свої особисті дані перед кожним експрес-тестом. Ви можете створити декілька профілів експрес-тестів, наприклад, один для себе і по одному для кожного члена вашої родини.";
 
 "ExposureSubmission_Antigen_Profile_Information_PrimaryButton" = "Продовжити";
 
 "ExposureSubmission_Antigen_Profile_Information_Dataprivacy_Title" = "Для отримання додаткової інформації дивіться сповіщення про конфіденційність.";
+
+/* Exposure Submission AntigenTest Profile Overview */
+"ExposureSubmission_Antigen_Profile_Overview_title" = "Профілі експрес-тестів";
+
+"ExposureSubmission_Antigen_Profile_Card_title" = "Профіль експрес-тесту";
+
+"ExposureSubmission_Antigen_Profile_Overview_EmptyTitle" = "Профілі експрес-тестів ще не створені";
+
+"ExposureSubmission_Antigen_Profile_Overview_EmptyDescription" = "Ви можете створити профіль експрес-тесту зі своїми особистими даними, які ви можете надіслати за допомогою QR-коду до кожного залученого пункту тестування.";
+
+"ExposureSubmission_Antigen_Profile_Overview_EmptyImageDescription" = "Печатка сертифіката з цифровим сертифікатом на фоні";
+
+"ExposureSubmission_Antigen_Profile_Overview_AddButtonTitle" = "Створити профіль експрес-тесту";
 
 /* ExposureSubmission AntigenTest Profile */
 "ExposureSubmission_Antigen_Profile_Header_Text" = "Профіль експрес-тесту";
@@ -1000,7 +1039,7 @@
 
 "ExposureSubmission_Antigen_Profile_DateOfBirth_Format" = "Народився %@";
 
-"ExposureSubmission_Antigen_Profile_Primary_Button" = "Продовжити";
+"ExposureSubmission_Antigen_Profile_Primary_Button" = "Сканувати тест";
 
 "ExposureSubmission_Antigen_Profile_Secondary_Button" = "Редагувати";
 
@@ -1009,9 +1048,22 @@
 
 "ExposureSubmission_Profile_CreateProfileTile_Description" = "Збережіть свої особисті дані у вигляді QR-коду, щоб пришвидшити реєстрацію в пунктах тестування.";
 
-"ExposureSubmission_Profile_ProfileTile_Title" = "Профіль експрес-тесту";
+"ExposureSubmission_Profile_ProfileTile_Title" = "Профілі експрес-тестів";
 
-"ExposureSubmission_Profile_ProfileTile_Description" = "Заощаджуйте час і надавайте свій профіль експрес-тесту у пункті тестування.";
+"ExposureSubmission_Profile_ProfileTile_Description" = "Профіль експрес-тесту з вашими особистими даними, які ви можете надіслати до будь-якого пункту тестування, що приймає участь, за допомогою QR-коду.";
+
+/* ExposureSubmission TestOwnerSelection */
+"ExposureSubmission_TestOwnerSelection_Title" = "Зареєструвати тест";
+
+"ExposureSubmission_TestOwnerSelection_Description" = "Ви отримаєте результат на свій смартфон і зможете запросити цифровий сертифікат тесту на COVID. Ви можете попередити інших, лише якщо тест ваш і у вас діагностовано коронавірусну інфекцію.";
+
+"ExposureSubmission_TestOwnerSelection_User_Headline" = "Для мене";
+
+"ExposureSubmission_TestOwnerSelection_User_Subheadline" = "Ваш тест";
+
+"ExposureSubmission_TestOwnerSelection_FamilyMember_Headline" = "Для інших";
+
+"ExposureSubmission_TestOwnerSelection_FamilyMember_Subheadline" = "Тест для члена родини";
 
 /* ExposureSubmission TestCertificate */
 "ExposureSubmission_TestCertificate_Information_Title" = "Сертифікат тесту на COVID";
@@ -1032,7 +1084,7 @@
 
 "ExposureSubmission_TestCertificate_Information_BirthdayText" = "З міркувань безпеки ваш сертифікат тесту захищений датою вашого народження. Сертифікат тесту може бути виданий тільки за умови правильної дати народження.";
 
-"ExposureSubmission_TestCertificate_Information_Dataprivacy_Title" = "Щоб отримати детальнішу інформацію про обробку даних, див. Сповіщення про конфіденційність.";
+"ExposureSubmission_TestCertificate_Information_Dataprivacy_Title" = "Докладна інформація про обробку даних та вашу згоду";
 
 "ExposureSubmission_TestCertificate_Information_Alert_Title" = "Скасувати реєстрацію";
 
@@ -1225,7 +1277,7 @@
 "Home_resultCard_LoadingErrorTitle" = "Неможливо завантажити ваш результат тесту.";
 
 /* - Pending */
-"Home_resultCard_ResultUnvailableTitle" = "Ваш результат ще недоступний";
+"Home_resultCard_ResultUnvailableTitle" = "Результат ще недоступний";
 
 "Home_resultCard_Pending_PCR_Desc" = "Аналіз вашого ПЛР-тесту ще не виконаний.";
 
@@ -1277,6 +1329,11 @@
 "Home_resultCard_DeleteTestButton" = "Видалити тест";
 
 "Home_resultCard_HideTestButton" = "Не показувати знову";
+
+/* - Family Tets */
+"Home_Family_Test_Title" = "Тести членів родини";
+
+"Home_Family_Test_Detail" = "Новини";
 
 /* - Show Positive */
 "Home_Finding_Positive_Card_Status_Title" = "SARS-CoV-2 позитивний";
@@ -1362,14 +1419,11 @@
 
 "App_Information_About_Title" = "Давайте боротися з коронавірусом разом";
 
-"App_Information_About_Description" = "Інститут Роберта Коха (RKI) є федеральним державним органом охорони здоров’я Німеччини. RKI публікує Corona-Warn-App від імені федерального уряду. Застосунок призначений як цифрове доповнення до вже запроваджених заходів охорони здоров’я: соціального дистанціювання, гігієни та масок для обличчя.";
+"App_Information_About_Description" = "Інститут Роберта Коха (RKI) є федеральним державним органом охорони здоров’я Німеччини. RKI публікує Corona-Warn-App від імені федерального уряду. Застосунок призначений як цифрове доповнення до гігієнічних заходів, таких як носіння масок і соціальне дистанціювання.";
 
 "App_Information_About_Text" = "Люди, які користуються застосунком, допомагають відстежувати та розривати ланцюжки зараження. Застосунок зберігає зустрічі з іншими людьми локально на вашому пристрої. Ви отримаєте сповіщення, якщо ви зустрілися з людьми, у яких пізніше був діагностований коронавірус. Ваша особистість і конфіденційність завжди захищені.";
 
 "App_Information_About_LinkText" = "Інформація про застосунок спрощеною мовою та мовою жестів";
-
-/* App Information - FAQ */
-"App_Information_FAQ_Navigation" = "ЗіВ";
 
 /* App Information - Contact */
 "App_Information_Contact_Navigation" = "Технічна гаряча лінія";
@@ -1409,7 +1463,7 @@
 
 "App_Information_Imprint_Section2_Title" = "Інститут Роберта Коха";
 
-"App_Information_Imprint_Section2_Text" = "Нордуфер 20\n13353 Берлін\n\nпредставлений своїм президентом";
+"App_Information_Imprint_Section2_Text" = "Нордуфер 20\n13353 Берлін, Німеччина\nпредставлений своїм президентом";
 
 "App_Information_Imprint_Section3_Title" = "Контакт";
 
@@ -1611,30 +1665,10 @@
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Зміни у цій версії можна знайти в інформації про застосунок в розділі «Нові функції».";
 
-/* Version 2.20 */
-"NewVersionFeature_220_highRiskShortened_title" = "Звіт про підвищений ступінь ризику скорочено";
+/* Version 2.24 */
+"NewVersionFeature_224_batch_export_title" = "Експортувати сертифікати";
 
-"NewVersionFeature_220_highRiskShortened_description" = "Підвищений ступінь ризик після виникнення ризику зараження тепер відображається лише протягом 10 днів замість 14.";
-
-"NewVersionFeature_220_displayRiskPositiveResult_title" = "Звіт про ризики після позитивного результату тесту";
-
-"NewVersionFeature_220_displayRiskPositiveResult_description" = "Червона плитка підвищеного ступеня ризику тепер відображається після виникнення ризику зараження, навіть якщо ви зареєстрували позитивний тест у Corona-Warn-App. Ваш статус ризику знову відображається через сім днів після позитивного тесту.";
-
-"NewVersionFeature_220_notificateRiskEncounter_title" = "Повідомлення для нового ризику зараження";
-
-"NewVersionFeature_220_notificateRiskEncounter_description" = "Якщо у вас є інший ризик зараження з підвищеним ступенем ризику після попереднього зараження, тепер також буде відображатися сповіщення для цього ризику.";
-
-"NewVersionFeature_220_notificationStatusChange_title" = "Звіт про зміну статусу";
-
-"NewVersionFeature_220_notificationStatusChange_description" = "Якщо ваш статус змінився (наприклад, оскільки ви додали сертифікат або змінилися правила), ви отримаєте сповіщення про це на закладці «Сертифікати».";
-
-"NewVersionFeature_220_recoveryCertificatesDetails_title" = "Сертифікати про одужання без даних про строки дії";
-
-"NewVersionFeature_220_recoveryCertificatesDetails_description" = "Дані про строки дії більше не відображаються для сертифікатів про одужання, оскільки їх строк дії залежить від локальних правил. Замість цього відображається дата першого позитивного тесту.";
-
-"NewVersionFeature_220_removeQRCode_title" = "Дублікат QR-коду видалено";
-
-"NewVersionFeature_220_removeQRCode_description" = "QR-код для вашого наразі використаного сертифіката видалено з вашого персонального докладного екрана, таким чином створюючи більше місця для сповіщень і загалом розвантажуючи екран. QR-код також міститься в огляді сертифіката, тому він не потрібен на докладному екрані.";
+"NewVersionFeature_224_batch_export_description" = "Ви можете зберегти всі сертифікати у своєму застосунку в одному документі PDF за один крок.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Транснаціональна реєстрація ризику зараження";
@@ -1735,7 +1769,7 @@
 
 "TestResultPositive_KeysSubmitted_Title2" = "Інша інформація:";
 
-"TestResultPositive_KeysSubmitted_FurtherInfo1" = "Ваш період ізоляції зазвичай становить 10 днів. Уважно стежте за тим, як розвиваються ваші симптоми.";
+"TestResultPositive_KeysSubmitted_FurtherInfo1" = "Уважно стежте за тим, як розвиваються ваші симптоми.";
 
 "TestResultPositive_KeysSubmitted_FurtherInfo2" = "Ваш державний орган охорони здоров’я попросить вас створити список людей, з якими ви контактували. Сюди слід включати всіх людей, з якими ви мали тісний контакт (менше 2 метрів, розмова віч-на-віч) більше 10 хвилин протягом двох днів до того, як ви захворіли. Ви можете використовувати для цього свій журнал контактів: просто експортуйте записи, а потім роздрукуйте їх або відправте електронною поштою.";
 
@@ -1746,6 +1780,11 @@
 "TestResultPositive_KeysSubmitted_PrimaryButton" = "Видалити тест";
 
 /* Contact Diary */
+/* Error */
+"ContactDiary_Overview_Error_Title" = "Помилка";
+
+"ContactDiary_Overview_Error_Description" = "Не вдалося завантажити дані з вашого журналу контактів. У результаті довелося скинути журнал контактів. Помилка: %@";
+
 /* Overview */
 "ContactDiary_Overview_Button_Title_Menu" = "Меню";
 
@@ -2532,6 +2571,8 @@
 /* - Trace Location Selection */
 "OnBehalfCheckinSubmission_TraceLocationSelection_Title" = "Попереджати для інших";
 
+"OnBehalfCheckinSubmission_TraceLocationSelection_EmptyDescription" = "Виберіть захід, про який ви хочете попередити інших від імені людини, у якої діагностовано коронавірус.";
+
 "OnBehalfCheckinSubmission_TraceLocationSelection_Description" = "Виберіть захід, про який ви хочете попередити інших від імені людини, у якої діагностовано коронавірус, або відновіть видалений захід, знову відсканувавши QR-код цього заходу.";
 
 "OnBehalfCheckinSubmission_TraceLocationSelection_ScanButtonTitle" = "Сканувати QR-код";
@@ -2653,6 +2694,8 @@
 "TraceLocation_Information_Item_Checkin" = "Ви можете надати своїм гостям QR-код на своєму смартфоні або у роздрукованому вигляді.";
 
 "TraceLocation_Information_Item_RenewQRCode" = "Якщо ви хочете використовувати QR-код протягом тривалого періоду, вам слід генерувати його знову щодня, поза межами робочого часу.";
+
+"TraceLocation_Information_Item_Group" = "Ви можете попередити своїх гостей від імені когось, у кого був діагностований коронавірус і який відвідав захід, але не був зареєстрований при вході за допомогою Corona-Warn-App.";
 
 "TraceLocation_Information_PrimaryButton_Title" = "Далі";
 
@@ -2776,6 +2819,8 @@
 
 "HealthCertificate_Overview_News" = "Є новини про ваші сертифікати";
 
+"HealthCertificate_Navigation_RightBarButtonExportDescription" = "Експортувати сертифікати";
+
 /* - Test Certificate Request */
 "TestCertificateRequest_title" = "ЄС\n**Цифровий сертифікат тесту на COVID**";
 
@@ -2838,6 +2883,27 @@
 "HealthCertificate_Info_section04" = "Додайте ніснуючі сертифікати для себе та членів вашої родини.";
 
 "HealthCertificate_Info_primaryButton" = "Продовжити";
+
+/* Health Certificate Export Certificates Information */
+"HealthCertificate_ExportCertificatesInfo_Title" = "Експортувати сертифікати";
+
+"HealthCertificate_ExportCertificatesInfo_HeaderImageDescription" = "Цифровий сертифікат надсилається на принтер зі смартфона";
+
+"HealthCertificate_ExportCertificatesInfo_Copy01" = "Ви можете зберегти всі сертифікати у своєму застосунку в одному документі PDF за один крок. Ви єдиний, хто має спочатку доступ до цього PDF-документа. Потім ви можете вирішити, чи хочете ви зберегти його на своєму смартфоні або імпортувати в інші застосунки.";
+
+"HealthCertificate_ExportCertificatesInfo_Copy02" = "Зверніть увагу, що PDF-документ містить конфіденційну інформацію. Ми рекомендуємо поводитися з ним обережно і показувати його лише тим людям, яким ви довіряєте і які уповноважені перевіряти сертифікат.";
+
+"HealthCertificate_ExportCertificatesInfo_Copy03" = "Ми рекомендуємо не публікувати PDF-документ, не надсилати його електронною поштою та не ділитися ним через інші застосунки.";
+
+"HealthCertificate_ExportCertificatesInfo_PrimaryButton" = "Далі";
+
+"HealthCertificate_ExportCertificatesInfo_GeneratePDFAlert_Title" = "Генерація PDF";
+
+"HealthCertificate_ExportCertificatesInfo_GeneratePDFAlert_Message_Initial" = "Це може зайняти кілька хвилин.";
+
+"HealthCertificate_ExportCertificatesInfo_GeneratePDFAlert_Message" = "Це може зайняти кілька хвилин.\nСторінка %@ of %@.";
+
+"HealthCertificate_ExportCertificatesInfo_GeneratePDFAlert_Cancel" = "Скасувати";
 
 /* CovPass Info Screen */
 "CovPass_Check_Info_Title" = "Перевірка сертифіката третіми сторонами";
@@ -2929,9 +2995,24 @@
 
 "HealthCertificate_Details_expirationDatePlaceholder" = "Дійсно до %@";
 
-"HealthCertificate_Details_expirationDateDetails" = "Не забудьте вчасно отримати новий цифровий сертифікат.";
-
 "HealthCertificate_Details_moreButtonTitle" = "Більше";
+
+/* HealthCertificate Family Consent */
+"HealthCertificate_FamilyMemberConsent_Title" = "Ваша згода";
+
+"HealthCertificate_FamilyMemberConsent_ImageDescription" = "Родина з декількох членів; є документ із QR-кодом у фоновому режимі.";
+
+"HealthCertificate_FamilyMemberConsent_Headline" = "Отримати результат тесту для члена родини";
+
+"HealthCertificate_FamilyMemberConsent_InputTitle" = "Ім'я особи, для якої було зроблено тест: ";
+
+"HealthCertificate_FamilyMemberConsent_InputPlaceholder" = "Ім'я";
+
+"HealthCertificate_FamilyMemberConsent_Body01" = "Ви реєструєте тест для члена родини. Якщо це ваш тест, поверніться назад і виберіть «Для мене». Ви повинні зробити це, щоб попередити інших у разі виявлення у вас коронавірусу.";
+
+"HealthCertificate_FamilyMemberConsent_Body02" = "Якщо результат тесту члена вашої родини негативний, ви можете попросити офіційний сертифікат тесту на COVID у наступних кроках.";
+
+"HealthCertificate_FamilyMemberConsent_Primary" = "Прийняти";
 
 /* Health Certificate Delete Alert */
 "HealthCertificate_Alert_deleteButton" = "Видалити сертифікат";
@@ -2946,8 +3027,6 @@
 /* Test Certificate Details */
 "TestCertificate_Details_title" = "Сертифікат тесту";
 
-"TestCertificate_Details_subtitle" = "Негативний тест SARS-CoV-2";
-
 "TestCertificate_Details_primaryButton" = "Видалити сертифікат тесту";
 
 "TestCertificate_Error_FAQ_Description" = "\n\nДля отримання додаткової інформації про те, як отримати сертифікат тесту, перегляньте нашу сторінку ЗіВ.";
@@ -2961,8 +3040,6 @@
 
 /* Recovery Certificate Details */
 "RecoveryCertificate_Details_title" = "Сертифікат одужання";
-
-"RecoveryCertificate_Details_subtitle" = "Цифровий COVID-сертифікат ЄС";
 
 "RecoveryCertificate_Details_primaryButton" = "Видалити сертифікат про одужання";
 
@@ -3002,6 +3079,8 @@
 
 "HealthCertificate_PrintPdf_ErrorAlert_Message" = "Версію для друку сертифіката неможливо відобразити, оскільки сертифікат виданий не в Німеччині";
 
+"HealthCertificate_ExportAll_PrintPdf_ErrorAlert_Message" = "Неможливо відобразити версію для друку сертифікатів.";
+
 "HealthCertificate_PrintPdf_ErrorAlert_FAQ" = "ЗіВ щодо версії для друку";
 
 "HealthCertificate_PrintPdf_ErrorAlert_OK" = "OK";
@@ -3009,6 +3088,10 @@
 "HealthCertificate_PrintPdf_ErrorAlert_ValueSetsFetching_Title" = "Неможливо відобразити версію для друку";
 
 "HealthCertificate_PrintPdf_ErrorAlert_ValueSetsFetching_Message" = "Версію для друку сертифіката неможливо відобразити, оскільки зараз неможливо отримати сертифікат. Спробуйте пізніше.";
+
+"HealthCertificate_PrintPdf_ErrorAlert_NoExportableCertificate_Title" = "Сертифікати не можна експортувати";
+
+"HealthCertificate_PrintPdf_ErrorAlert_NoExportableCertificate_Message" = "Неможливо експортувати доступні сертифікати, оскільки вони більше не дійсні.";
 
 /* Certificate Fault Tolerant Naming */
 "HealthCertificate_FaultTolerantNaming_RegroupDone_Title" = "Присвоювання сертифіката";
@@ -3146,21 +3229,25 @@
 "HealthCertificate_Validation_TechnicalFailed_expirationDate" = "Дійсно до %@";
 
 /* Health Certificate Validity State */
-"HealthCertificate_ValidityState_ExpiringSoon" = "Дата %@ час %@ завершення строку дії сертифіката";
+"HealthCertificate_ValidityState_ExpiringSoon_long" = "Дата %@ час %@ завершення строку дії сертифіката";
 
-"HealthCertificate_ValidityState_ExpiringSoon_description" = "Не забудьте вчасно отримати новий цифровий сертифікат.";
+"HealthCertificate_ValidityState_ExpiringSoon_short" = "Дата %@ час %@завершення строку дії";
+
+"HealthCertificate_ValidityState_ExpiringSoon_description" = "Якщо це один із сертифікатів, які ви зараз використовуєте, не забудьте вчасно поновити його. Ви можете поновити такі сертифікати безпосередньо в застосунку, якщо строк їх дії закінчиться протягом наступних 28 днів або закінчився протягом останніх 90 днів, за умови, що вони були видані в Німеччині. У цьому випадку опція «Поновити сертифікати» з’явиться в огляді вашого сертифіката під плиткою «Підтвердження статусу». Якщо це не один із сертифікатів, які ви зараз використовуєте, його не потрібно продовжувати, і з вашого боку не потрібно нічого робити.";
 
 "HealthCertificate_ValidityState_Expired" = "Строк дії сертифіката минув";
 
-"HealthCertificate_ValidityState_Expired_description" = "Дата закінчення строку дії минула. Отримайте новий цифровий сертифікат.";
+"HealthCertificate_ValidityState_Expired_description" = "Строк придатності минув. Поновіть сертифікат. Ви можете подати запит на поновлення протягом 90 днів після закінчення строку дії сертифіката, натиснувши нотатку в огляді сертифіката.";
 
 "HealthCertificate_ValidityState_Invalid" = "Сертифікат (підпис) недійсний";
 
 "HealthCertificate_ValidityState_Invalid_description" = "Довідка видана неуповноваженим органом або була видана неправильно. Попросіть уповноважений орган видати вам новий сертифікат.";
 
-"HealthCertificate_ValidityState_Blocked" = "Сертифікат недійсний";
+"HealthCertificate_ValidityState_BlockedRevoked" = "Сертифікат недійсний";
 
-"HealthCertificate_ValidityState_Blocked_description" = "Сертифікат було відкликано органом, який його видав. Отримайте новий цифровий сертифікат.";
+"HealthCertificate_ValidityState_BlockedRevoked_description_de" = "RKI деактивував сертифікат в результаті постанови уряду. Отримайте новий цифровий сертифікат.";
+
+"HealthCertificate_ValidityState_BlockedRevoked_description_other" = "Орган, який видав свідоцтво, деактивував сертифікат внаслідок адміністративного рішення. Отримайте новий цифровий сертифікат.";
 
 /* Reissuance */
 /* HealthCertificate Resissuance Consent */
@@ -3176,28 +3263,31 @@
 
 "HealthCertificate_Reissuance_Consent_Title" = "Ваша згода";
 
-"HealthCertificate_Reissuance_Consent_Delete_Notice" = "Старий сертифікат буде автоматично переміщено в кошик і видалено через 30 днів. Сертифікат можна відновити в будь-який час протягом цих 30 днів.";
+"HealthCertificate_Reissuance_Consent_Delete_Notice" = "Старі сертифікати будуть автоматично переміщені в кошик і видалено через 30 днів. Сертифікати можна відновити в будь-який час протягом цих 30 днів.";
 
-"HealthCertificate_Reissuance_Consent_Cancel_Notice" = "Якщо ви скасуєте зараз, ви можете будь-коли подати запит на оновлення в огляді сертифіката.";
+"HealthCertificate_Reissuance_Consent_Cancel_Notice" = "Якщо ви скасуєте зараз, ви можете подати запит на поновлення в огляді вашого сертифіката.";
 
-"HealthCertificate_Reissuance_Consent_Legal_Title" = "Ваша згода";
+"HealthCertificate_Reissuance_Consent_Bullet_Point_1" = "Поновлення ваших сертифікатів є добровільним і безкоштовним.";
 
-"HealthCertificate_Reissuance_Consent_Legal_Subtitle" = "Натиснувши «Згоден», ви погоджуєтеся на наступні кроки:";
+"HealthCertificate_Reissuance_Consent_Bullet_Point_2" = "Щоб гарантувати, що сертифікати можуть бути поновлені лише один раз, ідентифікатори старих і нових сертифікатів документуються RKI. Інші дані з ваших сертифікатів видаляються RKI відразу після поновлення.";
 
-"HealthCertificate_Reissuance_Consent_Legal_Bullet_1" = "Застосунок надсилає сертифікат про вакцинацію до RKI для перевірки.";
+"HealthCertificate_Reissuance_Consent_Bullet_Point_3" = "Перш ніж поновити сертифікати членів сім’ї, переконайтеся, що залучена особа дає згоду.";
 
-"HealthCertificate_Reissuance_Consent_Legal_Bullet_2" = "RKI перевіряє сертифікат про вакцинацію, видає оновлений сертифікат і надсилає його у ваш додаток.";
+"HealthCertificate_Reissuance_Consent_Bullet_Point_4" = "У деяких випадках на додаток до сертифікатів для поновлення видаються додаткові сертифікати. Це необхідно для прийняття попередньої послідовності щеплень та оздоровлення в нових сертифікатах.";
 
-"HealthCertificate_Reissuance_Consent_Bullet_Point_1" = "Оновлення сертифіката є добровільним і безкоштовним.";
+"HealthCertificate_Reissuance_AccompanyingCertificates_Cell" = "Інші видані сертифікати";
 
-"HealthCertificate_Reissuance_Consent_Bullet_Point_2" = "Щоб гарантувати, що сертифікати можна оновити лише один раз, ідентифікатор старого сертифіката документується RKI.";
+/* HealthCertificate Resissuance Additional Certificates */
+"HealthCertificate_Reissuance_AccompanyingCertificates_Title" = "Інші видані сертифікати";
+
+"HealthCertificate_Reissuance_AccompanyingCertificates_Description" = "Наступні сертифікати будуть видані під час поновлення як додаткова інформація, щоб прийняти попередню послідовність щеплень та одужання в новому сертифікаті. Ці сертифікати не поновлюються.";
 
 /* HealthCertificate Resissuance Succeeded */
-"HealthCertificate_Reissuance_Succeeded_Title" = "Сертифікат оновлено";
+"HealthCertificate_Reissuance_Succeeded_Title" = "Сертифікати оновлено";
 
-"HealthCertificate_Reissuance_Succeeded_Headline" = "Ваш сертифікат успішно оновлено";
+"HealthCertificate_Reissuance_Succeeded_Headline" = "Ваші сертифікати успішно оновлені";
 
-"HealthCertificate_Reissuance_Succeeded_Body" = "Оновлений сертифікат тепер доступний на вкладці «Сертифікати».";
+"HealthCertificate_Reissuance_Succeeded_Body" = "Оновлені сертифікати тепер доступні на вкладці «Сертифікати».";
 
 /* HealthCertificate Resissuance Request Error */
 "HealthCertificate_Reissuance_Error_Contact_Support" = "Сталася технічна помилка. Зв’яжіться з технічною гарячою лінією через Інформація про застосунок -> Технічна гаряча лінія.";
@@ -3205,6 +3295,8 @@
 "HealthCertificate_Reissuance_Error_No_Network" = "Можливо, ваше з’єднання з Інтернетом було втрачено. Перевірте з’єднання та спробуйте ще раз.";
 
 "HealthCertificate_Reissuance_Error_Try_Again" = "Під час оновлення вашого сертифіката сталася помилка. Спробуйте ще раз. Якщо помилка не зникає, зв’яжіться з технічною гарячою лінією через Інформація про застосунок -> Технічна гаряча лінія.";
+
+"HealthCertificate_Reissuance_Error_Rate_Limit" = "Сертифікат вже тричі переоформлювався. Його не можна переоформити повторно.\nМи рекомендуємо експортувати перевиданий сертифікат у форматі PDF і роздрукувати його. Потім ви можете будь-коли відсканувати його знову.";
 
 "HealthCertificate_Reissuance_Error_Not_Supported" = "Ваш сертифікат не можна оновити. Зв’яжіться з технічною гарячою лінією через Інформація про застосунок -> Технічна гаряча лінія.";
 
@@ -3384,6 +3476,8 @@
 /* - Corona Test */
 "RecycleBin_CoronaTest_headline" = "Тест";
 
+"RecycleBin_CoronaTest_familyMemberHeadline" = "Тести членів родини";
+
 "RecycleBin_CoronaTest_pcrTest" = "ПЛР-тест";
 
 "RecycleBin_CoronaTest_antigenTest" = "Експрес-тест";
@@ -3558,4 +3652,68 @@
 "TicketValidation_Result_Failed_subtitle" = "Ваш сертифікат не відповідає вимогам постачальника.";
 
 "TicketValidation_Result_Failed_description" = "Якщо у вас виникли запитання, зверніться до постачальника “%@”.";
+
+/* Family Member Corona Test */
+"FamilyMemberCoronaTest_title" = "Тести членів родини";
+
+"FamilyMemberCoronaTest_deleteAllButtonTitle" = "Видалити все";
+
+"FamilyMemberCoronaTest_pcrCaption" = "Діагноз на основі тесту ПЛР";
+
+"FamilyMemberCoronaTest_antigenCaption" = "Діагноз на основі експрес-тесту";
+
+"FamilyMemberCoronaTest_pcrDate" = "Тест додано %@";
+
+"FamilyMemberCoronaTest_antigenDate" = "Дата виконання %@";
+
+"FamilyMemberCoronaTest_pendingDiagnosis" = "Результат ще недоступний";
+
+"FamilyMemberCoronaTest_pendingPCRDescription" = "Аналіз тесту ПЛР ще не виконаний.";
+
+"FamilyMemberCoronaTest_pendingAntigenDescription" = "Аналіз експрес-тесту ще не виконано.";
+
+"FamilyMemberCoronaTest_negativeTopDiagnosis" = "SARS-CoV-2";
+
+"FamilyMemberCoronaTest_negativeBottomDiagnosis" = "Негативний";
+
+"FamilyMemberCoronaTest_positiveTopDiagnosis" = "SARS-CoV-2";
+
+"FamilyMemberCoronaTest_positiveBottomDiagnosis" = "Позитивний";
+
+"FamilyMemberCoronaTest_invalidDiagnosis" = "Недійсний тест";
+
+"FamilyMemberCoronaTest_invalidDescription" = "Тест неможливо проаналізувати.";
+
+"FamilyMemberCoronaTest_outdatedDiagnosis" = "Тест більше не є актуальним";
+
+"FamilyMemberCoronaTest_outdatedDescription" = "Експрес-тесту понад %i годин, і він більше не відображатиметься тут.";
+
+"FamilyMemberCoronaTest_outdatedButtonTitle" = "Не показувати знову";
+
+"FamilyMemberCoronaTest_expiredDiagnosis" = "Більше недійсно";
+
+"FamilyMemberCoronaTest_expiredDescription" = "Тесту більше 21 дня, тому він більше не є релевантним.";
+
+"FamilyMemberCoronaTest_expiredButtonTitle" = "Видалити тест";
+
+"FamilyMemberCoronaTest_DeleteOne_AlertTitle" = "Видалити результат тесту?";
+
+"FamilyMemberCoronaTest_DeleteOne_AlertMessage" = "Результат тесту буде переміщено в кошик. Ви знайдете кошик на плитці «Більше» на сторінці закладки статусу.\nВи можете назавжди видалити результат тесту або відновити його там. Результат тесту буде автоматично видалено через 30 днів.";
+
+"FamilyMemberCoronaTest_DeleteOne_AlertConfirmButtonTitle" = "Видалити результат тесту";
+
+"FamilyMemberCoronaTest_DeleteOne_AlertCancelButtonTitle" = "Скасувати";
+
+"FamilyMemberCoronaTest_DeleteAll_AlertTitle" = "Видалити результати тестів?";
+
+"FamilyMemberCoronaTest_DeleteAll_AlertMessage" = "Результати тестів будуть переміщені в кошик. Ви знайдете кошик на плитці «Більше» на закладці статусу.\nВи можете назавжди видалити результати тестів або відновити їх там. Результати тестів будуть автоматично видалено через 30 днів.";
+
+"FamilyMemberCoronaTest_DeleteAll_AlertConfirmButtonTitle" = "Видалити результати тестів";
+
+"FamilyMemberCoronaTest_DeleteAll_AlertCancelButtonTitle" = "Скасувати";
+
+/* Tooltip */
+"Tooltip_ExportCertificates_Title" = "Експортувати сертифікати";
+
+"Tooltip_ExportCertificates_Description" = "Збережіть усі свої сертифікати в одному документі PDF за один крок";
 

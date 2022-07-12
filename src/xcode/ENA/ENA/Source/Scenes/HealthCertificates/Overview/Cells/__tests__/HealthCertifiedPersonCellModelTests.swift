@@ -14,7 +14,7 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 		// GIVEN
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					vaccinationEntries: [.fake()]
 				)
 			),
@@ -56,10 +56,10 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 		let expirationDate = Date(timeIntervalSince1970: 1627987295)
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					vaccinationEntries: [.fake()]
 				),
-				and: .fake(expirationTime: expirationDate)
+				webTokenHeader: .fake(expirationTime: expirationDate)
 			),
 			validityState: .expiringSoon
 		)
@@ -109,7 +109,7 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 		// GIVEN
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					vaccinationEntries: [.fake()]
 				)
 			),
@@ -154,7 +154,7 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 		// GIVEN
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					vaccinationEntries: [.fake()]
 				)
 			),
@@ -195,7 +195,7 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 		// GIVEN
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					vaccinationEntries: [.fake()]
 				)
 			),
@@ -236,11 +236,56 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 		}
 	}
 
+	func testHealthCertifiedPersonWithRevokedVaccinationCertificate() throws {
+		// GIVEN
+		let healthCertificate = try HealthCertificate(
+			base45: try base45Fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
+					vaccinationEntries: [.fake()]
+				)
+			),
+			validityState: .revoked
+		)
+
+		let cclService = FakeCCLService()
+		let healthCertifiedPerson = HealthCertifiedPerson(healthCertificates: [healthCertificate])
+		healthCertifiedPerson.dccWalletInfo = .fake(
+			verification: .fake(
+				certificates: [.fake(certificateRef: .fake(barcodeData: healthCertificate.base45))]
+			)
+		)
+
+		let viewModel = try XCTUnwrap(
+			HealthCertifiedPersonCellModel(
+				healthCertifiedPerson: healthCertifiedPerson,
+				cclService: cclService,
+				onCovPassCheckInfoButtonTap: { }
+			)
+		)
+
+		// THEN
+		XCTAssertEqual(viewModel.title, AppStrings.HealthCertificate.Overview.covidTitle)
+		XCTAssertEqual(viewModel.name, healthCertifiedPerson.name?.fullName)
+
+		XCTAssertFalse(viewModel.isStatusTitleVisible)
+		XCTAssertNil(viewModel.shortStatus)
+
+		XCTAssertTrue(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
+		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .bottom)
+
+		if case let .validityState(image: image, description: description) = viewModel.caption {
+			XCTAssertEqual(image, UIImage(named: "Icon_ExpiredInvalid"))
+			XCTAssertEqual(description, "Zertifikat ungültig")
+		} else {
+			XCTFail("Expected caption to be set to validityState")
+		}
+	}
+
 	func testHealthCertifiedPersonWithValidTestCertificate() throws {
 		// GIVEN
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					testEntries: [.fake()]
 				)
 			),
@@ -275,10 +320,10 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 		// GIVEN
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					testEntries: [.fake()]
 				),
-				and: .fake(expirationTime: Date(timeIntervalSince1970: 1627987295))
+				webTokenHeader: .fake(expirationTime: Date(timeIntervalSince1970: 1627987295))
 			),
 			validityState: .expiringSoon
 		)
@@ -311,7 +356,7 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 		// GIVEN
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					testEntries: [.fake()]
 				)
 			),
@@ -351,7 +396,7 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 		// GIVEN
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					testEntries: [.fake()]
 				)
 			),
@@ -396,7 +441,7 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 		// GIVEN
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					testEntries: [.fake()]
 				)
 			),
@@ -437,11 +482,56 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 		}
 	}
 
+	func testHealthCertifiedPersonWithRevokedTestCertificate() throws {
+		// GIVEN
+		let healthCertificate = try HealthCertificate(
+			base45: try base45Fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
+					testEntries: [.fake()]
+				)
+			),
+			validityState: .revoked
+		)
+
+		let cclService = FakeCCLService()
+		let healthCertifiedPerson = HealthCertifiedPerson(healthCertificates: [healthCertificate])
+		healthCertifiedPerson.dccWalletInfo = .fake(
+			verification: .fake(
+				certificates: [.fake(certificateRef: .fake(barcodeData: healthCertificate.base45))]
+			)
+		)
+
+		let viewModel = try XCTUnwrap(
+			HealthCertifiedPersonCellModel(
+				healthCertifiedPerson: healthCertifiedPerson,
+				cclService: cclService,
+				onCovPassCheckInfoButtonTap: { }
+			)
+		)
+
+		// THEN
+		XCTAssertEqual(viewModel.title, AppStrings.HealthCertificate.Overview.covidTitle)
+		XCTAssertEqual(viewModel.name, healthCertifiedPerson.name?.fullName)
+
+		XCTAssertFalse(viewModel.isStatusTitleVisible)
+		XCTAssertNil(viewModel.shortStatus)
+
+		XCTAssertTrue(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
+		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .bottom)
+
+		if case let .validityState(image: image, description: description) = viewModel.caption {
+			XCTAssertEqual(image, UIImage(named: "Icon_ExpiredInvalid"))
+			XCTAssertEqual(description, "Zertifikat ungültig")
+		} else {
+			XCTFail("Expected caption to be set to validityState")
+		}
+	}
+
 	func testHealthCertifiedPersonWithValidRecoveryCertificate() throws {
 		// GIVEN
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					recoveryEntries: [.fake()]
 				)
 			),
@@ -482,10 +572,10 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 		let expirationDate = Date(timeIntervalSince1970: 1627987295)
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					recoveryEntries: [.fake()]
 				),
-				and: .fake(expirationTime: expirationDate)
+				webTokenHeader: .fake(expirationTime: expirationDate)
 			),
 			validityState: .expiringSoon
 		)
@@ -535,7 +625,7 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 		// GIVEN
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					recoveryEntries: [.fake()]
 				)
 			),
@@ -576,7 +666,7 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 		// GIVEN
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					recoveryEntries: [.fake()]
 				)
 			),
@@ -621,7 +711,7 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 		// GIVEN
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					recoveryEntries: [.fake()]
 				)
 			),
@@ -658,11 +748,52 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 		}
 	}
 
+	func testHealthCertifiedPersonWithRevokedRecoveryCertificate() throws {
+		// GIVEN
+		let healthCertificate = try HealthCertificate(
+			base45: try base45Fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
+					recoveryEntries: [.fake()]
+				)
+			),
+			validityState: .revoked
+		)
+
+		let cclService = FakeCCLService()
+		let healthCertifiedPerson = HealthCertifiedPerson(healthCertificates: [healthCertificate])
+		// Not setting dccWalletInfo.verification here to check that the fallback certificate is used if it's not set
+
+		let viewModel = try XCTUnwrap(
+			HealthCertifiedPersonCellModel(
+				healthCertifiedPerson: healthCertifiedPerson,
+				cclService: cclService,
+				onCovPassCheckInfoButtonTap: { }
+			)
+		)
+
+		// THEN
+		XCTAssertEqual(viewModel.title, AppStrings.HealthCertificate.Overview.covidTitle)
+		XCTAssertEqual(viewModel.name, healthCertifiedPerson.name?.fullName)
+
+		XCTAssertFalse(viewModel.isStatusTitleVisible)
+		XCTAssertNil(viewModel.shortStatus)
+
+		XCTAssertTrue(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
+		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .bottom)
+
+		if case let .validityState(image: image, description: description) = viewModel.caption {
+			XCTAssertEqual(image, UIImage(named: "Icon_ExpiredInvalid"))
+			XCTAssertEqual(description, "Zertifikat ungültig")
+		} else {
+			XCTFail("Expected caption to be set to validityState")
+		}
+	}
+
 	func testCaptionOnHealthCertifiedPersonWithUnseenNews() throws {
 		// GIVEN
 		let firstHealthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					vaccinationEntries: [.fake()]
 				)
 			),
@@ -671,7 +802,7 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 
 		let secondHealthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					vaccinationEntries: [.fake()]
 				)
 			),
@@ -681,7 +812,7 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 
 		let thirdHealthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					vaccinationEntries: [.fake()]
 				)
 			),
@@ -691,7 +822,7 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 
 		let fourthHealthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					vaccinationEntries: [.fake()]
 				)
 			),

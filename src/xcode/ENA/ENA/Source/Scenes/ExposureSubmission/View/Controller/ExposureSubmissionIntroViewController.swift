@@ -29,11 +29,6 @@ class ExposureSubmissionIntroViewController: DynamicTableViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		setupView()
-
-		viewModel.$dynamicTableModel.dropFirst().sink { [weak self] dynamicTableViewModel in
-			self?.dynamicTableViewModel = dynamicTableViewModel
-			self?.tableView.reloadData()
-		}.store(in: &subscriptions)
 	}
 
 	// MARK: - Internal
@@ -45,7 +40,6 @@ class ExposureSubmissionIntroViewController: DynamicTableViewController {
 	// MARK: - Private
 
 	private let viewModel: ExposureSubmissionIntroViewModel
-	private var subscriptions = Set<AnyCancellable>()
 
 	private func setupView() {
 		view.backgroundColor = .enaColor(for: .background)

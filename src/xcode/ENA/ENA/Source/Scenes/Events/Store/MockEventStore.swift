@@ -6,7 +6,7 @@ import Foundation
 import OpenCombine
 
 class MockEventStore: EventStoring, EventProviding {
-
+	
 	// MARK: - Protocol EventStoring
 
 	@discardableResult
@@ -38,7 +38,7 @@ class MockEventStore: EventStoring, EventProviding {
 	@discardableResult
 	func updateCheckin(_ checkin: Checkin) -> SecureSQLStore.VoidResult {
 		guard let oldCheckin = (checkinsPublisher.value.first { $0.id == checkin.id }) else {
-			return .failure(.database(.unknown))
+			return .failure(.database(.unknown(-1)))
 		}
 		let updatedCheckin = oldCheckin.updatedWith(checkin: checkin)
 		checkinsPublisher.value = appendCheckInAndSort(updatedCheckin)
@@ -68,6 +68,11 @@ class MockEventStore: EventStoring, EventProviding {
 	@discardableResult
 	func deleteTraceTimeIntervalMatch(id: Int) -> SecureSQLStore.VoidResult {
 		traceTimeIntervalMatchesPublisher.value.removeAll { $0.id == id }
+		return .success(())
+	}
+	
+	func deleteAllTraceTimeIntervalMatches() -> Result<Void, SecureSQLStoreError> {
+		traceTimeIntervalMatchesPublisher.value = ([])
 		return .success(())
 	}
 

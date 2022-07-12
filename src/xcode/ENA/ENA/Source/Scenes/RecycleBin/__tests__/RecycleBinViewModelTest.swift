@@ -38,8 +38,8 @@ class RecycleBinViewModelTest: CWATestCase {
 		let store = MockTestStore()
 		store.recycleBinItems = [
 			RecycleBinItem(recycledAt: Date(), item: .certificate(.mock())),
-			RecycleBinItem(recycledAt: Date(), item: .coronaTest(.pcr(.mock(uniqueCertificateIdentifier: "a")))),
-			RecycleBinItem(recycledAt: Date(), item: .coronaTest(.antigen(.mock(uniqueCertificateIdentifier: "b"))))
+			RecycleBinItem(recycledAt: Date(), item: .userCoronaTest(.pcr(.mock(uniqueCertificateIdentifier: "a")))),
+			RecycleBinItem(recycledAt: Date(), item: .userCoronaTest(.antigen(.mock(uniqueCertificateIdentifier: "b"))))
 		]
 
 		let viewModel = RecycleBinViewModel(
@@ -68,8 +68,8 @@ class RecycleBinViewModelTest: CWATestCase {
 		let store = MockTestStore()
 		store.recycleBinItems = [
 			RecycleBinItem(recycledAt: Date(), item: .certificate(.mock())),
-			RecycleBinItem(recycledAt: Date(), item: .coronaTest(.pcr(.mock(uniqueCertificateIdentifier: "a")))),
-			RecycleBinItem(recycledAt: Date(), item: .coronaTest(.antigen(.mock(uniqueCertificateIdentifier: "b"))))
+			RecycleBinItem(recycledAt: Date(), item: .userCoronaTest(.pcr(.mock(uniqueCertificateIdentifier: "a")))),
+			RecycleBinItem(recycledAt: Date(), item: .userCoronaTest(.antigen(.mock(uniqueCertificateIdentifier: "b"))))
 		]
 
 		let viewModel = RecycleBinViewModel(
@@ -108,13 +108,13 @@ class RecycleBinViewModelTest: CWATestCase {
 	func testRestoringCertificate() throws {
 		let store = MockTestStore()
 
-		let pcrTest: CoronaTest = .pcr(.mock())
-		let antigenTest: CoronaTest = .antigen(.mock())
+		let pcrTest: UserCoronaTest = .pcr(.mock())
+		let antigenTest: UserCoronaTest = .antigen(.mock())
 
 		store.recycleBinItems = [
 			RecycleBinItem(recycledAt: Date(), item: .certificate(.mock(base45: HealthCertificateMocks.mockBase45))),
-			RecycleBinItem(recycledAt: Date(timeIntervalSinceNow: -15), item: .coronaTest(pcrTest)),
-			RecycleBinItem(recycledAt: Date(timeIntervalSinceNow: -35), item: .coronaTest(antigenTest))
+			RecycleBinItem(recycledAt: Date(timeIntervalSinceNow: -15), item: .userCoronaTest(pcrTest)),
+			RecycleBinItem(recycledAt: Date(timeIntervalSinceNow: -35), item: .userCoronaTest(antigenTest))
 		]
 
 		let restoreHandlerExpectation = expectation(description: "restore called on handler")
@@ -145,19 +145,19 @@ class RecycleBinViewModelTest: CWATestCase {
 		let store = MockTestStore()
 
 		let certificate: HealthCertificate = .mock(base45: HealthCertificateMocks.mockBase45)
-		let pcrTest: CoronaTest = .pcr(.mock())
-		let antigenTest: CoronaTest = .antigen(.mock())
+		let pcrTest: UserCoronaTest = .pcr(.mock())
+		let antigenTest: UserCoronaTest = .antigen(.mock())
 
 		store.recycleBinItems = [
 			RecycleBinItem(recycledAt: Date(), item: .certificate(certificate)),
-			RecycleBinItem(recycledAt: Date(timeIntervalSinceNow: -15), item: .coronaTest(pcrTest)),
-			RecycleBinItem(recycledAt: Date(timeIntervalSinceNow: -35), item: .coronaTest(antigenTest))
+			RecycleBinItem(recycledAt: Date(timeIntervalSinceNow: -15), item: .userCoronaTest(pcrTest)),
+			RecycleBinItem(recycledAt: Date(timeIntervalSinceNow: -35), item: .userCoronaTest(antigenTest))
 		]
 
 
 		let canRestoreHandlerExpectation = expectation(description: "canRestore called on handler")
 		let restoreHandlerExpectation = expectation(description: "restore called on handler")
-		var testRestorationHandler = TestRestorationHandlerFake()
+		var testRestorationHandler = UserTestRestorationHandlerFake()
 
 		testRestorationHandler.canRestore = { test in
 			XCTAssertEqual(test, pcrTest)
@@ -172,7 +172,7 @@ class RecycleBinViewModelTest: CWATestCase {
 		}
 
 		let recycleBin = RecycleBin(store: store)
-		recycleBin.testRestorationHandler = testRestorationHandler
+		recycleBin.userTestRestorationHandler = testRestorationHandler
 
 		let onOverrideExpectation = expectation(description: "onOverride not called")
 		onOverrideExpectation.isInverted = true
@@ -197,18 +197,18 @@ class RecycleBinViewModelTest: CWATestCase {
 		let store = MockTestStore()
 
 		let certificate: HealthCertificate = .mock(base45: HealthCertificateMocks.mockBase45)
-		let pcrTest: CoronaTest = .pcr(.mock())
-		let antigenTest: CoronaTest = .antigen(.mock())
+		let pcrTest: UserCoronaTest = .pcr(.mock())
+		let antigenTest: UserCoronaTest = .antigen(.mock())
 
 		store.recycleBinItems = [
 			RecycleBinItem(recycledAt: Date(), item: .certificate(certificate)),
-			RecycleBinItem(recycledAt: Date(timeIntervalSinceNow: -15), item: .coronaTest(pcrTest)),
-			RecycleBinItem(recycledAt: Date(timeIntervalSinceNow: -35), item: .coronaTest(antigenTest))
+			RecycleBinItem(recycledAt: Date(timeIntervalSinceNow: -15), item: .userCoronaTest(pcrTest)),
+			RecycleBinItem(recycledAt: Date(timeIntervalSinceNow: -35), item: .userCoronaTest(antigenTest))
 		]
 
 		let canRestoreHandlerExpectation = expectation(description: "canRestore called on handler")
 		let restoreHandlerExpectation = expectation(description: "restore called on handler")
-		var testRestorationHandler = TestRestorationHandlerFake()
+		var testRestorationHandler = UserTestRestorationHandlerFake()
 
 		testRestorationHandler.canRestore = { test in
 			XCTAssertEqual(test, antigenTest)
@@ -223,7 +223,7 @@ class RecycleBinViewModelTest: CWATestCase {
 		}
 
 		let recycleBin = RecycleBin(store: store)
-		recycleBin.testRestorationHandler = testRestorationHandler
+		recycleBin.userTestRestorationHandler = testRestorationHandler
 
 		let onOverrideExpectation = expectation(description: "onOverride called")
 
@@ -231,7 +231,7 @@ class RecycleBinViewModelTest: CWATestCase {
 			store: store,
 			recycleBin: recycleBin,
 			onOverwrite: { recycleBinItem in
-				if case let .coronaTest(coronaTest) = recycleBinItem.item, coronaTest == antigenTest {} else {
+				if case let .userCoronaTest(coronaTest) = recycleBinItem.item, coronaTest == antigenTest {} else {
 					XCTFail("Expected antigenTest to be passed as parameter")
 				}
 
@@ -251,13 +251,13 @@ class RecycleBinViewModelTest: CWATestCase {
 	func testRemoveEntry() throws {
 		let store = MockTestStore()
 
-		let pcrTest: CoronaTest = .pcr(.mock())
-		let antigenTest: CoronaTest = .antigen(.mock())
+		let pcrTest: UserCoronaTest = .pcr(.mock())
+		let antigenTest: UserCoronaTest = .antigen(.mock())
 
 		store.recycleBinItems = [
 			RecycleBinItem(recycledAt: Date(), item: .certificate(.mock(base45: HealthCertificateMocks.mockBase45))),
-			RecycleBinItem(recycledAt: Date(timeIntervalSinceNow: -15), item: .coronaTest(pcrTest)),
-			RecycleBinItem(recycledAt: Date(timeIntervalSinceNow: -35), item: .coronaTest(antigenTest))
+			RecycleBinItem(recycledAt: Date(timeIntervalSinceNow: -15), item: .userCoronaTest(pcrTest)),
+			RecycleBinItem(recycledAt: Date(timeIntervalSinceNow: -35), item: .userCoronaTest(antigenTest))
 		]
 
 		let viewModel = RecycleBinViewModel(
@@ -276,8 +276,8 @@ class RecycleBinViewModelTest: CWATestCase {
 		let store = MockTestStore()
 		store.recycleBinItems = [
 			RecycleBinItem(recycledAt: Date(), item: .certificate(.mock())),
-			RecycleBinItem(recycledAt: Date(), item: .coronaTest(.pcr(.mock(uniqueCertificateIdentifier: "a")))),
-			RecycleBinItem(recycledAt: Date(), item: .coronaTest(.antigen(.mock(uniqueCertificateIdentifier: "b"))))
+			RecycleBinItem(recycledAt: Date(), item: .userCoronaTest(.pcr(.mock(uniqueCertificateIdentifier: "a")))),
+			RecycleBinItem(recycledAt: Date(), item: .userCoronaTest(.antigen(.mock(uniqueCertificateIdentifier: "b"))))
 		]
 
 		let viewModel = RecycleBinViewModel(

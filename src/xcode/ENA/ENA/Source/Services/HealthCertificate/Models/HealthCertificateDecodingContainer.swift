@@ -16,8 +16,10 @@ final class HealthCertificateDecodingContainer: Codable {
 	let validityState: HealthCertificateValidityState?
 	let didShowInvalidNotification: Bool?
 	let didShowBlockedNotification: Bool?
+	let didShowRevokedNotification: Bool?
 	let isNew: Bool?
 	let isValidityStateNew: Bool?
+	let revocationEntries: HealthCertificateRevocationEntries?
 }
 
 class DecodingFailedHealthCertificate: Codable, Equatable {
@@ -29,16 +31,20 @@ class DecodingFailedHealthCertificate: Codable, Equatable {
 		validityState: HealthCertificateValidityState,
 		didShowInvalidNotification: Bool,
 		didShowBlockedNotification: Bool,
+		didShowRevokedNotification: Bool,
 		isNew: Bool,
 		isValidityStateNew: Bool,
+		revocationEntries: HealthCertificateRevocationEntries?,
 		error: Error?
 	) {
 		self.base45 = base45
 		self.validityState = validityState
 		self.didShowInvalidNotification = didShowInvalidNotification
 		self.didShowBlockedNotification = didShowBlockedNotification
+		self.didShowRevokedNotification = didShowRevokedNotification
 		self.isNew = isNew
 		self.isValidityStateNew = isValidityStateNew
+		self.revocationEntries = revocationEntries
 		self.error = error
 	}
 
@@ -49,8 +55,10 @@ class DecodingFailedHealthCertificate: Codable, Equatable {
 		case validityState
 		case didShowInvalidNotification
 		case didShowBlockedNotification
+		case didShowRevokedNotification
 		case isNew
 		case isValidityStateNew
+		case revocationEntries
 		case error
 	}
 
@@ -61,9 +69,10 @@ class DecodingFailedHealthCertificate: Codable, Equatable {
 		validityState = try container.decode(HealthCertificateValidityState.self, forKey: .validityState)
 		didShowInvalidNotification = try container.decode(Bool.self, forKey: .didShowInvalidNotification)
 		didShowBlockedNotification = try container.decode(Bool.self, forKey: .didShowBlockedNotification)
+		didShowRevokedNotification = try container.decode(Bool.self, forKey: .didShowRevokedNotification)
 		isNew = try container.decode(Bool.self, forKey: .isNew)
 		isValidityStateNew = try container.decode(Bool.self, forKey: .isValidityStateNew)
-
+		revocationEntries = try container.decodeIfPresent(HealthCertificateRevocationEntries.self, forKey: .revocationEntries)
 		error = nil
 	}
 
@@ -74,8 +83,10 @@ class DecodingFailedHealthCertificate: Codable, Equatable {
 		try container.encode(validityState, forKey: .validityState)
 		try container.encode(didShowInvalidNotification, forKey: .didShowInvalidNotification)
 		try container.encode(didShowBlockedNotification, forKey: .didShowBlockedNotification)
+		try container.encode(didShowRevokedNotification, forKey: .didShowRevokedNotification)
 		try container.encode(isNew, forKey: .isNew)
 		try container.encode(isValidityStateNew, forKey: .isValidityStateNew)
+		try container.encode(revocationEntries, forKey: .revocationEntries)
 	}
 
 	// MARK: - Protocol Equatable
@@ -90,8 +101,10 @@ class DecodingFailedHealthCertificate: Codable, Equatable {
 	let validityState: HealthCertificateValidityState
 	let didShowInvalidNotification: Bool
 	let didShowBlockedNotification: Bool
+	let didShowRevokedNotification: Bool
 	let isNew: Bool
 	let isValidityStateNew: Bool
+	let revocationEntries: HealthCertificateRevocationEntries?
 	var error: Error?
 
 }

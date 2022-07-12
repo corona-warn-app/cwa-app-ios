@@ -130,7 +130,9 @@ final class RiskProvider: RiskProviding {
 		set { consumersQueue.sync { _consumers = newValue } }
 	}
 
-	private var previousRisk: Risk? {
+	private var currentRisk: Risk? {
+		Log.info("RiskProvider: Create current risk.", log: .riskDetection)
+
 		guard let enfRiskCalculationResult = store.enfRiskCalculationResult,
 			  let checkinRiskCalculationResult = store.checkinRiskCalculationResult else {
 				  return nil
@@ -180,21 +182,15 @@ final class RiskProvider: RiskProviding {
 					switch result {
 					case .success:
 						// If key download succeeds, continue with the download of the trace warning packages
-						self.downloadTraceWarningPackages(with: appConfiguration, completion: { result in
-							switch result {
-							case .success:
-								// And only if both downloads succeeds, we can determine a risk.
-								self.determineRisk(userInitiated: userInitiated, appConfiguration: appConfiguration) { result in
-									switch result {
-									case .success(let risk):
-										self.successOnTargetQueue(risk: risk)
-									case .failure(let error):
-										self.failOnTargetQueue(error: error)
-									}
-									group.leave()
+						self.downloadTraceWarningPackages(with: appConfiguration, completion: { _ in
+							// The download of TraceWarningPackages may not interrupt or prevent the download of Diagnosis Keys. It may also not interrupt or prevent Exposure Detection from running.
+							self.determineRisk(userInitiated: userInitiated, appConfiguration: appConfiguration) { result in
+								switch result {
+								case .success(let risk):
+									self.successOnTargetQueue(risk: risk)
+								case .failure(let error):
+									self.failOnTargetQueue(error: error)
 								}
-							case .failure(let error):
-								self.failOnTargetQueue(error: error)
 								group.leave()
 							}
 						})
@@ -291,6 +287,8 @@ final class RiskProvider: RiskProviding {
 
 				switch result {
 				case .success(let exposureWindows):
+					Log.info("RiskProvider: Filter exposure windows by defaultedMaxEncounterAgeInDays: \(appConfiguration.riskCalculationParameters.defaultedMaxEncounterAgeInDays)", log: .riskDetection)
+
 					let windowsFilteredByAge = exposureWindows.filteredByAge(maxEncounterAgeInDays: appConfiguration.riskCalculationParameters.defaultedMaxEncounterAgeInDays)
 
 					self.calculateRiskLevel(
@@ -321,7 +319,7 @@ final class RiskProvider: RiskProviding {
 		Log.info("RiskProvider: Precondition fulfilled for fresh risk detection: shouldDetectExposureBecauseOfNewPackagesConsideringDetectionMode = \(shouldDetectExposureBecauseOfNewPackagesConsideringDetectionMode)", log: .riskDetection)
 		
 		if !enoughTimeHasPassed || !shouldDetectExposures || !shouldDetectExposureBecauseOfNewPackagesConsideringDetectionMode,
-		   let previousRisk = previousRisk {
+		   let previousRisk = currentRisk {
 			Log.info("RiskProvider: Not calculating new risk, using result of most recent risk calculation", log: .riskDetection)
 			return previousRisk
 		}
@@ -390,7 +388,7 @@ final class RiskProvider: RiskProviding {
 			previousCheckinCalculationResult: store.checkinRiskCalculationResult
 		)
 
-		let previousRisk = previousRisk
+		let previousRisk = currentRisk
 		store.enfRiskCalculationResult = enfRiskCalculationResult
 		store.checkinRiskCalculationResult = checkinRiskCalculationResult
 
@@ -418,19 +416,21 @@ final class RiskProvider: RiskProviding {
 		/// Triggers a notification for every risk level change.
 		switch risk.riskLevelChange {
 		case .decreased:
-			Log.info("decrease risk change state won't trigger a high risk notification")
+			Log.info("Trigger notification about decreased risk level", log: .riskDetection)
+			triggerRiskChangeNotification()
 		case .increased:
-			triggerHighRiskNotification()
+			Log.info("Trigger notification about increased risk level", log: .riskDetection)
+			triggerRiskChangeNotification()
 		case let .unchanged(riskLevel):
 			guard riskLevel == .high,
 				  let mostRecentDateWithRiskLevel = risk.details.mostRecentDateWithRiskLevel,
 				  let previousMostRecentDateWithRiskLevel = previousRisk?.details.mostRecentDateWithRiskLevel,
-				  mostRecentDateWithRiskLevel > previousMostRecentDateWithRiskLevel
+				  mostRecentDateWithRiskLevel.ageInDays ?? 0 < previousMostRecentDateWithRiskLevel.ageInDays ?? 0
 			else {
 				Log.info("Missing mostRecentDateWithRiskLevel - do not trigger anything")
 				return
 			}
-			triggerHighRiskNotification()
+			triggerRiskChangeNotification()
 			// store a flag so we know an alert is required
 			switch UIApplication.shared.applicationState {
 			case .active:
@@ -443,8 +443,7 @@ final class RiskProvider: RiskProviding {
 		}
 	}
 
-	private func triggerHighRiskNotification() {
-		Log.info("Trigger notification about high risk level", log: .riskDetection)
+	private func triggerRiskChangeNotification() {
 		UNUserNotificationCenter.current().presentNotification(
 			title: AppStrings.LocalNotifications.detectExposureTitle,
 			body: AppStrings.LocalNotifications.detectExposureBody,
@@ -485,7 +484,7 @@ final class RiskProvider: RiskProviding {
     }
 
 	private func successOnTargetQueue(risk: Risk) {
-		Log.info("RiskProvider: Risk detection and calculation was successful.", log: .riskDetection)
+		Log.info("RiskProvider: Risk detection and calculation was successful. Provide risk to consumers: \(risk)", log: .riskDetection)
 
 		updateActivityState(.idle)
 
@@ -511,7 +510,7 @@ final class RiskProvider: RiskProviding {
 			let enError = reason as? ENError,
 			enError.code == .rateLimited || enError.code == .dataInaccessible,
 			/// only if a previous risk exists we can try to give a fallback
-			let previousRisk = previousRisk,
+			let previousRisk = currentRisk,
 			/// if previous risk is 48h old it's a valid fallback
 			let calculationDate = previousRisk.details.calculationDate,
 			let validityDate = Calendar.current.date(byAdding: riskProvidingConfiguration.exposureDetectionValidityDuration, to: calculationDate),
