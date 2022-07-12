@@ -212,6 +212,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	
 	func applicationWillTerminate(_ application: UIApplication) {
 		Log.info("Application will terminate.", log: .appLifecycle)
+		
+		// Removing pdf documents from temporary directory
+		FileManager.default.clearTemporaryDirectory()
 	}
 
 	func applicationDidBecomeActive(_ application: UIApplication) {
