@@ -36,6 +36,7 @@ final class HTMLView: WKWebView {
 		backgroundColor = nil
 		isOpaque = false
 		scrollView.isScrollEnabled = false
+		isAccessibilityElement = true
 
 		accessibilityIdentifier = AccessibilityIdentifiers.General.webView
 		scrollView.delegate = self

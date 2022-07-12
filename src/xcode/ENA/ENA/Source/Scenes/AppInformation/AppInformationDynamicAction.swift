@@ -55,7 +55,8 @@ extension DynamicAction {
 
 	static func push(htmlModel: HtmlInfoModel, withTitle title: String, completion: (() -> Void)? = nil) -> Self {
 		.execute { viewController, _ in
-			let htmlViewController = HTMLViewController(model: htmlModel)
+			let htmlViewController = NewHTMLViewController(model: htmlModel)
+//			let htmlViewController = HTMLViewController(model: htmlModel)
 			htmlViewController.dismissHandeling = completion
 			htmlViewController.title = title
 			
