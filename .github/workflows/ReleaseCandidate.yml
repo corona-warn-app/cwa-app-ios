@@ -83,6 +83,7 @@ jobs:
       - name: swtich to testing environment
         env:
             ENVIRONMENTS_FILE_URL: '${{ secrets.ENVIRONMENTS_FILE_URL }}'
+            ENVIRONMENTS_WRU_FILE_URL: '${{ secrets.ENVIRONMENTS_WRU_FILE_URL }}'
             GITHUB_ACCESS_TOKEN: '${{ secrets.ACCESS_TOKEN_GITHUB }}'
         run: |
           ./scripts/switch_to_dev_env.sh
