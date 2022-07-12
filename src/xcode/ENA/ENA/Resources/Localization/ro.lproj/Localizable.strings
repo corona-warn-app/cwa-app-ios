@@ -116,8 +116,6 @@
 
 "ExposureDetection_Guide_Symptoms" = "Fiți vigilent pentru depistarea simptomelor specifice. Chiar și persoanele vaccinate și cele care au trecut prin boală pot prezenta simptome. Dacă vă simțiți rău sau dacă apar simptome, contactați medicul de familie.";
 
-"ExposureDetection_Guide_Home" = "Dacă este posibil, mergeți acasă și rămâneți în casă și, de asemenea, evitați întâlnirile cu persoane din afara gospodăriei dvs.";
-
 "ExposureDetection_Guide_Hotline" = "Dacă aveți alte întrebări, vă rugăm să sunați la 116 117 (în Germania). Apoi, în timpul mesajului automat, apăsați tasta 2 pentru punctul de asistență al Ministerului Federal al Sănătății. Apăsați tasta 1 (serviciul de urgență medical general), doar dacă aveți simptome.";
 
 "ExposureDetection_Guide_Vaccination_HighRisk" = "Dacă încă nu v-ați vaccinat, consultați telefonic medicul de familie după ce vă testați.";
@@ -209,14 +207,6 @@
 "ExposureDetection_Info_Contagion_Point2" = "Lucratul de acasă: dacă puteți, lucrați de acasă.";
 
 "ExposureDetection_Info_Contagion_Point3" = "Cumpărăturile: comandați online produse sau rugați pe cineva să facă cumpărăturile pentru dvs.";
-
-"ExposureDetection_Info_Contagion_Point4" = "Transportul public: evitați transportul public pe cât posibil, în special în orele de vârf.";
-
-"ExposureDetection_Info_Contagion_Point5" = "Deplasările: nu călătoriți cu avionul sau trenul.";
-
-"ExposureDetection_Info_Contagion_Point6" = "Dacă aveți întrebări despre măsurile de carantină, contactați departamentul aferent de sănătate publică. Pentru mai multe informații, consultați pagina noastră de întrebări frecvente privind măsurile de carantină.";
-
-"ExposureDetection_Info_Contagion_Point6_LinkText" = "Pentru mai multe informații, consultați pagina noastră de întrebări frecvente privind măsurile de carantină.";
 
 "ExposureDetection_Info_Contagion_Footer" = "Informații suplimentare despre autocarantina voluntară sunt disponibile pe pagina noastră de întrebări frecvente.";
 
