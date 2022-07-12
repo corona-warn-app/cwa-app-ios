@@ -1716,11 +1716,11 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "NewVersionFeatures_Info_about_abb_information" = "Änderungen zum Release finden Sie in den App-Informationen unter dem Menüpunkt „Neue Funktionen”.";
 
-/* Version 2.24 */
+/* Version 2.25 */
 
-"NewVersionFeature_224_batch_export_title" = "Zertifikate exportieren";
+"NewVersionFeature_225_adjust_recommendations_title" = "Verhaltensempfehlungen aktualisiert";
 
-"NewVersionFeature_224_batch_export_description" = "Sie können in einem Schritt alle in Ihrer App vorhandenen Zertifikate in einem gemeinsamen PDF-Dokument speichern.";
+"NewVersionFeature_225_adjust_recommendations_description" = "Die Verhaltensempfehlungen bei  erhöhten Risiko wurden aktualisiert. Das betrifft unter anderem Empfehlungen zur Reduktion von Kontakten oder dem Tragen von Masken. Angepasst wurden auch die Empfehlungen bei niedrigem Risiko.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Länderübergreifende Risiko-Ermittlung";
