@@ -489,7 +489,6 @@ final class HealthCertificateCoordinator {
 		exportItem: PDFExportItem
 	) {
 		let activityViewController = UIActivityViewController(activityItems: [exportItem], applicationActivities: nil)
-
 		printNavigationController.present(activityViewController, animated: true, completion: nil)
 	}
 	

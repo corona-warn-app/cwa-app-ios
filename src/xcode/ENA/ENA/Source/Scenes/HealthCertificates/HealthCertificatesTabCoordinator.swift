@@ -539,7 +539,6 @@ final class HealthCertificatesTabCoordinator {
 		exportItem: PDFExportItem
 	) {
 		let activityViewController = UIActivityViewController(activityItems: [exportItem], applicationActivities: nil)
-		
 		self.printNavigationController.present(activityViewController, animated: true, completion: nil)
 	}
 	
