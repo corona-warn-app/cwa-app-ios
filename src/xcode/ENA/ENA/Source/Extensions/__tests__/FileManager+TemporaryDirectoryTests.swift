@@ -55,10 +55,10 @@ class FileManager_TemporaryDirectoryTests: CWATestCase {
 		var updatedTemporaryDirectory = try FileManager.default.contentsOfDirectory(atPath: temporaryDirectoryURL.path)
 		XCTAssertEqual(updatedTemporaryDirectory.count, 1)
 		
+		// removing all pdf documents
 		FileManager.default.removePDFsFromTemporaryDirectory()
 		
 		updatedTemporaryDirectory = try FileManager.default.contentsOfDirectory(atPath: temporaryDirectoryURL.path)
-		
 		XCTAssertEqual(updatedTemporaryDirectory.count, 0)
 	}
 	
