@@ -1720,7 +1720,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "NewVersionFeature_225_adjust_recommendations_title" = "Verhaltensempfehlungen aktualisiert";
 
-"NewVersionFeature_225_adjust_recommendations_description" = "Die Verhaltensempfehlungen bei erhöhten Risiko wurden aktualisiert. Das betrifft unter anderem Empfehlungen zur Reduktion von Kontakten oder dem Tragen von Masken. Angepasst wurden auch die Empfehlungen bei niedrigem Risiko.";
+"NewVersionFeature_225_adjust_recommendations_description" = "Die Verhaltensempfehlungen bei erhöhtem Risiko wurden aktualisiert. Das betrifft unter anderem Empfehlungen zur Reduktion von Kontakten oder dem Tragen von Masken. Angepasst wurden auch die Empfehlungen bei niedrigem Risiko.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Länderübergreifende Risiko-Ermittlung";
