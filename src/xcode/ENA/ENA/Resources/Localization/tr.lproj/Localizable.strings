@@ -116,8 +116,6 @@
 
 "ExposureDetection_Guide_Symptoms" = "Tipik belirtilere karşı dikkatli olun. Aşı olmuş ve daha önce hastalığı geçirmiş kişilerde bile belirtiler gelişebilir. Hasta hissederseniz ya da herhangi bir belirti gelişirse lütfen aile hekiminizle iletişime geçin.";
 
-"ExposureDetection_Guide_Home" = "Mümkünse lütfen eve gidin ve evde kalın ve beraber yaşadığınız kişiler haricinde başka insanlarla karşılaşmaktan kaçının.";
-
 "ExposureDetection_Guide_Hotline" = "Herhangi bir sorunuz varsa lütfen 116 117'yi (Almanya'da) arayın. Ardından otomatik mesaj sırasında, Federal Sağlık Bakanlığı hizmet noktası için 2'ye basın. Belirtileriniz varsa sadece 1'e (genel tıbbi acil servis) basın.";
 
 "ExposureDetection_Guide_Vaccination_HighRisk" = "Henüz aşı olmadıysanız test yaptırdıktan sonra aile hekiminize danışın.";
@@ -209,14 +207,6 @@
 "ExposureDetection_Info_Contagion_Point2" = "Evden çalışma: Yapabiliyorsanız evden çalışın.";
 
 "ExposureDetection_Info_Contagion_Point3" = "Alışveriş: Market alışverişlerinizi eve teslimat seçeneğiyle yapın veya bir başka kişiden sizin için alışveriş yapmasını isteyin.";
-
-"ExposureDetection_Info_Contagion_Point4" = "Toplu taşıma: Mümkün olduğunca, özellikle de yoğun saatlerde toplu taşıma kullanmaktan kaçının.";
-
-"ExposureDetection_Info_Contagion_Point5" = "Seyahat: Uçak veya trenle seyahat etmeyin.";
-
-"ExposureDetection_Info_Contagion_Point6" = "Karantina önlemleri hakkında sorularınız varsa lütfen kamu sağlığı departmanınızla iletişime geçin. Daha fazla bilgi için lütfen karantina önlemleri hakkında SSS sayfamıza bakın.";
-
-"ExposureDetection_Info_Contagion_Point6_LinkText" = "Daha fazla bilgi için lütfen karantina önlemleri hakkında SSS sayfamıza bakın.";
 
 "ExposureDetection_Info_Contagion_Footer" = "Gönüllü bireysel karantina hakkında SSS sayfamızda ek bilgiler bulunmaktadır:";
 

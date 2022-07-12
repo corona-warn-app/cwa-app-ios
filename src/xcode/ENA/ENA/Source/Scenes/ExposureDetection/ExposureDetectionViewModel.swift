@@ -473,8 +473,8 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 						accessibilityIdentifier: AccessibilityIdentifiers.ExposureDetection.detailsGuideHygiene
 					),
 					.guide(
-						text: AppStrings.ExposureDetection.guideHome,
-						image: UIImage(named: "Icons - Home"),
+						text: AppStrings.ExposureDetection.guideReduceContacts,
+						image: UIImage(named: "Icons - ErhohtesRisiko"),
 						accessoryType: .detailButton,
 						accessoryAction: .execute(block: { [weak self] _, _ in
 							self?.onRiskOfContagionInfoButtonTap()
@@ -497,7 +497,17 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 								link: AppStrings.Links.exposureDetectionFAQ
 							)
 						]),
-					.guide(text: AppStrings.ExposureDetection.guideVaccinationHighRisk, image: UIImage(named: "Icons - VaccinatedArm")),
+					.guide(
+						titleText: NSAttributedString(string: AppStrings.ExposureDetection.guideVaccinationHighRisk),
+						titleImage: UIImage(named: "Icons - VaccinatedArm"),
+						linkedTexts: [
+							LinkedText(
+								text: AppStrings.ExposureDetection.guideVaccinationHighRisk_LinkText,
+								linkText: AppStrings.ExposureDetection.guideVaccinationHighRisk_LinkText,
+								link: AppStrings.Links.stikoVaccinationRecommendations
+							)
+						]
+					),
 					.guide(text: AppStrings.ExposureDetection.guideHotline, image: UIImage(named: "Icons - Hotline"))
 				]
 			),
@@ -620,7 +630,7 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 		accessibilityIdentifier: String?
 	) -> DynamicSection {
 		let p0 = String(
-			format: AppStrings.ExposureDetection.tracingParagraph0,
+			format: AppStrings.ExposureDetection.tracingText,
 			maxEncounterAgeInDays
 		)
 

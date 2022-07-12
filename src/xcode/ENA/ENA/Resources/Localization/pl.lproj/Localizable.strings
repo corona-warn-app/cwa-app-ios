@@ -116,8 +116,6 @@
 
 "ExposureDetection_Guide_Symptoms" = "Zwróć uwagę na typowe objawy. Objawy mogą wystąpić nawet u osób zaszczepionych i ozdrowieńców. Jeśli poczujesz się źle lub zauważysz jakiekolwiek objawy, skontaktuj się z lekarzem rodzinnym.";
 
-"ExposureDetection_Guide_Home" = "Jeśli to możliwe, idź do domu i w nim pozostań. Unikaj wszelkich spotkań poza domem.";
-
 "ExposureDetection_Guide_Hotline" = "W razie jakichkolwiek innych pytań zadzwoń na numer 116 117 (w Niemczech). Następnie w trakcie automatycznego komunikatu naciśnij 2 (punkt Związkowego Ministerstwa Zdrowia). Naciśnij 1 (pogotowie ratunkowe) tylko, jeśli masz objawy.";
 
 "ExposureDetection_Guide_Vaccination_HighRisk" = "Jeśli nie jesteś jeszcze zaszczepiony(-a), skonsultuj się z lekarzem rodzinnym po wykonaniu testu.";
@@ -209,14 +207,6 @@
 "ExposureDetection_Info_Contagion_Point2" = "Praca zdalna: Jeśli masz taką możliwość, pracuj w domu.";
 
 "ExposureDetection_Info_Contagion_Point3" = "Zakupy: Zamawiaj dostawy zakupy w sklepach spożywczych lub poproś kogoś, aby Ci je zrobił.";
-
-"ExposureDetection_Info_Contagion_Point4" = "Transport publiczny: W miarę możliwości unikaj środków komunikacji publicznej, szczególnie w godzinach szczytu.";
-
-"ExposureDetection_Info_Contagion_Point5" = "Podróżowanie: Nie podróżuj samolotem ani pociągiem.";
-
-"ExposureDetection_Info_Contagion_Point6" = "W przypadku pytań dotyczących kwarantanny skontaktuj się z departamentem zdrowia publicznego. Więcej informacji znajduje się na naszej stronie „Często zadawane pytania” dotyczącej kwarantanny.";
-
-"ExposureDetection_Info_Contagion_Point6_LinkText" = "Więcej informacji znajduje się na naszej stronie „Często zadawane pytania” dotyczącej kwarantanny.";
 
 "ExposureDetection_Info_Contagion_Footer" = "Dodatkowe informacje są dostępne na stronie „Często zadawane pytania” dotyczącej dobrowolnej samoizolacji.";
 
