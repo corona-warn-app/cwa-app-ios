@@ -61,6 +61,12 @@ class HealthCertificatePDFVersionViewController: DynamicTableViewController, UIA
 			dismissHandlingNC.restoreOriginalNavigationBar()
 		}
 	}
+	
+	override func viewWillDisappear(_ animated: Bool) {
+		super.viewWillDisappear(animated)
+		
+		FileManager.default.clearTemporaryDirectory()
+	}
 
 	// MARK: - Protocol UIActivityItemSource
 

@@ -160,12 +160,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 
 		UIDevice.current.isBatteryMonitoringEnabled = true
 
-		// some delegates
+		// Setting delegates
 		taskScheduler.delegate = taskExecutionDelegate
 		UNUserNotificationCenter.current().delegate = notificationManager
 
-		/// Setup DeadmanNotification after AppLaunch
+		// Setup DeadmanNotification after AppLaunch
 		DeadmanNotificationManager().scheduleDeadmanNotificationIfNeeded()
+
+		// Removing pdf documents from temporary directory
+		FileManager.default.clearTemporaryDirectory()
 
 		consumer.didFailCalculateRisk = { [weak self] error in
 			if self?.store.isOnboarded == true {
