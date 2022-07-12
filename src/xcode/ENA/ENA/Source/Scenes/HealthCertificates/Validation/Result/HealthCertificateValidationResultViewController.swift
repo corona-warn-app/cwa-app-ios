@@ -44,14 +44,18 @@ class HealthCertificateValidationResultViewController: DynamicTableViewControlle
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 		
-		navigationController?.setupTransparentNavigationBar()
+		DispatchQueue.main.async { [weak self] in
+			self?.navigationController?.setupTransparentNavigationBar()
+		}
 		setupStatusBarViewBackgroundColorIfNeeded()
 	}
 
 	override func viewWillDisappear(_ animated: Bool) {
 		super.viewWillDisappear(animated)
 		
-		navigationController?.restoreOriginalNavigationBar()
+		DispatchQueue.main.async { [weak self] in
+			self?.navigationController?.restoreOriginalNavigationBar()
+		}
 		revertStatusBarViewBackgroundColorIfNeeded()
 	}
 
