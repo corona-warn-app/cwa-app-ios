@@ -288,6 +288,9 @@ class HomeCoordinator: RequiresAppDependencies {
 			}
 		)
 		addToEnStateUpdateList(vc)
+		
+		guard !rootViewController.viewControllers.contains(where: { $0 is ExposureNotificationSettingViewController }) else { return }
+		
 		rootViewController.pushViewController(vc, animated: true)
 	}
 
