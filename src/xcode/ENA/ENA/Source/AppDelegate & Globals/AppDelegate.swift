@@ -168,7 +168,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		DeadmanNotificationManager().scheduleDeadmanNotificationIfNeeded()
 
 		// Removing pdf documents from temporary directory
-		FileManager.default.clearTemporaryDirectory()
+		FileManager.default.removePDFsFromTemporaryDirectory()
 
 		consumer.didFailCalculateRisk = { [weak self] error in
 			if self?.store.isOnboarded == true {
@@ -214,7 +214,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		Log.info("Application will terminate.", log: .appLifecycle)
 		
 		// Removing pdf documents from temporary directory
-		FileManager.default.clearTemporaryDirectory()
+		FileManager.default.removePDFsFromTemporaryDirectory()
 	}
 
 	func applicationDidBecomeActive(_ application: UIApplication) {

@@ -5,7 +5,7 @@
 import Foundation
 
  extension FileManager {
-	func clearTemporaryDirectory() {
+	func removePDFsFromTemporaryDirectory() {
 		do {
 			let temporaryDirectoryURL = FileManager.default.temporaryDirectory
 			let temporaryDirectory = try FileManager.default.contentsOfDirectory(atPath: temporaryDirectoryURL.path)

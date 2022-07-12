@@ -65,7 +65,7 @@ class HealthCertificatePDFVersionViewController: DynamicTableViewController, UIA
 	override func viewWillDisappear(_ animated: Bool) {
 		super.viewWillDisappear(animated)
 		
-		FileManager.default.clearTemporaryDirectory()
+		FileManager.default.removePDFsFromTemporaryDirectory()
 	}
 
 	// MARK: - Protocol UIActivityItemSource
