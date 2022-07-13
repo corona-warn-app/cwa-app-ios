@@ -198,6 +198,7 @@ extension DynamicCell {
 	static func iconWithLinkText(
 			_ image: UIImage?,
 			imageAlignment: ImageAlignment = .left,
+			imageTintColor: UIColor? = nil,
 			text: String,
 			links: [ENALinkedTextView.Link],
 			tintColor: UIColor? = .enaColor(for: .tint),
@@ -219,6 +220,7 @@ extension DynamicCell {
 				cell.configure(
 					image: image,
 					imageAlignment: imageAlignment,
+					imageTintColor: imageTintColor,
 					text: text,
 					links: links,
 					customTintColor: tintColor,

@@ -85,6 +85,20 @@ final class RiskProvider: RiskProviding {
 			return
 		}
 		#endif
+		
+		/* Manuel risk for red card*/
+		let risk = Risk(
+		  level: .high,
+		  details: .init(
+			mostRecentDateWithRiskLevel: Date(),
+			numberOfDaysWithRiskLevel: 2,
+			calculationDate: Date()
+		  ),
+		  riskLevelChange: .increased
+		)
+		
+		self.successOnTargetQueue(risk: risk)
+		return
 
 		Log.info("RiskProvider: Request risk was called. UserInitiated: \(userInitiated)", log: .riskDetection)
 
