@@ -1056,7 +1056,7 @@ class ExposureDetectionViewModelTests: CWATestCase {
 		XCTAssertEqual(section.cells[4].cellReuseIdentifier.rawValue, "guideCell")
 		XCTAssertEqual(section.cells[5].cellReuseIdentifier.rawValue, "guideCell")
 		XCTAssertEqual(section.cells[6].cellReuseIdentifier.rawValue, "longGuideCell")
-		XCTAssertEqual(section.cells[7].cellReuseIdentifier.rawValue, "longGuideCell")
+		XCTAssertEqual(section.cells[7].cellReuseIdentifier.rawValue, "iconWithLinkText")
 		XCTAssertEqual(section.cells[8].cellReuseIdentifier.rawValue, "guideCell")
 
 		// Tracing section
@@ -1101,7 +1101,7 @@ class ExposureDetectionViewModelTests: CWATestCase {
 		XCTAssertEqual(section.cells[4].cellReuseIdentifier.rawValue, "guideCell")
 		XCTAssertEqual(section.cells[5].cellReuseIdentifier.rawValue, "guideCell")
 		XCTAssertEqual(section.cells[6].cellReuseIdentifier.rawValue, "longGuideCell")
-		XCTAssertEqual(section.cells[7].cellReuseIdentifier.rawValue, "longGuideCell")
+		XCTAssertEqual(section.cells[7].cellReuseIdentifier.rawValue, "iconWithLinkText")
 		XCTAssertEqual(section.cells[8].cellReuseIdentifier.rawValue, "guideCell")
 
 		// Survey section
