@@ -106,19 +106,23 @@
 
 "ExposureDetection_Guide_Hands" = "Regularnie myj ręce mydłem przez 20 sekund.";
 
-"ExposureDetection_Guide_Mask" = "Załóż maseczkę na twarz, mając kontakt z innymi osobami.";
+"ExposureDetection_Guide_Mask" = "Noś maseczkę podczas kontaktów z innymi osobami w pomieszczeniach i wszędzie tam, gdzie jest to prawnie wymagane lub zalecane.";
 
-"ExposureDetection_Guide_Distance" = "Zachowuj odległość co najmniej 1,5 metra od innych osób.";
+"ExposureDetection_Guide_Distance" = "W miarę możliwości zachowuj odległość co najmniej 1,5 metra od innych osób.";
 
 "ExposureDetection_Guide_Sneeze" = "Kichaj i kaszl w łokieć lub chusteczkę.";
 
 "ExposureDetection_Guide_Ventilation" = "Wietrz pomieszczenia kilka razy dziennie. W tym celu maksymalnie otwórz okna na kilka minut („wentylacja szokowa”).";
 
-"ExposureDetection_Guide_Symptoms" = "Zwróć uwagę na typowe objawy. Objawy mogą wystąpić nawet u osób zaszczepionych i ozdrowieńców. Jeśli poczujesz się źle lub zauważysz jakiekolwiek objawy, skontaktuj się z lekarzem rodzinnym.";
+"ExposureDetection_Guide_Symptoms" = "Zwróć uwagę na typowe objawy. Objawy mogą wystąpić nawet u osób zaszczepionych i ozdrowieńców. Jeśli poczujesz się źle lub zauważysz jakiekolwiek objawy, ogranicz kontakty z innymi osobami, zostać w domu i skontaktuj się z lekarzem rodzinnym.";
+
+"ExposureDetection_Guide_ReduceContacts" = "W miarę możliwości prosimy o ograniczenie kontaktów z innymi osobami, zwłaszcza z osobami szczególnie zagrożonymi, takimi jak osoby starsze, osoby z chorobami współistniejącymi, osoby z obniżoną odpornością.";
 
 "ExposureDetection_Guide_Hotline" = "W razie jakichkolwiek innych pytań zadzwoń na numer 116 117 (w Niemczech). Następnie w trakcie automatycznego komunikatu naciśnij 2 (punkt Związkowego Ministerstwa Zdrowia). Naciśnij 1 (pogotowie ratunkowe) tylko, jeśli masz objawy.";
 
 "ExposureDetection_Guide_Vaccination_HighRisk" = "Jeśli nie jesteś jeszcze zaszczepiony(-a), skonsultuj się z lekarzem rodzinnym po wykonaniu testu.";
+
+"ExposureDetection_Guide_Vaccination_HighRisk_LinkText" = "Zalecenia dotyczące szczepień znajdują się na stronie STIKO.";
 
 "ExposureDetection_Guide_Title" = "Przetestuj się, użyj na przykład szybkiego testu lub testu domowego, najlepiej kilka razy co dwa dni. Jeśli otrzymasz pozytywny wynik, przeprowadź test PCR.";
 
@@ -148,7 +152,7 @@
 
 "ExposureDetection_Explanation_Text_High_DateOfLastExposure" = "Masz podwyższone ryzyko zakażenia, ponieważ byłeś(-aś) narażony(-a) na dłuższy, bliski kontakt z co najmniej jedną osobą, u której zdiagnozowano koronawirusa.";
 
-"ExposureDetection_Explanation_Text_High" = "Dlatego Twoje ryzyko zakażenia zostało ocenione jako podwyższone.\nRyzyko zakażenia jest obliczane na podstawie danych rejestrowania narażenia (czas trwania i bliskość kontaktu) lokalnie w urządzeniu. Twoje ryzyko zakażenia nie jest widoczne dla nikogo ani nikomu przekazywane.";
+"ExposureDetection_Explanation_Text_High" = "Ryzyko zakażenia jest obliczane na podstawie danych rejestrowania narażenia (czas trwania i bliskość kontaktu) lokalnie w smartfonie. Twoje ryzyko zakażenia nie jest widoczne dla nikogo ani nikomu przekazywane.";
 
 "ExposureDetection_LowRiskExposure_Title" = "Narażenia z niskim ryzykiem";
 
@@ -202,15 +206,15 @@
 
 "ExposureDetection_Info_Contagion_TitleImage_Description" = "Osoba siedzi na kanapie i czyta książkę. Inna osoba patrzy na swojego smartfona.";
 
-"ExposureDetection_Info_Contagion_Point1" = "Spotkania i imprezy: Unikaj wizyt i zajęć, które wiążą się z przebywaniem w dużych grupach z innymi osobami (kluby, bary, restauracje, kina, teatry, imprezy sportowe).";
+"ExposureDetection_Info_Contagion_Point1" = "Spotkania i imprezy: Unikaj wizyt i zajęć, które wiążą się z przebywaniem w dużych grupach osób w pomieszczeniach zamkniętych lub w grupach osób szczególnie zagrożonych, takich jak osoby starsze, osoby z chorobami współistniejącymi i osoby o obniżonej odporności.";
 
 "ExposureDetection_Info_Contagion_Point2" = "Praca zdalna: Jeśli masz taką możliwość, pracuj w domu.";
 
-"ExposureDetection_Info_Contagion_Point3" = "Zakupy: Zamawiaj dostawy zakupy w sklepach spożywczych lub poproś kogoś, aby Ci je zrobił.";
+"ExposureDetection_Info_Contagion_Point3" = "Transport publiczny: W miarę możliwości unikaj środków komunikacji publicznej, szczególnie w godzinach szczytu i noś maseczkę.";
 
-"ExposureDetection_Info_Contagion_Footer" = "Dodatkowe informacje są dostępne na stronie „Często zadawane pytania” dotyczącej dobrowolnej samoizolacji.";
+"ExposureDetection_Info_Contagion_Footer" = "Dodatkowe informacje są dostępne na stronie „Często zadawane pytania” dotyczącej kwarantanny i dobrowolnej samoizolacji.";
 
-"ExposureDetection_Info_Contagion_Footer_LinkText" = "Dodatkowe informacje są dostępne na stronie „Często zadawane pytania” dotyczącej dobrowolnej samoizolacji.";
+"ExposureDetection_Info_Contagion_Footer_LinkText" = "Dodatkowe informacje są dostępne na stronie „Często zadawane pytania” dotyczącej kwarantanny i dobrowolnej samoizolacji.";
 
 /* Survey Errors */
 "SurveyConsent_Error_Title" = "Błąd";
@@ -257,8 +261,7 @@
 
 "ExposureDetection_ActiveTracingSection_Subtitle" = "Ten okres jest uwzględniony w obliczeniu.";
 
-/* There are two paragraphs in this section. The first one just contains text… */
-"ExposureDetection_ActiveTracingSection_Text_Paragraph0" = "Ryzyko zakażenia można obliczyć tylko dla okresów, w których rejestrowanie narażenia było aktywne. Dlatego też funkcja rejestrowania powinna być stale aktywna. Rejestrowanie narażenia obejmuje %u ostatnie(-ch) dni.";
+"ExposureDetection_ActiveTracingSection_Text" = "Jeśli rejestrowanie narażenia jest aktywne, aplikacja oblicza Twoje osobiste ryzyko zakażenia poprzez pomiar czasu trwania i bliskości Twojego kontaktu z osobami, u których zdiagnozowano koronawirusa w ciągu ostatnich %u dni. Rejestrowanie narażenia uwzględnia również Twoje zameldowania. Otrzymasz ostrzeżenie, jeśli przebywałeś(-aś) w tym samym pomieszczeniu w tym samym czasie, co osoba, u której zdiagnozowano koronawirusa, lub do 30 minut po opuszczeniu pomieszczenia przez taką osobę.";
 
 "ExposureDetection_ActiveTracingSection_Text_Paragraph1b" = "Jeśli rejestrowanie narażenia było aktywne podczas kontaktowania się z innymi ludźmi, można obliczyć ryzyko zakażenia dla tego okresu.";
 
@@ -1655,10 +1658,10 @@
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Dane o zmianach w tej wersji można znaleźć w informacjach o aplikacji w sekcji „Nowe funkcje”.";
 
-/* Version 2.24 */
-"NewVersionFeature_224_batch_export_title" = "Eksportuj certyfikaty";
+/* Version 2.25 */
+"NewVersionFeature_225_adjust_recommendations_title" = "Zaktualizowano zalecane postępowanie";
 
-"NewVersionFeature_224_batch_export_description" = "Możesz zapisać wszystkie certyfikaty w swojej aplikacji w jednym dokumencie PDF w ramach jednego kroku.";
+"NewVersionFeature_225_adjust_recommendations_description" = "Zaktualizowano zalecane postępowanie w przypadku podwyższonego ryzyka. Zalecenia obejmują m.in. ograniczenie kontaktów z innymi osobami oraz noszenie maseczki. Zaktualizowano również zalecenia dla osób o niskim ryzyku.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Rejestrowanie narażenia w różnych krajach";
@@ -2908,6 +2911,8 @@
 
 "CovPass_Check_Info_text03" = "Należy pamiętać, że osoby trzecie w innych krajach mogą używać innych aplikacji do weryfikacji certyfikatów.";
 
+"CovPass_Check_Info_text04" = "Prosimy o posiadanie przy sobie ważnego dokumentu tożsamości ze zdjęciem podczas weryfikacji certyfikatu.";
+
 /* Health Certified Person Screen */
 "HealthCertificate_unified_QR_code_notice" = "Ten kod QR można wiarygodnie zweryfikować za pomocą aplikacji CovPassCheck.";
 
@@ -3259,7 +3264,7 @@
 
 "HealthCertificate_Reissuance_Consent_Bullet_Point_1" = "Odnawianie certyfikatów jest dobrowolne i bezpłatne.";
 
-"HealthCertificate_Reissuance_Consent_Bullet_Point_2" = "Aby certyfikaty mogły być odnawiane tylko raz, identyfikatory starych i nowych certyfikatów są dokumentowane przez RKI. Pozostałe dane z certyfikatów są usuwane przez RKI natychmiast po odnowieniu.";
+"HealthCertificate_Reissuance_Consent_Bullet_Point_2" = "Aby certyfikaty mogły być odnawiane tylko w ograniczonym zakresie, identyfikatory starych i nowych certyfikatów są dokumentowane przez RKI. Pozostałe dane z certyfikatów są usuwane przez RKI natychmiast po odnowieniu.";
 
 "HealthCertificate_Reissuance_Consent_Bullet_Point_3" = "Przed odnowieniem certyfikatów dla członków rodziny upewnij się, że dana osoba wyraża na to zgodę.";
 
