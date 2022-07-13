@@ -106,19 +106,23 @@
 
 "ExposureDetection_Guide_Hands" = "Ellerinizi düzenli olarak 20 saniye sabunla yıkayın.";
 
-"ExposureDetection_Guide_Mask" = "Diğer insanlarla karşılaştığınızda yüz maskesi takın.";
+"ExposureDetection_Guide_Mask" = "Kapalı ortamlarda diğer insanlarla karşılaştığınızda ve yasal olarak gerekli görülen veya önerilen durumlarda yüz maskesi takın.";
 
-"ExposureDetection_Guide_Distance" = "Diğer insanlarla aranızda en az 1,5 metre mesafeyi koruyun.";
+"ExposureDetection_Guide_Distance" = "Mümkün olan durumlarda, diğer insanlarla aranızda en az 1,5 metre mesafeyi koruyun.";
 
 "ExposureDetection_Guide_Sneeze" = "Öksürürken ya da hapşırırken dirseğinizin iç kısmına dönün veya bir mendil kullanın.";
 
 "ExposureDetection_Guide_Ventilation" = "Kapalı alanları günde birkaç kez havalandırın. Bunun için, pencereleri birkaç dakika süreyle sonuna dek açın (“şok havalandırma”).";
 
-"ExposureDetection_Guide_Symptoms" = "Tipik belirtilere karşı dikkatli olun. Aşı olmuş ve daha önce hastalığı geçirmiş kişilerde bile belirtiler gelişebilir. Hasta hissederseniz ya da herhangi bir belirti gelişirse lütfen aile hekiminizle iletişime geçin.";
+"ExposureDetection_Guide_Symptoms" = "Tipik belirtilere karşı dikkatli olun. Aşı olmuş ve daha önce hastalığı geçirmiş kişilerde bile belirtiler gelişebilir. Hasta hissederseniz ya da herhangi bir belirti gelişirse, diğer insanlarla temasınızı azaltın, evde kalın ve aile hekiminizle iletişime geçin.";
+
+"ExposureDetection_Guide_ReduceContacts" = "Mümkünse lütfen başka insanlarla, özellikle yaşlılar, daha önceden rahatsızlıkları olan ve bağışıklık sistemi zayıf kişiler gibi özellikle risk altında olan kişilerle karşılaşmaktan kaçının.";
 
 "ExposureDetection_Guide_Hotline" = "Herhangi bir sorunuz varsa lütfen 116 117'yi (Almanya'da) arayın. Ardından otomatik mesaj sırasında, Federal Sağlık Bakanlığı hizmet noktası için 2'ye basın. Belirtileriniz varsa sadece 1'e (genel tıbbi acil servis) basın.";
 
 "ExposureDetection_Guide_Vaccination_HighRisk" = "Henüz aşı olmadıysanız test yaptırdıktan sonra aile hekiminize danışın.";
+
+"ExposureDetection_Guide_Vaccination_HighRisk_LinkText" = "Aşı önerileri için lütfen STIKO web sitesine bakın.";
 
 "ExposureDetection_Guide_Title" = "İki günlük aralıklarla tercihen birkaç kez, örneğin hızlı antijen testiyle ya da kendi kendine testleri (self testleri) kullanarak lütfen test yapın. Pozitif sonuç alırsanız sonucu doğrulamak için PCR testi yaptırın.";
 
@@ -148,7 +152,7 @@
 
 "ExposureDetection_Explanation_Text_High_DateOfLastExposure" = "Koronavirüs tanısı konan en az bir kişiyle daha uzun süreyle ve yakın mesafeden maruz kalma yaşadığınız için enfeksiyon riskiniz daha yüksektir.";
 
-"ExposureDetection_Explanation_Text_High" = "Bu nedenle enfeksiyon riskiniz daha yüksek olarak sınıflandırılmıştır.\nEnfeksiyon riskiniz, cihazınızda yerel olarak bulunan maruz kalma günlüğü verileri (süre ve mesafe) kullanılarak hesaplanır. Enfeksiyon riskiniz başkaları tarafından görüntülenemez veya başkalarına aktarılmaz.";
+"ExposureDetection_Explanation_Text_High" = "Enfeksiyon riskiniz, akıllı telefonunuzda yerel olarak bulunan maruz kalma günlüğü verileri (süre ve mesafe) kullanılarak hesaplanır. Enfeksiyon riskiniz başkaları tarafından görüntülenemez veya başkalarına aktarılmaz.";
 
 "ExposureDetection_LowRiskExposure_Title" = "Düşük riskli maruz kalmalar";
 
@@ -202,15 +206,15 @@
 
 "ExposureDetection_Info_Contagion_TitleImage_Description" = "Koltukta oturan ve kitap okuyan bir kişi. Akıllı telefonuna bakan başka bir kişi.";
 
-"ExposureDetection_Info_Contagion_Point1" = "Toplantılar ve etkinlikler: Başka kişilerle bir araya gelmeyi gerektiren ziyaretlerden ve aktivitelerden kaçının (kulüpler, barlar, restoranlar, sinemalar, tiyatrolar, spor etkinlikleri).";
+"ExposureDetection_Info_Contagion_Point1" = "Toplantılar ve etkinlikler: Kapalı ortamlarda çok sayıda kişiyle veya yaşlılar, daha önceden rahatsızlıkları olan ve bağışıklık sistemi zayıf kişiler gibi özellikle risk altında olan gruplarla bir araya gelmeyi gerektiren ziyaretlerden ve aktivitelerden kaçının.";
 
 "ExposureDetection_Info_Contagion_Point2" = "Evden çalışma: Yapabiliyorsanız evden çalışın.";
 
-"ExposureDetection_Info_Contagion_Point3" = "Alışveriş: Market alışverişlerinizi eve teslimat seçeneğiyle yapın veya bir başka kişiden sizin için alışveriş yapmasını isteyin.";
+"ExposureDetection_Info_Contagion_Point3" = "Toplu taşıma: Mümkün olduğunca, özellikle de yoğun saatlerde toplu taşıma kullanmaktan kaçının ve yüz maskesi takın.";
 
-"ExposureDetection_Info_Contagion_Footer" = "Gönüllü bireysel karantina hakkında SSS sayfamızda ek bilgiler bulunmaktadır:";
+"ExposureDetection_Info_Contagion_Footer" = "Karantina önlemleri ve gönüllü bireysel karantina hakkında SSS sayfamızda ek bilgiler bulunmaktadır.";
 
-"ExposureDetection_Info_Contagion_Footer_LinkText" = "Gönüllü bireysel karantina hakkında SSS sayfamızda ek bilgiler bulunmaktadır:";
+"ExposureDetection_Info_Contagion_Footer_LinkText" = "Karantina önlemleri ve gönüllü bireysel karantina hakkında SSS sayfamızda ek bilgiler bulunmaktadır.";
 
 /* Survey Errors */
 "SurveyConsent_Error_Title" = "Hata";
@@ -257,8 +261,7 @@
 
 "ExposureDetection_ActiveTracingSection_Subtitle" = "Bu dönem hesaplamaya dahil edildi.";
 
-/* There are two paragraphs in this section. The first one just contains text… */
-"ExposureDetection_ActiveTracingSection_Text_Paragraph0" = "Enfeksiyon riskiniz yalnızca maruz kalma günlüğünün etkin olduğu dönemler için hesaplanabilir. Bu nedenle günlüğe kaydetme özelliğinin sürekli etkin kalması gerekir. Maruz kalma günlüğü son %u günü kapsar.";
+"ExposureDetection_ActiveTracingSection_Text" = "Maruz kalma günlüğü etkin olduğunda uygulama kişisel enfeksiyon riskinizi hesaplar. Bunu, son %u günde koronavirüs tanısı almış kişilere maruz kalma sürenizi ve yakınlığınızı ölçerek gerçekleştirir. Maruz kalma günlüğü check-in'lerinizi de hesaba katar. Koronavirüs tanısı almış bir kişiyle aynı anda ya da koronavirüs tanısı almış bir kişiden 30 dakika sonra aynı yerde bulunmuşsanız size uyarı verilir.";
 
 "ExposureDetection_ActiveTracingSection_Text_Paragraph1b" = "Maruz kalma günlüğü başka insanlarla karşılaştığınız anlarda etkindiyse bu dönem için enfeksiyon riskiniz hesaplanabilir.";
 
@@ -1655,10 +1658,10 @@
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Bu sürümdeki değişiklikleri uygulama bilgilerinde “Yeni Özellikler” bölümünde bulabilirsiniz.";
 
-/* Version 2.24 */
-"NewVersionFeature_224_batch_export_title" = "Sertifikaları Dışa Aktar";
+/* Version 2.25 */
+"NewVersionFeature_225_adjust_recommendations_title" = "Önerilen Davranışlar Güncellendi";
 
-"NewVersionFeature_224_batch_export_description" = "Tüm sertifikalarınızı tek adımda bir PDF belgesi halinde uygulamanıza kaydedebilirsiniz.";
+"NewVersionFeature_225_adjust_recommendations_description" = "Artmış risk altındaysanız önerilen davranışlar güncellendi. Öneriler arasında başka insanlarla temasın azaltılması ve yüz maskesi takılması gibi önlemler yer alıyor. Düşük risk altındaki kişilere ilişkin öneriler de güncellendi.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Uluslararası Maruz Kalma Günlüğü";
@@ -2908,6 +2911,8 @@
 
 "CovPass_Check_Info_text03" = "Diğer ülkelerdeki üçüncü tarafların sertifika doğrulaması için farklı uygulamaları kullanabileceğini lütfen unutmayın.";
 
+"CovPass_Check_Info_text04" = "Sertifika doğrulaması sırasında lütfen geçerli bir fotoğraflı kimliği hazır bulundurun.";
+
 /* Health Certified Person Screen */
 "HealthCertificate_unified_QR_code_notice" = "Bu QR kod, CovPassCheck uygulaması ile güvenilir şekilde doğrulanabilir.";
 
@@ -3259,7 +3264,7 @@
 
 "HealthCertificate_Reissuance_Consent_Bullet_Point_1" = "Sertifikalarınızı yenilemeniz gönüllülük esasına bağlı ve ücretsiz bir işlemdir.";
 
-"HealthCertificate_Reissuance_Consent_Bullet_Point_2" = "Sertifikaların yalnızca bir kez güncellenebilmesini sağlamak adına eski ve yeni sertifikalarınızın tanıtıcısı RKI tarafından belgelenir. Sertifikalarınıza ilişkin diğer veriler, yenileme işleminin hemen ardından RKI tarafından silinir.";
+"HealthCertificate_Reissuance_Consent_Bullet_Point_2" = "Sertifikaların yalnızca sınırlı sayıda güncellenebilmesini sağlamak adına eski ve yeni sertifikalarınızın tanıtıcısı RKI tarafından belgelenir. Sertifikalarınıza ilişkin diğer veriler, yenileme işleminin hemen ardından RKI tarafından silinir.";
 
 "HealthCertificate_Reissuance_Consent_Bullet_Point_3" = "Aile üyelerine ait sertifikaları yenilemeden önce lütfen ilgili kişilerin izin verdiğinden emin olun.";
 
