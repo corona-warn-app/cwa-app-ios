@@ -121,7 +121,7 @@
 
 "ExposureDetection_Guide_Hotline" = "Bei Fragen rufen Sie die 116 117 an. Wählen Sie bei der Telefonansage dann die 2, um die Servicestelle des Bundesministeriums für Gesundheit zu erreichen. Nur bei Krankheitssymptomen wählen Sie die 1 (kassenärztlicher Bereitschaftsdienst).";
 
-"ExposureDetection_Guide_Vaccination_HighRisk" = "Sollten Sie bisher nicht geimpft sein, besprechen Sie nach der Testung die Impfung mit Ihrer Hausarztpraxis.";
+"ExposureDetection_Guide_Vaccination_HighRisk" = "Sollten Sie bisher nicht geimpft sein, besprechen Sie nach der Testung die Impfung mit Ihrer Hausarztpraxis. %@";
 
 "ExposureDetection_Guide_Vaccination_HighRisk_LinkText" = "Die Impf-Empfehlungen entnehmen Sie der STIKO-Webseite.";
 

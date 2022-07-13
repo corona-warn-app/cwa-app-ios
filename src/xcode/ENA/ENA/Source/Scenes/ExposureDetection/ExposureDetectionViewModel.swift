@@ -497,16 +497,20 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 								link: AppStrings.Links.exposureDetectionFAQ
 							)
 						]),
-					.guide(
-						titleText: NSAttributedString(string: AppStrings.ExposureDetection.guideVaccinationHighRisk),
-						titleImage: UIImage(named: "Icons - VaccinatedArm"),
-						linkedTexts: [
-							LinkedText(
+					.iconWithLinkText(
+						UIImage(named: "Icons - VaccinatedArm"),
+						imageTintColor: .enaColor(for: .brandRed),
+						text: String(
+							format: AppStrings.ExposureDetection.guideVaccinationHighRisk,
+							AppStrings.ExposureDetection.guideVaccinationHighRisk_LinkText
+						),
+						links: [
+							.init(
 								text: AppStrings.ExposureDetection.guideVaccinationHighRisk_LinkText,
-								linkText: AppStrings.ExposureDetection.guideVaccinationHighRisk_LinkText,
 								link: AppStrings.Links.stikoVaccinationRecommendations
 							)
-						]
+						],
+						alignment: .top
 					),
 					.guide(text: AppStrings.ExposureDetection.guideHotline, image: UIImage(named: "Icons - Hotline"))
 				]
