@@ -421,7 +421,6 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 		}
 		#endif
 		let resource = PPASubmitResource(
-			isFake: false,
 			forceApiTokenHeader: forceApiTokenHeader,
 			payload: payload,
 			ppacToken: ppacToken

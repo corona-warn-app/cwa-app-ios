@@ -30,7 +30,6 @@ final class HTTPClientSubmitAnalyticsDataTests: CWATestCase {
 		var isSuccess = false
 		
 		let ppaSubmitResource = PPASubmitResource(
-			isFake: false,
 			forceApiTokenHeader: false,
 			payload: payload,
 			ppacToken: ppacToken
@@ -65,29 +64,25 @@ final class HTTPClientSubmitAnalyticsDataTests: CWATestCase {
 		let ppacToken = PPACToken(apiToken: "APITokenFake", deviceToken: "DeviceTokenFake")
 		
 		let ppaSubmitResource = PPASubmitResource(
-			isFake: false,
 			forceApiTokenHeader: false,
 			payload: payload,
 			ppacToken: ppacToken
 		)
 
 		// WHEN
-		var expectedError: ServiceError<PPASubmitResourceError>?
-		
 		restService.load(ppaSubmitResource) { result in
 			switch result {
 			case .success:
 				XCTFail("This test should not success")
 			case .failure(let responseError):
-				expectedError = responseError
+				XCTAssertNotNil(responseError)
+				XCTAssertEqual(responseError, ServiceError<PPASubmitResourceError>.receivedResourceError(.responseError(401)))
 				expectation.fulfill()
 			}
 		}
 
 		// THEN
 		waitForExpectations(timeout: .short)
-		XCTAssertNotNil(expectedError)
-//		XCTAssertEqual(expectedError, .receivedResourceError(.s)  .serverFailure(URLSession.Response.Failure.noResponse))
 	}
 
 	func testGIVEN_SubmitAnalyticsData_WHEN_FailureResponseNoJSON_THEN_CompletionHasFailureJsonError() throws {
@@ -106,7 +101,6 @@ final class HTTPClientSubmitAnalyticsDataTests: CWATestCase {
 		let ppacToken = PPACToken(apiToken: "APITokenFake", deviceToken: "DeviceTokenFake")
 		
 		let ppaSubmitResource = PPASubmitResource(
-			isFake: false,
 			forceApiTokenHeader: false,
 			payload: payload,
 			ppacToken: ppacToken
@@ -147,7 +141,6 @@ final class HTTPClientSubmitAnalyticsDataTests: CWATestCase {
 		}
 		let ppacToken = PPACToken(apiToken: "APITokenFake", deviceToken: "DeviceTokenFake")
 		let ppaSubmitResource = PPASubmitResource(
-			isFake: false,
 			forceApiTokenHeader: false,
 			payload: payload,
 			ppacToken: ppacToken
@@ -188,7 +181,6 @@ final class HTTPClientSubmitAnalyticsDataTests: CWATestCase {
 		}
 		let ppacToken = PPACToken(apiToken: "APITokenFake", deviceToken: "DeviceTokenFake")
 		let ppaSubmitResource = PPASubmitResource(
-			isFake: false,
 			forceApiTokenHeader: false,
 			payload: payload,
 			ppacToken: ppacToken
@@ -229,7 +221,6 @@ final class HTTPClientSubmitAnalyticsDataTests: CWATestCase {
 		}
 		let ppacToken = PPACToken(apiToken: "APITokenFake", deviceToken: "DeviceTokenFake")
 		let ppaSubmitResource = PPASubmitResource(
-			isFake: false,
 			forceApiTokenHeader: false,
 			payload: payload,
 			ppacToken: ppacToken
@@ -270,7 +261,6 @@ final class HTTPClientSubmitAnalyticsDataTests: CWATestCase {
 		}
 		let ppacToken = PPACToken(apiToken: "APITokenFake", deviceToken: "DeviceTokenFake")
 		let ppaSubmitResource = PPASubmitResource(
-			isFake: false,
 			forceApiTokenHeader: false,
 			payload: payload,
 			ppacToken: ppacToken
