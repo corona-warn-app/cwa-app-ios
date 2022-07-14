@@ -12,17 +12,17 @@ class DMPPAMostRecentData: UIViewController {
 
 	init(
 		store: Store,
-		client: Client,
+		restServiceProvider: RestServiceProviding,
 		appConfig: AppConfigurationProviding,
 		coronaTestService: CoronaTestServiceProviding,
 		ppacService: PrivacyPreservingAccessControl
 	) {
 		self.store = store
-		self.client = client
+		self.restServiceProvider = restServiceProvider
 		self.appConfiguration = appConfig
 		self.submitter = PPAnalyticsSubmitter(
 			store: store,
-			client: client,
+			restServiceProvider: restServiceProvider,
 			appConfig: appConfig,
 			coronaTestService: coronaTestService,
 			ppacService: ppacService
@@ -63,7 +63,7 @@ class DMPPAMostRecentData: UIViewController {
 
 	// MARK: - Private
 	private let store: Store
-	private let client: Client
+	private let restServiceProvider: RestServiceProviding
 	private let appConfiguration: AppConfigurationProviding
 	private let submitter: PPAnalyticsSubmitter
 	private let textView = UITextView()

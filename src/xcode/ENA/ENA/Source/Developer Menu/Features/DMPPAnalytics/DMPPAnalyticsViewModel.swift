@@ -13,16 +13,16 @@ final class DMPPAnalyticsViewModel {
 
 	init(
 		store: Store,
-		client: Client,
+		restServiceProvider: RestServiceProviding,
 		appConfig: AppConfigurationProviding,
 		coronaTestService: CoronaTestServiceProviding,
 		ppacService: PrivacyPreservingAccessControl
 	) {
 		self.store = store
-		self.client = client
+		self.restServiceProvider = restServiceProvider
 		self.submitter = PPAnalyticsSubmitter(
 			store: store,
-			client: client,
+			restServiceProvider: restServiceProvider,
 			appConfig: appConfig,
 			coronaTestService: coronaTestService,
 			ppacService: ppacService
@@ -108,7 +108,7 @@ final class DMPPAnalyticsViewModel {
 	}
 
 	private let store: Store
-	private let client: Client
+	private let restServiceProvider: RestServiceProviding
 	private let submitter: PPAnalyticsSubmitter
 }
 #endif
