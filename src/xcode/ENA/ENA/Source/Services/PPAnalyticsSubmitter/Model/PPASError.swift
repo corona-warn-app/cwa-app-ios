@@ -19,6 +19,8 @@ enum PPASError: Error {
 	case submissionTimeAmountUndercutError
 	case probibilityError
 	case userConsentError
+	
+	case restServiceError(ServiceError<PPASubmitResourceError>)
 }
 
 extension PPASError: Equatable {
