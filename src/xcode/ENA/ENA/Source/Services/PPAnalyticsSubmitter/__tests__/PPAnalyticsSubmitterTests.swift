@@ -16,7 +16,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 		// GIVEN
 		let store = MockTestStore()
 		store.isPrivacyPreservingAnalyticsConsentGiven = true
-		let client = ClientMock()
+
 		var config = SAP_Internal_V2_ApplicationConfigurationIOS()
 		// probability will always succeed
 		config.privacyPreservingAnalyticsParameters.common.probabilityToSubmit = 3
@@ -26,9 +26,12 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 #else
 		let deviceCheck = PPACDeviceCheck()
 #endif
+		
+		let loadResource = LoadResource(result: .success(()), willLoadResource: nil)
+
 		let analyticsSubmitter = PPAnalyticsSubmitter(
 			store: store,
-			client: client,
+			restServiceProvider: RestServiceProviderStub(loadResources: [loadResource]),
 			appConfig: appConfigurationProvider,
 			coronaTestService: MockCoronaTestService(),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
@@ -95,7 +98,6 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 		// GIVEN
 		let store = MockTestStore()
 		store.isPrivacyPreservingAnalyticsConsentGiven = true
-		let client = ClientMock()
 		var config = SAP_Internal_V2_ApplicationConfigurationIOS()
 		// probability will always succeed
 		config.privacyPreservingAnalyticsParameters.common.probabilityToSubmit = 3
@@ -105,9 +107,10 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 #else
 		let deviceCheck = PPACDeviceCheck()
 #endif
+		let loadResource = LoadResource(result: .success(()), willLoadResource: nil)
 		let analyticsSubmitter = PPAnalyticsSubmitter(
 			store: store,
-			client: client,
+			restServiceProvider: RestServiceProviderStub(loadResources: [loadResource]),
 			appConfig: appConfigurationProvider,
 			coronaTestService: MockCoronaTestService(),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
@@ -130,36 +133,35 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 		let store = MockTestStore()
 		store.isPrivacyPreservingAnalyticsConsentGiven = true
 
-		let client = ClientMock()
 		var config = SAP_Internal_V2_ApplicationConfigurationIOS()
 		// probability will always succeed
 		config.privacyPreservingAnalyticsParameters.common.probabilityToSubmit = 3
 		let appConfigurationProvider = CachedAppConfigurationMock(with: config)
-#if targetEnvironment(simulator)
+		#if targetEnvironment(simulator)
 		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "iPhone")
-#else
+		#else
 		let deviceCheck = PPACDeviceCheck()
-#endif
+		#endif
 
 		let coronaTestService = MockCoronaTestService()
 		coronaTestService.antigenTest.value = .mock(testResult: .positive, finalTestResultReceivedDate: Date(), keysSubmitted: true)
 
 		store.antigenKeySubmissionMetadata = .mock()
-		
+		let loadResource = LoadResource(result: .success(()), willLoadResource: nil)
 		let analyticsSubmitter = PPAnalyticsSubmitter(
 			store: store,
-			client: client,
+			restServiceProvider: RestServiceProviderStub(loadResources: [loadResource]),
 			appConfig: appConfigurationProvider,
 			coronaTestService: coronaTestService,
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
 		)
-		
+
 		// WHEN
-		
+
 		let ppaProtobuf = analyticsSubmitter.getPPADataMessage()
-		
+
 		// THEN
-		
+
 		XCTAssertFalse(ppaProtobuf.keySubmissionMetadataSet.isEmpty, "keySubmissionMetadataSet must not be empty")
 	}
 	
@@ -168,7 +170,6 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 		// GIVEN
 		let store = MockTestStore()
 		store.isPrivacyPreservingAnalyticsConsentGiven = true
-		let client = ClientMock()
 		var config = SAP_Internal_V2_ApplicationConfigurationIOS()
 		// probability will always succeed
 		config.privacyPreservingAnalyticsParameters.common.probabilityToSubmit = 3
@@ -185,15 +186,15 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 			keysSubmitted: false
 		)
 		store.antigenKeySubmissionMetadata = .mock()
-		
+		let loadResource = LoadResource(result: .success(()), willLoadResource: nil)
 		let analyticsSubmitter = PPAnalyticsSubmitter(
 			store: store,
-			client: client,
+			restServiceProvider: RestServiceProviderStub(loadResources: [loadResource]),
 			appConfig: appConfigurationProvider,
 			coronaTestService: MockCoronaTestService(),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
 		)
-		
+				
 		// WHEN
 		
 		let ppaProtobuf = analyticsSubmitter.getPPADataMessage()
@@ -208,7 +209,6 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 		// GIVEN
 		let store = MockTestStore()
 		store.isPrivacyPreservingAnalyticsConsentGiven = true
-		let client = ClientMock()
 		var config = SAP_Internal_V2_ApplicationConfigurationIOS()
 		// probability will always succeed
 		config.privacyPreservingAnalyticsParameters.common.probabilityToSubmit = 3
@@ -224,15 +224,15 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 			keysSubmitted: true
 		)
 		store.antigenKeySubmissionMetadata = .mock()
-		
+		let loadResource = LoadResource(result: .success(()), willLoadResource: nil)
 		let analyticsSubmitter = PPAnalyticsSubmitter(
 			store: store,
-			client: client,
+			restServiceProvider: RestServiceProviderStub(loadResources: [loadResource]),
 			appConfig: appConfigurationProvider,
 			coronaTestService: MockCoronaTestService(),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
 		)
-		
+				
 		// WHEN
 		
 		let ppaProtobuf = analyticsSubmitter.getPPADataMessage()
@@ -247,7 +247,6 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 	func testGIVEN_SubmissionIsTriggered_WHEN_UserConsentIsMissing_THEN_UserConsentErrorIsReturned() {
 		// GIVEN
 		let store = MockTestStore()
-		let client = ClientMock()
 		let config = SAP_Internal_V2_ApplicationConfigurationIOS()
 		let appConfigurationProvider = CachedAppConfigurationMock(with: config)
 #if targetEnvironment(simulator)
@@ -255,15 +254,15 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 #else
 		let deviceCheck = PPACDeviceCheck()
 #endif
-		
+		let loadResource = LoadResource(result: .success(()), willLoadResource: nil)
 		let analyticsSubmitter = PPAnalyticsSubmitter(
 			store: store,
-			client: client,
+			restServiceProvider: RestServiceProviderStub(loadResources: [loadResource]),
 			appConfig: appConfigurationProvider,
 			coronaTestService: MockCoronaTestService(),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
 		)
-		
+				
 		let expectation = self.expectation(description: "completion handler is called with an error")
 		
 		// WHEN
@@ -289,7 +288,6 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 		// GIVEN
 		let store = MockTestStore()
 		store.isPrivacyPreservingAnalyticsConsentGiven = true
-		let client = ClientMock()
 		let config = SAP_Internal_V2_ApplicationConfigurationIOS()
 		let appConfigurationProvider = CachedAppConfigurationMock(with: config)
 #if targetEnvironment(simulator)
@@ -297,14 +295,15 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 #else
 		let deviceCheck = PPACDeviceCheck()
 #endif
+		let loadResource = LoadResource(result: .success(()), willLoadResource: nil)
 		let analyticsSubmitter = PPAnalyticsSubmitter(
 			store: store,
-			client: client,
+			restServiceProvider: RestServiceProviderStub(loadResources: [loadResource]),
 			appConfig: appConfigurationProvider,
 			coronaTestService: MockCoronaTestService(),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
 		)
-		
+				
 		let expectation = self.expectation(description: "completion handler is called with an error")
 		
 		// WHEN
@@ -328,7 +327,6 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 		// GIVEN
 		let store = MockTestStore()
 		store.isPrivacyPreservingAnalyticsConsentGiven = true
-		let client = ClientMock()
 		var config = SAP_Internal_V2_ApplicationConfigurationIOS()
 		// probability will always fail
 		config.privacyPreservingAnalyticsParameters.common.probabilityToSubmit = -1
@@ -338,14 +336,15 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 #else
 		let deviceCheck = PPACDeviceCheck()
 #endif
+		let loadResource = LoadResource(result: .success(()), willLoadResource: nil)
 		let analyticsSubmitter = PPAnalyticsSubmitter(
 			store: store,
-			client: client,
+			restServiceProvider: RestServiceProviderStub(loadResources: [loadResource]),
 			appConfig: appConfigurationProvider,
 			coronaTestService: MockCoronaTestService(),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
 		)
-		
+
 		let expectation = self.expectation(description: "completion handler is called with an error")
 		
 		// WHEN
@@ -369,7 +368,6 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 		// GIVEN
 		let store = MockTestStore()
 		store.isPrivacyPreservingAnalyticsConsentGiven = true
-		let client = ClientMock()
 		var config = SAP_Internal_V2_ApplicationConfigurationIOS()
 		config.privacyPreservingAnalyticsParameters.common.probabilityToSubmit = 3
 		let appConfigurationProvider = CachedAppConfigurationMock(with: config)
@@ -378,14 +376,15 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 #else
 		let deviceCheck = PPACDeviceCheck()
 #endif
+		let loadResource = LoadResource(result: .success(()), willLoadResource: nil)
 		let analyticsSubmitter = PPAnalyticsSubmitter(
 			store: store,
-			client: client,
+			restServiceProvider: RestServiceProviderStub(loadResources: [loadResource]),
 			appConfig: appConfigurationProvider,
 			coronaTestService: MockCoronaTestService(),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
 		)
-		
+
 		let expectation = self.expectation(description: "completion handler is called with an error")
 		store.lastSubmissionAnalytics = Calendar.current.date(byAdding: .hour, value: -2, to: Date())
 		
@@ -410,7 +409,6 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 		// GIVEN
 		let store = MockTestStore()
 		store.isPrivacyPreservingAnalyticsConsentGiven = true
-		let client = ClientMock()
 		var config = SAP_Internal_V2_ApplicationConfigurationIOS()
 		config.privacyPreservingAnalyticsParameters.common.probabilityToSubmit = 3
 		let appConfigurationProvider = CachedAppConfigurationMock(with: config)
@@ -419,14 +417,15 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 #else
 		let deviceCheck = PPACDeviceCheck()
 #endif
+		let loadResource = LoadResource(result: .success(()), willLoadResource: nil)
 		let analyticsSubmitter = PPAnalyticsSubmitter(
 			store: store,
-			client: client,
+			restServiceProvider: RestServiceProviderStub(loadResources: [loadResource]),
 			appConfig: appConfigurationProvider,
 			coronaTestService: MockCoronaTestService(),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
 		)
-		
+
 		let expectation = self.expectation(description: "completion handler is called with an error")
 		// Test edge case when 2 minutes remain to submit again.
 		let twentyThreeHoursAgo = try XCTUnwrap(Calendar.current.date(byAdding: .hour, value: -23, to: Date()))
@@ -454,7 +453,6 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 		// GIVEN
 		let store = MockTestStore()
 		store.isPrivacyPreservingAnalyticsConsentGiven = true
-		let client = ClientMock()
 		var config = SAP_Internal_V2_ApplicationConfigurationIOS()
 		config.privacyPreservingAnalyticsParameters.common.probabilityToSubmit = 3
 		let appConfigurationProvider = CachedAppConfigurationMock(with: config)
@@ -463,14 +461,15 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 #else
 		let deviceCheck = PPACDeviceCheck()
 #endif
+		let loadResource = LoadResource(result: .success(()), willLoadResource: nil)
 		let analyticsSubmitter = PPAnalyticsSubmitter(
 			store: store,
-			client: client,
+			restServiceProvider: RestServiceProviderStub(loadResources: [loadResource]),
 			appConfig: appConfigurationProvider,
 			coronaTestService: MockCoronaTestService(),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
 		)
-		
+
 		let expectation = self.expectation(description: "completion handler is called with an error")
 		// Test edge case when we can submit since 2 minutes.
 		let twentyThreeHoursAgo = try XCTUnwrap(Calendar.current.date(byAdding: .hour, value: -23, to: Date()))
@@ -500,7 +499,6 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 		// GIVEN
 		let store = MockTestStore()
 		store.isPrivacyPreservingAnalyticsConsentGiven = true
-		let client = ClientMock()
 		var config = SAP_Internal_V2_ApplicationConfigurationIOS()
 		config.privacyPreservingAnalyticsParameters.common.probabilityToSubmit = 3
 		let appConfigurationProvider = CachedAppConfigurationMock(with: config)
@@ -509,14 +507,15 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 #else
 		let deviceCheck = PPACDeviceCheck()
 #endif
+		let loadResource = LoadResource(result: .success(()), willLoadResource: nil)
 		let analyticsSubmitter = PPAnalyticsSubmitter(
 			store: store,
-			client: client,
+			restServiceProvider: RestServiceProviderStub(loadResources: [loadResource]),
 			appConfig: appConfigurationProvider,
 			coronaTestService: MockCoronaTestService(),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
 		)
-		
+
 		let expectation = self.expectation(description: "completion handler is called with an error")
 		store.lastSubmissionAnalytics = Calendar.current.date(byAdding: .day, value: -5, to: Date())
 		store.dateOfAcceptedPrivacyNotice = Calendar.current.date(byAdding: .day, value: -5, to: Date())
@@ -543,7 +542,6 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 		// GIVEN
 		let store = MockTestStore()
 		store.isPrivacyPreservingAnalyticsConsentGiven = true
-		let client = ClientMock()
 		var config = SAP_Internal_V2_ApplicationConfigurationIOS()
 		config.privacyPreservingAnalyticsParameters.common.probabilityToSubmit = 3
 		let appConfigurationProvider = CachedAppConfigurationMock(with: config)
@@ -552,14 +550,15 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 #else
 		let deviceCheck = PPACDeviceCheck()
 #endif
+		let loadResource = LoadResource(result: .success(()), willLoadResource: nil)
 		let analyticsSubmitter = PPAnalyticsSubmitter(
 			store: store,
-			client: client,
+			restServiceProvider: RestServiceProviderStub(loadResources: [loadResource]),
 			appConfig: appConfigurationProvider,
 			coronaTestService: MockCoronaTestService(),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
 		)
-		
+
 		let expectation = self.expectation(description: "completion handler is called with an error")
 		store.lastSubmissionAnalytics = Calendar.current.date(byAdding: .day, value: -5, to: Date())
 		store.dateOfAcceptedPrivacyNotice = Calendar.current.date(byAdding: .day, value: -5, to: Date())
@@ -586,21 +585,21 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 		// GIVEN
 		let store = MockTestStore()
 		store.isPrivacyPreservingAnalyticsConsentGiven = true
-		let client = ClientMock()
 		let appConfigurationProvider = CachedAppConfigurationMock()
 #if targetEnvironment(simulator)
 		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "iPhone")
 #else
 		let deviceCheck = PPACDeviceCheck()
 #endif
+		let loadResource = LoadResource(result: .success(()), willLoadResource: nil)
 		let analyticsSubmitter = PPAnalyticsSubmitter(
 			store: store,
-			client: client,
+			restServiceProvider: RestServiceProviderStub(loadResources: [loadResource]),
 			appConfig: appConfigurationProvider,
 			coronaTestService: MockCoronaTestService(),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
 		)
-		
+
 		let expectation = self.expectation(description: "completion handler is called with an error")
 		expectation.expectedFulfillmentCount = 2
 		
@@ -638,10 +637,17 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 		// GIVEN
 		let store = MockTestStore()
 		store.isPrivacyPreservingAnalyticsConsentGiven = true
-		let client = ClientMock()
-		client.onSubmitAnalytics = { _, _, _, completion in
-			completion(.failure(.generalError))
-		}
+		let restServiceProvider = RestServiceProviderStub(
+			loadResources: [
+				LoadResource(
+					result: .failure(ServiceError<PPASubmitResourceError>.invalidResponseType),
+					willLoadResource: nil
+				)
+			],
+			cacheResources: [],
+			isFakeResourceLoadingActive: false
+		)
+
 		var config = SAP_Internal_V2_ApplicationConfigurationIOS()
 		// probability will always succeed
 		config.privacyPreservingAnalyticsParameters.common.probabilityToSubmit = 3
@@ -653,7 +659,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 #endif
 		let analyticsSubmitter = PPAnalyticsSubmitter(
 			store: store,
-			client: client,
+			restServiceProvider: restServiceProvider,
 			appConfig: appConfigurationProvider,
 			coronaTestService: MockCoronaTestService(),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
@@ -1210,7 +1216,6 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 	// MARK: - Helpers
 	
 	private func createMockSubmitter(with store: MockTestStore) -> PPAnalyticsSubmitter {
-		let client = ClientMock()
 		let config = SAP_Internal_V2_ApplicationConfigurationIOS()
 		let appConfigurationProvider = CachedAppConfigurationMock(with: config)
 #if targetEnvironment(simulator)
@@ -1220,7 +1225,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 #endif
 		return PPAnalyticsSubmitter(
 			store: store,
-			client: client,
+			restServiceProvider: RestServiceProviderStub(),
 			appConfig: appConfigurationProvider,
 			coronaTestService: MockCoronaTestService(),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)

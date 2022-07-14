@@ -12,7 +12,7 @@ class DMPPAActualDataViewController: UITableViewController {
 
 	init(
 		store: Store,
-		client: Client,
+		restServiceProvider: RestServiceProviding,
 		appConfig: AppConfigurationProviding,
 		coronaTestService: CoronaTestServiceProviding,
 		ppacService: PrivacyPreservingAccessControl
@@ -20,7 +20,7 @@ class DMPPAActualDataViewController: UITableViewController {
 		
 		self.viewModel = DMPPAActualDataViewModel(
 			store: store,
-			client: client,
+			restServiceProvider: restServiceProvider,
 			appConfig: appConfig,
 			coronaTestService: coronaTestService,
 			ppacService: ppacService
