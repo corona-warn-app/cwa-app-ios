@@ -114,7 +114,7 @@ final class HTTPClientSubmitAnalyticsDataTests: CWATestCase {
 			case .failure(let responseError):
 				guard case let .receivedResourceError(customError) = responseError,
 					  .jsonError == customError else {
-						  XCTFail("unexpected error case")
+						  XCTFail("Unexpected error case instead of expected .jsonError.")
 						  return
 					  }
 				expectation.fulfill()
