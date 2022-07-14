@@ -47,10 +47,6 @@
 	<true/>
 	<key>NSCameraUsageDescription</key>
 	<string>Erlaube der App QR-Codes mit Hilfe der Kamera zu scannen</string>
-	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>Looking for QR Codes</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>QR Code detection</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>OpenSans-Bold.ttf</string>
