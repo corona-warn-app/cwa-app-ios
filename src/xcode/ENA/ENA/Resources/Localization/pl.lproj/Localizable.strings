@@ -120,7 +120,7 @@
 
 "ExposureDetection_Guide_Hotline" = "W razie jakichkolwiek innych pytań zadzwoń na numer 116 117 (w Niemczech). Następnie w trakcie automatycznego komunikatu naciśnij 2 (punkt Związkowego Ministerstwa Zdrowia). Naciśnij 1 (pogotowie ratunkowe) tylko, jeśli masz objawy.";
 
-"ExposureDetection_Guide_Vaccination_HighRisk" = "Jeśli nie jesteś jeszcze zaszczepiony(-a), skonsultuj się z lekarzem rodzinnym po wykonaniu testu.";
+"ExposureDetection_Guide_Vaccination_HighRisk" = "Jeśli nie jesteś jeszcze zaszczepiony(-a), skonsultuj się z lekarzem rodzinnym po wykonaniu testu. %@";
 
 "ExposureDetection_Guide_Vaccination_HighRisk_LinkText" = "Zalecenia dotyczące szczepień znajdują się na stronie STIKO.";
 
