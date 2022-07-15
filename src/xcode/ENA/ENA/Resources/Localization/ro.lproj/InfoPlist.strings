@@ -1,4 +1,2 @@
 "NSCameraUsageDescription" = "Permiteți-i aplicației să scaneze coduri QR cu camera dvs.";
 
-"NSPhotoLibraryUsageDescription" = "Permiteți-i aplicației să utilizeze biblioteca de fotografii pentru a scana o imagine cu un cod QR.";
-

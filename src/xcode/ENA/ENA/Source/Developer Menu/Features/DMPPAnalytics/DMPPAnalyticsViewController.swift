@@ -12,14 +12,14 @@ class DMPPAnalyticsViewController: UITableViewController {
 
 	init(
 		store: Store,
-		client: Client,
+		restServiceProvider: RestServiceProviding,
 		appConfig: AppConfigurationProviding,
 		coronaTestService: CoronaTestServiceProviding,
 		ppacService: PrivacyPreservingAccessControl
 	) {
 		self.viewModel = DMPPAnalyticsViewModel(
 			store: store,
-			client: client,
+			restServiceProvider: restServiceProvider,
 			appConfig: appConfig,
 			coronaTestService: coronaTestService,
 			ppacService: ppacService

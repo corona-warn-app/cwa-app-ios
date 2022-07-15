@@ -47,6 +47,7 @@ class DynamicTableViewIconWithLinkTextCell: UITableViewCell {
 	func configure(
 		image: UIImage?,
 		imageAlignment: DynamicCell.ImageAlignment = .left,
+		imageTintColor: UIColor? = nil,
 		text: String,
 		links: [ENALinkedTextView.Link],
 		customTintColor: UIColor?,
@@ -57,7 +58,7 @@ class DynamicTableViewIconWithLinkTextCell: UITableViewCell {
 	) {
 		stackView.alignment = alignment
 
-		iconImageView.tintColor = customTintColor ?? tintColor
+		iconImageView.tintColor = imageTintColor ?? customTintColor ?? tintColor
 		iconImageView.image = image
 		iconImageView.isHidden = image == nil
 		
