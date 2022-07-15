@@ -65,7 +65,8 @@ class DiaryDayViewModel {
 		return DiaryDayEntryCellModel(
 			entry: entriesOfSelectedType[indexPath.row],
 			dateString: day.dateString,
-			store: store
+			store: store,
+			accessibilityIdentifierIndex: indexPath.row
 		)
 	}
 
