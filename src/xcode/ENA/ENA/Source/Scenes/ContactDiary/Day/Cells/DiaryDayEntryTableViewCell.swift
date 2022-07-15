@@ -42,11 +42,24 @@ class DiaryDayEntryTableViewCell: UITableViewCell, UITextFieldDelegate {
 		self.onInfoButtonTap = onInfoButtonTap
 
 		checkboxImageView.image = cellModel.image
+		checkboxImageView.accessibilityIdentifier = String(
+			format: AccessibilityIdentifiers.ContactDiaryInformation.Day.checkboxImageView,
+			cellModel.accessibilityIdentifierIndex
+		)
+		
 		label.text = cellModel.text
 		label.font = cellModel.font
+		label.accessibilityIdentifier = String(
+			format: AccessibilityIdentifiers.ContactDiaryInformation.Day.label,
+			cellModel.accessibilityIdentifierIndex
+		)
 		
 		headerStackView.accessibilityLabel = cellModel.text
 		headerStackView.accessibilityTraits = cellModel.parametersHidden ? [.button] : [.button, .selected]
+		headerStackView.accessibilityIdentifier = String(
+			format: AccessibilityIdentifiers.ContactDiaryInformation.Day.headerStackView,
+			cellModel.accessibilityIdentifierIndex
+		)
 
 		setUpParameterViews()
 
