@@ -120,6 +120,8 @@ enum AccessibilityIdentifiers {
 		
 		enum Day {
 			static let headerStackView = "AppStrings.ContactDiaryInformation.headerStackView-%d"
+			static let checkboxImageView = "AppStrings.ContactDiaryInformation.checkboxImageView-%d"
+			static let label = "AppStrings.ContactDiaryInformation.label-%d"
 			static let durationSegmentedContol = "AppStrings.ContactDiaryInformation.durationSegmentedContol"
 			static let maskSituationSegmentedControl = "AppStrings.ContactDiaryInformation.maskSituationSegmentedControl"
 			static let settingSegmentedControl = "AppStrings.ContactDiaryInformation.settingSegmentedControl"
