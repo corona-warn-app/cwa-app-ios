@@ -120,7 +120,7 @@
 
 "ExposureDetection_Guide_Hotline" = "Dacă aveți alte întrebări, vă rugăm să sunați la 116 117 (în Germania). Apoi, în timpul mesajului automat, apăsați tasta 2 pentru punctul de asistență al Ministerului Federal al Sănătății. Apăsați tasta 1 (serviciul de urgență medical general), doar dacă aveți simptome.";
 
-"ExposureDetection_Guide_Vaccination_HighRisk" = "Dacă încă nu v-ați vaccinat, consultați telefonic medicul de familie după ce vă testați.";
+"ExposureDetection_Guide_Vaccination_HighRisk" = "Dacă încă nu v-ați vaccinat, consultați telefonic medicul de familie după ce vă testați. %@";
 
 "ExposureDetection_Guide_Vaccination_HighRisk_LinkText" = "Consultați site-ul web STIKO privind recomandările de vaccinare.";
 

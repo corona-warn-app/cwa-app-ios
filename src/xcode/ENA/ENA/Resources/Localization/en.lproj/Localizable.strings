@@ -120,7 +120,7 @@
 
 "ExposureDetection_Guide_Hotline" = "If you have any questions, please call 116 117 (in Germany). Then, during the automated message, press 2 for the Federal Ministry of Health service point. Only press 1 (the general medical emergency service) if you have symptoms.";
 
-"ExposureDetection_Guide_Vaccination_HighRisk" = "If you have not been vaccinated yet, consult with your family doctor after you get tested.";
+"ExposureDetection_Guide_Vaccination_HighRisk" = "If you have not been vaccinated yet, consult with your family doctor after you get tested. %@";
 
 "ExposureDetection_Guide_Vaccination_HighRisk_LinkText" = "Please refer to the STIKO website for vaccination recommendations.";
 

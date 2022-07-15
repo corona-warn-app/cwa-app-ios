@@ -752,7 +752,7 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 					text: [
 						.localizedStringWithFormat(mostRecentDateWithRiskLevelText, formattedMostRecentDateWithHighRisk),
 						explanationText
-					].joined(separator: " "),
+					].joined(separator: "\n\n"),
 					accessibilityIdentifier: accessibilityIdentifier)
 			]
 		)
