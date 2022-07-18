@@ -25,7 +25,10 @@ class ExposureSubmissionTestResultConsentViewController: DynamicTableViewControl
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		self.title = AppStrings.AutomaticSharingConsent.consentTitle
+		
+		navigationItem.largeTitleDisplayMode = .always
+		navigationItem.title = AppStrings.AutomaticSharingConsent.consentTitle
+
 		setupView()
 	}
 
