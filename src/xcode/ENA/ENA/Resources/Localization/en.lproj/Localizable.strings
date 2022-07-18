@@ -106,21 +106,23 @@
 
 "ExposureDetection_Guide_Hands" = "Wash your hands regularly, with soap, for 20 seconds.";
 
-"ExposureDetection_Guide_Mask" = "Wear a face mask when you encounter other people.";
+"ExposureDetection_Guide_Mask" = "Wear a face mask when you encounter other people indoors and wherever it is legally required or recommended.";
 
-"ExposureDetection_Guide_Distance" = "Keep at least 1.5 meters distance from other people.";
+"ExposureDetection_Guide_Distance" = "Whenever possible, keep at least 1.5 meters distance from other people.";
 
 "ExposureDetection_Guide_Sneeze" = "Sneeze or cough into your elbow or a tissue.";
 
 "ExposureDetection_Guide_Ventilation" = "Air out indoor spaces several times per day. To do so, open the windows as far as possible for several minutes (“shock ventilation”).";
 
-"ExposureDetection_Guide_Symptoms" = "Be alert for typical symptoms. Even vaccinated people and those who have recovered can develop symptoms. If you feel sick or develop any symptoms, please contact your family doctor.";
+"ExposureDetection_Guide_Symptoms" = "Be alert for typical symptoms. Even vaccinated people and those who have recovered can develop symptoms. If you feel sick or develop any symptoms, reduce your contacts with others, stay home, and contact your family doctor.";
 
-"ExposureDetection_Guide_Home" = "If possible, please go home and stay at home and avoid any encounters outside of your own household.";
+"ExposureDetection_Guide_ReduceContacts" = "If possible, please reduce your contacts with others, particularly with people who are particularly at risk, such as the elderly, people with pre-existing conditions, and the immunocompromised.";
 
 "ExposureDetection_Guide_Hotline" = "If you have any questions, please call 116 117 (in Germany). Then, during the automated message, press 2 for the Federal Ministry of Health service point. Only press 1 (the general medical emergency service) if you have symptoms.";
 
-"ExposureDetection_Guide_Vaccination_HighRisk" = "If you have not been vaccinated yet, consult with your family doctor after you get tested.";
+"ExposureDetection_Guide_Vaccination_HighRisk" = "If you have not been vaccinated yet, consult with your family doctor after you get tested. %@";
+
+"ExposureDetection_Guide_Vaccination_HighRisk_LinkText" = "Please refer to the STIKO website for vaccination recommendations.";
 
 "ExposureDetection_Guide_Title" = "Please get tested, for example, with a rapid antigen test, or use self-tests - preferably several times, taking a test every two days. If a test is positive, take a PCR test to confirm the result.";
 
@@ -150,7 +152,7 @@
 
 "ExposureDetection_Explanation_Text_High_DateOfLastExposure" = "You have an increased risk of infection because you were exposed over a longer period of time and at close proximity to at least one person diagnosed with coronavirus.";
 
-"ExposureDetection_Explanation_Text_High" = "Therefore, your risk of infection has been classified as increased.\nYour risk of infection is calculated from the exposure logging data (duration and proximity) locally on your device. Your risk of infection cannot be seen by, or passed on to, anyone else.";
+"ExposureDetection_Explanation_Text_High" = "Your risk of infection is calculated from the exposure logging data (duration and proximity) locally on your smartphone. Your risk of infection cannot be seen by, or passed on to, anyone else.";
 
 "ExposureDetection_LowRiskExposure_Title" = "Exposures with low risk";
 
@@ -204,23 +206,15 @@
 
 "ExposureDetection_Info_Contagion_TitleImage_Description" = "A person is sitting on a couch, reading a book. Another person is looking at their smartphone.";
 
-"ExposureDetection_Info_Contagion_Point1" = "Meetings and events: Avoid visits and activities that involve gathering with other people (clubs, bars, restaurants, cinemas, theaters, sports events).";
+"ExposureDetection_Info_Contagion_Point1" = "Meetings and events: Avoid visits and activities that involve gathering with large number of people indoors or with groups that are particularly at risk, such as the elderly, people with pre-existing conditions, and the immunocompromised.";
 
 "ExposureDetection_Info_Contagion_Point2" = "Working from home: If you are able to, work from home.";
 
-"ExposureDetection_Info_Contagion_Point3" = "Shopping: Have your groceries delivered or ask someone to shop for you.";
+"ExposureDetection_Info_Contagion_Point3" = "Public transportation: Avoid public transportation as much as possible, particularly at peak times, and wear a face mask.";
 
-"ExposureDetection_Info_Contagion_Point4" = "Public transportation: Avoid public transportation as much as possible, particularly at peak times.";
+"ExposureDetection_Info_Contagion_Footer" = "Additional information is available on our FAQ page on quarantine measures and voluntary self-quarantine.";
 
-"ExposureDetection_Info_Contagion_Point5" = "Travel: Do not travel by plane or train.";
-
-"ExposureDetection_Info_Contagion_Point6" = "If you have questions about quarantine measures, please contact your public health department. For more information, please see our FAQ page on quarantine measures.";
-
-"ExposureDetection_Info_Contagion_Point6_LinkText" = "For more information, please see our FAQ page on quarantine measures.";
-
-"ExposureDetection_Info_Contagion_Footer" = "Additional information is available on our FAQ page on voluntary self-quarantine.";
-
-"ExposureDetection_Info_Contagion_Footer_LinkText" = "Additional information is available on our FAQ page on voluntary self-quarantine.";
+"ExposureDetection_Info_Contagion_Footer_LinkText" = "Additional information is available on our FAQ page on quarantine measures and voluntary self-quarantine.";
 
 /* Survey Errors */
 "SurveyConsent_Error_Title" = "Error";
@@ -267,8 +261,7 @@
 
 "ExposureDetection_ActiveTracingSection_Subtitle" = "This period is included in the calculation.";
 
-/* There are two paragraphs in this section. The first one just contains text… */
-"ExposureDetection_ActiveTracingSection_Text_Paragraph0" = "Your risk of infection can be calculated only for periods during which exposure logging was active. The logging feature should therefore remain active permanently. Exposure logging covers the last %u days.";
+"ExposureDetection_ActiveTracingSection_Text" = "When exposure logging is active, the app calculates your personal risk of infection. It does this by measuring duration and proximity of your exposure to people who have been diagnosed with coronavirus over the last %u days. Exposure logging also takes your check-ins into account. You are warned if you were in the same room at the same time as a person who has been diagnosed with coronavirus, or up to 30 minutes after.";
 
 "ExposureDetection_ActiveTracingSection_Text_Paragraph1b" = "If exposure logging was active at times during which you encountered other people, your risk of infection can be calculated for this period.";
 
@@ -1665,10 +1658,10 @@
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Changes in this release can be found in the app information, under “New Features”.";
 
-/* Version 2.24 */
-"NewVersionFeature_224_batch_export_title" = "Export Certificates";
+/* Version 2.25 */
+"NewVersionFeature_225_adjust_recommendations_title" = "Recommended Conduct Updated";
 
-"NewVersionFeature_224_batch_export_description" = "You can save all of the certificates in your app in one PDF document in a single step.";
+"NewVersionFeature_225_adjust_recommendations_description" = "The recommended conduct if you have an increased risk has been updated. The recommendations include reducing contacts with others and wearing a face mask, among others. The recommendations for persons at low risk have also been updated.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Transnational Exposure Logging";
@@ -2918,6 +2911,8 @@
 
 "CovPass_Check_Info_text03" = "Please note that third parties in other countries may use different apps to verify certificates.";
 
+"CovPass_Check_Info_text04" = "Please keep a valid photo identification at hand during certificate verification.";
+
 /* Health Certified Person Screen */
 "HealthCertificate_unified_QR_code_notice" = "This QR code can be verified reliably with the CovPassCheck app.";
 
@@ -3269,7 +3264,7 @@
 
 "HealthCertificate_Reissuance_Consent_Bullet_Point_1" = "Renewing your certificates is voluntary and free of charge.";
 
-"HealthCertificate_Reissuance_Consent_Bullet_Point_2" = "To ensure that certificates can only be renewed once, the identifiers of the old and new certificates are documented by the RKI. The other data from your certificates is deleted by the RKI immediately after the renewal.";
+"HealthCertificate_Reissuance_Consent_Bullet_Point_2" = "To ensure that certificates can only be renewed to a limited extent, the identifiers of the old and new certificates are documented by the RKI. The other data from your certificates is deleted by the RKI immediately after the renewal.";
 
 "HealthCertificate_Reissuance_Consent_Bullet_Point_3" = "Before renewing certificates of family members, please make sure that the person involved consents.";
 

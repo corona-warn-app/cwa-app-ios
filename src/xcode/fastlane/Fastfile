@@ -193,6 +193,9 @@ platform :ios do
       scheme: "ENA",
       configuration: "AdHoc",
       export_method: "ad-hoc",
+      export_options: {
+        compileBitcode: false
+      },
       clean: true
     )
 

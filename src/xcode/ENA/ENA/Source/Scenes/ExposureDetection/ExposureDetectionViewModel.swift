@@ -424,7 +424,6 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 			),
 			standardGuideSection,
 			activeTracingSection(
-				risk: risk,
 				maxEncounterAgeInDays: maxEncounterAgeInDays,
 				accessibilityIdentifier: AccessibilityIdentifiers.ExposureDetection.activeTracingSection
 			),
@@ -474,8 +473,8 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 						accessibilityIdentifier: AccessibilityIdentifiers.ExposureDetection.detailsGuideHygiene
 					),
 					.guide(
-						text: AppStrings.ExposureDetection.guideHome,
-						image: UIImage(named: "Icons - Home"),
+						text: AppStrings.ExposureDetection.guideReduceContacts,
+						image: UIImage(named: "Icons - ErhohtesRisiko"),
 						accessoryType: .detailButton,
 						accessoryAction: .execute(block: { [weak self] _, _ in
 							self?.onRiskOfContagionInfoButtonTap()
@@ -498,12 +497,25 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 								link: AppStrings.Links.exposureDetectionFAQ
 							)
 						]),
-					.guide(text: AppStrings.ExposureDetection.guideVaccinationHighRisk, image: UIImage(named: "Icons - VaccinatedArm")),
+					.iconWithLinkText(
+						UIImage(named: "Icons - VaccinatedArm"),
+						imageTintColor: .enaColor(for: .brandRed),
+						text: String(
+							format: AppStrings.ExposureDetection.guideVaccinationHighRisk,
+							AppStrings.ExposureDetection.guideVaccinationHighRisk_LinkText
+						),
+						links: [
+							.init(
+								text: AppStrings.ExposureDetection.guideVaccinationHighRisk_LinkText,
+								link: AppStrings.Links.stikoVaccinationRecommendations
+							)
+						],
+						alignment: .top
+					),
 					.guide(text: AppStrings.ExposureDetection.guideHotline, image: UIImage(named: "Icons - Hotline"))
 				]
 			),
 			activeTracingSection(
-				risk: risk,
 				maxEncounterAgeInDays: maxEncounterAgeInDays,
 				accessibilityIdentifier: AccessibilityIdentifiers.ExposureDetection.activeTracingSectionText
 			),
@@ -618,17 +630,16 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 
 
 	private func activeTracingSection(
-		risk: Risk,
 		maxEncounterAgeInDays: Int,
 		accessibilityIdentifier: String?
 	) -> DynamicSection {
 		let p0 = String(
-			format: AppStrings.ExposureDetection.tracingParagraph0,
+			format: AppStrings.ExposureDetection.tracingText,
 			maxEncounterAgeInDays
 		)
 
 		let p1: String
-		if homeState.shouldShowDaysSinceInstallation && risk.details.numberOfDaysWithRiskLevel == 0 {
+		if homeState.shouldShowDaysSinceInstallation {
 			p1 = String(format: AppStrings.ExposureDetection.tracingParagraph1a, homeState.daysSinceInstallation)
 		} else {
 			p1 = AppStrings.ExposureDetection.tracingParagraph1b
@@ -741,7 +752,7 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 					text: [
 						.localizedStringWithFormat(mostRecentDateWithRiskLevelText, formattedMostRecentDateWithHighRisk),
 						explanationText
-					].joined(separator: " "),
+					].joined(separator: "\n\n"),
 					accessibilityIdentifier: accessibilityIdentifier)
 			]
 		)

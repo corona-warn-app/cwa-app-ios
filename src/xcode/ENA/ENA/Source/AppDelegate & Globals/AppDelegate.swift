@@ -160,12 +160,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 
 		UIDevice.current.isBatteryMonitoringEnabled = true
 
-		// some delegates
+		// Setting delegates
 		taskScheduler.delegate = taskExecutionDelegate
 		UNUserNotificationCenter.current().delegate = notificationManager
 
-		/// Setup DeadmanNotification after AppLaunch
+		// Setup DeadmanNotification after AppLaunch
 		DeadmanNotificationManager().scheduleDeadmanNotificationIfNeeded()
+
+		// Removing pdf documents from temporary directory
+		FileManager.default.removePDFsFromTemporaryDirectory()
 
 		consumer.didFailCalculateRisk = { [weak self] error in
 			if self?.store.isOnboarded == true {
@@ -209,6 +212,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	
 	func applicationWillTerminate(_ application: UIApplication) {
 		Log.info("Application will terminate.", log: .appLifecycle)
+		
+		// Removing pdf documents from temporary directory
+		FileManager.default.removePDFsFromTemporaryDirectory()
 	}
 
 	func applicationDidBecomeActive(_ application: UIApplication) {
@@ -427,7 +433,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	private lazy var analyticsSubmitter: PPAnalyticsSubmitting = {
 		return PPAnalyticsSubmitter(
 			store: store,
-			client: client,
+			restServiceProvider: restServiceProvider,
 			appConfig: appConfigurationProvider,
 			coronaTestService: coronaTestService,
 			ppacService: ppacService

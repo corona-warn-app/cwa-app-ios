@@ -40,26 +40,9 @@ struct ContagionInfoViewModel {
 						alignment: .top
 					),
 					.icon(
-						UIImage(imageLiteralResourceName: "Shoppiing"),
+						UIImage(imageLiteralResourceName: "Public Transport"),
 						text: .string(AppStrings.ExposureDetection.contagionPoint3),
 						tintColor: .enaColor(for: .riskHigh),
-						alignment: .top
-					),
-					.icon(
-						UIImage(imageLiteralResourceName: "Public Transport"),
-						text: .string(AppStrings.ExposureDetection.contagionPoint4),
-						tintColor: .enaColor(for: .riskHigh),
-						alignment: .top
-					),
-					.icon(
-						UIImage(imageLiteralResourceName: "Travel"),
-						text: .string(AppStrings.ExposureDetection.contagionPoint5),
-						tintColor: .enaColor(for: .riskHigh),
-						alignment: .top
-					),
-					.iconWithLinkText(
-						UIImage(imageLiteralResourceName: "Qarantine"), text: AppStrings.ExposureDetection.contagionPoint6,
-						links: [ENALinkedTextView.Link(text: AppStrings.ExposureDetection.contagionPoint6LinkText, link: AppStrings.Links.quarantineMeasuresFAQ)],
 						alignment: .top
 					)
 				]

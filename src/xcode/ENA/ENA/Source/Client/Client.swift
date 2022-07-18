@@ -45,23 +45,6 @@ protocol Client {
 		completion: @escaping OTPAuthorizationCompletionHandler
 	)
 
-	// MARK: PPA Submit
-
-	/// Authorizes an otp at our servers with a tuple of device token and api token as authentication and the otp as payload.
-	/// - Parameters:
-	///   - payload: SAP_Internal_Ppdd_PPADataRequestIOS, which contains several metrics data
-	///   - ppacToken: The ppac token which is generated previously by the PPACService
-	///   - isFake: Flag to indicate a fake request
-	///   - forceApiTokenHeader: A Flag that indicates, if a special header flag is send to enforce to accept the API Token. ONLY executable for non release builds
-	///   - completion: The completion handler of the submission call, which contains the expirationDate of the otp as String
-	func submit(
-		payload: SAP_Internal_Ppdd_PPADataIOS,
-		ppacToken: PPACToken,
-		isFake: Bool,
-		forceApiTokenHeader: Bool,
-		completion: @escaping PPAnalyticsSubmitionCompletionHandler
-	)
-
 	// MARK: ELS Submit (Error Log Sharing)
 
 	/// Log file upload for the ELS  Service

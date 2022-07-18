@@ -12,17 +12,17 @@ final class DMPPAActualDataViewModel {
 
 	init(
 		store: Store,
-		client: Client,
+		restServiceProvider: RestServiceProviding,
 		appConfig: AppConfigurationProviding,
 		coronaTestService: CoronaTestServiceProviding,
 		ppacService: PrivacyPreservingAccessControl
 	) {
 		self.store = store
-		self.client = client
 		self.appConfiguration = appConfig
+		self.restServiceProvider = restServiceProvider
 		self.submitter = PPAnalyticsSubmitter(
 			store: store,
-			client: client,
+			restServiceProvider: restServiceProvider,
 			appConfig: appConfig,
 			coronaTestService: coronaTestService,
 			ppacService: ppacService
@@ -100,7 +100,7 @@ final class DMPPAActualDataViewModel {
 	}
 
 	private let store: Store
-	private let client: Client
+	private let restServiceProvider: RestServiceProviding
 	private let appConfiguration: AppConfigurationProviding
 	private let submitter: PPAnalyticsSubmitter
 }
