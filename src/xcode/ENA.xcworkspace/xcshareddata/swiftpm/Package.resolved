@@ -105,8 +105,8 @@
         "repositoryURL": "https://github.com/eu-digital-green-certificates/json-logic-swift.git",
         "state": {
           "branch": null,
-          "revision": "3898636b43b62e571849790f74485dd1504ee785",
-          "version": "1.2.3"
+          "revision": "10580f69c911df26736ebf31b4eaf629f2972d10",
+          "version": "1.2.4"
         }
       },
       {
@@ -168,8 +168,8 @@
         "repositoryURL": "https://github.com/tsolomko/SWCompression.git",
         "state": {
           "branch": null,
-          "revision": "4ad6940f2990f2d9f27b39d013c7a64b602d9c50",
-          "version": "4.8.0"
+          "revision": "0714d4421e1fa1e02af51cd8e615417a95f0d230",
+          "version": "4.8.1"
         }
       },
       {
