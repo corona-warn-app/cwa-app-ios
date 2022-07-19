@@ -50,7 +50,7 @@ extension ExposureDetection.DidEndPrematurelyReason: LocalizedError {
 					return AppStrings.ExposureDetectionError.errorAlertMessage + " Code: ExposureDetectionIsAlreadyRunning"
 				}
 			} else {
-				return AppStrings.ExposureDetectionError.errorAlertMessage + " Code: NoExposureWindows"
+				return AppStrings.ExposureDetectionError.errorAlertMessage + " Code: NoExposureWindows - \(error)"
 			}
 		case .noDaysAndHours:
 			return AppStrings.ExposureDetectionError.errorAlertMessage + " Code: NoDaysAndHours"
