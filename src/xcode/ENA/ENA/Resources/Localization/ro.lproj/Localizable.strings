@@ -82,7 +82,7 @@
 
 "ExposureDetection_LastRiskLevel" = "Ultima verificare a expunerilor: %@";
 
-"ExposureDetection_OffText" = "Activați înregistrarea în jurnal a expunerilor pentru a permite calculul stării curente a riscului dvs.";
+"ExposureDetection_OffText" = "Activați înregistrarea în jurnal a expunerilor pentru a evalua astăzi starea riscului.";
 
 "ExposureDetection_OutdatedText" = "Înregistrarea în jurnal a calculului riscului dvs. nu a fost actualizată timp de peste 48 de ore. Actualizați calculul.";
 
@@ -188,9 +188,9 @@
 
 "ExposureDetection_Info_HygieneRules_Title" = "Reguli de igienă";
 
-"ExposureDetection_Info_HygieneRules_Point1" = "Purtați o mască facială când întâlniți alte persoane.";
+"ExposureDetection_Info_HygieneRules_Point1" = "Purtați o mască facială când întâlniți alte persoane în interior și oriunde este obligatoriu sau recomandat din punct de vedere legal.";
 
-"ExposureDetection_Info_HygieneRules_Point2" = "Păstrați o distanță de cel puțin 1,5 metri față de alte persoane.";
+"ExposureDetection_Info_HygieneRules_Point2" = "Când este posibil, păstrați o distanță de cel puțin 1,5 metri față de alte persoane.";
 
 "ExposureDetection_Info_HygieneRules_Point3" = "Strănutați sau tușiți în pliul cotului sau într-un șervețel.";
 
