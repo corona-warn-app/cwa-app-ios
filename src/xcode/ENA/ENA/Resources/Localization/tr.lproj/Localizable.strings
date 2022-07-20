@@ -82,7 +82,7 @@
 
 "ExposureDetection_LastRiskLevel" = "Son maruz kalma denetimi: %@";
 
-"ExposureDetection_OffText" = "Mevcut risk durumunuzun hesaplanabilmesi için maruz kalma günlüğünü etkinleştirin.";
+"ExposureDetection_OffText" = "Bugünkü risk durumunuzu değerlendirmek için maruz kalma günlüğünü etkinleştirin.";
 
 "ExposureDetection_OutdatedText" = "Risk hesaplama günlüğünüz 48 saatten uzun süredir güncellenmedi. Lütfen hesaplamayı güncelleyin.";
 
@@ -188,9 +188,9 @@
 
 "ExposureDetection_Info_HygieneRules_Title" = "Hijyen Kuralları";
 
-"ExposureDetection_Info_HygieneRules_Point1" = "Diğer insanlarla karşılaştığınızda yüz maskesi takın.";
+"ExposureDetection_Info_HygieneRules_Point1" = "Kapalı ortamlarda diğer insanlarla karşılaştığınızda ve yasal olarak gerekli görülen veya önerilen durumlarda yüz maskesi takın.";
 
-"ExposureDetection_Info_HygieneRules_Point2" = "Diğer insanlarla aranızda en az 1,5 metre mesafeyi koruyun.";
+"ExposureDetection_Info_HygieneRules_Point2" = "Mümkün olan durumlarda, diğer insanlarla aranızda en az 1,5 metre mesafeyi koruyun.";
 
 "ExposureDetection_Info_HygieneRules_Point3" = "Öksürürken ya da hapşırırken dirseğinizin iç kısmına dönün veya bir mendil kullanın.";
 
