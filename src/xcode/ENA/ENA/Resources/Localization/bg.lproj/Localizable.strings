@@ -82,7 +82,7 @@
 
 "ExposureDetection_LastRiskLevel" = "Последна проверка за излагане на риск: %@";
 
-"ExposureDetection_OffText" = "Активирайте регистрирането на излагания на риск, за да може да бъде изчислено текущото Ви ниво на риск.";
+"ExposureDetection_OffText" = "Активирайте регистрирането на излагания на риск, за да разберете какво е нивото Ви на риск днес.";
 
 "ExposureDetection_OutdatedText" = "Регистърът на изчислените рискове не е актуализиран повече от 48 часа. Моля, актуализирайте го.";
 
@@ -188,9 +188,9 @@
 
 "ExposureDetection_Info_HygieneRules_Title" = "Правила за хигиена";
 
-"ExposureDetection_Info_HygieneRules_Point1" = "Носете маска при контакт с други хора.";
+"ExposureDetection_Info_HygieneRules_Point1" = "Носете маска при контакт с други хора в затворени пространства и когато това се изисква със законова наредба или се препоръчва.";
 
-"ExposureDetection_Info_HygieneRules_Point2" = "Спазвайте дистанция от поне 1,5 м от околните.";
+"ExposureDetection_Info_HygieneRules_Point2" = "Когато е възможно спазвайте дистанция от поне 1,5 м от околните.";
 
 "ExposureDetection_Info_HygieneRules_Point3" = "Кихайте и кашляйте в кърпичка или в сгъвката на лакътя си.";
 
