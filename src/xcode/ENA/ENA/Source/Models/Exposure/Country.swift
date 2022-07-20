@@ -76,6 +76,9 @@ extension Locale {
 			identifier = "gr"
 		case "no":
 			identifier = "nb_NO"
+		// quick solution for the Chinese(Traditional, Taiwan)
+		case "tw":
+			identifier = "zh_tw"
 		// There was a decision not to use the 2 letter code "EU", but instead "EUR".
 		// Please see this story for more information: https://jira.itc.sap.com/browse/EXPOSUREBACK-151
 		case "eur":
