@@ -101,6 +101,7 @@ final class ExposureDetection {
 					}
 					self?.didDetectExposureWindows(exposureWindows)
 				case .failure(let error):
+					writtenPackages.cleanUp()
 					self?.endPrematurely(reason: .noExposureWindows(error))
 				}
 			}
