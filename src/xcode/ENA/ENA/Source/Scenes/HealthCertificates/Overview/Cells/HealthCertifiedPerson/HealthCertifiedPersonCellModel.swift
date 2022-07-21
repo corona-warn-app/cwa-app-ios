@@ -36,10 +36,10 @@ class HealthCertifiedPersonCellModel {
 
 		if healthCertifiedPerson.unseenNewsCount > 0 {
 			self.caption = .unseenNews(count: healthCertifiedPerson.unseenNewsCount)
-		} else if !initialCertificate.isConsideredValid {
-			self.caption = Self.caption(for: initialCertificate)
 		} else {
-			self.caption = nil
+			self.caption = shouldShowCaptionFor(initialCertificate: initialCertificate)
+				? Self.caption(for: initialCertificate)
+				: nil
 		}
 
 		if let admissionState = healthCertifiedPerson.dccWalletInfo?.admissionState,
@@ -62,6 +62,19 @@ class HealthCertifiedPersonCellModel {
 		}
 
 		self.onTapToDelete = nil
+		
+		func shouldShowCaptionFor(initialCertificate certificate: HealthCertificate) -> Bool {
+			// Test certificates that are invalid or blocked.
+			if certificate.type == .test {
+				if certificate.validityState == .invalid || certificate.validityState == .blocked {
+					return true
+				}
+			}
+			
+			// VC or RC certificates, that are not valid or will not expire soon.
+			return (certificate.type == .vaccination || certificate.type == .recovery) &&
+			!(certificate.validityState == .valid || certificate.validityState == .expiringSoon)
+		}
 	}
 
 	init?(
@@ -168,5 +181,4 @@ class HealthCertifiedPersonCellModel {
 			)
 		}
 	}
-
 }
