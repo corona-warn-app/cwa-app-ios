@@ -82,7 +82,7 @@
 
 "ExposureDetection_LastRiskLevel" = "Last exposure check: %@";
 
-"ExposureDetection_OffText" = "Activate exposure logging to enable calculation of your current risk status.";
+"ExposureDetection_OffText" = "Activate exposure logging to evaluate your risk status today.";
 
 "ExposureDetection_OutdatedText" = "Your risk calculation logging has not been updated for more than 48 hours. Please update the calculation.";
 
@@ -188,9 +188,9 @@
 
 "ExposureDetection_Info_HygieneRules_Title" = "Hygiene Rules";
 
-"ExposureDetection_Info_HygieneRules_Point1" = "Wear a face mask when you encounter other people.";
+"ExposureDetection_Info_HygieneRules_Point1" = "Wear a face mask when you encounter other people indoors and wherever it is legally required or recommended.";
 
-"ExposureDetection_Info_HygieneRules_Point2" = "Keep at least 1.5 meters distance from other people.";
+"ExposureDetection_Info_HygieneRules_Point2" = "Whenever possible, keep at least 1.5 meters distance from other people.";
 
 "ExposureDetection_Info_HygieneRules_Point3" = "Sneeze or cough into your elbow or a tissue.";
 
@@ -261,7 +261,7 @@
 
 "ExposureDetection_ActiveTracingSection_Subtitle" = "This period is included in the calculation.";
 
-"ExposureDetection_ActiveTracingSection_Text" = "When exposure logging is active, the app calculates your personal risk of infection. It does this by measuring duration and proximity of your exposure to people who have been diagnosed with coronavirus over the last %u days. Exposure logging also takes your check-ins into account. You are warned if you were in the same room at the same time as a person who has been diagnosed with coronavirus, or up to 30 minutes after.";
+"ExposureDetection_ActiveTracingSection_Text" = "When exposure logging is active, the app calculates your personal risk of infection. It does this by measuring the duration and proximity of your exposure to people who have been diagnosed with coronavirus over the last %u days. Exposure logging also takes your check-ins into account. You are warned if you were in the same room at the same time as a person who has been diagnosed with coronavirus, or up to 30 minutes after.";
 
 "ExposureDetection_ActiveTracingSection_Text_Paragraph1b" = "If exposure logging was active at times during which you encountered other people, your risk of infection can be calculated for this period.";
 
@@ -1585,7 +1585,7 @@
 
 "RiskLegend_Legend2_Title" = "Risk of Infection";
 
-"RiskLegend_Legend2_Text" = "When exposure logging is active, the app calculates your personal risk of infection. It does this by measuring duration and proximity of your exposure to people who have been diagnosed with coronavirus over the last %u days. Exposure logging also takes your check-ins into account. You are warned if you were in the same room at the same time as a person who has been diagnosed with coronavirus, or up to 30 minutes after.";
+"RiskLegend_Legend2_Text" = "When exposure logging is active, the app calculates your personal risk of infection. It does this by measuring the duration and proximity of your exposure to people who have been diagnosed with coronavirus over the last %u days. Exposure logging also takes your check-ins into account. You are warned if you were in the same room at the same time as a person who has been diagnosed with coronavirus, or up to 30 minutes after.";
 
 "RiskLegend_Legend2_RiskLevels" = "The following risk status can be shown:";
 

@@ -82,7 +82,7 @@
 
 "ExposureDetection_LastRiskLevel" = "Ostatnie sprawdzenie narażenia: %@";
 
-"ExposureDetection_OffText" = "Aktywuj rejestrowanie narażenia, aby umożliwić obliczenie Twojego aktualnego statusu ryzyka.";
+"ExposureDetection_OffText" = "Aktywuj rejestrowanie narażenia, aby już dziś ocenić swoje ryzyko.";
 
 "ExposureDetection_OutdatedText" = "Rejestrowanie obliczenia ryzyka nie było aktualizowane przez okres dłuższy niż 48 godzin. Aktualizuj obliczenie.";
 
@@ -188,9 +188,9 @@
 
 "ExposureDetection_Info_HygieneRules_Title" = "Zasady higieny";
 
-"ExposureDetection_Info_HygieneRules_Point1" = "Załóż maseczkę na twarz, mając kontakt z innymi osobami.";
+"ExposureDetection_Info_HygieneRules_Point1" = "Noś maseczkę podczas kontaktów z innymi osobami w pomieszczeniach i wszędzie tam, gdzie jest to prawnie wymagane lub zalecane.";
 
-"ExposureDetection_Info_HygieneRules_Point2" = "Zachowuj odległość co najmniej 1,5 metra od innych osób.";
+"ExposureDetection_Info_HygieneRules_Point2" = "W miarę możliwości zachowuj odległość co najmniej 1,5 metra od innych osób.";
 
 "ExposureDetection_Info_HygieneRules_Point3" = "Kichaj i kaszl w łokieć lub chusteczkę.";
 
