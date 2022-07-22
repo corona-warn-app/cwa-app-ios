@@ -90,19 +90,7 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 		XCTAssertFalse(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .bottom)
 
-		if case let .validityState(image: image, description: description) = viewModel.caption {
-			XCTAssertEqual(image, UIImage(named: "Icon_ExpiringSoon"))
-			XCTAssertEqual(
-				description,
-				String(
-					format: "Zertifikat läuft am %@ um %@ ab",
-					DateFormatter.localizedString(from: expirationDate, dateStyle: .short, timeStyle: .none),
-					DateFormatter.localizedString(from: expirationDate, dateStyle: .none, timeStyle: .short)
-				)
-			)
-		} else {
-			XCTFail("Expected caption to be set to validityState")
-		}
+		XCTAssertNil(viewModel.caption)
 	}
 
 	func testHealthCertifiedPersonWithExpiredVaccinationCertificate() throws {
@@ -519,12 +507,7 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 		XCTAssertTrue(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .bottom)
 
-		if case let .validityState(image: image, description: description) = viewModel.caption {
-			XCTAssertEqual(image, UIImage(named: "Icon_ExpiredInvalid"))
-			XCTAssertEqual(description, "Zertifikat ungültig")
-		} else {
-			XCTFail("Expected caption to be set to validityState")
-		}
+		XCTAssertNil(viewModel.caption)
 	}
 
 	func testHealthCertifiedPersonWithValidRecoveryCertificate() throws {
@@ -606,19 +589,7 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 		XCTAssertFalse(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .bottom)
 
-		if case let .validityState(image: image, description: description) = viewModel.caption {
-			XCTAssertEqual(image, UIImage(named: "Icon_ExpiringSoon"))
-			XCTAssertEqual(
-				description,
-				String(
-					format: "Zertifikat läuft am %@ um %@ ab",
-					DateFormatter.localizedString(from: expirationDate, dateStyle: .short, timeStyle: .none),
-					DateFormatter.localizedString(from: expirationDate, dateStyle: .none, timeStyle: .short)
-				)
-			)
-		} else {
-			XCTFail("Expected caption to be set to validityState")
-		}
+		XCTAssertNil(viewModel.caption)
 	}
 
 	func testHealthCertifiedPersonWithExpiredRecoveryCertificate() throws {
