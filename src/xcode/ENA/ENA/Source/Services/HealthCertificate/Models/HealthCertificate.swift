@@ -306,9 +306,9 @@ final class HealthCertificate: Codable, Equatable, Comparable, RecycleBinIdentif
 
 	var validityStateIsConsideredNewsworthy: Bool {
 		switch validityState {
-		case .valid, .expiringSoon, .expired:
+		case .valid, .expiringSoon:
 			return false
-		case .invalid, .blocked, .revoked:
+		case .invalid, .blocked, .revoked, .expired:
 			return true
 		}
 	}
