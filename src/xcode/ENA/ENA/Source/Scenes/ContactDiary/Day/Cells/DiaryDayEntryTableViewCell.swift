@@ -110,6 +110,8 @@ class DiaryDayEntryTableViewCell: UITableViewCell, UITextFieldDelegate {
 		let textField = ENATextField(frame: .zero)
 		textField.accessibilityIdentifier = AccessibilityIdentifiers.ContactDiaryInformation.Day.notesTextField
 		textField.backgroundColor = .enaColor(for: .darkBackground)
+		textField.font = UIFont.preferredFont(forTextStyle: .body)
+		textField.adjustsFontForContentSizeCategory = true
 		textField.clearButtonMode = .whileEditing
 		textField.textColor = .enaColor(for: .textPrimary1)
 		textField.returnKeyType = .done
