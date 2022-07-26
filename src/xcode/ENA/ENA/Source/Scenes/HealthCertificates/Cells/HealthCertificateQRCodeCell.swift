@@ -126,6 +126,8 @@ class HealthCertificateQRCodeCell: UITableViewCell, ReuseIdentifierProviding {
 
 	private let validityStateIconImageView: UIImageView = {
 		let validityStateIconImageView = UIImageView()
+		validityStateIconImageView.contentMode = .scaleAspectFit
+		validityStateIconImageView.setContentCompressionResistancePriority(.required, for: .horizontal)
 		validityStateIconImageView.setContentHuggingPriority(.required, for: .horizontal)
 
 		return validityStateIconImageView
