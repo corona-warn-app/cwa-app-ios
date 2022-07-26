@@ -27,7 +27,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		
 		let healthCertifiedPersonsExpectation = expectation(description: "healthCertifiedPersons publisher updated")
 		// One for registration, one for the validity state update, and one for the wallet info update
-		healthCertifiedPersonsExpectation.expectedFulfillmentCount = 3
+		healthCertifiedPersonsExpectation.expectedFulfillmentCount = 4
 		
 		let subscription = service.$healthCertifiedPersons
 			.dropFirst()
@@ -348,7 +348,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		let firstRecoveryCertificate = try HealthCertificate(base45: firstRecoveryCertificateBase45, validityState: .expired, isValidityStateNew: false)
 		
 		let personsExpectation = expectation(description: "healthCertifiedPersons publisher triggered")
-		personsExpectation.expectedFulfillmentCount = 4
+		personsExpectation.expectedFulfillmentCount = 5
 		
 		let personsSubscription = service.$healthCertifiedPersons
 			.sink { _ in
@@ -356,7 +356,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			}
 		
 		let newsExpectation = expectation(description: "unseenNewsCount publisher triggered")
-		newsExpectation.expectedFulfillmentCount = 1
+		newsExpectation.expectedFulfillmentCount = 2
 		
 		let newsSubscription = service.unseenNewsCount
 			.sink { _ in
@@ -383,11 +383,11 @@ class HealthCertificateServiceTests: CWATestCase {
 		
 		XCTAssertEqual(store.healthCertifiedPersons[safe: 1]?.healthCertificates.map { $0.base45 }, [firstRecoveryCertificate.base45])
 		XCTAssertEqual(service.healthCertifiedPersons[safe: 1]?.gradientType, .solidGrey)
-		XCTAssertEqual(try XCTUnwrap(store.healthCertifiedPersons[safe: 1]).unseenNewsCount, 0)
+		XCTAssertEqual(try XCTUnwrap(store.healthCertifiedPersons[safe: 1]).unseenNewsCount, 1)
 		
 		// Expired state does not increase unseen news count
-		XCTAssertEqual(service.unseenNewsCount.value, 2)
-		XCTAssertFalse(try XCTUnwrap(store.healthCertifiedPersons[safe: 1]?.healthCertificates[safe: 0]).isValidityStateNew)
+		XCTAssertEqual(service.unseenNewsCount.value, 3)
+		XCTAssertTrue(try XCTUnwrap(store.healthCertifiedPersons[safe: 1]?.healthCertificates[safe: 0]).isValidityStateNew)
 		
 		XCTAssertEqual(store.healthCertifiedPersons[safe: 2]?.healthCertificates.map { $0.base45 }, [firstVaccinationCertificate, firstTestCertificate, secondTestCertificate].map { $0.base45 })
 		XCTAssertEqual(service.healthCertifiedPersons[safe: 2]?.gradientType, .darkBlue)
