@@ -85,7 +85,7 @@ class HealthCertificateExportCertificatesInfoViewModel {
 							let mergedPDFDocument = PDFDocument()
 							
 							// DCCs shall be sorted ascending by the name of the holder
-							// < operator was used before for prefered person so we use << operator here
+							// < operator was used before to give priority to preferred person, so we use << operator here
 							let selectedHealthCertificates = self.filteredHealthCertificates(healthCertifiedPersons: self.healthCertifiedPersons.sorted(by: <<))
 							
 							self.onChangeGeneratePDFDataProgess?(0, selectedHealthCertificates.count)
