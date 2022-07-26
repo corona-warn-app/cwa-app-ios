@@ -40,7 +40,7 @@ struct PPASubmitResource: Resource {
 				$0.authentication = ppacIos
 			}
 		)
-		self.locator = .submitPPA(payload: payload, isFake: isFake)
+		self.locator = .submitPPA(payload: payload, forceApiTokenHeader: forceApiTokenHeader, isFake: isFake)
 		self.type = .default
 		self.receiveResource = EmptyReceiveResource()
 		self.trustEvaluation = trustEvaluation

@@ -17,15 +17,24 @@ extension Locator {
 	) -> Locator {
 		let fake = String(isFake ? 1 : 0)
 		let forceApiHeader = String(forceApiTokenHeader ? 1 : 0)
+		
+		var defaultHeaders = [
+			"Content-Type": "application/x-protobuf",
+			"cwa-ppac-ios-accept-api-token": forceApiHeader,
+			"cwa-fake": fake
+		]
+		
+		#if !RELEASE
+		if forceApiTokenHeader {
+			defaultHeaders["cwa-ppac-ios-accept-api-token"] = "1"
+		}
+		#endif
+
 		return Locator(
 			endpoint: .dataDonation,
 			paths: ["version", "v1", "ios", "dat"],
 			method: .post,
-			defaultHeaders: [
-				"Content-Type": "application/x-protobuf",
-				"cwa-ppac-ios-accept-api-token": forceApiHeader,
-				"cwa-fake": fake
-			]
+			defaultHeaders: defaultHeaders
 		)
 	}
 
