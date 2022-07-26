@@ -160,6 +160,8 @@ class AntigenTestProfileInputCell: UITableViewCell, ReuseIdentifierProviding {
 		let textField = ENATextField(frame: .zero)
 		textField.autocorrectionType = .no
 		textField.isUserInteractionEnabled = true
+		textField.font = UIFont.preferredFont(forTextStyle: .body)
+		textField.adjustsFontForContentSizeCategory = true
 		textField.returnKeyType = .next
 		textField.clearButtonMode = .whileEditing
 		textField.spellCheckingType = .no
@@ -167,7 +169,7 @@ class AntigenTestProfileInputCell: UITableViewCell, ReuseIdentifierProviding {
 		textField.layer.borderWidth = 0
 		textField.keyboardType = .asciiCapable
 		textField.translatesAutoresizingMaskIntoConstraints = false
-		textField.heightAnchor.constraint(equalToConstant: 40.0).isActive = true
+		textField.heightAnchor.constraint(greaterThanOrEqualToConstant: 40).isActive = true
 		return textField
 	}
 	
