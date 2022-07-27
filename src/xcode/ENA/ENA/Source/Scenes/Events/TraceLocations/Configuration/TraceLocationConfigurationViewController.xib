@@ -52,26 +52,26 @@
                     <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fYV-bG-ieL">
-                            <rect key="frame" x="0.0" y="0.0" width="414" height="13455.5"/>
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="13452"/>
                             <subviews>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="WER-Ff-Vf6">
-                                    <rect key="frame" x="16" y="10" width="382" height="13429.5"/>
+                                    <rect key="frame" x="16" y="10" width="382" height="13426"/>
                                     <subviews>
-                                        <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="01z-L4-bly" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                            <rect key="frame" x="0.0" y="0.0" width="382" height="20.5"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="01z-L4-bly" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
+                                            <rect key="frame" x="0.0" y="0.0" width="382" height="17"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                             <color key="textColor" name="ENA Text Primary 2 Color"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Q5n-D7-4vB" userLabel="Spacer View">
-                                            <rect key="frame" x="0.0" y="28.5" width="382" height="2"/>
+                                            <rect key="frame" x="0.0" y="25" width="382" height="2"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="2" id="MRn-SD-pFj"/>
                                             </constraints>
                                         </view>
                                         <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZdI-py-EEb" userLabel="Text Field Container View">
-                                            <rect key="frame" x="0.0" y="38.5" width="382" height="85"/>
+                                            <rect key="frame" x="0.0" y="35" width="382" height="85"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Jl1-pC-2cs">
                                                     <rect key="frame" x="0.0" y="0.0" width="382" height="85"/>
@@ -137,7 +137,7 @@
                                             </constraints>
                                         </view>
                                         <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="U58-DU-Qmm" userLabel="Temporary Settings Container View">
-                                            <rect key="frame" x="0.0" y="131.5" width="382" height="8420"/>
+                                            <rect key="frame" x="0.0" y="128" width="382" height="8420"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="KHo-CQ-ifr">
                                                     <rect key="frame" x="0.0" y="0.0" width="382" height="8420"/>
@@ -421,7 +421,7 @@
                                             </constraints>
                                         </view>
                                         <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xhc-Zp-GkJ" userLabel="Permanent Settings Container View">
-                                            <rect key="frame" x="0.0" y="8559.5" width="382" height="4870"/>
+                                            <rect key="frame" x="0.0" y="8556" width="382" height="4870"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="wet-oF-hAL">
                                                     <rect key="frame" x="0.0" y="0.0" width="382" height="4870"/>
@@ -555,7 +555,7 @@
     </objects>
     <designables>
         <designable name="01z-L4-bly">
-            <size key="intrinsicContentSize" width="41.5" height="20.5"/>
+            <size key="intrinsicContentSize" width="35.5" height="17"/>
         </designable>
         <designable name="078-Ur-eek">
             <size key="intrinsicContentSize" width="35.5" height="17"/>
