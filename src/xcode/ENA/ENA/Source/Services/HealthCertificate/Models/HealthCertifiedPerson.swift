@@ -131,6 +131,10 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 
 		return preferredPersonPrecedesNonPreferred || haveSamePreferredStateAndAreInAlphabeticalOrder
 	}
+	
+	static func << (lhs: HealthCertifiedPerson, rhs: HealthCertifiedPerson) -> Bool {
+		return lhs.name?.fullName ?? "" < rhs.name?.fullName ?? ""
+	}
 
 	// MARK: - Internal
 
