@@ -415,11 +415,6 @@ extension ExposureSubmissionTestResultFamilyMemberViewModel {
 			)
 		}
 
-		// Information on proceduce
-		cells.append(DynamicCell.title2(
-			text: AppStrings.ExposureSubmissionResult.proofTitleFamilyMember
-		))
-
 		// Evidence / Proof
 		cells.append(contentsOf: [
 			.body(
@@ -521,11 +516,6 @@ extension ExposureSubmissionTestResultFamilyMemberViewModel {
 				})
 			)
 		}
-
-		// Information on proceduce
-		cells.append(DynamicCell.title2(
-			text: AppStrings.ExposureSubmissionResult.proofTitleFamilyMember
-		))
 
 		// Evidence / Proof
 		cells.append(contentsOf: [
