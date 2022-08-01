@@ -15,7 +15,9 @@ extension Name {
 	
 	var reversedFullName: String {
 		var resolvedFamilyName = self.resolvedFamilyName ?? ""
-		resolvedFamilyName += ","
+		if self.resolvedFamilyName != nil && self.resolvedGivenName != nil {
+			resolvedFamilyName += ","
+		}
 		return [resolvedFamilyName, resolvedGivenName].formatted()
 	}
 
@@ -39,12 +41,16 @@ extension Name {
 	}
 	
 	var familyNameGroupingComponents: [String] {
-		return standardizedFamilyName.groupingComponents()
+		return standardizedFamilyName?.groupingComponents() ?? []
 	}
 	
-	var reversedStandardizedName: String {
-		var standardizedFamilyName = self.standardizedFamilyName
-		standardizedFamilyName += "<<"
+	var reversedStandardizedName: String? {
+		guard var standardizedFamilyName = self.standardizedFamilyName else {
+			return nil
+		}
+		if self.standardizedFamilyName != nil && self.standardizedGivenName != nil {
+			standardizedFamilyName += "<<"
+		}
 		return [standardizedFamilyName, standardizedGivenName].formatted(separator: "")
 	}
 
@@ -53,7 +59,7 @@ extension Name {
 	private var trimmedStandardizedName: String {
 		return [
 			standardizedGivenName?.trimmingCharacters(in: CharacterSet(charactersIn: "<")),
-			standardizedFamilyName.trimmingCharacters(in: CharacterSet(charactersIn: "<"))
+			standardizedFamilyName?.trimmingCharacters(in: CharacterSet(charactersIn: "<"))
 		].formatted()
 	}
 	
