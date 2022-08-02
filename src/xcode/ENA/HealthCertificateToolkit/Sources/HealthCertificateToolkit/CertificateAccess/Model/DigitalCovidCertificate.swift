@@ -28,7 +28,7 @@ public struct DigitalCovidCertificate: Codable, Equatable {
     public let recoveryEntries: [RecoveryEntry]?
 
     public static func fake(
-        version: String = "1.3.0",
+        version: String = "1.3.2",
         name: Name = .fake(),
         dateOfBirth: String = "1989-12-12",
         vaccinationEntries: [VaccinationEntry]? = nil,
@@ -300,7 +300,7 @@ public struct Name: Codable, Equatable {
     public static func fake(
         familyName: String? = nil,
         givenName: String? = nil,
-        standardizedFamilyName: String? = nil,
+        standardizedFamilyName: String? = "ERIKA<DOERTE",
         standardizedGivenName: String? = nil
     ) -> Name {
         Name(
