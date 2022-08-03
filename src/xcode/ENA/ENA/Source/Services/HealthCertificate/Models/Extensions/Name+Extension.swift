@@ -46,7 +46,9 @@ extension Name {
 	
 	var reversedStandardizedName: String? {
 		if self.standardizedFamilyName != nil && self.standardizedGivenName != nil {
+			var standardizedFamilyName = self.standardizedFamilyName ?? ""
 			standardizedFamilyName += "<<"
+			return [standardizedFamilyName, standardizedGivenName].formatted(separator: "")
 		}
 		return [standardizedFamilyName, standardizedGivenName].formatted(separator: "")
 	}
