@@ -13,12 +13,7 @@ struct DeltaOnboardingNewVersionFeaturesViewModel {
 		
 		// ADD NEW FEATURES HERE
 		
-		self.featureVersion = "2.25"
-		
-		self.newVersionFeatures.append(
-			// batch export
-			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature225AdjustRecommendationsTitle, description: AppStrings.NewVersionFeatures.feature225AdjustRecommendationsDescription)
-		)
+		self.featureVersion = "2.26"
 	}
 
 	// MARK: - Internal
@@ -46,7 +41,8 @@ struct DeltaOnboardingNewVersionFeaturesViewModel {
 						height: 250
 					),
 					cells: [
-						.subheadline(text: AppStrings.NewVersionFeatures.generalDescription, color: UIColor.enaColor(for: .textPrimary2), accessibilityIdentifier: AccessibilityIdentifiers.DeltaOnboarding.newVersionFeaturesGeneralDescription)
+						.subheadline(text: AppStrings.NewVersionFeatures.generalDescription, color: UIColor.enaColor(for: .textPrimary2), accessibilityIdentifier: AccessibilityIdentifiers.DeltaOnboarding.newVersionFeaturesGeneralDescription),
+						.space(height: 150)
 					]
 				)
 			)
@@ -58,13 +54,11 @@ struct DeltaOnboardingNewVersionFeaturesViewModel {
 			)
 			$0.add(
 				.section(
-					cells: [
-						.body(
-							text: AppStrings.NewVersionFeatures.aboutAppInformation,
-							color: .enaColor(for: .textPrimary1),
-							accessibilityIdentifier: AccessibilityIdentifiers.DeltaOnboarding.newVersionFeaturesGeneralAboutAppInformation
-						)
-					]
+					footer: .body(
+						text: AppStrings.NewVersionFeatures.aboutAppInformation,
+						   color: .enaColor(for: .textPrimary1),
+						   accessibilityIdentifier: AccessibilityIdentifiers.DeltaOnboarding.newVersionFeaturesGeneralAboutAppInformation
+					   )
 				)
 			)
 		}
