@@ -12,5 +12,6 @@ struct CheckinsOverviewEmptyStateViewModel: EmptyStateViewModel {
 	let title = AppStrings.Checkins.Overview.emptyTitle
 	let description = AppStrings.Checkins.Overview.emptyDescription
 	let imageDescription = AppStrings.Checkins.Overview.emptyImageDescription
+	let imageAccessibilityIdentifier: String? = AccessibilityIdentifiers.Checkin.Overview.emptyState
 
 }

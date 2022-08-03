@@ -804,16 +804,16 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 				message: message,
 				preferredStyle: .alert
 			)
-			
-			alert.addAction(
-				UIAlertAction(
-					title: NSLocalizedString("Alert_ActionOk", comment: ""),
-					style: .default,
-					handler: { _ in
-						completion()
-					}
-				)
-			)
+			let okAction = UIAlertAction(
+				title: NSLocalizedString("Alert_ActionOk", comment: ""),
+				   style: .default,
+				   
+				   handler: { _ in
+					   completion()
+				   }
+			   )
+			okAction.accessibilityIdentifier = "AccessibilityIdentifier.InformationAboutExposureLogging_alert_Ok_Action"
+			alert.addAction(okAction)
 			
 			self.present(alert, animated: true) { [weak self] in
 				self?.viewModel.store.userNeedsToBeInformedAboutHowRiskDetectionWorks = false
