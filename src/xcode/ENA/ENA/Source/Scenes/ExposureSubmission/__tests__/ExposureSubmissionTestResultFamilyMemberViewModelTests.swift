@@ -6,6 +6,7 @@ import XCTest
 import HealthCertificateToolkit
 @testable import ENA
 
+// swiftlint:disable type_body_length
 class ExposureSubmissionTestResultFamilyMemberViewModelTests: CWATestCase {
 	
 	private var store: Store!
