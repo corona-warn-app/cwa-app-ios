@@ -41,8 +41,7 @@ struct DeltaOnboardingNewVersionFeaturesViewModel {
 						height: 250
 					),
 					cells: [
-						.subheadline(text: AppStrings.NewVersionFeatures.generalDescription, color: UIColor.enaColor(for: .textPrimary2), accessibilityIdentifier: AccessibilityIdentifiers.DeltaOnboarding.newVersionFeaturesGeneralDescription),
-						.space(height: 150)
+						.subheadline(text: AppStrings.NewVersionFeatures.generalDescription, color: UIColor.enaColor(for: .textPrimary2), accessibilityIdentifier: AccessibilityIdentifiers.DeltaOnboarding.newVersionFeaturesGeneralDescription)
 					]
 				)
 			)
@@ -54,11 +53,13 @@ struct DeltaOnboardingNewVersionFeaturesViewModel {
 			)
 			$0.add(
 				.section(
-					footer: .body(
-						text: AppStrings.NewVersionFeatures.aboutAppInformation,
-						   color: .enaColor(for: .textPrimary1),
-						   accessibilityIdentifier: AccessibilityIdentifiers.DeltaOnboarding.newVersionFeaturesGeneralAboutAppInformation
-					   )
+					cells: [
+						.body(
+							text: AppStrings.NewVersionFeatures.aboutAppInformation,
+							color: .enaColor(for: .textPrimary1),
+							accessibilityIdentifier: AccessibilityIdentifiers.DeltaOnboarding.newVersionFeaturesGeneralAboutAppInformation
+						)
+					]
 				)
 			)
 		}
