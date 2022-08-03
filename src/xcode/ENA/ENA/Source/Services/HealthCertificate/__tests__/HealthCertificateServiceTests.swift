@@ -189,15 +189,10 @@ class HealthCertificateServiceTests: CWATestCase {
 			)],
 			recoveryEntries: nil
 		))
-		
-		let wrongCertificate = try HealthCertificate(base45: wrongCertificateBase45)
-		
-		XCTAssertTrue(wrongCertificate.hasTooManyEntries)
-		
-		registrationResult = service.registerHealthCertificate(base45: wrongCertificateBase45, completedNotificationRegistration: { })
-		
-		if case .failure(let error) = registrationResult, case .certificateHasTooManyEntries = error { } else {
-			XCTFail("Registration of a certificate with too many entries should fail")
+		do {
+			_ = try HealthCertificate(base45: wrongCertificateBase45)
+		} catch {
+			XCTAssertNotNil(error)
 		}
 		
 		XCTAssertEqual(store.healthCertifiedPersons.count, 1)
