@@ -366,6 +366,63 @@ class ExposureSubmissionTestResultFamilyMemberViewModelTests: CWATestCase {
 		XCTAssertEqual(id.rawValue, "bulletPointCell")
 	}
 	
+	func testDynamicTableViewModelForAntigenNegativeTestResult() {
+		let familyMemberCoronaTestService = MockFamilyMemberCoronaTestService()
+		let antigenTest: FamilyMemberCoronaTest = .antigen(.mock(registrationDate: Date(), registrationToken: "regToken", qrCodeHash: "antigenQRCodeHash", testResult: .negative))
+		familyMemberCoronaTestService.coronaTests.value = [antigenTest]
+		
+		let model = ExposureSubmissionTestResultFamilyMemberViewModel(
+			familyMemberCoronaTest: antigenTest,
+			familyMemberCoronaTestService: familyMemberCoronaTestService,
+			keepMarkedAsNew: false,
+			onTestDeleted: { },
+			onTestCertificateCellTap: { _, _ in }
+		)
+		
+		XCTAssertEqual(model.dynamicTableViewModelPublisher.value.numberOfSection, 2)
+		XCTAssertNotNil(model.dynamicTableViewModelPublisher.value.section(1).header)
+		
+		let section = model.dynamicTableViewModelPublisher.value.section(1)
+		let cells = section.cells
+		XCTAssertEqual(cells.count, 9)
+		
+		let firstItem = cells[0]
+		var id = firstItem.cellReuseIdentifier
+		XCTAssertEqual(id.rawValue, "labelCell")
+		
+		let secondItem = cells[1]
+		id = secondItem.cellReuseIdentifier
+		XCTAssertEqual(id.rawValue, "labelCell")
+		
+		let thirdItem = cells[2]
+		id = thirdItem.cellReuseIdentifier
+		XCTAssertEqual(id.rawValue, "stepCell")
+		
+		let fourthItem = cells[3]
+		id = fourthItem.cellReuseIdentifier
+		XCTAssertEqual(id.rawValue, "stepCell")
+		
+		let  fifthItem = cells[4]
+		id = fifthItem.cellReuseIdentifier
+		XCTAssertEqual(id.rawValue, "labelCell")
+		
+		let sixthItem = cells[5]
+		id = sixthItem.cellReuseIdentifier
+		XCTAssertEqual(id.rawValue, "labelCell")
+		
+		let seventhItem = cells[6]
+		id = seventhItem.cellReuseIdentifier
+		XCTAssertEqual(id.rawValue, "bulletPointCell")
+		
+		let eigthItem = cells[7]
+		id = eigthItem.cellReuseIdentifier
+		XCTAssertEqual(id.rawValue, "bulletPointCell")
+		
+		let ninthItem = cells[8]
+		id = ninthItem.cellReuseIdentifier
+		XCTAssertEqual(id.rawValue, "bulletPointCell")
+	}
+	
 	func testDynamicTableViewModelForPendingTestResult() {
 		let familyMemberCoronaTestService = MockFamilyMemberCoronaTestService()
 		let pcrTest: FamilyMemberCoronaTest = .pcr(.mock(registrationDate: Date(), registrationToken: "regToken", qrCodeHash: "pcrQRCodeHash", testResult: .pending))
