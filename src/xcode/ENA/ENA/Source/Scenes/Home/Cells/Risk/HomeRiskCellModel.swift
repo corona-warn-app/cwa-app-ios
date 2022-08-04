@@ -100,6 +100,7 @@ class HomeRiskCellModel: CountdownTimerDelegate {
 	}
 
 	@OpenCombine.Published var title: String! = AppStrings.Home.riskCardLowTitle
+	@OpenCombine.Published var titleAccessibilityIdentifier: String! = AccessibilityIdentifiers.Home.RiskTableViewCell.LowRisk.title
 	@OpenCombine.Published var titleAccessibilityValue: String! = AppStrings.Home.riskCardLowTitleColorName
 	@OpenCombine.Published var titleColor: UIColor = .enaColor(for: .textContrast)
 
@@ -225,6 +226,7 @@ class HomeRiskCellModel: CountdownTimerDelegate {
 		loadingItemTitle: String
 	) {
 		self.title = title
+		titleAccessibilityIdentifier = AccessibilityIdentifiers.Home.RiskTableViewCell.loadingRiskTitle
 		titleAccessibilityValue = ""
 
 		body = ""
@@ -252,6 +254,7 @@ class HomeRiskCellModel: CountdownTimerDelegate {
 		separatorColor = .enaColor(for: .hairlineContrast)
 
 		title = AppStrings.Home.riskCardLowTitle
+		titleAccessibilityIdentifier = AccessibilityIdentifiers.Home.RiskTableViewCell.LowRisk.title
 		titleAccessibilityValue = risk.level.accessibilityRiskColor
 		titleColor = .enaColor(for: .textContrast)
 
@@ -282,6 +285,7 @@ class HomeRiskCellModel: CountdownTimerDelegate {
 					risk.details.numberOfDaysWithRiskLevel
 				),
 				titleColor: titleColor,
+				accessibilityIdentifier: AccessibilityIdentifiers.Home.RiskTableViewCell.LowRisk.noExposuresLabel,
 				iconImageName: "Icons_KeineRisikoBegegnung",
 				iconTintColor: titleColor,
 				color: backgroundColor,
@@ -298,6 +302,7 @@ class HomeRiskCellModel: CountdownTimerDelegate {
 					formattedMostRecentDateWithLowRisk
 				),
 				titleColor: titleColor,
+				accessibilityIdentifier: AccessibilityIdentifiers.Home.RiskTableViewCell.LowRisk.calculatedOnLabel,
 				iconImageName: "Icons_Calendar",
 				iconTintColor: titleColor,
 				color: backgroundColor,
@@ -311,6 +316,7 @@ class HomeRiskCellModel: CountdownTimerDelegate {
 			let daysSinceInstallationModel = HomeImageItemViewModel(
 				title: String(format: AppStrings.Home.daysSinceInstallation, homeState.daysSinceInstallation),
 				titleColor: titleColor,
+				accessibilityIdentifier: AccessibilityIdentifiers.Home.RiskTableViewCell.LowRisk.installedLabel,
 				iconImageName: "Icons-DaysSinceInstall",
 				iconTintColor: titleColor,
 				color: backgroundColor,
@@ -328,6 +334,7 @@ class HomeRiskCellModel: CountdownTimerDelegate {
 					lastUpdateDateString
 				),
 				titleColor: titleColor,
+				accessibilityIdentifier: AccessibilityIdentifiers.Home.RiskTableViewCell.LowRisk.updatedOnLabel,
 				iconImageName: "Icons_Aktualisiert",
 				iconTintColor: titleColor,
 				color: backgroundColor,
@@ -345,6 +352,7 @@ class HomeRiskCellModel: CountdownTimerDelegate {
 		separatorColor = .enaColor(for: .hairlineContrast)
 
 		title = AppStrings.Home.riskCardHighTitle
+		titleAccessibilityIdentifier = AccessibilityIdentifiers.Home.RiskTableViewCell.HighRisk.title
 		titleAccessibilityValue = risk.level.accessibilityRiskColor
 		titleColor = .enaColor(for: .textContrast)
 
@@ -375,6 +383,7 @@ class HomeRiskCellModel: CountdownTimerDelegate {
 					risk.details.numberOfDaysWithRiskLevel
 				),
 				titleColor: titleColor,
+				accessibilityIdentifier: AccessibilityIdentifiers.Home.RiskTableViewCell.HighRisk.daysWithIncreasedRiskLabel,
 				iconImageName: "Icons_RisikoBegegnung",
 				iconTintColor: titleColor,
 				color: backgroundColor,
@@ -388,6 +397,7 @@ class HomeRiskCellModel: CountdownTimerDelegate {
 					formattedMostRecentDateWithHighRisk
 				),
 				titleColor: titleColor,
+				accessibilityIdentifier: AccessibilityIdentifiers.Home.RiskTableViewCell.HighRisk.calculatedOnLabel,
 				iconImageName: "Icons_Calendar",
 				iconTintColor: titleColor,
 				color: backgroundColor,
@@ -401,6 +411,7 @@ class HomeRiskCellModel: CountdownTimerDelegate {
 					lastUpdateDateString
 				),
 				titleColor: titleColor,
+				accessibilityIdentifier: AccessibilityIdentifiers.Home.RiskTableViewCell.HighRisk.updatedOnLabel,
 				iconImageName: "Icons_Aktualisiert",
 				iconTintColor: titleColor,
 				color: backgroundColor,
@@ -418,6 +429,7 @@ class HomeRiskCellModel: CountdownTimerDelegate {
 		separatorColor = .enaColor(for: .hairline)
 
 		title = AppStrings.Home.riskCardInactiveNoCalculationPossibleTitle
+		titleAccessibilityIdentifier = AccessibilityIdentifiers.Home.RiskTableViewCell.inactiveRiskTitle
 		titleAccessibilityValue = ""
 		titleColor = .enaColor(for: .textPrimary1)
 
@@ -439,6 +451,7 @@ class HomeRiskCellModel: CountdownTimerDelegate {
 					previousRiskTitle
 				),
 				titleColor: titleColor,
+				accessibilityIdentifier: nil,
 				iconImageName: "Icons_LetzteErmittlung-Light",
 				iconTintColor: .enaColor(for: .riskNeutral),
 				color: backgroundColor,
@@ -452,6 +465,7 @@ class HomeRiskCellModel: CountdownTimerDelegate {
 					lastUpdateDateString
 				),
 				titleColor: titleColor,
+				accessibilityIdentifier: nil,
 				iconImageName: "Icons_Aktualisiert",
 				iconTintColor: .enaColor(for: .riskNeutral),
 				color: backgroundColor,
@@ -469,6 +483,7 @@ class HomeRiskCellModel: CountdownTimerDelegate {
 		separatorColor = .enaColor(for: .hairline)
 
 		title = AppStrings.Home.riskCardFailedCalculationTitle
+		titleAccessibilityIdentifier = AccessibilityIdentifiers.Home.RiskTableViewCell.failedRiskTitle
 		titleAccessibilityValue = ""
 		titleColor = .enaColor(for: .textPrimary1)
 
@@ -490,6 +505,7 @@ class HomeRiskCellModel: CountdownTimerDelegate {
 					previousRiskTitle
 				),
 				titleColor: titleColor,
+				accessibilityIdentifier: nil,
 				iconImageName: "Icons_LetzteErmittlung-Light",
 				iconTintColor: .enaColor(for: .riskNeutral),
 				color: backgroundColor,
@@ -503,6 +519,7 @@ class HomeRiskCellModel: CountdownTimerDelegate {
 					lastUpdateDateString
 				),
 				titleColor: titleColor,
+				accessibilityIdentifier: nil,
 				iconImageName: "Icons_Aktualisiert",
 				iconTintColor: .enaColor(for: .riskNeutral),
 				color: backgroundColor,

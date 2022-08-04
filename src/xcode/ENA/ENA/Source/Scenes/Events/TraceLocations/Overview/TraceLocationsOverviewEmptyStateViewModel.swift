@@ -12,5 +12,6 @@ struct TraceLocationsOverviewEmptyStateViewModel: EmptyStateViewModel {
 	let title = AppStrings.TraceLocations.Overview.emptyTitle
 	let description = AppStrings.TraceLocations.Overview.emptyDescription
 	let imageDescription = AppStrings.TraceLocations.Overview.emptyImageDescription
+	let imageAccessibilityIdentifier: String? = AccessibilityIdentifiers.TraceLocation.Overview.emptyState
 
 }

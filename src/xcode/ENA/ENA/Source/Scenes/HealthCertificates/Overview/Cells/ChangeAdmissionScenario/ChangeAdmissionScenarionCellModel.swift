@@ -18,6 +18,7 @@ class ChangeAdmissionScenarionCellModel: AddButtonAsTableViewCelling {
 	// MARK: - Internal
 
 	let text: String
+	let accessibilityIdentifier: String? = nil
 
 	var iconImagePublisher = CurrentValueSubject<UIImage?, Never>(UIImage(named: "Icons_admission_state"))
 	var textColorPublisher = CurrentValueSubject<UIColor, Never>(.enaColor(for: .textPrimary1))

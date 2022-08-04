@@ -101,6 +101,7 @@ class ExposureSubmissionSuccessViewController: DynamicTableViewController, ENANa
 				ExposureSubmissionDynamicCell.stepCell(
 					style: .body,
 					title: AppStrings.ExposureSubmissionSuccess.listItemPCR0,
+					accessibilityIdentifier: nil,
 					icon: UIImage(named: "Icons - Home"),
 					iconTint: .enaColor(for: .riskHigh),
 					hairline: .none,
@@ -109,6 +110,7 @@ class ExposureSubmissionSuccessViewController: DynamicTableViewController, ENANa
 				ExposureSubmissionDynamicCell.stepCell(
 					style: .body,
 					title: AppStrings.ExposureSubmissionSuccess.listItemPCR1,
+					accessibilityIdentifier: nil,
 					icon: UIImage(named: "Icons - Hotline"),
 					iconTint: .enaColor(for: .riskHigh),
 					hairline: .none,
@@ -117,6 +119,7 @@ class ExposureSubmissionSuccessViewController: DynamicTableViewController, ENANa
 				ExposureSubmissionDynamicCell.stepCell(
 					style: .body,
 					title: AppStrings.ExposureSubmissionSuccess.listItemPCR2,
+					accessibilityIdentifier: nil,
 					icon: UIImage(named: "Icons - Red Plus"),
 					hairline: .none,
 					bottomSpacing: .medium
@@ -127,6 +130,7 @@ class ExposureSubmissionSuccessViewController: DynamicTableViewController, ENANa
 				ExposureSubmissionDynamicCell.stepCell(
 					style: .body,
 					title: AppStrings.ExposureSubmissionSuccess.listItemRAT0,
+					accessibilityIdentifier: AccessibilityIdentifiers.Home.ShownPositiveTestResultCell.RAT.firstBulletPoint,
 					icon: UIImage(named: "Icons - Home"),
 					iconTint: .enaColor(for: .riskHigh),
 					hairline: .none,
@@ -135,6 +139,7 @@ class ExposureSubmissionSuccessViewController: DynamicTableViewController, ENANa
 				ExposureSubmissionDynamicCell.stepCell(
 					style: .body,
 					title: AppStrings.ExposureSubmissionSuccess.listItemRAT1,
+					accessibilityIdentifier: nil,
 					icon: UIImage(named: "Icons - Test Tube"),
 					iconTint: .enaColor(for: .riskHigh),
 					hairline: .none,
@@ -143,6 +148,7 @@ class ExposureSubmissionSuccessViewController: DynamicTableViewController, ENANa
 				ExposureSubmissionDynamicCell.stepCell(
 					style: .body,
 					title: AppStrings.ExposureSubmissionSuccess.listItemRAT2,
+					accessibilityIdentifier: nil,
 					icon: UIImage(named: "Icons - Hotline"),
 					iconTint: .enaColor(for: .riskHigh),
 					hairline: .none,

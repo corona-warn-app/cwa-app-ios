@@ -12,5 +12,6 @@ struct RecycleBinEmptyStateViewModel: EmptyStateViewModel {
 	let title = AppStrings.RecycleBin.EmptyState.title
 	let description = AppStrings.RecycleBin.EmptyState.description
 	let imageDescription = AppStrings.RecycleBin.EmptyState.imageDescription
+	let imageAccessibilityIdentifier: String? = AccessibilityIdentifiers.RecycleBin.emptyState
 
 }
