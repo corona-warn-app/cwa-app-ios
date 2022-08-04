@@ -108,7 +108,7 @@ class ENAUITests_18_RecycleBin: CWATestCase {
 		app.alerts.firstMatch.buttons.element(boundBy: 0).waitAndTap()
 
 		/// check if the pcr test cell disappears
-		XCTAssertFalse(app.cells[AccessibilityIdentifiers.Home.ShownPositiveTestResultCell.pcrCell].waitForExistence(timeout: .medium))
+		XCTAssertFalse(app.cells[AccessibilityIdentifiers.Home.ShownPositiveTestResultCell.PCR.pcrCell].waitForExistence(timeout: .medium))
 
 		/// Check that deleted item is now visible in recycle bin
 		recycleBinLabel.waitAndTap()
