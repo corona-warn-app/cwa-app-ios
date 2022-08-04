@@ -594,9 +594,7 @@ class HealthCertificateTests: XCTestCase {
 	func testGIVEN_CertificatesWithMultipleEntries_WHEN_CheckingTooManyEntries_TrueIsReturned() throws {
 		// GIVEN
 		let firstWrongCertificateBase45 = try base45Fake(digitalCovidCertificate: DigitalCovidCertificate.fake(
-			vaccinationEntries: [VaccinationEntry.fake(
-				dateOfVaccination: "2020-01-01"
-			)],
+			vaccinationEntries: [],
 			testEntries: [TestEntry.fake(
 				dateTimeOfSampleCollection: "2020-01-02T12:00:00.000Z"
 			)],
@@ -604,9 +602,7 @@ class HealthCertificateTests: XCTestCase {
 		))
 
 		let secondWrongCertificateBase45 = try base45Fake(digitalCovidCertificate: DigitalCovidCertificate.fake(
-			vaccinationEntries: [VaccinationEntry.fake(
-				dateOfVaccination: "2020-01-01"
-			)],
+			vaccinationEntries: [],
 			testEntries: nil,
 			recoveryEntries: [RecoveryEntry.fake(
 				certificateValidFrom: "2020-01-01"
@@ -615,24 +611,18 @@ class HealthCertificateTests: XCTestCase {
 
 		let thirdWrongCertificateBase45 = try base45Fake(digitalCovidCertificate: DigitalCovidCertificate.fake(
 			vaccinationEntries: nil,
-			testEntries: [TestEntry.fake(
-				dateTimeOfSampleCollection: "2020-01-02T12:00:00.000Z"
-			)],
+			testEntries: [],
 			recoveryEntries: [RecoveryEntry.fake(
 				certificateValidFrom: "2020-01-01"
 			)]
 		))
 
 		let fourthWrongCertificateBase45 = try base45Fake(digitalCovidCertificate: DigitalCovidCertificate.fake(
-			vaccinationEntries: [VaccinationEntry.fake(
-				dateOfVaccination: "2020-01-01"
-			)],
+			vaccinationEntries: [],
 			testEntries: [TestEntry.fake(
 				dateTimeOfSampleCollection: "2020-01-02T12:00:00.000Z"
 			)],
-			recoveryEntries: [RecoveryEntry.fake(
-				certificateValidFrom: "2020-01-01"
-			)]
+			recoveryEntries: []
 		))
 
 		let fifthWrongCertificateBase45 = try base45Fake(digitalCovidCertificate: DigitalCovidCertificate.fake(
@@ -654,10 +644,10 @@ class HealthCertificateTests: XCTestCase {
 		let fourthWrongCertificate = try HealthCertificate(base45: fourthWrongCertificateBase45)
 
 		// WHEN / THEN
-		XCTAssertTrue(firstWrongCertificate.hasTooManyEntries)
-		XCTAssertTrue(secondWrongCertificate.hasTooManyEntries)
-		XCTAssertTrue(thirdWrongCertificate.hasTooManyEntries)
-		XCTAssertTrue(fourthWrongCertificate.hasTooManyEntries)
+		XCTAssertFalse(firstWrongCertificate.hasTooManyEntries)
+		XCTAssertFalse(secondWrongCertificate.hasTooManyEntries)
+		XCTAssertFalse(thirdWrongCertificate.hasTooManyEntries)
+		XCTAssertFalse(fourthWrongCertificate.hasTooManyEntries)
 
 		// In case of more than 1 entry for vaccinationEntries the initializer of HealthCertificate will fail due to a json schema validation error.
 		let fifthWrongCertificate = try? HealthCertificate(base45: fifthWrongCertificateBase45)
