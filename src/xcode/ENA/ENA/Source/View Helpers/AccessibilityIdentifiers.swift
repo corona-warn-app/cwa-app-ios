@@ -47,6 +47,25 @@ enum AccessibilityIdentifiers {
 		static let tableView = "AppStrings.Home.tableView"
 
 		enum RiskTableViewCell {
+			enum LowRisk {
+				static let title = "AccessibilityIdentifiers.Home.RiskTableViewCell.LowRiskTitle"
+				static let noExposuresLabel = "AccessibilityIdentifiers.Home.RiskTableViewCell.NoExposuresLabel"
+				static let installedLabel = "AccessibilityIdentifiers.Home.RiskTableViewCell.InstalledLabel"
+				static let calculatedOnLabel = "AccessibilityIdentifiers.Home.RiskTableViewCell.CalculatedOnLabel"
+				static let updatedOnLabel = "AccessibilityIdentifiers.Home.RiskTableViewCell.UpdatedOnLabel"
+			}
+
+			enum HighRisk {
+				static let title = "AccessibilityIdentifiers.Home.RiskTableViewCell.HighRiskTitle"
+				static let daysWithIncreasedRiskLabel = "AccessibilityIdentifiers.Home.RiskTableViewCell.DaysWithIncreasedRiskLabel"
+				static let calculatedOnLabel = "AccessibilityIdentifiers.Home.RiskTableViewCell.CalculatedOnLabel"
+				static let updatedOnLabel = "AccessibilityIdentifiers.Home.RiskTableViewCell.UpdatedOnLabel"
+			}
+
+			static let loadingRiskTitle = "AccessibilityIdentifiers.Home.RiskTableViewCell.LoadingRiskTitle"
+			static let failedRiskTitle = "AccessibilityIdentifiers.Home.RiskTableViewCell.FailedRiskTitle"
+			static let inactiveRiskTitle = "AccessibilityIdentifiers.Home.RiskTableViewCell.InactiveRiskTitle"
+			
 			static let topContainer = "[AccessibilityIdentifiers.Home.RiskTableViewCell.topContainer]"
 			static let bodyLabel = "HomeRiskTableViewCell.bodyLabel"
 			static let updateButton = "HomeRiskTableViewCell.updateButton"
@@ -78,8 +97,21 @@ enum AccessibilityIdentifiers {
 		}
 
 		enum ShownPositiveTestResultCell {
-			static let pcrCell = "AccessibilityIdentifiers.Home.pcrCell"
-			static let antigenCell = "AccessibilityIdentifiers.Home.antigenCell"
+			enum PCR {
+				static let pcrCell = "AccessibilityIdentifiers.Home.pcrCell"
+				static let title = "AccessibilityIdentifiers.Home.pcrCell.Positive.Title"
+				static let subtitle = "AccessibilityIdentifiers.Home.pcrCell.Positive.Subtitle"
+				static let firstBulletPoint = "AccessibilityIdentifiers.Home.pcrCell.Positive.Item0"
+				static let secondBulletPoint = "AccessibilityIdentifiers.Home.pcrCell.Positive.Item1"
+				static let thirdBulletPoint = "AccessibilityIdentifiers.Home.pcrCell.Positive.Item2"
+
+			}
+			enum RAT {
+				static let antigenCell = "AccessibilityIdentifiers.Home.antigenCell"
+				static let firstBulletPoint = "AccessibilityIdentifiers.Home.ratCell.Positive.Item0"
+				static let secondBulletPoint = "AccessibilityIdentifiers.Home.ratCell.Positive.Item1"
+				static let thirdBulletPoint = "AccessibilityIdentifiers.Home.ratCell.Positive.Item2"
+			}
 			static let submittedPCRCell = "AccessibilityIdentifiers.Home.submittedPCRCell"
 			static let submittedAntigenCell = "AccessibilityIdentifiers.Home.submittedAntigenCell"
 			static let removeTestButton = "AppStrings.Home.TestResult.ShownPositive.removeTestButton"
@@ -140,7 +172,8 @@ enum AccessibilityIdentifiers {
 			static let riskLevelLow = "AppStrings.ContactDiary.Overview.lowRiskTitle"
 			static let riskLevelHigh = "AppStrings.ContactDiary.Overview.increasedRiskTitle"
 			static let tableView = "AppStrings.ContactDiary.Overview.tableView"
-			
+			static let emptyState = "AppStrings.ContactDiary.Overview.emptyState"
+
 			static let checkinRiskLevelLow = "AppStrings.ContactDiary.Overview.CheckinEncounter.titleLowRisk"
 			static let checkinRiskLevelHigh = "AppStrings.ContactDiary.Overview.CheckinEncounter.titleHighRisk"
 			static let checkinTableView = "AppStrings.ContactDiary.Overview.CheckinEncounter.tableView"
@@ -195,6 +228,7 @@ enum AccessibilityIdentifiers {
 	enum RecycleBin {
 		static let itemCell = "RecycleBin.itemCell"
 		static let restorationConfirmationButton = "RecycleBin.restorationConfirmationButton"
+		static let emptyState = "RecycleBin.emptyState"
 	}
 	
 	enum Settings {
@@ -320,6 +354,7 @@ enum AccessibilityIdentifiers {
 		static let sectionHeadline2 = "AppStrings.ExposureSubmission_DispatchSectionHeadline2"
 		static let qrCodeButtonDescription = "AppStrings.ExposureSubmissionDispatch.qrCodeButtonDescription"
 		static let tanButtonDescription = "AppStrings.ExposureSubmissionDispatch.tanButtonDescription"
+		static let tanInputView = "AppStrings.ExposureSubmissionDispatch.TaninputView"
 		static let hotlineButtonDescription = "AppStrings.ExposureSubmissionDispatch.hotlineButtonDescription"
 		static let findTestCentersButtonDescription = "AppStrings.ExposureSubmissionDispatch.findTestCentersButtonDescription"
 	}
@@ -702,6 +737,8 @@ enum AccessibilityIdentifiers {
 		enum Overview {
 			static let tableView = "TableView.TracelocationOverview"
 			static let menueButton = "AppStrings.TraceLocations.Overview.menueButton"
+			static let addButton = "AppStrings.TraceLocations.Overview.addButton"
+			static let emptyState = "AppStrings.TraceLocations.Overview.emptyState"
 		}
 		
 		enum Configuration {
@@ -719,6 +756,8 @@ enum AccessibilityIdentifiers {
 		
 		enum Overview {
 			static let menueButton = "AppStrings.CheckIn.Overview.menueButton"
+			static let addButton = "AppStrings.CheckIn.Overview.addButton"
+			static let emptyState = "AppStrings.CheckIn.Overview.emptyState"
 		}
 		
 		enum Details {
@@ -772,8 +811,10 @@ enum AccessibilityIdentifiers {
 		}
 		
 		enum Overview {
+			static let addButton = "AppStrings.AntigenProfile.AddButton"
 			static let tableView = "TableView.AntigenProfileOverview"
 			static let antigenTestPersonProfileCell = "AppStrings.AntigenProfile.Overview.antigenTestPersonProfileCell"
+			static let emptyState = "AppStrings.AntigenProfile.Overview.emptyState"
 		}
 	}
 
@@ -803,6 +844,7 @@ enum AccessibilityIdentifiers {
 				"AppStrings.HealthCertificate.changeAdmissionScenarioCell"
 			static let healthCertifiedPersonCell = "AppStrings.HealthCertificate.healthCertifiedPersonCell"
 			static let testCertificateRequestCell = "AppStrings.HealthCertificate.testCertificateRequestCell"
+			static let emptyState = "AppStrings.HealthCertificate.emptyState"
 		}
 
 		enum Info {

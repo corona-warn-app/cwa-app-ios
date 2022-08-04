@@ -14,6 +14,7 @@ struct HomeImageItemViewModel: HomeItemViewModel {
 
 	let title: String
 	let titleColor: UIColor
+	let accessibilityIdentifier: String?
 	let iconImageName: String
 	let iconTintColor: UIColor
 	let color: UIColor

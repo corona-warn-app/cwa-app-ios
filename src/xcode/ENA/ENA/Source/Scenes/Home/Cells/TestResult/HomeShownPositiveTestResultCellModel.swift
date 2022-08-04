@@ -52,7 +52,9 @@ class HomeShownPositiveTestResultCellModel {
 
 	let statusTitle = AppStrings.Home.TestResult.ShownPositive.statusTitle
 	let statusSubtitle = AppStrings.Home.TestResult.ShownPositive.statusSubtitle
-
+	let statuesTitleAccessibilityIdentifier = AccessibilityIdentifiers.Home.ShownPositiveTestResultCell.PCR.title
+	let statuesSubtitleAccessibilityIdentifier = AccessibilityIdentifiers.Home.ShownPositiveTestResultCell.PCR.subtitle
+	
 	let noteTitle = AppStrings.Home.TestResult.ShownPositive.noteTitle
 	let buttonTitle = AppStrings.Home.TestResult.ShownPositive.button
 	let removeTestButtonTitle = AppStrings.Home.TestResult.ShownPositive.removeTestButton
@@ -87,6 +89,7 @@ class HomeShownPositiveTestResultCellModel {
 				HomeImageItemViewModel(
 					title: AppStrings.Home.TestResult.ShownPositive.itemPCR0,
 					titleColor: .enaColor(for: .textPrimary1),
+					accessibilityIdentifier: AccessibilityIdentifiers.Home.ShownPositiveTestResultCell.PCR.firstBulletPoint,
 					iconImageName: "Icons - Home",
 					iconTintColor: .enaColor(for: .riskHigh),
 					color: .clear,
@@ -97,6 +100,7 @@ class HomeShownPositiveTestResultCellModel {
 				HomeImageItemViewModel(
 					title: AppStrings.Home.TestResult.ShownPositive.itemPCR1,
 					titleColor: .enaColor(for: .textPrimary1),
+					accessibilityIdentifier: AccessibilityIdentifiers.Home.ShownPositiveTestResultCell.PCR.secondBulletPoint,
 					iconImageName: "Icons - Hotline",
 					iconTintColor: .enaColor(for: .riskHigh),
 					color: .clear,
@@ -107,6 +111,7 @@ class HomeShownPositiveTestResultCellModel {
 				HomeImageItemViewModel(
 					title: AppStrings.Home.TestResult.ShownPositive.itemPCR2,
 					titleColor: .enaColor(for: .textPrimary1),
+					accessibilityIdentifier: AccessibilityIdentifiers.Home.ShownPositiveTestResultCell.PCR.thirdBulletPoint,
 					iconImageName: "Icons - Red Plus",
 					iconTintColor: .enaColor(for: .riskHigh),
 					color: .clear,
@@ -120,6 +125,7 @@ class HomeShownPositiveTestResultCellModel {
 				HomeImageItemViewModel(
 					title: AppStrings.Home.TestResult.ShownPositive.itemRAT0,
 					titleColor: .enaColor(for: .textPrimary1),
+					accessibilityIdentifier: AccessibilityIdentifiers.Home.ShownPositiveTestResultCell.RAT.firstBulletPoint,
 					iconImageName: "Icons - Home",
 					iconTintColor: .enaColor(for: .riskHigh),
 					color: .clear,
@@ -130,6 +136,7 @@ class HomeShownPositiveTestResultCellModel {
 				HomeImageItemViewModel(
 					title: AppStrings.Home.TestResult.ShownPositive.itemRAT1,
 					titleColor: .enaColor(for: .textPrimary1),
+					accessibilityIdentifier: AccessibilityIdentifiers.Home.ShownPositiveTestResultCell.RAT.secondBulletPoint,
 					iconImageName: "Icons - Test Tube",
 					iconTintColor: .enaColor(for: .riskHigh),
 					color: .clear,
@@ -140,6 +147,7 @@ class HomeShownPositiveTestResultCellModel {
 				HomeImageItemViewModel(
 					title: AppStrings.Home.TestResult.ShownPositive.itemRAT2,
 					titleColor: .enaColor(for: .textPrimary1),
+					accessibilityIdentifier: AccessibilityIdentifiers.Home.ShownPositiveTestResultCell.RAT.thirdBulletPoint,
 					iconImageName: "Icons - Hotline",
 					iconTintColor: .enaColor(for: .riskHigh),
 					color: .clear,
@@ -157,11 +165,11 @@ class HomeShownPositiveTestResultCellModel {
 		
 		switch (coronaTest.type, coronaTest.keysSubmitted) {
 		case (.pcr, false):
-			accessibilityIdentifier = AccessibilityIdentifiers.Home.ShownPositiveTestResultCell.pcrCell
+			accessibilityIdentifier = AccessibilityIdentifiers.Home.ShownPositiveTestResultCell.PCR.pcrCell
 		case (.pcr, true):
 			accessibilityIdentifier = AccessibilityIdentifiers.Home.ShownPositiveTestResultCell.submittedPCRCell
 		case (.antigen, false):
-			accessibilityIdentifier = AccessibilityIdentifiers.Home.ShownPositiveTestResultCell.antigenCell
+			accessibilityIdentifier = AccessibilityIdentifiers.Home.ShownPositiveTestResultCell.RAT.antigenCell
 		case (.antigen, true):
 			accessibilityIdentifier = AccessibilityIdentifiers.Home.ShownPositiveTestResultCell.submittedAntigenCell
 		}
