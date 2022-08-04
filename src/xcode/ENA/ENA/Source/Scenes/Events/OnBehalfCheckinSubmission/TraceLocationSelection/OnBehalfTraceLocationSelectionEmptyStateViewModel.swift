@@ -12,5 +12,6 @@ struct OnBehalfTraceLocationSelectionEmptyStateViewModel: EmptyStateViewModel {
 	let title = AppStrings.OnBehalfCheckinSubmission.TraceLocationSelection.EmptyState.title
 	let description = AppStrings.OnBehalfCheckinSubmission.TraceLocationSelection.EmptyState.description
 	let imageDescription = AppStrings.OnBehalfCheckinSubmission.TraceLocationSelection.EmptyState.imageDescription
+	let imageAccessibilityIdentifier: String? = nil
 
 }

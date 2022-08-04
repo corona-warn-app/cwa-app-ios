@@ -30,6 +30,7 @@ enum ExposureSubmissionDynamicCell {
 		style: ENAFont,
 		color: UIColor = .enaColor(for: .textPrimary1),
 		title: String,
+		accessibilityIdentifier: String? = nil,
 		icon: UIImage? = nil,
 		iconAccessibilityLabel: String? = nil,
 		accessibilityLabel: String? = nil,
@@ -52,7 +53,7 @@ enum ExposureSubmissionDynamicCell {
 				cell.titleLabel.accessibilityLabel = [iconAccessibilityLabel, accessibilityLabel]
 					.compactMap({ $0 })
 					.joined(separator: ": ")
-
+				cell.titleLabel.accessibilityIdentifier = accessibilityIdentifier
 				if let accessibilityTraits = accessibilityTraits {
 					cell.accessibilityTraits = accessibilityTraits
 				}

@@ -10,6 +10,7 @@ class OnBehalfScanQRCodeCellModel: AddButtonAsTableViewCelling {
 	// MARK: - Internal
 
 	let text: String = AppStrings.OnBehalfCheckinSubmission.TraceLocationSelection.scanButtonTitle
+	let accessibilityIdentifier: String? = nil
 
 	var iconImagePublisher = CurrentValueSubject<UIImage?, Never>(UIImage(named: "Icons_qrScan"))
 	var textColorPublisher = CurrentValueSubject<UIColor, Never>(.enaColor(for: .textPrimary1))
