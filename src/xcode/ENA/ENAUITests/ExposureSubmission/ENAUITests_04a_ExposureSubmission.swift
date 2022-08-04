@@ -330,7 +330,7 @@ class ENAUITests_04a_ExposureSubmission: CWATestCase {
 		launch()
 		
 		// Open Intro screen.
-		app.cells[AccessibilityIdentifiers.Home.ShownPositiveTestResultCell.pcrCell].waitAndTap(.long)
+		app.cells[AccessibilityIdentifiers.Home.ShownPositiveTestResultCell.PCR.pcrCell].waitAndTap(.long)
 		
 		// Open Warn Others screen.
 		XCTAssertTrue(app.navigationBars[AccessibilityIdentifiers.General.exposureSubmissionNavigationControllerTitle].waitForExistence(timeout: .medium))
@@ -375,7 +375,7 @@ class ENAUITests_04a_ExposureSubmission: CWATestCase {
 		app.alerts.firstMatch.buttons.element(boundBy: 1).waitAndTap() // don't warn
 
 		// Back to homescreen
-		app.cells[AccessibilityIdentifiers.Home.ShownPositiveTestResultCell.pcrCell].waitAndTap()
+		app.cells[AccessibilityIdentifiers.Home.ShownPositiveTestResultCell.PCR.pcrCell].waitAndTap()
 
 		XCTAssertTrue(app.navigationBars[AccessibilityIdentifiers.General.exposureSubmissionNavigationControllerTitle].waitForExistence(timeout: .medium))
 		app.buttons[AccessibilityIdentifiers.ExposureSubmission.primaryButton].waitAndTap()
@@ -840,7 +840,7 @@ extension ENAUITests_04a_ExposureSubmission {
 		app.setLaunchArgument(LaunchArguments.test.pcr.positiveTestResultWasShown, to: true)
 		launch()
 
-		app.cells[AccessibilityIdentifiers.Home.ShownPositiveTestResultCell.pcrCell].waitAndTap()
+		app.cells[AccessibilityIdentifiers.Home.ShownPositiveTestResultCell.PCR.pcrCell].waitAndTap()
 
 		// Test Result screen.
 		XCTAssertTrue(app.navigationBars[AccessibilityIdentifiers.General.exposureSubmissionNavigationControllerTitle].waitForExistence(timeout: .medium))

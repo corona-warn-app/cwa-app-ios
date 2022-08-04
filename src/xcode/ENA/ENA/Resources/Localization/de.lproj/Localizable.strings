@@ -953,8 +953,6 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionResult_Negative_Antigen_Proof_Desc" = "Um den hier angezeigten Befund überprüfbar nachzuweisen, ist ein Digitales Testzertifikat der EU notwendig. Wenn Sie bei der Registrierung des Tests ein Digitales Testzertifikat angefordert haben und die Teststelle deren Ausstellung unterstützt, können Sie Ihr Digitales Testzertifikat anhand des oben angegebenen Links anzeigen. Sie finden das Zertifikat außerdem im Bereich „Zertifikate“.\nInformieren Sie sich bitte auch über die Kriterien zur Anerkennung und Gültigkeit von Test-Zertifikaten in Bezug auf den Zweck für den Sie den Nachweis benötigen.";
 
-"ExposureSubmissionResult_familyMember_Negative_Antigen_NoProof_Title" = "Nachweis-Funktion";
-
 "ExposureSubmissionResult_Negative_Antigen_NoProof_Title" = "Keine Nachweis-Funktion";
 
 "ExposureSubmissionResult_Negative_Antigen_NoProof_Desc" = "Da der hier angezeigte Befund anonymisiert ist, kann er nicht als Nachweis für das Vorliegen eines negativen Schnelltest-Ergebnisses verwendet werden.";
@@ -1703,17 +1701,11 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "DeltaOnboarding_NewVersionFeatures_Button_Continue" = "Weiter";
 
-"DeltaOnboarding_NewVersionFeatures_Description" = "Mit diesem Update stellen wir Ihnen neben Fehlerbehebungen auch neue und erweiterte Funktionen zur Verfügung.";
+"DeltaOnboarding_NewVersionFeatures_Description" = "Mit diesem Update beheben wir Fehler in der App. Es enthält keine neuen Funktionen.";
 
 /* New Version Features */
 
 "NewVersionFeatures_Info_about_abb_information" = "Änderungen zum Release finden Sie in den App-Informationen unter dem Menüpunkt „Neue Funktionen”.";
-
-/* Version 2.25 */
-
-"NewVersionFeature_225_adjust_recommendations_title" = "Verhaltensempfehlungen aktualisiert";
-
-"NewVersionFeature_225_adjust_recommendations_description" = "Die Verhaltensempfehlungen bei erhöhtem Risiko wurden aktualisiert. Das betrifft unter anderem Empfehlungen zur Reduktion von Kontakten oder dem Tragen von Masken. Angepasst wurden auch die Empfehlungen bei niedrigem Risiko.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Länderübergreifende Risiko-Ermittlung";
