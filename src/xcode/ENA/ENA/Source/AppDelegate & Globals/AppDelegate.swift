@@ -207,7 +207,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		updateExposureState(state)
 		Analytics.triggerAnalyticsSubmission()
 		appUpdateChecker.checkAppVersionDialog(for: window?.rootViewController)
-		healthCertificateService.updateDCCWalletInfosIfNeeded()
+		healthCertificateService.updateValidityStatesAndNotifications(completion: { })
 	}
 	
 	func applicationWillTerminate(_ application: UIApplication) {
