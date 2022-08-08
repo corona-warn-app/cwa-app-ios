@@ -70,6 +70,27 @@ class Name_ExtensionTests: XCTestCase {
 		}
 	}
 	
+	
+	func testGIVEN_Valid_Only_GivenName_THEN_GroupingStandardizedNameIsEqualStandardizedName() {
+		// GIVEN
+		let name = Name(familyName: nil, givenName: "Thomas", standardizedFamilyName: nil, standardizedGivenName: "THOMAS"
+		)
+
+		// THEN
+		XCTAssertEqual(name.groupingStandardizedName, name.standardizedName)
+		XCTAssertEqual(name.groupingStandardizedName, "THOMAS")
+	}
+
+	func testGIVEN_Valid_Only_FamilyName_THEN_GroupingStandardizedNameIsEqualStandardizedName() {
+		// GIVEN
+		let name = Name(familyName: "Meyer", givenName: nil, standardizedFamilyName: "MEYER", standardizedGivenName: nil
+		)
+
+		// THEN
+		XCTAssertEqual(name.groupingStandardizedName, name.standardizedName)
+		XCTAssertEqual(name.groupingStandardizedName, "MEYER")
+	}
+
 	private struct TestCases: Decodable {
 		struct TestCase: Decodable {
 			let description: String
