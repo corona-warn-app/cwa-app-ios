@@ -12,5 +12,6 @@ struct HealthCertificateOverviewEmptyStateViewModel: EmptyStateViewModel {
 	let title = AppStrings.HealthCertificate.Overview.emptyTitle
 	let description = AppStrings.HealthCertificate.Overview.emptyDescription
 	let imageDescription = AppStrings.HealthCertificate.Overview.emptyImageDescription
+	let imageAccessibilityIdentifier: String? = AccessibilityIdentifiers.HealthCertificate.Overview.emptyState
 
 }

@@ -29,5 +29,5 @@ struct DiaryDayEmptyStateViewModel: EmptyStateViewModel {
 	let title: String
 	let description: String
 	let imageDescription: String
-
+	let imageAccessibilityIdentifier: String? = AccessibilityIdentifiers.ContactDiaryInformation.Overview.emptyState
 }

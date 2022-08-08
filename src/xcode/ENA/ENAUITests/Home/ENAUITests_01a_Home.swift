@@ -120,7 +120,7 @@ class ENAUITests_01a_Home: CWATestCase {
 		app.alerts.firstMatch.buttons.element(boundBy: 0).waitAndTap()
 		
 		// check if the pcr cell disappears
-		XCTAssertFalse(app.cells[AccessibilityIdentifiers.Home.ShownPositiveTestResultCell.pcrCell].waitForExistence(timeout: .medium))
+		XCTAssertFalse(app.cells[AccessibilityIdentifiers.Home.ShownPositiveTestResultCell.PCR.pcrCell].waitForExistence(timeout: .medium))
 	}
 	
 	func test_homescreen_riskCardHigh_riskMultipleDays() throws {

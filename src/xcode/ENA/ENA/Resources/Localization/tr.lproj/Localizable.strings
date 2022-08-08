@@ -935,8 +935,6 @@
 
 "ExposureSubmissionResult_Negative_Antigen_Proof_Desc" = "Burada görüntülenen sonucunuzu doğrulanabilir şekilde kanıtlamak için AB Dijital Covid Sertifikası gereklidir. Testinizi kaydettiğinizde dijital test sertifikası talebinde bulunduysanız ve test noktası, dijital sertifika düzenlemeyi destekliyorsa yukarıda belirtilen bağlantıyı kullanarak dijital test sertifikanızı bulabilirsiniz. Sertifikayı \"Sertifikalar\" sekmesinde de bulabilirsiniz.\nKanıt gerektiren amaç bağlamında test sertifikalarının geçerliliği ve kabulüne ilişkin ölçütleri de bulabilirsiniz.";
 
-"ExposureSubmissionResult_familyMember_Negative_Antigen_NoProof_Title" = "Doğrulama Özelliği";
-
 "ExposureSubmissionResult_Negative_Antigen_NoProof_Title" = "Doğrulama Özelliği Yok";
 
 "ExposureSubmissionResult_Negative_Antigen_NoProof_Desc" = "Buradaki bulgu anonimleştirildiğinden hızlı test sonucunun negatif olduğunun kanıtı olarak kullanılamaz.";

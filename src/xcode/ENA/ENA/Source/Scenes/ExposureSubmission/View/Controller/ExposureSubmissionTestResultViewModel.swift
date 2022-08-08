@@ -1035,7 +1035,7 @@ extension ExposureSubmissionTestResultViewModel {
 				primaryButtonName:
 					AppStrings.ExposureSubmissionPositiveTestResult.keysSubmittedPrimaryButtonTitle,
 				primaryIdentifier: AccessibilityIdentifiers.ExposureSubmission.primaryButton,
-				isSecondaryButtonEnabled: true,
+				isSecondaryButtonEnabled: false,
 				isSecondaryButtonHidden: true
 			)
 		case .positive:

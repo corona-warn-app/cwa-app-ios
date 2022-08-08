@@ -126,7 +126,7 @@
 
 "ExposureDetection_Guide_Title" = "Przetestuj się, użyj na przykład szybkiego testu lub testu domowego, najlepiej kilka razy co dwa dni. Jeśli otrzymasz pozytywny wynik, przeprowadź test PCR.";
 
-"ExposureDetection_Guide_Point1" = "Możesz zapoznać się z możliwościami testowania w tym miejscu lub skontaktować się z lekarzem rodzinnym lub apteką.";
+"ExposureDetection_Guide_Point1" = "Możesz zapoznać się z możliwościami testowania w tym miejscu. lub skontaktować się z lekarzem rodzinnym lub apteką.";
 
 "ExposureDetection_Guide_Point1_LinkText" = "Możesz zapoznać się z możliwościami testowania w tym miejscu.";
 
@@ -934,8 +934,6 @@
 "ExposureSubmissionResult_Timer_Title" = "Wynik dostępny od";
 
 "ExposureSubmissionResult_Negative_Antigen_Proof_Desc" = "Do rzetelnej weryfikacji wyświetlanego tutaj wyniku wymagany jest unijny cyfrowy certyfikat Covid. Jeśli podczas rejestracji testu zażądałeś(-aś) cyfrowego certyfikatu testu, a punkt testowy wydaje cyfrowe certyfikaty, możesz znaleźć swój cyfrowy certyfikat testu, korzystając z linku podanego powyżej. Znajdziesz go również na karcie „Certyfikaty”.\nProsimy również o zapoznanie się z kryteriami uznawania i ważności certyfikatów testów w kontekście celu, dla którego potrzebujesz dowodu.";
-
-"ExposureSubmissionResult_familyMember_Negative_Antigen_NoProof_Title" = "Funkcja weryfikacji";
 
 "ExposureSubmissionResult_Negative_Antigen_NoProof_Title" = "Brak funkcji weryfikacji";
 

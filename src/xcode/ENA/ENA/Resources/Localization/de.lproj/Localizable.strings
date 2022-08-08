@@ -265,7 +265,7 @@
 
 "ExposureDetection_ActiveTracingSection_Subtitle" = "Dieser Zeitraum wird berücksichtigt.";
 
-"ExposureDetection_ActiveTracingSection_Text" = "Wenn Sie die Risiko-Ermittlung aktiviert haben, berechnet die App Ihr persönliches Infektionsrisiko. Als Grundlage dafür misst sie, über welche Dauer und mit welchem Abstand in den letzten %u Tagen Begegnungen mit Corona-positiv getesteten Personen stattfanden. Bei der Risiko-Ermittlung werden außerdem Ihre Check-Ins berücksichtigt. Sie werden gewarnt, wenn Sie sich zur selben Zeit oder bis 30 Minuten nach der positiv getesteten Person im selben Raum aufgehalten haben.";
+"ExposureDetection_ActiveTracingSection_Text" = "Wenn Sie die Risiko-Ermittlung aktiviert haben, berechnet die App Ihr persönliches Infektionsrisiko. Als Grundlage dafür misst sie, über welche Dauer und mit welchem Abstand in den letzten %u Tagen Begegnungen mit Corona-positiv getesteten Personen stattfanden. Bei der Risiko-Ermittlung werden außerdem Ihre Check-ins berücksichtigt. Sie werden gewarnt, wenn Sie sich zur selben Zeit oder bis 30 Minuten nach der positiv getesteten Person im selben Raum aufgehalten haben.";
 
 "ExposureDetection_ActiveTracingSection_Text_Paragraph1b" = "Wenn die Risiko-Ermittlung zu Zeiten, in denen Sie andere Personen getroffen haben, aktiv war, kann die Berechnung des Infektionsrisikos für diesen Zeitraum erfolgen.";
 
@@ -351,7 +351,7 @@ Ermittlung sollte daher dauerhaft aktiv sein. Für Ihre Risiko-Ermittlung wird d
 
 "NotificationSettings_BulletHeadlineOn" = "Mitteilungen verwalten";
 
-"NotificationSettings_BulletHeadlineOff" = "Mitteilungen aktivieren";
+"NotificationSettings_BulletHeadlineOff" = "Mitteilungen verwalten";
 
 "NotificationSettings_BulletDescOn" = "Sie können hier festlegen, ob:";
 
@@ -952,8 +952,6 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 "ExposureSubmissionResult_Timer_Title" = "Ergebnis liegt vor seit";
 
 "ExposureSubmissionResult_Negative_Antigen_Proof_Desc" = "Um den hier angezeigten Befund überprüfbar nachzuweisen, ist ein Digitales Testzertifikat der EU notwendig. Wenn Sie bei der Registrierung des Tests ein Digitales Testzertifikat angefordert haben und die Teststelle deren Ausstellung unterstützt, können Sie Ihr Digitales Testzertifikat anhand des oben angegebenen Links anzeigen. Sie finden das Zertifikat außerdem im Bereich „Zertifikate“.\nInformieren Sie sich bitte auch über die Kriterien zur Anerkennung und Gültigkeit von Test-Zertifikaten in Bezug auf den Zweck für den Sie den Nachweis benötigen.";
-
-"ExposureSubmissionResult_familyMember_Negative_Antigen_NoProof_Title" = "Nachweis-Funktion";
 
 "ExposureSubmissionResult_Negative_Antigen_NoProof_Title" = "Keine Nachweis-Funktion";
 
@@ -1634,7 +1632,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "RiskLegend_Legend2_Title" = "Infektionsrisiko";
 
-"RiskLegend_Legend2_Text" = "Wenn Sie die Risiko-Ermittlung aktiviert haben, berechnet die App Ihr persönliches Infektionsrisiko. Als Grundlage dafür misst sie, über welche Dauer und mit welchem Abstand in den letzten %u Tagen Begegnungen mit Corona-positiv getesteten Personen stattfanden. Bei der Risiko-Ermittlung werden außerdem Ihre Check-Ins berücksichtigt. Sie werden gewarnt, wenn Sie sich zur selben Zeit oder bis 30 Minuten nach der positiv getesteten Person im selben Raum aufgehalten haben.";
+"RiskLegend_Legend2_Text" = "Wenn Sie die Risiko-Ermittlung aktiviert haben, berechnet die App Ihr persönliches Infektionsrisiko. Als Grundlage dafür misst sie, über welche Dauer und mit welchem Abstand in den letzten %u Tagen Begegnungen mit Corona-positiv getesteten Personen stattfanden. Bei der Risiko-Ermittlung werden außerdem Ihre Check-ins berücksichtigt. Sie werden gewarnt, wenn Sie sich zur selben Zeit oder bis 30 Minuten nach der positiv getesteten Person im selben Raum aufgehalten haben.";
 
 "RiskLegend_Legend2_RiskLevels" = "Folgende Risikostatus können angezeigt werden:";
 
@@ -1703,17 +1701,11 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "DeltaOnboarding_NewVersionFeatures_Button_Continue" = "Weiter";
 
-"DeltaOnboarding_NewVersionFeatures_Description" = "Mit diesem Update stellen wir Ihnen neben Fehlerbehebungen auch neue und erweiterte Funktionen zur Verfügung.";
+"DeltaOnboarding_NewVersionFeatures_Description" = "Mit diesem Update beheben wir Fehler in der App. Es enthält keine neuen Funktionen.";
 
 /* New Version Features */
 
 "NewVersionFeatures_Info_about_abb_information" = "Änderungen zum Release finden Sie in den App-Informationen unter dem Menüpunkt „Neue Funktionen”.";
-
-/* Version 2.25 */
-
-"NewVersionFeature_225_adjust_recommendations_title" = "Verhaltensempfehlungen aktualisiert";
-
-"NewVersionFeature_225_adjust_recommendations_description" = "Die Verhaltensempfehlungen bei erhöhtem Risiko wurden aktualisiert. Das betrifft unter anderem Empfehlungen zur Reduktion von Kontakten oder dem Tragen von Masken. Angepasst wurden auch die Empfehlungen bei niedrigem Risiko.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Länderübergreifende Risiko-Ermittlung";

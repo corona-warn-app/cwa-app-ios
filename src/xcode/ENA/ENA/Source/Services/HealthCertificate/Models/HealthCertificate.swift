@@ -306,9 +306,9 @@ final class HealthCertificate: Codable, Equatable, Comparable, RecycleBinIdentif
 
 	var validityStateIsConsideredNewsworthy: Bool {
 		switch validityState {
-		case .valid, .expiringSoon, .expired:
+		case .valid:
 			return false
-		case .invalid, .blocked, .revoked:
+		case .invalid, .blocked, .revoked, .expired, .expiringSoon:
 			return true
 		}
 	}
@@ -364,7 +364,13 @@ final class HealthCertificate: Codable, Equatable, Comparable, RecycleBinIdentif
 		} else {
 			hasGivenNameIntersection = givenNameComponents.intersection(other.givenNameComponents).isNotEmpty
 		}
-		let hasFamilyNameIntersection = familyNameComponents.intersection(other.familyNameComponents).isNotEmpty
+		
+		let hasFamilyNameIntersection: Bool
+		if familyNameComponents.isEmpty && other.familyNameComponents.isEmpty {
+			hasFamilyNameIntersection = true
+		} else {
+			hasFamilyNameIntersection = familyNameComponents.intersection(other.familyNameComponents).isNotEmpty
+		}
 		let hasNameIntersections = hasGivenNameIntersection && hasFamilyNameIntersection
 		
 		// The intersection/overlap of the name components of sanitized familyNameComponents and otherGivenNameCompontents has at least one element, and

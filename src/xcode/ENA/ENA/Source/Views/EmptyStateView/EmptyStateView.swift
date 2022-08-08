@@ -50,6 +50,7 @@ class EmptyStateView: UIView {
 
 		let imageView = UIImageView()
 		imageView.image = viewModel.image
+		imageView.accessibilityIdentifier = viewModel.imageAccessibilityIdentifier
 		imageView.accessibilityLabel = viewModel.imageDescription
 		imageView.isAccessibilityElement = true
 		stackView.addArrangedSubview(imageView)

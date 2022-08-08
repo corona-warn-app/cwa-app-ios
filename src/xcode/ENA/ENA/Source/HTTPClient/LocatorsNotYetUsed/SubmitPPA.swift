@@ -12,20 +12,25 @@ extension Locator {
 	// comment:	Custom error handling required
 	static func submitPPA(
 		payload: SAP_Internal_Ppdd_PPADataIOS,
-		forceApiTokenHeader: Bool = false,
-		isFake: Bool
+		forceApiTokenHeader: Bool = false
 	) -> Locator {
-		let fake = String(isFake ? 1 : 0)
+		
+		var defaultHeaders = [
+			"Content-Type": "application/x-protobuf"
+		]
+		
 		let forceApiHeader = String(forceApiTokenHeader ? 1 : 0)
+		#if !RELEASE
+		if forceApiTokenHeader {
+			defaultHeaders["cwa-ppac-ios-accept-api-token"] = forceApiHeader
+		}
+		#endif
+
 		return Locator(
 			endpoint: .dataDonation,
 			paths: ["version", "v1", "ios", "dat"],
 			method: .post,
-			defaultHeaders: [
-				"Content-Type": "application/x-protobuf",
-				"cwa-ppac-ios-accept-api-token": forceApiHeader,
-				"cwa-fake": fake
-			]
+			defaultHeaders: defaultHeaders
 		)
 	}
 
