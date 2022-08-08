@@ -339,6 +339,13 @@ class KeyPackageDownload: KeyPackageDownloadProtocol {
 				downloadedPackagesStore.deleteHourPackage(for: keyDay, hour: Int(package) ?? -1, country: countryId)
 			}
 		}
+		
+		// Delete all the packages that are older than 15 days
+		guard let fifteenDaysBackDate = Calendar.current.date(byAdding: .day, value: -15, to: Date()) else {
+			return
+		}
+		let fifteenDaysBackDateString = DateFormatter.packagesDayDateFormatter.string(from: fifteenDaysBackDate)
+		downloadedPackagesStore.deleteOldPackages(before: fifteenDaysBackDateString)
 	}
 
 	private func availableServerData(
