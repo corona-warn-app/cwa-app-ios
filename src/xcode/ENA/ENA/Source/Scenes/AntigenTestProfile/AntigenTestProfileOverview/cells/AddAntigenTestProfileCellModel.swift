@@ -10,6 +10,7 @@ class AddAntigenTestProfileCellModel: AddButtonAsTableViewCelling {
 	// MARK: - Internal
 
 	let text: String = AppStrings.AntigenProfile.Overview.addButtonTitle
+	var accessibilityIdentifier: String? = AccessibilityIdentifiers.AntigenProfile.Overview.addButton
 
 	var iconImagePublisher = CurrentValueSubject<UIImage?, Never>(UIImage(named: "Icon_Add"))
 	var textColorPublisher = CurrentValueSubject<UIColor, Never>(.enaColor(for: .textPrimary1))

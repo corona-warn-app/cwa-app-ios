@@ -39,7 +39,7 @@ class DownloadedPackagesStoreErrorStub: DownloadedPackagesStoreV3 {
 	func package(for day: String, country: Country.ID) -> SAPDownloadedPackage? {
 		return nil
 	}
-
+	
 	func hourlyPackages(for day: String, country: Country.ID) -> [SAPDownloadedPackage] {
 		return [SAPDownloadedPackage]()
 	}
@@ -66,6 +66,8 @@ class DownloadedPackagesStoreErrorStub: DownloadedPackagesStoreV3 {
 
 	func delete(packages: [SAPDownloadedPackage]) throws { }
 
+	func deleteOldPackages(before referenceDate: String) { }
+	
 	func deleteHourPackage(for day: String, hour: Int, country: Country.ID) { }
 
 	func deleteDayPackage(for day: String, country: Country.ID) { }

@@ -22,6 +22,7 @@ class TANInputCell: UITableViewCell, ReuseIdentifierProviding {
 		tanInputView = TanInputView(frame: .zero, viewModel: viewModel)
 		tanInputView.isUserInteractionEnabled = true
 		tanInputView.translatesAutoresizingMaskIntoConstraints = false
+		tanInputView.accessibilityIdentifier = AccessibilityIdentifiers.ExposureSubmissionDispatch.tanInputView
 		contentView.addSubview(tanInputView)
 		
 		NSLayoutConstraint.activate([

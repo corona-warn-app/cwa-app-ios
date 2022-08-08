@@ -13,6 +13,7 @@ class BoosterNotificationTableViewCell: UITableViewCell, ReuseIdentifierProvidin
 		super.init(style: style, reuseIdentifier: reuseIdentifier)
 
 		setupView()
+		setupAccessibility()
 	}
 
 	@available(*, unavailable)
@@ -164,7 +165,14 @@ class BoosterNotificationTableViewCell: UITableViewCell, ReuseIdentifierProvidin
 			]
 		)
 	}
-
+	
+	private func setupAccessibility() {
+		accessibilityElements = [backgroundContainerView]
+		backgroundContainerView.accessibilityElements = [titleLabel, subtitleLabel]
+		
+		titleLabel.accessibilityTraits = [.staticText, .button]
+	}
+	
 	private func updateBorderWidth() {
 		backgroundContainerView.layer.borderWidth = traitCollection.userInterfaceStyle == .dark ? 0 : 1
 	}

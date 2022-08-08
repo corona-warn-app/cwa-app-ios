@@ -10,6 +10,7 @@ class AddTraceLocationCellModel: AddButtonAsTableViewCelling {
 	// MARK: - Internal
 
 	let text: String = AppStrings.TraceLocations.Overview.addButtonTitle
+	let accessibilityIdentifier: String? = AccessibilityIdentifiers.TraceLocation.Overview.addButton
 
 	var iconImagePublisher = CurrentValueSubject<UIImage?, Never>(UIImage(named: "Icon_Add"))
 	var textColorPublisher = CurrentValueSubject<UIColor, Never>(.enaColor(for: .textPrimary1))

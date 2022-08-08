@@ -10,6 +10,7 @@ class AddCheckinCellModel: AddButtonAsTableViewCelling {
 	// MARK: - Internal
 
 	let text: String = AppStrings.Checkins.Overview.scanButtonTitle
+	let accessibilityIdentifier: String? = AccessibilityIdentifiers.Checkin.Overview.addButton
 
 	var iconImagePublisher = CurrentValueSubject<UIImage?, Never>(UIImage(named: "Icons_qrScan"))
 	var textColorPublisher = CurrentValueSubject<UIColor, Never>(.enaColor(for: .textPrimary1))
