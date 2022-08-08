@@ -579,6 +579,21 @@ extension DownloadedPackagesSQLLiteStoreV3: DownloadedPackagesStoreV3 {
 		}
 	}
 
+	func deleteOldPackages(before referenceDate: String) {
+		queue.sync {
+			let sql = """
+				DELETE FROM
+					Z_DOWNLOADED_PACKAGE
+				WHERE
+					Z_DAY < :referenceDate
+				;
+			"""
+
+			let parameters: [String: Any] = ["referenceDate": referenceDate]
+			self.database.executeUpdate(sql, withParameterDictionary: parameters)
+		}
+	}
+	
 	func deleteDayPackage(for day: String, country: Country.ID) {
 		queue.sync {
 			let sql = """
@@ -595,7 +610,7 @@ extension DownloadedPackagesSQLLiteStoreV3: DownloadedPackagesStoreV3 {
 			self.database.executeUpdate(sql, withParameterDictionary: parameters)
 		}
 	}
-
+	
 	func deleteHourPackage(for day: String, hour: Int, country: Country.ID) {
 		queue.sync {
 			let sql = """
