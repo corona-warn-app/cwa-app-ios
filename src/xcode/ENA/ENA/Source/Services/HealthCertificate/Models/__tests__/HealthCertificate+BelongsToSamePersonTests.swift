@@ -66,7 +66,7 @@ class HealthCertificate_BelongsToSamePersonTests: XCTestCase {
 	}
 	
 	private struct TesCaseName: Decodable {
-		let gnt: String
-		let fnt: String
+		let gnt: String?
+		let fnt: String?
 	}
 }

@@ -170,6 +170,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		// Removing pdf documents from temporary directory
 		FileManager.default.removePDFsFromTemporaryDirectory()
 
+		// Caters a corner case when the exposure check is disabled
+		if exposureManager.exposureManagerState.status == .disabled {
+			// Delete all the packages that are older than 15 days
+			let fifteenDaysBackDate = Calendar.current.date(byAdding: .day, value: -15, to: Date())
+			let fifteenDaysBackDateString = DateFormatter.packagesDayDateFormatter.string(from: fifteenDaysBackDate ?? Date())
+			downloadedPackagesStore.deleteOldPackages(before: fifteenDaysBackDateString)
+		}
+
 		consumer.didFailCalculateRisk = { [weak self] error in
 			if self?.store.isOnboarded == true {
 				self?.showError(error)
@@ -207,7 +215,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		updateExposureState(state)
 		Analytics.triggerAnalyticsSubmission()
 		appUpdateChecker.checkAppVersionDialog(for: window?.rootViewController)
-		healthCertificateService.updateDCCWalletInfosIfNeeded()
+		healthCertificateService.updateValidityStatesAndNotifications(completion: { })
 	}
 	
 	func applicationWillTerminate(_ application: UIApplication) {

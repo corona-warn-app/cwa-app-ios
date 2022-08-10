@@ -34,6 +34,7 @@ protocol DownloadedPackagesStoreV3: AnyObject {
 
 	func reset()
 	
+	func deleteOldPackages(before referenceDate: String)
 	func deleteHourPackage(for day: String, hour: Int, country: Country.ID)
 	func deleteDayPackage(for day: String, country: Country.ID)
 
