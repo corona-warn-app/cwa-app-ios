@@ -104,7 +104,7 @@
 
 "ExposureDetection_Guide_Vaccination" = "Зробіть щеплення від вірусу SARS-CoV-2, якщо ви ще цього не зробили.";
 
-"ExposureDetection_Guide_Hands" = "Регулярно мийте руки з милом протягом 20 секунд.";
+"ExposureDetection_Guide_Hands" = "Регулярно мийте руки з милом принаймні протягом 20 секунд.";
 
 "ExposureDetection_Guide_Mask" = "Одягайте маску для обличчя, коли ви зустрічаєте інших людей у приміщенні та скрізь, де це вимагається або рекомендовано законом.";
 
@@ -343,7 +343,7 @@
 
 "NotificationSettings_BulletHeadlineOn" = "Керувати сповіщеннями";
 
-"NotificationSettings_BulletHeadlineOff" = "Активувати сповіщення";
+"NotificationSettings_BulletHeadlineOff" = "Керувати сповіщеннями";
 
 "NotificationSettings_BulletDescOn" = "Тут можна визначити наступні настройки:";
 
@@ -1651,15 +1651,10 @@
 
 "DeltaOnboarding_NewVersionFeatures_Button_Continue" = "Далі";
 
-"DeltaOnboarding_NewVersionFeatures_Description" = "Поряд із виправленнями помилок, це оновлення також містить нові й розширені функції.";
+"DeltaOnboarding_NewVersionFeatures_Description" = "Це оновлення містить виправлення помилок застосунку. У ньому немає жодних нових функцій.";
 
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Зміни у цій версії можна знайти в інформації про застосунок в розділі «Нові функції».";
-
-/* Version 2.25 */
-"NewVersionFeature_225_adjust_recommendations_title" = "Рекомендована поведінка оновлена";
-
-"NewVersionFeature_225_adjust_recommendations_description" = "Оновлено рекомендовану поведінку, якщо у вас підвищений ризик. Рекомендації включають, зокрема, зменшення контактів з іншими та носіння маски для обличчя. Також оновлено рекомендації для осіб з низьким ступенем ризику.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Транснаціональна реєстрація ризику зараження";
