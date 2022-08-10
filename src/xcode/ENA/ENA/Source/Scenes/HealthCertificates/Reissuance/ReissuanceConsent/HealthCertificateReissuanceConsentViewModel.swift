@@ -356,6 +356,11 @@ final class HealthCertificateReissuanceConsentViewModel {
 		return DynamicCell.body(text: listTitle, color: .enaColor(for: .textPrimary2)) { _, cell, _ in
 			cell.contentView.preservesSuperviewLayoutMargins = false
 			cell.contentView.layoutMargins.top = 0
+			
+			guard #available(iOS 13, *) else {
+				cell.contentView.layoutMargins.top = 20
+				return
+			}
 		}
 	}
 	

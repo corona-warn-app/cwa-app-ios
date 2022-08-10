@@ -31,10 +31,21 @@ class HealthCertificateReissuanceSucceededViewController: DynamicTableViewContro
 		navigationItem.hidesBackButton = true
 		navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton
 		navigationController?.navigationBar.prefersLargeTitles = true
-		
+
 		setupTableView()
 	}
 
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+
+		guard #available(iOS 13, *) else {
+			if let dismissHandlingNC = navigationController as? DismissHandlingNavigationController {
+				dismissHandlingNC.restoreOriginalNavigationBar()
+			}
+			return
+		}
+	}
+	
 	// MARK: - Protocol DismissHandling
 
 	func wasAttemptedToBeDismissed() {
