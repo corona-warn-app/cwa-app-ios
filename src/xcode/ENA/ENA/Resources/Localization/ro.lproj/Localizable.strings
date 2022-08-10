@@ -104,7 +104,7 @@
 
 "ExposureDetection_Guide_Vaccination" = "Vaccinați-vă împotriva virusului SARS-CoV-2 dacă nu ați făcut deja acest lucru.";
 
-"ExposureDetection_Guide_Hands" = "Spălați-vă frecvent pe mâini cu săpun timp de 20 de secunde.";
+"ExposureDetection_Guide_Hands" = "Spălați-vă frecvent pe mâini cu săpun timp de cel puțin 20 de secunde.";
 
 "ExposureDetection_Guide_Mask" = "Purtați o mască facială când întâlniți alte persoane în interior și oriunde este obligatoriu sau recomandat din punct de vedere legal.";
 
@@ -343,7 +343,7 @@
 
 "NotificationSettings_BulletHeadlineOn" = "Gestionare notificări";
 
-"NotificationSettings_BulletHeadlineOff" = "Activați notificările";
+"NotificationSettings_BulletHeadlineOff" = "Gestionare notificări";
 
 "NotificationSettings_BulletDescOn" = "Puteți defini următoarele setări aici:";
 
@@ -1651,15 +1651,10 @@
 
 "DeltaOnboarding_NewVersionFeatures_Button_Continue" = "Înainte";
 
-"DeltaOnboarding_NewVersionFeatures_Description" = "Pe lângă remedierile de erori, această actualizare include și caracteristici noi și îmbunătățiri.";
+"DeltaOnboarding_NewVersionFeatures_Description" = "Această actualizare corectează erori din aplicație. Nu conține caracteristici noi.";
 
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Modificările din această versiune pot fi găsite în informațiile aplicației, la „Caracteristici noi”.";
-
-/* Version 2.25 */
-"NewVersionFeature_225_adjust_recommendations_title" = "Actualizarea conduitei recomandate";
-
-"NewVersionFeature_225_adjust_recommendations_description" = "Conduita recomandată în cazul în care aveți un risc crescut a fost actualizată. Recomandările includ, printre altele, reducerea contactului cu alte persoane și purtarea unei măști faciale. De asemenea, au fost actualizate recomandările pentru persoanele cu risc redus.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Înregistrare transnațională a expunerilor în jurnal";
