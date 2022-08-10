@@ -138,7 +138,7 @@ class DiaryOverviewDayTableViewCell: UITableViewCell {
 				[
 					imageView.widthAnchor.constraint(equalToConstant: 32),
 					horizontalStackView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 18.0),
-					horizontalStackView.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 12.0),
+					horizontalStackView.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 16.0),
 					horizontalStackView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -8.0),
 					horizontalStackView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -8.0)
 				]
@@ -161,6 +161,10 @@ class DiaryOverviewDayTableViewCell: UITableViewCell {
 		}
 		// Because we set the background color, the border of the underlying view disappears. For this we need some new borders at the left and right.
 		drawBorders(to: [.left, .right], on: checkinHistoryContainerStackView)
+
+		if let separatorView = checkinHistoryContainerStackView.arrangedSubviews.first {
+			checkinHistoryContainerStackView.setCustomSpacing(16, after: separatorView)
+		}
 
 		checkinHistoryNoticeImageView.image = cellViewModel.checkinImage
 		checkinHistoryTitleLabel.text = cellViewModel.checkinTitleHeadlineText
