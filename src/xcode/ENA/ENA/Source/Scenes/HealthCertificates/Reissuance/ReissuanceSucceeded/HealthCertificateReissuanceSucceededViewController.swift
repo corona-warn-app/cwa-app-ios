@@ -30,7 +30,8 @@ class HealthCertificateReissuanceSucceededViewController: DynamicTableViewContro
 		// setup navigation bar
 		navigationItem.hidesBackButton = true
 		navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton
-		
+		navigationController?.navigationBar.prefersLargeTitles = true
+
 		setupTableView()
 	}
 
