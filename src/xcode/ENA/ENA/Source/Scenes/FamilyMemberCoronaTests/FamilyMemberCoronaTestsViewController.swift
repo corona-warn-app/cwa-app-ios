@@ -35,11 +35,10 @@ class FamilyMemberCoronaTestsViewController: UITableViewController, FooterViewHa
 		navigationItem.title = AppStrings.FamilyMemberCoronaTest.title
 		navigationItem.rightBarButtonItem = editButtonItem
 
-		tableView.reloadData()
-
 		viewModel.onUpdate = { [weak self] in
 			DispatchQueue.main.async {
 				self?.animateCellHeightChanges()
+				self?.tableView.reloadData()
 			}
 		}
 

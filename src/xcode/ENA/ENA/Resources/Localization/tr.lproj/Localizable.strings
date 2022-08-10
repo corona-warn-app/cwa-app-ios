@@ -104,7 +104,7 @@
 
 "ExposureDetection_Guide_Vaccination" = "Henüz olmadıysanız SARS-CoV-2 virüsüne karşı aşı olun.";
 
-"ExposureDetection_Guide_Hands" = "Ellerinizi düzenli olarak 20 saniye sabunla yıkayın.";
+"ExposureDetection_Guide_Hands" = "Ellerinizi düzenli olarak en az 20 saniye sabunla yıkayın.";
 
 "ExposureDetection_Guide_Mask" = "Kapalı ortamlarda diğer insanlarla karşılaştığınızda ve yasal olarak gerekli görülen veya önerilen durumlarda yüz maskesi takın.";
 
@@ -343,7 +343,7 @@
 
 "NotificationSettings_BulletHeadlineOn" = "Bildirimleri Yönet";
 
-"NotificationSettings_BulletHeadlineOff" = "Bildirimleri Etkinleştir";
+"NotificationSettings_BulletHeadlineOff" = "Bildirimleri Yönet";
 
 "NotificationSettings_BulletDescOn" = "Burada şu ayarları tanımlayabilirsiniz:";
 
@@ -1651,15 +1651,10 @@
 
 "DeltaOnboarding_NewVersionFeatures_Button_Continue" = "Sonraki";
 
-"DeltaOnboarding_NewVersionFeatures_Description" = "Hata düzeltmelerinin yanında bu güncelleme ile birlikte yeni ve gelişmiş özellikler sunulmaktadır.";
+"DeltaOnboarding_NewVersionFeatures_Description" = "Bu güncelleme ile hatalar düzeltilmektedir. Bu güncellemede yeni özellik sunulmamaktadır.";
 
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Bu sürümdeki değişiklikleri uygulama bilgilerinde “Yeni Özellikler” bölümünde bulabilirsiniz.";
-
-/* Version 2.25 */
-"NewVersionFeature_225_adjust_recommendations_title" = "Önerilen Davranışlar Güncellendi";
-
-"NewVersionFeature_225_adjust_recommendations_description" = "Artmış risk altındaysanız önerilen davranışlar güncellendi. Öneriler arasında başka insanlarla temasın azaltılması ve yüz maskesi takılması gibi önlemler yer alıyor. Düşük risk altındaki kişilere ilişkin öneriler de güncellendi.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Uluslararası Maruz Kalma Günlüğü";
