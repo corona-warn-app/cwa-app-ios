@@ -138,7 +138,7 @@ class DiaryOverviewDayTableViewCell: UITableViewCell {
 				[
 					imageView.widthAnchor.constraint(equalToConstant: 32),
 					horizontalStackView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 18.0),
-					horizontalStackView.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 12.0),
+					horizontalStackView.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 16.0),
 					horizontalStackView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -8.0),
 					horizontalStackView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -8.0)
 				]
@@ -162,6 +162,10 @@ class DiaryOverviewDayTableViewCell: UITableViewCell {
 		// Because we set the background color, the border of the underlying view disappears. For this we need some new borders at the left and right.
 		drawBorders(to: [.left, .right], on: checkinHistoryContainerStackView)
 
+		if let grayLineView = checkinHistoryContainerStackView.arrangedSubviews.first {
+			checkinHistoryContainerStackView.setCustomSpacing(16, after: grayLineView)
+		}
+
 		checkinHistoryNoticeImageView.image = cellViewModel.checkinImage
 		checkinHistoryTitleLabel.text = cellViewModel.checkinTitleHeadlineText
 		checkinHistoryTitleLabel.accessibilityIdentifier = cellViewModel.checkinTitleAccessibilityIdentifier
@@ -169,6 +173,22 @@ class DiaryOverviewDayTableViewCell: UITableViewCell {
 		checkinHistoryDetailLabel.text = cellViewModel.checkinDetailDescription
 		checkinHistoryDetailLabel.style = .subheadline
 		checkinHistoryDetailLabel.textColor = .enaColor(for: .textPrimary2)
+//
+//		["Jahrestreffen der deutschen SAP Anwendergruppe (niedriges Risiko)", "Kiosk (erhöhtes Risiko)"].enumerated().forEach { index, desc in
+//			let checkInLabel = ENALabel()
+//			checkInLabel.adjustsFontForContentSizeCategory = true
+//			checkInLabel.numberOfLines = 0
+//			checkInLabel.style = .subheadline
+//			checkInLabel.textColor = .enaColor(for: .textPrimary2)
+//			let riskColor = index == 0 ? cellViewModel.colorFor(riskLevel: .low) : cellViewModel.colorFor(riskLevel: .high)
+//			let eventName = desc
+//			let checkinName = NSAttributedString(string: eventName).bulletPointString(bulletPointFont: .enaFont(for: .title2, weight: .bold, italic: false), bulletPointColor: riskColor)
+//
+//			checkInLabel.attributedText = checkinName
+//			checkInLabel.isAccessibilityElement = true
+//			checkInLabel.accessibilityIdentifier = "CheckinWithRisk\(desc)"
+//			checkinsWithRiskStackView.addArrangedSubview(checkInLabel)
+//		}
 
 		cellViewModel.checkinsWithRisk.enumerated().forEach { index, riskyCheckin in
 			let checkInLabel = ENALabel()
