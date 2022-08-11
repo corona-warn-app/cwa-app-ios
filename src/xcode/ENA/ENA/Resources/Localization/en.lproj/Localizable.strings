@@ -3300,8 +3300,6 @@
 
 "UniversalQRScanner_InstructionDescription" = "Tests, Your Certificates, Check-ins, and Validation during Ticketing";
 
-"UniversalQRScanner_InstructionDescriptionWhenEventPlanning" = "You can scan check-ins to recover deleted events.";
-
 "UniversalQRScanner_FileButtonTitle" = "Open File";
 
 "UniversalQRScanner_CameraFlash" = "Camera flash";
