@@ -148,7 +148,7 @@ class QRScannerViewController: UIViewController {
 		instructionDescription.textAlignment = .center
 		instructionDescription.textColor = .enaColor(for: .iconWithText)
 		instructionDescription.font = .enaFont(for: .body)
-		instructionDescription.text = (presenter != nil && presenter == .onBehalfFlow) ? AppStrings.UniversalQRScanner.instructionDescriptionWhenEventPlanning : AppStrings.UniversalQRScanner.instructionDescription
+		instructionDescription.text = (presenter != nil && presenter == .onBehalfFlow) ? AppStrings.UniversalQRScanner.instructionDescriptionWarnOthers : AppStrings.UniversalQRScanner.instructionDescription
 		instructionDescription.translatesAutoresizingMaskIntoConstraints = false
 
 		fileButton.contentMode = .left
