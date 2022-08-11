@@ -2467,6 +2467,7 @@ enum AppStrings {
 		static let scannerTitle = NSLocalizedString("UniversalQRScanner_ScannerTitle", comment: "")
 		static let instructionTitle = NSLocalizedString("UniversalQRScanner_InstructionTitle", comment: "")
 		static let instructionDescription = NSLocalizedString("UniversalQRScanner_InstructionDescription", comment: "")
+		static let instructionDescriptionWhenEventPlanning = NSLocalizedString("UniversalQRScanner_InstructionDescriptionWhenEventPlanning", comment: "")
 
 		static let fileButtonTitle = NSLocalizedString("UniversalQRScanner_FileButtonTitle", comment: "")
 		static let flashButtonAccessibilityLabel = NSLocalizedString("UniversalQRScanner_CameraFlash", comment: "")
