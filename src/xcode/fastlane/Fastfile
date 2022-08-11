@@ -213,8 +213,8 @@ platform :ios do
       -X POST \
       -H 'Accept: application/vnd.github.v3+json' \
       -H 'authorization: Bearer #{ENV["GITHUB_ACCESS_TOKEN"]}' \
-      -d '{\"ref\":\"main\", \"inputs\": { \"mobile-os\":\"ios\"}}' \
-      https://api.github.com/repos/corona-warn-app/cwa-app-automation/actions/workflows/31092010/dispatches"
+      -d '{\"ref\":\"main\"}' \
+      https://api.github.com/repos/corona-warn-app/cwa-app-automation/actions/workflows/32065376/dispatches"
     )
 
     sh("
@@ -222,8 +222,8 @@ platform :ios do
       -X POST \
       -H 'Accept: application/vnd.github.v3+json' \
       -H 'authorization: Bearer #{ENV["GITHUB_ACCESS_TOKEN"]}' \
-      -d '{\"ref\":\"main\", \"inputs\": { \"mobile-os\":\"ios125\"}}' \
-      https://api.github.com/repos/corona-warn-app/cwa-app-automation/actions/workflows/31092010/dispatches"
+      -d '{\"ref\":\"main\"}' \
+      https://api.github.com/repos/corona-warn-app/cwa-app-automation/actions/workflows/32065377/dispatches"
     )
 
   end
