@@ -12,6 +12,7 @@ class QRScannerViewController: UIViewController {
 	init(
 		healthCertificateService: HealthCertificateService,
 		appConfiguration: AppConfigurationProviding,
+		presenter: QRScannerPresenter,
 		didScan: @escaping (QRCodeResult) -> Void,
 		dismiss: @escaping () -> Void,
 		presentFileScanner: @escaping () -> Void,
@@ -22,6 +23,7 @@ class QRScannerViewController: UIViewController {
 		self.dismiss = dismiss
 		self.presentFileScanner = presentFileScanner
 		self.onInfoButtonTap = onInfoButtonTap
+		self.presenter = presenter
 
 		super.init(nibName: nil, bundle: nil)
 
@@ -111,6 +113,7 @@ class QRScannerViewController: UIViewController {
 	private let fileButton = UIButton(type: .custom)
 	private var previewLayer: AVCaptureVideoPreviewLayer! { didSet { updatePreviewMask() } }
 	private var viewModel: QRScannerViewModel?
+	private var presenter: QRScannerPresenter?
 
 	private lazy var infoButton: UIButton = {
 		let button = UIButton()
@@ -145,7 +148,7 @@ class QRScannerViewController: UIViewController {
 		instructionDescription.textAlignment = .center
 		instructionDescription.textColor = .enaColor(for: .iconWithText)
 		instructionDescription.font = .enaFont(for: .body)
-		instructionDescription.text = AppStrings.UniversalQRScanner.instructionDescription
+		instructionDescription.text = (presenter != nil && presenter == .onBehalfFlow) ? AppStrings.UniversalQRScanner.instructionDescriptionWarnOthers : AppStrings.UniversalQRScanner.instructionDescription
 		instructionDescription.translatesAutoresizingMaskIntoConstraints = false
 
 		fileButton.contentMode = .left
@@ -173,6 +176,7 @@ class QRScannerViewController: UIViewController {
 		contentView.addSubview(instructionDescription)
 
 		infoButton.translatesAutoresizingMaskIntoConstraints = false
+		infoButton.isHidden = (presenter != nil && presenter == .onBehalfFlow)
 		contentView.addSubview(infoButton)
 
 		let scrollView = UIScrollView()
