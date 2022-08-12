@@ -10,6 +10,10 @@ html, body, table {
 	"Roboto", "Oxygen", "Ubuntu", "Helvetica Neue", Arial, sans-serif;
 }
 
+body {
+	padding-bottom: 32px;
+}
+
 @supports (font: -apple-system-body) {
 	html, body, table {
 		font: -apple-system-body !important;
