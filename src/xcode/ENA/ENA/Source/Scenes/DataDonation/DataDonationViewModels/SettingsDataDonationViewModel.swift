@@ -32,6 +32,13 @@ final class SettingsDataDonationViewModel: BaseDataDonationViewModel {
 						height: 250
 					),
 					cells: [
+						.title1(text: AppStrings.DataDonation.Info.title)
+					]
+				)
+			)
+			$0.add(
+				.section(
+					cells: [
 						.headline(text: AppStrings.DataDonation.Info.description),
 						.footnote(text: AppStrings.DataDonation.Info.settingsSubHeadline, accessibilityIdentifier: nil)
 					]
