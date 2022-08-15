@@ -51,7 +51,7 @@ struct SubmitELSResource: Resource {
 	// MARK: - Protocol Resource
 	typealias Send = JSONSendResource<SubmitElSSendModel>
 	typealias Receive = JSONReceiveResource<SubmitELSReceiveModel>
-	typealias CustomError = ELSError
+	typealias CustomError = Error
 
 	let trustEvaluation: TrustEvaluating
 

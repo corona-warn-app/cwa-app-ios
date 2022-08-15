@@ -76,7 +76,7 @@ class ELSServiceTests: CWATestCase {
 		}
 		XCTAssertEqual(ELSError.ppacError(.generationFailed), error)
 	}
-	
+	// TO DO Related to OPT refactoring part
 //	func testGIVEN_ELSService_WHEN_UploadIsTriggered_THEN_OTPErrorIsReturned() throws {
 //		// GIVEN
 //		let restServiceProvider = RestServiceProviderStub(
@@ -120,12 +120,10 @@ class ELSServiceTests: CWATestCase {
 	
 //	func testGIVEN_ELSService_WHEN_UploadIsTriggered_THEN_ServerErrorIsReturned() throws {
 //		// GIVEN
-//		let client = ClientMock()
-//		let serverFailure = .defaultServerError(URLSession.Response.Failure.noResponse)
 //		let restServiceProvider = RestServiceProviderStub(
 //			loadResources: [
 //				LoadResource(
-//					result: .failure(ServiceError<SubmitELSResourceError>.transportationError(SubmitELSResourceError.defaultServerError(URLSession.Response.Failure.noResponse))),
+//					result: .failure(.serviceError(.transportationError(.network))),
 //					willLoadResource: nil
 //				)
 //			],
