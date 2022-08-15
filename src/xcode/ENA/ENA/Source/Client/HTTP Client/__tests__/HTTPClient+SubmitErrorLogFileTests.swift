@@ -25,7 +25,7 @@ final class HTTPClientSubmitErrorLogFileTests: CWATestCase {
 		let otp = "OTPFake"
 
 		// WHEN
-		var mockResponse: SubmitELSReceiveModel?
+		var mockResponse: ELSSubmitReceiveModel?
 		let resource = ELSSubmitResource(errorLogFile: dummyData, otpEls: otp)
 		restService.load(resource) { result in
 			switch result {

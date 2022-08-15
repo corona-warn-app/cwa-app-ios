@@ -12,7 +12,7 @@ class ELSServiceTests: CWATestCase {
 		let restServiceProvider = RestServiceProviderStub(
 			loadResources: [
 				LoadResource(
-					result: .success(SubmitELSReceiveModel(id: "", hash: "")),
+					result: .success(ELSSubmitReceiveModel(id: "", hash: "")),
 					willLoadResource: nil
 				)
 			],
@@ -24,7 +24,7 @@ class ELSServiceTests: CWATestCase {
 		// need at least no empty log file
 		elsService.startLogging()
 		let testExpectation = expectation(description: "Test should success expectation")
-		var expectedResponse: SubmitELSReceiveModel?
+		var expectedResponse: ELSSubmitReceiveModel?
 		
 		// WHEN
 		elsService.submit(completion: { result in

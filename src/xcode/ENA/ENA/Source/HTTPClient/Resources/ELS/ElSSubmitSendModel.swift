@@ -4,7 +4,7 @@
 
 import Foundation
 
-struct SubmitElSSendModel: Encodable {
+struct ElSSubmitSendModel: Encodable {
 	
 	// MARK: - Internal
 

@@ -10,7 +10,7 @@ protocol ErrorLogSubmissionProviding: ErrorLogSubmitting, ErrorLogHandling {}
 protocol ErrorLogSubmitting {
 
 	typealias ELSAuthenticationResponse = (Result<String, ELSError>) -> Void
-	typealias ELSSubmissionResponse = (Result<SubmitELSReceiveModel, ELSError>) -> Void
+	typealias ELSSubmissionResponse = (Result<ELSSubmitReceiveModel, ELSError>) -> Void
 	typealias ELSToken = TimestampedToken
 
 	/// Publisher returning the size in bytes for a given file
@@ -68,7 +68,7 @@ final class ErrorLogSubmissionService: ErrorLogSubmissionProviding {
 	/// - Note: The current implementation does NOT constantly observe file size changes!
 	private(set) lazy var logFileSizePublisher: AnyPublisher<Int64, ELSError> = setupFileSizePublisher()
 	
-	func submit(completion: @escaping (Result<SubmitELSReceiveModel, ELSError>) -> Void) {
+	func submit(completion: @escaping (Result<ELSSubmitReceiveModel, ELSError>) -> Void) {
 		
 		// get log data from the 'all logs' file
 		guard

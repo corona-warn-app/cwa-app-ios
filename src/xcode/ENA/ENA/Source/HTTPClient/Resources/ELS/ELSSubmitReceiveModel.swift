@@ -4,7 +4,7 @@
 
 import Foundation
 
-struct SubmitELSReceiveModel: Codable {
+struct ELSSubmitReceiveModel: Codable {
 	let id: String
 	let hash: String
 }
