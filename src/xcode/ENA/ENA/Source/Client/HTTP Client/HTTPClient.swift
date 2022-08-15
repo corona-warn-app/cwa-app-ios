@@ -101,53 +101,6 @@ final class HTTPClient: Client {
 			}
 		})
 	}
-
-	func submit(
-		errorLogFile: Data,
-		otpEls: String,
-		completion: @escaping ErrorLogSubmitting.ELSSubmissionResponse
-	) {
-		guard let request = try? URLRequest.errorLogSubmit(
-				configuration: configuration,
-				payload: errorLogFile,
-				otpEls: otpEls) else {
-			completion(.failure(.urlCreationError))
-			return
-		}
-
-		session.response(for: request, completion: { result in
-			switch result {
-			case let .success(response):
-				switch response.statusCode {
-				case 201:
-					guard let responseBody = response.body else {
-						Log.error("Error in response body: \(response.statusCode)", log: .api)
-						completion(.failure(.responseError(response.statusCode)))
-						return
-					}
-					do {
-						let decodedResponse = try JSONDecoder().decode(
-							LogUploadResponse.self,
-							from: responseBody
-						)
-						completion(.success(decodedResponse))
-					} catch {
-						Log.error("Failed to decode response json", log: .api, error: error)
-						completion(.failure(.jsonError))
-					}
-				case 500:
-					Log.error("Internal server error at uploading error log file.", log: .api)
-					completion(.failure(.responseError(500)))
-				default:
-					Log.error("Wrong http status code: \(String(response.statusCode))", log: .api)
-					completion(.failure(.responseError(response.statusCode)))
-				}
-			case let .failure(error):
-				Log.error("Error in response: \(error)", log: .api)
-				completion(.failure(.defaultServerError(error)))
-			}
-		})
-	}
 	
 	// MARK: - Internal
 
@@ -329,54 +282,6 @@ private extension URLRequest {
 		)
 		
 		request.httpBody = body
-		return request
-	}
-
-
-	static func errorLogSubmit(
-		configuration: HTTPClient.Configuration,
-		payload: Data,
-		otpEls: String
-	) throws -> URLRequest {
-		let boundary = UUID().uuidString
-		var request = URLRequest(url: configuration.logUploadURL)
-		request.httpMethod = HttpMethod.post
-		
-		// Create multipart body
-		
-		// prevent potential file collisions on backend
-		let fileName = "ErrorLog-\(UUID().uuidString).zip"
-		
-		var body = Data()
-
-		try body.append("\r\n--\(boundary)\r\n")
-		try body.append("Content-Disposition:form-data; name=\"file\"; filename=\"\(fileName)\"\r\n")
-		try body.append("Content-Type:application/zip\r\n")
-		try body.append("Content-Length: \(payload.count)\r\n")
-		try body.append("\r\n")
-		body.append(payload)
-		try body.append("\r\n")
-		try body.append("--\(boundary)--\r\n")
-		
-		request.httpBody = body
-		
-		// Create headers
-		
-		request.setValue(
-			"multipart/form-data; boundary=\(boundary)",
-			forHTTPHeaderField: "Content-Type"
-		)
-		
-		request.setValue(
-			otpEls,
-			forHTTPHeaderField: "cwa-otp"
-		)
-		
-		request.setValue(
-			"\(body.count)",
-			forHTTPHeaderField: "Content-Length"
-		)
-		
 		return request
 	}
 
