@@ -10,7 +10,7 @@ protocol ErrorLogSubmissionProviding: ErrorLogSubmitting, ErrorLogHandling {}
 protocol ErrorLogSubmitting {
 
 	typealias ELSAuthenticationResponse = (Result<String, ELSError>) -> Void
-	typealias ELSSubmissionResponse = (Result<LogUploadResponse, ELSError>) -> Void
+	typealias ELSSubmissionResponse = (Result<SubmitELSReceiveModel, ELSError>) -> Void
 	typealias ELSToken = TimestampedToken
 
 	/// Publisher returning the size in bytes for a given file
@@ -50,12 +50,12 @@ final class ErrorLogSubmissionService: ErrorLogSubmissionProviding {
 	// MARK: - Init
 	
 	init(
-		client: Client,
+		restServicerProvider: RestServiceProviding,
 		store: ErrorLogProviding,
 		ppacService: PrivacyPreservingAccessControl,
 		otpService: OTPServiceProviding
 	) {
-		self.client = client
+		self.restServicerProvider = restServicerProvider
 		self.store = store
 		self.ppacService = ppacService
 		self.otpService = otpService
@@ -68,7 +68,7 @@ final class ErrorLogSubmissionService: ErrorLogSubmissionProviding {
 	/// - Note: The current implementation does NOT constantly observe file size changes!
 	private(set) lazy var logFileSizePublisher: AnyPublisher<Int64, ELSError> = setupFileSizePublisher()
 	
-	func submit(completion: @escaping (Result<LogUploadResponse, ELSError>) -> Void) {
+	func submit(completion: @escaping (Result<SubmitELSReceiveModel, ELSError>) -> Void) {
 		
 		// get log data from the 'all logs' file
 		guard
@@ -86,7 +86,9 @@ final class ErrorLogSubmissionService: ErrorLogSubmissionProviding {
 			switch result {
 			case let .success(otpEls):
 				Log.debug("Successfully authenticated ppac and OTP: \(private: otpEls, public: "--OTP Value--") for els. Proceed with uploading error log file.")
-				self?.client.submit(errorLogFile: errorLogFiledata as Data, otpEls: otpEls, completion: { result in
+				
+				let resource = SubmitELSResource(errorLogFile: errorLogFiledata as Data, otpEls: otpEls)
+				self?.restServicerProvider.load(resource) { result in
 					switch result {
 					case let .success(errorFileLogResponse):
 						Log.debug("Successfully uploaded error file log to server.")
@@ -94,9 +96,9 @@ final class ErrorLogSubmissionService: ErrorLogSubmissionProviding {
 						completion(.success(errorFileLogResponse))
 					case let .failure(error):
 						Log.error("Uploading error file log failed.", log: .els, error: error)
-						completion(.failure(error))
+						completion(.failure(.restServiceError(error)))
 					}
-				})
+				}
 			case let .failure(error):
 				Log.error("Authentication for els otp failed. Abort upload process.", log: .els, error: error)
 				completion(.failure(error))
@@ -106,7 +108,7 @@ final class ErrorLogSubmissionService: ErrorLogSubmissionProviding {
 
 	// MARK: - Private
 
-	private let client: Client
+	private let restServicerProvider: RestServiceProviding
 	private let store: ErrorLogProviding
 	private let ppacService: PrivacyPreservingAccessControl
 	private let otpService: OTPServiceProviding
