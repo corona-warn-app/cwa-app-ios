@@ -20,13 +20,14 @@ final class HTTPClientSubmitErrorLogFileTests: CWATestCase {
 			httpStatus: 201,
 			responseData: encoded
 		)
-
+		let restService = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
 		let expectation = self.expectation(description: "completion handler is called without an error")
 		let otp = "OTPFake"
 
 		// WHEN
-		var mockResponse: LogUploadResponse?
-		HTTPClient.makeWith(mock: stack).submit(errorLogFile: dummyData, otpEls: otp, completion: { result in
+		var mockResponse: SubmitELSReceiveModel?
+		let resource = SubmitELSResource(errorLogFile: dummyData, otpEls: otp)
+		restService.load(resource) { result in
 			switch result {
 			case let .success(response):
 				mockResponse = response
@@ -34,8 +35,7 @@ final class HTTPClientSubmitErrorLogFileTests: CWATestCase {
 				XCTFail("Test should not fail. Error: \(error.localizedDescription)")
 			}
 			expectation.fulfill()
-			
-		})
+		}
 
 		// THEN
 		waitForExpectations(timeout: .short)
@@ -51,26 +51,27 @@ final class HTTPClientSubmitErrorLogFileTests: CWATestCase {
 			httpStatus: 500,
 			responseData: Data()
 		)
-
+		let restService = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
 		let expectation = self.expectation(description: "completion handler is called with an error")
 		let otp = "OTPFake"
 
 		// WHEN
 		var errorResponse: ELSError?
-		HTTPClient.makeWith(mock: stack).submit(errorLogFile: Data(), otpEls: otp, completion: { result in
+		
+		let resource = SubmitELSResource(errorLogFile: Data(), otpEls: otp)
+		restService.load(resource) { result in
 			switch result {
 			case .success:
 				XCTFail("Test should not succeed.")
 			case let .failure(error):
-				errorResponse = error
+				errorResponse = ELSError.restServiceError(error)
 			}
 			expectation.fulfill()
-			
-		})
+		}
 
 		// THEN
 		waitForExpectations(timeout: .short)
-		XCTAssertEqual(errorResponse, ELSError.responseError(500))
+		XCTAssertEqual(errorResponse, ELSError.restServiceError(.unexpectedServerError(500)))
 	}
 	
 	func testGIVEN_ErrorLog_WHEN_Submit_THEN_OtherStatusCode() throws {
@@ -80,26 +81,25 @@ final class HTTPClientSubmitErrorLogFileTests: CWATestCase {
 			httpStatus: 200,
 			responseData: Data()
 		)
-
+		let restService = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
 		let expectation = self.expectation(description: "completion handler is called with an error")
 		let otp = "OTPFake"
 
 		// WHEN
-		var errorResponse: ELSError?
-		HTTPClient.makeWith(mock: stack).submit(errorLogFile: Data(), otpEls: otp, completion: { result in
+		let resource = SubmitELSResource(errorLogFile: Data(), otpEls: otp)
+		restService.load(resource) { result in
 			switch result {
 			case .success:
 				XCTFail("Test should not succeed.")
 			case let .failure(error):
-				errorResponse = error
+				if case .resourceError(.decoding(.JSON_DECODING(_))) = error {
+					expectation.fulfill()
+				}
 			}
-			expectation.fulfill()
-			
-		})
+		}
 
 		// THEN
 		waitForExpectations(timeout: .short)
-		XCTAssertEqual(errorResponse, ELSError.responseError(200))
 	}
 	
 	func testGIVEN_ErrorLog_WHEN_Submit_THEN_ResponseIsNil() throws {
@@ -109,25 +109,24 @@ final class HTTPClientSubmitErrorLogFileTests: CWATestCase {
 			httpStatus: 200,
 			responseData: nil
 		)
-
+		let restService = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
 		let expectation = self.expectation(description: "completion handler is called with an error")
 		let otp = "OTPFake"
 
 		// WHEN
 		var errorResponse: ELSError?
-		HTTPClient.makeWith(mock: stack).submit(errorLogFile: Data(), otpEls: otp, completion: { result in
+		let resource = SubmitELSResource(errorLogFile: Data(), otpEls: otp)
+		restService.load(resource) { result in
 			switch result {
 			case .success:
 				XCTFail("Test should not succeed.")
 			case let .failure(error):
-				errorResponse = error
+				errorResponse = ELSError.restServiceError(error)
 			}
 			expectation.fulfill()
-			
-		})
-
+		}
 		// THEN
 		waitForExpectations(timeout: .short)
-		XCTAssertEqual(errorResponse, .defaultServerError(URLSession.Response.Failure.noResponse))
+		XCTAssertEqual(errorResponse, ELSError.restServiceError(.resourceError(.missingData)))
 	}
 }
