@@ -92,7 +92,7 @@ final class HTTPClientSubmitErrorLogFileTests: CWATestCase {
 			case .success:
 				XCTFail("Test should not succeed.")
 			case let .failure(error):
-				if case .resourceError(.decoding(.JSON_DECODING(_))) = error {
+				if case .resourceError(.decoding(.JSON_DECODING)) = error {
 					expectation.fulfill()
 				}
 			}
