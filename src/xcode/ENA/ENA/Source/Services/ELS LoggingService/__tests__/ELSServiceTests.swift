@@ -94,7 +94,6 @@ class ELSServiceTests: CWATestCase {
 //		// need at least no empty log file
 //		elsService.startLogging()
 //		let testExpectation = expectation(description: "Test should fail expectation")
-//		
 //		var expectedError: ELSError?
 //
 //		// WHEN
@@ -107,9 +106,7 @@ class ELSServiceTests: CWATestCase {
 //				testExpectation.fulfill()
 //			}
 //		})
-//		
 //		waitForExpectations(timeout: .medium)
-//		
 //		// THEN
 //		guard let error = expectedError else {
 //			XCTFail("expectedError should not be nil")
