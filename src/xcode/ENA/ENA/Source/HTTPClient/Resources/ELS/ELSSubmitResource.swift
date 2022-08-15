@@ -4,7 +4,7 @@
 
 import Foundation
 
-enum SubmitELSResourceError: Error {
+enum ELSSubmitResourceError: Error {
 	
 	case ppacError(PPACError)
 	case otpError(OTPError)
@@ -16,7 +16,7 @@ enum SubmitELSResourceError: Error {
 	case couldNotReadLogfile(_ message: String? = nil)
 }
 
-struct SubmitELSResource: Resource {
+struct ELSSubmitResource: Resource {
 	init(
 		errorLogFile: Data,
 		otpEls: String,

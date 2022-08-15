@@ -14,7 +14,7 @@ enum ELSError: Error {
 	case defaultServerError(Error)
 	case emptyLogFile
 	case couldNotReadLogfile(_ message: String? = nil)
-	case restServiceError(ServiceError<SubmitELSResource.CustomError>)
+	case restServiceError(ServiceError<ELSSubmitResource.CustomError>)
 
 }
 

@@ -212,7 +212,7 @@ class ELSServiceTests: CWATestCase {
 		let riskProvider = MockRiskProvider()
 		let otpService = OTPService(
 			store: store,
-			client: ClientMock(), // might fail
+			client: ClientMock(),
 			riskProvider: riskProvider
 		)
 		let elsService = ErrorLogSubmissionService(

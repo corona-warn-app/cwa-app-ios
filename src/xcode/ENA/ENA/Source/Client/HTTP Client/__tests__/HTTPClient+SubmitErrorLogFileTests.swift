@@ -26,7 +26,7 @@ final class HTTPClientSubmitErrorLogFileTests: CWATestCase {
 
 		// WHEN
 		var mockResponse: SubmitELSReceiveModel?
-		let resource = SubmitELSResource(errorLogFile: dummyData, otpEls: otp)
+		let resource = ELSSubmitResource(errorLogFile: dummyData, otpEls: otp)
 		restService.load(resource) { result in
 			switch result {
 			case let .success(response):
@@ -58,7 +58,7 @@ final class HTTPClientSubmitErrorLogFileTests: CWATestCase {
 		// WHEN
 		var errorResponse: ELSError?
 		
-		let resource = SubmitELSResource(errorLogFile: Data(), otpEls: otp)
+		let resource = ELSSubmitResource(errorLogFile: Data(), otpEls: otp)
 		restService.load(resource) { result in
 			switch result {
 			case .success:
@@ -86,7 +86,7 @@ final class HTTPClientSubmitErrorLogFileTests: CWATestCase {
 		let otp = "OTPFake"
 
 		// WHEN
-		let resource = SubmitELSResource(errorLogFile: Data(), otpEls: otp)
+		let resource = ELSSubmitResource(errorLogFile: Data(), otpEls: otp)
 		restService.load(resource) { result in
 			switch result {
 			case .success:
@@ -115,7 +115,7 @@ final class HTTPClientSubmitErrorLogFileTests: CWATestCase {
 
 		// WHEN
 		var errorResponse: ELSError?
-		let resource = SubmitELSResource(errorLogFile: Data(), otpEls: otp)
+		let resource = ELSSubmitResource(errorLogFile: Data(), otpEls: otp)
 		restService.load(resource) { result in
 			switch result {
 			case .success:

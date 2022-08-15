@@ -87,7 +87,7 @@ final class ErrorLogSubmissionService: ErrorLogSubmissionProviding {
 			case let .success(otpEls):
 				Log.debug("Successfully authenticated ppac and OTP: \(private: otpEls, public: "--OTP Value--") for els. Proceed with uploading error log file.")
 				
-				let resource = SubmitELSResource(errorLogFile: errorLogFiledata as Data, otpEls: otpEls)
+				let resource = ELSSubmitResource(errorLogFile: errorLogFiledata as Data, otpEls: otpEls)
 				self?.restServicerProvider.load(resource) { result in
 					switch result {
 					case let .success(errorFileLogResponse):

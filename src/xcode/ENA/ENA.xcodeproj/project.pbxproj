@@ -1029,7 +1029,7 @@
 		8FD7E2C927E9EABD00E08ABB /* CCLServiceInvalidationRulesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FD7E2C827E9EABD00E08ABB /* CCLServiceInvalidationRulesTests.swift */; };
 		8FDB9403261FBA3800BA8CB1 /* RapidTestQRCodeInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FDB9402261FBA3800BA8CB1 /* RapidTestQRCodeInformation.swift */; };
 		8FDB940B261FBAAA00BA8CB1 /* CoronaTestRegistrationInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FDB940A261FBAAA00BA8CB1 /* CoronaTestRegistrationInformation.swift */; };
-		8FE68F9328A146CC003E86E1 /* SubmitELSResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FE68F9228A146CC003E86E1 /* SubmitELSResource.swift */; };
+		8FE68F9328A146CC003E86E1 /* ELSSubmitResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FE68F9228A146CC003E86E1 /* ELSSubmitResource.swift */; };
 		8FE68F9528A14932003E86E1 /* SubmitElSSendModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FE68F9428A14932003E86E1 /* SubmitElSSendModel.swift */; };
 		8FE68F9728A15BAC003E86E1 /* SubmitELSRecieveModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FE68F9628A15BAC003E86E1 /* SubmitELSRecieveModel.swift */; };
 		8FEC12242754B6C000C5DADC /* Locator+AllowList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FEC12232754B6C000C5DADC /* Locator+AllowList.swift */; };
@@ -2894,7 +2894,7 @@
 		8FD7E2C827E9EABD00E08ABB /* CCLServiceInvalidationRulesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CCLServiceInvalidationRulesTests.swift; sourceTree = "<group>"; };
 		8FDB9402261FBA3800BA8CB1 /* RapidTestQRCodeInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RapidTestQRCodeInformation.swift; sourceTree = "<group>"; };
 		8FDB940A261FBAAA00BA8CB1 /* CoronaTestRegistrationInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoronaTestRegistrationInformation.swift; sourceTree = "<group>"; };
-		8FE68F9228A146CC003E86E1 /* SubmitELSResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubmitELSResource.swift; sourceTree = "<group>"; };
+		8FE68F9228A146CC003E86E1 /* ELSSubmitResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ELSSubmitResource.swift; sourceTree = "<group>"; };
 		8FE68F9428A14932003E86E1 /* SubmitElSSendModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubmitElSSendModel.swift; sourceTree = "<group>"; };
 		8FE68F9628A15BAC003E86E1 /* SubmitELSRecieveModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubmitELSRecieveModel.swift; sourceTree = "<group>"; };
 		8FEC12232754B6C000C5DADC /* Locator+AllowList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Locator+AllowList.swift"; sourceTree = "<group>"; };
@@ -7447,7 +7447,7 @@
 		8FE68F9128A1469E003E86E1 /* ELS */ = {
 			isa = PBXGroup;
 			children = (
-				8FE68F9228A146CC003E86E1 /* SubmitELSResource.swift */,
+				8FE68F9228A146CC003E86E1 /* ELSSubmitResource.swift */,
 				8FE68F9628A15BAC003E86E1 /* SubmitELSRecieveModel.swift */,
 				8FE68F9428A14932003E86E1 /* SubmitElSSendModel.swift */,
 			);
@@ -11232,7 +11232,7 @@
 				AB190EE525FF5B0D00FBFF0D /* ContactDiaryStoreSchemaV4.swift in Sources */,
 				ABF574DF25C308DF0098E315 /* SurveyConsentViewModel.swift in Sources */,
 				BA0F6C4E26317BA40046BA48 /* AntigenTestProfileViewController.swift in Sources */,
-				8FE68F9328A146CC003E86E1 /* SubmitELSResource.swift in Sources */,
+				8FE68F9328A146CC003E86E1 /* ELSSubmitResource.swift in Sources */,
 				ABE63CF126010EFF0024F856 /* ContactDiaryStore+Creation.swift in Sources */,
 				137846492488027600A50AB8 /* OnboardingInfoViewController+Extension.swift in Sources */,
 				34CF3B1F2615C1D1004A9435 /* QRCodeErrorCorrectionLevelType.swift in Sources */,
