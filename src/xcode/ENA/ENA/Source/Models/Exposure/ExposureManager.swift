@@ -172,7 +172,7 @@ final class ENAExposureManager: NSObject, ExposureManager {
 		self.manager = manager
 		super.init()
 
-		// swiftlint:disable:next unavailable_condition
+		// swiftlint:disable:next superfluous_disable_command
 		if #available(iOS 13.5, *) {
 			// Do nothing since we can use BGTask in this case.
 		} else if NSClassFromString("ENManager") != nil {	// Make sure that ENManager is available.
