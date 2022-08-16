@@ -114,10 +114,10 @@ class QRScannerViewController: UIViewController {
 	private var previewLayer: AVCaptureVideoPreviewLayer! { didSet { updatePreviewMask() } }
 	private var viewModel: QRScannerViewModel?
 	private var presenter: QRScannerPresenter?
-	private var isPresenterOnBehalfFlow: Bool { presenter != nil && presenter == .onBehalfFlow }
+	private var isOnBehalfFlow: Bool { presenter != nil && presenter == .onBehalfFlow }
 	
 	private var instructionDescriptionText: String {
-		guard isPresenterOnBehalfFlow else {
+		guard isOnBehalfFlow else {
 			return AppStrings.UniversalQRScanner.instructionDescription
 		}
 		return AppStrings.UniversalQRScanner.instructionDescriptionWarnOthers
@@ -184,7 +184,7 @@ class QRScannerViewController: UIViewController {
 		contentView.addSubview(instructionDescription)
 
 		infoButton.translatesAutoresizingMaskIntoConstraints = false
-		infoButton.isHidden = isPresenterOnBehalfFlow
+		infoButton.isHidden = isOnBehalfFlow
 		contentView.addSubview(infoButton)
 
 		let scrollView = UIScrollView()
