@@ -109,10 +109,11 @@ class ENAUITests_21_FamilyMember: CWATestCase {
 
 		/// home screen reached
 		XCTAssertTrue(app.cells[AccessibilityIdentifiers.FamilyMemberCoronaTestCell.homeCell].exists)
-		app.swipeUp()
+		app.swipeDown()
+		app.swipeDown()
 
 		// check if family members test news label is now visible
-		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.FamilyMemberCoronaTestCell.homeCellDetailText].waitForExistence(timeout: .short))
+		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.FamilyMemberCoronaTestCell.homeCellDetailText].waitForExistence(timeout: .long))
 	}
 
 	func test_familyMemberViewOverview() throws {
