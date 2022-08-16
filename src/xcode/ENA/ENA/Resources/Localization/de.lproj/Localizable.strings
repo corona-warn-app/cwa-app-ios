@@ -105,7 +105,7 @@
 
 "ExposureDetection_Guide_Vaccination" = "Lassen Sie sich gegen SARS-CoV-2 impfen, falls Sie noch nicht geimpft sind.";
 
-"ExposureDetection_Guide_Hands" = "Waschen Sie Ihre Hände regelmäßig mit Seife für 20 Sekunden.";
+"ExposureDetection_Guide_Hands" = "Waschen Sie Ihre Hände regelmäßig mit Seife für mindestens 20 Sekunden.";
 
 "ExposureDetection_Guide_Mask" = "Tragen Sie eine Maske bei Begegnungen mit anderen Personen in Innenräumen und dort, wo es gesetzlich vorgeschrieben ist oder empfohlen wird.";
 
@@ -3430,6 +3430,8 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 "UniversalQRScanner_InstructionTitle" = "Welche QR-Codes können Sie scannen?";
 
 "UniversalQRScanner_InstructionDescription" = "Tests, Ihre Zertifikate, Check-ins und Nachweise bei Ticketbuchungen";
+
+"UniversalQRScanner_InstructionDescriptionWarnOthers" = "Sie können Check-ins scannen, um gelöschte Events wiederherzustellen.";
 
 "UniversalQRScanner_FileButtonTitle" = "Datei öffnen";
 

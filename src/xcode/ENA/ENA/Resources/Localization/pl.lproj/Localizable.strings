@@ -104,7 +104,7 @@
 
 "ExposureDetection_Guide_Vaccination" = "Zaszczep się przeciwko wirusowi SARS-CoV-2, jeśli jeszcze tego nie zrobiłeś(-aś).";
 
-"ExposureDetection_Guide_Hands" = "Regularnie myj ręce mydłem przez 20 sekund.";
+"ExposureDetection_Guide_Hands" = "Regularnie myj ręce mydłem przez co najmniej 20 sekund.";
 
 "ExposureDetection_Guide_Mask" = "Noś maseczkę podczas kontaktów z innymi osobami w pomieszczeniach i wszędzie tam, gdzie jest to prawnie wymagane lub zalecane.";
 
@@ -126,7 +126,7 @@
 
 "ExposureDetection_Guide_Title" = "Przetestuj się, użyj na przykład szybkiego testu lub testu domowego, najlepiej kilka razy co dwa dni. Jeśli otrzymasz pozytywny wynik, przeprowadź test PCR.";
 
-"ExposureDetection_Guide_Point1" = "Możesz zapoznać się z możliwościami testowania w tym miejscu. lub skontaktować się z lekarzem rodzinnym lub apteką.";
+"ExposureDetection_Guide_Point1" = "Możesz zapoznać się z możliwościami testowania w tym miejscu lub skontaktować się z lekarzem rodzinnym lub apteką.";
 
 "ExposureDetection_Guide_Point1_LinkText" = "Możesz zapoznać się z możliwościami testowania w tym miejscu.";
 
@@ -343,7 +343,7 @@
 
 "NotificationSettings_BulletHeadlineOn" = "Zarządzaj powiadomieniami";
 
-"NotificationSettings_BulletHeadlineOff" = "Aktywuj powiadomienia";
+"NotificationSettings_BulletHeadlineOff" = "Zarządzaj powiadomieniami";
 
 "NotificationSettings_BulletDescOn" = "Tutaj możesz zdefiniować następujące ustawienia:";
 
@@ -1651,15 +1651,10 @@
 
 "DeltaOnboarding_NewVersionFeatures_Button_Continue" = "Dalej";
 
-"DeltaOnboarding_NewVersionFeatures_Description" = "Oprócz poprawek błędów ta aktualizacja zawiera również nowe i ulepszone funkcje.";
+"DeltaOnboarding_NewVersionFeatures_Description" = "Ta aktualizacja poprawia błędy w aplikacji. Nie zawiera żadnych nowych funkcji.";
 
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Dane o zmianach w tej wersji można znaleźć w informacjach o aplikacji w sekcji „Nowe funkcje”.";
-
-/* Version 2.25 */
-"NewVersionFeature_225_adjust_recommendations_title" = "Zaktualizowano zalecane postępowanie";
-
-"NewVersionFeature_225_adjust_recommendations_description" = "Zaktualizowano zalecane postępowanie w przypadku podwyższonego ryzyka. Zalecenia obejmują m.in. ograniczenie kontaktów z innymi osobami oraz noszenie maseczki. Zaktualizowano również zalecenia dla osób o niskim ryzyku.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Rejestrowanie narażenia w różnych krajach";
