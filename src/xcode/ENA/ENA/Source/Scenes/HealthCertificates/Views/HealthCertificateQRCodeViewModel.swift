@@ -14,12 +14,14 @@ struct HealthCertificateQRCodeViewModel {
 		showRealQRCodeIfValidityStateBlocked: Bool,
 		imageAccessibilityTraits: UIAccessibilityTraits,
 		accessibilityLabel: String,
+		qrCodeAccessibilityID: String,
 		covPassCheckInfoPosition: CovPassCheckInfoPosition,
 		onCovPassCheckInfoButtonTap: @escaping () -> Void
 	) {
 		self.shouldBlockCertificateCode = !healthCertificate.isUsable && !(showRealQRCodeIfValidityStateBlocked && healthCertificate.validityState == .blocked)
 		self.imageAccessibilityTraits = imageAccessibilityTraits
 		self.accessibilityLabel = accessibilityLabel
+		self.qrCodeAccessibilityID = qrCodeAccessibilityID
 		self.covPassCheckInfoPosition = covPassCheckInfoPosition
 		self.onCovPassCheckInfoButtonTap = onCovPassCheckInfoButtonTap
 
@@ -31,12 +33,14 @@ struct HealthCertificateQRCodeViewModel {
 		shouldBlockCertificateCode: Bool,
 		imageAccessibilityTraits: UIAccessibilityTraits,
 		accessibilityLabel: String,
+		qrCodeAccessibilityID: String,
 		covPassCheckInfoPosition: CovPassCheckInfoPosition,
 		onCovPassCheckInfoButtonTap: @escaping () -> Void
 	) {
 		self.shouldBlockCertificateCode = shouldBlockCertificateCode
 		self.imageAccessibilityTraits = imageAccessibilityTraits
 		self.accessibilityLabel = accessibilityLabel
+		self.qrCodeAccessibilityID = qrCodeAccessibilityID
 		self.covPassCheckInfoPosition = covPassCheckInfoPosition
 		self.onCovPassCheckInfoButtonTap = onCovPassCheckInfoButtonTap
 
@@ -53,6 +57,7 @@ struct HealthCertificateQRCodeViewModel {
 	let shouldBlockCertificateCode: Bool
 	let imageAccessibilityTraits: UIAccessibilityTraits
 	let accessibilityLabel: String
+	let qrCodeAccessibilityID: String
 	let covPassCheckInfoPosition: CovPassCheckInfoPosition
 	let onCovPassCheckInfoButtonTap: () -> Void
 
