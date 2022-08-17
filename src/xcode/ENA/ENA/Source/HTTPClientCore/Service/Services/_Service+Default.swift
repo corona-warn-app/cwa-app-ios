@@ -24,12 +24,17 @@ extension Service {
 		}
 		var urlRequest = URLRequest(url: url)
 		urlRequest.httpMethod = locator.method.rawValue
-		switch sendResource.encode() {
-		case let .success(data):
-			urlRequest.httpBody = data
-		case let .failure(error):
-			Log.error("Encoding for send resource data failed.", log: .client)
-			return .failure(error)
+		if let body = locator.alreadyEncodedData {
+			urlRequest.httpBody = body
+		} else {
+			
+			switch sendResource.encode() {
+		 case let .success(data):
+			 urlRequest.httpBody = data
+		 case let .failure(error):
+			 Log.error("Encoding for send resource data failed.", log: .client)
+			 return .failure(error)
+		 }
 		}
 
 		locator.headers.forEach { key, value in
