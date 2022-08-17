@@ -80,12 +80,7 @@ class ELSServiceTests: CWATestCase {
 	func testGIVEN_ELSService_WHEN_UploadIsTriggered_THEN_OTPErrorIsReturned() throws {
 		// GIVEN
 		let restServiceProvider = RestServiceProviderStub(
-			loadResources: [
-				LoadResource(
-					result: .failure(.restServiceError(ServiceError<SubmitELSResource.CustomError>.transportationError(ELSError.otpError(.otherServerError)))),
-					willLoadResource: nil
-				)
-			],
+			loadResources: [],
 			cacheResources: [],
 			isFakeResourceLoadingActive: false
 		)
@@ -118,12 +113,7 @@ class ELSServiceTests: CWATestCase {
 	func testGIVEN_ELSService_WHEN_UploadIsTriggered_THEN_ServerErrorIsReturned() throws {
 		// GIVEN
 		let restServiceProvider = RestServiceProviderStub(
-			loadResources: [
-				LoadResource(
-					result: .failure(.serviceError(.transportationError(.network))),
-					willLoadResource: nil
-				)
-			],
+			loadResources: [],
 			cacheResources: [],
 			isFakeResourceLoadingActive: false
 		)
@@ -152,7 +142,7 @@ class ELSServiceTests: CWATestCase {
 			XCTFail("expectedError should not be nil")
 			return
 		}
-		XCTAssertEqual(serverFailure, error)
+		XCTAssertEqual(.jsonError, error)
 	}
 	
 	func testGIVEN_ELSService_WHEN_UploadIsTriggered_THEN_EmptyLogFileIsReturned() throws {
