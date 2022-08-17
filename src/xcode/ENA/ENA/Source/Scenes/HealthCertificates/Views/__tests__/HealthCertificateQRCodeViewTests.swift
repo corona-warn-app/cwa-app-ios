@@ -26,6 +26,7 @@ class HealthCertificateQRCodeViewTests: XCTestCase {
 			showRealQRCodeIfValidityStateBlocked: false,
 			imageAccessibilityTraits: .image,
 			accessibilityLabel: "",
+			qrCodeAccessibilityID: "",
 			covPassCheckInfoPosition: .top,
 			onCovPassCheckInfoButtonTap: {}
 		)
@@ -55,6 +56,7 @@ class HealthCertificateQRCodeViewTests: XCTestCase {
 			showRealQRCodeIfValidityStateBlocked: false,
 			imageAccessibilityTraits: .image,
 			accessibilityLabel: "",
+			qrCodeAccessibilityID: "",
 			covPassCheckInfoPosition: .top,
 			onCovPassCheckInfoButtonTap: {}
 		)
