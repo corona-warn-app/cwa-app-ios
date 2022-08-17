@@ -171,32 +171,33 @@ final class ENAExposureManager: NSObject, ExposureManager {
 	) {
 		self.manager = manager
 		super.init()
-		if #available(iOS 13.5, *) {
-			// Do nothing since we can use BGTask in this case.
-		} else if NSClassFromString("ENManager") != nil {	// Make sure that ENManager is available.
-			guard let enManager = manager as? ENManager else {
-				Log.error("Manager is not of Type ENManager, this should not happen!", log: .riskDetection)
-				return
-			}
-			enManager.setLaunchActivityHandler { activityFlags in
-				if activityFlags.contains(.periodicRun) {
-					guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
-						Log.error("AppDelegate is not of Type AppDelegate, this should not happen!", log: .background)
-						return
-					}
-					Log.info("Starting backgroundTask via Bluetooth", log: .background)
-					appDelegate.taskExecutionDelegate.executeENABackgroundTask(completion: { success in
-						Log.info("Background task was: \(success)", log: .background)
-					})
-				}
-			}
-		}
 		
 		#if DEBUG
 		if isUITesting {
 			self.enable { _ in }
 		}
 		#endif
+		
+		guard #available(iOS 13.5, *) else {
+			if NSClassFromString("ENManager") != nil, let enManager = manager as? ENManager {
+				enManager.setLaunchActivityHandler { activityFlags in
+					if activityFlags.contains(.periodicRun) {
+						guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+							Log.error("AppDelegate is not of Type AppDelegate, this should not happen!", log: .background)
+							return
+						}
+						Log.info("Starting backgroundTask via Bluetooth", log: .background)
+						appDelegate.taskExecutionDelegate.executeENABackgroundTask(completion: { success in
+							Log.info("Background task was: \(success)", log: .background)
+						})
+					}
+				}
+			} else {
+				Log.error("Manager is not of Type ENManager, this should not happen!", log: .riskDetection)
+			}
+			
+			return
+		}
 	}
 
 	func observeExposureNotificationStatus(observer: ENAExposureManagerObserver) {
