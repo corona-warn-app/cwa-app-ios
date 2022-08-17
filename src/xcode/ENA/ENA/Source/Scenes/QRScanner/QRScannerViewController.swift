@@ -114,6 +114,14 @@ class QRScannerViewController: UIViewController {
 	private var previewLayer: AVCaptureVideoPreviewLayer! { didSet { updatePreviewMask() } }
 	private var viewModel: QRScannerViewModel?
 	private var presenter: QRScannerPresenter?
+	private var isOnBehalfFlow: Bool { presenter != nil && presenter == .onBehalfFlow }
+	
+	private var instructionDescriptionText: String {
+		guard isOnBehalfFlow else {
+			return AppStrings.UniversalQRScanner.instructionDescription
+		}
+		return AppStrings.UniversalQRScanner.instructionDescriptionWarnOthers
+	}
 
 	private lazy var infoButton: UIButton = {
 		let button = UIButton()
@@ -148,7 +156,7 @@ class QRScannerViewController: UIViewController {
 		instructionDescription.textAlignment = .center
 		instructionDescription.textColor = .enaColor(for: .iconWithText)
 		instructionDescription.font = .enaFont(for: .body)
-		instructionDescription.text = (presenter != nil && presenter == .onBehalfFlow) ? AppStrings.UniversalQRScanner.instructionDescriptionWarnOthers : AppStrings.UniversalQRScanner.instructionDescription
+		instructionDescription.text = instructionDescriptionText
 		instructionDescription.translatesAutoresizingMaskIntoConstraints = false
 
 		fileButton.contentMode = .left
@@ -176,7 +184,7 @@ class QRScannerViewController: UIViewController {
 		contentView.addSubview(instructionDescription)
 
 		infoButton.translatesAutoresizingMaskIntoConstraints = false
-		infoButton.isHidden = (presenter != nil && presenter == .onBehalfFlow)
+		infoButton.isHidden = isOnBehalfFlow
 		contentView.addSubview(infoButton)
 
 		let scrollView = UIScrollView()
