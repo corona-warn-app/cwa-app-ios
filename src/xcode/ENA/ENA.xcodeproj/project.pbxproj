@@ -1030,7 +1030,6 @@
 		8FDB9403261FBA3800BA8CB1 /* RapidTestQRCodeInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FDB9402261FBA3800BA8CB1 /* RapidTestQRCodeInformation.swift */; };
 		8FDB940B261FBAAA00BA8CB1 /* CoronaTestRegistrationInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FDB940A261FBAAA00BA8CB1 /* CoronaTestRegistrationInformation.swift */; };
 		8FE68F9328A146CC003E86E1 /* ELSSubmitResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FE68F9228A146CC003E86E1 /* ELSSubmitResource.swift */; };
-		8FE68F9528A14932003E86E1 /* ElSSubmitSendModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FE68F9428A14932003E86E1 /* ElSSubmitSendModel.swift */; };
 		8FE68F9728A15BAC003E86E1 /* ELSSubmitReceiveModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FE68F9628A15BAC003E86E1 /* ELSSubmitReceiveModel.swift */; };
 		8FEC12242754B6C000C5DADC /* Locator+AllowList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FEC12232754B6C000C5DADC /* Locator+AllowList.swift */; };
 		8FEC122627551F6700C5DADC /* validation_service_allowlist.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FEC122527551F6700C5DADC /* validation_service_allowlist.pb.swift */; };
@@ -2895,7 +2894,6 @@
 		8FDB9402261FBA3800BA8CB1 /* RapidTestQRCodeInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RapidTestQRCodeInformation.swift; sourceTree = "<group>"; };
 		8FDB940A261FBAAA00BA8CB1 /* CoronaTestRegistrationInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoronaTestRegistrationInformation.swift; sourceTree = "<group>"; };
 		8FE68F9228A146CC003E86E1 /* ELSSubmitResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ELSSubmitResource.swift; sourceTree = "<group>"; };
-		8FE68F9428A14932003E86E1 /* ElSSubmitSendModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElSSubmitSendModel.swift; sourceTree = "<group>"; };
 		8FE68F9628A15BAC003E86E1 /* ELSSubmitReceiveModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ELSSubmitReceiveModel.swift; sourceTree = "<group>"; };
 		8FEC12232754B6C000C5DADC /* Locator+AllowList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Locator+AllowList.swift"; sourceTree = "<group>"; };
 		8FEC122527551F6700C5DADC /* validation_service_allowlist.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = validation_service_allowlist.pb.swift; sourceTree = "<group>"; };
@@ -7450,7 +7448,6 @@
 				5001DE9526E21272004242FA /* SubmitELS.swift */,
 				8FE68F9228A146CC003E86E1 /* ELSSubmitResource.swift */,
 				8FE68F9628A15BAC003E86E1 /* ELSSubmitReceiveModel.swift */,
-				8FE68F9428A14932003E86E1 /* ElSSubmitSendModel.swift */,
 			);
 			path = ELS;
 			sourceTree = "<group>";
@@ -11636,7 +11633,6 @@
 				341DC333268243470003E6BA /* LocalStatisticsMetadata.swift in Sources */,
 				5081EF0625FFB7E0004B8FDE /* CheckinsInfoScreenViewController.swift in Sources */,
 				BAE11F5B2821807700CA2790 /* ClientMock.swift in Sources */,
-				8FE68F9528A14932003E86E1 /* ElSSubmitSendModel.swift in Sources */,
 				5001DE7326E200DC004242FA /* QRPosterTemplate.swift in Sources */,
 				B1A31F6924DAE6C000E263DF /* DMKeyCell.swift in Sources */,
 				50AA525425FB9ACA000C77BB /* TraceWarningDiscoveryModel.swift in Sources */,

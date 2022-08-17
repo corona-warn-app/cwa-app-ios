@@ -42,14 +42,14 @@ struct ELSSubmitResource: Resource {
 			Log.error(error.localizedDescription, log: .els)
 		}
 		self.locator = .submitELS(payload: body, otpEls: otpEls, boundary: boundary)
-		self.sendResource = JSONSendResource<ElSSubmitSendModel>(ElSSubmitSendModel(body: body))
+		self.sendResource = JSONSendResource(body)
 		self.type = .default
 		self.receiveResource = JSONReceiveResource<ELSSubmitReceiveModel>()
 		self.trustEvaluation = trustEvaluation
 	}
 	
 	// MARK: - Protocol Resource
-	typealias Send = JSONSendResource<ElSSubmitSendModel>
+	typealias Send = JSONSendResource<Data>
 	typealias Receive = JSONReceiveResource<ELSSubmitReceiveModel>
 	typealias CustomError = Error
 
@@ -57,6 +57,6 @@ struct ELSSubmitResource: Resource {
 
 	var locator: Locator
 	var type: ServiceType
-	var sendResource: JSONSendResource<ElSSubmitSendModel>
+	var sendResource: JSONSendResource<Data>
 	var receiveResource: JSONReceiveResource<ELSSubmitReceiveModel>
 }

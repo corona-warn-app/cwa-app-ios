@@ -20,6 +20,7 @@ extension Locator {
 			endpoint: .errorLogSubmission,
 			paths: ["api", "logs"],
 			method: .post,
+			alreadyEncodedData: payload,
 			defaultHeaders: [
 				"Content-Type": "multipart/form-data; boundary=\(boundary)",
 				"cwa-otp": otpEls,
