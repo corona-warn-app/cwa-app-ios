@@ -899,6 +899,7 @@ enum AccessibilityIdentifiers {
 
 		static let header = "HealthCertificate.header"
 		static let qrCodeCell = "HealthCertificate.qrCodeCell"
+		static func qrCodeView(of identifier: String) -> String { "HealthCertificate.QRCode.\(identifier)" }
 		
 		enum Reissuance {
 			static let cell = "AppStrings.HealthCertificate.Reissuance.cell"
