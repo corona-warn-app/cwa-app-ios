@@ -519,7 +519,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	
 	/// Reference to the ELS server handling error log recording & submission
 	private lazy var elsService: ErrorLogSubmissionProviding = ErrorLogSubmissionService(
-		client: client,
+		restServicerProvider: restServiceProvider,
 		store: store,
 		ppacService: ppacService,
 		otpService: otpService
