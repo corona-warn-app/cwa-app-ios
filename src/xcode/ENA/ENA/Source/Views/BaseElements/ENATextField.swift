@@ -104,7 +104,6 @@ class ENATextField: UITextField {
 		if let clearButton = value(forKey: "clearButton") as? UIButton {
 			clearButton.isAccessibilityElement = true
 			clearButton.accessibilityIdentifier = "\(identifier).ClearButton"
-			print("clearButton.accessibilityIdentifier: ", clearButton.accessibilityIdentifier)
 		}
 	}
 }
