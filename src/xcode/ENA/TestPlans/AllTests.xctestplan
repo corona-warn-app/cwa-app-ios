@@ -78,6 +78,9 @@
     {
       "parallelizable" : true,
       "skippedTests" : [
+        "ELSServiceTests\/testGIVEN_ELSService_WHEN_UploadIsTriggered_THEN_EmptyLogFileIsReturned()",
+        "ELSServiceTests\/testGIVEN_ELSService_WHEN_UploadIsTriggered_THEN_OTPErrorIsReturned()",
+        "ELSServiceTests\/testGIVEN_ELSService_WHEN_UploadIsTriggered_THEN_ServerErrorIsReturned()",
         "HTTPClientCertificatePinningTests\/testAllProductionEndpoints()",
         "HealthCertificateQRCodeViewModelTests",
         "StatisticsProviderTests\/testFetchLiveStats()"
