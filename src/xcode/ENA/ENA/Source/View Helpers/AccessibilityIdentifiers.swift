@@ -739,6 +739,12 @@ enum AccessibilityIdentifiers {
 			static let menueButton = "AppStrings.TraceLocations.Overview.menueButton"
 			static let addButton = "AppStrings.TraceLocations.Overview.addButton"
 			static let emptyState = "AppStrings.TraceLocations.Overview.emptyState"
+			
+			enum MenuActionSheet {
+				static let infoAction = "AppStrings.TraceLocations.Overview.MenuActionSheet.infoAction"
+				static let editAction = "AppStrings.TraceLocations.Overview.MenuActionSheet.editAction"
+				static let onBehalfCheckinSubmissionAction = "AppStrings.TraceLocations.Overview.MenuActionSheet.onBehalfCheckinSubmissionAction"
+			}
 		}
 		
 		enum Configuration {
