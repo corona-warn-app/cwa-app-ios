@@ -406,9 +406,14 @@ private extension UITableViewCell {
 				subview.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 30).isActive = true
 				subview.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -30).isActive = true
 				
-				// If the subview in the cell is a textView, we need some more extra space for the bottom.
+				// If the subview in the cell is a textView, we need some more extra space from the bottom.
 				if let textview = subview as? UITextView {
 					textview.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: 10).isActive = true
+				}
+				
+				// If the subview in the cell is a textField, we need some more height to adjust the complete text.
+				if let textLabel = subview as? UILabel {
+					textLabel.heightAnchor.constraint(equalTo: self.heightAnchor).isActive = true
 				}
 			}
 			

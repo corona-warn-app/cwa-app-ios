@@ -61,6 +61,7 @@ class NotificationSettingsViewModel {
 						),
 						.body(
 							text: AppStrings.NotificationSettings.bulletDescOn,
+							style: .label,
 							accessibilityIdentifier: AccessibilityIdentifiers.NotificationSettings.bulletDescOn
 						),
 						.space(height: 8),
@@ -89,6 +90,7 @@ class NotificationSettingsViewModel {
 							links: [AppStrings.NotificationSettings.bulletDesc2FAQText: AppStrings.Links.notificationSettingsFAQ],
 							accessibilityIdentifier: AccessibilityIdentifiers.NotificationSettings.bulletDesc2
 						),
+						.space(height: 8),
 						.custom(
 							withIdentifier: NotificationSettingsViewController.ReuseIdentifiers.buttonCell,
 							configure: { _, cell, _ in
@@ -158,19 +160,15 @@ class NotificationSettingsViewModel {
 						),
 						.body(
 							text: AppStrings.NotificationSettings.bulletDescOff,
+							style: .label,
 							accessibilityIdentifier: AccessibilityIdentifiers.NotificationSettings.bulletDescOff
 						),
+						.space(height: 16),
 						.custom(
 							withIdentifier: NotificationSettingsViewController.ReuseIdentifiers.buttonCell,
 							configure: { _, cell, _ in
 								guard let cell = cell as? DynamicTableViewRoundedCell else { return }
 								cell.configure(
-									title: NSMutableAttributedString(
-										string: ""
-									),
-									body: NSMutableAttributedString(
-										string: ""
-									),
 									textColor: .textContrast,
 									bgColor: .cellBackground3,
 									buttonTitle: AppStrings.NotificationSettings.openSystemSettings,
