@@ -153,7 +153,7 @@ class NotificationSettingsViewModel {
 						.icon(
 							UIImage(imageLiteralResourceName: "Icons_iOS_Mitteilungen"),
 							imageAlignment: .right,
-							text: .string(AppStrings.NotificationSettings.bulletHeadlineOn),
+							text: .string(AppStrings.NotificationSettings.bulletHeadlineOff),
 							style: .title2
 						),
 						.body(
