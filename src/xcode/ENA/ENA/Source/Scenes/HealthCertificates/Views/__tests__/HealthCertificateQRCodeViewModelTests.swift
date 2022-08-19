@@ -59,13 +59,14 @@ class HealthCertificateQRCodeViewModelTests: XCTestCase {
 			showRealQRCodeIfValidityStateBlocked: false,
 			imageAccessibilityTraits: [.image, .button],
 			accessibilityLabel: "accessibilityLabel",
-			qrCodeAccessibilityIdentifier: "accessibilityID",
+			qrCodeAccessibilityIdentifier: "qrCodeAccessibilityIdentifier",
 			covPassCheckInfoPosition: .top,
 			onCovPassCheckInfoButtonTap: { }
 		)
 
 		XCTAssertEqual(viewModel.imageAccessibilityTraits, [.image, .button])
 		XCTAssertEqual(viewModel.accessibilityLabel, "accessibilityLabel")
+		XCTAssertEqual(viewModel.qrCodeAccessibilityIdentifier, "qrCodeAccessibilityIdentifier")
 
 		XCTAssertEqual(
 			viewModel.qrCodeImage?.parsedQRCodeStrings.first,
@@ -90,13 +91,14 @@ class HealthCertificateQRCodeViewModelTests: XCTestCase {
 			showRealQRCodeIfValidityStateBlocked: false,
 			imageAccessibilityTraits: .image,
 			accessibilityLabel: "accessibilityLabel",
-			qrCodeAccessibilityIdentifier: "",
+			qrCodeAccessibilityIdentifier: "qrCodeAccessibilityIdentifier",
 			covPassCheckInfoPosition: .top,
 			onCovPassCheckInfoButtonTap: { }
 		)
 
 		XCTAssertEqual(viewModel.imageAccessibilityTraits, .image)
 		XCTAssertEqual(viewModel.accessibilityLabel, "accessibilityLabel")
+		XCTAssertEqual(viewModel.qrCodeAccessibilityIdentifier, "qrCodeAccessibilityIdentifier")
 
 		XCTAssertEqual(
 			viewModel.qrCodeImage?.parsedQRCodeStrings.first,
