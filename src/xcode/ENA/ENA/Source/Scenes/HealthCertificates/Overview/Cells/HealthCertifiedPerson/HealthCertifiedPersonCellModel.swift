@@ -30,7 +30,7 @@ class HealthCertifiedPersonCellModel {
 			showRealQRCodeIfValidityStateBlocked: false,
 			imageAccessibilityTraits: [.image, .button],
 			accessibilityLabel: AppStrings.HealthCertificate.Overview.covidDescription,
-			qrCodeAccessibilityID: AccessibilityIdentifiers.HealthCertificate.qrCodeView(of: initialCertificate.uniqueCertificateIdentifier),
+			qrCodeAccessibilityIdentifier: AccessibilityIdentifiers.HealthCertificate.qrCodeView(of: initialCertificate.uniqueCertificateIdentifier),
 			covPassCheckInfoPosition: .bottom,
 			onCovPassCheckInfoButtonTap: onCovPassCheckInfoButtonTap
 		)

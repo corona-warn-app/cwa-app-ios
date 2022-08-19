@@ -14,14 +14,14 @@ struct HealthCertificateQRCodeViewModel {
 		showRealQRCodeIfValidityStateBlocked: Bool,
 		imageAccessibilityTraits: UIAccessibilityTraits,
 		accessibilityLabel: String,
-		qrCodeAccessibilityID: String,
+		qrCodeAccessibilityIdentifier: String,
 		covPassCheckInfoPosition: CovPassCheckInfoPosition,
 		onCovPassCheckInfoButtonTap: @escaping () -> Void
 	) {
 		self.shouldBlockCertificateCode = !healthCertificate.isUsable && !(showRealQRCodeIfValidityStateBlocked && healthCertificate.validityState == .blocked)
 		self.imageAccessibilityTraits = imageAccessibilityTraits
 		self.accessibilityLabel = accessibilityLabel
-		self.qrCodeAccessibilityID = qrCodeAccessibilityID
+		self.qrCodeAccessibilityID = qrCodeAccessibilityIdentifier
 		self.covPassCheckInfoPosition = covPassCheckInfoPosition
 		self.onCovPassCheckInfoButtonTap = onCovPassCheckInfoButtonTap
 
