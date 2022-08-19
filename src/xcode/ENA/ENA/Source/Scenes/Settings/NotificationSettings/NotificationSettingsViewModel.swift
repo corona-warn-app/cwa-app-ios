@@ -163,7 +163,7 @@ class NotificationSettingsViewModel {
 							style: .label,
 							accessibilityIdentifier: AccessibilityIdentifiers.NotificationSettings.bulletDescOff
 						),
-						.space(height: 16),
+						.space(height: 32),
 						.custom(
 							withIdentifier: NotificationSettingsViewController.ReuseIdentifiers.buttonCell,
 							configure: { _, cell, _ in
