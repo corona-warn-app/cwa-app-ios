@@ -94,7 +94,7 @@ class HealthCertifiedPersonCellModel {
 			shouldBlockCertificateCode: false,
 			imageAccessibilityTraits: .image,
 			accessibilityLabel: AppStrings.HealthCertificate.Overview.covidDescription,
-			qrCodeAccessibilityID: AccessibilityIdentifiers.HealthCertificate.qrCodeView(of: decodingFailedHealthCertificate.base45),
+			qrCodeAccessibilityIdentifier: AccessibilityIdentifiers.HealthCertificate.qrCodeView(of: decodingFailedHealthCertificate.base45),
 			covPassCheckInfoPosition: .bottom,
 			onCovPassCheckInfoButtonTap: onCovPassCheckInfoButtonTap
 		)

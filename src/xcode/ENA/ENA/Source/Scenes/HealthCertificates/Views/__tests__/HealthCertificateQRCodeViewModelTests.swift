@@ -34,7 +34,7 @@ class HealthCertificateQRCodeViewModelTests: XCTestCase {
 
 		XCTAssertEqual(viewModel.imageAccessibilityTraits, .image)
 		XCTAssertEqual(viewModel.accessibilityLabel, "accessibilityLabel")
-		XCTAssertEqual(viewModel.qrCodeAccessibilityID, "qrCodeAccessibilityID")
+		XCTAssertEqual(viewModel.qrCodeAccessibilityIdentifier, "qrCodeAccessibilityID")
 
 		XCTAssertEqual(
 			viewModel.qrCodeImage?.parsedQRCodeStrings.first,
@@ -128,7 +128,7 @@ class HealthCertificateQRCodeViewModelTests: XCTestCase {
 
 		XCTAssertEqual(viewModel.imageAccessibilityTraits, .image)
 		XCTAssertEqual(viewModel.accessibilityLabel, "accessibilityLabel")
-		XCTAssertEqual(viewModel.qrCodeAccessibilityID, "qrCodeAccessibilityID")
+		XCTAssertEqual(viewModel.qrCodeAccessibilityIdentifier, "qrCodeAccessibilityID")
 
 		XCTAssertEqual(
 			viewModel.qrCodeImage?.parsedQRCodeStrings.first,
@@ -160,7 +160,7 @@ class HealthCertificateQRCodeViewModelTests: XCTestCase {
 
 		XCTAssertEqual(viewModel.imageAccessibilityTraits, .image)
 		XCTAssertEqual(viewModel.accessibilityLabel, "accessibilityLabel")
-		XCTAssertEqual(viewModel.qrCodeAccessibilityID, "qrCodeAccessibilityID")
+		XCTAssertEqual(viewModel.qrCodeAccessibilityIdentifier, "qrCodeAccessibilityID")
 
 		XCTAssertEqual(
 			viewModel.qrCodeImage?.parsedQRCodeStrings.first,
@@ -192,7 +192,7 @@ class HealthCertificateQRCodeViewModelTests: XCTestCase {
 
 		XCTAssertEqual(viewModel.imageAccessibilityTraits, .image)
 		XCTAssertEqual(viewModel.accessibilityLabel, "accessibilityLabel")
-		XCTAssertEqual(viewModel.qrCodeAccessibilityID, "qrCodeAccessibilityID")
+		XCTAssertEqual(viewModel.qrCodeAccessibilityIdentifier, "qrCodeAccessibilityID")
 
 		XCTAssertEqual(
 			viewModel.qrCodeImage?.parsedQRCodeStrings.first,
@@ -226,7 +226,7 @@ class HealthCertificateQRCodeViewModelTests: XCTestCase {
 
 		XCTAssertEqual(viewModel.imageAccessibilityTraits, .image)
 		XCTAssertEqual(viewModel.accessibilityLabel, "accessibilityLabel")
-		XCTAssertEqual(viewModel.qrCodeAccessibilityID, "qrCodeAccessibilityID")
+		XCTAssertEqual(viewModel.qrCodeAccessibilityIdentifier, "qrCodeAccessibilityID")
 
 		XCTAssertEqual(
 			viewModel.qrCodeImage?.parsedQRCodeStrings.first,
@@ -258,7 +258,7 @@ class HealthCertificateQRCodeViewModelTests: XCTestCase {
 
 		XCTAssertEqual(viewModel.imageAccessibilityTraits, .image)
 		XCTAssertEqual(viewModel.accessibilityLabel, "accessibilityLabel")
-		XCTAssertEqual(viewModel.qrCodeAccessibilityID, "qrCodeAccessibilityID")
+		XCTAssertEqual(viewModel.qrCodeAccessibilityIdentifier, "qrCodeAccessibilityID")
 
 		XCTAssertEqual(
 			viewModel.qrCodeImage?.parsedQRCodeStrings.first,
@@ -290,7 +290,7 @@ class HealthCertificateQRCodeViewModelTests: XCTestCase {
 
 		XCTAssertEqual(viewModel.imageAccessibilityTraits, .image)
 		XCTAssertEqual(viewModel.accessibilityLabel, "accessibilityLabel")
-		XCTAssertEqual(viewModel.qrCodeAccessibilityID, "qrCodeAccessibilityID")
+		XCTAssertEqual(viewModel.qrCodeAccessibilityIdentifier, "qrCodeAccessibilityID")
 
 		XCTAssertEqual(
 			viewModel.qrCodeImage?.parsedQRCodeStrings.first,
@@ -322,7 +322,7 @@ class HealthCertificateQRCodeViewModelTests: XCTestCase {
 
 		XCTAssertEqual(viewModel.imageAccessibilityTraits, .image)
 		XCTAssertEqual(viewModel.accessibilityLabel, "accessibilityLabel")
-		XCTAssertEqual(viewModel.qrCodeAccessibilityID, "qrCodeAccessibilityID")
+		XCTAssertEqual(viewModel.qrCodeAccessibilityIdentifier, "qrCodeAccessibilityID")
 
 		XCTAssertEqual(
 			viewModel.qrCodeImage?.parsedQRCodeStrings.first,
@@ -354,7 +354,7 @@ class HealthCertificateQRCodeViewModelTests: XCTestCase {
 
 		XCTAssertEqual(viewModel.imageAccessibilityTraits, .image)
 		XCTAssertEqual(viewModel.accessibilityLabel, "accessibilityLabel")
-		XCTAssertEqual(viewModel.qrCodeAccessibilityID, "qrCodeAccessibilityID")
+		XCTAssertEqual(viewModel.qrCodeAccessibilityIdentifier, "qrCodeAccessibilityID")
 
 		XCTAssertEqual(
 			viewModel.qrCodeImage?.parsedQRCodeStrings.first,
@@ -386,7 +386,7 @@ class HealthCertificateQRCodeViewModelTests: XCTestCase {
 
 		XCTAssertEqual(viewModel.imageAccessibilityTraits, .image)
 		XCTAssertEqual(viewModel.accessibilityLabel, "accessibilityLabel")
-		XCTAssertEqual(viewModel.qrCodeAccessibilityID, "qrCodeAccessibilityID")
+		XCTAssertEqual(viewModel.qrCodeAccessibilityIdentifier, "qrCodeAccessibilityID")
 
 		XCTAssertEqual(
 			viewModel.qrCodeImage?.parsedQRCodeStrings.first,
@@ -420,7 +420,7 @@ class HealthCertificateQRCodeViewModelTests: XCTestCase {
 
 		XCTAssertEqual(viewModel.imageAccessibilityTraits, .image)
 		XCTAssertEqual(viewModel.accessibilityLabel, "accessibilityLabel")
-		XCTAssertEqual(viewModel.qrCodeAccessibilityID, "qrCodeAccessibilityID")
+		XCTAssertEqual(viewModel.qrCodeAccessibilityIdentifier, "qrCodeAccessibilityID")
 
 		XCTAssertEqual(
 			viewModel.qrCodeImage?.parsedQRCodeStrings.first,
@@ -452,7 +452,7 @@ class HealthCertificateQRCodeViewModelTests: XCTestCase {
 
 		XCTAssertEqual(viewModel.imageAccessibilityTraits, .image)
 		XCTAssertEqual(viewModel.accessibilityLabel, "accessibilityLabel")
-		XCTAssertEqual(viewModel.qrCodeAccessibilityID, "qrCodeAccessibilityID")
+		XCTAssertEqual(viewModel.qrCodeAccessibilityIdentifier, "qrCodeAccessibilityID")
 
 		XCTAssertEqual(
 			viewModel.qrCodeImage?.parsedQRCodeStrings.first,
@@ -484,7 +484,7 @@ class HealthCertificateQRCodeViewModelTests: XCTestCase {
 
 		XCTAssertEqual(viewModel.imageAccessibilityTraits, .image)
 		XCTAssertEqual(viewModel.accessibilityLabel, "accessibilityLabel")
-		XCTAssertEqual(viewModel.qrCodeAccessibilityID, "qrCodeAccessibilityID")
+		XCTAssertEqual(viewModel.qrCodeAccessibilityIdentifier, "qrCodeAccessibilityID")
 
 		XCTAssertEqual(
 			viewModel.qrCodeImage?.parsedQRCodeStrings.first,
@@ -516,7 +516,7 @@ class HealthCertificateQRCodeViewModelTests: XCTestCase {
 
 		XCTAssertEqual(viewModel.imageAccessibilityTraits, .image)
 		XCTAssertEqual(viewModel.accessibilityLabel, "accessibilityLabel")
-		XCTAssertEqual(viewModel.qrCodeAccessibilityID, "qrCodeAccessibilityID")
+		XCTAssertEqual(viewModel.qrCodeAccessibilityIdentifier, "qrCodeAccessibilityID")
 
 		XCTAssertEqual(
 			viewModel.qrCodeImage?.parsedQRCodeStrings.first,
@@ -548,7 +548,7 @@ class HealthCertificateQRCodeViewModelTests: XCTestCase {
 
 		XCTAssertEqual(viewModel.imageAccessibilityTraits, .image)
 		XCTAssertEqual(viewModel.accessibilityLabel, "accessibilityLabel")
-		XCTAssertEqual(viewModel.qrCodeAccessibilityID, "qrCodeAccessibilityID")
+		XCTAssertEqual(viewModel.qrCodeAccessibilityIdentifier, "qrCodeAccessibilityID")
 
 		XCTAssertEqual(
 			viewModel.qrCodeImage?.parsedQRCodeStrings.first,
@@ -580,7 +580,7 @@ class HealthCertificateQRCodeViewModelTests: XCTestCase {
 
 		XCTAssertEqual(viewModel.imageAccessibilityTraits, .image)
 		XCTAssertEqual(viewModel.accessibilityLabel, "accessibilityLabel")
-		XCTAssertEqual(viewModel.qrCodeAccessibilityID, "qrCodeAccessibilityID")
+		XCTAssertEqual(viewModel.qrCodeAccessibilityIdentifier, "qrCodeAccessibilityID")
 
 		XCTAssertEqual(
 			viewModel.qrCodeImage?.parsedQRCodeStrings.first,
