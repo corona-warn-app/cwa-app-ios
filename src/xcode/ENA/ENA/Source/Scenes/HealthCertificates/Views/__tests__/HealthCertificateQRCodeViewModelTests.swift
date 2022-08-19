@@ -27,7 +27,7 @@ class HealthCertificateQRCodeViewModelTests: XCTestCase {
 			showRealQRCodeIfValidityStateBlocked: false,
 			imageAccessibilityTraits: .image,
 			accessibilityLabel: "accessibilityLabel",
-			qrCodeAccessibilityID: "qrCodeAccessibilityID",
+			qrCodeAccessibilityIdentifier: "qrCodeAccessibilityID",
 			covPassCheckInfoPosition: .top,
 			onCovPassCheckInfoButtonTap: { }
 		)
@@ -59,7 +59,7 @@ class HealthCertificateQRCodeViewModelTests: XCTestCase {
 			showRealQRCodeIfValidityStateBlocked: false,
 			imageAccessibilityTraits: [.image, .button],
 			accessibilityLabel: "accessibilityLabel",
-			qrCodeAccessibilityID: "accessibilityID",
+			qrCodeAccessibilityIdentifier: "accessibilityID",
 			covPassCheckInfoPosition: .top,
 			onCovPassCheckInfoButtonTap: { }
 		)
@@ -90,7 +90,7 @@ class HealthCertificateQRCodeViewModelTests: XCTestCase {
 			showRealQRCodeIfValidityStateBlocked: false,
 			imageAccessibilityTraits: .image,
 			accessibilityLabel: "accessibilityLabel",
-			qrCodeAccessibilityID: "",
+			qrCodeAccessibilityIdentifier: "",
 			covPassCheckInfoPosition: .top,
 			onCovPassCheckInfoButtonTap: { }
 		)
@@ -121,7 +121,7 @@ class HealthCertificateQRCodeViewModelTests: XCTestCase {
 			showRealQRCodeIfValidityStateBlocked: false,
 			imageAccessibilityTraits: .image,
 			accessibilityLabel: "accessibilityLabel",
-			qrCodeAccessibilityID: "qrCodeAccessibilityID",
+			qrCodeAccessibilityIdentifier: "qrCodeAccessibilityID",
 			covPassCheckInfoPosition: .top,
 			onCovPassCheckInfoButtonTap: { }
 		)
@@ -153,7 +153,7 @@ class HealthCertificateQRCodeViewModelTests: XCTestCase {
 			showRealQRCodeIfValidityStateBlocked: false,
 			imageAccessibilityTraits: .image,
 			accessibilityLabel: "accessibilityLabel",
-			qrCodeAccessibilityID: "qrCodeAccessibilityID",
+			qrCodeAccessibilityIdentifier: "qrCodeAccessibilityID",
 			covPassCheckInfoPosition: .top,
 			onCovPassCheckInfoButtonTap: { }
 		)
@@ -185,7 +185,7 @@ class HealthCertificateQRCodeViewModelTests: XCTestCase {
 			showRealQRCodeIfValidityStateBlocked: true,
 			imageAccessibilityTraits: .image,
 			accessibilityLabel: "accessibilityLabel",
-			qrCodeAccessibilityID: "qrCodeAccessibilityID",
+			qrCodeAccessibilityIdentifier: "qrCodeAccessibilityID",
 			covPassCheckInfoPosition: .top,
 			onCovPassCheckInfoButtonTap: { }
 		)
@@ -219,7 +219,7 @@ class HealthCertificateQRCodeViewModelTests: XCTestCase {
 			showRealQRCodeIfValidityStateBlocked: false,
 			imageAccessibilityTraits: .image,
 			accessibilityLabel: "accessibilityLabel",
-			qrCodeAccessibilityID: "qrCodeAccessibilityID",
+			qrCodeAccessibilityIdentifier: "qrCodeAccessibilityID",
 			covPassCheckInfoPosition: .top,
 			onCovPassCheckInfoButtonTap: { }
 		)
@@ -251,7 +251,7 @@ class HealthCertificateQRCodeViewModelTests: XCTestCase {
 			showRealQRCodeIfValidityStateBlocked: false,
 			imageAccessibilityTraits: .image,
 			accessibilityLabel: "accessibilityLabel",
-			qrCodeAccessibilityID: "qrCodeAccessibilityID",
+			qrCodeAccessibilityIdentifier: "qrCodeAccessibilityID",
 			covPassCheckInfoPosition: .top,
 			onCovPassCheckInfoButtonTap: { }
 		)
@@ -283,7 +283,7 @@ class HealthCertificateQRCodeViewModelTests: XCTestCase {
 			showRealQRCodeIfValidityStateBlocked: false,
 			imageAccessibilityTraits: .image,
 			accessibilityLabel: "accessibilityLabel",
-			qrCodeAccessibilityID: "qrCodeAccessibilityID",
+			qrCodeAccessibilityIdentifier: "qrCodeAccessibilityID",
 			covPassCheckInfoPosition: .top,
 			onCovPassCheckInfoButtonTap: { }
 		)
@@ -315,7 +315,7 @@ class HealthCertificateQRCodeViewModelTests: XCTestCase {
 			showRealQRCodeIfValidityStateBlocked: false,
 			imageAccessibilityTraits: .image,
 			accessibilityLabel: "accessibilityLabel",
-			qrCodeAccessibilityID: "qrCodeAccessibilityID",
+			qrCodeAccessibilityIdentifier: "qrCodeAccessibilityID",
 			covPassCheckInfoPosition: .top,
 			onCovPassCheckInfoButtonTap: { }
 		)
@@ -347,7 +347,7 @@ class HealthCertificateQRCodeViewModelTests: XCTestCase {
 			showRealQRCodeIfValidityStateBlocked: false,
 			imageAccessibilityTraits: .image,
 			accessibilityLabel: "accessibilityLabel",
-			qrCodeAccessibilityID: "qrCodeAccessibilityID",
+			qrCodeAccessibilityIdentifier: "qrCodeAccessibilityID",
 			covPassCheckInfoPosition: .top,
 			onCovPassCheckInfoButtonTap: { }
 		)
@@ -379,7 +379,7 @@ class HealthCertificateQRCodeViewModelTests: XCTestCase {
 			showRealQRCodeIfValidityStateBlocked: true,
 			imageAccessibilityTraits: .image,
 			accessibilityLabel: "accessibilityLabel",
-			qrCodeAccessibilityID: "qrCodeAccessibilityID",
+			qrCodeAccessibilityIdentifier: "qrCodeAccessibilityID",
 			covPassCheckInfoPosition: .top,
 			onCovPassCheckInfoButtonTap: { }
 		)
@@ -413,7 +413,7 @@ class HealthCertificateQRCodeViewModelTests: XCTestCase {
 			showRealQRCodeIfValidityStateBlocked: false,
 			imageAccessibilityTraits: .image,
 			accessibilityLabel: "accessibilityLabel",
-			qrCodeAccessibilityID: "qrCodeAccessibilityID",
+			qrCodeAccessibilityIdentifier: "qrCodeAccessibilityID",
 			covPassCheckInfoPosition: .top,
 			onCovPassCheckInfoButtonTap: { }
 		)
@@ -445,7 +445,7 @@ class HealthCertificateQRCodeViewModelTests: XCTestCase {
 			showRealQRCodeIfValidityStateBlocked: false,
 			imageAccessibilityTraits: .image,
 			accessibilityLabel: "accessibilityLabel",
-			qrCodeAccessibilityID: "qrCodeAccessibilityID",
+			qrCodeAccessibilityIdentifier: "qrCodeAccessibilityID",
 			covPassCheckInfoPosition: .top,
 			onCovPassCheckInfoButtonTap: { }
 		)
@@ -477,7 +477,7 @@ class HealthCertificateQRCodeViewModelTests: XCTestCase {
 			showRealQRCodeIfValidityStateBlocked: false,
 			imageAccessibilityTraits: .image,
 			accessibilityLabel: "accessibilityLabel",
-			qrCodeAccessibilityID: "qrCodeAccessibilityID",
+			qrCodeAccessibilityIdentifier: "qrCodeAccessibilityID",
 			covPassCheckInfoPosition: .top,
 			onCovPassCheckInfoButtonTap: { }
 		)
@@ -509,7 +509,7 @@ class HealthCertificateQRCodeViewModelTests: XCTestCase {
 			showRealQRCodeIfValidityStateBlocked: false,
 			imageAccessibilityTraits: .image,
 			accessibilityLabel: "accessibilityLabel",
-			qrCodeAccessibilityID: "qrCodeAccessibilityID",
+			qrCodeAccessibilityIdentifier: "qrCodeAccessibilityID",
 			covPassCheckInfoPosition: .top,
 			onCovPassCheckInfoButtonTap: { }
 		)
@@ -541,7 +541,7 @@ class HealthCertificateQRCodeViewModelTests: XCTestCase {
 			showRealQRCodeIfValidityStateBlocked: false,
 			imageAccessibilityTraits: .image,
 			accessibilityLabel: "accessibilityLabel",
-			qrCodeAccessibilityID: "qrCodeAccessibilityID",
+			qrCodeAccessibilityIdentifier: "qrCodeAccessibilityID",
 			covPassCheckInfoPosition: .top,
 			onCovPassCheckInfoButtonTap: { }
 		)
@@ -573,7 +573,7 @@ class HealthCertificateQRCodeViewModelTests: XCTestCase {
 			showRealQRCodeIfValidityStateBlocked: true,
 			imageAccessibilityTraits: .image,
 			accessibilityLabel: "accessibilityLabel",
-			qrCodeAccessibilityID: "qrCodeAccessibilityID",
+			qrCodeAccessibilityIdentifier: "qrCodeAccessibilityID",
 			covPassCheckInfoPosition: .top,
 			onCovPassCheckInfoButtonTap: { }
 		)
@@ -600,7 +600,7 @@ class HealthCertificateQRCodeViewModelTests: XCTestCase {
 			showRealQRCodeIfValidityStateBlocked: false,
 			imageAccessibilityTraits: .image,
 			accessibilityLabel: "accessibilityLabel",
-			qrCodeAccessibilityID: "qrCodeAccessibilityID",
+			qrCodeAccessibilityIdentifier: "qrCodeAccessibilityID",
 			covPassCheckInfoPosition: .top,
 			onCovPassCheckInfoButtonTap: { }
 		)
