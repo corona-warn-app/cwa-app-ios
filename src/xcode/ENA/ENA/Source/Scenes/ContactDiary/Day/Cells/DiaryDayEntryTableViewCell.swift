@@ -72,6 +72,11 @@ class DiaryDayEntryTableViewCell: UITableViewCell, UITextFieldDelegate {
 		notesTextField.text = cellModel.circumstances
 
 		accessibilityTraits = cellModel.accessibilityTraits
+
+		accessibilityIdentifier = String(
+			format: AccessibilityIdentifiers.ContactDiaryInformation.Day.cellView,
+			cellModel.accessibilityIdentifierIndex
+		)
 	}
 
 	// MARK: - Private

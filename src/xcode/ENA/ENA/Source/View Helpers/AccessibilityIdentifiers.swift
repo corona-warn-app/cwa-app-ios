@@ -151,6 +151,7 @@ enum AccessibilityIdentifiers {
 		static let legal_1 = "AppStrings.ContactDiaryInformation.legalHeadline_1"
 		
 		enum Day {
+			static let cellView = "AppStrings.ContactDiaryInformation.cellView-%d"
 			static let headerStackView = "AppStrings.ContactDiaryInformation.headerStackView-%d"
 			static let checkboxImageView = "AppStrings.ContactDiaryInformation.checkboxImageView-%d"
 			static let label = "AppStrings.ContactDiaryInformation.label-%d"
