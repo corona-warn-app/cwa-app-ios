@@ -158,6 +158,8 @@ enum AccessibilityIdentifiers {
 			static let durationSegmentedContol = "AppStrings.ContactDiaryInformation.durationSegmentedContol"
 			static let maskSituationSegmentedControl = "AppStrings.ContactDiaryInformation.maskSituationSegmentedControl"
 			static let settingSegmentedControl = "AppStrings.ContactDiaryInformation.settingSegmentedControl"
+			static let durationLabel = "AppStrings.ContactDiaryInformation.durationLabel"
+			static let visitDurationPickerWrapper = "AppStrings.ContactDiaryInformation.visitDurationPickerWrapper"
 			static let notesTextField = "AppStrings.ContactDiaryInformation.notesTextField"
 			static let notesInfoButton = "AppStrings.ContactDiaryInformation.notesInfoButton"
 		}
