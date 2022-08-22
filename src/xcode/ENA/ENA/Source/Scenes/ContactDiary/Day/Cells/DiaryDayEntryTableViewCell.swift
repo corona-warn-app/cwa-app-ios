@@ -77,6 +77,15 @@ class DiaryDayEntryTableViewCell: UITableViewCell, UITextFieldDelegate {
 			format: AccessibilityIdentifiers.ContactDiaryInformation.Day.cellView,
 			cellModel.accessibilityIdentifierIndex
 		)
+		
+		accessibilityElements = [
+			headerStackView as Any,
+			durationLabel,
+//			visitDurationPickerWrapper, // Check wether accessibility identifier is still visible in appium ...
+			visitDurationPicker,
+			notesTextField,
+			notesInfoButton
+		]
 	}
 
 	// MARK: - Private
