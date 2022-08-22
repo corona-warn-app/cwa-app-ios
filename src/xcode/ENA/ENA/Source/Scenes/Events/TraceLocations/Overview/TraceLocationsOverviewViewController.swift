@@ -267,6 +267,8 @@ class TraceLocationsOverviewViewController: UITableViewController, FooterViewHan
 	private func didTapMoreButton() {
 		let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
 
+		// Info Action
+
 		let infoAction = UIAlertAction(
 			title: AppStrings.TraceLocations.Overview.ActionSheet.infoTitle,
 			style: .default,
@@ -274,8 +276,12 @@ class TraceLocationsOverviewViewController: UITableViewController, FooterViewHan
 				self?.onInfoButtonTap()
 			}
 		)
+		infoAction.isAccessibilityElement = true
+		infoAction.accessibilityIdentifier = AccessibilityIdentifiers.TraceLocation.Overview.MenuActionSheet.infoAction
 		actionSheet.addAction(infoAction)
 
+		// Edit Action
+	
 		let editAction = UIAlertAction(
 			title: AppStrings.TraceLocations.Overview.ActionSheet.editTitle,
 			style: .default,
@@ -285,8 +291,12 @@ class TraceLocationsOverviewViewController: UITableViewController, FooterViewHan
 			}
 		)
 		editAction.isEnabled = !viewModel.isEmpty
+		editAction.isAccessibilityElement = true
+		editAction.accessibilityIdentifier = AccessibilityIdentifiers.TraceLocation.Overview.MenuActionSheet.editAction
 		actionSheet.addAction(editAction)
 
+		// On Behalf Checkin Action
+		
 		let onBehalfCheckinSubmissionAction = UIAlertAction(
 			title: AppStrings.TraceLocations.Overview.ActionSheet.onBehalfCheckinSubmissionTitle,
 			style: .default,
@@ -294,8 +304,12 @@ class TraceLocationsOverviewViewController: UITableViewController, FooterViewHan
 				self?.onOnBehalfCheckinSubmissionTap()
 			}
 		)
+		onBehalfCheckinSubmissionAction.isAccessibilityElement = true
+		onBehalfCheckinSubmissionAction.accessibilityIdentifier = AccessibilityIdentifiers.TraceLocation.Overview.MenuActionSheet.onBehalfCheckinSubmissionAction
 		actionSheet.addAction(onBehalfCheckinSubmissionAction)
 
+		// Cancel
+		
 		let cancelAction = UIAlertAction(title: AppStrings.Common.alertActionCancel, style: .cancel)
 		actionSheet.addAction(cancelAction)
 
