@@ -99,7 +99,7 @@ extension ClientMock: Client {
 		completion: @escaping ErrorLogSubmitting.ELSSubmissionResponse
 	) {
 		guard let onSubmitErrorLog = self.onSubmitErrorLog else {
-			completion(.success(LogUploadResponse(id: "\(Int.random(in: 0..<Int.max))", hash: errorLogFile.sha256String())))
+			completion(.success(ELSSubmitReceiveModel(id: "\(Int.random(in: 0..<Int.max))", hash: errorLogFile.sha256String())))
 			return
 		}
 

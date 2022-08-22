@@ -18,16 +18,23 @@ class ENATextField: UITextField {
 
 		super.init(frame: frame)
 
-		setup()
+		setupLayout()
 	}
 
 	required init?(coder: NSCoder) {
 		super.init(coder: coder)
 
-		setup()
+		setupLayout()
 	}
 
 	// MARK: - Overrides
+	
+	override var accessibilityIdentifier: String? {
+		didSet {
+			guard let identifier = accessibilityIdentifier else { return }
+			setupClearButtonAccessibility(for: identifier)
+		}
+	}
 
 	override func textRect(forBounds bounds: CGRect) -> CGRect {
 		return super.textRect(forBounds: bounds)
@@ -71,7 +78,7 @@ class ENATextField: UITextField {
 
 	// MARK: - Private
 
-	private func setup() {
+	private func setupLayout() {
 		borderStyle = .none
 		backgroundColor = .enaColor(for: .textField)
 
@@ -93,4 +100,10 @@ class ENATextField: UITextField {
 		self.text = String(text.prefix(maxLength))
 	}
 
+	private func setupClearButtonAccessibility(for identifier: String) {
+		if let clearButton = value(forKey: "clearButton") as? UIButton {
+			clearButton.isAccessibilityElement = true
+			clearButton.accessibilityIdentifier = "\(identifier).ClearButton"
+		}
+	}
 }

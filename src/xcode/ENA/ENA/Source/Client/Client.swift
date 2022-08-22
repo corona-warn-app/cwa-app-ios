@@ -44,20 +44,6 @@ protocol Client {
 		ppacToken: PPACToken,
 		completion: @escaping OTPAuthorizationCompletionHandler
 	)
-
-	// MARK: ELS Submit (Error Log Sharing)
-
-	/// Log file upload for the ELS  Service
-	/// - Parameters:
-	///   - logFile: The compressed log `Data` to upload
-	///   - uploadToken: The 'ota token'; used for grouping multiple uploads per installation
-	///   - completion: He completion handler of the submission call, which contains the log `id` and `hash` value of the uploaded item
-	func submit(
-		errorLogFile: Data,
-		otpEls: String,
-		completion: @escaping ErrorLogSubmitting.ELSSubmissionResponse
-	)
-
 }
 
 // Do not edit this cases as they are decoded as they are from the server.
