@@ -378,7 +378,16 @@ final class HealthCertificate: Codable, Equatable, Comparable, RecycleBinIdentif
 		// This covers scenarios where familyName and givenName were swapped.
 		let hasCrossIntersection_FamilyName_GivenName = familyNameComponents.intersection(other.givenNameComponents).isNotEmpty
 		let hasCrossIntersection_GivenName_FamilyName = givenNameComponents.intersection(other.familyNameComponents).isNotEmpty
-		let hasCrossNameIntersections = hasCrossIntersection_FamilyName_GivenName && hasCrossIntersection_GivenName_FamilyName
+		
+		let hasCrossNameIntersectionWithOneEmptyName: Bool
+		if givenNameComponents.isEmpty && other.familyNameComponents.isEmpty {
+			hasCrossNameIntersectionWithOneEmptyName = familyNameComponents.intersection(other.givenNameComponents).isNotEmpty
+		} else if familyNameComponents.isEmpty && other.givenNameComponents.isEmpty {
+			hasCrossNameIntersectionWithOneEmptyName = givenNameComponents.intersection(other.familyNameComponents).isNotEmpty
+		} else {
+			hasCrossNameIntersectionWithOneEmptyName = false
+		}
+		let hasCrossNameIntersections = hasCrossNameIntersectionWithOneEmptyName || (hasCrossIntersection_FamilyName_GivenName && hasCrossIntersection_GivenName_FamilyName)
 		
 		return hasNameIntersections || hasCrossNameIntersections
 	}

@@ -811,7 +811,9 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 					completion()
 				}
 			)
+			okAction.isAccessibilityElement = true
 			okAction.accessibilityIdentifier = "AccessibilityIdentifier.InformationAboutExposureLogging_alert_Ok_Action"
+			okAction.accessibilityLabel = AppStrings.Common.alertActionOk
 			alert.addAction(okAction)
 			
 			self.present(alert, animated: true) { [weak self] in
