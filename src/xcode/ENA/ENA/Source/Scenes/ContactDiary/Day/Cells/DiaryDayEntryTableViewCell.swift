@@ -156,8 +156,8 @@ class DiaryDayEntryTableViewCell: UITableViewCell, UITextFieldDelegate {
 		let label = ENALabel()
 		label.style = .body
 		label.text = AppStrings.ContactDiary.Day.Visit.duration
-		label.accessibilityTraits = .staticText
 		label.isAccessibilityElement = true
+		label.accessibilityTraits = .staticText
 		label.accessibilityIdentifier = AccessibilityIdentifiers.ContactDiaryInformation.Day.durationLabel
 		return label
 	}()
