@@ -81,7 +81,6 @@ class DiaryDayEntryTableViewCell: UITableViewCell, UITextFieldDelegate {
 		accessibilityElements = [
 			headerStackView as Any,
 			durationLabel,
-//			visitDurationPickerWrapper, // Check wether accessibility identifier is still visible in appium ...
 			visitDurationPicker,
 			notesTextField,
 			notesInfoButton
@@ -155,19 +154,6 @@ class DiaryDayEntryTableViewCell: UITableViewCell, UITextFieldDelegate {
 
 		return stackView
 	}()
-	
-	private lazy var visitDurationPickerWrapper: UIView = {
-		let view = UIView()
-		view.translatesAutoresizingMaskIntoConstraints = false
-		view.addSubview(visitDurationPicker)
-		view.topAnchor.constraint(equalTo: visitDurationPicker.topAnchor).isActive = true
-		view.rightAnchor.constraint(equalTo: visitDurationPicker.rightAnchor).isActive = true
-		view.bottomAnchor.constraint(equalTo: visitDurationPicker.bottomAnchor).isActive = true
-		view.leftAnchor.constraint(equalTo: visitDurationPicker.leftAnchor).isActive = true
-		view.isAccessibilityElement = true // Check wether needed in Appium, or if accessibility identifier alone is fine
-		view.accessibilityIdentifier = AccessibilityIdentifiers.ContactDiaryInformation.Day.visitDurationPickerWrapper
-		return view
-	}()
 
 	private lazy var visitDurationPicker: UIDatePicker = {
 		let durationPicker = UIDatePicker()
@@ -210,7 +196,7 @@ class DiaryDayEntryTableViewCell: UITableViewCell, UITextFieldDelegate {
 		stackView.spacing = 8
 
 		stackView.addArrangedSubview(durationLabel)
-		stackView.addArrangedSubview(visitDurationPickerWrapper)
+		stackView.addArrangedSubview(visitDurationPicker)
 
 		return stackView
 	}()
