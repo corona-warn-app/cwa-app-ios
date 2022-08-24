@@ -554,8 +554,12 @@ class CoronaTestService: CoronaTestServiceProviding {
 		switch coronaTestType {
 		case .pcr:
 			pcrTest.value = nil
+			// updating badge count for home tab
+			badgeWrapper.decrease(.unseenTests, by: 1)
 		case .antigen:
 			antigenTest.value = nil
+			// updating badge count for home tab
+			badgeWrapper.decrease(.unseenTests, by: 1)
 		}
 
 		warnOthersReminder.cancelNotifications(for: coronaTestType)
