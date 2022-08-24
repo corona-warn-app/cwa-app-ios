@@ -46,6 +46,15 @@ class HomeBadgeWrapper {
 		badgesCount[badgeType] = (oldValue ?? 0) + value
 		saveAndUpdate()
 	}
+	
+	func decrease(_ badgeType: BadgeType, by value: Int) {
+		let oldValue = badgesCount[badgeType] ?? 0
+		guard oldValue ?? 0 - value > 0 else {
+			return
+		}
+		badgesCount[badgeType] = (oldValue ?? 0) - value
+		saveAndUpdate()
+	}
 
 	func update(_ badgeType: BadgeType, value: Int?) {
 		badgesCount[badgeType] = value
