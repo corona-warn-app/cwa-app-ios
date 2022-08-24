@@ -234,9 +234,15 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 				}
 
 				// For the case that a person splits after deleting a certificate, there could be some more certificates to be removed (because they are moved into a new person).
-				for (index, certificate) in previousCertificates.enumerated() where certificate != healthCertificate {
+				for (index, certificate) in previousCertificates.enumerated() {
 					if !self.viewModel.healthCertifiedPerson.healthCertificates.contains(certificate) {
-						deleteIndexPaths.append(IndexPath(row: index, section: HealthCertifiedPersonViewModel.TableViewSection.certificates.rawValue))
+						let indexPathToDelete = IndexPath(
+							row: index,
+							section: HealthCertifiedPersonViewModel.TableViewSection.certificates.rawValue
+						)
+						if !deleteIndexPaths.contains(where: { $0 == indexPathToDelete }) {
+							deleteIndexPaths.append(indexPathToDelete)
+						}
 					}
 				}
 
