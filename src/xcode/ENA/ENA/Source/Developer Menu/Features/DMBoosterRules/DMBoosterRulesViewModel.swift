@@ -61,6 +61,7 @@ final class DMBoosterRulesViewModel {
 					self.healthCertifiedPerson.dccWalletInfo = DCCWalletInfo(
 						admissionState: dccWalletInfo.admissionState,
 						vaccinationState: dccWalletInfo.vaccinationState,
+						maskState: DCCWalletInfo.markState,
 						boosterNotification: DCCBoosterNotification(visible: false, identifier: nil, titleText: nil, subtitleText: nil, longText: nil, faqAnchor: nil),
 						mostRelevantCertificate: dccWalletInfo.mostRelevantCertificate,
 						verification: dccWalletInfo.verification,

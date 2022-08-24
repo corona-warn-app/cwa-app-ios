@@ -213,6 +213,7 @@ extension HealthCertificateService {
 		return DCCWalletInfo(
 			admissionState: dccWalletInfo.admissionState,
 			vaccinationState: dccWalletInfo.vaccinationState,
+			maskState: DCCWalletInfo.markState,
 			boosterNotification: DCCBoosterNotification(visible: true, identifier: "hello", titleText: titleText, subtitleText: subtitleText, longText: testLongText, faqAnchor: "test"),
 			mostRelevantCertificate: dccWalletInfo.mostRelevantCertificate,
 			verification: dccWalletInfo.verification,
@@ -265,6 +266,7 @@ extension HealthCertificateService {
 		return DCCWalletInfo(
 			admissionState: dccWalletInfo.admissionState,
 			vaccinationState: dccWalletInfo.vaccinationState,
+			maskState: DCCWalletInfo.markState,
 			boosterNotification: dccWalletInfo.boosterNotification,
 			mostRelevantCertificate: dccWalletInfo.mostRelevantCertificate,
 			verification: dccWalletInfo.verification,
