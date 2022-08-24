@@ -5,10 +5,19 @@
 import Foundation
 import AnyCodable
 
+enum MaskStateIdentifier: String, Codable {
+
+	case maskRequired = "MASK_REQUIRED"
+	case maskOptional = "MASK_OPTIONAL"
+	case other = "OTHER"
+
+}
+
 struct DCCWalletInfo: Codable, Equatable {
 
 	let admissionState: DCCAdmissionState
 	let vaccinationState: DCCVaccinationState
+	let maskState: DCCMaskState
 	let boosterNotification: DCCBoosterNotification
 	let mostRelevantCertificate: DCCCertificateContainer
 	let verification: DCCVerification
@@ -42,6 +51,7 @@ struct DCCScenarioSelectionItem: Codable, Equatable {
 }
 
 struct DCCAdmissionState: Codable, Equatable {
+
 	let identifier: String?
 	let visible: Bool
 	let badgeText: DCCUIText?
@@ -53,6 +63,7 @@ struct DCCAdmissionState: Codable, Equatable {
 
 }
 
+
 struct DCCVaccinationState: Codable, Equatable {
 
 	let visible: Bool
@@ -60,6 +71,18 @@ struct DCCVaccinationState: Codable, Equatable {
 	let subtitleText: DCCUIText?
 	let longText: DCCUIText?
 	let faqAnchor: String?
+
+}
+
+struct DCCMaskState: Codable, Equatable {
+
+	let visible: Bool
+	let badgeText: DCCUIText?
+	let titleText: DCCUIText?
+	let subtitleText: DCCUIText?
+	let longText: DCCUIText?
+	let faqAnchor: String?
+	let identifier: MaskStateIdentifier
 
 }
 
