@@ -45,6 +45,7 @@ class DiaryOverviewDayTableViewCell: UITableViewCell {
 	@IBOutlet private weak var dateLabel: ENALabel!
 	// ExposureHistory
 	@IBOutlet private weak var exposureHistoryStackView: UIStackView!
+	@IBOutlet private weak var exposureHistorySeperatorView: UIView!
 	@IBOutlet private weak var exposureHistoryNoticeImageView: UIImageView!
 	@IBOutlet private weak var exposureHistoryTitleLabel: ENALabel!
 	@IBOutlet private weak var exposureHistoryDetailLabel: ENALabel!
@@ -92,6 +93,9 @@ class DiaryOverviewDayTableViewCell: UITableViewCell {
 		exposureHistoryTitleLabel.style = .body
 		exposureHistoryDetailLabel.style = .subheadline
 		exposureHistoryDetailLabel.textColor = .enaColor(for: .textPrimary2)
+		
+		exposureHistoryStackView.setCustomSpacing(12, after: exposureHistorySeperatorView)
+		exposureHistoryStackView.layoutMargins = .init(top: 0, left: 0, bottom: 12, right: 0)
 	}
 
 	private func configureTests(_ cellViewModel: DiaryOverviewDayCellModel) {
@@ -307,6 +311,10 @@ class DiaryOverviewDayTableViewCell: UITableViewCell {
 
 		encountersVisitsContainerStackView.spacing = 20
 		encountersVisitsContainerStackView.distribution = .fill
+		
+		if encountersVisitsContainerStackView.arrangedSubviews.isEmpty {
+			exposureHistoryStackView.layoutMargins = .zero
+		}
 
 		// For UI Testing
 		accessibilityTraits = [.button]
