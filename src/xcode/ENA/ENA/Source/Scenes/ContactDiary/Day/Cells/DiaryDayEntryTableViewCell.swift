@@ -223,13 +223,25 @@ class DiaryDayEntryTableViewCell: UITableViewCell, UITextFieldDelegate {
 		)
 		
 		// Give specific order
-		accessibilityElements = [
-			headerStackView as Any,
-			durationLabel,
-			visitDurationPicker,
-			notesTextField,
-			notesInfoButton
-		]
+		switch cellModel.entryType {
+		case .contactPerson:
+			accessibilityElements = [
+				headerStackView as Any,
+				durationSegmentedControl,
+				maskSituationSegmentedControl,
+				settingSegmentedControl,
+				notesTextField,
+				notesInfoButton
+			]
+		case .location:
+			accessibilityElements = [
+				headerStackView as Any,
+				durationLabel,
+				visitDurationPicker,
+				notesTextField,
+				notesInfoButton
+			]
+		}
 	}
 
 	private func updateContactPersonEncounter() {
