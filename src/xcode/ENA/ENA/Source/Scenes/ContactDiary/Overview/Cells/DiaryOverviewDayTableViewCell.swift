@@ -195,6 +195,7 @@ class DiaryOverviewDayTableViewCell: UITableViewCell {
 		}
 	}
 
+	// swiftlint:disable:next cyclomatic_complexity
 	private func configureEncounters(_ cellViewModel: DiaryOverviewDayCellModel) {
 		encountersVisitsContainerStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
 		cellViewModel.selectedEntries.enumerated().forEach { index, entry in
