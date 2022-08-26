@@ -151,12 +151,14 @@ enum AccessibilityIdentifiers {
 		static let legal_1 = "AppStrings.ContactDiaryInformation.legalHeadline_1"
 		
 		enum Day {
+			static let cellView = "AppStrings.ContactDiaryInformation.cellView-%d"
 			static let headerStackView = "AppStrings.ContactDiaryInformation.headerStackView-%d"
 			static let checkboxImageView = "AppStrings.ContactDiaryInformation.checkboxImageView-%d"
 			static let label = "AppStrings.ContactDiaryInformation.label-%d"
 			static let durationSegmentedContol = "AppStrings.ContactDiaryInformation.durationSegmentedContol"
 			static let maskSituationSegmentedControl = "AppStrings.ContactDiaryInformation.maskSituationSegmentedControl"
 			static let settingSegmentedControl = "AppStrings.ContactDiaryInformation.settingSegmentedControl"
+			static let durationLabel = "AppStrings.ContactDiaryInformation.durationLabel"
 			static let notesTextField = "AppStrings.ContactDiaryInformation.notesTextField"
 			static let notesInfoButton = "AppStrings.ContactDiaryInformation.notesInfoButton"
 		}
