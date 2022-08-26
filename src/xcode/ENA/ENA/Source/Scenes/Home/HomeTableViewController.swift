@@ -485,10 +485,12 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		switch coronaTestType {
 		case .pcr:
 			if let cell = pcrTestResultCell {
+				refreshUI()
 				return cell
 			}
 		case .antigen:
 			if let cell = antigenTestResultCell {
+				refreshUI()
 				return cell
 			}
 		}
