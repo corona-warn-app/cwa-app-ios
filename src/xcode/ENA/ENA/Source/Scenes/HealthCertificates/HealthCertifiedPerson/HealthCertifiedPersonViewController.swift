@@ -206,7 +206,7 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 			self.isAnimatingChanges = true
 
 			tableView.performBatchUpdates({
-				var deleteIndexPaths = [indexPath]
+				var deleteIndexPaths = [IndexPath]()
 				var insertIndexPaths = [IndexPath]()
 				
 				if admissionStateWasVisible && !self.viewModel.admissionStateIsVisible {
