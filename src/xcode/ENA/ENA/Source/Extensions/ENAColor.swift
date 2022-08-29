@@ -104,7 +104,14 @@ public extension UIColor {
 			fatalError("Requested color is not available: " + style.rawValue)
 		}
 	}
+
 	#endif
+}
+
+extension CGColor {
+	static func enaColor(for style: ENAColor, interface: UIUserInterfaceStyle = .unspecified) -> CGColor {
+		UIColor.enaColor(for: style, interface: interface).cgColor
+	}
 }
 
 private extension UIColor {

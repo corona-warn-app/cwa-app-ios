@@ -73,6 +73,7 @@ final class HealthCertifiedPersonViewModel {
 
 	enum TableViewSection: Int, CaseIterable {
 		case header
+		case maskState
 		case admissionState
 		case certificateReissuance
 		case boosterNotification
@@ -160,8 +161,14 @@ final class HealthCertifiedPersonViewModel {
 		)
 	}
 	
+	var maskStakeIsVisible: Bool {
+		healthCertifiedPerson.dccWalletInfo?.maskState.visible ?? false
+	}
+	
 	var topMostCell: TableViewSection {
-		if admissionStateIsVisible {
+		if maskStakeIsVisible {
+			return .maskState
+		} else if admissionStateIsVisible {
 			return .admissionState
 		} else if certificateReissuanceIsVisible {
 			return .certificateReissuance
@@ -178,6 +185,8 @@ final class HealthCertifiedPersonViewModel {
 		switch section {
 		case .header:
 			return 1
+		case .maskState:
+			return maskStakeIsVisible ? 1 : 0
 		case .admissionState:
 			return admissionStateIsVisible ? 1 : 0
 		case .certificateReissuance:
