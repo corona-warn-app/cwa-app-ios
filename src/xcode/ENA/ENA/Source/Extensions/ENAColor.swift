@@ -64,7 +64,9 @@ public enum ENAColor: String, CaseIterable {
 
 	// MARK: - Certificate-PDF
 	case certificatePDFBlue = "Certificate-PDF Blue"
-
+	
+	// MARK: - Mask Badge Grey
+	case maskBadgeGrey = "ENA Mask Badge Grey Color"
 }
 
 public extension UIColor {

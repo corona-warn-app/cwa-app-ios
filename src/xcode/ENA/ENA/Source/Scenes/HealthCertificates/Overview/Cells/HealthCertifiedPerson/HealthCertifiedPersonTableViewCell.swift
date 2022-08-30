@@ -72,9 +72,12 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 			captionStackView.arrangedSubviews.forEach { $0.isHidden = true }
 		}
 
-		admissionStateStackView.isHidden = !cellModel.isStatusTitleVisible
-		admissionStateView.configure(title: cellModel.shortStatus, gradientType: cellModel.backgroundGradientType)
-
+		admissionStateView.isHidden = !cellModel.isShortAdmissionStatusVisible
+		admissionStateView.configure(title: cellModel.shortAdmissionStatus, gradientType: gradientForAdmissionState(cellModel: cellModel))
+		
+		maskStateView.isHidden = !cellModel.isMaskStatusVisible
+		maskStateView.configure(title: cellModel.maskStatus, fontColor: fontColorForMaskState(maskStateIdentifier: cellModel.maskStateIdentifier), image: imageForMaskState(maskStateIdentifier: cellModel.maskStateIdentifier), gradientType: gradientForMaskState(maskStateIdentifier: cellModel.maskStateIdentifier))
+		 
 		segmentedControl.isHidden = cellModel.switchableHealthCertificates.isEmpty
 
 		segmentedControl.removeAllSegments()
@@ -91,7 +94,7 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 		}
 
 		setupAccessibility(
-			admissionStateIsVisible: cellModel.isStatusTitleVisible,
+			admissionStateIsVisible: cellModel.shortAdmissionStatus != nil,
 			segmentedControlIsVisible: !cellModel.switchableHealthCertificates.isEmpty,
 			validityStateTitleIsVisible: cellModel.caption != nil
 		)
@@ -179,24 +182,16 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 	}()
 
 	private lazy var admissionStateStackView: UIStackView = {
-		let stackView = AccessibleStackView(arrangedSubviews: [admissionStateTitleLabel, admissionStateView])
+		let stackView = AccessibleStackView(arrangedSubviews: [maskStateView, admissionStateView])
 		stackView.spacing = 8.0
 		stackView.alignment = .center
+		stackView.distribution = .fill
 
 		return stackView
 	}()
 
-	private let admissionStateTitleLabel: ENALabel = {
-		let admissionStateTitleLabel = ENALabel(style: .headline)
-		admissionStateTitleLabel.numberOfLines = 0
-		admissionStateTitleLabel.textColor = .enaColor(for: .textPrimary1)
-		admissionStateTitleLabel.text = AppStrings.HealthCertificate.Overview.admissionStateTitle
-		admissionStateTitleLabel.setContentCompressionResistancePriority(.init(rawValue: 998), for: .horizontal)
-
-		return admissionStateTitleLabel
-	}()
-
 	private lazy var admissionStateView = RoundedLabeledView()
+	private lazy var maskStateView = RoundedLabeledView()
 
 	private let qrCodeView = HealthCertificateQRCodeView()
 
@@ -411,7 +406,44 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 		bottomView.layer.borderColor = UIColor.enaColor(for: .cardBorder).cgColor
 		qrCodeContainerView.layer.borderColor = UIColor.enaColor(for: .cardBorder).cgColor
 	}
+	
+	private func fontColorForMaskState(maskStateIdentifier: MaskStateIdentifier) -> UIColor {
+		switch maskStateIdentifier {
+		case .maskRequired:
+			return .enaColor(for: .maskBadgeGrey)
+		case .maskOptional, .other:
+			return .enaColor(for: .textContrast)
+		}
+	}
+	
+	private func imageForMaskState(maskStateIdentifier: MaskStateIdentifier) -> UIImage? {
+		switch maskStateIdentifier {
+		case .maskRequired:
+			return UIImage(imageLiteralResourceName: "Icon_mask")
+		case .maskOptional:
+			return UIImage(imageLiteralResourceName: "Icon_noMask")
+		case .other:
+			return nil
+		}
+	}
 
+	private func gradientForMaskState(maskStateIdentifier: MaskStateIdentifier) -> GradientView.GradientType {
+		switch maskStateIdentifier {
+		case .maskRequired:
+			return .whiteWithGreyBorder
+		case .maskOptional, .other:
+			return .lightGreen
+		}
+	}
+	
+	private func gradientForAdmissionState(cellModel: HealthCertifiedPersonCellModel) -> GradientView.GradientType {
+		if cellModel.maskStateIdentifier == .maskOptional {
+			return .darkGreen
+		} else {
+			return cellModel.backgroundGradientType
+		}
+	}
+	
 	@objc
 	func segmentedControlValueChanged(_ sender: UISegmentedControl) {
 		cellModel?.showHealthCertificate(at: sender.selectedSegmentIndex)
