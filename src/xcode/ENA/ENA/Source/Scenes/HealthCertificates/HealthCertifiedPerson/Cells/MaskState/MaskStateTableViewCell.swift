@@ -125,6 +125,7 @@ class MaskStateTableViewCell: UITableViewCell, UITextViewDelegate, ReuseIdentifi
 	/// The FAQ link element
 	private lazy var faqLinkTextView: UITextView = {
 		let faqLinkTextView = UITextView()
+		faqLinkTextView.backgroundColor = .enaColor(for: .cellBackground2)
 		faqLinkTextView.isScrollEnabled = false
 		faqLinkTextView.isEditable = false
 		faqLinkTextView.textContainerInset = .zero
@@ -149,7 +150,11 @@ class MaskStateTableViewCell: UITableViewCell, UITextViewDelegate, ReuseIdentifi
 			backgroundContainerView,
 			contentStackView,
 			topElementsStackView,
-			titleLabel
+			titleLabel,
+			subtitleLabel,
+			descriptionLabel,
+			faqLinkTextView,
+			badgeImageView
 		].forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
 		
 		contentView.addSubview(backgroundContainerView)
