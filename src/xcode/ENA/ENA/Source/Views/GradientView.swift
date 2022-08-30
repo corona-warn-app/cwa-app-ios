@@ -57,6 +57,7 @@ class GradientView: UIView {
 		case mediumBlue
 		case darkBlue
 		case whiteToLightBlue
+		case greenOnly
 
 		var starsColor: UIColor? {
 			switch self {
@@ -68,6 +69,8 @@ class GradientView: UIView {
 				return UIColor(red: 7.0 / 255.0, green: 106.0 / 255.0, blue: 159.0 / 255.0, alpha: 1.0)
 			case .darkBlue:
 				return UIColor(red: 2.0 / 255.0, green: 90.0 / 255.0, blue: 143.0 / 255.0, alpha: 1.0)
+			case .greenOnly:
+				return UIColor(red: 47.0 / 255.0, green: 137.0 / 255.0, blue: 77.0 / 255.0, alpha: 1.0)
 			default:
 				return nil
 			}
@@ -197,6 +200,15 @@ class GradientView: UIView {
 			gradientLayer.locations = [0.0, 0.6, 1.0]
 			gradientLayer.startPoint = CGPoint(x: 0.0, y: 0.0)
 			gradientLayer.endPoint = CGPoint(x: 1.0, y: 0.95)
+			
+		case .greenOnly:
+			gradientLayer.colors = [
+				UIColor(red: 41 / 255, green: 117 / 255, blue: 67 / 255, alpha: 1).cgColor,
+				UIColor(red: 46 / 255, green: 133 / 255, blue: 75 / 255, alpha: 1).cgColor
+			]
+			gradientLayer.locations = [0.0, 0.95, 1.0]
+			gradientLayer.startPoint = CGPoint(x: 0.25, y: 0.5)
+			gradientLayer.endPoint = CGPoint(x: 0.75, y: 0.5)
 		}
 	}
 
