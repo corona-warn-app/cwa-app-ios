@@ -73,7 +73,7 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 		}
 
 		admissionStateView.isHidden = !cellModel.isShortAdmissionStatusVisible
-		admissionStateView.configure(title: cellModel.shortAdmissionStatus, gradientType: cellModel.backgroundGradientType)
+		admissionStateView.configure(title: cellModel.shortAdmissionStatus, gradientType: gradientForAdmissionState(cellModel: cellModel))
 		
 		maskStateView.isHidden = !cellModel.isMaskStatusVisible
 		maskStateView.configure(title: cellModel.maskStatus, fontColor: fontColorForMaskState(maskStateIdentifier: cellModel.maskStateIdentifier), image: imageForMaskState(maskStateIdentifier: cellModel.maskStateIdentifier), gradientType: gradientForMaskState(maskStateIdentifier: cellModel.maskStateIdentifier))
@@ -436,9 +436,11 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 		}
 	}
 	
-	private func gradientForAdmissionState(maskStateIdentifier: MaskStateIdentifier) -> GradientView.GradientType {
-		if maskStateIdentifier == .maskOptional {
-			return
+	private func gradientForAdmissionState(cellModel: HealthCertifiedPersonCellModel) -> GradientView.GradientType {
+		if cellModel.maskStateIdentifier == .maskOptional {
+			return .darkGreen
+		} else {
+			return cellModel.backgroundGradientType
 		}
 	}
 	
