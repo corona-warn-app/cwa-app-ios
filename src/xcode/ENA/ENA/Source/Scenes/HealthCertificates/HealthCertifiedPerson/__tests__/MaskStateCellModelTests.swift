@@ -10,6 +10,8 @@ import class CertLogic.Description
 class MaskStateCellModelTests: XCTestCase {
 
     func testMaskStateFromWalletInfo_MaskOptional() throws {
+		// GIVEN
+		
 		let healthCertifiedPerson = HealthCertifiedPerson(healthCertificates: [])
 		
 		let titleMock = "Maskenbefreiung"
@@ -31,11 +33,15 @@ class MaskStateCellModelTests: XCTestCase {
 		
 		let fakeCCLService = FakeCCLService()
 		
+		// WHEN
+		
 		let sut = MaskStateCellModel(
 			healthCertifiedPerson: healthCertifiedPerson,
 			cclService: fakeCCLService
 		)
 		
+		// THEN
+
 		XCTAssertEqual(sut.title, titleMock)
 		XCTAssertEqual(sut.subtitle, subtitleMock)
 		XCTAssertEqual(sut.description, longTextMock)
@@ -52,6 +58,9 @@ class MaskStateCellModelTests: XCTestCase {
     }
 	
 	func testMaskStateFromWalletInfo_MaskReqiured() throws {
+		
+		// GIVEN
+		
 		let healthCertifiedPerson = HealthCertifiedPerson(healthCertificates: [])
 		
 		let titleMock = "Maskenpflicht"
@@ -73,10 +82,14 @@ class MaskStateCellModelTests: XCTestCase {
 		
 		let fakeCCLService = FakeCCLService()
 		
+		// WHEN
+		
 		let sut = MaskStateCellModel(
 			healthCertifiedPerson: healthCertifiedPerson,
 			cclService: fakeCCLService
 		)
+		
+		// THEN
 		
 		XCTAssertEqual(sut.title, titleMock)
 		XCTAssertEqual(sut.subtitle, subtitleMock)
