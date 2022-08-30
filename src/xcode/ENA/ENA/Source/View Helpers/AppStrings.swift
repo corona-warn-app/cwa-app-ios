@@ -2165,6 +2165,7 @@ enum AppStrings {
 			static let validationButtonTitle = NSLocalizedString("HealthCertifiedPerson_validationButtonTitle", comment: "")
 
 			static let faq = NSLocalizedString("HealthCertifiedPerson_faq", comment: "")
+			static let faqMaskState = NSLocalizedString("HealthCertifiedPerson_faq_maskState", comment: "")
 
 			static let currentlyUsedCertificate = NSLocalizedString("HealthCertifiedPerson_currentlyUsedCertificate", comment: "")
 			static let newlyAddedCertificate = NSLocalizedString("HealthCertifiedPerson_newlyAddedCertificate", comment: "")

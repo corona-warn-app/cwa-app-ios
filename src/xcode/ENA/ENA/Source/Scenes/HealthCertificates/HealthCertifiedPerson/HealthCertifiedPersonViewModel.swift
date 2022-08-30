@@ -35,6 +35,7 @@ final class HealthCertifiedPersonViewModel {
 		self.boosterNotificationCellModel = BoosterNotificationCellModel(healthCertifiedPerson: healthCertifiedPerson, cclService: cclService)
 		self.admissionStateCellModel = AdmissionStateCellModel(healthCertifiedPerson: healthCertifiedPerson, cclService: cclService)
 		self.vaccinationStateCellModel = VaccinationStateCellModel(healthCertifiedPerson: healthCertifiedPerson, cclService: cclService)
+		self.maskStateCellModel = MaskStateCellModel(healthCertifiedPerson: healthCertifiedPerson, cclService: cclService)
 		
 		constructHealthCertificateCellViewModels(for: healthCertifiedPerson)
 
@@ -99,6 +100,7 @@ final class HealthCertifiedPersonViewModel {
 	let boosterNotificationCellModel: BoosterNotificationCellModel
 	let admissionStateCellModel: AdmissionStateCellModel
 	let vaccinationStateCellModel: VaccinationStateCellModel
+	let maskStateCellModel: MaskStateCellModel
 
 	@OpenCombine.Published private(set) var gradientType: GradientView.GradientType = .lightBlue
 	@OpenCombine.Published private(set) var triggerReload: Bool = false

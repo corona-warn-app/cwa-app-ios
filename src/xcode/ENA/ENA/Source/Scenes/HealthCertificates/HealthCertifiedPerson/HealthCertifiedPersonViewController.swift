@@ -100,6 +100,7 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 			
 		case .maskState:
 			let cell = tableView.dequeueReusableCell(cellType: MaskStateTableViewCell.self, for: indexPath)
+			cell.configure(with: viewModel.maskStateCellModel)
 			return cell
 
 		case .admissionState:

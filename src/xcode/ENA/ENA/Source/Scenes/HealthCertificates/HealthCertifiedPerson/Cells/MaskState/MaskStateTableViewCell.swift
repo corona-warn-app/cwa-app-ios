@@ -25,6 +25,22 @@ class MaskStateTableViewCell: UITableViewCell, UITextViewDelegate, ReuseIdentifi
 		LinkHelper.open(url: url, interaction: interaction) == .allow
 	}
 	
+	// MARK: - Internal
+	
+	func configure(with cellModel: MaskStateCellModel) {
+		titleLabel.text = cellModel.title
+		titleLabel.isHidden = (cellModel.title ?? "").isEmpty
+
+		subtitleLabel.text = cellModel.subtitle
+		subtitleLabel.isHidden = (cellModel.subtitle ?? "").isEmpty
+
+		descriptionLabel.text = cellModel.description
+		descriptionLabel.isHidden = (cellModel.description ?? "").isEmpty
+
+		faqLinkTextView.attributedText = cellModel.faqLink
+		faqLinkTextView.isHidden = (cellModel.faqLink?.string ?? "").isEmpty
+	}
+	
 	// MARK: - Private
 	
 	/// The main container for any elements
