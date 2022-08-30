@@ -59,11 +59,22 @@ class HealthCertifiedPersonCellModel {
 
 		if let admissionState = healthCertifiedPerson.dccWalletInfo?.admissionState,
 		   admissionState.visible && !(admissionState.badgeText?.localized(cclService: cclService) ?? "").isEmpty {
-			isStatusTitleVisible = true
-			shortStatus = admissionState.badgeText?.localized(cclService: cclService)
+			isShortAdmissionStatusVisible = true
+			shortAdmissionStatus = admissionState.badgeText?.localized(cclService: cclService)
 		} else {
-			isStatusTitleVisible = false
-			shortStatus = nil
+			isShortAdmissionStatusVisible = false
+			shortAdmissionStatus = nil
+		}
+		
+		if let maskState = healthCertifiedPerson.dccWalletInfo?.maskState,
+		   maskState.visible && !(maskState.badgeText?.localized(cclService: cclService) ?? "").isEmpty {
+			maskStatus = maskState.badgeText?.localized(cclService: cclService)
+			isMaskStatusVisible = true
+			maskStateIdentifier = maskState.identifier
+		} else {
+			maskStatus = nil
+			isMaskStatusVisible = false
+			maskStateIdentifier = .other
 		}
 
 		if let certificates = healthCertifiedPerson.dccWalletInfo?.verification.certificates.prefix(3), certificates.count == 2 || certificates.count == 3 {
@@ -104,8 +115,12 @@ class HealthCertifiedPersonCellModel {
 			description: "\(String(describing: decodingFailedHealthCertificate.error))"
 		)
 
-		isStatusTitleVisible = false
-		shortStatus = nil
+		shortAdmissionStatus = nil
+		maskStatus = nil
+		maskStateIdentifier = .other
+		
+		isShortAdmissionStatusVisible = false
+		isMaskStatusVisible = false
 
 		switchableHealthCertificates = [:]
 
@@ -130,9 +145,13 @@ class HealthCertifiedPersonCellModel {
 
 	let caption: Caption?
 
-	let isStatusTitleVisible: Bool
-	let shortStatus: String?
-
+	let shortAdmissionStatus: String?
+	let maskStatus: String?
+	let maskStateIdentifier: MaskStateIdentifier
+	
+	let isShortAdmissionStatusVisible: Bool
+	let isMaskStatusVisible: Bool
+	
 	let switchableHealthCertificates: OrderedDictionary<String, HealthCertificate>
 
 	let onTapToDelete: (() -> Void)?
