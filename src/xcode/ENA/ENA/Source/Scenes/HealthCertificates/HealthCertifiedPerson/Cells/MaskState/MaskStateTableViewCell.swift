@@ -33,6 +33,8 @@ class MaskStateTableViewCell: UITableViewCell, UITextViewDelegate, ReuseIdentifi
 
 		subtitleLabel.text = cellModel.subtitle
 		subtitleLabel.isHidden = (cellModel.subtitle ?? "").isEmpty
+		
+		badgeImageView.image = cellModel.badgeImage
 
 		descriptionLabel.text = cellModel.description
 		descriptionLabel.isHidden = (cellModel.description ?? "").isEmpty

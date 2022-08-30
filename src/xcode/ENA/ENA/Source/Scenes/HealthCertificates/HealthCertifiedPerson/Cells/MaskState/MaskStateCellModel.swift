@@ -26,6 +26,15 @@ class MaskStateCellModel {
 		healthCertifiedPerson.dccWalletInfo?.maskState.subtitleText?.localized(cclService: cclService)
 	}
 	
+	var badgeImage: UIImage? {
+		switch healthCertifiedPerson.dccWalletInfo?.maskState.identifier {
+		case .maskRequired:
+			return UIImage(named: "badge_mask")
+		default:
+			return UIImage(named: "badge_nomask")
+		}
+	}
+	
 	var description: String? {
 		healthCertifiedPerson.dccWalletInfo?.maskState.longText?.localized(cclService: cclService)
 	}
