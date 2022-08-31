@@ -42,24 +42,9 @@ class DiaryDayEntryTableViewCell: UITableViewCell, UITextFieldDelegate {
 		self.onInfoButtonTap = onInfoButtonTap
 
 		checkboxImageView.image = cellModel.image
-		checkboxImageView.accessibilityIdentifier = String(
-			format: AccessibilityIdentifiers.ContactDiaryInformation.Day.checkboxImageView,
-			cellModel.accessibilityIdentifierIndex
-		)
 		
 		label.text = cellModel.text
 		label.font = cellModel.font
-		label.accessibilityIdentifier = String(
-			format: AccessibilityIdentifiers.ContactDiaryInformation.Day.label,
-			cellModel.accessibilityIdentifierIndex
-		)
-		
-		headerStackView.accessibilityLabel = cellModel.text
-		headerStackView.accessibilityTraits = cellModel.parametersHidden ? [.button] : [.button, .selected]
-		headerStackView.accessibilityIdentifier = String(
-			format: AccessibilityIdentifiers.ContactDiaryInformation.Day.headerStackView,
-			cellModel.accessibilityIdentifierIndex
-		)
 
 		setUpParameterViews()
 
@@ -71,7 +56,7 @@ class DiaryDayEntryTableViewCell: UITableViewCell, UITextFieldDelegate {
 		visitDurationPicker.date = Date.dateWithMinutes(cellModel.locationVisitDuration) ?? Date()
 		notesTextField.text = cellModel.circumstances
 
-		accessibilityTraits = cellModel.accessibilityTraits
+		setupAccessibility(cellModel)
 	}
 
 	// MARK: - Private
@@ -166,17 +151,23 @@ class DiaryDayEntryTableViewCell: UITableViewCell, UITextFieldDelegate {
 
 		return durationPicker
 	}()
+	
+	private let durationLabel: ENALabel = {
+		let label = ENALabel()
+		label.style = .body
+		label.text = AppStrings.ContactDiary.Day.Visit.duration
+		label.isAccessibilityElement = true
+		label.accessibilityTraits = .staticText
+		label.accessibilityIdentifier = AccessibilityIdentifiers.ContactDiaryInformation.Day.durationLabel
+		return label
+	}()
 
 	private lazy var visitDurationStackView: UIStackView = {
 		let stackView = UIStackView()
 		stackView.axis = .horizontal
 		stackView.spacing = 8
 
-		let label = ENALabel()
-		label.style = .body
-		label.text = AppStrings.ContactDiary.Day.Visit.duration
-
-		stackView.addArrangedSubview(label)
+		stackView.addArrangedSubview(durationLabel)
 		stackView.addArrangedSubview(visitDurationPicker)
 
 		return stackView
@@ -205,7 +196,54 @@ class DiaryDayEntryTableViewCell: UITableViewCell, UITextFieldDelegate {
 
 		parametersStackView.addArrangedSubview(notesStackView)
 	}
-	
+
+	private func setupAccessibility(_ cellModel: DiaryDayEntryCellModel) {
+		accessibilityTraits = cellModel.accessibilityTraits
+		
+		accessibilityIdentifier = String(
+			format: AccessibilityIdentifiers.ContactDiaryInformation.Day.cellView,
+			cellModel.accessibilityIdentifierIndex
+		)
+		
+		checkboxImageView.accessibilityIdentifier = String(
+			format: AccessibilityIdentifiers.ContactDiaryInformation.Day.checkboxImageView,
+			cellModel.accessibilityIdentifierIndex
+		)
+
+		label.accessibilityIdentifier = String(
+			format: AccessibilityIdentifiers.ContactDiaryInformation.Day.label,
+			cellModel.accessibilityIdentifierIndex
+		)
+		
+		headerStackView.accessibilityLabel = cellModel.text
+		headerStackView.accessibilityTraits = cellModel.parametersHidden ? [.button] : [.button, .selected]
+		headerStackView.accessibilityIdentifier = String(
+			format: AccessibilityIdentifiers.ContactDiaryInformation.Day.headerStackView,
+			cellModel.accessibilityIdentifierIndex
+		)
+		
+		// Give specific order
+		switch cellModel.entryType {
+		case .contactPerson:
+			accessibilityElements = [
+				headerStackView as Any,
+				durationSegmentedControl,
+				maskSituationSegmentedControl,
+				settingSegmentedControl,
+				notesTextField,
+				notesInfoButton
+			]
+		case .location:
+			accessibilityElements = [
+				headerStackView as Any,
+				durationLabel,
+				visitDurationPicker,
+				notesTextField,
+				notesInfoButton
+			]
+		}
+	}
+
 	private func updateContactPersonEncounter() {
 		let circumstances = notesTextField.text ?? ""
 		guard cellModel.circumstances != circumstances else {
