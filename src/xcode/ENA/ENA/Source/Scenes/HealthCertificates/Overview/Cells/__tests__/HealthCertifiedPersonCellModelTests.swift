@@ -42,8 +42,8 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 		XCTAssertEqual(viewModel.title, AppStrings.HealthCertificate.Overview.covidTitle)
 		XCTAssertEqual(viewModel.name, healthCertifiedPerson.name?.fullName)
 
-		XCTAssertFalse(viewModel.isStatusTitleVisible)
 		XCTAssertNil(viewModel.shortAdmissionStatus)
+		XCTAssertNil(viewModel.maskStatus)
 
 		XCTAssertFalse(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .bottom)
@@ -84,8 +84,8 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 		XCTAssertEqual(viewModel.title, AppStrings.HealthCertificate.Overview.covidTitle)
 		XCTAssertEqual(viewModel.name, healthCertifiedPerson.name?.fullName)
 
-		XCTAssertFalse(viewModel.isStatusTitleVisible)
 		XCTAssertNil(viewModel.shortAdmissionStatus)
+		XCTAssertNil(viewModel.maskStatus)
 
 		XCTAssertFalse(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .bottom)
@@ -124,8 +124,8 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 		XCTAssertEqual(viewModel.title, AppStrings.HealthCertificate.Overview.covidTitle)
 		XCTAssertEqual(viewModel.name, healthCertifiedPerson.name?.fullName)
 
-		XCTAssertFalse(viewModel.isStatusTitleVisible)
 		XCTAssertNil(viewModel.shortAdmissionStatus)
+		XCTAssertNil(viewModel.maskStatus)
 
 		XCTAssertTrue(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .bottom)
@@ -165,8 +165,8 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 		XCTAssertEqual(viewModel.title, AppStrings.HealthCertificate.Overview.covidTitle)
 		XCTAssertEqual(viewModel.name, healthCertifiedPerson.name?.fullName)
 
-		XCTAssertFalse(viewModel.isStatusTitleVisible)
 		XCTAssertNil(viewModel.shortAdmissionStatus)
+		XCTAssertNil(viewModel.maskStatus)
 
 		XCTAssertTrue(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .bottom)
@@ -210,8 +210,8 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 		XCTAssertEqual(viewModel.title, AppStrings.HealthCertificate.Overview.covidTitle)
 		XCTAssertEqual(viewModel.name, healthCertifiedPerson.name?.fullName)
 
-		XCTAssertFalse(viewModel.isStatusTitleVisible)
 		XCTAssertNil(viewModel.shortAdmissionStatus)
+		XCTAssertNil(viewModel.maskStatus)
 
 		XCTAssertTrue(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .bottom)
@@ -255,8 +255,8 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 		XCTAssertEqual(viewModel.title, AppStrings.HealthCertificate.Overview.covidTitle)
 		XCTAssertEqual(viewModel.name, healthCertifiedPerson.name?.fullName)
 
-		XCTAssertFalse(viewModel.isStatusTitleVisible)
 		XCTAssertNil(viewModel.shortAdmissionStatus)
+		XCTAssertNil(viewModel.maskStatus)
 
 		XCTAssertTrue(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .bottom)
@@ -295,8 +295,8 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 		XCTAssertEqual(viewModel.title, AppStrings.HealthCertificate.Overview.covidTitle)
 		XCTAssertEqual(viewModel.name, healthCertifiedPerson.name?.fullName)
 
-		XCTAssertFalse(viewModel.isStatusTitleVisible)
 		XCTAssertNil(viewModel.shortAdmissionStatus)
+		XCTAssertNil(viewModel.maskStatus)
 
 		XCTAssertFalse(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .bottom)
@@ -331,8 +331,8 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 		XCTAssertEqual(viewModel.title, AppStrings.HealthCertificate.Overview.covidTitle)
 		XCTAssertEqual(viewModel.name, healthCertifiedPerson.name?.fullName)
 
-		XCTAssertFalse(viewModel.isStatusTitleVisible)
 		XCTAssertNil(viewModel.shortAdmissionStatus)
+		XCTAssertNil(viewModel.maskStatus)
 
 		XCTAssertFalse(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .bottom)
@@ -371,8 +371,8 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 		XCTAssertEqual(viewModel.title, AppStrings.HealthCertificate.Overview.covidTitle)
 		XCTAssertEqual(viewModel.name, healthCertifiedPerson.name?.fullName)
 
-		XCTAssertFalse(viewModel.isStatusTitleVisible)
 		XCTAssertNil(viewModel.shortAdmissionStatus)
+		XCTAssertNil(viewModel.maskStatus)
 
 		XCTAssertFalse(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .bottom)
@@ -411,8 +411,8 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 		XCTAssertEqual(viewModel.title, AppStrings.HealthCertificate.Overview.covidTitle)
 		XCTAssertEqual(viewModel.name, healthCertifiedPerson.name?.fullName)
 
-		XCTAssertFalse(viewModel.isStatusTitleVisible)
 		XCTAssertNil(viewModel.shortAdmissionStatus)
+		XCTAssertNil(viewModel.maskStatus)
 
 		XCTAssertTrue(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .bottom)
@@ -456,8 +456,8 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 		XCTAssertEqual(viewModel.title, AppStrings.HealthCertificate.Overview.covidTitle)
 		XCTAssertEqual(viewModel.name, healthCertifiedPerson.name?.fullName)
 
-		XCTAssertFalse(viewModel.isStatusTitleVisible)
 		XCTAssertNil(viewModel.shortAdmissionStatus)
+		XCTAssertNil(viewModel.maskStatus)
 
 		XCTAssertTrue(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .bottom)
@@ -501,8 +501,8 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 		XCTAssertEqual(viewModel.title, AppStrings.HealthCertificate.Overview.covidTitle)
 		XCTAssertEqual(viewModel.name, healthCertifiedPerson.name?.fullName)
 
-		XCTAssertFalse(viewModel.isStatusTitleVisible)
 		XCTAssertNil(viewModel.shortAdmissionStatus)
+		XCTAssertNil(viewModel.maskStatus)
 
 		XCTAssertTrue(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .bottom)
@@ -541,8 +541,8 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 		XCTAssertEqual(viewModel.title, AppStrings.HealthCertificate.Overview.covidTitle)
 		XCTAssertEqual(viewModel.name, healthCertifiedPerson.name?.fullName)
 
-		XCTAssertFalse(viewModel.isStatusTitleVisible)
 		XCTAssertNil(viewModel.shortAdmissionStatus)
+		XCTAssertNil(viewModel.maskStatus)
 
 		XCTAssertFalse(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .bottom)
@@ -583,8 +583,8 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 		XCTAssertEqual(viewModel.title, AppStrings.HealthCertificate.Overview.covidTitle)
 		XCTAssertEqual(viewModel.name, healthCertifiedPerson.name?.fullName)
 
-		XCTAssertFalse(viewModel.isStatusTitleVisible)
 		XCTAssertNil(viewModel.shortAdmissionStatus)
+		XCTAssertNil(viewModel.maskStatus)
 
 		XCTAssertFalse(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .bottom)
@@ -619,8 +619,8 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 		XCTAssertEqual(viewModel.title, AppStrings.HealthCertificate.Overview.covidTitle)
 		XCTAssertEqual(viewModel.name, healthCertifiedPerson.name?.fullName)
 
-		XCTAssertFalse(viewModel.isStatusTitleVisible)
 		XCTAssertNil(viewModel.shortAdmissionStatus)
+		XCTAssertNil(viewModel.maskStatus)
 
 		XCTAssertTrue(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .bottom)
@@ -664,8 +664,8 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 		XCTAssertEqual(viewModel.title, AppStrings.HealthCertificate.Overview.covidTitle)
 		XCTAssertEqual(viewModel.name, healthCertifiedPerson.name?.fullName)
 
-		XCTAssertFalse(viewModel.isStatusTitleVisible)
 		XCTAssertNil(viewModel.shortAdmissionStatus)
+		XCTAssertNil(viewModel.maskStatus)
 
 		XCTAssertTrue(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .bottom)
@@ -705,8 +705,8 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 		XCTAssertEqual(viewModel.title, AppStrings.HealthCertificate.Overview.covidTitle)
 		XCTAssertEqual(viewModel.name, healthCertifiedPerson.name?.fullName)
 
-		XCTAssertFalse(viewModel.isStatusTitleVisible)
 		XCTAssertNil(viewModel.shortAdmissionStatus)
+		XCTAssertNil(viewModel.maskStatus)
 
 		XCTAssertTrue(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .bottom)
@@ -746,8 +746,8 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 		XCTAssertEqual(viewModel.title, AppStrings.HealthCertificate.Overview.covidTitle)
 		XCTAssertEqual(viewModel.name, healthCertifiedPerson.name?.fullName)
 
-		XCTAssertFalse(viewModel.isStatusTitleVisible)
 		XCTAssertNil(viewModel.shortAdmissionStatus)
+		XCTAssertNil(viewModel.maskStatus)
 
 		XCTAssertTrue(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .bottom)
@@ -885,6 +885,7 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 		)
 		healthCertifiedPerson.dccWalletInfo = .fake(
 			admissionState: .fake(visible: true, badgeText: .fake(string: "1G+Z")),
+			maskState: .fake(visible: true, badgeText: .fake(string: "Maskenpflicht")),
 			verification: .fake(certificates: [])
 		)
 
@@ -899,9 +900,9 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 		)
 
 		XCTAssertEqual(cellModel.qrCodeViewModel.covPassCheckInfoPosition, .bottom)
-		XCTAssertTrue(cellModel.isStatusTitleVisible)
 		XCTAssertTrue(cellModel.switchableHealthCertificates.isEmpty)
 		XCTAssertEqual(cellModel.shortAdmissionStatus, "1G+Z")
+		XCTAssertEqual(cellModel.maskStatus, "Maskenpflicht")
 	}
 
 	func testAdmissionStateWithBadgeAndTwoCertificatesToShow() throws {
@@ -911,6 +912,7 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 		let healthCertifiedPerson = HealthCertifiedPerson(healthCertificates: [twoGCertificate, testCertificate])
 		healthCertifiedPerson.dccWalletInfo = .fake(
 			admissionState: .fake(visible: true, badgeText: .fake(string: "2G+Y")),
+			maskState: .fake(visible: true, badgeText: .fake(string: "Maskenbefreit")),
 			verification: .fake(
 				certificates: [
 					.fake(
@@ -936,12 +938,12 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 		)
 
 		XCTAssertEqual(cellModel.qrCodeViewModel.covPassCheckInfoPosition, .bottom)
-		XCTAssertTrue(cellModel.isStatusTitleVisible)
 		XCTAssertEqual(
 			cellModel.switchableHealthCertificates,
 			["2G-Zertifikat": twoGCertificate, "Testzertifikat": testCertificate]
 		)
 		XCTAssertEqual(cellModel.shortAdmissionStatus, "2G+Y")
+		XCTAssertEqual(cellModel.maskStatus, "Maskenbefreit")
 	}
 
 	func testAdmissionStateWithBadgeAndThreeCertificatesToShow() throws {
@@ -952,6 +954,7 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 		let healthCertifiedPerson = HealthCertifiedPerson(healthCertificates: [twoGCertificate, testCertificate, thirdCertificate])
 		healthCertifiedPerson.dccWalletInfo = .fake(
 			admissionState: .fake(visible: true, badgeText: .fake(string: "2G+Y")),
+			maskState: .fake(visible: true, badgeText: .fake(string: "Maskenbefreit")),
 			verification: .fake(
 				certificates: [
 					.fake(
@@ -981,12 +984,12 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 		)
 
 		XCTAssertEqual(cellModel.qrCodeViewModel.covPassCheckInfoPosition, .bottom)
-		XCTAssertTrue(cellModel.isStatusTitleVisible)
 		XCTAssertEqual(
 			cellModel.switchableHealthCertificates,
 			["2G-Zertifikat": twoGCertificate, "Testzertifikat": testCertificate, "Drittes Zertifikat": thirdCertificate]
 		)
 		XCTAssertEqual(cellModel.shortAdmissionStatus, "2G+Y")
+		XCTAssertEqual(cellModel.maskStatus, "Maskenbefreit")
 	}
 
 	func testFourthCertificateIsNotShown() throws {
@@ -998,6 +1001,7 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 		let healthCertifiedPerson = HealthCertifiedPerson(healthCertificates: [twoGCertificate, testCertificate, thirdCertificate, fourthCertificate])
 		healthCertifiedPerson.dccWalletInfo = .fake(
 			admissionState: .fake(visible: true, badgeText: .fake(string: "2G+Y")),
+			maskState: .fake(visible: true, badgeText: .fake(string: "Maskenbefreit")),
 			verification: .fake(
 				certificates: [
 					.fake(
@@ -1031,12 +1035,12 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 		)
 
 		XCTAssertEqual(cellModel.qrCodeViewModel.covPassCheckInfoPosition, .bottom)
-		XCTAssertTrue(cellModel.isStatusTitleVisible)
 		XCTAssertEqual(
 			cellModel.switchableHealthCertificates,
 			["2G-Zertifikat": twoGCertificate, "Testzertifikat": testCertificate, "Drittes Zertifikat": thirdCertificate]
 		)
 		XCTAssertEqual(cellModel.shortAdmissionStatus, "2G+Y")
+		XCTAssertEqual(cellModel.maskStatus, "Maskenbefreit")
 	}
 
 	func testWithoutAdmissionState() throws {
@@ -1059,9 +1063,9 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 		)
 
 		XCTAssertEqual(cellModel.qrCodeViewModel.covPassCheckInfoPosition, .bottom)
-		XCTAssertFalse(cellModel.isStatusTitleVisible)
 		XCTAssertTrue(cellModel.switchableHealthCertificates.isEmpty)
 		XCTAssertNil(cellModel.shortAdmissionStatus)
+		XCTAssertNil(cellModel.maskStatus)
 	}
 
 	func testWithEmptyAdmissionState() throws {
@@ -1084,9 +1088,9 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 		)
 
 		XCTAssertEqual(cellModel.qrCodeViewModel.covPassCheckInfoPosition, .bottom)
-		XCTAssertFalse(cellModel.isStatusTitleVisible)
 		XCTAssertTrue(cellModel.switchableHealthCertificates.isEmpty)
 		XCTAssertNil(cellModel.shortAdmissionStatus)
+		XCTAssertNil(cellModel.maskStatus)
 	}
 
 	func testSolidGreyGradient() throws {

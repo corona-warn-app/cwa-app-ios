@@ -114,7 +114,7 @@ extension DCCMaskState {
 		longText: DCCUIText? = nil,
 		faqAnchor: String? = nil,
 		identifier: MaskStateIdentifier = .maskOptional
-	) -> Self {
+	) -> DCCMaskState {
 		DCCMaskState(
 			visible: visible,
 			badgeText: badgeText,
@@ -125,7 +125,7 @@ extension DCCMaskState {
 			identifier: identifier
 		)
 	}
-
+	
 }
 
 extension DCCBoosterNotification {

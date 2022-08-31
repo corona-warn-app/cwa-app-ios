@@ -78,6 +78,7 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 		maskStateView.isHidden = !cellModel.isMaskStatusVisible
 		maskStateView.configure(title: cellModel.maskStatus, fontColor: fontColorForMaskState(maskStateIdentifier: cellModel.maskStateIdentifier), image: imageForMaskState(maskStateIdentifier: cellModel.maskStateIdentifier), gradientType: gradientForMaskState(maskStateIdentifier: cellModel.maskStateIdentifier))
 		 
+		maskAdmissionStatesView.isHidden = !cellModel.isShortAdmissionStatusVisible && !cellModel.isMaskStatusVisible
 		segmentedControl.isHidden = cellModel.switchableHealthCertificates.isEmpty
 
 		segmentedControl.removeAllSegments()
@@ -94,7 +95,8 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 		}
 
 		setupAccessibility(
-			admissionStateIsVisible: cellModel.shortAdmissionStatus != nil,
+			maskStateIsVisible: cellModel.isMaskStatusVisible,
+			admissionStateIsVisible: cellModel.isShortAdmissionStatusVisible,
 			segmentedControlIsVisible: !cellModel.switchableHealthCertificates.isEmpty,
 			validityStateTitleIsVisible: cellModel.caption != nil
 		)
@@ -174,18 +176,9 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 	}()
 
 	private lazy var qrCodeContainerStackView: UIStackView = {
-		let stackView = UIStackView(arrangedSubviews: [admissionStateStackView, qrCodeView, segmentedControl])
+		let stackView = UIStackView(arrangedSubviews: [maskAdmissionStatesView, qrCodeView, segmentedControl])
 		stackView.axis = .vertical
 		stackView.spacing = 14.0
-
-		return stackView
-	}()
-
-	private lazy var admissionStateStackView: UIStackView = {
-		let stackView = AccessibleStackView(arrangedSubviews: [maskStateView, admissionStateView])
-		stackView.spacing = 8.0
-		stackView.alignment = .center
-		stackView.distribution = .fill
 
 		return stackView
 	}()
@@ -193,6 +186,8 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 	private lazy var admissionStateView = RoundedLabeledView()
 	private lazy var maskStateView = RoundedLabeledView()
 
+	private lazy var maskAdmissionStatesView = UIView()
+	
 	private let qrCodeView = HealthCertificateQRCodeView()
 
 	private lazy var segmentedControl: UISegmentedControl = {
@@ -289,14 +284,19 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 	private var cellModel: HealthCertifiedPersonCellModel?
 
 	private func setupAccessibility(
+		maskStateIsVisible: Bool,
 		admissionStateIsVisible: Bool,
 		segmentedControlIsVisible: Bool,
 		validityStateTitleIsVisible: Bool
 	) {
 		cardView.accessibilityElements = [titleLabel, nameLabel]
 
+		if maskStateIsVisible {
+			cardView.accessibilityElements?.append(maskStateView)
+		}
+		
 		if admissionStateIsVisible {
-			cardView.accessibilityElements?.append(admissionStateStackView)
+			cardView.accessibilityElements?.append(admissionStateView)
 		}
 
 		cardView.accessibilityElements?.append(qrCodeView)
@@ -334,6 +334,12 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 		qrCodeContainerView.translatesAutoresizingMaskIntoConstraints = false
 		cardView.addSubview(qrCodeContainerView)
 
+		maskStateView.translatesAutoresizingMaskIntoConstraints = false
+		maskAdmissionStatesView.addSubview(maskStateView)
+		
+		admissionStateView.translatesAutoresizingMaskIntoConstraints = false
+		maskAdmissionStatesView.addSubview(admissionStateView)
+		
 		qrCodeContainerStackView.translatesAutoresizingMaskIntoConstraints = false
 		qrCodeContainerView.addSubview(qrCodeContainerStackView)
 
@@ -372,6 +378,16 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 				titleStackView.topAnchor.constraint(equalTo: gradientView.topAnchor, constant: 20.0),
 				titleStackView.trailingAnchor.constraint(equalTo: accessoryIconView.leadingAnchor, constant: 8.0),
 
+				maskStateView.leadingAnchor.constraint(equalTo: maskAdmissionStatesView.leadingAnchor),
+				maskStateView.topAnchor.constraint(equalTo: maskAdmissionStatesView.topAnchor),
+				maskStateView.bottomAnchor.constraint(equalTo: maskAdmissionStatesView.bottomAnchor),
+				maskStateView.widthAnchor.constraint(equalTo: maskAdmissionStatesView.widthAnchor, multiplier: 0.78),
+				
+				admissionStateView.trailingAnchor.constraint(equalTo: maskAdmissionStatesView.trailingAnchor),
+				admissionStateView.topAnchor.constraint(equalTo: maskAdmissionStatesView.topAnchor),
+				admissionStateView.bottomAnchor.constraint(equalTo: maskAdmissionStatesView.bottomAnchor),
+				admissionStateView.widthAnchor.constraint(equalTo: maskAdmissionStatesView.widthAnchor, multiplier: 0.2),
+				
 				qrCodeContainerView.leadingAnchor.constraint(equalTo: cardView.leadingAnchor, constant: 16.0),
 				qrCodeContainerView.topAnchor.constraint(equalTo: titleStackView.bottomAnchor, constant: 20.0),
 				qrCodeContainerView.trailingAnchor.constraint(equalTo: cardView.trailingAnchor, constant: -16.0),
