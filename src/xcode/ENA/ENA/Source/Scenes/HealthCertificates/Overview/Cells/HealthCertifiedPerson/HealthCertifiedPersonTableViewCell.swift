@@ -421,7 +421,7 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 		case .maskRequired:
 			return UIImage(imageLiteralResourceName: "Icon_mask")
 		case .maskOptional:
-			return UIImage(imageLiteralResourceName: "Icon_noMask")
+			return UIImage(imageLiteralResourceName: "Icon_nomask")
 		case .other:
 			return nil
 		}
