@@ -97,6 +97,11 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 			let cell = tableView.dequeueReusableCell(cellType: HealthCertificateSimpleTextCell.self, for: indexPath)
 			cell.configure(with: viewModel.headerCellViewModel)
 			return cell
+			
+		case .maskState:
+			let cell = tableView.dequeueReusableCell(cellType: MaskStateTableViewCell.self, for: indexPath)
+			cell.configure(with: viewModel.maskStateCellModel)
+			return cell
 
 		case .admissionState:
 			let cell = tableView.dequeueReusableCell(cellType: AdmissionStateTableViewCell.self, for: indexPath)
@@ -349,6 +354,10 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 		tableView.register(
 			HealthCertificateCell.self,
 			forCellReuseIdentifier: HealthCertificateCell.reuseIdentifier
+		)
+		tableView.register(
+			MaskStateTableViewCell.self,
+			forCellReuseIdentifier: MaskStateTableViewCell.reuseIdentifier
 		)
 	}
 
