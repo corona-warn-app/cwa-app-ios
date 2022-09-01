@@ -17,10 +17,6 @@ class RoundedLabeledView: UIView {
 		gradientView.translatesAutoresizingMaskIntoConstraints = false
 		addSubview(gradientView)
 
-		containerStackView.setContentHuggingPriority(.required, for: .horizontal)
-		containerStackView.setContentHuggingPriority(.required, for: .vertical)
-		containerStackView.setContentCompressionResistancePriority(.init(rawValue: 999), for: .horizontal)
-		containerStackView.setContentCompressionResistancePriority(.init(rawValue: 760), for: .vertical)
 		containerStackView.translatesAutoresizingMaskIntoConstraints = false
 		gradientView.addSubview(containerStackView)
 
@@ -62,6 +58,7 @@ class RoundedLabeledView: UIView {
 
 	func configure(title: String?, fontColor: UIColor? = .enaColor(for: .textContrast), image: UIImage? = nil, gradientType: GradientView.GradientType) {
 		titleLabel.text = title
+
 		titleLabel.textColor = fontColor
 		accessibilityLabel = title
 		

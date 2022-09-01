@@ -394,7 +394,7 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 				admissionStateView.trailingAnchor.constraint(equalTo: maskAdmissionStatesView.trailingAnchor),
 				admissionStateView.topAnchor.constraint(equalTo: maskAdmissionStatesView.topAnchor),
 				admissionStateView.bottomAnchor.constraint(equalTo: maskAdmissionStatesView.bottomAnchor),
-				admissionStateView.widthAnchor.constraint(equalTo: maskAdmissionStatesView.widthAnchor, multiplier: 0.2),
+				admissionStateView.widthAnchor.constraint(equalTo: maskAdmissionStatesView.widthAnchor, multiplier: 0.20),
 				
 				qrCodeContainerView.leadingAnchor.constraint(equalTo: cardView.leadingAnchor, constant: 16.0),
 				qrCodeContainerView.topAnchor.constraint(equalTo: titleStackView.bottomAnchor, constant: 20.0),
