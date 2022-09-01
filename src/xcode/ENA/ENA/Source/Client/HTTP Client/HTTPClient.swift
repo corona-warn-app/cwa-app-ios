@@ -204,46 +204,6 @@ private extension URLRequest {
 		return request
 	}
 
-	static func authorizeOTPRequest(
-		configuration: HTTPClient.Configuration,
-		otpEls: String,
-		ppacToken: PPACToken
-	) throws -> URLRequest {
-		let ppacIos = SAP_Internal_Ppdd_PPACIOS.with {
-			$0.apiToken = ppacToken.apiToken
-			$0.deviceToken = ppacToken.deviceToken
-		}
-
-		let payload = SAP_Internal_Ppdd_ELSOneTimePassword.with {
-			$0.otp = otpEls
-		}
-
-		let protoBufRequest = SAP_Internal_Ppdd_ELSOneTimePasswordRequestIOS.with {
-			$0.payload = payload
-			$0.authentication = ppacIos
-		}
-		
-		let url = configuration.otpElsAuthorizationURL
-		let body = try protoBufRequest.serializedData()
-		var request = URLRequest(url: url)
-
-		request.httpMethod = HttpMethod.post
-
-		// Headers
-		request.setValue(
-			"application/x-protobuf",
-			forHTTPHeaderField: "Content-Type"
-		)
-		
-		request.setValue(
-			"0",
-			forHTTPHeaderField: "cwa-fake"
-		)
-		
-		request.httpBody = body
-		return request
-	}
-
 	static func dscListRequest(
 		configuration: HTTPClient.Configuration,
 		eTag: String?,
