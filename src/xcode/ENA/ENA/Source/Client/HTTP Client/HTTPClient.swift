@@ -60,47 +60,6 @@ final class HTTPClient: Client {
 			}
 		})
 	}
-
-	func authorize(
-		otpEls: String,
-		ppacToken: PPACToken,
-		completion: @escaping OTPAuthorizationCompletionHandler
-	) {
-		guard let request = try? URLRequest.authorizeOTPRequest(
-				configuration: configuration,
-				otpEls: otpEls,
-				ppacToken: ppacToken) else {
-			completion(.failure(.invalidResponseError))
-			return
-		}
-
-		session.response(for: request, isFake: false, completion: { [weak self] result in
-			switch result {
-			case let .success(response):
-				switch response.statusCode {
-				case 200:
-					self?.otpAuthorizationSuccessHandler(for: response, completion: completion)
-				case 400, 401, 403:
-					self?.otpAuthorizationFailureHandler(for: response, completion: completion)
-				case 500:
-					Log.error("Failed to get authorized OTP - 500 status code", log: .api)
-					completion(.failure(.internalServerError))
-				default:
-					Log.error("Failed to authorize OTP - response error", log: .api)
-					Log.error(String(response.statusCode), log: .api)
-					completion(.failure(.internalServerError))
-				}
-			case let .failure(error):
-				Log.error("Failed to authorize OTP due to error: \(error).", log: .api)
-				switch error {
-				case .noNetworkConnection, .noResponse:
-					completion(.failure(.noNetworkConnection))
-				default:
-					completion(.failure(.invalidResponseError))
-				}
-			}
-		})
-	}
 	
 	// MARK: - Internal
 
