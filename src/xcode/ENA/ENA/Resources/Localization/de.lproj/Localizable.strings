@@ -1701,11 +1701,17 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "DeltaOnboarding_NewVersionFeatures_Button_Continue" = "Weiter";
 
-"DeltaOnboarding_NewVersionFeatures_Description" = "Mit diesem Update beheben wir Fehler in der App. Es enthält keine neuen Funktionen.";
+"DeltaOnboarding_NewVersionFeatures_Description" = "Mit diesem Update stellen wir Ihnen neben Fehlerbehebungen auch neue und erweiterte Funktionen zur Verfügung.";
 
 /* New Version Features */
 
 "NewVersionFeatures_Info_about_abb_information" = "Änderungen zum Release finden Sie in den App-Informationen unter dem Menüpunkt „Neue Funktionen”.";
+
+/* Version 2.27 */
+
+ "NewVersionFeature_227_wear_mask_title" = "Anzeige der Maskenbefreiung";
+
+ "NewVersionFeature_227_wear_mask_description" = "Auf Ihrem digitalen COVID-Zertifikat wird angezeigt, ob Sie nach den aktuell gültigen Regeln von der Maskenpflicht befreit sind, oder eine Maske tragen müssen.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Länderübergreifende Risiko-Ermittlung";
