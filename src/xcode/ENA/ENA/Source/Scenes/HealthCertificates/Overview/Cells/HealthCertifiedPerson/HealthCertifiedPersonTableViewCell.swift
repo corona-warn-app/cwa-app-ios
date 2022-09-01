@@ -435,11 +435,9 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 	private func imageForMaskState(maskStateIdentifier: MaskStateIdentifier) -> UIImage? {
 		switch maskStateIdentifier {
 		case .maskRequired:
-			return UIImage(imageLiteralResourceName: "Icon_mask")
-		case .maskOptional:
-			return UIImage(imageLiteralResourceName: "Icon_noMask")
-		case .other:
-			return nil
+			return UIImage(imageLiteralResourceName: "Icon_maskRequired")
+		case .maskOptional, .other:
+			return UIImage(imageLiteralResourceName: "Icon_maskOptional")
 		}
 	}
 
