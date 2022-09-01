@@ -32,18 +32,6 @@ protocol Client {
 		forceApiTokenHeader: Bool,
 		completion: @escaping OTPAuthorizationCompletionHandler
 	)
-
-
-	/// Authorizes an els otp at our servers with a tuple of device token and api token as authentication and the otp as payload.
-	/// - Parameters:
-	///   - otpEls: the els otp to authorize
-	///   - ppacToken: The ppac token which is generated previously by the PPACService
-	///   - completion: The completion handler of the submission call, which contains the expirationDate of the otp as String
-	func authorize(
-		otpEls: String,
-		ppacToken: PPACToken,
-		completion: @escaping OTPAuthorizationCompletionHandler
-	)
 }
 
 // Do not edit this cases as they are decoded as they are from the server.
