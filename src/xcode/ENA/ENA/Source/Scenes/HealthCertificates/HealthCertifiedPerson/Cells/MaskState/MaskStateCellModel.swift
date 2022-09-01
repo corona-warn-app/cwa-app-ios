@@ -29,9 +29,9 @@ class MaskStateCellModel {
 	var badgeImage: UIImage? {
 		switch healthCertifiedPerson.dccWalletInfo?.maskState.identifier {
 		case .maskRequired:
-			return UIImage(named: "badge_mask")
+			return UIImage(named: "Badge_mask")
 		default:
-			return UIImage(named: "badge_nomask")
+			return UIImage(named: "Badge_nomask")
 		}
 	}
 	

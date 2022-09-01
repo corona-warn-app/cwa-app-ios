@@ -48,7 +48,7 @@ class MaskStateCellModelTests: XCTestCase {
 		XCTAssertEqual(sut.faqLink?.string, AppStrings.HealthCertificate.Person.faqMaskState)
 		
 		guard
-			let badgeImageExpected = UIImage(named: "badge_nomask")?.pngData(),
+			let badgeImageExpected = UIImage(named: "Badge_nomask")?.pngData(),
 			let badgeImageToTest = sut.badgeImage?.pngData()
 		else {
 			return XCTFail("Expect Badge Image PNG Data not nil")
@@ -97,7 +97,7 @@ class MaskStateCellModelTests: XCTestCase {
 		XCTAssertEqual(sut.faqLink?.string, AppStrings.HealthCertificate.Person.faqMaskState)
 		
 		guard
-			let badgeImageExpected = UIImage(named: "badge_mask")?.pngData(),
+			let badgeImageExpected = UIImage(named: "Badge_mask")?.pngData(),
 			let badgeImageToTest = sut.badgeImage?.pngData()
 		else {
 			return XCTFail("Expect Badge Image PNG Data not nil")
