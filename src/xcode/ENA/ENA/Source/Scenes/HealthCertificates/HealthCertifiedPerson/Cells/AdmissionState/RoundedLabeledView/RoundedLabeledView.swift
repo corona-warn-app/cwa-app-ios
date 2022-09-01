@@ -65,8 +65,10 @@ class RoundedLabeledView: UIView {
 		if image != nil {
 			imageView.isHidden = false
 			imageView.image = image
+			titleLabel.textAlignment = .left
 		} else {
 			imageView.isHidden = true
+			titleLabel.textAlignment = .center
 		}
 
 		gradientView.type = gradientType
