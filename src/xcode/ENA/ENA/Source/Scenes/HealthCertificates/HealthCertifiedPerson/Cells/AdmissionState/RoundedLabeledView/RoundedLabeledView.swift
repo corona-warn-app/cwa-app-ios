@@ -66,6 +66,7 @@ class RoundedLabeledView: UIView {
 		accessibilityLabel = title
 		
 		if image != nil {
+			imageView.isHidden = false
 			imageView.image = image
 		} else {
 			imageView.isHidden = true
@@ -81,11 +82,11 @@ class RoundedLabeledView: UIView {
     private var imageView = UIImageView()
 	
 	private lazy var containerStackView: UIStackView = {
-		var stackView: UIStackView
-		stackView = UIStackView(arrangedSubviews: [imageView, titleLabel])
-		stackView.axis = .horizontal
-		stackView.spacing = 4.0
+		var containerStackView: UIStackView
+		containerStackView = UIStackView(arrangedSubviews: [imageView, titleLabel])
+		containerStackView.axis = .horizontal
+		containerStackView.spacing = 4.0
 
-		return stackView
+		return containerStackView
 	}()
 }

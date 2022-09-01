@@ -73,10 +73,18 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 		}
 
 		admissionStateView.isHidden = !cellModel.isShortAdmissionStatusVisible
-		admissionStateView.configure(title: cellModel.shortAdmissionStatus, gradientType: gradientForAdmissionState(cellModel: cellModel))
+		admissionStateView.configure(
+			title: cellModel.shortAdmissionStatus,
+			gradientType: cellModel.gradientForAdmissionState
+		)
 		
 		maskStateView.isHidden = !cellModel.isMaskStatusVisible
-		maskStateView.configure(title: cellModel.maskStatus, fontColor: fontColorForMaskState(maskStateIdentifier: cellModel.maskStateIdentifier), image: imageForMaskState(maskStateIdentifier: cellModel.maskStateIdentifier), gradientType: gradientForMaskState(maskStateIdentifier: cellModel.maskStateIdentifier))
+		maskStateView.configure(
+			title: cellModel.maskStatus,
+			fontColor: cellModel.fontColorForMaskState,
+			image: cellModel.imageForMaskState,
+			gradientType: cellModel.gradientForMaskState
+		)
 		 
 		maskAdmissionStatesView.isHidden = !cellModel.isShortAdmissionStatusVisible && !cellModel.isMaskStatusVisible
 		segmentedControl.isHidden = cellModel.switchableHealthCertificates.isEmpty
@@ -421,41 +429,6 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 	private func updateBorderColors() {
 		bottomView.layer.borderColor = UIColor.enaColor(for: .cardBorder).cgColor
 		qrCodeContainerView.layer.borderColor = UIColor.enaColor(for: .cardBorder).cgColor
-	}
-	
-	private func fontColorForMaskState(maskStateIdentifier: MaskStateIdentifier) -> UIColor {
-		switch maskStateIdentifier {
-		case .maskRequired:
-			return .enaColor(for: .maskBadgeGrey)
-		case .maskOptional, .other:
-			return .enaColor(for: .textContrast)
-		}
-	}
-	
-	private func imageForMaskState(maskStateIdentifier: MaskStateIdentifier) -> UIImage? {
-		switch maskStateIdentifier {
-		case .maskRequired:
-			return UIImage(imageLiteralResourceName: "Icon_maskRequired")
-		case .maskOptional, .other:
-			return UIImage(imageLiteralResourceName: "Icon_maskOptional")
-		}
-	}
-
-	private func gradientForMaskState(maskStateIdentifier: MaskStateIdentifier) -> GradientView.GradientType {
-		switch maskStateIdentifier {
-		case .maskRequired:
-			return .whiteWithGreyBorder
-		case .maskOptional, .other:
-			return .lightGreen
-		}
-	}
-	
-	private func gradientForAdmissionState(cellModel: HealthCertifiedPersonCellModel) -> GradientView.GradientType {
-		if cellModel.maskStateIdentifier == .maskOptional {
-			return .darkGreen
-		} else {
-			return cellModel.backgroundGradientType
-		}
 	}
 	
 	@objc
