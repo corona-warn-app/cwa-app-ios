@@ -376,7 +376,7 @@ final class HealthCertificateViewModel {
 	}
 
 	private func updateGradient() {
-		if isCertificatMostRelevant, isCertificateValidOrExpiringSoon || isCertificateExpiredButOfTypeTest {
+		if isMostRelevantCertificat, isCertificateValidOrExpiringSoon || isCertificateExpiredButOfTypeTest {
 			gradientType = shouldOverwriteGradientTypeForMaskState
 				? .lightBlue
 				: healthCertifiedPerson.gradientType
@@ -389,7 +389,7 @@ final class HealthCertificateViewModel {
 		isPrimaryFooterButtonEnabled = healthCertificate.validityState != .blocked && healthCertificate.validityState != .revoked
 	}
 
-	private var isCertificatMostRelevant: Bool {
+	private var isMostRelevantCertificat: Bool {
 		healthCertificate == healthCertifiedPerson.mostRelevantHealthCertificate
 	}
 	

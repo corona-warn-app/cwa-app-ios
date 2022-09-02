@@ -70,7 +70,7 @@ final class AdmissionStateCellModel {
 
 	var gradientType: GradientView.GradientType {
 		shouldOverwriteGradientTypeForMaskState
-			? .darkGreen
+			? .solidDarkGreen
 			: healthCertifiedPerson.gradientType
 	}
 

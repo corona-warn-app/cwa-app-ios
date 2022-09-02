@@ -179,13 +179,13 @@ class HealthCertifiedPersonCellModel {
 		case .maskRequired:
 			return .whiteWithGreyBorder
 		case .maskOptional, .other:
-			return .lightGreen
+			return .solidLightGreen
 		}
 	}
 	
 	var gradientForAdmissionState: GradientView.GradientType {
 		if maskStateIdentifier == .maskOptional {
-			return .darkGreen
+			return .solidDarkGreen
 		} else {
 			return backgroundGradientType
 		}
