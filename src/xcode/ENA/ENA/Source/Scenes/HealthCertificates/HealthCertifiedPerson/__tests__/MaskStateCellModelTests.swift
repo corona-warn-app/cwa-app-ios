@@ -22,7 +22,7 @@ class MaskStateCellModelTests: XCTestCase {
 		healthCertifiedPerson.dccWalletInfo = .fake(
 			maskState: .fake(
 				visible: true,
-				badgeText: .fake(string: ""),
+				badgeText: .fake(string: "Ein-Badge-Text"),
 				titleText: .fake(string: titleMock),
 				subtitleText: .fake(string: subtitleMock),
 				longText: .fake(string: longTextMock),
@@ -71,7 +71,7 @@ class MaskStateCellModelTests: XCTestCase {
 		healthCertifiedPerson.dccWalletInfo = .fake(
 			maskState: .fake(
 				visible: true,
-				badgeText: .fake(string: ""),
+				badgeText: .fake(string: "Ein-Badge-Text"),
 				titleText: .fake(string: titleMock),
 				subtitleText: .fake(string: subtitleMock),
 				longText: .fake(string: longTextMock),

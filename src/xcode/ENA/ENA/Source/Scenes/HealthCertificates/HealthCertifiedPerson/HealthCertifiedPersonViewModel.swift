@@ -157,14 +157,14 @@ final class HealthCertifiedPersonViewModel {
 		healthCertifiedPerson.dccWalletInfo?.admissionState.visible ?? false
 	}
 
+	var maskStakeIsVisible: Bool {
+		healthCertifiedPerson.dccWalletInfo?.maskState.visible ?? false
+	}
+
 	var preferredPersonCellModel: PreferredPersonCellModel {
 		PreferredPersonCellModel(
 			healthCertifiedPerson: healthCertifiedPerson
 		)
-	}
-	
-	var maskStakeIsVisible: Bool {
-		healthCertifiedPerson.dccWalletInfo?.maskState.visible ?? false
 	}
 	
 	var topMostCell: TableViewSection {
