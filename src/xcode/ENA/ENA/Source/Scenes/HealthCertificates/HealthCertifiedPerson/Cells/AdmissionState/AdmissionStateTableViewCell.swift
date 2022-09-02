@@ -198,7 +198,8 @@ class AdmissionStateTableViewCell: UITableViewCell, UITextViewDelegate, ReuseIde
 				backgroundContainerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16.0),
 				backgroundContainerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16.0),
 
-				roundedLabeledView.widthAnchor.constraint(equalTo: topStackView.widthAnchor, multiplier: 0.20),
+				roundedLabeledView.widthAnchor.constraint(equalToConstant: 55),
+				roundedLabeledView.heightAnchor.constraint(equalToConstant: 31),
 
 				contentStackView.topAnchor.constraint(equalTo: backgroundContainerView.topAnchor, constant: 16.0),
 				contentStackView.bottomAnchor.constraint(equalTo: backgroundContainerView.bottomAnchor, constant: -16.0),
