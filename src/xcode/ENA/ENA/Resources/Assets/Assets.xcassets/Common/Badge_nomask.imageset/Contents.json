@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "Badge_nomask_light.pdf",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

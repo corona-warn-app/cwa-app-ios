@@ -37,6 +37,7 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 		
 		// THEN
 		XCTAssertEqual(viewModel.numberOfItems(in: .header), 1)
+		XCTAssertEqual(viewModel.numberOfItems(in: .maskState), 0)
 		XCTAssertEqual(viewModel.numberOfItems(in: .admissionState), 0)
 		XCTAssertEqual(viewModel.numberOfItems(in: .certificateReissuance), 0)
 		XCTAssertEqual(viewModel.numberOfItems(in: .boosterNotification), 0)
@@ -45,6 +46,7 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 		XCTAssertEqual(viewModel.numberOfItems(in: .certificates), 1)
 		
 		XCTAssertFalse(viewModel.canEditRow(at: IndexPath(row: 0, section: HealthCertifiedPersonViewModel.TableViewSection.header.rawValue)))
+		XCTAssertFalse(viewModel.canEditRow(at: IndexPath(row: 0, section: HealthCertifiedPersonViewModel.TableViewSection.maskState.rawValue)))
 		XCTAssertFalse(viewModel.canEditRow(at: IndexPath(row: 0, section: HealthCertifiedPersonViewModel.TableViewSection.admissionState.rawValue)))
 		XCTAssertFalse(viewModel.canEditRow(at: IndexPath(row: 0, section: HealthCertifiedPersonViewModel.TableViewSection.certificateReissuance.rawValue)))
 		XCTAssertFalse(viewModel.canEditRow(at: IndexPath(row: 0, section: HealthCertifiedPersonViewModel.TableViewSection.boosterNotification.rawValue)))
@@ -52,14 +54,15 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 		XCTAssertFalse(viewModel.canEditRow(at: IndexPath(row: 0, section: HealthCertifiedPersonViewModel.TableViewSection.person.rawValue)))
 		XCTAssertTrue(viewModel.canEditRow(at: IndexPath(row: 0, section: HealthCertifiedPersonViewModel.TableViewSection.certificates.rawValue)))
 		
-		XCTAssertEqual(HealthCertifiedPersonViewModel.TableViewSection.numberOfSections, 7)
+		XCTAssertEqual(HealthCertifiedPersonViewModel.TableViewSection.numberOfSections, 8)
 		XCTAssertEqual(HealthCertifiedPersonViewModel.TableViewSection.map(0), .header)
-		XCTAssertEqual(HealthCertifiedPersonViewModel.TableViewSection.map(1), .admissionState)
-		XCTAssertEqual(HealthCertifiedPersonViewModel.TableViewSection.map(2), .certificateReissuance)
-		XCTAssertEqual(HealthCertifiedPersonViewModel.TableViewSection.map(3), .boosterNotification)
-		XCTAssertEqual(HealthCertifiedPersonViewModel.TableViewSection.map(4), .vaccinationState)
-		XCTAssertEqual(HealthCertifiedPersonViewModel.TableViewSection.map(5), .person)
-		XCTAssertEqual(HealthCertifiedPersonViewModel.TableViewSection.map(6), .certificates)
+		XCTAssertEqual(HealthCertifiedPersonViewModel.TableViewSection.map(1), .maskState)
+		XCTAssertEqual(HealthCertifiedPersonViewModel.TableViewSection.map(2), .admissionState)
+		XCTAssertEqual(HealthCertifiedPersonViewModel.TableViewSection.map(3), .certificateReissuance)
+		XCTAssertEqual(HealthCertifiedPersonViewModel.TableViewSection.map(4), .boosterNotification)
+		XCTAssertEqual(HealthCertifiedPersonViewModel.TableViewSection.map(5), .vaccinationState)
+		XCTAssertEqual(HealthCertifiedPersonViewModel.TableViewSection.map(6), .person)
+		XCTAssertEqual(HealthCertifiedPersonViewModel.TableViewSection.map(7), .certificates)
 	}
 	
 	func testGIVEN_HealthCertifiedPersonViewModel_WHEN_mostRelevantCertificate_THEN_orderIsCorrect() throws {

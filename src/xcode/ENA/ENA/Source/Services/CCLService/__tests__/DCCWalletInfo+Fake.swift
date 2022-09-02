@@ -128,7 +128,6 @@ extension DCCMaskState {
 	
 }
 
-
 extension DCCBoosterNotification {
 
 	static func fake(
