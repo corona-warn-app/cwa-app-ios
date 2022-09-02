@@ -12,6 +12,7 @@ class MaskStateTableViewCell: UITableViewCell, UITextViewDelegate, ReuseIdentifi
 		super.init(style: style, reuseIdentifier: reuseIdentifier)
 		
 		setupView()
+		setupAccessibility()
 	}
 	
 	@available(*, unavailable)
@@ -183,5 +184,36 @@ class MaskStateTableViewCell: UITableViewCell, UITextViewDelegate, ReuseIdentifi
 			badgeImageView.widthAnchor.constraint(equalToConstant: 51),
 			badgeImageView.heightAnchor.constraint(equalToConstant: 31)
 		])
+	}
+
+	private func setupAccessibility() {
+		titleLabel.isAccessibilityElement = true
+		titleLabel.accessibilityTraits = .staticText
+		titleLabel.accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.MaskState.title
+		
+		subtitleLabel.isAccessibilityElement = true
+		subtitleLabel.accessibilityTraits = .staticText
+		subtitleLabel.accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.MaskState.subtitle
+		
+		badgeImageView.isAccessibilityElement = true
+		badgeImageView.accessibilityTraits = .image
+		badgeImageView.accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.MaskState.badgeImage
+		
+		descriptionLabel.isAccessibilityElement = true
+		descriptionLabel.accessibilityTraits = .staticText
+		descriptionLabel.accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.MaskState.description
+		
+		faqLinkTextView.isAccessibilityElement = true
+		faqLinkTextView.accessibilityTraits = .link
+		faqLinkTextView.accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.MaskState.faq
+		
+		// Order of
+		accessibilityElements = [
+			titleLabel,
+			subtitleLabel,
+			badgeImageView,
+			descriptionLabel,
+			faqLinkTextView
+		]
 	}
 }
