@@ -120,7 +120,7 @@ class GradientView: UIView {
 	}
 
 	// swiftlint:disable cyclomatic_complexity
-	// swiftlint:disable type_body_length
+	// swiftlint:disable function_body_length
 	private func updateGradient() {
 		guard let gradientLayer = self.layer as? CAGradientLayer else {
 			Log.debug("Failed to create view with matching layer class", log: .default)
