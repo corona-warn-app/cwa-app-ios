@@ -32,6 +32,10 @@ final class HealthCertificateCellViewModel {
 	let healthCertificate: HealthCertificate
 	
 	lazy var gradientType: GradientView.GradientType = {
+		guard !shouldOverwriteGradientTypeForMaskState else {
+			return .lightBlue
+		}
+		
 		switch details {
 		case .allDetails, .allDetailsWithoutValidationButton:
 			if healthCertificate.isUsable &&
@@ -217,4 +221,12 @@ final class HealthCertificateCellViewModel {
 	private let healthCertifiedPerson: HealthCertifiedPerson
 	private let details: HealthCertificateCellDetails
 	private let onValidationButtonTap: ((HealthCertificate, @escaping (Bool) -> Void) -> Void)?
+	
+	private var shouldOverwriteGradientTypeForMaskState: Bool {
+		guard let maskState = healthCertifiedPerson.dccWalletInfo?.maskState else {
+			return false
+		}
+		
+		return maskState.visible && maskState.identifier == .maskOptional
+	}
 }
