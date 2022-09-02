@@ -37,9 +37,6 @@ class RoundedLabeledView: UIView {
 
 		titleLabel.font = .enaFont(for: .subheadline, weight: .semibold, italic: false)
 		titleLabel.textColor = .enaColor(for: .textContrast)
-
-		accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.AdmissionState.roundedView
-		titleLabel.accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.AdmissionState.title
 	}
 
 	required init?(coder: NSCoder) {
@@ -56,11 +53,19 @@ class RoundedLabeledView: UIView {
 
 	// MARK: - Internal
 
-	func configure(title: String?, fontColor: UIColor? = .enaColor(for: .textContrast), image: UIImage? = nil, gradientType: GradientView.GradientType) {
+	func configure(title: String?, fontColor: UIColor? = .enaColor(for: .textContrast), image: UIImage? = nil, gradientType: GradientView.GradientType, accessibilityIdentifier: String? = nil, labelAccessibilityIdentifier: String? = nil) {
 		titleLabel.text = title
 
 		titleLabel.textColor = fontColor
 		accessibilityLabel = title
+		
+		if accessibilityIdentifier != nil {
+			self.accessibilityIdentifier = accessibilityIdentifier
+		}
+		
+		if labelAccessibilityIdentifier != nil {
+			titleLabel.accessibilityIdentifier = labelAccessibilityIdentifier
+		}
 		
 		if image != nil {
 			imageView.isHidden = false

@@ -45,7 +45,12 @@ class AdmissionStateTableViewCell: UITableViewCell, UITextViewDelegate, ReuseIde
 		faqLinkTextView.attributedText = cellModel.faqLink
 		faqLinkTextView.isHidden = (cellModel.faqLink?.string ?? "").isEmpty
 
-		roundedLabeledView.configure(title: cellModel.shortTitle, gradientType: cellModel.gradientType)
+		roundedLabeledView.configure(
+			title: cellModel.shortTitle,
+			gradientType: cellModel.gradientType,
+			accessibilityIdentifier: AccessibilityIdentifiers.HealthCertificate.AdmissionState.roundedView,
+			labelAccessibilityIdentifier: AccessibilityIdentifiers.HealthCertificate.AdmissionState.title
+		)
 		roundedLabeledView.isHidden = (cellModel.shortTitle ?? "").isEmpty
 		
 		unseenNewsIndicator.isHidden = !cellModel.isAdmissionStateChanged

@@ -75,7 +75,9 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 		admissionStateView.isHidden = !cellModel.isShortAdmissionStatusVisible
 		admissionStateView.configure(
 			title: cellModel.shortAdmissionStatus,
-			gradientType: cellModel.gradientForAdmissionState
+			gradientType: cellModel.gradientForAdmissionState,
+			accessibilityIdentifier: AccessibilityIdentifiers.HealthCertificate.AdmissionState.roundedView,
+			labelAccessibilityIdentifier: AccessibilityIdentifiers.HealthCertificate.AdmissionState.title
 		)
 		
 		maskStateView.isHidden = !cellModel.isMaskStatusVisible
@@ -83,7 +85,9 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 			title: cellModel.maskStatus,
 			fontColor: cellModel.fontColorForMaskState,
 			image: cellModel.imageForMaskState,
-			gradientType: cellModel.gradientForMaskState
+			gradientType: cellModel.gradientForMaskState,
+			accessibilityIdentifier: AccessibilityIdentifiers.HealthCertificate.MaskState.roundedView,
+			labelAccessibilityIdentifier: AccessibilityIdentifiers.HealthCertificate.MaskState.title
 		)
 		 
 		maskAdmissionStatesView.isHidden = !cellModel.isShortAdmissionStatusVisible && !cellModel.isMaskStatusVisible

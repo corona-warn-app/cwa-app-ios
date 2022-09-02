@@ -889,6 +889,11 @@ enum AccessibilityIdentifiers {
 			static let unseenNewsIndicator = "HealthCertificate.AdmissionState.unseenNewsIndicator"
 
 		}
+		
+		enum MaskState {
+			static let roundedView = "HealthCertificate.MaskState.roundedView"
+			static let title = "HealthCertificate.MaskState.title"
+		}
 
 		enum Certificate {
 			static let headline = "HealthCertificate.title"
