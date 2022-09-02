@@ -76,6 +76,7 @@ class MaskStateTableViewCell: UITableViewCell, UITextViewDelegate, ReuseIdentifi
 		topElementsStackView.axis = .horizontal
 		topElementsStackView.alignment = .top
 		topElementsStackView.distribution = .equalSpacing
+		topElementsStackView.spacing = 6
 		return topElementsStackView
 	}()
 	
