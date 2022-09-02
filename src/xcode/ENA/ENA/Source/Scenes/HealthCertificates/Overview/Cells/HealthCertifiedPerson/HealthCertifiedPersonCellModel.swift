@@ -58,7 +58,7 @@ class HealthCertifiedPersonCellModel {
 		}
 
 		if let admissionState = healthCertifiedPerson.dccWalletInfo?.admissionState,
-		   admissionState.visible && !(admissionState.badgeText?.localized(cclService: cclService) ?? "").isEmpty {
+		   admissionState.visible, !(admissionState.badgeText?.localized(cclService: cclService) ?? "").isEmpty {
 			isShortAdmissionStatusVisible = true
 			shortAdmissionStatus = admissionState.badgeText?.localized(cclService: cclService)
 		} else {
@@ -67,7 +67,7 @@ class HealthCertifiedPersonCellModel {
 		}
 		
 		if let maskState = healthCertifiedPerson.dccWalletInfo?.maskState,
-		   maskState.visible && !(maskState.badgeText?.localized(cclService: cclService) ?? "").isEmpty {
+		   maskState.visible, !(maskState.badgeText?.localized(cclService: cclService) ?? "").isEmpty {
 			maskStatus = maskState.badgeText?.localized(cclService: cclService)
 			isMaskStatusVisible = true
 			maskStateIdentifier = maskState.identifier
@@ -156,6 +156,41 @@ class HealthCertifiedPersonCellModel {
 
 	let onTapToDelete: (() -> Void)?
 
+	var fontColorForMaskState: UIColor {
+		switch maskStateIdentifier {
+		case .maskRequired:
+			return .enaColor(for: .maskBadgeGrey)
+		case .maskOptional, .other:
+			return .enaColor(for: .textContrast)
+		}
+	}
+	
+	var imageForMaskState: UIImage? {
+		switch maskStateIdentifier {
+		case .maskRequired:
+			return UIImage(imageLiteralResourceName: "Icon_maskRequired")
+		case .maskOptional, .other:
+			return UIImage(imageLiteralResourceName: "Icon_maskOptional")
+		}
+	}
+
+	var gradientForMaskState: GradientView.GradientType {
+		switch maskStateIdentifier {
+		case .maskRequired:
+			return .whiteWithGreyBorder
+		case .maskOptional, .other:
+			return .lightGreen
+		}
+	}
+	
+	var gradientForAdmissionState: GradientView.GradientType {
+		if maskStateIdentifier == .maskOptional {
+			return .darkGreen
+		} else {
+			return backgroundGradientType
+		}
+	}
+	
 	func showHealthCertificate(at index: Int) {
 		qrCodeViewModel.updateImage(with: switchableHealthCertificates.elements[index].value)
 	}
