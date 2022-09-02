@@ -32,15 +32,11 @@ final class HealthCertificateCellViewModel {
 	let healthCertificate: HealthCertificate
 	
 	lazy var gradientType: GradientView.GradientType = {
-		guard !shouldOverwriteGradientTypeForMaskState else {
-			return .lightBlue
-		}
-		
 		switch details {
 		case .allDetails, .allDetailsWithoutValidationButton:
 			if healthCertificate.isUsable &&
 				healthCertificate == healthCertifiedPerson.mostRelevantHealthCertificate {
-				return healthCertifiedPerson.gradientType
+				return shouldOverwriteGradientTypeForMaskState ? .lightBlue : healthCertifiedPerson.gradientType
 			} else {
 				return .solidGrey
 			}
