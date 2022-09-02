@@ -376,10 +376,10 @@ final class HealthCertificateViewModel {
 	}
 
 	private func updateGradient() {
-		if healthCertificate == healthCertifiedPerson.mostRelevantHealthCertificate &&
-			(healthCertificate.validityState == .valid || healthCertificate.validityState == .expiringSoon ||
-				(healthCertificate.validityState == .expired && healthCertificate.type == .test)) {
-			gradientType = healthCertifiedPerson.gradientType
+		if isCertificatMostRelevant, isCertificateValidOrExpiringSoon || isCertificateExpiredButOfTypeTest {
+			gradientType = shouldOverwriteGradientTypeForMaskState
+				? .lightBlue
+				: healthCertifiedPerson.gradientType
 		} else {
 			gradientType = .solidGrey
 		}
@@ -389,4 +389,23 @@ final class HealthCertificateViewModel {
 		isPrimaryFooterButtonEnabled = healthCertificate.validityState != .blocked && healthCertificate.validityState != .revoked
 	}
 
+	private var isCertificatMostRelevant: Bool {
+		healthCertificate == healthCertifiedPerson.mostRelevantHealthCertificate
+	}
+	
+	private var isCertificateValidOrExpiringSoon: Bool {
+		[.valid, .expiringSoon].contains(healthCertificate.validityState)
+	}
+	
+	private var isCertificateExpiredButOfTypeTest: Bool {
+		healthCertificate.validityState == .expired && healthCertificate.type == .test
+	}
+	
+	private var shouldOverwriteGradientTypeForMaskState: Bool {
+		guard let maskState = healthCertifiedPerson.dccWalletInfo?.maskState else {
+			return false
+		}
+		
+		return maskState.visible && maskState.identifier == .maskOptional
+	}
 }
