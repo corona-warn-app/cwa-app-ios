@@ -890,16 +890,12 @@ enum AccessibilityIdentifiers {
 		}
 
 		enum MaskState {
+			static let roundedView = "HealthCertificate.MaskState.roundedView"
 			static let title = "HealthCertificate.MaskState.title"
 			static let subtitle = "HealthCertificate.MaskState.subtitle"
 			static let badgeImage = "HealthCertificate.MaskState.badgeImage"
 			static let description = "HealthCertificate.MaskState.description"
 			static let faq = "HealthCertificate.MaskState.faq"
-		}
-		
-		enum MaskState {
-			static let roundedView = "HealthCertificate.MaskState.roundedView"
-			static let title = "HealthCertificate.MaskState.title"
 		}
 
 		enum Certificate {
