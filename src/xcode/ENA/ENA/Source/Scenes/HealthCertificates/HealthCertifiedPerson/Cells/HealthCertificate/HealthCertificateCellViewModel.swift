@@ -34,8 +34,7 @@ final class HealthCertificateCellViewModel {
 	lazy var gradientType: GradientView.GradientType = {
 		switch details {
 		case .allDetails, .allDetailsWithoutValidationButton:
-			if healthCertificate.isUsable &&
-				healthCertificate == healthCertifiedPerson.mostRelevantHealthCertificate {
+			if healthCertificate.isUsable, healthCertificate == healthCertifiedPerson.mostRelevantHealthCertificate {
 				return shouldOverwriteGradientTypeForMaskState ? .lightBlue : healthCertifiedPerson.gradientType
 			} else {
 				return .solidGrey
@@ -179,7 +178,7 @@ final class HealthCertificateCellViewModel {
 	}()
 
 	lazy var currentlyUsedImage: UIImage? = {
-		switch gradientType {
+		switch gradientTypeForCurrentlyUsedImage {
 		case .lightBlue:
 			return UIImage(named: "Icon_CurrentlyUsedCertificate_light")
 		case .mediumBlue:
@@ -217,6 +216,22 @@ final class HealthCertificateCellViewModel {
 	private let healthCertifiedPerson: HealthCertifiedPerson
 	private let details: HealthCertificateCellDetails
 	private let onValidationButtonTap: ((HealthCertificate, @escaping (Bool) -> Void) -> Void)?
+	
+	private lazy var gradientTypeForCurrentlyUsedImage: GradientView.GradientType = {
+		switch details {
+		case .allDetails, .allDetailsWithoutValidationButton:
+			if healthCertificate.isUsable &&
+				healthCertificate == healthCertifiedPerson.mostRelevantHealthCertificate {
+				return healthCertifiedPerson.gradientType
+			} else {
+				return .solidGrey
+			}
+		case .overview:
+			return .lightBlue
+		case .overviewPlusName:
+			return healthCertificate.isUsable ? healthCertifiedPerson.gradientType : .solidGrey
+		}
+	}()
 	
 	private var shouldOverwriteGradientTypeForMaskState: Bool {
 		guard let maskState = healthCertifiedPerson.dccWalletInfo?.maskState else {
