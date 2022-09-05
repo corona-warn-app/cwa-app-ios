@@ -193,15 +193,29 @@ class GradientView: UIView {
 			gradientLayer.locations = [0, 1.0]
 			gradientLayer.startPoint = CGPoint(x: 0.0, y: 0.0)
 			gradientLayer.endPoint = CGPoint(x: 1.0, y: 1.0)
+			gradientLayer.borderWidth = 0
 	
 		case .solidDarkGreen:
-			gradientLayer.colors = [
+			var isDarkMode: Bool = false
+			if #available(iOS 13.0, *) {
+				isDarkMode = UITraitCollection.current.userInterfaceStyle == .dark
+			}
+
+			let lightColors = [
+				UIColor(red: 42 / 255, green: 142 / 255, blue: 75 / 255, alpha: 1).cgColor,
+				UIColor(red: 42 / 255, green: 142 / 255, blue: 75 / 255, alpha: 1).cgColor
+			]
+
+			let darkColors = [
 				UIColor(red: 31 / 255, green: 89 / 255, blue: 50 / 255, alpha: 1).cgColor,
 				UIColor(red: 31 / 255, green: 89 / 255, blue: 50 / 255, alpha: 1).cgColor
 			]
+
+			gradientLayer.colors = isDarkMode ? lightColors : darkColors
 			gradientLayer.locations = [0, 1.0]
 			gradientLayer.startPoint = CGPoint(x: 0.0, y: 0.0)
 			gradientLayer.endPoint = CGPoint(x: 1.0, y: 1.0)
+			gradientLayer.borderWidth = 0
 			
 		case .green:
 			gradientLayer.colors = [
@@ -242,6 +256,11 @@ class GradientView: UIView {
 			gradientLayer.borderWidth = 2
 			
 		case .whiteToLightBlue:
+			var isDarkMode: Bool = false
+			if #available(iOS 13.0, *) {
+				isDarkMode = UITraitCollection.current.userInterfaceStyle == .dark
+			}
+
 			let lightColors = [
 				UIColor(red: 255 / 255, green: 255 / 255, blue: 255 / 255, alpha: 1).cgColor,
 				UIColor(red: 255 / 255, green: 255 / 255, blue: 255 / 255, alpha: 1).cgColor,
@@ -252,11 +271,6 @@ class GradientView: UIView {
 				UIColor(red: 25 / 255, green: 25 / 255, blue: 27 / 255, alpha: 1).cgColor,
 				UIColor(red: 47 / 255, green: 65 / 255, blue: 77 / 255, alpha: 1).cgColor
 			]
-
-			var isDarkMode: Bool = false
-			if #available(iOS 13.0, *) {
-				isDarkMode = UITraitCollection.current.userInterfaceStyle == .dark
-			}
 
 			gradientLayer.colors = isDarkMode ? darkColors : lightColors
 			gradientLayer.locations = [0.0, 0.6, 1.0]
