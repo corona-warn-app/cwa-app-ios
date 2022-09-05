@@ -50,7 +50,7 @@ class ENAUITests_13_CreateHealthCertificate: CWATestCase {
 		app.setLaunchArgument(LaunchArguments.infoScreen.healthCertificateInfoScreenShown, to: true)
 		app.launch()
 
-		app.buttons[AccessibilityIdentifiers.TabBar.certificates].waitAndTap(.medium)
+		app.buttons[AccessibilityIdentifiers.TabBar.certificates].waitAndTap()
 
 		let certificateTitle = try XCTUnwrap(app.cells[AccessibilityIdentifiers.HealthCertificate.Overview.healthCertifiedPersonCell])
 		certificateTitle.waitAndTap()
@@ -233,7 +233,7 @@ class ENAUITests_13_CreateHealthCertificate: CWATestCase {
 		app.launch()
 
 		// Navigate to Certificates Tab.
-		app.buttons[AccessibilityIdentifiers.TabBar.certificates].waitAndTap(.medium)
+		app.buttons[AccessibilityIdentifiers.TabBar.certificates].waitAndTap()
 
 		// Navigate to Persons Tab.
 		app.cells[AccessibilityIdentifiers.HealthCertificate.Overview.healthCertifiedPersonCell].waitAndTap()
@@ -580,7 +580,7 @@ class ENAUITests_13_CreateHealthCertificate: CWATestCase {
 		app.launch()
 
 		// Navigate to Certificates Tab.
-		app.buttons[AccessibilityIdentifiers.TabBar.certificates].waitAndTap(.medium)
+		app.buttons[AccessibilityIdentifiers.TabBar.certificates].waitAndTap(.long)
 
 		// Navigate to Persons Tab.
 		app.cells[AccessibilityIdentifiers.HealthCertificate.Overview.healthCertifiedPersonCell].waitAndTap(.long)
