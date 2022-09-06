@@ -4,7 +4,8 @@
 
 import Foundation
 import jsonfunctions
-enum OTPAuthorizationELSError: LocalizedError {
+enum OTPAuthorizationELSError: LocalizedError, Equatable {
+
 	case generalError(underlyingError: Error? = nil)
 	case invalidResponseError
 	case internalServerError
@@ -17,6 +18,44 @@ enum OTPAuthorizationELSError: LocalizedError {
 	case deviceTokenRedeemed
 	case deviceTokenSyntaxError
 	case noNetworkConnection
+	
+	var description: String {
+		switch self {
+		case .generalError(let error):
+			if let e = error?.localizedDescription {
+				return "generalError with underlying: \(e)"
+			} else {
+				return "generalError"
+			}
+		case .invalidResponseError:
+			return "invalidResponseError"
+		case .internalServerError:
+			return "internalServerError"
+		case .otpAlreadyUsedThisMonth:
+			return "otpAlreadyUsedThisMonth"
+		case .otherServerError:
+			return "otherServerError"
+		case .apiTokenAlreadyIssued:
+			return "apiTokenAlreadyIssued"
+		case .apiTokenExpired:
+			return "apiTokenExpired"
+		case .apiTokenQuotaExceeded:
+			return "apiTokenQuotaExceeded"
+		case .deviceTokenInvalid:
+			return "deviceTokenInvalid"
+		case .deviceTokenRedeemed:
+			return "deviceTokenRedeemed"
+		case .deviceTokenSyntaxError:
+			return "deviceTokenSyntaxError"
+		case .noNetworkConnection:
+			return "noNetworkConnection"
+		}
+	}
+
+	static func == (lhs: OTPAuthorizationELSError, rhs: OTPAuthorizationELSError) -> Bool {
+		return lhs.description == rhs.description
+	}
+
 }
 
 struct OTPAuthorizationForELSResource: Resource {
