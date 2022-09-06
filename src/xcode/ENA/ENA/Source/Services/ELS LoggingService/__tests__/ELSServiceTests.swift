@@ -197,9 +197,18 @@ class ELSServiceTests: CWATestCase {
 			deviceCheck: deviceCheck
 		)
 		let riskProvider = MockRiskProvider()
+		let loadResource = LoadResource(
+			result: .success(
+				OTPResponsePropertiesReceiveModel(
+					expirationDate: Date(),
+					errorCode: nil)
+			),
+			willLoadResource: nil
+		)
 		let otpService = OTPService(
 			store: store,
 			client: ClientMock(),
+			restServiceProvider: RestServiceProviderStub(loadResources: [loadResource]),
 			riskProvider: riskProvider
 		)
 		let elsService = ErrorLogSubmissionService(
