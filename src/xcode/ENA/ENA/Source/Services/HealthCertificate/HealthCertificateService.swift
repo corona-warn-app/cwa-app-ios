@@ -757,7 +757,7 @@ class HealthCertificateService: HealthCertificateServiceServable {
 	private func updateDCCWalletInfo(for person: HealthCertifiedPerson, completion: (() -> Void)? = nil) {
 		person.queue.async {
 			let result = self.cclService.dccWalletInfo(
-				for: person.healthCertificates.map { $0.dccWalletCertificate }, with: self.store.lastSelectedScenarioIdentifier ?? ""
+				for: person.healthCertificates.map { $0.dccWalletCertificate }, with: self.cclService.dccAdmissionCheckScenariosEnabled ? self.store.lastSelectedScenarioIdentifier : ""
 			)
 
 			switch result {
