@@ -954,6 +954,7 @@
 		8F0B0A9D26EA180500ED6F71 /* BoosterNotificationServiceError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F0B0A9C26EA180500ED6F71 /* BoosterNotificationServiceError.swift */; };
 		8F1E6EEB26DD93BD00483660 /* RulesDownloadService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F1E6EEA26DD93BD00483660 /* RulesDownloadService.swift */; };
 		8F270194259B5BA700E48CFE /* ContactDiaryMigration1To2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F270193259B5BA700E48CFE /* ContactDiaryMigration1To2.swift */; };
+		8F27B8CF28C80D7200C35A5D /* OTPResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F27B8CE28C80D7200C35A5D /* OTPResponse.swift */; };
 		8F3167E626A5D906008F35AA /* RegionStatisticsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3167E526A5D906008F35AA /* RegionStatisticsData.swift */; };
 		8F3167E826A5D929008F35AA /* RegionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3167E726A5D929008F35AA /* RegionType.swift */; };
 		8F3202442600C7BB00D6A224 /* TorchMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3202432600C7BB00D6A224 /* TorchMode.swift */; };
@@ -1007,7 +1008,6 @@
 		8F80802E2731242900F8FA3F /* RegistrationTokenReceiveModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F80802D2731242900F8FA3F /* RegistrationTokenReceiveModel.swift */; };
 		8F87214E274DBCAE00A263D5 /* Locator+ServiceIdentityDocumentValidationDecorator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F87214D274DBCAE00A263D5 /* Locator+ServiceIdentityDocumentValidationDecorator.swift */; };
 		8F872150274DBD7B00A263D5 /* ServiceIdentityDocumentValidationDecoratorResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F87214F274DBD7B00A263D5 /* ServiceIdentityDocumentValidationDecoratorResource.swift */; };
-		8F8DF11128C0E84B00DE72E3 /* OTPResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F8DF11028C0E84B00DE72E3 /* OTPResponse.swift */; };
 		8F95A1B225EFC5BE00506CF2 /* SendErrorLogsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F95A1B125EFC5BE00506CF2 /* SendErrorLogsViewController.swift */; };
 		8FA88F672613325700FD36DA /* QRCodePayload+extention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FA88F662613325700FD36DA /* QRCodePayload+extention.swift */; };
 		8FA88F9F2613A7E300FD36DA /* EncodingType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FA88F9E2613A7E300FD36DA /* EncodingType.swift */; };
@@ -2820,6 +2820,7 @@
 		8F1E6EEA26DD93BD00483660 /* RulesDownloadService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RulesDownloadService.swift; sourceTree = "<group>"; };
 		8F27018E259B593700E48CFE /* ContactDiaryStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDiaryStore.swift; sourceTree = "<group>"; };
 		8F270193259B5BA700E48CFE /* ContactDiaryMigration1To2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDiaryMigration1To2.swift; sourceTree = "<group>"; };
+		8F27B8CE28C80D7200C35A5D /* OTPResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OTPResponse.swift; sourceTree = "<group>"; };
 		8F3167E526A5D906008F35AA /* RegionStatisticsData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegionStatisticsData.swift; sourceTree = "<group>"; };
 		8F3167E726A5D929008F35AA /* RegionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegionType.swift; sourceTree = "<group>"; };
 		8F3202432600C7BB00D6A224 /* TorchMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TorchMode.swift; sourceTree = "<group>"; };
@@ -2873,7 +2874,6 @@
 		8F80802D2731242900F8FA3F /* RegistrationTokenReceiveModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationTokenReceiveModel.swift; sourceTree = "<group>"; };
 		8F87214D274DBCAE00A263D5 /* Locator+ServiceIdentityDocumentValidationDecorator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Locator+ServiceIdentityDocumentValidationDecorator.swift"; sourceTree = "<group>"; };
 		8F87214F274DBD7B00A263D5 /* ServiceIdentityDocumentValidationDecoratorResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceIdentityDocumentValidationDecoratorResource.swift; sourceTree = "<group>"; };
-		8F8DF11028C0E84B00DE72E3 /* OTPResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OTPResponse.swift; path = "../../../../../../../../../Downloads/cwa-app-ios-ios-quick-actions/src/xcode/ENA/ENA/Source/Services/OTP/Model/OTPResponse.swift"; sourceTree = "<group>"; };
 		8F95A1B125EFC5BE00506CF2 /* SendErrorLogsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendErrorLogsViewController.swift; sourceTree = "<group>"; };
 		8FA88F662613325700FD36DA /* QRCodePayload+extention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "QRCodePayload+extention.swift"; sourceTree = "<group>"; };
 		8FA88F9E2613A7E300FD36DA /* EncodingType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncodingType.swift; sourceTree = "<group>"; };
@@ -5964,7 +5964,7 @@
 		505F508125C897A6004920EB /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				8F8DF11028C0E84B00DE72E3 /* OTPResponse.swift */,
+				8F27B8CE28C80D7200C35A5D /* OTPResponse.swift */,
 				505F508225C897B3004920EB /* OTPError.swift */,
 				50B5057C25CAEF5C00EEA380 /* OTPToken.swift */,
 			);
@@ -11914,7 +11914,7 @@
 				BAE2101B25C8463400162966 /* PPACDeviceCheckMock.swift in Sources */,
 				5001DE9026E20E52004242FA /* Locator+TraceWarningDiscovery.swift in Sources */,
 				01EA176A2590EF4F00E98E02 /* HomeTableViewModel.swift in Sources */,
-				8F8DF11128C0E84B00DE72E3 /* OTPResponse.swift in Sources */,
+				8F27B8CF28C80D7200C35A5D /* OTPResponse.swift in Sources */,
 				01164CDE26C571DA007F9C3E /* OnBehalfTraceLocationSelectionViewModel.swift in Sources */,
 				71FE1C7F247AC2B500851FEB /* ExposureSubmissionTestResultViewController.swift in Sources */,
 				011216FA2617363D00320745 /* CoronaTestService.swift in Sources */,
