@@ -6,7 +6,7 @@
 import Foundation
 import XCTest
 
-final class HTTPClientAuthorizationOTPElsTests: CWATestCase {
+final class RestServiceAuthorizationOTPElsTests: CWATestCase {
 
 	let expectationsTimeout: TimeInterval = 2
 
@@ -21,7 +21,6 @@ final class HTTPClientAuthorizationOTPElsTests: CWATestCase {
 		let jsonEncoder = JSONEncoder()
 		jsonEncoder.dateEncodingStrategy = .iso8601
 		let encoded = try jsonEncoder.encode(response)
-
 		let stack = MockNetworkStack(
 			httpStatus: 200,
 			responseData: encoded
@@ -33,16 +32,17 @@ final class HTTPClientAuthorizationOTPElsTests: CWATestCase {
 
 		// WHEN
 		var expirationDate: Date?
-		HTTPClient.makeWith(mock: stack).authorize(otpEls: otp, ppacToken: ppacToken, completion: { result in
+		let serviceProvider = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
+		let resource = OTPAuthorizationForELSResource(otpEls: otp, ppacToken: ppacToken)
+		serviceProvider.load(resource) { result in
 			switch result {
-			case .success(let date):
-				expirationDate = date
+			case .success(let result):
+				expirationDate = result.expirationDate
 			case .failure(let error):
 				XCTFail(error.localizedDescription)
 			}
 			expectation.fulfill()
-		})
-
+		}
 		// THEN
 		waitForExpectations(timeout: expectationsTimeout)
 		XCTAssertNotNil(expirationDate)
@@ -56,26 +56,25 @@ final class HTTPClientAuthorizationOTPElsTests: CWATestCase {
 			responseData: Data()
 		)
 
-		let expectation = self.expectation(description: "completion handler is called without an error")
 		let otp = "OTPFake"
 		let ppacToken = PPACToken(apiToken: "APITokenFake", deviceToken: "DeviceTokenFake")
 
 		// WHEN
-		var expectedOtpError: OTPError?
-		HTTPClient.makeWith(mock: stack).authorize(otpEls: otp, ppacToken: ppacToken, completion: { result in
+		let serviceProvider = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
+		let resource = OTPAuthorizationForELSResource(otpEls: otp, ppacToken: ppacToken)
+		serviceProvider.load(resource) { result in
 			switch result {
+				// THEN
 			case .success:
 				XCTFail("success should not be called")
 			case .failure(let otpError):
-				expectedOtpError = otpError
+				guard case let .receivedResourceError(customError) = otpError else {
+					XCTFail("unexpected error case")
+					return
+				}
+				XCTAssertEqual(customError, .invalidResponseError)
 			}
-			expectation.fulfill()
-		})
-
-		// THEN
-		waitForExpectations(timeout: expectationsTimeout)
-		XCTAssertNotNil(expectedOtpError)
-		XCTAssertEqual(expectedOtpError, .invalidResponseError)
+		}
 	}
 
 	func testGIVEN_AuthorizeOTP_WHEN_Failure_API_TOKEN_ALREADY_ISSUEDIsCalled_THEN_apiTokenAlreadyIssuedIsReturned() throws {
@@ -86,26 +85,25 @@ final class HTTPClientAuthorizationOTPElsTests: CWATestCase {
 			responseData: try JSONEncoder().encode(response)
 		)
 
-		let expectation = self.expectation(description: "completion handler is called without an error")
 		let otp = "OTPFake"
 		let ppacToken = PPACToken(apiToken: "APITokenFake", deviceToken: "DeviceTokenFake")
 
 		// WHEN
-		var expectedOtpError: OTPError?
-		HTTPClient.makeWith(mock: stack).authorize(otpEls: otp, ppacToken: ppacToken, completion: { result in
+		let serviceProvider = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
+		let resource = OTPAuthorizationForELSResource(otpEls: otp, ppacToken: ppacToken)
+		serviceProvider.load(resource) { result in
 			switch result {
+				// THEN
 			case .success:
 				XCTFail("success should not be called")
 			case .failure(let otpError):
-				expectedOtpError = otpError
+				guard case let .receivedResourceError(customError) = otpError else {
+					XCTFail("unexpected error case")
+					return
+				}
+				XCTAssertEqual(customError, .apiTokenAlreadyIssued)
 			}
-			expectation.fulfill()
-		})
-
-		// THEN
-		waitForExpectations(timeout: expectationsTimeout)
-		XCTAssertNotNil(expectedOtpError)
-		XCTAssertEqual(expectedOtpError, .apiTokenAlreadyIssued)
+		}
 	}
 
 	func testGIVEN_AuthorizeOTP_WHEN_Failure_API_TOKEN_EXPIREDIsCalled_THEN_apiTokenExpiredIsReturned() throws {
@@ -116,26 +114,25 @@ final class HTTPClientAuthorizationOTPElsTests: CWATestCase {
 			responseData: try JSONEncoder().encode(response)
 		)
 
-		let expectation = self.expectation(description: "completion handler is called without an error")
 		let otp = "OTPFake"
 		let ppacToken = PPACToken(apiToken: "APITokenFake", deviceToken: "DeviceTokenFake")
 
 		// WHEN
-		var expectedOtpError: OTPError?
-		HTTPClient.makeWith(mock: stack).authorize(otpEls: otp, ppacToken: ppacToken, completion: { result in
+		let serviceProvider = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
+		let resource = OTPAuthorizationForELSResource(otpEls: otp, ppacToken: ppacToken)
+		serviceProvider.load(resource) { result in
 			switch result {
+				// THEN
 			case .success:
 				XCTFail("success should not be called")
 			case .failure(let otpError):
-				expectedOtpError = otpError
+				guard case let .receivedResourceError(customError) = otpError else {
+					XCTFail("unexpected error case")
+					return
+				}
+				XCTAssertEqual(customError, .apiTokenExpired)
 			}
-			expectation.fulfill()
-		})
-
-		// THEN
-		waitForExpectations(timeout: expectationsTimeout)
-		XCTAssertNotNil(expectedOtpError)
-		XCTAssertEqual(expectedOtpError, .apiTokenExpired)
+		}
 	}
 
 	func testGIVEN_AuthorizeOTP_WHEN_Failure_API_TOKEN_QUOTA_EXCEEDEDIsCalled_THEN_apiTokenQuotaExceededIsReturned() throws {
@@ -146,26 +143,25 @@ final class HTTPClientAuthorizationOTPElsTests: CWATestCase {
 			responseData: try JSONEncoder().encode(response)
 		)
 
-		let expectation = self.expectation(description: "completion handler is called without an error")
 		let otp = "OTPFake"
 		let ppacToken = PPACToken(apiToken: "APITokenFake", deviceToken: "DeviceTokenFake")
 
 		// WHEN
-		var expectedOtpError: OTPError?
-		HTTPClient.makeWith(mock: stack).authorize(otpEls: otp, ppacToken: ppacToken, completion: { result in
+		let serviceProvider = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
+		let resource = OTPAuthorizationForELSResource(otpEls: otp, ppacToken: ppacToken)
+		serviceProvider.load(resource) { result in
 			switch result {
+				// THEN
 			case .success:
 				XCTFail("success should not be called")
 			case .failure(let otpError):
-				expectedOtpError = otpError
+				guard case let .receivedResourceError(customError) = otpError else {
+					XCTFail("unexpected error case")
+					return
+				}
+				XCTAssertEqual(customError, .apiTokenQuotaExceeded)
 			}
-			expectation.fulfill()
-		})
-
-		// THEN
-		waitForExpectations(timeout: expectationsTimeout)
-		XCTAssertNotNil(expectedOtpError)
-		XCTAssertEqual(expectedOtpError, .apiTokenQuotaExceeded)
+		}
 	}
 
 	func testGIVEN_AuthorizeOTP_WHEN_Failure_DEVICE_TOKEN_INVALIDIsCalled_THEN_deviceTokenInvalidIsReturned() throws {
@@ -176,26 +172,25 @@ final class HTTPClientAuthorizationOTPElsTests: CWATestCase {
 			responseData: try JSONEncoder().encode(response)
 		)
 
-		let expectation = self.expectation(description: "completion handler is called without an error")
 		let otp = "OTPFake"
 		let ppacToken = PPACToken(apiToken: "APITokenFake", deviceToken: "DeviceTokenFake")
 
 		// WHEN
-		var expectedOtpError: OTPError?
-		HTTPClient.makeWith(mock: stack).authorize(otpEls: otp, ppacToken: ppacToken, completion: { result in
+		let serviceProvider = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
+		let resource = OTPAuthorizationForELSResource(otpEls: otp, ppacToken: ppacToken)
+		serviceProvider.load(resource) { result in
 			switch result {
+				// THEN
 			case .success:
 				XCTFail("success should not be called")
 			case .failure(let otpError):
-				expectedOtpError = otpError
+				guard case let .receivedResourceError(customError) = otpError else {
+					XCTFail("unexpected error case")
+					return
+				}
+				XCTAssertEqual(customError, .deviceTokenInvalid)
 			}
-			expectation.fulfill()
-		})
-
-		// THEN
-		waitForExpectations(timeout: expectationsTimeout)
-		XCTAssertNotNil(expectedOtpError)
-		XCTAssertEqual(expectedOtpError, .deviceTokenInvalid)
+		}
 	}
 
 	func testGIVEN_AuthorizeOTP_WHEN_Failure_DEVICE_TOKEN_REDEEMEDIsCalled_THEN_deviceTokenRedeemedIsReturned() throws {
@@ -206,26 +201,25 @@ final class HTTPClientAuthorizationOTPElsTests: CWATestCase {
 			responseData: try JSONEncoder().encode(response)
 		)
 
-		let expectation = self.expectation(description: "completion handler is called without an error")
 		let otp = "OTPFake"
 		let ppacToken = PPACToken(apiToken: "APITokenFake", deviceToken: "DeviceTokenFake")
 
 		// WHEN
-		var expectedOtpError: OTPError?
-		HTTPClient.makeWith(mock: stack).authorize(otpEls: otp, ppacToken: ppacToken, completion: { result in
+		let serviceProvider = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
+		let resource = OTPAuthorizationForELSResource(otpEls: otp, ppacToken: ppacToken)
+		serviceProvider.load(resource) { result in
 			switch result {
+				// THEN
 			case .success:
 				XCTFail("success should not be called")
 			case .failure(let otpError):
-				expectedOtpError = otpError
+				guard case let .receivedResourceError(customError) = otpError else {
+					XCTFail("unexpected error case")
+					return
+				}
+				XCTAssertEqual(customError, .deviceTokenRedeemed)
 			}
-			expectation.fulfill()
-		})
-
-		// THEN
-		waitForExpectations(timeout: expectationsTimeout)
-		XCTAssertNotNil(expectedOtpError)
-		XCTAssertEqual(expectedOtpError, .deviceTokenRedeemed)
+		}
 	}
 
 	func testGIVEN_AuthorizeOTP_WHEN_Failure_DEVICE_TOKEN_SYNTAX_ERRORIsCalled_THEN_deviceTokenSyntaxErrorIsReturned() throws {
@@ -236,26 +230,25 @@ final class HTTPClientAuthorizationOTPElsTests: CWATestCase {
 			responseData: try JSONEncoder().encode(response)
 		)
 
-		let expectation = self.expectation(description: "completion handler is called without an error")
 		let otp = "OTPFake"
 		let ppacToken = PPACToken(apiToken: "APITokenFake", deviceToken: "DeviceTokenFake")
 
 		// WHEN
-		var expectedOtpError: OTPError?
-		HTTPClient.makeWith(mock: stack).authorize(otpEls: otp, ppacToken: ppacToken, completion: { result in
+		let serviceProvider = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
+		let resource = OTPAuthorizationForELSResource(otpEls: otp, ppacToken: ppacToken)
+		serviceProvider.load(resource) { result in
 			switch result {
+				// THEN
 			case .success:
 				XCTFail("success should not be called")
 			case .failure(let otpError):
-				expectedOtpError = otpError
+				guard case let .receivedResourceError(customError) = otpError else {
+					XCTFail("unexpected error case")
+					return
+				}
+				XCTAssertEqual(customError, .deviceTokenSyntaxError)
 			}
-			expectation.fulfill()
-		})
-
-		// THEN
-		waitForExpectations(timeout: expectationsTimeout)
-		XCTAssertNotNil(expectedOtpError)
-		XCTAssertEqual(expectedOtpError, .deviceTokenSyntaxError)
+		}
 	}
 
 	func testGIVEN_AuthorizeOTP_WHEN_Failure_OtherServerErrorIsCalled_THEN_otherServerErrorIsReturned() throws {
@@ -266,26 +259,25 @@ final class HTTPClientAuthorizationOTPElsTests: CWATestCase {
 			responseData: try JSONEncoder().encode(response)
 		)
 
-		let expectation = self.expectation(description: "completion handler is called without an error")
 		let otp = "OTPFake"
 		let ppacToken = PPACToken(apiToken: "APITokenFake", deviceToken: "DeviceTokenFake")
 
 		// WHEN
-		var expectedOtpError: OTPError?
-		HTTPClient.makeWith(mock: stack).authorize(otpEls: otp, ppacToken: ppacToken, completion: { result in
+		let serviceProvider = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
+		let resource = OTPAuthorizationForELSResource(otpEls: otp, ppacToken: ppacToken)
+		serviceProvider.load(resource) { result in
 			switch result {
+				// THEN
 			case .success:
 				XCTFail("success should not be called")
 			case .failure(let otpError):
-				expectedOtpError = otpError
+				guard case let .receivedResourceError(customError) = otpError else {
+					XCTFail("unexpected error case")
+					return
+				}
+				XCTAssertEqual(customError, .otherServerError)
 			}
-			expectation.fulfill()
-		})
-
-		// THEN
-		waitForExpectations(timeout: expectationsTimeout)
-		XCTAssertNotNil(expectedOtpError)
-		XCTAssertEqual(expectedOtpError, .otherServerError)
+		}
 	}
 
 	func testGIVEN_AuthorizeOTP_WHEN_Failure_JSONSyntaxError_THEN_invalidResponseErrorIsReturned() throws {
@@ -296,26 +288,25 @@ final class HTTPClientAuthorizationOTPElsTests: CWATestCase {
 			responseData: try JSONEncoder().encode(response)
 		)
 
-		let expectation = self.expectation(description: "completion handler is called without an error")
 		let otp = "OTPFake"
 		let ppacToken = PPACToken(apiToken: "APITokenFake", deviceToken: "DeviceTokenFake")
 
 		// WHEN
-		var expectedOtpError: OTPError?
-		HTTPClient.makeWith(mock: stack).authorize(otpEls: otp, ppacToken: ppacToken, completion: { result in
+		let serviceProvider = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
+		let resource = OTPAuthorizationForELSResource(otpEls: otp, ppacToken: ppacToken)
+		serviceProvider.load(resource) { result in
 			switch result {
+				// THEN
 			case .success:
 				XCTFail("success should not be called")
 			case .failure(let otpError):
-				expectedOtpError = otpError
+				guard case let .receivedResourceError(customError) = otpError else {
+					XCTFail("unexpected error case")
+					return
+				}
+				XCTAssertEqual(customError, .invalidResponseError)
 			}
-			expectation.fulfill()
-		})
-
-		// THEN
-		waitForExpectations(timeout: expectationsTimeout)
-		XCTAssertNotNil(expectedOtpError)
-		XCTAssertEqual(expectedOtpError, .invalidResponseError)
+		}
 	}
 
 	func testGIVEN_AuthorizeOTP_WHEN_Failure_500StatusCode_THEN_internalServerErrorIsReturned() throws {
@@ -326,26 +317,25 @@ final class HTTPClientAuthorizationOTPElsTests: CWATestCase {
 			responseData: try JSONEncoder().encode(response)
 		)
 
-		let expectation = self.expectation(description: "completion handler is called without an error")
 		let otp = "OTPFake"
 		let ppacToken = PPACToken(apiToken: "APITokenFake", deviceToken: "DeviceTokenFake")
 
 		// WHEN
-		var expectedOtpError: OTPError?
-		HTTPClient.makeWith(mock: stack).authorize(otpEls: otp, ppacToken: ppacToken, completion: { result in
+		let serviceProvider = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
+		let resource = OTPAuthorizationForELSResource(otpEls: otp, ppacToken: ppacToken)
+		serviceProvider.load(resource) { result in
 			switch result {
+				// THEN
 			case .success:
 				XCTFail("success should not be called")
 			case .failure(let otpError):
-				expectedOtpError = otpError
+				guard case let .receivedResourceError(customError) = otpError else {
+					XCTFail("unexpected error case")
+					return
+				}
+				XCTAssertEqual(customError, .internalServerError)
 			}
-			expectation.fulfill()
-		})
-
-		// THEN
-		waitForExpectations(timeout: expectationsTimeout)
-		XCTAssertNotNil(expectedOtpError)
-		XCTAssertEqual(expectedOtpError, .internalServerError)
+		}
 	}
 
 	func testGIVEN_AuthorizeOTP_WHEN_Failure_UnkownStatusCode_THEN_internalServerErrorIsReturned() throws {
@@ -356,26 +346,25 @@ final class HTTPClientAuthorizationOTPElsTests: CWATestCase {
 			responseData: try JSONEncoder().encode(response)
 		)
 
-		let expectation = self.expectation(description: "completion handler is called without an error")
 		let otp = "OTPFake"
 		let ppacToken = PPACToken(apiToken: "APITokenFake", deviceToken: "DeviceTokenFake")
 
 		// WHEN
-		var expectedOtpError: OTPError?
-		HTTPClient.makeWith(mock: stack).authorize(otpEls: otp, ppacToken: ppacToken, completion: { result in
+		let serviceProvider = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
+		let resource = OTPAuthorizationForELSResource(otpEls: otp, ppacToken: ppacToken)
+		serviceProvider.load(resource) { result in
 			switch result {
+				// THEN
 			case .success:
 				XCTFail("success should not be called")
 			case .failure(let otpError):
-				expectedOtpError = otpError
+				guard case let .receivedResourceError(customError) = otpError else {
+					XCTFail("unexpected error case")
+					return
+				}
+				XCTAssertEqual(customError, .internalServerError)
 			}
-			expectation.fulfill()
-		})
-
-		// THEN
-		waitForExpectations(timeout: expectationsTimeout)
-		XCTAssertNotNil(expectedOtpError)
-		XCTAssertEqual(expectedOtpError, .internalServerError)
+		}
 	}
 
 	func testGIVEN_AuthorizeOTP_WHEN_Failure_JsonParsing_THEN_invalidResponseErrorIsReturned() {
@@ -385,26 +374,25 @@ final class HTTPClientAuthorizationOTPElsTests: CWATestCase {
 			responseData: Data()
 		)
 
-		let expectation = self.expectation(description: "completion handler is called without an error")
 		let otp = "OTPFake"
 		let ppacToken = PPACToken(apiToken: "APITokenFake", deviceToken: "DeviceTokenFake")
 
 		// WHEN
-		var expectedOtpError: OTPError?
-		HTTPClient.makeWith(mock: stack).authorize(otpEls: otp, ppacToken: ppacToken, completion: { result in
+		let serviceProvider = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
+		let resource = OTPAuthorizationForELSResource(otpEls: otp, ppacToken: ppacToken)
+		serviceProvider.load(resource) { result in
 			switch result {
+				// THEN
 			case .success:
 				XCTFail("success should not be called")
 			case .failure(let otpError):
-				expectedOtpError = otpError
+				guard case let .receivedResourceError(customError) = otpError else {
+					XCTFail("unexpected error case")
+					return
+				}
+				XCTAssertEqual(customError, .invalidResponseError)
 			}
-			expectation.fulfill()
-		})
-
-		// THEN
-		waitForExpectations(timeout: expectationsTimeout)
-		XCTAssertNotNil(expectedOtpError)
-		XCTAssertEqual(expectedOtpError, .invalidResponseError)
+		}
 	}
 	
 	func testGIVEN_AuthorizeOTP_WHEN_NoNetworkConnection_THEN_NetworkErrorReturned() {
@@ -425,22 +413,23 @@ final class HTTPClientAuthorizationOTPElsTests: CWATestCase {
 			mockSession: session
 		)
 
-		let expectation = self.expectation(description: "completion handler is called without an error")
 		let otp = "OTPFake"
 		let ppacToken = PPACToken(apiToken: "APITokenFake", deviceToken: "DeviceTokenFake")
 
 		// WHEN
-		HTTPClient.makeWith(mock: stack).authorize(otpEls: otp, ppacToken: ppacToken, completion: { result in
+		let serviceProvider = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
+		let resource = OTPAuthorizationForELSResource(otpEls: otp, ppacToken: ppacToken)
+		serviceProvider.load(resource) { result in
 			switch result {
 			case .success:
 				XCTFail("success should not be called")
 			case .failure(let otpError):
-				XCTAssertEqual(otpError, .noNetworkConnection)
+				guard case let .receivedResourceError(customError) = otpError else {
+					XCTFail("unexpected error case")
+					return
+				}
+				XCTAssertEqual(customError, .noNetworkConnection)
 			}
-			expectation.fulfill()
-		})
-
-		// THEN
-		waitForExpectations(timeout: expectationsTimeout)
+		}
 	}
 }
