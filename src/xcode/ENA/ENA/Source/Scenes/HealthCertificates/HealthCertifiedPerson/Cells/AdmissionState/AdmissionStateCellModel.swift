@@ -69,7 +69,7 @@ final class AdmissionStateCellModel {
 	}
 
 	var gradientType: GradientView.GradientType {
-		shouldOverwriteGradientTypeForMaskState
+		healthCertifiedPerson.IsMaskOptional
 			? .solidDarkGreen
 			: healthCertifiedPerson.gradientType
 	}
@@ -82,12 +82,5 @@ final class AdmissionStateCellModel {
 
 	private let healthCertifiedPerson: HealthCertifiedPerson
 	private let cclService: CCLServable
-	
-	private var shouldOverwriteGradientTypeForMaskState: Bool {
-		guard let maskState = healthCertifiedPerson.dccWalletInfo?.maskState else {
-			return false
-		}
-		
-		return maskState.visible && maskState.identifier == .maskOptional
-	}
+
 }

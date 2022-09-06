@@ -199,6 +199,7 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 		guard editingStyle == .delete, let healthCertificate = viewModel.healthCertificate(for: indexPath) else { return }
 
 		let vaccinationStateWasVisible = viewModel.vaccinationStateIsVisible
+		let maskStateWasVisible = viewModel.maskStakeIsVisible
 		let admissionStateWasVisible = viewModel.admissionStateIsVisible
 		let boosterNotificationWasVisible = viewModel.boosterNotificationIsVisible
 		let certificateReissuanceWasVisible = viewModel.certificateReissuanceIsVisible
@@ -213,6 +214,12 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 			tableView.performBatchUpdates({
 				var deleteIndexPaths = [IndexPath]()
 				var insertIndexPaths = [IndexPath]()
+				
+				if maskStateWasVisible && !self.viewModel.maskStakeIsVisible {
+					deleteIndexPaths.append(IndexPath(row: 0, section: HealthCertifiedPersonViewModel.TableViewSection.maskState.rawValue))
+				} else if !admissionStateWasVisible && self.viewModel.admissionStateIsVisible {
+					insertIndexPaths.append(IndexPath(row: 0, section: HealthCertifiedPersonViewModel.TableViewSection.maskState.rawValue))
+				}
 				
 				if admissionStateWasVisible && !self.viewModel.admissionStateIsVisible {
 					deleteIndexPaths.append(IndexPath(row: 0, section: HealthCertifiedPersonViewModel.TableViewSection.admissionState.rawValue))
