@@ -62,10 +62,8 @@ class ENAUITests_13_CreateHealthCertificate: CWATestCase {
 		XCTAssertTrue(boosterNotificationDetailsImage.waitForExistence(timeout: .medium))
 	}
 	
-	func test_HealthCertificate_printPDF_NotAllowed() throws {
+	func test_HealthCertificate_printPDF_NonDE_Allowed() throws {
 		app.setLaunchArgument(LaunchArguments.healthCertificate.firstAndSecondHealthCertificate, to: true)
-
-		// With an issuer != "DE" it is not possible to print certificates.
 		app.setLaunchArgument(LaunchArguments.healthCertificate.firstAndSecondHealthCertificateIssuerDE, to: false)
 		app.setLaunchArgument(LaunchArguments.infoScreen.healthCertificateInfoScreenShown, to: true)
 		app.launch()
@@ -86,11 +84,14 @@ class ENAUITests_13_CreateHealthCertificate: CWATestCase {
 		let startPrintButton = app.sheets.buttons.firstMatch
 		startPrintButton.waitAndTap()
 
-		let faqAction = app.buttons[AccessibilityIdentifiers.HealthCertificate.PrintPdf.faqAction]
-		XCTAssertTrue(faqAction.waitForExistence(timeout: .short))
+		let nextButton = app.buttons[AccessibilityIdentifiers.HealthCertificate.PrintPdf.infoPrimaryButton]
+		nextButton.waitAndTap()
 
-		let okAction = app.buttons[AccessibilityIdentifiers.HealthCertificate.PrintPdf.okAction]
-		XCTAssertTrue(okAction.waitForExistence(timeout: .short))
+		let printButton = app.buttons[AccessibilityIdentifiers.HealthCertificate.PrintPdf.printButton]
+		XCTAssertTrue(printButton.waitForExistence(timeout: .short))
+
+		let shareButton = app.buttons[AccessibilityIdentifiers.HealthCertificate.PrintPdf.printButton]
+		XCTAssertTrue(shareButton.waitForExistence(timeout: .short))
 	}
 	
 	func test_HealthCertificateInvalid() throws {
