@@ -20,7 +20,7 @@ class HealthCertifiedPersonCellModel {
 			return nil
 		}
 
-		backgroundGradientType = healthCertifiedPerson.gradientType
+		backgroundGradientType = healthCertifiedPerson.IsMaskOptional ? .green : healthCertifiedPerson.gradientType
 
 		title = AppStrings.HealthCertificate.Overview.covidTitle
 		name = healthCertifiedPerson.name?.fullName
