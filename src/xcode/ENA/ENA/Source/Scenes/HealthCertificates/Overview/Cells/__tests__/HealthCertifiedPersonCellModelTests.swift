@@ -1067,6 +1067,35 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 		XCTAssertNil(cellModel.shortAdmissionStatus)
 		XCTAssertNil(cellModel.maskStatus)
 	}
+	
+	func testWithoutMaskState() throws {
+		let healthCertifiedPerson = HealthCertifiedPerson(
+			healthCertificates: [try vaccinationCertificate()]
+		)
+		healthCertifiedPerson.dccWalletInfo = .fake(
+			admissionState: .fake(visible: false),
+			maskState: .fake(visible: false),
+			verification: .fake(certificates: [])
+		)
+
+		let cclService = FakeCCLService()
+
+		let cellModel = try XCTUnwrap(
+			HealthCertifiedPersonCellModel(
+				healthCertifiedPerson: healthCertifiedPerson,
+				cclService: cclService,
+				onCovPassCheckInfoButtonTap: { }
+			)
+		)
+
+		XCTAssertEqual(cellModel.qrCodeViewModel.covPassCheckInfoPosition, .bottom)
+		XCTAssertTrue(cellModel.switchableHealthCertificates.isEmpty)
+		XCTAssertNil(cellModel.maskStatus)
+		XCTAssertFalse(cellModel.isMaskStatusVisible)
+		XCTAssertFalse(cellModel.isMaskStatusVisible)
+		XCTAssertEqual(cellModel.maskStateIdentifier, .other)
+	}
+	
 
 	func testWithEmptyAdmissionState() throws {
 		let healthCertifiedPerson = HealthCertifiedPerson(
@@ -1090,7 +1119,33 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 		XCTAssertEqual(cellModel.qrCodeViewModel.covPassCheckInfoPosition, .bottom)
 		XCTAssertTrue(cellModel.switchableHealthCertificates.isEmpty)
 		XCTAssertNil(cellModel.shortAdmissionStatus)
+	}
+	
+	func testWithEmptyMaskState() throws {
+		let healthCertifiedPerson = HealthCertifiedPerson(
+			healthCertificates: [try vaccinationCertificate()]
+		)
+		healthCertifiedPerson.dccWalletInfo = .fake(
+			admissionState: .fake(visible: true, badgeText: .fake(string: "")),
+			maskState: .fake(visible: true, badgeText: .fake(string: "")),
+			verification: .fake(certificates: [])
+		)
+
+		let cclService = FakeCCLService()
+
+		let cellModel = try XCTUnwrap(
+			HealthCertifiedPersonCellModel(
+				healthCertifiedPerson: healthCertifiedPerson,
+				cclService: cclService,
+				onCovPassCheckInfoButtonTap: { }
+			)
+		)
+
+		XCTAssertEqual(cellModel.qrCodeViewModel.covPassCheckInfoPosition, .bottom)
+		XCTAssertTrue(cellModel.switchableHealthCertificates.isEmpty)
 		XCTAssertNil(cellModel.maskStatus)
+		XCTAssertFalse(cellModel.isMaskStatusVisible)
+		XCTAssertEqual(cellModel.maskStateIdentifier, .other)
 	}
 
 	func testSolidGreyGradient() throws {

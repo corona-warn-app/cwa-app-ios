@@ -35,7 +35,7 @@ final class HealthCertificateCellViewModel {
 		switch details {
 		case .allDetails, .allDetailsWithoutValidationButton:
 			if healthCertificate.isUsable, healthCertificate == healthCertifiedPerson.mostRelevantHealthCertificate {
-				return shouldOverwriteGradientTypeForMaskState ? .lightBlue : healthCertifiedPerson.gradientType
+				return healthCertifiedPerson.IsMaskOptional ? .lightBlue : healthCertifiedPerson.gradientType
 			} else {
 				return .solidGrey
 			}
@@ -183,11 +183,11 @@ final class HealthCertificateCellViewModel {
 			return UIImage(named: "Icon_CurrentlyUsedCertificate_light")
 		case .mediumBlue:
 			return UIImage(named: "Icon_CurrentlyUsedCertificate_medium")
-		case .darkBlue, .whiteWithGreyBorder:
+		case .darkBlue:
 			return UIImage(named: "Icon_CurrentlyUsedCertificate_dark")
 		case .solidLightGreen, .solidDarkGreen, .green:
 			return UIImage(named: "Icon_CurrentlyUsedCertificate_green")
-		case .blueRedTilted, .blueOnly, .solidGrey, .whiteToLightBlue:
+		case .blueRedTilted, .blueOnly, .solidGrey, .whiteWithGreyBorder, .whiteToLightBlue:
 			return UIImage(named: "Icon_CurrentlyUsedCertificate_grey")
 		}
 	}()
@@ -232,12 +232,5 @@ final class HealthCertificateCellViewModel {
 			return healthCertificate.isUsable ? healthCertifiedPerson.gradientType : .solidGrey
 		}
 	}()
-	
-	private var shouldOverwriteGradientTypeForMaskState: Bool {
-		guard let maskState = healthCertifiedPerson.dccWalletInfo?.maskState else {
-			return false
-		}
-		
-		return maskState.visible && maskState.identifier == .maskOptional
-	}
+
 }
