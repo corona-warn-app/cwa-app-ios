@@ -40,11 +40,13 @@ final class OTPService: OTPServiceProviding {
 	init(
 		store: Store,
 		client: Client,
+		restServiceProvider: RestServiceProviding,
 		riskProvider: RiskProviding
 	) {
 		self.store = store
 		self.client = client
-
+		self.restServiceProvider = restServiceProvider
+		
 		self.riskConsumer = RiskConsumer()
 		self.riskConsumer.didCalculateRisk = { [weak self] risk in
 			if risk.level == .low {
@@ -107,6 +109,7 @@ final class OTPService: OTPServiceProviding {
 
 	private let store: Store
 	private let client: Client
+	private let restServiceProvider: RestServiceProviding
 	private let riskConsumer: RiskConsumer
 	
 	private var isAuthorizedInCurrentMonth: Bool {
@@ -161,9 +164,9 @@ final class OTPService: OTPServiceProviding {
 	
 	private func authorizeEls(_ otp: String, with ppacToken: PPACToken, completion: @escaping (Result<String, OTPError>) -> Void) {
 		Log.info("Authorization of a new OTP ELS started.", log: .otp)
-
 		// We autohorize the otp with the ppacToken at our server.
-		client.authorize(otpEls: otp, ppacToken: ppacToken, completion: { [weak self] result in
+		let resource = OTPAuthorizationForELSResource(otpEls: otp, ppacToken: ppacToken)
+		restServiceProvider.load(resource) { [weak self] result in
 			guard let self = self else {
 				Log.error("could not create strong self", log: .otp)
 				completion(.failure(OTPError.generalError(underlyingError: nil)))
@@ -176,7 +179,7 @@ final class OTPService: OTPServiceProviding {
 				let verifiedToken = OTPToken(
 					token: otp,
 					timestamp: Date(),
-					expirationDate: expirationDate
+					expirationDate: expirationDate.expirationDate
 				)
 
 				self.store.otpTokenEls = verifiedToken
@@ -186,8 +189,8 @@ final class OTPService: OTPServiceProviding {
 				completion(.success(verifiedToken.token))
 			case .failure(let error):
 				Log.error("Authorization of a new OTP ELS failed with error: \(error)", log: .otp)
-				completion(.failure(error))
+				completion(.failure(.restServiceError(error)))
 			}
-		})
+		}
 	}
 }
