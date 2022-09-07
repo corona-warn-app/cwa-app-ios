@@ -35,7 +35,7 @@ final class HealthCertificateCellViewModel {
 		switch details {
 		case .allDetails, .allDetailsWithoutValidationButton:
 			if healthCertificate.isUsable, healthCertificate == healthCertifiedPerson.mostRelevantHealthCertificate {
-				return healthCertifiedPerson.IsMaskOptional ? .lightBlue : healthCertifiedPerson.gradientType
+				return healthCertifiedPerson.isMaskOptional ? .lightBlue : healthCertifiedPerson.gradientType
 			} else {
 				return .solidGrey
 			}

@@ -377,7 +377,7 @@ final class HealthCertificateViewModel {
 
 	private func updateGradient() {
 		if isMostRelevantCertificate, isCertificateValidOrExpiringSoon || isCertificateExpiredButOfTypeTest {
-			gradientType = healthCertifiedPerson.IsMaskOptional
+			gradientType = healthCertifiedPerson.isMaskOptional
 				? .lightBlue
 				: healthCertifiedPerson.gradientType
 		} else {

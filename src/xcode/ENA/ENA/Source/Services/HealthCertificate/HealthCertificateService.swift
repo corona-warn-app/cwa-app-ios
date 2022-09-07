@@ -748,7 +748,7 @@ class HealthCertificateService: HealthCertificateServiceServable {
 				}
 				
 				// Overwrite the blue or grey with green when mask state is optional
-				if person.dccWalletInfo?.maskState.identifier == .maskOptional {
+				if person.isMaskOptional {
 					person.gradientType = .green
 				}
 			}
