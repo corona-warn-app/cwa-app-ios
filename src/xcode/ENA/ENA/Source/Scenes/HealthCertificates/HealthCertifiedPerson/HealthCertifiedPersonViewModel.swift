@@ -35,6 +35,7 @@ final class HealthCertifiedPersonViewModel {
 		self.boosterNotificationCellModel = BoosterNotificationCellModel(healthCertifiedPerson: healthCertifiedPerson, cclService: cclService)
 		self.admissionStateCellModel = AdmissionStateCellModel(healthCertifiedPerson: healthCertifiedPerson, cclService: cclService)
 		self.vaccinationStateCellModel = VaccinationStateCellModel(healthCertifiedPerson: healthCertifiedPerson, cclService: cclService)
+		self.maskStateCellModel = MaskStateCellModel(healthCertifiedPerson: healthCertifiedPerson, cclService: cclService)
 		
 		constructHealthCertificateCellViewModels(for: healthCertifiedPerson)
 
@@ -73,6 +74,7 @@ final class HealthCertifiedPersonViewModel {
 
 	enum TableViewSection: Int, CaseIterable {
 		case header
+		case maskState
 		case admissionState
 		case certificateReissuance
 		case boosterNotification
@@ -98,6 +100,7 @@ final class HealthCertifiedPersonViewModel {
 	let boosterNotificationCellModel: BoosterNotificationCellModel
 	let admissionStateCellModel: AdmissionStateCellModel
 	let vaccinationStateCellModel: VaccinationStateCellModel
+	let maskStateCellModel: MaskStateCellModel
 
 	@OpenCombine.Published private(set) var gradientType: GradientView.GradientType = .lightBlue
 	@OpenCombine.Published private(set) var triggerReload: Bool = false
@@ -154,6 +157,10 @@ final class HealthCertifiedPersonViewModel {
 		healthCertifiedPerson.dccWalletInfo?.admissionState.visible ?? false
 	}
 
+	var maskStateIsVisible: Bool {
+		healthCertifiedPerson.dccWalletInfo?.maskState.visible ?? false
+	}
+
 	var preferredPersonCellModel: PreferredPersonCellModel {
 		PreferredPersonCellModel(
 			healthCertifiedPerson: healthCertifiedPerson
@@ -161,7 +168,9 @@ final class HealthCertifiedPersonViewModel {
 	}
 	
 	var topMostCell: TableViewSection {
-		if admissionStateIsVisible {
+		if maskStateIsVisible {
+			return .maskState
+		} else if admissionStateIsVisible {
 			return .admissionState
 		} else if certificateReissuanceIsVisible {
 			return .certificateReissuance
@@ -178,6 +187,8 @@ final class HealthCertifiedPersonViewModel {
 		switch section {
 		case .header:
 			return 1
+		case .maskState:
+			return maskStateIsVisible ? 1 : 0
 		case .admissionState:
 			return admissionStateIsVisible ? 1 : 0
 		case .certificateReissuance:
