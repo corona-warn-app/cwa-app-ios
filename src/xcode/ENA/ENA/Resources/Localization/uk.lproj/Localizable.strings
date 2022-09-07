@@ -300,7 +300,7 @@
 
 "Settings_Reset_Label" = "Скинути застосунок";
 
-"Settings_Tracing_Description" = "Дозволити генерувати та поширювати випадкові ідентифікатори COVID-19.";
+"Settings_Tracing_Description" = "Дозволити записувати та поширювати випадкові ідентифікатори COVID-19.";
 
 "Settings_Notification_Description" = "Дозволити автоматичне сповіщення про ваш статус ризику зараження COVID-19.";
 
@@ -343,7 +343,7 @@
 
 "NotificationSettings_BulletHeadlineOn" = "Керувати сповіщеннями";
 
-"NotificationSettings_BulletHeadlineOff" = "Керувати сповіщеннями";
+"NotificationSettings_BulletHeadlineOff" = "Активувати сповіщення";
 
 "NotificationSettings_BulletDescOn" = "Тут можна визначити наступні настройки:";
 
@@ -481,7 +481,7 @@
 
 "OnboardingInfo_howDoesDataExchangeWorkPage_boldText" = "Якщо ви отримаєте позитивний результат тесту, повідомте про це в застосунку. Повідомлення результатів тесту є добровільним і безпечним. Зробіть це заради здоров’я кожного.";
 
-"OnboardingInfo_howDoesDataExchangeWorkPage_normalText" = "Ваше сповіщення надійно зашифровано та оброблено на захищеному сервері. Люди, чиї зашифровані випадкові ідентифікатори зібрав ваш пристрій, тепер отримають застереження разом з інформацією про те, що їм тепер робити.";
+"OnboardingInfo_howDoesDataExchangeWorkPage_normalText" = "Ваше сповіщення надійно зашифровано та оброблено на захищеному сервері. Люди, чиї зашифровані випадкові ідентифікатори зібрав ваш смартфон, тепер отримають застереження разом з інформацією про те, що їм тепер робити.";
 
 "OnboardingInfo_alwaysStayInformedPage_imageDescription" = "Жінка отримує сповіщення від свого застосунку Corona-Warn-App.";
 
@@ -1651,10 +1651,15 @@
 
 "DeltaOnboarding_NewVersionFeatures_Button_Continue" = "Далі";
 
-"DeltaOnboarding_NewVersionFeatures_Description" = "Це оновлення містить виправлення помилок застосунку. У ньому немає жодних нових функцій.";
+"DeltaOnboarding_NewVersionFeatures_Description" = "Поряд із виправленнями помилок, це оновлення також містить нові й розширені функції.";
 
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Зміни у цій версії можна знайти в інформації про застосунок в розділі «Нові функції».";
+
+/* Version 2.27 */
+"NewVersionFeature_227_wear_mask_title" = "Відобразити виняток щодо носіння маски";
+
+"NewVersionFeature_227_wear_mask_description" = "У вашому цифровому COVID-сертифікаті вказано, чи вас звільнено від носіння маски згідно з чинними правилами або чи вам потрібно носити маску.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Транснаціональна реєстрація ризику зараження";
@@ -2139,7 +2144,7 @@
 
 "Statistics_Info_Local7Days_Text" = "Загальна кількість підтверджених нових випадків зараження за останні 7 днів (за датою звітування) на 100 000 жителів у сконфігурованому окрузі чи федеральній землі.\nДані про госпіталізацію стосуються відповідної німецької землі.";
 
-"Statistics_Info_NewInfection_Title" = "Підтверджені нові інфекції";
+"Statistics_Info_NewInfection_Title" = "Нові інфекції";
 
 "Statistics_Info_NewInfection_Text" = "Загальна кількість підтверджених нових випадків зараження за останні 7 днів (за датою звітування) на 100 000 жителів.";
 
@@ -2153,7 +2158,7 @@
 
 "Statistics_Info_Infections_Title" = "Підтверджені нові інфекції";
 
-"Statistics_Info_Infections_Text" = "Кількість осіб, у яких виявили коронавірус та повідомили в РКІ.";
+"Statistics_Info_Infections_Text" = "Кількість осіб, у яких виявили коронавірус і повідомили в RKI. Кількість, яка нижча за порогове значення в 1 % від середнього значення за 7 днів, не відображається; також перегляньте пояснення в розділі «Легенда» > «Період часу».";
 
 "Statistics_Info_KeySubmissions_Title" = "Застереження користувачами застосунку";
 
@@ -2189,7 +2194,7 @@
 
 "Statistics_Info_Yesterday_Title" = "Вчора/до вчора";
 
-"Statistics_Info_Yesterday_Text" = "Кількість за попередній/до попереднього дня. Якщо за попередній день ще немає доступних цифр, відображається остання дата, на яку доступні цифри.";
+"Statistics_Info_Yesterday_Text" = "Для «Вчора/До вчора» відображається кількість за попередній/до попереднього дня. Якщо за попередній день ще немає доступних цифр, оскільки лише кілька державних установ охорони здоров’я наразі надсилають дані до RKI у вихідні та святкові дні, то відображається остання дата, на яку доступні цифри.";
 
 "Statistics_Info_Mean_Title" = "Середня статистика за 7 днів";
 
@@ -3295,6 +3300,8 @@
 
 "UniversalQRScanner_InstructionDescription" = "Тести, ваші сертифікати, реєстрації та перевірка під час продажу квитків";
 
+"UniversalQRScanner_InstructionDescriptionWarnOthers" = "Ви можете сканувати реєстрації, щоб відновити події, які ви видалили.";
+
 "UniversalQRScanner_FileButtonTitle" = "Відкрити файл";
 
 "UniversalQRScanner_CameraFlash" = "Спалах камери";
@@ -3438,7 +3445,7 @@
 
 "RecycleBin_deleteAllButtonTitle" = "Видалити все назавжди";
 
-"RecycleBin_expirationDateTime" = "Дата %@ час %@ видалення назавжди";
+"RecycleBin_expirationDateTime" = "Дата та час остаточного видалення: %@ о %@";
 
 /* - Vaccination Certificate */
 "RecycleBin_VaccinationCertificate_headline" = "Сертифікат вакцинації";

@@ -64,7 +64,9 @@ public enum ENAColor: String, CaseIterable {
 
 	// MARK: - Certificate-PDF
 	case certificatePDFBlue = "Certificate-PDF Blue"
-
+	
+	// MARK: - Mask Badge Grey
+	case maskBadgeGrey = "ENA Mask Badge Grey Color"
 }
 
 public extension UIColor {
@@ -104,7 +106,14 @@ public extension UIColor {
 			fatalError("Requested color is not available: " + style.rawValue)
 		}
 	}
+
 	#endif
+}
+
+extension CGColor {
+	static func enaColor(for style: ENAColor, interface: UIUserInterfaceStyle = .unspecified) -> CGColor {
+		UIColor.enaColor(for: style, interface: interface).cgColor
+	}
 }
 
 private extension UIColor {

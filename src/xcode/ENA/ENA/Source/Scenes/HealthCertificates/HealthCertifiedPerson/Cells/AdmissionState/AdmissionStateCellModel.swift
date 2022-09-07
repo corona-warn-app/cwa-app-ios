@@ -69,7 +69,9 @@ final class AdmissionStateCellModel {
 	}
 
 	var gradientType: GradientView.GradientType {
-		return healthCertifiedPerson.gradientType
+		healthCertifiedPerson.isMaskOptional
+			? .solidDarkGreen
+			: healthCertifiedPerson.gradientType
 	}
 
 	var isAdmissionStateChanged: Bool {
@@ -80,4 +82,5 @@ final class AdmissionStateCellModel {
 
 	private let healthCertifiedPerson: HealthCertifiedPerson
 	private let cclService: CCLServable
+
 }

@@ -3029,6 +3029,8 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertifiedPerson_faq" = "Mehr Informationen finden Sie in den FAQ.";
 
+"HealthCertifiedPerson_faq_maskState" = "Mehr Informationen zur Maskenbefreiung in den FAQ";
+
 "HealthCertifiedPerson_dateOfBirth" = "Geboren %@";
 
 "HealthCertifiedPerson_preferredPersonDescription" = "Bitte aktivieren Sie diesen Schalter, wenn Sie selbst %@ sind und die App hauptsächlich nutzen. Ihre Zertifikate erscheinen in der Liste an erster Stelle.";

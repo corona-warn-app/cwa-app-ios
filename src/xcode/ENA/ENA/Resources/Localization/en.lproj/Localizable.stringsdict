@@ -248,7 +248,7 @@
 			<string>u</string>
 			<key>zero</key>
 			<!--Plural form for ZERO.-->
-			<string>No entry rules are currently available for the selected country and selected time for this certificate type. Please note the following:</string>
+			<string>There are currently no entry rules for the selected country and selected time for this certificate type. Please note the information listed below:</string>
 			<key>one</key>
 			<!--Plural form for ONE.-->
 			<string>%u rule of the destination country was checked successfully.</string>

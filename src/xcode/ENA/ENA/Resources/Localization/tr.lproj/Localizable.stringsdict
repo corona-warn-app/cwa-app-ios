@@ -248,7 +248,7 @@
 			<string>u</string>
 			<key>zero</key>
 			<!--Plural form for ZERO.-->
-			<string>Bu sertifika türü için seçilen ülke ve seçilen zamana ilişkin herhangi bir giriş kuralı bulunmamaktadır. Lütfen unutmayın:</string>
+			<string>Bu sertifika türü için seçilen ülke ve seçilen zamana ilişkin herhangi bir giriş kuralı bulunmamaktadır. Lütfen aşağıda listelenen bilgileri not edin:</string>
 			<key>one</key>
 			<!--Plural form for ONE.-->
 			<string>Gidilecek ülkenin %u kuralı başarıyla kontrol edildi.</string>

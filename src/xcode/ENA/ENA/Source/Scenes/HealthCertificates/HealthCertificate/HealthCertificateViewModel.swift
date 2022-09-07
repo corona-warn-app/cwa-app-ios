@@ -376,10 +376,10 @@ final class HealthCertificateViewModel {
 	}
 
 	private func updateGradient() {
-		if healthCertificate == healthCertifiedPerson.mostRelevantHealthCertificate &&
-			(healthCertificate.validityState == .valid || healthCertificate.validityState == .expiringSoon ||
-				(healthCertificate.validityState == .expired && healthCertificate.type == .test)) {
-			gradientType = healthCertifiedPerson.gradientType
+		if isMostRelevantCertificate, isCertificateValidOrExpiringSoon || isCertificateExpiredButOfTypeTest {
+			gradientType = healthCertifiedPerson.isMaskOptional
+				? .lightBlue
+				: healthCertifiedPerson.gradientType
 		} else {
 			gradientType = .solidGrey
 		}
@@ -387,6 +387,18 @@ final class HealthCertificateViewModel {
 
 	private func updateFooterView() {
 		isPrimaryFooterButtonEnabled = healthCertificate.validityState != .blocked && healthCertificate.validityState != .revoked
+	}
+
+	private var isMostRelevantCertificate: Bool {
+		healthCertificate == healthCertifiedPerson.mostRelevantHealthCertificate
+	}
+	
+	private var isCertificateValidOrExpiringSoon: Bool {
+		[.valid, .expiringSoon].contains(healthCertificate.validityState)
+	}
+	
+	private var isCertificateExpiredButOfTypeTest: Bool {
+		healthCertificate.validityState == .expired && healthCertificate.type == .test
 	}
 
 }
