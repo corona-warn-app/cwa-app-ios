@@ -3,8 +3,8 @@
 //
 
 import Foundation
-import jsonfunctions
-enum OTPAuthorizationELSError: LocalizedError, Equatable {
+
+enum OTPAuthorizationForELSError: LocalizedError, Equatable {
 
 	case generalError(underlyingError: Error? = nil)
 	case invalidResponseError
@@ -52,7 +52,7 @@ enum OTPAuthorizationELSError: LocalizedError, Equatable {
 		}
 	}
 
-	static func == (lhs: OTPAuthorizationELSError, rhs: OTPAuthorizationELSError) -> Bool {
+	static func == (lhs: OTPAuthorizationForELSError, rhs: OTPAuthorizationForELSError) -> Bool {
 		return lhs.description == rhs.description
 	}
 
@@ -60,6 +60,8 @@ enum OTPAuthorizationELSError: LocalizedError, Equatable {
 
 struct OTPAuthorizationForELSResource: Resource {
 	
+	// MARK: - Init
+
 	init(
 		otpEls: String,
 		ppacToken: PPACToken,
@@ -98,9 +100,9 @@ struct OTPAuthorizationForELSResource: Resource {
 	var receiveResource: JSONReceiveResource<OTPResponsePropertiesReceiveModel>
 	
 	func customError(
-		for error: ServiceError<OTPAuthorizationELSError>,
+		for error: ServiceError<OTPAuthorizationForELSError>,
 		responseBody: Data? = nil
-	) -> OTPAuthorizationELSError? {
+	) -> OTPAuthorizationForELSError? {
 		switch error {
 		case .transportationError:
 			return .noNetworkConnection
@@ -120,7 +122,10 @@ struct OTPAuthorizationForELSResource: Resource {
 			return .invalidResponseError
 		}
 	}
-	private func otpAuthorizationFailureHandler(for response: Data?, statusCode: Int) -> OTPAuthorizationELSError? {
+	
+	// MARK: - Private
+	
+	private func otpAuthorizationFailureHandler(for response: Data?, statusCode: Int) -> OTPAuthorizationForELSError? {
 		guard let responseBody = response else {
 			Log.error("Failed to get authorized OTP - no 200 status code", log: .api)
 			Log.error(String(statusCode), log: .api)
