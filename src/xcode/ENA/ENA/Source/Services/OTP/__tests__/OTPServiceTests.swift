@@ -5,8 +5,8 @@
 import XCTest
 @testable import ENA
 
-// swiftlint:disable:next type_body_length
 // swiftlint:disable file_length
+// swiftlint:disable:next type_body_length
 class OTPServiceTests: CWATestCase {
 
 	// MARK: - getValidOTPEdus
