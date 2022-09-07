@@ -45,7 +45,12 @@ class AdmissionStateTableViewCell: UITableViewCell, UITextViewDelegate, ReuseIde
 		faqLinkTextView.attributedText = cellModel.faqLink
 		faqLinkTextView.isHidden = (cellModel.faqLink?.string ?? "").isEmpty
 
-		roundedLabeledView.configure(title: cellModel.shortTitle, gradientType: cellModel.gradientType)
+		roundedLabeledView.configure(
+			title: cellModel.shortTitle,
+			gradientType: cellModel.gradientType,
+			accessibilityIdentifier: AccessibilityIdentifiers.HealthCertificate.AdmissionState.roundedView,
+			labelAccessibilityIdentifier: AccessibilityIdentifiers.HealthCertificate.AdmissionState.title
+		)
 		roundedLabeledView.isHidden = (cellModel.shortTitle ?? "").isEmpty
 		
 		unseenNewsIndicator.isHidden = !cellModel.isAdmissionStateChanged
@@ -89,7 +94,6 @@ class AdmissionStateTableViewCell: UITableViewCell, UITextViewDelegate, ReuseIde
 		titleStackView.axis = .vertical
 		titleStackView.distribution = .fill
 		titleStackView.alignment = .fill
-		titleStackView.spacing = 6
 
 		return titleStackView
 	}()
@@ -182,7 +186,7 @@ class AdmissionStateTableViewCell: UITableViewCell, UITextViewDelegate, ReuseIde
 
 		titleStackView.addArrangedSubview(mainTitleStackView)
 		titleStackView.addArrangedSubview(subtitleLabel)
-
+		
 		topStackView.addArrangedSubview(titleStackView)
 		topStackView.addArrangedSubview(roundedLabeledView)
 
@@ -197,6 +201,9 @@ class AdmissionStateTableViewCell: UITableViewCell, UITextViewDelegate, ReuseIde
 				backgroundContainerView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -4.0),
 				backgroundContainerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16.0),
 				backgroundContainerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16.0),
+
+				roundedLabeledView.widthAnchor.constraint(equalToConstant: 55),
+				roundedLabeledView.heightAnchor.constraint(equalToConstant: 31),
 
 				contentStackView.topAnchor.constraint(equalTo: backgroundContainerView.topAnchor, constant: 16.0),
 				contentStackView.bottomAnchor.constraint(equalTo: backgroundContainerView.bottomAnchor, constant: -16.0),

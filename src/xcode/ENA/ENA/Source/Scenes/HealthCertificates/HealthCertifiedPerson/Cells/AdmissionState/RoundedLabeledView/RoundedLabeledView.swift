@@ -17,12 +17,8 @@ class RoundedLabeledView: UIView {
 		gradientView.translatesAutoresizingMaskIntoConstraints = false
 		addSubview(gradientView)
 
-		titleLabel.setContentHuggingPriority(.required, for: .horizontal)
-		titleLabel.setContentHuggingPriority(.required, for: .vertical)
-		titleLabel.setContentCompressionResistancePriority(.init(rawValue: 999), for: .horizontal)
-		titleLabel.setContentCompressionResistancePriority(.init(rawValue: 760), for: .vertical)
-		titleLabel.translatesAutoresizingMaskIntoConstraints = false
-		gradientView.addSubview(titleLabel)
+		containerStackView.translatesAutoresizingMaskIntoConstraints = false
+		gradientView.addSubview(containerStackView)
 
 		NSLayoutConstraint.activate([
 			gradientView.leadingAnchor.constraint(equalTo: leadingAnchor),
@@ -30,17 +26,17 @@ class RoundedLabeledView: UIView {
 			gradientView.trailingAnchor.constraint(equalTo: trailingAnchor),
 			gradientView.bottomAnchor.constraint(equalTo: bottomAnchor),
 
-			titleLabel.leadingAnchor.constraint(equalTo: gradientView.leadingAnchor, constant: 12),
-			titleLabel.topAnchor.constraint(equalTo: gradientView.topAnchor, constant: 6),
-			titleLabel.trailingAnchor.constraint(equalTo: gradientView.trailingAnchor, constant: -12),
-			titleLabel.bottomAnchor.constraint(equalTo: gradientView.bottomAnchor, constant: -6)
+			imageView.widthAnchor.constraint(equalToConstant: 37),
+			imageView.heightAnchor.constraint(equalToConstant: 27),
+
+			containerStackView.leadingAnchor.constraint(equalTo: gradientView.leadingAnchor, constant: 12),
+			containerStackView.topAnchor.constraint(equalTo: gradientView.topAnchor, constant: 6),
+			containerStackView.trailingAnchor.constraint(equalTo: gradientView.trailingAnchor, constant: -12),
+			containerStackView.bottomAnchor.constraint(equalTo: gradientView.bottomAnchor, constant: -6)
 		])
 
 		titleLabel.font = .enaFont(for: .subheadline, weight: .semibold, italic: false)
 		titleLabel.textColor = .enaColor(for: .textContrast)
-
-		accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.AdmissionState.roundedView
-		titleLabel.accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.AdmissionState.title
 	}
 
 	required init?(coder: NSCoder) {
@@ -57,9 +53,28 @@ class RoundedLabeledView: UIView {
 
 	// MARK: - Internal
 
-	func configure(title: String?, gradientType: GradientView.GradientType) {
+	func configure(title: String?, fontColor: UIColor? = .enaColor(for: .textContrast), image: UIImage? = nil, gradientType: GradientView.GradientType, accessibilityIdentifier: String? = nil, labelAccessibilityIdentifier: String? = nil) {
 		titleLabel.text = title
+
+		titleLabel.textColor = fontColor
 		accessibilityLabel = title
+		
+		if accessibilityIdentifier != nil {
+			self.accessibilityIdentifier = accessibilityIdentifier
+		}
+		
+		if labelAccessibilityIdentifier != nil {
+			titleLabel.accessibilityIdentifier = labelAccessibilityIdentifier
+		}
+		
+		if image != nil {
+			imageView.isHidden = false
+			imageView.image = image
+			titleLabel.textAlignment = .left
+		} else {
+			imageView.isHidden = true
+			titleLabel.textAlignment = .center
+		}
 
 		gradientView.type = gradientType
 	}
@@ -68,5 +83,14 @@ class RoundedLabeledView: UIView {
 	
 	private var gradientView = GradientView(type: .solidGrey)
 	private var titleLabel = ENALabel()
+    private var imageView = UIImageView()
+	
+	private lazy var containerStackView: UIStackView = {
+		var containerStackView: UIStackView
+		containerStackView = UIStackView(arrangedSubviews: [imageView, titleLabel])
+		containerStackView.axis = .horizontal
+		containerStackView.spacing = 4.0
 
+		return containerStackView
+	}()
 }

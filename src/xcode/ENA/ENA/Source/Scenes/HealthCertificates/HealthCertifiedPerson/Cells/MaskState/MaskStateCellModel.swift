@@ -1,15 +1,13 @@
-////
+//
 // 🦠 Corona-Warn-App
 //
 
-import Foundation
-import OpenCombine
 import UIKit.UIFont
 
-final class VaccinationStateCellModel {
-
+class MaskStateCellModel {
+	
 	// MARK: - Init
-
+	
 	init(
 		healthCertifiedPerson: HealthCertifiedPerson,
 		cclService: CCLServable
@@ -17,27 +15,36 @@ final class VaccinationStateCellModel {
 		self.healthCertifiedPerson = healthCertifiedPerson
 		self.cclService = cclService
 	}
-
+	
 	// MARK: - Internal
-
+	
 	var title: String? {
-		healthCertifiedPerson.dccWalletInfo?.vaccinationState.titleText?.localized(cclService: cclService)
+		healthCertifiedPerson.dccWalletInfo?.maskState.titleText?.localized(cclService: cclService)
 	}
-
+	
 	var subtitle: String? {
-		healthCertifiedPerson.dccWalletInfo?.vaccinationState.subtitleText?.localized(cclService: cclService)
+		healthCertifiedPerson.dccWalletInfo?.maskState.subtitleText?.localized(cclService: cclService)
 	}
-
+	
+	var badgeImage: UIImage? {
+		switch healthCertifiedPerson.dccWalletInfo?.maskState.identifier {
+		case .maskRequired:
+			return UIImage(named: "Badge_mask")
+		default:
+			return UIImage(named: "Badge_nomask")
+		}
+	}
+	
 	var description: String? {
-		healthCertifiedPerson.dccWalletInfo?.vaccinationState.longText?.localized(cclService: cclService)
+		healthCertifiedPerson.dccWalletInfo?.maskState.longText?.localized(cclService: cclService)
 	}
-
+	
 	var faqLink: NSAttributedString? {
-		guard let faqAnchor = healthCertifiedPerson.dccWalletInfo?.vaccinationState.faqAnchor else {
+		guard let faqAnchor = healthCertifiedPerson.dccWalletInfo?.maskState.faqAnchor else {
 			return nil
 		}
 
-		let linkText = AppStrings.HealthCertificate.Person.faq
+		let linkText = AppStrings.HealthCertificate.Person.faqMaskState
 
 		let textAttributes: [NSAttributedString.Key: Any] = [
 			.font: UIFont.preferredFont(forTextStyle: ENAFont.body.textStyle)
@@ -59,9 +66,9 @@ final class VaccinationStateCellModel {
 
 		return attributedString
 	}
-
+	
 	// MARK: - Private
-
+	
 	private let healthCertifiedPerson: HealthCertifiedPerson
 	private let cclService: CCLServable
 }

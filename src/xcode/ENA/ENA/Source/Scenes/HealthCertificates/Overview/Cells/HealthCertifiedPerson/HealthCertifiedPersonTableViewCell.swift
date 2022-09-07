@@ -72,9 +72,25 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 			captionStackView.arrangedSubviews.forEach { $0.isHidden = true }
 		}
 
-		admissionStateStackView.isHidden = !cellModel.isStatusTitleVisible
-		admissionStateView.configure(title: cellModel.shortStatus, gradientType: cellModel.backgroundGradientType)
-
+		admissionStateView.isHidden = !cellModel.isShortAdmissionStatusVisible
+		admissionStateView.configure(
+			title: cellModel.shortAdmissionStatus,
+			gradientType: cellModel.gradientForAdmissionState,
+			accessibilityIdentifier: AccessibilityIdentifiers.HealthCertificate.AdmissionState.roundedView,
+			labelAccessibilityIdentifier: AccessibilityIdentifiers.HealthCertificate.AdmissionState.title
+		)
+		
+		maskStateView.isHidden = !cellModel.isMaskStatusVisible
+		maskStateView.configure(
+			title: cellModel.maskStatus,
+			fontColor: cellModel.fontColorForMaskState,
+			image: cellModel.imageForMaskState,
+			gradientType: cellModel.gradientForMaskState,
+			accessibilityIdentifier: AccessibilityIdentifiers.HealthCertificate.MaskState.roundedView,
+			labelAccessibilityIdentifier: AccessibilityIdentifiers.HealthCertificate.MaskState.title
+		)
+		 
+		maskAdmissionStatesView.isHidden = !cellModel.isShortAdmissionStatusVisible && !cellModel.isMaskStatusVisible
 		segmentedControl.isHidden = cellModel.switchableHealthCertificates.isEmpty
 
 		segmentedControl.removeAllSegments()
@@ -91,7 +107,8 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 		}
 
 		setupAccessibility(
-			admissionStateIsVisible: cellModel.isStatusTitleVisible,
+			maskStateIsVisible: cellModel.isMaskStatusVisible,
+			admissionStateIsVisible: cellModel.isShortAdmissionStatusVisible,
 			segmentedControlIsVisible: !cellModel.switchableHealthCertificates.isEmpty,
 			validityStateTitleIsVisible: cellModel.caption != nil
 		)
@@ -171,33 +188,18 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 	}()
 
 	private lazy var qrCodeContainerStackView: UIStackView = {
-		let stackView = UIStackView(arrangedSubviews: [admissionStateStackView, qrCodeView, segmentedControl])
+		let stackView = UIStackView(arrangedSubviews: [maskAdmissionStatesView, qrCodeView, segmentedControl])
 		stackView.axis = .vertical
 		stackView.spacing = 14.0
 
 		return stackView
 	}()
 
-	private lazy var admissionStateStackView: UIStackView = {
-		let stackView = AccessibleStackView(arrangedSubviews: [admissionStateTitleLabel, admissionStateView])
-		stackView.spacing = 8.0
-		stackView.alignment = .center
-
-		return stackView
-	}()
-
-	private let admissionStateTitleLabel: ENALabel = {
-		let admissionStateTitleLabel = ENALabel(style: .headline)
-		admissionStateTitleLabel.numberOfLines = 0
-		admissionStateTitleLabel.textColor = .enaColor(for: .textPrimary1)
-		admissionStateTitleLabel.text = AppStrings.HealthCertificate.Overview.admissionStateTitle
-		admissionStateTitleLabel.setContentCompressionResistancePriority(.init(rawValue: 998), for: .horizontal)
-
-		return admissionStateTitleLabel
-	}()
-
 	private lazy var admissionStateView = RoundedLabeledView()
+	private lazy var maskStateView = RoundedLabeledView()
 
+	private lazy var maskAdmissionStatesView = UIView()
+	
 	private let qrCodeView = HealthCertificateQRCodeView()
 
 	private lazy var segmentedControl: UISegmentedControl = {
@@ -294,14 +296,19 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 	private var cellModel: HealthCertifiedPersonCellModel?
 
 	private func setupAccessibility(
+		maskStateIsVisible: Bool,
 		admissionStateIsVisible: Bool,
 		segmentedControlIsVisible: Bool,
 		validityStateTitleIsVisible: Bool
 	) {
 		cardView.accessibilityElements = [titleLabel, nameLabel]
 
+		if maskStateIsVisible {
+			cardView.accessibilityElements?.append(maskStateView)
+		}
+		
 		if admissionStateIsVisible {
-			cardView.accessibilityElements?.append(admissionStateStackView)
+			cardView.accessibilityElements?.append(admissionStateView)
 		}
 
 		cardView.accessibilityElements?.append(qrCodeView)
@@ -339,6 +346,12 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 		qrCodeContainerView.translatesAutoresizingMaskIntoConstraints = false
 		cardView.addSubview(qrCodeContainerView)
 
+		maskStateView.translatesAutoresizingMaskIntoConstraints = false
+		maskAdmissionStatesView.addSubview(maskStateView)
+		
+		admissionStateView.translatesAutoresizingMaskIntoConstraints = false
+		maskAdmissionStatesView.addSubview(admissionStateView)
+		
 		qrCodeContainerStackView.translatesAutoresizingMaskIntoConstraints = false
 		qrCodeContainerView.addSubview(qrCodeContainerStackView)
 
@@ -377,6 +390,16 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 				titleStackView.topAnchor.constraint(equalTo: gradientView.topAnchor, constant: 20.0),
 				titleStackView.trailingAnchor.constraint(equalTo: accessoryIconView.leadingAnchor, constant: 8.0),
 
+				maskStateView.leadingAnchor.constraint(equalTo: maskAdmissionStatesView.leadingAnchor),
+				maskStateView.topAnchor.constraint(equalTo: maskAdmissionStatesView.topAnchor),
+				maskStateView.bottomAnchor.constraint(equalTo: maskAdmissionStatesView.bottomAnchor),
+				maskStateView.widthAnchor.constraint(equalTo: maskAdmissionStatesView.widthAnchor, multiplier: 0.78),
+				
+				admissionStateView.trailingAnchor.constraint(equalTo: maskAdmissionStatesView.trailingAnchor),
+				admissionStateView.topAnchor.constraint(equalTo: maskAdmissionStatesView.topAnchor),
+				admissionStateView.bottomAnchor.constraint(equalTo: maskAdmissionStatesView.bottomAnchor),
+				admissionStateView.widthAnchor.constraint(equalTo: maskAdmissionStatesView.widthAnchor, multiplier: 0.20),
+				
 				qrCodeContainerView.leadingAnchor.constraint(equalTo: cardView.leadingAnchor, constant: 16.0),
 				qrCodeContainerView.topAnchor.constraint(equalTo: titleStackView.bottomAnchor, constant: 20.0),
 				qrCodeContainerView.trailingAnchor.constraint(equalTo: cardView.trailingAnchor, constant: -16.0),
@@ -411,7 +434,7 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 		bottomView.layer.borderColor = UIColor.enaColor(for: .cardBorder).cgColor
 		qrCodeContainerView.layer.borderColor = UIColor.enaColor(for: .cardBorder).cgColor
 	}
-
+	
 	@objc
 	func segmentedControlValueChanged(_ sender: UISegmentedControl) {
 		cellModel?.showHealthCertificate(at: sender.selectedSegmentIndex)

@@ -173,7 +173,7 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 			}
 		}
 	}
-
+	
 	@DidSetPublished var gradientType: GradientView.GradientType = .lightBlue
 
 	@DidSetPublished var dccWalletInfo: DCCWalletInfo? {
@@ -287,6 +287,14 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 		(dccWalletInfo?.mostRelevantCertificate).flatMap { self.healthCertificate(for: $0.certificateRef) } ?? healthCertificates.fallback
 	}
 
+	var isMaskOptional: Bool {
+		guard let maskState = dccWalletInfo?.maskState else {
+			return false
+		}
+		
+		return maskState.visible && maskState.identifier == .maskOptional
+	}
+	
 	var needsDCCWalletInfoUpdate: Bool {
 		let now = Date()
 
