@@ -449,6 +449,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	private lazy var otpService: OTPServiceProviding = OTPService(
 		store: store,
 		client: client,
+		restServiceProvider: restServiceProvider,
 		riskProvider: riskProvider
 	)
 	

@@ -28,7 +28,7 @@ enum SurveyError: Error {
 
 	init(otpError: OTPError) {
 		switch otpError {
-		case .generalError, .invalidResponseError, .internalServerError, .otherServerError, .apiTokenExpired, .deviceTokenInvalid, .deviceTokenRedeemed, .deviceTokenSyntaxError, .noNetworkConnection:
+		case .generalError, .invalidResponseError, .internalServerError, .otherServerError, .apiTokenExpired, .deviceTokenInvalid, .deviceTokenRedeemed, .deviceTokenSyntaxError, .noNetworkConnection, .restServiceError:
 			self = .tryAgainLater(otpError.description)
 		case .apiTokenAlreadyIssued, .otpAlreadyUsedThisMonth:
 			self = .tryAgainNextMonth(otpError.description)

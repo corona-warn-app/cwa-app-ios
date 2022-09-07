@@ -10,7 +10,12 @@ class SurveyURLServiceTests: CWATestCase {
 	func test_WHEN_getURLIsCalled_THEN_aURLIsReturned() {
 		let store = MockTestStore()
 		let client = ClientMock()
-		let otpService = OTPService(store: store, client: client, riskProvider: MockRiskProvider())
+		let otpService = OTPService(
+			store: store,
+			client: client,
+			restServiceProvider: RestServiceProviderStub(),
+			riskProvider: MockRiskProvider()
+		)
 
 		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "SomeToken")
 		let ppacService = PPACService(store: store, deviceCheck: deviceCheck)
