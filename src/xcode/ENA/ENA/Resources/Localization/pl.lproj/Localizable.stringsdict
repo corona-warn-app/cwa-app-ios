@@ -250,7 +250,7 @@ Sprawdzanie narażeń jest wiarygodne tylko wtedy, gdy rejestrowanie narażenia 
 			<string>u</string>
 			<key>zero</key>
 			<!--Plural form for ZERO.-->
-			<string>Nie są obecnie dostępne żadne zasady dotyczące wjazdu do wybranego kraju i wybranego czasu dla tego typu certyfikatu. Zwróć uwagę na następujące kwestie:</string>
+			<string>Obecnie nie obowiązują żadne zasady dotyczące wjazdu do wybranego kraju i wybranego czasu dla tego typu certyfikatu. Zapoznaj się z poniższymi informacjami:</string>
 			<key>one</key>
 			<!--Plural form for ONE.-->
 			<string>%u zasada obowiązująca w kraju docelowym została pomyślnie sprawdzona.</string>
