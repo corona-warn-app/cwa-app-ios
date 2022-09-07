@@ -300,7 +300,7 @@
 
 "Settings_Reset_Label" = "Resetați aplicația";
 
-"Settings_Tracing_Description" = "Permiteți generarea și trimiterea de ID-uri aleatorii de COVID-19.";
+"Settings_Tracing_Description" = "Permiteți înregistrarea și trimiterea de ID-uri aleatorii de COVID-19.";
 
 "Settings_Notification_Description" = "Permiteți notificările automate privind starea riscului dvs. de infectare cu COVID-19.";
 
@@ -343,7 +343,7 @@
 
 "NotificationSettings_BulletHeadlineOn" = "Gestionare notificări";
 
-"NotificationSettings_BulletHeadlineOff" = "Gestionare notificări";
+"NotificationSettings_BulletHeadlineOff" = "Activați notificările";
 
 "NotificationSettings_BulletDescOn" = "Puteți defini următoarele setări aici:";
 
@@ -481,7 +481,7 @@
 
 "OnboardingInfo_howDoesDataExchangeWorkPage_boldText" = "Dacă primiți un rezultat pozitiv al testului, vă rugăm să raportați acest lucru în aplicație. Împărtășirea rezultatului testului este voluntară și sigură. Vă rugăm să faceți acest lucru pentru binele celorlalți.";
 
-"OnboardingInfo_howDoesDataExchangeWorkPage_normalText" = "Notificarea dvs. este criptată în mod securizat și este prelucrată pe un server sigur. Persoanele ale căror ID-uri aleatorii criptate au fost colectate de dispozitivul dvs. vor primi acum o avertizare împreună cu informații despre pașii de urmat.";
+"OnboardingInfo_howDoesDataExchangeWorkPage_normalText" = "Notificarea dvs. este criptată în mod securizat și este prelucrată pe un server sigur. Persoanele ale căror ID-uri aleatorii criptate au fost colectate de smartphone-ul dvs. vor primi acum o avertizare împreună cu informații despre pașii de urmat.";
 
 "OnboardingInfo_alwaysStayInformedPage_imageDescription" = "O femeie primește o notificare de la Corona-Warn-App.";
 
@@ -1651,10 +1651,15 @@
 
 "DeltaOnboarding_NewVersionFeatures_Button_Continue" = "Înainte";
 
-"DeltaOnboarding_NewVersionFeatures_Description" = "Această actualizare corectează erori din aplicație. Nu conține caracteristici noi.";
+"DeltaOnboarding_NewVersionFeatures_Description" = "Pe lângă remedierile de erori, această actualizare include și caracteristici noi și îmbunătățiri.";
 
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Modificările din această versiune pot fi găsite în informațiile aplicației, la „Caracteristici noi”.";
+
+/* Version 2.27 */
+"NewVersionFeature_227_wear_mask_title" = "Afișarea scutirii de purtare a măștii";
+
+"NewVersionFeature_227_wear_mask_description" = "Certificatul COVID digital indică dacă sunteți scutit să purtați masca, în conformitate cu regulile valabile în prezent, sau dacă este obligatoriu să purtați masca.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Înregistrare transnațională a expunerilor în jurnal";
@@ -2139,7 +2144,7 @@
 
 "Statistics_Info_Local7Days_Text" = "Numărul total de infectări noi confirmate în ultimele 7 zile (după data de raportare) la 100.000 de locuitori în districtul sau statul federal configurat.\nData spitalizării se referă la statul german corespondent.";
 
-"Statistics_Info_NewInfection_Title" = "Infecții noi confirmate";
+"Statistics_Info_NewInfection_Title" = "Infectări noi";
 
 "Statistics_Info_NewInfection_Text" = "Numărul total de infecții noi confirmate în ultimele 7 zile (după data de raportare) la 100.000 de locuitori.";
 
@@ -2153,7 +2158,7 @@
 
 "Statistics_Info_Infections_Title" = "Infecții noi confirmate";
 
-"Statistics_Info_Infections_Text" = "Numărul de persoane care au fost diagnosticate cu coronavirus și raportate la RKI.";
+"Statistics_Info_Infections_Text" = "Numărul de persoane care au fost diagnosticate cu coronavirus și raportate la RKI. Numerele sub pragul de 1% a mediei pe 7 zile nu sunt afișate. Vedeți și explicațiile din secțiunea Legendă > Perioadă de timp.";
 
 "Statistics_Info_KeySubmissions_Title" = "Avertizări de la utilizatorii aplicației";
 
@@ -2189,7 +2194,7 @@
 
 "Statistics_Info_Yesterday_Title" = "Ieri/Până ieri";
 
-"Statistics_Info_Yesterday_Text" = "Numărul pentru ziua anterioară/până la ziua anterioară. Dacă încă nu sunt disponibile cifrele pentru ziua anterioară, este afișată ultima dată pentru care sunt disponibile cifrele.";
+"Statistics_Info_Yesterday_Text" = "Pentru „Ieri/Până ieri”, este afișat numărul pentru ziua anterioară/până la ziua anterioară. Dacă încă nu sunt disponibile cifrele pentru ziua anterioară, de exemplu, din cauză că puține autorități de sănătate publică trimit acum datele la RKI în weekend și în zilele de sărbătoare legală, este afișată ultima dată pentru care sunt disponibile cifrele.";
 
 "Statistics_Info_Mean_Title" = "Media pe 7 zile";
 
@@ -3295,6 +3300,8 @@
 
 "UniversalQRScanner_InstructionDescription" = "Testele, certificatele dvs., check-inurile și verificarea la emiterea biletului";
 
+"UniversalQRScanner_InstructionDescriptionWarnOthers" = "Puteți scana check-inurile pentru a restaura evenimentele pe care le-ați șters.";
+
 "UniversalQRScanner_FileButtonTitle" = "Deschidere fișier";
 
 "UniversalQRScanner_CameraFlash" = "Bliț cameră";
@@ -3438,7 +3445,7 @@
 
 "RecycleBin_deleteAllButtonTitle" = "Ștergere definitivă tot";
 
-"RecycleBin_expirationDateTime" = "se va șterge definitiv pe %@ la %@";
+"RecycleBin_expirationDateTime" = "Se va șterge definitiv pe %@ la %@";
 
 /* - Vaccination Certificate */
 "RecycleBin_VaccinationCertificate_headline" = "Certificat de vaccinare";

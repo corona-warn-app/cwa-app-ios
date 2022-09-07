@@ -248,7 +248,7 @@
 			<string>u</string>
 			<key>zero</key>
 			<!--Plural form for ZERO.-->
-			<string>În prezent nu sunt disponibile reguli de intrare pentru țara selectată și ora selectată pentru acest tip de certificat. Rețineți următoarele:</string>
+			<string>În prezent nu există reguli de intrare pentru țara selectată și ora selectată pentru acest tip de certificat. Rețineți informațiile enumerate mai jos:</string>
 			<key>one</key>
 			<!--Plural form for ONE.-->
 			<string>%u regulă a țării de destinație a fost verificată cu succes.</string>
