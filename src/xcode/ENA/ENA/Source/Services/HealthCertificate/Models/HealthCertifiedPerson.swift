@@ -287,7 +287,7 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 		(dccWalletInfo?.mostRelevantCertificate).flatMap { self.healthCertificate(for: $0.certificateRef) } ?? healthCertificates.fallback
 	}
 
-	var IsMaskOptional: Bool {
+	var isMaskOptional: Bool {
 		guard let maskState = dccWalletInfo?.maskState else {
 			return false
 		}
