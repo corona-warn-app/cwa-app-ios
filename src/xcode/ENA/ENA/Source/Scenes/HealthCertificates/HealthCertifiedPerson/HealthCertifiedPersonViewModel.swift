@@ -157,7 +157,7 @@ final class HealthCertifiedPersonViewModel {
 		healthCertifiedPerson.dccWalletInfo?.admissionState.visible ?? false
 	}
 
-	var maskStakeIsVisible: Bool {
+	var maskStateIsVisible: Bool {
 		healthCertifiedPerson.dccWalletInfo?.maskState.visible ?? false
 	}
 
@@ -168,7 +168,7 @@ final class HealthCertifiedPersonViewModel {
 	}
 	
 	var topMostCell: TableViewSection {
-		if maskStakeIsVisible {
+		if maskStateIsVisible {
 			return .maskState
 		} else if admissionStateIsVisible {
 			return .admissionState
@@ -188,7 +188,7 @@ final class HealthCertifiedPersonViewModel {
 		case .header:
 			return 1
 		case .maskState:
-			return maskStakeIsVisible ? 1 : 0
+			return maskStateIsVisible ? 1 : 0
 		case .admissionState:
 			return admissionStateIsVisible ? 1 : 0
 		case .certificateReissuance:
