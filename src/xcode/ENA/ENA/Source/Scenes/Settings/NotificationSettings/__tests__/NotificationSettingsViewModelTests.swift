@@ -46,7 +46,7 @@ class NotificationSettingsViewModelTests: CWATestCase {
 		XCTAssertEqual(numberOfSections, 3)
 		XCTAssertEqual(numberOfRowsInSection0, 1)
 		XCTAssertEqual(numberOfRowsInSection1, 2)
-		XCTAssertEqual(numberOfRowsInSection2, 5)
+		XCTAssertEqual(numberOfRowsInSection2, 4)
 	}
 	
 }
