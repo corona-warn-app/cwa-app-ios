@@ -151,7 +151,6 @@ class NotificationSettingsViewModel {
 				.section(
 					background: .greyBoxed,
 					cells: [
-						.space(height: 5),
 						.icon(
 							UIImage(imageLiteralResourceName: "Icons_iOS_Mitteilungen"),
 							imageAlignment: .right,
