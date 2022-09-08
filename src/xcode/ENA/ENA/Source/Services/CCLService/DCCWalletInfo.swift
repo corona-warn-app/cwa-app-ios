@@ -17,7 +17,7 @@ struct DCCWalletInfo: Codable, Equatable {
 
 	let admissionState: DCCAdmissionState
 	let vaccinationState: DCCVaccinationState
-	let maskState: DCCMaskState
+	let maskState: DCCMaskState?
 	let boosterNotification: DCCBoosterNotification
 	let mostRelevantCertificate: DCCCertificateContainer
 	let verification: DCCVerification

@@ -19,15 +19,15 @@ class MaskStateCellModel {
 	// MARK: - Internal
 	
 	var title: String? {
-		healthCertifiedPerson.dccWalletInfo?.maskState.titleText?.localized(cclService: cclService)
+		healthCertifiedPerson.dccWalletInfo?.maskState?.titleText?.localized(cclService: cclService)
 	}
 	
 	var subtitle: String? {
-		healthCertifiedPerson.dccWalletInfo?.maskState.subtitleText?.localized(cclService: cclService)
+		healthCertifiedPerson.dccWalletInfo?.maskState?.subtitleText?.localized(cclService: cclService)
 	}
 	
 	var badgeImage: UIImage? {
-		switch healthCertifiedPerson.dccWalletInfo?.maskState.identifier {
+		switch healthCertifiedPerson.dccWalletInfo?.maskState?.identifier {
 		case .maskRequired:
 			return UIImage(named: "Badge_mask")
 		default:
@@ -36,11 +36,11 @@ class MaskStateCellModel {
 	}
 	
 	var description: String? {
-		healthCertifiedPerson.dccWalletInfo?.maskState.longText?.localized(cclService: cclService)
+		healthCertifiedPerson.dccWalletInfo?.maskState?.longText?.localized(cclService: cclService)
 	}
 	
 	var faqLink: NSAttributedString? {
-		guard let faqAnchor = healthCertifiedPerson.dccWalletInfo?.maskState.faqAnchor else {
+		guard let faqAnchor = healthCertifiedPerson.dccWalletInfo?.maskState?.faqAnchor else {
 			return nil
 		}
 
