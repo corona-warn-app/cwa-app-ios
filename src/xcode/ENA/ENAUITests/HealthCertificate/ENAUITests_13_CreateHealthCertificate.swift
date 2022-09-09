@@ -736,7 +736,7 @@ class ENAUITests_13_CreateHealthCertificate: CWATestCase {
 		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.HealthCertificate.MaskState.subtitle].exists)
 		XCTAssertTrue(app.images[AccessibilityIdentifiers.HealthCertificate.MaskState.badgeImage].exists)
 		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.HealthCertificate.MaskState.description].exists)
-		XCTAssertTrue(app.links[AccessibilityIdentifiers.HealthCertificate.MaskState.faq].exists)
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.HealthCertificate.MaskState.faq].exists)
 		
 		snapshot("screenshot_mask_required_certificate_detail_part1")
 		
@@ -763,7 +763,7 @@ class ENAUITests_13_CreateHealthCertificate: CWATestCase {
 		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.HealthCertificate.MaskState.subtitle].exists)
 		XCTAssertTrue(app.images[AccessibilityIdentifiers.HealthCertificate.MaskState.badgeImage].exists)
 		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.HealthCertificate.MaskState.description].exists)
-		XCTAssertTrue(app.links[AccessibilityIdentifiers.HealthCertificate.MaskState.faq].exists)
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.HealthCertificate.MaskState.faq].exists)
 		
 		snapshot("screenshot_mask_optional_certificate_detail_part1")
 		
