@@ -214,6 +214,26 @@ class ENAUITests_13_CreateHealthCertificate: CWATestCase {
 		app.cells[AccessibilityIdentifiers.HealthCertificate.Person.certificateCell].waitAndTap()
 	}
 	
+	func test_RecoveryCertificateExpiring() throws {
+		app.setLaunchArgument(LaunchArguments.healthCertificate.isCertificateExpiring, to: true)
+		app.setLaunchArgument(LaunchArguments.infoScreen.healthCertificateInfoScreenShown, to: true)
+		app.setLaunchArgument(LaunchArguments.healthCertificate.recoveryCertificateRegistered, to: true)
+		app.launch()
+		
+		// Navigate to Certificates Tab.
+		app.buttons[AccessibilityIdentifiers.TabBar.certificates].waitAndTap()
+		
+		// Navigate to the person screen
+		app.cells[AccessibilityIdentifiers.HealthCertificate.Overview.healthCertifiedPersonCell].waitAndTap()
+		
+		app.swipeUp(velocity: .slow)
+		
+		// Navigatate to recovery certificate details screen
+		app.cells[AccessibilityIdentifiers.HealthCertificate.Person.certificateCell].waitAndTap()
+		
+		app.swipeUp(velocity: .slow)
+	}
+	
 	func test_CompleteVaccinationProtectionWithTestCertificate() throws {
 		app.setLaunchArgument(LaunchArguments.healthCertificate.firstAndSecondHealthCertificate, to: true)
 		app.setLaunchArgument(LaunchArguments.infoScreen.healthCertificateInfoScreenShown, to: true)
@@ -269,17 +289,17 @@ class ENAUITests_13_CreateHealthCertificate: CWATestCase {
 		app.launch()
 		
 		// Navigate to Certificates Tab.
-		app.buttons[AccessibilityIdentifiers.TabBar.certificates].waitAndTap(.medium)
+		app.buttons[AccessibilityIdentifiers.TabBar.certificates].waitAndTap()
 		
 		// Navigate to Persons Tab.
 		app.cells[AccessibilityIdentifiers.HealthCertificate.Overview.healthCertifiedPersonCell].waitAndTap()
 		
-		XCTAssertTrue(app.otherElements[AccessibilityIdentifiers.HealthCertificate.MaskState.roundedView].waitForExistence(timeout: .short))
-		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.HealthCertificate.MaskState.title].waitForExistence(timeout: .short))
-		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.HealthCertificate.MaskState.subtitle].waitForExistence(timeout: .short))
-		 XCTAssertTrue(app.images[AccessibilityIdentifiers.HealthCertificate.MaskState.badgeImage].waitForExistence(timeout: .short))
-		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.HealthCertificate.MaskState.description].waitForExistence(timeout: .short))
-		XCTAssertTrue(app.links[AccessibilityIdentifiers.HealthCertificate.MaskState.faq].waitForExistence(timeout: .short))
+		XCTAssertTrue(app.otherElements[AccessibilityIdentifiers.HealthCertificate.MaskState.roundedView].waitForExistence(timeout: .medium))
+		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.HealthCertificate.MaskState.title].waitForExistence(timeout: .medium))
+		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.HealthCertificate.MaskState.subtitle].waitForExistence(timeout: .medium))
+		XCTAssertTrue(app.images[AccessibilityIdentifiers.HealthCertificate.MaskState.badgeImage].waitForExistence(timeout: .medium))
+		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.HealthCertificate.MaskState.description].waitForExistence(timeout: .medium))
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.HealthCertificate.MaskState.faq].waitForExistence(timeout: .medium))
 	}
 	
 	func test_CheckinFromCertificatesTabWithInfoScreen() throws {
@@ -344,40 +364,20 @@ class ENAUITests_13_CreateHealthCertificate: CWATestCase {
 		XCTAssertTrue(app.staticTexts[AccessibilityLabels.localized(AppStrings.ExposureSubmissionQRInfo.title)].waitForExistence(timeout: .short))
 	}
 	
-	func test_RecoveryCertificateExpiring() throws {
-		app.setLaunchArgument(LaunchArguments.healthCertificate.isCertificateExpiring, to: true)
-		app.setLaunchArgument(LaunchArguments.infoScreen.healthCertificateInfoScreenShown, to: true)
-		app.setLaunchArgument(LaunchArguments.healthCertificate.recoveryCertificateRegistered, to: true)
-		app.launch()
-		
-		// Navigate to Certificates Tab.
-		app.buttons[AccessibilityIdentifiers.TabBar.certificates].waitAndTap()
-		
-		// Navigate to the person screen
-		app.cells[AccessibilityIdentifiers.HealthCertificate.Overview.healthCertifiedPersonCell].waitAndTap()
-		
-		app.swipeUp(velocity: .slow)
-		
-		// Navigatate to recovery certificate details screen
-		app.cells[AccessibilityIdentifiers.HealthCertificate.Person.certificateCell].waitAndTap()
-		
-		app.swipeUp(velocity: .slow)
-	}
-	
 	func test_HealthCertificate_FederalState_Flow() throws {
 		app.setLaunchArgument(LaunchArguments.healthCertificate.firstAndSecondHealthCertificate, to: true)
 		app.setLaunchArgument(LaunchArguments.healthCertificate.isDCCAdmissionCheckScenariosEnabled, to: true)
 		app.setLaunchArgument(LaunchArguments.infoScreen.healthCertificateInfoScreenShown, to: true)
 		app.launch()
-
+		
 		app.buttons[AccessibilityIdentifiers.TabBar.certificates].waitAndTap()
-
+		
 		// Check if the selection button exists
 		let selectionButtonCell = try XCTUnwrap(app.cells[AccessibilityIdentifiers.HealthCertificate.Overview.changeAdmissionScenarioCell])
 		
 		// Navigate to the scenario selection screen
 		selectionButtonCell.waitAndTap()
-
+		
 		// Select federal state Berlin
 		app.cells.element(boundBy: 2).waitAndTap()
 		
@@ -385,7 +385,7 @@ class ENAUITests_13_CreateHealthCertificate: CWATestCase {
 		let selectedStateButton = try XCTUnwrap(app.buttons[app.localized("FederalState_Berlin")])
 		XCTAssertTrue(selectedStateButton.waitForExistence(timeout: .medium))
 	}
-	
+
 	// MARK: - Screenshots
 	
 	func test_screenshot_shownConsentScreenAndDisclaimer() throws {
@@ -462,19 +462,6 @@ class ENAUITests_13_CreateHealthCertificate: CWATestCase {
 		XCTAssertEqual(app.cells.matching(identifier: AccessibilityIdentifiers.HealthCertificate.Person.certificateCell).count, 2)
 	}
 	
-	func test_screenshot_ExportCertificatesTooltip() throws {
-		app.setLaunchArgument(LaunchArguments.infoScreen.healthCertificateInfoScreenShown, to: true)
-		app.setLaunchArgument(LaunchArguments.healthCertificate.recoveryCertificateRegistered, to: true)
-		app.setLaunchArgument(LaunchArguments.healthCertificate.shouldShowExportCertificatesTooltip, to: true)
-		app.launch()
-		
-		// Navigate to Certificates Tab.
-		app.buttons[AccessibilityIdentifiers.TabBar.certificates].waitAndTap()
-		
-		XCTAssertTrue(app.staticTexts[AccessibilityLabels.localized(AppStrings.Tooltip.ExportCertificates.title)].waitForExistence(timeout: .medium))
-		XCTAssertTrue(app.staticTexts[AccessibilityLabels.localized(AppStrings.Tooltip.ExportCertificates.description)].waitForExistence(timeout: .short))
-	}
-	
 	func test_screenshot_HealthCertificate_printPDF() throws {
 		app.setLaunchArgument(LaunchArguments.healthCertificate.firstAndSecondHealthCertificate, to: true)
 		app.setLaunchArgument(LaunchArguments.healthCertificate.firstAndSecondHealthCertificateIssuerDE, to: true)
@@ -524,8 +511,7 @@ class ENAUITests_13_CreateHealthCertificate: CWATestCase {
 		// Navigate to the person screen
 		app.cells[AccessibilityIdentifiers.HealthCertificate.Overview.healthCertifiedPersonCell].waitAndTap()
 		
-		snapshot("screenshot_test_certificate_valid_overview_part1")
-		app.swipeUp(velocity: .slow)
+		snapshot("screenshot_test_certificate_valid_overview")
 
 		// Navigate to test certificate details screen
 		app.cells[AccessibilityIdentifiers.HealthCertificate.Person.certificateCell].waitAndTap()
@@ -546,8 +532,7 @@ class ENAUITests_13_CreateHealthCertificate: CWATestCase {
 		// Navigate to the person screen
 		app.cells[AccessibilityIdentifiers.HealthCertificate.Overview.healthCertifiedPersonCell].waitAndTap()
 
-		snapshot("screenshot_recovery_certificate_valid_overview_part1")
-		app.swipeUp(velocity: .slow)
+		snapshot("screenshot_recovery_certificate_valid_overview")
 	
 		// Navigatate to recovery certificate details screen
 		app.cells[AccessibilityIdentifiers.HealthCertificate.Person.certificateCell].waitAndTap()
@@ -556,7 +541,6 @@ class ENAUITests_13_CreateHealthCertificate: CWATestCase {
 		app.swipeUp(velocity: .slow)
 		snapshot("screenshot_recovery_certificate_valid_details_part2")
 	}
-
 	
 	func test_screenshot_RecoveryCertificateExpired() throws {
 		app.setLaunchArgument(LaunchArguments.healthCertificate.hasCertificateExpired, to: true)
@@ -569,8 +553,6 @@ class ENAUITests_13_CreateHealthCertificate: CWATestCase {
 
 		// Navigate to the person screen
 		app.cells[AccessibilityIdentifiers.HealthCertificate.Overview.healthCertifiedPersonCell].waitAndTap()
-
-		app.swipeUp(velocity: .slow)
 	
 		// Navigatate to recovery certificate details screen
 		app.cells[AccessibilityIdentifiers.HealthCertificate.Person.certificateCell].waitAndTap()
@@ -616,8 +598,6 @@ class ENAUITests_13_CreateHealthCertificate: CWATestCase {
 
 		// Navigate to Certificates Tab.
 		app.buttons[AccessibilityIdentifiers.TabBar.certificates].waitAndTap()
-
-		app.swipeUp()
 
 		snapshot("screenshot_2g_plus_certificate_overview")
 	}
@@ -725,7 +705,7 @@ class ENAUITests_13_CreateHealthCertificate: CWATestCase {
 		app.launch()
 		
 		// Navigate to Certificates Tab.
-		app.buttons[AccessibilityIdentifiers.TabBar.certificates].waitAndTap(.medium)
+		app.buttons[AccessibilityIdentifiers.TabBar.certificates].waitAndTap()
 		
 		// Navigate to Persons Tab.
 		app.cells[AccessibilityIdentifiers.HealthCertificate.Overview.healthCertifiedPersonCell].waitAndTap()
@@ -736,7 +716,7 @@ class ENAUITests_13_CreateHealthCertificate: CWATestCase {
 		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.HealthCertificate.MaskState.subtitle].exists)
 		XCTAssertTrue(app.images[AccessibilityIdentifiers.HealthCertificate.MaskState.badgeImage].exists)
 		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.HealthCertificate.MaskState.description].exists)
-		XCTAssertTrue(app.links[AccessibilityIdentifiers.HealthCertificate.MaskState.faq].exists)
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.HealthCertificate.MaskState.faq].exists)
 		
 		snapshot("screenshot_mask_required_certificate_detail_part1")
 		
@@ -752,7 +732,7 @@ class ENAUITests_13_CreateHealthCertificate: CWATestCase {
 		app.launch()
 		
 		// Navigate to Certificates Tab.
-		app.buttons[AccessibilityIdentifiers.TabBar.certificates].waitAndTap(.medium)
+		app.buttons[AccessibilityIdentifiers.TabBar.certificates].waitAndTap()
 		
 		// Navigate to Persons Tab.
 		app.cells[AccessibilityIdentifiers.HealthCertificate.Overview.healthCertifiedPersonCell].waitAndTap()
@@ -763,12 +743,25 @@ class ENAUITests_13_CreateHealthCertificate: CWATestCase {
 		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.HealthCertificate.MaskState.subtitle].exists)
 		XCTAssertTrue(app.images[AccessibilityIdentifiers.HealthCertificate.MaskState.badgeImage].exists)
 		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.HealthCertificate.MaskState.description].exists)
-		XCTAssertTrue(app.links[AccessibilityIdentifiers.HealthCertificate.MaskState.faq].exists)
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.HealthCertificate.MaskState.faq].exists)
 		
 		snapshot("screenshot_mask_optional_certificate_detail_part1")
 		
 		app.swipeUp(velocity: .fast)
 		
 		snapshot("screenshot_mask_optional_certificate_detail_part2")
+	}
+	
+	func test_screenshot_ExportCertificatesTooltip() throws {
+		app.setLaunchArgument(LaunchArguments.infoScreen.healthCertificateInfoScreenShown, to: true)
+		app.setLaunchArgument(LaunchArguments.healthCertificate.recoveryCertificateRegistered, to: true)
+		app.setLaunchArgument(LaunchArguments.healthCertificate.shouldShowExportCertificatesTooltip, to: true)
+		app.launch()
+		
+		// Navigate to Certificates Tab.
+		app.buttons[AccessibilityIdentifiers.TabBar.certificates].waitAndTap()
+		
+		XCTAssertTrue(app.staticTexts[AccessibilityLabels.localized(AppStrings.Tooltip.ExportCertificates.title)].waitForExistence(timeout: .medium))
+		XCTAssertTrue(app.staticTexts[AccessibilityLabels.localized(AppStrings.Tooltip.ExportCertificates.description)].waitForExistence(timeout: .short))
 	}
 }

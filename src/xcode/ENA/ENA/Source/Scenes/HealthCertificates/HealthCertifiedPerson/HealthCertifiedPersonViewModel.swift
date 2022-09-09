@@ -158,7 +158,7 @@ final class HealthCertifiedPersonViewModel {
 	}
 
 	var maskStateIsVisible: Bool {
-		healthCertifiedPerson.dccWalletInfo?.maskState.visible ?? false
+		healthCertifiedPerson.dccWalletInfo?.maskState?.visible ?? false
 	}
 
 	var preferredPersonCellModel: PreferredPersonCellModel {
