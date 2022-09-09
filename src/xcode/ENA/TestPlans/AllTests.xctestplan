@@ -95,7 +95,8 @@
       "parallelizable" : true,
       "skippedTests" : [
         "CWATestCase",
-        "ENAUITests_11_QuickActions\/testLaunchViaShortcutFromFreshInstall()"
+        "ENAUITests_11_QuickActions\/testLaunchViaShortcutFromFreshInstall()",
+        "ENAUITests_13_CreateHealthCertificate\/test_CompleteVaccination_MaskState()"
       ],
       "target" : {
         "containerPath" : "container:ENA.xcodeproj",
