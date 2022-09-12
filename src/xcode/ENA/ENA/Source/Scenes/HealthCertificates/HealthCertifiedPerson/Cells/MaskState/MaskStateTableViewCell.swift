@@ -135,7 +135,6 @@ class MaskStateTableViewCell: UITableViewCell, UITextViewDelegate, ReuseIdentifi
 		faqLinkTextView.textContainer.lineFragmentPadding = .zero
 		faqLinkTextView.textColor = .enaColor(for: .textPrimary1)
 		faqLinkTextView.tintColor = .enaColor(for: .textTint)
-		faqLinkTextView.accessibilityTraits = .button
 		faqLinkTextView.linkTextAttributes = [
 			.foregroundColor: UIColor.enaColor(for: .textTint),
 			.underlineColor: UIColor.clear
@@ -206,7 +205,7 @@ class MaskStateTableViewCell: UITableViewCell, UITextViewDelegate, ReuseIdentifi
 		descriptionLabel.accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.MaskState.description
 		
 		faqLinkTextView.isAccessibilityElement = true
-		faqLinkTextView.accessibilityTraits = .link
+		faqLinkTextView.accessibilityTraits = .button
 		faqLinkTextView.accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.MaskState.faq
 		
 		// Order of

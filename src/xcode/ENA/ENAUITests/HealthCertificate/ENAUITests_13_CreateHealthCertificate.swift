@@ -265,11 +265,10 @@ class ENAUITests_13_CreateHealthCertificate: CWATestCase {
 	func test_CompleteVaccination_MaskState() {
 		app.setLaunchArgument(LaunchArguments.healthCertificate.firstAndSecondHealthCertificate, to: true)
 		app.setLaunchArgument(LaunchArguments.infoScreen.healthCertificateInfoScreenShown, to: true)
-		app.setLaunchArgument(LaunchArguments.healthCertificate.testCertificateRegistered, to: true)
 		app.launch()
 		
 		// Navigate to Certificates Tab.
-		app.buttons[AccessibilityIdentifiers.TabBar.certificates].waitAndTap(.medium)
+		app.buttons[AccessibilityIdentifiers.TabBar.certificates].waitAndTap()
 		
 		// Navigate to Persons Tab.
 		app.cells[AccessibilityIdentifiers.HealthCertificate.Overview.healthCertifiedPersonCell].waitAndTap()
@@ -279,7 +278,7 @@ class ENAUITests_13_CreateHealthCertificate: CWATestCase {
 		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.HealthCertificate.MaskState.subtitle].waitForExistence(timeout: .short))
 		 XCTAssertTrue(app.images[AccessibilityIdentifiers.HealthCertificate.MaskState.badgeImage].waitForExistence(timeout: .short))
 		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.HealthCertificate.MaskState.description].waitForExistence(timeout: .short))
-		XCTAssertTrue(app.links[AccessibilityIdentifiers.HealthCertificate.MaskState.faq].waitForExistence(timeout: .short))
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.HealthCertificate.MaskState.faq].waitForExistence(timeout: .short))
 	}
 	
 	func test_CheckinFromCertificatesTabWithInfoScreen() throws {
@@ -628,7 +627,7 @@ class ENAUITests_13_CreateHealthCertificate: CWATestCase {
 		app.setLaunchArgument(LaunchArguments.infoScreen.healthCertificateInfoScreenShown, to: true)
 		app.launch()
 		
-		app.buttons[AccessibilityIdentifiers.TabBar.certificates].waitAndTap(.medium)
+		app.buttons[AccessibilityIdentifiers.TabBar.certificates].waitAndTap()
 		
 		// Check if the selection button exists
 		let selectionButtonCell = try XCTUnwrap(app.cells[AccessibilityIdentifiers.HealthCertificate.Overview.changeAdmissionScenarioCell])
@@ -639,20 +638,21 @@ class ENAUITests_13_CreateHealthCertificate: CWATestCase {
 		// Select federal state Baden Württemberg
 		app.cells.element(boundBy: 1).waitAndTap()
 		
-		// check the Mask State.
-		XCTAssertTrue(app.cells[AccessibilityIdentifiers.HealthCertificate.Overview.healthCertifiedPersonCell].exists)
-		XCTAssertTrue(app.otherElements[AccessibilityIdentifiers.HealthCertificate.MaskState.roundedView].exists)
+		// check the Mask State and cell existence.
+		XCTAssertTrue(app.cells[AccessibilityIdentifiers.HealthCertificate.Overview.changeAdmissionScenarioCell].waitForExistence(timeout: .short))
+		XCTAssertTrue(app.cells[AccessibilityIdentifiers.HealthCertificate.Overview.healthCertifiedPersonCell].waitForExistence(timeout: .short))
+		XCTAssertTrue(app.otherElements[AccessibilityIdentifiers.HealthCertificate.MaskState.roundedView].waitForExistence(timeout: .short))
 		
 		snapshot("screenshot_mask_required_BW_certificate_overview")
 	}
 	
 	func test_screenshot_WhenMaskIsOptional_ForFederalStateBW() throws {
-		app.setLaunchArgument(LaunchArguments.healthCertificate.firstAndSecondHealthCertificate, to: true)
+		app.setLaunchArgument(LaunchArguments.healthCertificate.newTestCertificateRegistered, to: true)
 		app.setLaunchArgument(LaunchArguments.healthCertificate.isDCCAdmissionCheckScenariosEnabled, to: true)
 		app.setLaunchArgument(LaunchArguments.infoScreen.healthCertificateInfoScreenShown, to: true)
 		app.launch()
 		
-		app.buttons[AccessibilityIdentifiers.TabBar.certificates].waitAndTap(.medium)
+		app.buttons[AccessibilityIdentifiers.TabBar.certificates].waitAndTap()
 		
 		// Check if the selection button exists
 		let selectionButtonCell = try XCTUnwrap(app.cells[AccessibilityIdentifiers.HealthCertificate.Overview.changeAdmissionScenarioCell])
@@ -663,9 +663,9 @@ class ENAUITests_13_CreateHealthCertificate: CWATestCase {
 		// Select federal state Baden Württemberg
 		app.cells.element(boundBy: 1).waitAndTap()
 		
-		// check the Mask State.
-		XCTAssertTrue(app.cells[AccessibilityIdentifiers.HealthCertificate.Overview.healthCertifiedPersonCell].exists)
-		XCTAssertTrue(app.otherElements[AccessibilityIdentifiers.HealthCertificate.MaskState.roundedView].exists)
+		// check the cell existence.
+		XCTAssertTrue(app.cells[AccessibilityIdentifiers.HealthCertificate.Overview.changeAdmissionScenarioCell].waitForExistence(timeout: .short))
+		XCTAssertTrue(app.cells[AccessibilityIdentifiers.HealthCertificate.Overview.healthCertifiedPersonCell].waitForExistence(timeout: .short))
 		
 		snapshot("screenshot_mask_optional_BW_certificate_overview")
 	}
@@ -688,14 +688,15 @@ class ENAUITests_13_CreateHealthCertificate: CWATestCase {
 		app.cells.element(boundBy: 0).waitAndTap()
 		
 		// check the Mask State.
-		XCTAssertTrue(app.cells[AccessibilityIdentifiers.HealthCertificate.Overview.healthCertifiedPersonCell].exists)
-		XCTAssertTrue(app.otherElements[AccessibilityIdentifiers.HealthCertificate.MaskState.roundedView].exists)
+		XCTAssertTrue(app.cells[AccessibilityIdentifiers.HealthCertificate.Overview.changeAdmissionScenarioCell].waitForExistence(timeout: .short))
+		XCTAssertTrue(app.cells[AccessibilityIdentifiers.HealthCertificate.Overview.healthCertifiedPersonCell].waitForExistence(timeout: .short))
+		XCTAssertTrue(app.otherElements[AccessibilityIdentifiers.HealthCertificate.MaskState.roundedView].waitForExistence(timeout: .short))
 		
 		snapshot("screenshot_mask_required_certificate_overview_federal_rules")
 	}
 	
 	func test_screenshot_WhenMaskIsOptional_FederalRules() throws {
-		app.setLaunchArgument(LaunchArguments.healthCertificate.firstAndSecondHealthCertificate, to: true)
+		app.setLaunchArgument(LaunchArguments.healthCertificate.newTestCertificateRegistered, to: true)
 		app.setLaunchArgument(LaunchArguments.healthCertificate.isDCCAdmissionCheckScenariosEnabled, to: true)
 		app.setLaunchArgument(LaunchArguments.infoScreen.healthCertificateInfoScreenShown, to: true)
 		app.launch()
@@ -711,9 +712,9 @@ class ENAUITests_13_CreateHealthCertificate: CWATestCase {
 		// Select federal rules
 		app.cells.element(boundBy: 0).waitAndTap()
 		
-		// check the Mask State.
-		XCTAssertTrue(app.cells[AccessibilityIdentifiers.HealthCertificate.Overview.healthCertifiedPersonCell].exists)
-		XCTAssertTrue(app.otherElements[AccessibilityIdentifiers.HealthCertificate.MaskState.roundedView].exists)
+		// check the  cell existence.
+		XCTAssertTrue(app.cells[AccessibilityIdentifiers.HealthCertificate.Overview.changeAdmissionScenarioCell].waitForExistence(timeout: .short))
+		XCTAssertTrue(app.cells[AccessibilityIdentifiers.HealthCertificate.Overview.healthCertifiedPersonCell].waitForExistence(timeout: .short))
 		
 		snapshot("screenshot_mask_optional_certificate_overview_federal_rules")
 	}
@@ -721,22 +722,21 @@ class ENAUITests_13_CreateHealthCertificate: CWATestCase {
 	func test_screenshot_WhenMaskIsRequired_DetailScreen() throws {
 		app.setLaunchArgument(LaunchArguments.healthCertificate.firstAndSecondHealthCertificate, to: true)
 		app.setLaunchArgument(LaunchArguments.infoScreen.healthCertificateInfoScreenShown, to: true)
-		app.setLaunchArgument(LaunchArguments.healthCertificate.testCertificateRegistered, to: true)
 		app.launch()
 		
 		// Navigate to Certificates Tab.
-		app.buttons[AccessibilityIdentifiers.TabBar.certificates].waitAndTap(.medium)
+		app.buttons[AccessibilityIdentifiers.TabBar.certificates].waitAndTap()
 		
 		// Navigate to Persons Tab.
 		app.cells[AccessibilityIdentifiers.HealthCertificate.Overview.healthCertifiedPersonCell].waitAndTap()
 		
 		// check the Mask State.
-		XCTAssertTrue(app.otherElements[AccessibilityIdentifiers.HealthCertificate.MaskState.roundedView].exists)
-		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.HealthCertificate.MaskState.title].exists)
-		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.HealthCertificate.MaskState.subtitle].exists)
-		XCTAssertTrue(app.images[AccessibilityIdentifiers.HealthCertificate.MaskState.badgeImage].exists)
-		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.HealthCertificate.MaskState.description].exists)
-		XCTAssertTrue(app.links[AccessibilityIdentifiers.HealthCertificate.MaskState.faq].exists)
+		XCTAssertTrue(app.otherElements[AccessibilityIdentifiers.HealthCertificate.MaskState.roundedView].waitForExistence(timeout: .short))
+		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.HealthCertificate.MaskState.title].waitForExistence(timeout: .short))
+		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.HealthCertificate.MaskState.subtitle].waitForExistence(timeout: .short))
+		XCTAssertTrue(app.images[AccessibilityIdentifiers.HealthCertificate.MaskState.badgeImage].waitForExistence(timeout: .short))
+		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.HealthCertificate.MaskState.description].waitForExistence(timeout: .short))
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.HealthCertificate.MaskState.faq].waitForExistence(timeout: .short))
 		
 		snapshot("screenshot_mask_required_certificate_detail_part1")
 		
@@ -746,24 +746,18 @@ class ENAUITests_13_CreateHealthCertificate: CWATestCase {
 	}
 	
 	func test_screenshot_WhenMaskIsOptional_DetailScreen() throws {
-		app.setLaunchArgument(LaunchArguments.healthCertificate.firstAndSecondHealthCertificate, to: true)
+		app.setLaunchArgument(LaunchArguments.healthCertificate.newTestCertificateRegistered, to: true)
 		app.setLaunchArgument(LaunchArguments.infoScreen.healthCertificateInfoScreenShown, to: true)
-		app.setLaunchArgument(LaunchArguments.healthCertificate.testCertificateRegistered, to: true)
 		app.launch()
 		
 		// Navigate to Certificates Tab.
-		app.buttons[AccessibilityIdentifiers.TabBar.certificates].waitAndTap(.medium)
+		app.buttons[AccessibilityIdentifiers.TabBar.certificates].waitAndTap()
 		
 		// Navigate to Persons Tab.
 		app.cells[AccessibilityIdentifiers.HealthCertificate.Overview.healthCertifiedPersonCell].waitAndTap()
 		
-		// check the Mask State.
-		XCTAssertTrue(app.otherElements[AccessibilityIdentifiers.HealthCertificate.MaskState.roundedView].exists)
-		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.HealthCertificate.MaskState.title].exists)
-		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.HealthCertificate.MaskState.subtitle].exists)
-		XCTAssertTrue(app.images[AccessibilityIdentifiers.HealthCertificate.MaskState.badgeImage].exists)
-		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.HealthCertificate.MaskState.description].exists)
-		XCTAssertTrue(app.links[AccessibilityIdentifiers.HealthCertificate.MaskState.faq].exists)
+		// check the certificate cell existence.
+		XCTAssertTrue(app.cells[AccessibilityIdentifiers.HealthCertificate.Person.certificateCell].waitForExistence(timeout: .short))
 		
 		snapshot("screenshot_mask_optional_certificate_detail_part1")
 		
