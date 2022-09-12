@@ -718,11 +718,7 @@ class ENAUITests_13_CreateHealthCertificate: CWATestCase {
 		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.HealthCertificate.MaskState.description].waitForExistence(timeout: .short))
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.HealthCertificate.MaskState.faq].waitForExistence(timeout: .short))
 		
-		snapshot("screenshot_mask_required_certificate_detail_part1")
-		
-		app.swipeUp(velocity: .fast)
-		
-		snapshot("screenshot_mask_required_certificate_detail_part2")
+		snapshot("screenshot_mask_required_certificate_detail")
 	}
 	
 	func test_screenshot_WhenMaskIsOptional_DetailScreen() throws {
@@ -739,11 +735,7 @@ class ENAUITests_13_CreateHealthCertificate: CWATestCase {
 		// check the certificate cell existence.
 		XCTAssertTrue(app.cells[AccessibilityIdentifiers.HealthCertificate.Person.certificateCell].waitForExistence(timeout: .short))
 		
-		snapshot("screenshot_mask_optional_certificate_detail_part1")
-		
-		app.swipeUp(velocity: .fast)
-		
-		snapshot("screenshot_mask_optional_certificate_detail_part2")
+		snapshot("screenshot_mask_optional_certificate_detail")
 	}
 	
 	func test_screenshot_ExportCertificatesTooltip() throws {
