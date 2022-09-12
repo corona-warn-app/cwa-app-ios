@@ -94,8 +94,10 @@
         "ENAUITests_01a_Home\/test_screenshot_homescreen_negative_test_result()",
         "ENAUITests_01a_Home\/test_screenshot_homescreen_pending_test_result()",
         "ENAUITests_01a_Home\/test_screenshot_homescreen_positive_test_result()",
+        "ENAUITests_01a_Home\/test_screenshot_homescreen_riskCardHigh_DetailsScreen()",
         "ENAUITests_01a_Home\/test_screenshot_homescreen_riskCardHigh_riskOneDay()",
         "ENAUITests_01a_Home\/test_screenshot_homescreen_riskCardLow_14days()",
+        "ENAUITests_01a_Home\/test_screenshot_homescreen_riskCardLow_DetailsScreen()",
         "ENAUITests_01a_Home\/test_screenshot_homescreen_riskCardLow_riskNoDays()",
         "ENAUITests_01a_Home\/test_screenshot_homescreen_riskCardLow_riskOneDay()",
         "ENAUITests_01b_Statistics\/test_screenshot_local_statistics_card()",
@@ -118,6 +120,8 @@
         "ENAUITests_10_CheckIns\/test_screenshot_WHEN_scan_QRCode_THEN_checkin_and_checkout()",
         "ENAUITests_11_QuickActions\/testLaunchViaShortcutFromFreshInstall()",
         "ENAUITests_12_AntigenTestProfile\/test_screenshot_FIRST_CreateAntigenTestProfile_THEN_EditProfile_THEN_DeleteProfile()",
+        "ENAUITests_13_CreateHealthCertificate\/test_AdmissionStateChanges_Then_StateChangeIndicatorIsVisible()",
+        "ENAUITests_13_CreateHealthCertificate\/test_CompleteVaccination_AdmissionState()",
         "ENAUITests_13_CreateHealthCertificate\/test_CompleteVaccination_MaskState()",
         "ENAUITests_13_CreateHealthCertificate\/test_screenshot_2GPlusCertificate()",
         "ENAUITests_13_CreateHealthCertificate\/test_screenshot_CreateAntigenTestProfileWithLastCertificate()",
@@ -142,8 +146,6 @@
         "ENAUITests_19_TicketValidation\/test_screenshot_ticketValidation_failed()",
         "ENAUITests_19_TicketValidation\/test_screenshot_ticketValidation_passed()",
         "ENAUITests_20_CertificateReissuance",
-        "ENAUITests_21_FamilyMember\/test_RegisterCoronaTestFromSubmitCardButton()",
-        "ENAUITests_21_FamilyMember\/test_screenshot_RegisterCoronaTestFromUniversalQRCodeScanner()",
         "ENAUITests_21_FamilyMember\/test_screenshot_familyMemberViewOverviewDeleteAll()"
       ],
       "target" : {
