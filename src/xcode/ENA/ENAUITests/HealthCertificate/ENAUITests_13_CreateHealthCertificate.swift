@@ -618,16 +618,18 @@ class ENAUITests_13_CreateHealthCertificate: CWATestCase {
 		// Select federal state Baden Württemberg
 		app.cells.element(boundBy: 1).waitAndTap()
 		
-		// check the Mask State and cell existence.
+		// check the cell existence.
 		XCTAssertTrue(app.cells[AccessibilityIdentifiers.HealthCertificate.Overview.changeAdmissionScenarioCell].waitForExistence(timeout: .short))
 		XCTAssertTrue(app.cells[AccessibilityIdentifiers.HealthCertificate.Overview.healthCertifiedPersonCell].waitForExistence(timeout: .short))
+		
+		// check the Mask State
 		XCTAssertTrue(app.otherElements[AccessibilityIdentifiers.HealthCertificate.MaskState.roundedView].waitForExistence(timeout: .short))
 		
 		snapshot("screenshot_mask_required_BW_certificate_overview")
 	}
 	
 	func test_screenshot_WhenMaskIsOptional_ForFederalStateBW() throws {
-		app.setLaunchArgument(LaunchArguments.healthCertificate.newTestCertificateRegistered, to: true)
+		app.setLaunchArgument(LaunchArguments.healthCertificate.testCertificateRegistered, to: true)
 		app.setLaunchArgument(LaunchArguments.healthCertificate.isDCCAdmissionCheckScenariosEnabled, to: true)
 		app.setLaunchArgument(LaunchArguments.infoScreen.healthCertificateInfoScreenShown, to: true)
 		app.launch()
@@ -646,6 +648,9 @@ class ENAUITests_13_CreateHealthCertificate: CWATestCase {
 		// check the cell existence.
 		XCTAssertTrue(app.cells[AccessibilityIdentifiers.HealthCertificate.Overview.changeAdmissionScenarioCell].waitForExistence(timeout: .short))
 		XCTAssertTrue(app.cells[AccessibilityIdentifiers.HealthCertificate.Overview.healthCertifiedPersonCell].waitForExistence(timeout: .short))
+		
+		// check the Mask State
+		XCTAssertTrue(app.otherElements[AccessibilityIdentifiers.HealthCertificate.MaskState.roundedView].waitForExistence(timeout: .short))
 		
 		snapshot("screenshot_mask_optional_BW_certificate_overview")
 	}
@@ -667,16 +672,18 @@ class ENAUITests_13_CreateHealthCertificate: CWATestCase {
 		// Select federal rules
 		app.cells.element(boundBy: 0).waitAndTap()
 		
-		// check the Mask State.
+		// check the cell existence.
 		XCTAssertTrue(app.cells[AccessibilityIdentifiers.HealthCertificate.Overview.changeAdmissionScenarioCell].waitForExistence(timeout: .short))
 		XCTAssertTrue(app.cells[AccessibilityIdentifiers.HealthCertificate.Overview.healthCertifiedPersonCell].waitForExistence(timeout: .short))
+		
+		// check the Mask State
 		XCTAssertTrue(app.otherElements[AccessibilityIdentifiers.HealthCertificate.MaskState.roundedView].waitForExistence(timeout: .short))
 		
 		snapshot("screenshot_mask_required_certificate_overview_federal_rules")
 	}
 	
 	func test_screenshot_WhenMaskIsOptional_FederalRules() throws {
-		app.setLaunchArgument(LaunchArguments.healthCertificate.newTestCertificateRegistered, to: true)
+		app.setLaunchArgument(LaunchArguments.healthCertificate.testCertificateRegistered, to: true)
 		app.setLaunchArgument(LaunchArguments.healthCertificate.isDCCAdmissionCheckScenariosEnabled, to: true)
 		app.setLaunchArgument(LaunchArguments.infoScreen.healthCertificateInfoScreenShown, to: true)
 		app.launch()
@@ -692,9 +699,12 @@ class ENAUITests_13_CreateHealthCertificate: CWATestCase {
 		// Select federal rules
 		app.cells.element(boundBy: 0).waitAndTap()
 		
-		// check the  cell existence.
+		// check the cell existence.
 		XCTAssertTrue(app.cells[AccessibilityIdentifiers.HealthCertificate.Overview.changeAdmissionScenarioCell].waitForExistence(timeout: .short))
 		XCTAssertTrue(app.cells[AccessibilityIdentifiers.HealthCertificate.Overview.healthCertifiedPersonCell].waitForExistence(timeout: .short))
+		
+		// check the Mask State
+		XCTAssertTrue(app.otherElements[AccessibilityIdentifiers.HealthCertificate.MaskState.roundedView].waitForExistence(timeout: .short))
 		
 		snapshot("screenshot_mask_optional_certificate_overview_federal_rules")
 	}
@@ -710,6 +720,9 @@ class ENAUITests_13_CreateHealthCertificate: CWATestCase {
 		// Navigate to Persons Tab.
 		app.cells[AccessibilityIdentifiers.HealthCertificate.Overview.healthCertifiedPersonCell].waitAndTap()
 		
+		// check the certificate cell existence.
+		XCTAssertTrue(app.cells[AccessibilityIdentifiers.HealthCertificate.Person.certificateCell].waitForExistence(timeout: .short))
+		
 		// check the Mask State.
 		XCTAssertTrue(app.otherElements[AccessibilityIdentifiers.HealthCertificate.MaskState.roundedView].waitForExistence(timeout: .short))
 		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.HealthCertificate.MaskState.title].waitForExistence(timeout: .short))
@@ -722,7 +735,7 @@ class ENAUITests_13_CreateHealthCertificate: CWATestCase {
 	}
 	
 	func test_screenshot_WhenMaskIsOptional_DetailScreen() throws {
-		app.setLaunchArgument(LaunchArguments.healthCertificate.newTestCertificateRegistered, to: true)
+		app.setLaunchArgument(LaunchArguments.healthCertificate.testCertificateRegistered, to: true)
 		app.setLaunchArgument(LaunchArguments.infoScreen.healthCertificateInfoScreenShown, to: true)
 		app.launch()
 		
@@ -734,6 +747,14 @@ class ENAUITests_13_CreateHealthCertificate: CWATestCase {
 		
 		// check the certificate cell existence.
 		XCTAssertTrue(app.cells[AccessibilityIdentifiers.HealthCertificate.Person.certificateCell].waitForExistence(timeout: .short))
+		
+		// check the Mask State.
+		XCTAssertTrue(app.otherElements[AccessibilityIdentifiers.HealthCertificate.MaskState.roundedView].waitForExistence(timeout: .short))
+		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.HealthCertificate.MaskState.title].waitForExistence(timeout: .short))
+		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.HealthCertificate.MaskState.subtitle].waitForExistence(timeout: .short))
+		XCTAssertTrue(app.images[AccessibilityIdentifiers.HealthCertificate.MaskState.badgeImage].waitForExistence(timeout: .short))
+		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.HealthCertificate.MaskState.description].waitForExistence(timeout: .short))
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.HealthCertificate.MaskState.faq].waitForExistence(timeout: .short))
 		
 		snapshot("screenshot_mask_optional_certificate_detail")
 	}
