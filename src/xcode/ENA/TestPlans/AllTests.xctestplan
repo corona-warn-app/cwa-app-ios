@@ -98,6 +98,12 @@
         "ENAUITests_11_QuickActions\/testLaunchViaShortcutFromFreshInstall()",
         "ENAUITests_13_CreateHealthCertificate\/test_AdmissionStateChanges_Then_StateChangeIndicatorIsVisible()",
         "ENAUITests_13_CreateHealthCertificate\/test_CompleteVaccination_AdmissionState()",
+        "ENAUITests_13_CreateHealthCertificate\/test_screenshot_WhenMaskIsOptional_DetailScreen()",
+        "ENAUITests_13_CreateHealthCertificate\/test_screenshot_WhenMaskIsOptional_FederalRules()",
+        "ENAUITests_13_CreateHealthCertificate\/test_screenshot_WhenMaskIsOptional_ForFederalStateBW()",
+        "ENAUITests_13_CreateHealthCertificate\/test_screenshot_WhenMaskIsRequired_DetailScreen()",
+        "ENAUITests_13_CreateHealthCertificate\/test_screenshot_WhenMaskIsRequired_FederalRules()",
+        "ENAUITests_13_CreateHealthCertificate\/test_screenshot_WhenMaskIsRequired_ForFederalStateBW()",
         "ENAUITests_21_FamilyMember\/test_RegisterCoronaTestFromSubmitCardButton()",
         "ENAUITests_21_FamilyMember\/test_screenshot_RegisterCoronaTestFromUniversalQRCodeScanner()"
       ],
