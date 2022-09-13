@@ -613,7 +613,7 @@ class ENAUITests_13_CreateHealthCertificate: CWATestCase {
 		let selectionButtonCell = try XCTUnwrap(app.cells[AccessibilityIdentifiers.HealthCertificate.Overview.changeAdmissionScenarioCell])
 		
 		// Navigate to the scenario selection screen
-		selectionButtonCell.waitAndTap(.short)
+		selectionButtonCell.waitAndTap()
 		
 		// Select federal state Baden Württemberg
 		app.cells.element(boundBy: 1).waitAndTap()
