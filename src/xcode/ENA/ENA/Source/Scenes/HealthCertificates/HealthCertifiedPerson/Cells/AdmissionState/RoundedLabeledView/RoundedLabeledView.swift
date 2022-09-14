@@ -9,11 +9,6 @@ class RoundedLabeledView: UIView {
 	override init(frame: CGRect) {
 		super.init(frame: frame)
 
-		setContentHuggingPriority(.required, for: .horizontal)
-		setContentHuggingPriority(.required, for: .vertical)
-		setContentCompressionResistancePriority(.init(rawValue: 999), for: .horizontal)
-		setContentCompressionResistancePriority(.defaultHigh, for: .vertical)
-
 		gradientView.translatesAutoresizingMaskIntoConstraints = false
 		addSubview(gradientView)
 
