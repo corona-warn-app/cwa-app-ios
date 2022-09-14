@@ -601,7 +601,7 @@ class ENAUITests_13_CreateHealthCertificate: CWATestCase {
 		snapshot("screenshot_2g_plus_certificate_overview")
 	}
 	
-	func test_screenshot_WhenMaskIsRequired_ForFederalStateBW() throws {
+	func test_screenshot_maskRequiredForFederalStateBW() throws {
 		app.setLaunchArgument(LaunchArguments.healthCertificate.firstAndSecondHealthCertificate, to: true)
 		app.setLaunchArgument(LaunchArguments.healthCertificate.isDCCAdmissionCheckScenariosEnabled, to: true)
 		app.setLaunchArgument(LaunchArguments.infoScreen.healthCertificateInfoScreenShown, to: true)
@@ -628,7 +628,7 @@ class ENAUITests_13_CreateHealthCertificate: CWATestCase {
 		snapshot("screenshot_mask_required_BW_certificate_overview")
 	}
 	
-	func test_screenshot_WhenMaskIsOptional_ForFederalStateBW() throws {
+	func test_screenshot_maskOptionalForFederalStateBW() throws {
 		app.setLaunchArgument(LaunchArguments.healthCertificate.testCertificateRegistered, to: true)
 		app.setLaunchArgument(LaunchArguments.healthCertificate.isDCCAdmissionCheckScenariosEnabled, to: true)
 		app.setLaunchArgument(LaunchArguments.infoScreen.healthCertificateInfoScreenShown, to: true)
@@ -655,7 +655,7 @@ class ENAUITests_13_CreateHealthCertificate: CWATestCase {
 		snapshot("screenshot_mask_optional_BW_certificate_overview")
 	}
 	
-	func test_screenshot_WhenMaskIsRequired_FederalRules() throws {
+	func test_screenshot_maskRequiredForFederalRules() throws {
 		app.setLaunchArgument(LaunchArguments.healthCertificate.firstAndSecondHealthCertificate, to: true)
 		app.setLaunchArgument(LaunchArguments.healthCertificate.isDCCAdmissionCheckScenariosEnabled, to: true)
 		app.setLaunchArgument(LaunchArguments.infoScreen.healthCertificateInfoScreenShown, to: true)
@@ -682,7 +682,7 @@ class ENAUITests_13_CreateHealthCertificate: CWATestCase {
 		snapshot("screenshot_mask_required_certificate_overview_federal_rules")
 	}
 	
-	func test_screenshot_WhenMaskIsOptional_FederalRules() throws {
+	func test_screenshot_maskOptionalForFederalRules() throws {
 		app.setLaunchArgument(LaunchArguments.healthCertificate.testCertificateRegistered, to: true)
 		app.setLaunchArgument(LaunchArguments.healthCertificate.isDCCAdmissionCheckScenariosEnabled, to: true)
 		app.setLaunchArgument(LaunchArguments.infoScreen.healthCertificateInfoScreenShown, to: true)
@@ -709,7 +709,7 @@ class ENAUITests_13_CreateHealthCertificate: CWATestCase {
 		snapshot("screenshot_mask_optional_certificate_overview_federal_rules")
 	}
 
-	func test_screenshot_WhenMaskIsRequired_DetailScreen() throws {
+	func test_screenshot_maskRequiredDetailScreen() throws {
 		app.setLaunchArgument(LaunchArguments.healthCertificate.firstAndSecondHealthCertificate, to: true)
 		app.setLaunchArgument(LaunchArguments.infoScreen.healthCertificateInfoScreenShown, to: true)
 		app.launch()
@@ -734,7 +734,7 @@ class ENAUITests_13_CreateHealthCertificate: CWATestCase {
 		snapshot("screenshot_mask_required_certificate_detail")
 	}
 	
-	func test_screenshot_WhenMaskIsOptional_DetailScreen() throws {
+	func test_screenshot_maskOptionalDetailScreen() throws {
 		app.setLaunchArgument(LaunchArguments.healthCertificate.testCertificateRegistered, to: true)
 		app.setLaunchArgument(LaunchArguments.infoScreen.healthCertificateInfoScreenShown, to: true)
 		app.launch()
