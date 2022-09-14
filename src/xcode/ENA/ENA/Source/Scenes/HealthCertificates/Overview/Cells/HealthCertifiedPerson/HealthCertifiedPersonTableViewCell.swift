@@ -89,8 +89,10 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 			accessibilityIdentifier: AccessibilityIdentifiers.HealthCertificate.MaskState.roundedView,
 			labelAccessibilityIdentifier: AccessibilityIdentifiers.HealthCertificate.MaskState.title
 		)
-		 
-		maskAdmissionStatesView.isHidden = !cellModel.isShortAdmissionStatusVisible && !cellModel.isMaskStatusVisible
+		
+		maskAdmissionStatesStackView.isHidden = !cellModel.isShortAdmissionStatusVisible && !cellModel.isMaskStatusVisible
+		configureAdmissionStatesStackView()
+		
 		segmentedControl.isHidden = cellModel.switchableHealthCertificates.isEmpty
 
 		segmentedControl.removeAllSegments()
@@ -188,7 +190,7 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 	}()
 
 	private lazy var qrCodeContainerStackView: UIStackView = {
-		let stackView = UIStackView(arrangedSubviews: [maskAdmissionStatesView, qrCodeView, segmentedControl])
+		let stackView = UIStackView(arrangedSubviews: [maskAdmissionStatesStackView, qrCodeView, segmentedControl])
 		stackView.axis = .vertical
 		stackView.spacing = 14.0
 
@@ -196,9 +198,18 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 	}()
 
 	private lazy var admissionStateView = RoundedLabeledView()
+	
 	private lazy var maskStateView = RoundedLabeledView()
-
-	private lazy var maskAdmissionStatesView = UIView()
+	
+	private lazy var admissionStatesSpacerView = UIView()
+	
+	private lazy var maskAdmissionStatesStackView: UIStackView = {
+		let maskAdmissionStatesStackView = UIStackView()
+		maskAdmissionStatesStackView.axis = .horizontal
+		maskAdmissionStatesStackView.spacing = 6
+		maskAdmissionStatesStackView.distribution = .fill
+		return maskAdmissionStatesStackView
+	}()
 	
 	private let qrCodeView = HealthCertificateQRCodeView()
 
@@ -347,10 +358,6 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 		cardView.addSubview(qrCodeContainerView)
 
 		maskStateView.translatesAutoresizingMaskIntoConstraints = false
-		maskAdmissionStatesView.addSubview(maskStateView)
-		
-		admissionStateView.translatesAutoresizingMaskIntoConstraints = false
-		maskAdmissionStatesView.addSubview(admissionStateView)
 		
 		qrCodeContainerStackView.translatesAutoresizingMaskIntoConstraints = false
 		qrCodeContainerView.addSubview(qrCodeContainerStackView)
@@ -389,16 +396,6 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 				titleStackView.leadingAnchor.constraint(equalTo: gradientView.leadingAnchor, constant: 15.0),
 				titleStackView.topAnchor.constraint(equalTo: gradientView.topAnchor, constant: 20.0),
 				titleStackView.trailingAnchor.constraint(equalTo: accessoryIconView.leadingAnchor, constant: 8.0),
-
-				maskStateView.leadingAnchor.constraint(equalTo: maskAdmissionStatesView.leadingAnchor),
-				maskStateView.topAnchor.constraint(equalTo: maskAdmissionStatesView.topAnchor),
-				maskStateView.bottomAnchor.constraint(equalTo: maskAdmissionStatesView.bottomAnchor),
-				maskStateView.widthAnchor.constraint(equalTo: maskAdmissionStatesView.widthAnchor, multiplier: 0.78),
-				
-				admissionStateView.trailingAnchor.constraint(equalTo: maskAdmissionStatesView.trailingAnchor),
-				admissionStateView.topAnchor.constraint(equalTo: maskAdmissionStatesView.topAnchor),
-				admissionStateView.bottomAnchor.constraint(equalTo: maskAdmissionStatesView.bottomAnchor),
-				admissionStateView.widthAnchor.constraint(equalTo: maskAdmissionStatesView.widthAnchor, multiplier: 0.20),
 				
 				qrCodeContainerView.leadingAnchor.constraint(equalTo: cardView.leadingAnchor, constant: 16.0),
 				qrCodeContainerView.topAnchor.constraint(equalTo: titleStackView.bottomAnchor, constant: 20.0),
@@ -428,6 +425,51 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 		)
 
 		addGestureRecognizer(tapGestureRecognizer)
+	}
+	
+	private func configureAdmissionStatesStackView() {
+		guard let admissionStatesConfiguration = cellModel?.admissionStatesConfiguration else {
+			maskAdmissionStatesStackView.isHidden = true
+			return
+		}
+
+		switch admissionStatesConfiguration {
+		case .maskStatusInvisibleAdmissionStatusInvisible:
+			maskAdmissionStatesStackView.isHidden = true
+			
+		case .maskStatusInvisibleAdmissionStatusVisible:
+			admissionStatesSpacerView.setContentHuggingPriority(.defaultLow, for: .horizontal)
+			admissionStateView.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+			maskAdmissionStatesStackView.addArrangedSubview(admissionStatesSpacerView)
+			maskAdmissionStatesStackView.addArrangedSubview(admissionStateView)
+			
+		case .maskStatusVisibleAdmissionStatusVisible:
+			maskStateView.setContentHuggingPriority(.defaultLow, for: .horizontal)
+			maskStateView.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+			admissionStateView.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+			maskAdmissionStatesStackView.addArrangedSubview(maskStateView)
+			maskAdmissionStatesStackView.addArrangedSubview(admissionStateView)
+			
+		case .maskStatusVisibleAdmissionStatusInvisible:
+			maskStateView.setContentHuggingPriority(.defaultLow, for: .horizontal)
+			maskAdmissionStatesStackView.addArrangedSubview(maskStateView)
+			
+		case .maskStatusInvisibleAdmissionStatusNull, .maskStatusNullAdmissionStatusNull:
+			maskAdmissionStatesStackView.addArrangedSubview(admissionStatesSpacerView)
+			admissionStatesSpacerView.translatesAutoresizingMaskIntoConstraints = false
+			admissionStatesSpacerView.heightAnchor.constraint(equalToConstant: 31).isActive = true
+			
+		case .maskStatusVisibleAdmissionStatusNull:
+			maskStateView.setContentHuggingPriority(.defaultLow, for: .horizontal)
+			maskStateView.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
+			admissionStatesSpacerView.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+			admissionStatesSpacerView.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+			maskAdmissionStatesStackView.addArrangedSubview(maskStateView)
+			maskAdmissionStatesStackView.addArrangedSubview(admissionStatesSpacerView)
+			maskStateView.widthAnchor.constraint(greaterThanOrEqualTo: maskAdmissionStatesStackView.widthAnchor, multiplier: 0.8).isActive = true
+		}
+		
+		setNeedsLayout()
 	}
 
 	private func updateBorderColors() {

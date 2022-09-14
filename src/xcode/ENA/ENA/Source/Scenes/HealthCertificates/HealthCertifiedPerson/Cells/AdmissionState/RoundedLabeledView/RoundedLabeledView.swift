@@ -28,11 +28,13 @@ class RoundedLabeledView: UIView {
 
 			imageView.widthAnchor.constraint(equalToConstant: 37),
 			imageView.heightAnchor.constraint(equalToConstant: 27),
+			
+			titleLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 27),
 
-			containerStackView.leadingAnchor.constraint(equalTo: gradientView.leadingAnchor, constant: 12),
-			containerStackView.topAnchor.constraint(equalTo: gradientView.topAnchor, constant: 6),
-			containerStackView.trailingAnchor.constraint(equalTo: gradientView.trailingAnchor, constant: -12),
-			containerStackView.bottomAnchor.constraint(equalTo: gradientView.bottomAnchor, constant: -6)
+			containerStackView.leadingAnchor.constraint(equalTo: gradientView.leadingAnchor, constant: 10),
+			containerStackView.topAnchor.constraint(equalTo: gradientView.topAnchor, constant: 2),
+			containerStackView.trailingAnchor.constraint(equalTo: gradientView.trailingAnchor, constant: -10),
+			containerStackView.bottomAnchor.constraint(equalTo: gradientView.bottomAnchor, constant: -2)
 		])
 
 		titleLabel.font = .enaFont(for: .subheadline, weight: .semibold, italic: false)
@@ -87,8 +89,12 @@ class RoundedLabeledView: UIView {
 	
 	private lazy var containerStackView: UIStackView = {
 		var containerStackView: UIStackView
+		imageView.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+		titleLabel.setContentHuggingPriority(.defaultLow, for: .horizontal)
 		containerStackView = UIStackView(arrangedSubviews: [imageView, titleLabel])
 		containerStackView.axis = .horizontal
+		containerStackView.distribution = .fill
+		containerStackView.alignment = .center
 		containerStackView.spacing = 4.0
 
 		return containerStackView
