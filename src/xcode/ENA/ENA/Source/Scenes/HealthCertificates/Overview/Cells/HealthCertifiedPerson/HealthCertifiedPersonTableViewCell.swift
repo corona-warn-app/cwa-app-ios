@@ -5,6 +5,7 @@
 import UIKit
 import OpenCombine
 
+// swiftlint:disable type_body_length
 class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProviding {
 	
 	// MARK: - Init
@@ -192,7 +193,6 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 	private lazy var qrCodeContainerStackView: UIStackView = {
 		let stackView = UIStackView(arrangedSubviews: [maskAdmissionStatesStackView, qrCodeView, segmentedControl])
 		stackView.axis = .vertical
-		stackView.distribution = .equalSpacing
 		stackView.spacing = 14.0
 
 		return stackView
@@ -204,8 +204,8 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 	
 	private lazy var admissionStatesSpacerView = UIView()
 	
-	private lazy var maskAdmissionStatesStackView: AccessibleStackView = {
-		let maskAdmissionStatesStackView = AccessibleStackView()
+	private lazy var maskAdmissionStatesStackView: UIStackView = {
+		let maskAdmissionStatesStackView = UIStackView()
 		maskAdmissionStatesStackView.axis = .horizontal
 		maskAdmissionStatesStackView.spacing = 6
 		maskAdmissionStatesStackView.distribution = .fill
