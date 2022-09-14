@@ -2921,6 +2921,8 @@
 /* Health Certified Person */
 "HealthCertifiedPerson_faq" = "За повече информация вижте страницата „ЧЗВ“.";
 
+"HealthCertifiedPerson_faq_maskState" = "За повече информация относно изключенията за носене на маска вижте страницата ни за „ЧЗВ”.";
+
 "HealthCertifiedPerson_dateOfBirth" = "Дата на раждане %@";
 
 "HealthCertifiedPerson_preferredPersonDescription" = "Включете тази функция, ако сте %@ и основният потребител на приложението. Сертификатът Ви ще се появи най-горе в списъка.";
