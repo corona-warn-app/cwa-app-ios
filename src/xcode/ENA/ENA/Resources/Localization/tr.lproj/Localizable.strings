@@ -2921,7 +2921,7 @@
 /* Health Certified Person */
 "HealthCertifiedPerson_faq" = "Daha fazla bilgi için lütfen SSS sayfamıza bakın.";
 
-"HealthCertifiedPerson_faq_maskState" = "Maske muafiyetleri hakkında daha fazla bilgi için lütfen SSS sayfamıza bakın.";
+"HealthCertifiedPerson_faq_maskState" = "Maske zorunlulukları hakkında daha fazla bilgi için lütfen SSS sayfamıza bakın.";
 
 "HealthCertifiedPerson_dateOfBirth" = "Doğum tarihi: %@";
 
