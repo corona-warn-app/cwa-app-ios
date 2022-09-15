@@ -2921,6 +2921,8 @@
 /* Health Certified Person */
 "HealthCertifiedPerson_faq" = "For further information, please see our FAQ page.";
 
+"HealthCertifiedPerson_faq_maskState" = "For further information about mask mandates, please see our FAQ page.";
+
 "HealthCertifiedPerson_dateOfBirth" = "Born %@";
 
 "HealthCertifiedPerson_preferredPersonDescription" = "Please turn on this switch if you are %@ and are the main user of the app. Your certificates will appear at the top of the list.";

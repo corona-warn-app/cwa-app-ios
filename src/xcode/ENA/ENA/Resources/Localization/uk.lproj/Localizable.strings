@@ -2921,6 +2921,8 @@
 /* Health Certified Person */
 "HealthCertifiedPerson_faq" = "Для отримання додаткової інформації, див. нашу сторінку ЗіВ.";
 
+"HealthCertifiedPerson_faq_maskState" = "Щоб отримати додаткову інформацію щодо обов’язкового носіння маски, перегляньте нашу сторінку запитань і відповідей.";
+
 "HealthCertifiedPerson_dateOfBirth" = "Народився %@";
 
 "HealthCertifiedPerson_preferredPersonDescription" = "Увімкніть цей перемикач, якщо ви є %@ та є основним користувачем застосунку. Ваші сертифікати з’являться у верхній частині списку.";

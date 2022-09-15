@@ -2921,6 +2921,8 @@
 /* Health Certified Person */
 "HealthCertifiedPerson_faq" = "Więcej informacji znajduje się na naszej stronie „Często zadawane pytania”.";
 
+"HealthCertifiedPerson_faq_maskState" = "Więcej informacji na temat obowiązku noszenia maseczki znajduje się na naszej stronie z często zadawanymi pytaniami.";
+
 "HealthCertifiedPerson_dateOfBirth" = "Data urodzenia %@";
 
 "HealthCertifiedPerson_preferredPersonDescription" = "Włącz ten przełącznik, jeśli jesteś %@ oraz głównym użytkownikiem aplikacji. Twoje certyfikaty pojawią się na górze listy.";

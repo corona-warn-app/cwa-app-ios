@@ -2921,6 +2921,8 @@
 /* Health Certified Person */
 "HealthCertifiedPerson_faq" = "Pentru mai multe informații, consultați pagina noastră de întrebări frecvente.";
 
+"HealthCertifiedPerson_faq_maskState" = "Pentru mai multe informații despre obligativitatea purtării măștii, consultați pagina noastră de întrebări frecvente.";
+
 "HealthCertifiedPerson_dateOfBirth" = "Născut(ă) pe %@";
 
 "HealthCertifiedPerson_preferredPersonDescription" = "Activați acest comutator dacă sunteți %@ și sunteți utilizatorul principal al aplicației. Certificatele dvs. vor apărea în partea de sus a listei.";
