@@ -434,7 +434,10 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 			return
 		}
 		
-		[maskStateView, admissionStateView, emptySpacerView].forEach { $0.isHidden = true }
+		[maskStateView, admissionStateView, emptySpacerView].forEach {
+			$0.isHidden = true
+			$0.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+		}
 
 		switch maskAndAdmissionStatesConfiguration {
 		case .maskStateInvisibleAdmissionStateInvisible:
