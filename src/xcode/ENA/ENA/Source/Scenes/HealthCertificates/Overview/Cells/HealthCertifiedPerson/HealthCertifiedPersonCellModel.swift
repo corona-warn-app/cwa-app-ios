@@ -20,6 +20,7 @@ class HealthCertifiedPersonCellModel {
 			return nil
 		}
 
+		self.healthCertifiedPerson = healthCertifiedPerson
 		backgroundGradientType = healthCertifiedPerson.isMaskOptional ? .green : healthCertifiedPerson.gradientType
 
 		title = AppStrings.HealthCertificate.Overview.covidTitle
@@ -196,6 +197,8 @@ class HealthCertifiedPersonCellModel {
 	}
 
 	// MARK: - Private
+	
+	private var healthCertifiedPerson: HealthCertifiedPerson?
 
 	private static func initialCertificate(for person: HealthCertifiedPerson) -> HealthCertificate? {
 		if let firstVerificationCertificate = person.dccWalletInfo?.verification.certificates.first,
@@ -236,6 +239,51 @@ class HealthCertifiedPersonCellModel {
 				image: UIImage(named: "Icon_ExpiredInvalid"),
 				description: AppStrings.HealthCertificate.ValidityState.blockedRevoked
 			)
+		}
+	}
+}
+
+extension HealthCertifiedPersonCellModel {
+	enum MaskAndAdmissionStatesConfiguration {
+		/// Show Nothing
+		case maskStateInvisibleAdmissionStateInvisible
+		
+		/// Show Admission Status Badge alone on the right side
+		case maskStateInvisibleAdmissionStateVisible
+		
+		/// Show only Mask Status Badge with 100% width
+		case maskStateVisibleAdmissionStateInvisible
+		
+		/// Show Mask Status Badge and Admission Status Badge
+		case maskStateVisibleAdmissionStateVisible
+		
+		/// Show Spacer with 100% width
+		case maskStateInvisibleAdmissionStateNull
+		
+		/// Show Mask Status Badge with 80% width
+		case maskStateVisibleAdmissionStateNull
+		
+		/// Show Spacer with 100% width
+		case maskStateNullAdmissionStateNull
+	}
+	
+	/// Returns how to configure the view for mask and admission states
+	var maskAndAdmissionStatesConfiguration: MaskAndAdmissionStatesConfiguration {
+		switch (healthCertifiedPerson?.dccWalletInfo?.maskState?.visible, healthCertifiedPerson?.dccWalletInfo?.admissionState.visible) {
+		case (false, false):
+			return .maskStateInvisibleAdmissionStateInvisible
+		case (false, true):
+			return .maskStateInvisibleAdmissionStateVisible
+		case (true, true):
+			return .maskStateVisibleAdmissionStateVisible
+		case (false, nil):
+			return .maskStateInvisibleAdmissionStateNull
+		case (true, nil):
+			return .maskStateVisibleAdmissionStateNull
+		case (nil, nil):
+			return .maskStateNullAdmissionStateNull
+		default:
+			return .maskStateInvisibleAdmissionStateInvisible
 		}
 	}
 }
