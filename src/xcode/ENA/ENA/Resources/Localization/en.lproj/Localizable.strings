@@ -2921,7 +2921,7 @@
 /* Health Certified Person */
 "HealthCertifiedPerson_faq" = "For further information, please see our FAQ page.";
 
-"HealthCertifiedPerson_faq_maskState" = "For further information about mask exemptions, please see our FAQ page.";
+"HealthCertifiedPerson_faq_maskState" = "For further information about mask mandates, please see our FAQ page.";
 
 "HealthCertifiedPerson_dateOfBirth" = "Born %@";
 
