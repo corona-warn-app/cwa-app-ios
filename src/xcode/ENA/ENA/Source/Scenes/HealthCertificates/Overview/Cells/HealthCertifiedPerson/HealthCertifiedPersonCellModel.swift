@@ -246,45 +246,44 @@ class HealthCertifiedPersonCellModel {
 extension HealthCertifiedPersonCellModel {
 	enum MaskAndAdmissionStatesConfiguration {
 		/// Show Nothing
-		case maskStatusInvisibleAdmissionStatusInvisible
+		case maskStateInvisibleAdmissionStateInvisible
 		
 		/// Show Admission Status Badge alone on the right side
-		case maskStatusInvisibleAdmissionStatusVisible
+		case maskStateInvisibleAdmissionStateVisible
 		
 		/// Show only Mask Status Badge with 100% width
-		case maskStatusVisibleAdmissionStatusInvisible
+		case maskStateVisibleAdmissionStateInvisible
 		
 		/// Show Mask Status Badge and Admission Status Badge
-		case maskStatusVisibleAdmissionStatusVisible
+		case maskStateVisibleAdmissionStateVisible
 		
 		/// Show Spacer with 100% width
-		case maskStatusInvisibleAdmissionStatusNull
+		case maskStateInvisibleAdmissionStateNull
 		
 		/// Show Mask Status Badge with 80% width
-		case maskStatusVisibleAdmissionStatusNull
+		case maskStateVisibleAdmissionStateNull
 		
 		/// Show Spacer with 100% width
-		case maskStatusNullAdmissionStatusNull
+		case maskStateNullAdmissionStateNull
 	}
 	
-	/// Returns how to configure the view for admission states:
-	/// Mask Status and Admission Status
-	var admissionStatesConfiguration: MaskAndAdmissionStatesConfiguration {
+	/// Returns how to configure the view for mask and admission states
+	var maskAndAdmissionStatesConfiguration: MaskAndAdmissionStatesConfiguration {
 		switch (healthCertifiedPerson?.dccWalletInfo?.maskState?.visible, healthCertifiedPerson?.dccWalletInfo?.admissionState.visible) {
 		case (false, false):
-			return .maskStatusInvisibleAdmissionStatusInvisible
+			return .maskStateInvisibleAdmissionStateInvisible
 		case (false, true):
-			return .maskStatusInvisibleAdmissionStatusVisible
+			return .maskStateInvisibleAdmissionStateVisible
 		case (true, true):
-			return .maskStatusVisibleAdmissionStatusVisible
+			return .maskStateVisibleAdmissionStateVisible
 		case (false, nil):
-			return .maskStatusInvisibleAdmissionStatusNull
+			return .maskStateInvisibleAdmissionStateNull
 		case (true, nil):
-			return .maskStatusVisibleAdmissionStatusNull
+			return .maskStateVisibleAdmissionStateNull
 		case (nil, nil):
-			return .maskStatusNullAdmissionStatusNull
+			return .maskStateNullAdmissionStateNull
 		default:
-			return .maskStatusInvisibleAdmissionStatusInvisible
+			return .maskStateInvisibleAdmissionStateInvisible
 		}
 	}
 }

@@ -92,7 +92,7 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 		)
 		
 		maskAdmissionStatesStackView.isHidden = !cellModel.isShortAdmissionStatusVisible && !cellModel.isMaskStatusVisible
-		configureAdmissionStatesStackView()
+		configureMaskAdmissionStatesStackView()
 		
 		segmentedControl.isHidden = cellModel.switchableHealthCertificates.isEmpty
 
@@ -202,7 +202,7 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 	
 	private lazy var maskStateView = RoundedLabeledView()
 	
-	private lazy var admissionStatesSpacerView = UIView()
+	private lazy var emptySpacerView = UIView()
 	
 	private lazy var maskAdmissionStatesStackView: UIStackView = {
 		let maskAdmissionStatesStackView = UIStackView()
@@ -428,27 +428,27 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 		addGestureRecognizer(tapGestureRecognizer)
 	}
 	
-	private func configureAdmissionStatesStackView() {
-		guard let admissionStatesConfiguration = cellModel?.admissionStatesConfiguration else {
+	private func configureMaskAdmissionStatesStackView() {
+		guard let maskAndAdmissionStatesConfiguration = cellModel?.maskAndAdmissionStatesConfiguration else {
 			maskAdmissionStatesStackView.isHidden = true
 			return
 		}
 		
-		[maskStateView, admissionStateView, admissionStatesSpacerView].forEach { $0.isHidden = true }
+		[maskStateView, admissionStateView, emptySpacerView].forEach { $0.isHidden = true }
 
-		switch admissionStatesConfiguration {
-		case .maskStatusInvisibleAdmissionStatusInvisible:
+		switch maskAndAdmissionStatesConfiguration {
+		case .maskStateInvisibleAdmissionStateInvisible:
 			maskAdmissionStatesStackView.isHidden = true
 			
-		case .maskStatusInvisibleAdmissionStatusVisible:
-			admissionStatesSpacerView.setContentHuggingPriority(.defaultLow, for: .horizontal)
+		case .maskStateInvisibleAdmissionStateVisible:
+			emptySpacerView.setContentHuggingPriority(.defaultLow, for: .horizontal)
 			admissionStateView.setContentHuggingPriority(.required, for: .horizontal)
-			maskAdmissionStatesStackView.addArrangedSubview(admissionStatesSpacerView)
+			maskAdmissionStatesStackView.addArrangedSubview(emptySpacerView)
 			maskAdmissionStatesStackView.addArrangedSubview(admissionStateView)
-			admissionStatesSpacerView.isHidden = false
+			emptySpacerView.isHidden = false
 			admissionStateView.isHidden = false
 
-		case .maskStatusVisibleAdmissionStatusVisible:
+		case .maskStateVisibleAdmissionStateVisible:
 			maskStateView.setContentHuggingPriority(.defaultLow, for: .horizontal)
 			admissionStateView.setContentHuggingPriority(.required, for: .horizontal)
 			maskAdmissionStatesStackView.addArrangedSubview(maskStateView)
@@ -456,24 +456,24 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 			maskStateView.isHidden = false
 			admissionStateView.isHidden = false
 			
-		case .maskStatusVisibleAdmissionStatusInvisible:
+		case .maskStateVisibleAdmissionStateInvisible:
 			maskStateView.setContentHuggingPriority(.defaultLow, for: .horizontal)
 			maskAdmissionStatesStackView.addArrangedSubview(maskStateView)
 			maskStateView.isHidden = false
 			
-		case .maskStatusInvisibleAdmissionStatusNull, .maskStatusNullAdmissionStatusNull:
-			maskAdmissionStatesStackView.addArrangedSubview(admissionStatesSpacerView)
-			admissionStatesSpacerView.translatesAutoresizingMaskIntoConstraints = false
-			admissionStatesSpacerView.heightAnchor.constraint(equalToConstant: 31).isActive = true
-			admissionStatesSpacerView.isHidden = false
+		case .maskStateInvisibleAdmissionStateNull, .maskStateNullAdmissionStateNull:
+			maskAdmissionStatesStackView.addArrangedSubview(emptySpacerView)
+			emptySpacerView.translatesAutoresizingMaskIntoConstraints = false
+			emptySpacerView.heightAnchor.constraint(equalToConstant: 31).isActive = true
+			emptySpacerView.isHidden = false
 			
-		case .maskStatusVisibleAdmissionStatusNull:
+		case .maskStateVisibleAdmissionStateNull:
 			maskStateView.setContentHuggingPriority(.defaultLow, for: .horizontal)
 			maskStateView.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
-			admissionStatesSpacerView.setContentHuggingPriority(.required, for: .horizontal)
-			admissionStatesSpacerView.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+			emptySpacerView.setContentHuggingPriority(.required, for: .horizontal)
+			emptySpacerView.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
 			maskAdmissionStatesStackView.addArrangedSubview(maskStateView)
-			maskAdmissionStatesStackView.addArrangedSubview(admissionStatesSpacerView)
+			maskAdmissionStatesStackView.addArrangedSubview(emptySpacerView)
 			maskStateView.widthAnchor.constraint(greaterThanOrEqualTo: maskAdmissionStatesStackView.widthAnchor, multiplier: 0.8).isActive = true
 			maskStateView.isHidden = false
 		}
