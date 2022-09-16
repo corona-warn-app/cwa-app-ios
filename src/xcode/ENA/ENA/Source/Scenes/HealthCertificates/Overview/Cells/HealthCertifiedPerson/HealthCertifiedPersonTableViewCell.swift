@@ -429,7 +429,7 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 	}
 	
 	private func configureMaskAdmissionStatesStackView() {
-		guard let maskAndAdmissionStatesConfiguration = cellModel?.maskAndAdmissionStatesConfiguration else {
+		guard let maskAndAdmissionStatesConfiguration = cellModel?.maskAndAdmissionStatesConfiguration, let cellModel = cellModel else {
 			maskAdmissionStatesStackView.isHidden = true
 			return
 		}
@@ -480,6 +480,9 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 			maskStateView.widthAnchor.constraint(greaterThanOrEqualTo: maskAdmissionStatesStackView.widthAnchor, multiplier: 0.8).isActive = true
 			maskStateView.isHidden = false
 		}
+		
+		// G-Status not null, but empty.
+		admissionStateView.isHidden = !cellModel.isShortAdmissionStatusVisible
 	}
 
 	private func updateBorderColors() {
