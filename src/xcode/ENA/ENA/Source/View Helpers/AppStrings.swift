@@ -1182,6 +1182,10 @@ enum AppStrings {
 		static let buttonContinue = NSLocalizedString("DeltaOnboarding_NewVersionFeatures_Button_Continue", comment: "")
 		static let generalDescription = NSLocalizedString("DeltaOnboarding_NewVersionFeatures_Description", comment: "")
 		static let aboutAppInformation = NSLocalizedString("NewVersionFeatures_Info_about_abb_information", comment: "")
+		
+		/* Version 2.27 */
+		static let feature227WearMaskTitle = NSLocalizedString("NewVersionFeature_227_wear_mask_title", comment: "")
+		static let feature227WearMaskDescription = NSLocalizedString("NewVersionFeature_227_wear_mask_description", comment: "")
 	}
 
 	enum DeltaOnboarding {
@@ -2165,6 +2169,7 @@ enum AppStrings {
 			static let validationButtonTitle = NSLocalizedString("HealthCertifiedPerson_validationButtonTitle", comment: "")
 
 			static let faq = NSLocalizedString("HealthCertifiedPerson_faq", comment: "")
+			static let faqMaskState = NSLocalizedString("HealthCertifiedPerson_faq_maskState", comment: "")
 
 			static let currentlyUsedCertificate = NSLocalizedString("HealthCertifiedPerson_currentlyUsedCertificate", comment: "")
 			static let newlyAddedCertificate = NSLocalizedString("HealthCertifiedPerson_newlyAddedCertificate", comment: "")
@@ -2467,6 +2472,7 @@ enum AppStrings {
 		static let scannerTitle = NSLocalizedString("UniversalQRScanner_ScannerTitle", comment: "")
 		static let instructionTitle = NSLocalizedString("UniversalQRScanner_InstructionTitle", comment: "")
 		static let instructionDescription = NSLocalizedString("UniversalQRScanner_InstructionDescription", comment: "")
+		static let instructionDescriptionWarnOthers = NSLocalizedString("UniversalQRScanner_InstructionDescriptionWarnOthers", comment: "")
 
 		static let fileButtonTitle = NSLocalizedString("UniversalQRScanner_FileButtonTitle", comment: "")
 		static let flashButtonAccessibilityLabel = NSLocalizedString("UniversalQRScanner_CameraFlash", comment: "")

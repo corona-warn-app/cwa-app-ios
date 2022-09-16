@@ -189,11 +189,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 
 		NotificationCenter.default.addObserver(self, selector: #selector(isOnboardedDidChange(_:)), name: .isOnboardedDidChange, object: nil)
 		NotificationCenter.default.addObserver(self, selector: #selector(backgroundRefreshStatusDidChange), name: UIApplication.backgroundRefreshStatusDidChangeNotification, object: nil)
-
-		// Background task registration on iOS 12.5 requires us to activate the ENManager (https://jira-ibs.wbs.net.sap/browse/EXPOSUREAPP-8919)
-		if #available(iOS 13.5, *) {
-			// Do nothing since we can use BGTask in this case.
-		} else if NSClassFromString("ENManager") != nil { // Make sure that ENManager is available. -> iOS 12.5.x
+		
+		guard #available(iOS 13.5, *) else {
+			// Background task registration on iOS 12.5 requires us to activate the ENManager (https://jira-ibs.wbs.net.sap/browse/EXPOSUREAPP-8919)
 			if store.isOnboarded, exposureManager.exposureManagerState.status == .unknown {
 				self.exposureManager.activate { error in
 					if let error = error {
@@ -201,8 +199,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 					}
 				}
 			}
+			return handleQuickActions(with: launchOptions)
 		}
-
 		return handleQuickActions(with: launchOptions)
 	}
 
@@ -451,6 +449,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	private lazy var otpService: OTPServiceProviding = OTPService(
 		store: store,
 		client: client,
+		restServiceProvider: restServiceProvider,
 		riskProvider: riskProvider
 	)
 	

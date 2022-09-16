@@ -32,8 +32,22 @@ struct JSONReceiveResource<R>: ReceiveResource where R: Decodable {
 			return .failure(.decoding(.JSON_DECODING(DecodingError.valueNotFound(type, context))))
 		} catch let DecodingError.typeMismatch(type, context) {
 			Log.debug("Type mismatch found \(type)", log: .client)
-			Log.debug("Debug Description: \(context.debugDescription)", log: .client)
-			return .failure(.decoding(.JSON_DECODING(DecodingError.typeMismatch(type, context))))
+			/*
+			 In some cases like the OTP response for both ELS and EDUS we need a different
+			 dateDecodingStrategy otherwise the decoding of the JSON response will fail, and since
+			 we are using generics for the ReceiveResource there is no way to handle the Specific
+			 case for OTP, then the best approach would be to try to decode with the expected
+			 dateDecodingStrategy "i.e iso8601" if the default decoding fails,
+			 if the second decoding fails we will return the error then.
+			*/
+			decoder.dateDecodingStrategy = .iso8601
+			do {
+				let model = try decoder.decode(R.self, from: data)
+				return .success(model)
+			} catch {
+				Log.debug("Debug Description: \(context.debugDescription)", log: .client)
+				return .failure(.decoding(.JSON_DECODING(DecodingError.typeMismatch(type, context))))
+			}
 		} catch let DecodingError.dataCorrupted(context) {
 			Log.debug("Debug Description: \(context.debugDescription)", log: .client)
 			return .failure(.decoding(.JSON_DECODING(DecodingError.dataCorrupted(context))))

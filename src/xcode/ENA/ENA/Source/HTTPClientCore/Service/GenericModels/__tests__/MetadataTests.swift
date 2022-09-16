@@ -145,7 +145,7 @@ class MetadataTests: CWATestCase {
 	
 }
 
-private struct CBORDecodingTestModel: CBORDecodable & MetaDataProviding {
+private struct CBORDecodingTestModel: CBORDecodable, MetaDataProviding {
 	
 	// MARK: - Protocol CBORDecoding
 	

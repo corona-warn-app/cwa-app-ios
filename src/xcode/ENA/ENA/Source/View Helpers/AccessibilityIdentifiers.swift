@@ -151,12 +151,14 @@ enum AccessibilityIdentifiers {
 		static let legal_1 = "AppStrings.ContactDiaryInformation.legalHeadline_1"
 		
 		enum Day {
+			static let cellView = "AppStrings.ContactDiaryInformation.cellView-%d"
 			static let headerStackView = "AppStrings.ContactDiaryInformation.headerStackView-%d"
 			static let checkboxImageView = "AppStrings.ContactDiaryInformation.checkboxImageView-%d"
 			static let label = "AppStrings.ContactDiaryInformation.label-%d"
 			static let durationSegmentedContol = "AppStrings.ContactDiaryInformation.durationSegmentedContol"
 			static let maskSituationSegmentedControl = "AppStrings.ContactDiaryInformation.maskSituationSegmentedControl"
 			static let settingSegmentedControl = "AppStrings.ContactDiaryInformation.settingSegmentedControl"
+			static let durationLabel = "AppStrings.ContactDiaryInformation.durationLabel"
 			static let notesTextField = "AppStrings.ContactDiaryInformation.notesTextField"
 			static let notesInfoButton = "AppStrings.ContactDiaryInformation.notesInfoButton"
 		}
@@ -885,7 +887,15 @@ enum AccessibilityIdentifiers {
 			static let description = "HealthCertificate.AdmissionState.description"
 			static let faq = "HealthCertificate.AdmissionState.faq"
 			static let unseenNewsIndicator = "HealthCertificate.AdmissionState.unseenNewsIndicator"
+		}
 
+		enum MaskState {
+			static let roundedView = "HealthCertificate.MaskState.roundedView"
+			static let title = "HealthCertificate.MaskState.title"
+			static let subtitle = "HealthCertificate.MaskState.subtitle"
+			static let badgeImage = "HealthCertificate.MaskState.badgeImage"
+			static let description = "HealthCertificate.MaskState.description"
+			static let faq = "HealthCertificate.MaskState.faq"
 		}
 
 		enum Certificate {

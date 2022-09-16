@@ -157,6 +157,9 @@ class DynamicTableViewRoundedCell: UITableViewCell {
 		buttonTapped: (() -> Void)? = nil,
 		buttonAccessibilityIdentifier: String? = nil
 	) {
+		self.title.attributedText = title
+		self.body.attributedText = body
+
 		setup(
 			titleStyle: titleStyle,
 			bodyStyle: bodyStyle,
@@ -168,8 +171,6 @@ class DynamicTableViewRoundedCell: UITableViewCell {
 			buttonAccessibilityIdentifier: buttonAccessibilityIdentifier
 		)
 		setupConstraints()
-		self.title.attributedText = title
-		self.body.attributedText = body
 	}
 
 	// MARK: - Helper methods

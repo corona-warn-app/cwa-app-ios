@@ -201,7 +201,7 @@
 
 "ExposureDetection_Info_HygieneRules_TitleImage_Description" = "Mehrere Personen, die Abstand halten und einen Mundschutz tragen.";
 
-"ExposureDetection_Info_Contagion_Title" = "Ansteckungsrisiko minimieren";
+"ExposureDetection_Info_Contagion_Title" = "Infektionsrisiko minimieren";
 
 "ExposureDetection_Info_Contagion_Image_Title" = "Falls Sie sich unerkannt angesteckt haben, verringern Sie so das Risiko, andere zu infizieren:";
 
@@ -351,7 +351,7 @@ Ermittlung sollte daher dauerhaft aktiv sein. Für Ihre Risiko-Ermittlung wird d
 
 "NotificationSettings_BulletHeadlineOn" = "Mitteilungen verwalten";
 
-"NotificationSettings_BulletHeadlineOff" = "Mitteilungen verwalten";
+"NotificationSettings_BulletHeadlineOff" = "Mitteilungen aktivieren";
 
 "NotificationSettings_BulletDescOn" = "Sie können hier festlegen, ob:";
 
@@ -1126,9 +1126,9 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureNotificationSetting_DescriptionTitle" = "So funktioniert die Risiko-Ermittlung";
 
-"ExposureNotificationSetting_DescriptionText1" = "Um zu erkennen, ob für Sie ein Ansteckungsrisiko vorliegt, müssen Sie die Risiko-Ermittlung aktivieren. Die Risiko-Ermittlung funktioniert länderübergreifend, so dass auch Risiko-Begegnungen mit Nutzern von anderen offiziellen Corona-Apps erkannt werden.";
+"ExposureNotificationSetting_DescriptionText1" = "Um zu erkennen, ob für Sie ein Infektionsrisiko vorliegt, müssen Sie die Risiko-Ermittlung aktivieren. Die Risiko-Ermittlung funktioniert länderübergreifend, so dass auch Risiko-Begegnungen mit Nutzern von anderen offiziellen Corona-Apps erkannt werden.";
 
-"ExposureNotificationSetting_DescriptionText2" = "Die Risiko-Ermittlung funktioniert, indem Ihr iPhone per Bluetooth verschlüsselte Zufalls-IDs anderer App nutzenden Personen empfängt und Ihre eigenen Zufalls-IDs an deren Smartphone weitergibt. Die App lädt täglich Listen mit den Zufalls-IDs und eventuellen Angaben zum Symptombeginn aller Corona-positiv getesteten Nutzer herunter, die ihr Testergebnis (genauer gesagt: ihre Zufalls-IDs) freiwillig über ihre App geteilt haben. Diese Listen werden dann mit den von Ihrem iPhone aufgezeichneten Zufalls-IDs anderer Nutzer, denen Sie begegnet sind, verglichen, um Ihr Ansteckungsrisiko zu berechnen und Sie zu warnen.";
+"ExposureNotificationSetting_DescriptionText2" = "Die Risiko-Ermittlung funktioniert, indem Ihr iPhone per Bluetooth verschlüsselte Zufalls-IDs anderer App nutzenden Personen empfängt und Ihre eigenen Zufalls-IDs an deren Smartphone weitergibt. Die App lädt täglich Listen mit den Zufalls-IDs und eventuellen Angaben zum Symptombeginn aller Corona-positiv getesteten Nutzer herunter, die ihr Testergebnis (genauer gesagt: ihre Zufalls-IDs) freiwillig über ihre App geteilt haben. Diese Listen werden dann mit den von Ihrem iPhone aufgezeichneten Zufalls-IDs anderer Nutzer, denen Sie begegnet sind, verglichen, um Ihr Infektionsrisiko zu berechnen und Sie zu warnen.";
 
 "ExposureNotificationSetting_DescriptionText3" = "Die Risiko-Ermittlung lässt sich jederzeit über den Schieberegler deaktivieren.";
 
@@ -1701,11 +1701,17 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "DeltaOnboarding_NewVersionFeatures_Button_Continue" = "Weiter";
 
-"DeltaOnboarding_NewVersionFeatures_Description" = "Mit diesem Update beheben wir Fehler in der App. Es enthält keine neuen Funktionen.";
+"DeltaOnboarding_NewVersionFeatures_Description" = "Mit diesem Update stellen wir Ihnen neben Fehlerbehebungen auch neue und erweiterte Funktionen zur Verfügung.";
 
 /* New Version Features */
 
 "NewVersionFeatures_Info_about_abb_information" = "Änderungen zum Release finden Sie in den App-Informationen unter dem Menüpunkt „Neue Funktionen”.";
+
+/* Version 2.27 */
+
+ "NewVersionFeature_227_wear_mask_title" = "Anzeige der Maskenbefreiung";
+
+ "NewVersionFeature_227_wear_mask_description" = "Auf Ihrem digitalen COVID-Zertifikat wird angezeigt, ob Sie nach den aktuell gültigen Regeln von der Maskenpflicht befreit sind, oder eine Maske tragen müssen.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Länderübergreifende Risiko-Ermittlung";
@@ -2209,7 +2215,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Statistics_Info_Local7Days_Text" = "Gesamtzahl der bestätigten Neuinfektionen bzw. Hospitalisierungen der letzten 7 Tage (nach Meldedatum) pro 100.000 Einwohner im konfigurierten Kreis oder Bundesland.\nDie Hospitalisierungsdaten beziehen sich auf das zugehörige Bundesland.";
 
-"Statistics_Info_NewInfection_Title" = "Bestätigte Neuinfektionen";
+"Statistics_Info_NewInfection_Title" = "Neuinfektionen";
 
 "Statistics_Info_NewInfection_Text" = "Gesamtzahl der bestätigten Neuinfektionen der letzten 7 Tage (nach Meldedatum) pro 100.000 Einwohner.";
 
@@ -2223,7 +2229,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Statistics_Info_Infections_Title" = "Bestätigte Neuinfektionen";
 
-"Statistics_Info_Infections_Text" = "Anzahl der an das RKI übermittelten Corona-positiv getesteten Personen.";
+"Statistics_Info_Infections_Text" = "Anzahl der an das RKI übermittelten Corona-positiv getesteten Personen. Anzahlen unter einem Schwellenwert von 1% des 7-Tage-Mittelwerts werden nicht angezeigt; siehe auch Erläuterung unter Legende > Zeitraum.";
 
 "Statistics_Info_KeySubmissions_Title" = "Warnende Personen";
 
@@ -2259,7 +2265,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Statistics_Info_Yesterday_Title" = "Gestern / Bis gestern";
 
-"Statistics_Info_Yesterday_Text" = "Zahl für den Vortag / bis zum Vortag. Wenn für den Vortag noch keine Zahl vorliegt, wird das Datum des letzten Tages angezeigt, für den eine Zahl vorliegt.";
+"Statistics_Info_Yesterday_Text" = "Für Gestern / Bis gestern wird die Zahl für den Vortag / bis zum Vortag angezeigt. Wenn für den Vortag noch keine Zahl vorliegt oder die für den Vortag vorliegende Zahl keine Aussage zulässt, z.B. weil am Wochenende oder an Feiertagen nur noch wenige Gesundheitsämter und Landesbehörden Daten an das RKI übermitteln, wird das Datum des letzten Tages angezeigt, für den eine Zahl vorliegt.";
 
 "Statistics_Info_Mean_Title" = "7-Tage-Mittelwert";
 
@@ -2361,7 +2367,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "DetailedInfosDataDonation_BulletPoint_ImproveddRiskDetermination_BulletTitle" = "Verbesserung der Risiko-Ermittlung";
 
-"DetailedInfosDataDonation_BulletPoint_ImproveddRiskDetermination" = "Die Genauigkeit und Zuverlässigkeit der technischen Berechnung der Ansteckungsrisiken sollen verbessert werden. Hierfür werden Angaben über Risiko-Begegnungen und Ihnen angezeigte Warnungen ausgewertet. In der Folge kann die Berechnungsmethode verfeinert werden.";
+"DetailedInfosDataDonation_BulletPoint_ImproveddRiskDetermination" = "Die Genauigkeit und Zuverlässigkeit der technischen Berechnung der Infektionsrisiken sollen verbessert werden. Hierfür werden Angaben über Risiko-Begegnungen und Ihnen angezeigte Warnungen ausgewertet. In der Folge kann die Berechnungsmethode verfeinert werden.";
 
 "DetailedInfosDataDonation_BulletPoint_ImproveddUserNavigation_BulletTitle" = "Verbesserung der Nutzerführung in der App";
 
@@ -2983,7 +2989,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_ExportCertificatesInfo_Copy02" = "Beachten Sie, dass das PDF-Dokument sensible Informationen enthält. Wir empfehlen Ihnen, hiermit sorgsam umzugehen und es nur Personen vorzuzeigen, denen Sie vertrauen und die zur Prüfung des Nachweises berechtigt sind.";
 
-"HealthCertificate_ExportCertificatesInfo_Copy03" = "Wir empfehlen Ihnen, das PDF-Dokument nicht zu veröffentlichen und nicht per E-Mail zu versenden oder über andere Apps zu teilen.";
+"HealthCertificate_ExportCertificatesInfo_Copy03" = "Wir empfehlen, das PDF-Dokument nicht zu veröffentlichen und nicht per E-Mail zu versenden oder über andere Apps zu teilen.";
 
 "HealthCertificate_ExportCertificatesInfo_PrimaryButton" = "Weiter";
 
@@ -3022,6 +3028,8 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 /* Health Certified Person */
 
 "HealthCertifiedPerson_faq" = "Mehr Informationen finden Sie in den FAQ.";
+
+"HealthCertifiedPerson_faq_maskState" = "Mehr Informationen zur Maskenpflicht in den FAQ";
 
 "HealthCertifiedPerson_dateOfBirth" = "Geboren %@";
 
@@ -3430,6 +3438,8 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 "UniversalQRScanner_InstructionTitle" = "Welche QR-Codes können Sie scannen?";
 
 "UniversalQRScanner_InstructionDescription" = "Tests, Ihre Zertifikate, Check-ins und Nachweise bei Ticketbuchungen";
+
+"UniversalQRScanner_InstructionDescriptionWarnOthers" = "Sie können Check-ins scannen, um gelöschte Events wiederherzustellen.";
 
 "UniversalQRScanner_FileButtonTitle" = "Datei öffnen";
 

@@ -300,7 +300,7 @@
 
 "Settings_Reset_Label" = "Uygulamayı Sıfırla";
 
-"Settings_Tracing_Description" = "COVID-19 rastgele kimliklerinin oluşturulmasına ve paylaşılmasına izin verin.";
+"Settings_Tracing_Description" = "COVID-19 rastgele kimliklerinin kaydedilmesine ve paylaşılmasına izin verin.";
 
 "Settings_Notification_Description" = "COVID-19 risk durumunuz ile ilgili otomatik bildirimlere izin verin.";
 
@@ -343,7 +343,7 @@
 
 "NotificationSettings_BulletHeadlineOn" = "Bildirimleri Yönet";
 
-"NotificationSettings_BulletHeadlineOff" = "Bildirimleri Yönet";
+"NotificationSettings_BulletHeadlineOff" = "Bildirimleri Etkinleştir";
 
 "NotificationSettings_BulletDescOn" = "Burada şu ayarları tanımlayabilirsiniz:";
 
@@ -423,7 +423,7 @@
 "BackgroundAppRefreshSettings_ShareButton_Title" = "Talimatları Paylaş";
 
 /* Onboarding */
-"Onboarding_LetsGo_actionText" = "Haydi başlayalım";
+"Onboarding_LetsGo_actionText" = "Haydi Başlayalım";
 
 "Onboarding_Continue_actionText" = "Sonraki";
 
@@ -481,7 +481,7 @@
 
 "OnboardingInfo_howDoesDataExchangeWorkPage_boldText" = "Pozitif test sonucu alırsanız lütfen bunu uygulamada belirtin. Test sonuçlarınızı paylaşmanız gönüllülük esasına dayalıdır ve güvenlidir. Lütfen herkesin sağlığı için bunu yapın.";
 
-"OnboardingInfo_howDoesDataExchangeWorkPage_normalText" = "Bildiriminiz güvenli olarak şifrelenir ve güvenli bir sunucuda işlenir. Cihazınızda şifrelenmiş rastgele kimlikleri toplanan kişilere bundan sonra atmaları gereken adımlarla birlikte bir uyarı gönderilir.";
+"OnboardingInfo_howDoesDataExchangeWorkPage_normalText" = "Bildiriminiz güvenli olarak şifrelenir ve güvenli bir sunucuda işlenir. Akıllı telefonunuza şifrelenmiş rastgele kimlikleri toplanan kişilere bundan sonra atmaları gereken adımlarla birlikte bir uyarı gönderilir.";
 
 "OnboardingInfo_alwaysStayInformedPage_imageDescription" = "Bir kadın Corona-Warn-App uygulamasından bildirim alıyor.";
 
@@ -1651,10 +1651,15 @@
 
 "DeltaOnboarding_NewVersionFeatures_Button_Continue" = "Sonraki";
 
-"DeltaOnboarding_NewVersionFeatures_Description" = "Bu güncelleme ile hatalar düzeltilmektedir. Bu güncellemede yeni özellik sunulmamaktadır.";
+"DeltaOnboarding_NewVersionFeatures_Description" = "Hata düzeltmelerinin yanında bu güncelleme ile birlikte yeni ve gelişmiş özellikler sunulmaktadır.";
 
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Bu sürümdeki değişiklikleri uygulama bilgilerinde “Yeni Özellikler” bölümünde bulabilirsiniz.";
+
+/* Version 2.27 */
+"NewVersionFeature_227_wear_mask_title" = "Maske Muafiyetini Görüntüle";
+
+"NewVersionFeature_227_wear_mask_description" = "Dijital COVID sertifikanız, mevcut geçerli kurallara göre maske takma konusunda muafiyetinizin olduğunu ya da maske takmanızın gerektiğini belirtir.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Uluslararası Maruz Kalma Günlüğü";
@@ -2139,7 +2144,7 @@
 
 "Statistics_Info_Local7Days_Text" = "Konfigüre edilen bölgede veya federal eyalette her 100.000 vatandaşta son 7 günde (bildirme tarihine göre) onaylanan toplam yeni enfeksiyon sayısı.\nHastaneye yatış verilerinde, Almanya'daki ilgili eyaleti referans alınır.";
 
-"Statistics_Info_NewInfection_Title" = "Onaylanan Yeni Enfeksiyon Sayısı";
+"Statistics_Info_NewInfection_Title" = "Yeni Enfeksiyon Sayısı";
 
 "Statistics_Info_NewInfection_Text" = "Her 100.000 vatandaşta son 7 günde (bildirme tarihine göre) onaylanan toplam yeni enfeksiyon sayısı.";
 
@@ -2153,7 +2158,7 @@
 
 "Statistics_Info_Infections_Title" = "Onaylanan Yeni Enfeksiyon Sayısı";
 
-"Statistics_Info_Infections_Text" = "Koronavirüs tanısı alan ve RKI’ye bildirilen kişi sayısı.";
+"Statistics_Info_Infections_Text" = "Koronavirüs tanısı alan ve RKI’ye bildirilen kişi sayısı. 7 günlük ortalamanın %1 eşiğinin altındaki sayılar görüntülenmez; Açıklama > Dönem bölümündeki açıklamaya da bakın.";
 
 "Statistics_Info_KeySubmissions_Title" = "Uygulama Kullanıcılarının Uyarıları";
 
@@ -2189,7 +2194,7 @@
 
 "Statistics_Info_Yesterday_Title" = "Dün/Düne kadar";
 
-"Statistics_Info_Yesterday_Text" = "Önceki güne ait/önceki güne kadar olan sayıdır. Önceki güne ait hiçbir değer yoksa değer olan son güne ait veriler görüntülenir.";
+"Statistics_Info_Yesterday_Text" = "\"Dün/Düne kadar\" için, önceki güne ait/önceki güne kadar olan sayı görüntülenir. Örneğin hafta sonlarında ve resmi tatillerde yalnızca birkaç kamu sağlığı görevlisinin RKI'ye veri göndermesi gibi bir nedenle, önceki güne ait hiçbir değer yoksa değer olan son güne ait veriler görüntülenir.";
 
 "Statistics_Info_Mean_Title" = "7 Günlük Ortalama";
 
@@ -2916,6 +2921,8 @@
 /* Health Certified Person */
 "HealthCertifiedPerson_faq" = "Daha fazla bilgi için lütfen SSS sayfamıza bakın.";
 
+"HealthCertifiedPerson_faq_maskState" = "Maske zorunlulukları hakkında daha fazla bilgi için lütfen SSS sayfamıza bakın.";
+
 "HealthCertifiedPerson_dateOfBirth" = "Doğum tarihi: %@";
 
 "HealthCertifiedPerson_preferredPersonDescription" = "%@ ve uygulamanın ana kullanıcısıysanız lütfen bu anahtarı açın. Sertifikalarınız listenin en üstünde görünecektir.";
@@ -3295,6 +3302,8 @@
 
 "UniversalQRScanner_InstructionDescription" = "Testler, Sertifikalarınız, Check-in'ler ve Biletleme Sırasında Doğrulama";
 
+"UniversalQRScanner_InstructionDescriptionWarnOthers" = "Sildiğiniz etkinlikleri geri yüklemek için check-in'leri tarayabilirsiniz.";
+
 "UniversalQRScanner_FileButtonTitle" = "Dosya Aç";
 
 "UniversalQRScanner_CameraFlash" = "Kamera flaşı";
@@ -3438,7 +3447,7 @@
 
 "RecycleBin_deleteAllButtonTitle" = "Tümünü Kalıcı Olarak Sil";
 
-"RecycleBin_expirationDateTime" = "şu zamanda kalıcı olarak silinecek: %@, %@";
+"RecycleBin_expirationDateTime" = "Şu zamanda kalıcı olarak silinecek: %@, %@";
 
 /* - Vaccination Certificate */
 "RecycleBin_VaccinationCertificate_headline" = "Aşı Sertifikası";

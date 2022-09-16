@@ -300,7 +300,7 @@
 
 "Settings_Reset_Label" = "Resetuj aplikację";
 
-"Settings_Tracing_Description" = "Zezwól na generowanie i udostępnianie losowych identyfikatorów COVID-19.";
+"Settings_Tracing_Description" = "Zezwól na rejestrowanie i udostępnianie losowych identyfikatorów COVID-19.";
 
 "Settings_Notification_Description" = "Zezwól na automatyczne powiadomienia o statusie ryzyka COVID-19";
 
@@ -343,7 +343,7 @@
 
 "NotificationSettings_BulletHeadlineOn" = "Zarządzaj powiadomieniami";
 
-"NotificationSettings_BulletHeadlineOff" = "Zarządzaj powiadomieniami";
+"NotificationSettings_BulletHeadlineOff" = "Aktywuj powiadomienia";
 
 "NotificationSettings_BulletDescOn" = "Tutaj możesz zdefiniować następujące ustawienia:";
 
@@ -481,7 +481,7 @@
 
 "OnboardingInfo_howDoesDataExchangeWorkPage_boldText" = "Jeżeli otrzymasz pozytywny wynik testu, zgłoś ten fakt w aplikacji. Udostępnianie wyników testu jest dobrowolne i bezpieczne. Zrób to ze względu na zdrowie innych osób.";
 
-"OnboardingInfo_howDoesDataExchangeWorkPage_normalText" = "Twoje powiadomienie jest szyfrowane w bezpieczny sposób i przetwarzane na bezpiecznym serwerze. Osoby, których zaszyfrowane losowe identyfikatory zostały zgromadzone przez Twoje urządzenie, otrzymają wtedy ostrzeżenie wraz z informacją na temat dalszych kroków postępowania.";
+"OnboardingInfo_howDoesDataExchangeWorkPage_normalText" = "Twoje powiadomienie jest szyfrowane w bezpieczny sposób i przetwarzane na bezpiecznym serwerze. Osoby, których zaszyfrowane losowe identyfikatory zostały zgromadzone przez Twój smartfon, otrzymają wtedy ostrzeżenie wraz z informacją na temat dalszych kroków postępowania.";
 
 "OnboardingInfo_alwaysStayInformedPage_imageDescription" = "Kobieta otrzymuje powiadomienie od swojej aplikacji Corona-Warn-App.";
 
@@ -1651,10 +1651,15 @@
 
 "DeltaOnboarding_NewVersionFeatures_Button_Continue" = "Dalej";
 
-"DeltaOnboarding_NewVersionFeatures_Description" = "Ta aktualizacja poprawia błędy w aplikacji. Nie zawiera żadnych nowych funkcji.";
+"DeltaOnboarding_NewVersionFeatures_Description" = "Oprócz poprawek błędów ta aktualizacja zawiera również nowe i ulepszone funkcje.";
 
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Dane o zmianach w tej wersji można znaleźć w informacjach o aplikacji w sekcji „Nowe funkcje”.";
+
+/* Version 2.27 */
+"NewVersionFeature_227_wear_mask_title" = "Wyświetl zwolnienie z obowiązku noszenia maseczki";
+
+"NewVersionFeature_227_wear_mask_description" = "Twój cyfrowy certyfikat COVID wskazuje, czy jesteś zwolniony(-a) z noszenia maseczki zgodnie z aktualnie obowiązującymi przepisami, czy też musisz ją nosić.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Rejestrowanie narażenia w różnych krajach";
@@ -2139,7 +2144,7 @@
 
 "Statistics_Info_Local7Days_Text" = "Łączna liczba potwierdzonych nowych zakażeń w ciągu ostatnich 7 dni (według daty raportowania) na 100 000 mieszkańców w skonfigurowanym okręgu lub kraju związkowym.\nDane dotyczące hospitalizacji odnoszą się do odpowiedniego niemieckiego kraju związkowego.";
 
-"Statistics_Info_NewInfection_Title" = "Potwierdzone nowe zakażenia";
+"Statistics_Info_NewInfection_Title" = "Nowe zakażenia";
 
 "Statistics_Info_NewInfection_Text" = "Łączna liczba potwierdzonych nowych zakażeń w ciągu ostatnich 7 dni (według daty zgłoszenia) na 100 000 mieszkańców.";
 
@@ -2153,7 +2158,7 @@
 
 "Statistics_Info_Infections_Title" = "Potwierdzone nowe zakażenia";
 
-"Statistics_Info_Infections_Text" = "Liczba osób ze zdiagnozowanym zakażeniem koronawirusem zgłoszonych do RKI.";
+"Statistics_Info_Infections_Text" = "Liczba osób, u których zdiagnozowano koronawirusa i które zostały zgłoszone do RKI. Liczby poniżej progu wynoszącego 1% średniej z 7 dni nie są wyświetlane; zobacz również wyjaśnienie w opcji menu: Legenda > Okres czasu.";
 
 "Statistics_Info_KeySubmissions_Title" = "Ostrzeżenia od użytkowników aplikacji";
 
@@ -2189,7 +2194,7 @@
 
 "Statistics_Info_Yesterday_Title" = "Wczoraj/do wczoraj";
 
-"Statistics_Info_Yesterday_Text" = "Liczba dotycząca dnia poprzedniego/okresu do dnia poprzedniego. Jeśli dane liczbowe za poprzedni dzień nie są jeszcze dostępne, wyświetlana jest ostatnia data, dla której istnieją dane.";
+"Statistics_Info_Yesterday_Text" = "W przypadku przedziału czasu „Wczoraj/do wczoraj” wyświetlana jest liczba dotycząca dnia poprzedniego/okresu do dnia poprzedniego. Jeśli dane liczbowe za poprzedni dzień nie są jeszcze dostępne, na przykład dlatego, że tylko nieliczne instytucje zdrowia publicznego przesyłają obecnie dane do RKI w weekendy i dni świąteczne, wyświetlana jest ostatnia data, dla której dane są dostępne.";
 
 "Statistics_Info_Mean_Title" = "7-dniowa średnia";
 
@@ -2916,6 +2921,8 @@
 /* Health Certified Person */
 "HealthCertifiedPerson_faq" = "Więcej informacji znajduje się na naszej stronie „Często zadawane pytania”.";
 
+"HealthCertifiedPerson_faq_maskState" = "Więcej informacji na temat obowiązku noszenia maseczki znajduje się na naszej stronie z często zadawanymi pytaniami.";
+
 "HealthCertifiedPerson_dateOfBirth" = "Data urodzenia %@";
 
 "HealthCertifiedPerson_preferredPersonDescription" = "Włącz ten przełącznik, jeśli jesteś %@ oraz głównym użytkownikiem aplikacji. Twoje certyfikaty pojawią się na górze listy.";
@@ -3295,6 +3302,8 @@
 
 "UniversalQRScanner_InstructionDescription" = "Testy, Twoje certyfikaty, zameldowania i walidacja podczas rezerwacji biletów";
 
+"UniversalQRScanner_InstructionDescriptionWarnOthers" = "Możesz zeskanować zameldowania, aby przywrócić usunięte wydarzenia.";
+
 "UniversalQRScanner_FileButtonTitle" = "Otwórz plik";
 
 "UniversalQRScanner_CameraFlash" = "Lampa błyskowa aparatu";
@@ -3438,7 +3447,7 @@
 
 "RecycleBin_deleteAllButtonTitle" = "Usuń trwale wszystko";
 
-"RecycleBin_expirationDateTime" = "zostanie trwale usunięty dnia %@ o %@";
+"RecycleBin_expirationDateTime" = "Zostanie trwale usunięty dnia %@ o %@";
 
 /* - Vaccination Certificate */
 "RecycleBin_VaccinationCertificate_headline" = "Certyfikat szczepienia";
