@@ -121,8 +121,7 @@ class HealthCertificatePDFVersionViewController: DynamicTableViewController, UIA
 		var pdfFileName = "healthCertificates.pdf"
 		
 		if !viewModel.certificatePersonName.isEmpty {
-			let displaceName = viewModel.certificatePersonName.replacingOccurrences(of: " ", with: "_")
-			pdfFileName = "healthCertificate_\(displaceName).pdf"
+			pdfFileName = "healthCertificate_\(viewModel.certificateFileName).pdf"
 		}
 
 		let pdfFileURL = temporaryFolder.appendingPathComponent(pdfFileName)
