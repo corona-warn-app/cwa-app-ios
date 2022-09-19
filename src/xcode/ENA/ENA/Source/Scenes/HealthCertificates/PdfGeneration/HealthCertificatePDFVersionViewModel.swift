@@ -27,6 +27,10 @@ class HealthCertificatePDFVersionViewModel {
 		return healthCertificate?.name.fullName ?? ""
 	}
 	
+	var certificateFileName: String {
+		return healthCertificate?.name.fullName.replacingOccurrences(of: " ", with: "_") ?? ""
+	}
+	
 	var shareTitle: String {
 		return AppStrings.HealthCertificate.PrintPDF.shareTitle
 	}

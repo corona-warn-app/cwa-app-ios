@@ -1335,7 +1335,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Home_resultCard_ExpiredTitle" = "Nicht mehr gültig";
 
-"Home_resultCard_ExpiredDesc" = "Ihr Test liegt länger als 21 Tage zurück und ist daher nicht länger relevant. Bitte löschen Sie den Test. Danach können Sie einen neuen Test hinzufügen.";
+"Home_resultCard_ExpiredDesc" = "Ihr Test liegt länger als 2 Tage zurück und ist daher nicht länger relevant. Bitte löschen Sie den Test. Danach können Sie einen neuen Test hinzufügen.";
 
 /* - Outdated */
 
