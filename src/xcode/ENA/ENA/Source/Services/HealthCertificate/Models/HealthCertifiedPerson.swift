@@ -296,9 +296,12 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 	}
 	
 	var needsDCCWalletInfoUpdate: Bool {
-		let now = Date()
-
-		return dccWalletInfo == nil || mostRecentWalletInfoUpdateFailed || (dccWalletInfo?.validUntil ?? now) < now
+		guard let validUntil = dccWalletInfo?.validUntil else {
+			// should never happen
+			return true
+		}
+		
+		return dccWalletInfo == nil || mostRecentWalletInfoUpdateFailed || validUntil < Date()
 	}
 	
 	func healthCertificate(for reference: DCCCertificateReference) -> HealthCertificate? {
