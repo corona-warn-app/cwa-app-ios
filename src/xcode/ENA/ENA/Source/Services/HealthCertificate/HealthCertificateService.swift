@@ -123,6 +123,10 @@ class HealthCertificateService: HealthCertificateServiceServable {
 		return allDatesToExam.min()
 	}
 
+	var isVersionChanged: Bool {
+		return store.appVersion != Bundle.main.appVersion
+	}
+	
 	func setup(
 		updatingWalletInfos: Bool,
 		completion: @escaping () -> Void
@@ -407,14 +411,15 @@ class HealthCertificateService: HealthCertificateServiceServable {
 				return
 			}
 			let dispatchGroup = DispatchGroup()
-			for person in self.healthCertifiedPersons where (configurationDidChange || person.needsDCCWalletInfoUpdate || isForced) {
+			for person in self.healthCertifiedPersons where (configurationDidChange || person.needsDCCWalletInfoUpdate || self.isVersionChanged || isForced) {
 				dispatchGroup.enter()
 				self.updateDCCWalletInfo(for: person) {
 					dispatchGroup.leave()
 				}
 			}
 
-			dispatchGroup.notify(queue: .global()) {
+			dispatchGroup.notify(queue: .global()) { [weak self] in
+				self?.store.appVersion = Bundle.main.appVersion
 				completion?()
 			}
 		}
