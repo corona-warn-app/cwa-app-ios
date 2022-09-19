@@ -481,7 +481,8 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 			maskStateView.isHidden = false
 		}
 		
-		// G-Status not null, but empty.
+		// Hide empty badges
+		maskStateView.isHidden = !cellModel.isMaskStatusVisible
 		admissionStateView.isHidden = !cellModel.isShortAdmissionStatusVisible
 	}
 
