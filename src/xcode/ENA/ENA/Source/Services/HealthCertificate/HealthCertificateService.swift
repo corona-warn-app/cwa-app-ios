@@ -123,7 +123,7 @@ class HealthCertificateService: HealthCertificateServiceServable {
 		return allDatesToExam.min()
 	}
 
-	var isVersionChanged: Bool {
+	var hasAppVersionChangedSinceLastWalletInfoUpdate: Bool {
 		store.appVersion != Bundle.main.appVersion
 	}
 	
@@ -411,7 +411,7 @@ class HealthCertificateService: HealthCertificateServiceServable {
 				return
 			}
 			let dispatchGroup = DispatchGroup()
-			for person in self.healthCertifiedPersons where (configurationDidChange || person.needsDCCWalletInfoUpdate || self.isVersionChanged || isForced) {
+			for person in self.healthCertifiedPersons where (configurationDidChange || person.needsDCCWalletInfoUpdate || self.hasAppVersionChangedSinceLastWalletInfoUpdate || isForced) {
 				dispatchGroup.enter()
 				self.updateDCCWalletInfo(for: person) {
 					dispatchGroup.leave()
