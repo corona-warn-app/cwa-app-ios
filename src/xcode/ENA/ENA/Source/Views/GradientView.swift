@@ -219,8 +219,8 @@ class GradientView: UIView {
 			
 		case .green:
 			gradientLayer.colors = [
-				UIColor(red: 41 / 255, green: 117 / 255, blue: 67 / 255, alpha: 1).cgColor,
-				UIColor(red: 46 / 255, green: 133 / 255, blue: 75 / 255, alpha: 1).cgColor
+				UIColor(red: 46 / 255, green: 133 / 255, blue: 75 / 255, alpha: 1).cgColor,
+				UIColor(red: 41 / 255, green: 117 / 255, blue: 67 / 255, alpha: 1).cgColor
 			]
 			gradientLayer.locations = [0.0, 0.95, 1.0]
 			gradientLayer.startPoint = CGPoint(x: 0.25, y: 0.5)

@@ -65,7 +65,9 @@ class HealthCertificatePDFVersionViewController: DynamicTableViewController, UIA
 	override func viewWillDisappear(_ animated: Bool) {
 		super.viewWillDisappear(animated)
 		
-		FileManager.default.removePDFsFromTemporaryDirectory()
+		if self.isMovingFromParent {
+			FileManager.default.removePDFsFromTemporaryDirectory()
+		}
 	}
 
 	// MARK: - Protocol UIActivityItemSource
@@ -121,7 +123,7 @@ class HealthCertificatePDFVersionViewController: DynamicTableViewController, UIA
 		var pdfFileName = "healthCertificates.pdf"
 		
 		if !viewModel.certificatePersonName.isEmpty {
-			pdfFileName = "healthCertificate_\(viewModel.certificatePersonName).pdf"
+			pdfFileName = "healthCertificate_\(viewModel.certificateFileName).pdf"
 		}
 
 		let pdfFileURL = temporaryFolder.appendingPathComponent(pdfFileName)
