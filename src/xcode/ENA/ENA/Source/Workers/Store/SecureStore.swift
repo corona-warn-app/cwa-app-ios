@@ -303,6 +303,11 @@ final class SecureStore: SecureKeyValueStoring, Store {
 		set { kvStore["expiringSoonAndExpiredNotificationsRemoved"] = newValue }
 	}
 	
+	var appVersion: String? {
+		get { kvStore["appVersion"] as String? }
+		set { kvStore["appVersion"] = newValue }
+	}
+	
 	var shouldShowExportCertificatesTooltip: Bool {
 		get { kvStore["shouldShowExportCertificatesTooltip"] as Bool? ?? true }
 		set { kvStore["shouldShowExportCertificatesTooltip"] = newValue }

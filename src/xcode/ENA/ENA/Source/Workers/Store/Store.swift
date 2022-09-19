@@ -229,6 +229,8 @@ protocol HealthCertificateStoring: AnyObject {
 
 	var expiringSoonAndExpiredNotificationsRemoved: Bool { get set }
 	
+	var appVersion: String? { get set }
+	
 	/// `true` if the user needs to be shown the Export-Certificates tooltip.
 	/// We only show it once. By default the value of this property is `true`.
 	var shouldShowExportCertificatesTooltip: Bool { get set }
