@@ -124,7 +124,7 @@ class HealthCertificateService: HealthCertificateServiceServable {
 	}
 
 	var isVersionChanged: Bool {
-		return store.appVersion != Bundle.main.appVersion
+		store.appVersion != Bundle.main.appVersion
 	}
 	
 	func setup(
