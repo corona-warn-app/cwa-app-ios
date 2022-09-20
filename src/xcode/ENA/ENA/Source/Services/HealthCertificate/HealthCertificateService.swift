@@ -829,6 +829,8 @@ class HealthCertificateService: HealthCertificateServiceServable {
 				person.mostRecentWalletInfoUpdateFailed = true
 				completion?()
 			}
+			
+			self.updateGradients()
 		}
 	}
 
