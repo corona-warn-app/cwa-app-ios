@@ -160,7 +160,7 @@ class HealthCertifiedPersonCellModel {
 	let switchableHealthCertificates: OrderedDictionary<String, HealthCertificate>
 
 	let onTapToDelete: (() -> Void)?
-	var onUpdateGradientViewGradientType: ((GradientView.GradientType) -> Void)?
+	var onUpdateGradientType: ((GradientView.GradientType) -> Void)?
 
 	var fontColorForMaskState: UIColor {
 		switch maskStateIdentifier {
@@ -253,7 +253,7 @@ class HealthCertifiedPersonCellModel {
 		guard let healthCertifiedPerson = healthCertifiedPerson else { return }
 		
 		healthCertifiedPerson.$gradientType
-			.sink { [weak self] in self?.onUpdateGradientViewGradientType?($0) }
+			.sink { [weak self] in self?.onUpdateGradientType?($0) }
 			.store(in: &subscriptions)
 	}
 }

@@ -116,7 +116,7 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 			validityStateTitleIsVisible: cellModel.caption != nil
 		)
 		
-		cellModel.onUpdateGradientViewGradientType = { [weak self] gradientType in
+		cellModel.onUpdateGradientType = { [weak self] gradientType in
 			DispatchQueue.main.async { [weak self] in
 				self?.gradientView.type = gradientType
 			}
