@@ -105,5 +105,47 @@ class MaskStateCellModelTests: XCTestCase {
 	
 		XCTAssertEqual(badgeImageExpected, badgeImageToTest)
 	}
+	
+	func testMaskStateFromWalletInfo_Other() throws {
+		
+		// GIVEN
+		
+		let healthCertifiedPerson = HealthCertifiedPerson(healthCertificates: [])
+		
+		let titleMock = "Maskenpflicht"
+		let subtitleMock = "keine Auswahl"
+		let longTextMock = "Ohne Auswahl eines Bundeslandes kann Ihnen nicht angezeigt werden, ob Sie von einer bundeslandspezifischen Maskenpflicht ausgenommen sind."
+		let faqAnchorMock = "maskstate"
+		
+		healthCertifiedPerson.dccWalletInfo = .fake(
+			maskState: .fake(
+				visible: true,
+				badgeText: .fake(string: "Ein-Badge-Text"),
+				titleText: .fake(string: titleMock),
+				subtitleText: .fake(string: subtitleMock),
+				longText: .fake(string: longTextMock),
+				faqAnchor: faqAnchorMock,
+				identifier: .other
+			)
+		)
+		
+		let fakeCCLService = FakeCCLService()
+		
+		// WHEN
+		
+		let sut = MaskStateCellModel(
+			healthCertifiedPerson: healthCertifiedPerson,
+			cclService: fakeCCLService
+		)
+		
+		// THEN
+		
+		XCTAssertEqual(sut.title, titleMock)
+		XCTAssertEqual(sut.subtitle, subtitleMock)
+		XCTAssertEqual(sut.description, longTextMock)
+		XCTAssertEqual(sut.faqLink?.string, AppStrings.HealthCertificate.Person.faqMaskState)
+		
+		XCTAssertNil(sut.badgeImage)
+	}
 
 }
