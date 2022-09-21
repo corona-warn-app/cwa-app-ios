@@ -294,11 +294,6 @@ class ENAUITests_13_CreateHealthCertificate: CWATestCase {
 		app.cells[AccessibilityIdentifiers.HealthCertificate.Overview.healthCertifiedPersonCell].waitAndTap()
 		
 		XCTAssertTrue(app.otherElements[AccessibilityIdentifiers.HealthCertificate.MaskState.roundedView].waitForExistence(timeout: .short))
-		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.HealthCertificate.MaskState.title].waitForExistence(timeout: .short))
-		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.HealthCertificate.MaskState.subtitle].waitForExistence(timeout: .short))
-		 XCTAssertTrue(app.images[AccessibilityIdentifiers.HealthCertificate.MaskState.badgeImage].waitForExistence(timeout: .short))
-		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.HealthCertificate.MaskState.description].waitForExistence(timeout: .short))
-		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.HealthCertificate.MaskState.faq].waitForExistence(timeout: .short))
 	}
 	
 	func test_CheckinFromCertificatesTabWithInfoScreen() throws {
@@ -599,30 +594,6 @@ class ENAUITests_13_CreateHealthCertificate: CWATestCase {
 		app.buttons[AccessibilityIdentifiers.TabBar.certificates].waitAndTap()
 
 		snapshot("screenshot_2g_plus_certificate_overview")
-	}
-	
-	func test_screenshot_maskRequiredForFederalStateBW() throws {
-		app.setLaunchArgument(LaunchArguments.healthCertificate.firstAndSecondHealthCertificate, to: true)
-		app.setLaunchArgument(LaunchArguments.healthCertificate.isDCCAdmissionCheckScenariosEnabled, to: true)
-		app.setLaunchArgument(LaunchArguments.infoScreen.healthCertificateInfoScreenShown, to: true)
-		app.launch()
-		
-		// Navigate to Certificates Tab.
-		app.buttons[AccessibilityIdentifiers.TabBar.certificates].waitAndTap()
-		
-		// Check if the selection button exists
-		let selectionButtonCell = try XCTUnwrap(app.cells[AccessibilityIdentifiers.HealthCertificate.Overview.changeAdmissionScenarioCell])
-		
-		// Navigate to the scenario selection screen
-		selectionButtonCell.waitAndTap()
-		
-		// Select federal state Baden Württemberg
-		app.cells.element(boundBy: 1).waitAndTap()
-		
-		// check the Mask State
-		XCTAssertTrue(app.otherElements[AccessibilityIdentifiers.HealthCertificate.MaskState.roundedView].waitForExistence(timeout: .medium))
-		
-		snapshot("screenshot_maskRequiredForFederalStateBW")
 	}
 	
 	func test_screenshot_ExportCertificatesTooltip() throws {
