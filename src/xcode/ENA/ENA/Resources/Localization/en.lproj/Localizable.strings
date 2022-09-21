@@ -1300,7 +1300,7 @@
 /* - Expired */
 "Home_resultCard_ExpiredTitle" = "No Longer Valid";
 
-"Home_resultCard_ExpiredDesc" = "Your test is more than 21 days old and is therefore no longer relevant. Please delete the test. You can then add another.";
+"Home_resultCard_ExpiredDesc" = "Your test is more than 2 days old and is therefore no longer relevant. Please delete the test. You can then add another.";
 
 /* - Outdated */
 "Home_resultCard_OutdatedTitle" = "Test No Longer Current";
@@ -1657,9 +1657,9 @@
 "NewVersionFeatures_Info_about_abb_information" = "Changes in this release can be found in the app information, under “New Features”.";
 
 /* Version 2.27 */
-"NewVersionFeature_227_wear_mask_title" = "Display Mask Exemption";
+"NewVersionFeature_227_wear_mask_title" = "Display Mask Mandate";
 
-"NewVersionFeature_227_wear_mask_description" = "Your digital COVID certificate indicates whether you are exempt from wearing a mask according to the currently valid rules or whether you must wear a mask.";
+"NewVersionFeature_227_wear_mask_description" = "The app can display whether you are required to wear a mask in certain places in your German state or whether you are exempt from this requirement. This display only appears if your state has implemented extended mask mandate rules.\n\nIf the state where you are currently located has imposed a mask mandate, a negative rapid test or PCR test will exempt you from this mask mandate for recreational activities, cultural and sports events, and restaurants and bars for 24 hours. An unsupervised self-test is not sufficient, however. Your state may also implement exemptions from the mask mandate after a vaccination or recovery from infection (within the last three months). Exemptions from the mask mandate do not apply on public transportation, in hospitals and care facilities, or to patients in doctors’ offices.\n\nIf the COVID certificates you have saved in the app are sufficient to exempt you from the mask mandate in your state, the certificate appears in green. Your exemption from the mask mandate in your state can be confirmed by scanning your QR code with the CovPassCheck app.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Transnational Exposure Logging";

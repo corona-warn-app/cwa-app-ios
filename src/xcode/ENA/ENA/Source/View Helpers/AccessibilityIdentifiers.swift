@@ -607,38 +607,69 @@ enum AccessibilityIdentifiers {
 	enum Statistics {
 		enum Infections {
 			static let title = "AppStrings.Statistics.Card.Infections.title"
+			static let subtitle = "AppStrings.Statistics.Card.Infections.subtitle"
+			static let primaryValueTitle = "AppStrings.Statistics.Card.Infections.primaryValueTitle"
+			static let secondaryValueTitle = "AppStrings.Statistics.Card.Infections.secondaryValueTitle"
+			static let tertiaryValueTitle = "AppStrings.Statistics.Card.Infections.tertiaryValueTitle"
 			static let infoButton = "AppStrings.Statistics.Card.Infections.infoButton"
 		}
 		enum KeySubmissions {
 			static let title = "AppStrings.Statistics.Card.KeySubmissions.title"
+			static let subtitle = "AppStrings.Statistics.Card.KeySubmissions.subtitle"
+			static let primaryValueTitle = "AppStrings.Statistics.Card.KeySubmissions.primaryValueTitle"
+			static let secondaryValueTitle = "AppStrings.Statistics.Card.KeySubmissions.secondaryValueTitle"
+			static let tertiaryValueTitle = "AppStrings.Statistics.Card.KeySubmissions.tertiaryValueTitle"
 			static let infoButton = "AppStrings.Statistics.Card.KeySubmissions.infoButton"
 		}
 		enum ReproductionNumber {
 			static let title = "AppStrings.Statistics.Card.ReproductionNumber.title"
+			static let subtitle = "AppStrings.Statistics.Card.ReproductionNumber.subtitle"
+			static let primaryValueTitle = "AppStrings.Statistics.Card.ReproductionNumber.primaryValueTitle"
 			static let infoButton = "AppStrings.Statistics.Card.ReproductionNumber.infoButton"
 		}
 		enum AtLeastOneVaccination {
 			static let title = "AppStrings.Statistics.Card.AtLeastOneVaccination.title"
+			static let subtitle = "AppStrings.Statistics.Card.AtLeastOneVaccination.subtitle"
+			static let primaryValueTitle = "AppStrings.Statistics.Card.AtLeastOneVaccination.primaryValueTitle"
+			static let secondaryValueTitle = "AppStrings.Statistics.Card.AtLeastOneVaccination.secondaryValueTitle"
+			static let tertiaryValueTitle = "AppStrings.Statistics.Card.AtLeastOneVaccination.tertiaryValueTitle"
 			static let infoButton = "AppStrings.Statistics.Card.AtLeastOneVaccination.infoButton"
 		}
 		enum FullyVaccinated {
 			static let title = "AppStrings.Statistics.Card.FullyVaccinated.title"
+			static let subtitle = "AppStrings.Statistics.Card.FullyVaccinated.subtitle"
+			static let primaryValueTitle = "AppStrings.Statistics.Card.FullyVaccinated.primaryValueTitle"
+			static let secondaryValueTitle = "AppStrings.Statistics.Card.FullyVaccinated.secondaryValueTitle"
+			static let tertiaryValueTitle = "AppStrings.Statistics.Card.FullyVaccinated.tertiaryValueTitle"
 			static let infoButton = "AppStrings.Statistics.Card.FullyVaccinated.infoButton"
 		}
 		enum BoosterVaccination {
 			static let title = "AppStrings.Statistics.Card.BoosterVaccination.title"
+			static let subtitle = "AppStrings.Statistics.Card.BoosterVaccination.subtitle"
+			static let primaryValueTitle = "AppStrings.Statistics.Card.BoosterVaccination.primaryValueTitle"
+			static let secondaryValueTitle = "AppStrings.Statistics.Card.BoosterVaccination.secondaryValueTitle"
+			static let tertiaryValueTitle = "AppStrings.Statistics.Card.BoosterVaccination.tertiaryValueTitle"
 			static let infoButton = "AppStrings.Statistics.Card.BoosterVaccination.infoButton"
 		}
 		enum Doses {
 			static let title = "AppStrings.Statistics.Card.Doses.title"
+			static let subtitle = "AppStrings.Statistics.Card.Doses.subtitle"
+			static let primaryValueTitle = "AppStrings.Statistics.Card.Doses.primaryValueTitle"
+			static let secondaryValueTitle = "AppStrings.Statistics.Card.Doses.secondaryValueTitle"
+			static let tertiaryValueTitle = "AppStrings.Statistics.Card.Doses.tertiaryValueTitle"
 			static let infoButton = "AppStrings.Statistics.Card.Doses.infoButton"
 		}
 		enum IntensiveCare {
 			static let title = "AppStrings.Statistics.Card.IntensiveCare.title"
+			static let subtitle = "AppStrings.Statistics.Card.IntensiveCare.subtitle"
+			static let primaryValueTitle = "AppStrings.Statistics.Card.IntensiveCare.primaryValueTitle"
 			static let infoButton = "AppStrings.Statistics.Card.IntensiveCare.infoButton"
 		}
 		enum Combined7DayIncidence {
 			static let title = "AppStrings.Statistics.Card.Combined7DayIncidence.title"
+			static let subtitle = "AppStrings.Statistics.Card.Combined7DayIncidence.subtitle"
+			static let primaryValueTitle = "AppStrings.Statistics.Card.Combined7DayIncidence.primaryValueTitle"
+			static let secondaryValueTitle = "AppStrings.Statistics.Card.Combined7DayIncidence.secondaryValueTitle"
 			static let infoButton = "AppStrings.Statistics.Card.Combined7DayIncidence.infoButton"
 		}
 		enum General {
