@@ -294,7 +294,7 @@ class ENAUITests_13_CreateHealthCertificate: CWATestCase {
 		app.cells[AccessibilityIdentifiers.HealthCertificate.Overview.healthCertifiedPersonCell].waitAndTap()
 		
 		XCTAssertTrue(app.otherElements[AccessibilityIdentifiers.HealthCertificate.MaskState.roundedView].waitForExistence(timeout: .short))
-s	}
+	}
 	
 	func test_CheckinFromCertificatesTabWithInfoScreen() throws {
 		app.setLaunchArgument(LaunchArguments.infoScreen.healthCertificateInfoScreenShown, to: true)
