@@ -89,6 +89,8 @@ class HealthCertifiedPersonCellModel {
 		}
 
 		self.onTapToDelete = nil
+		
+		setupSubscriptions()
 	}
 
 	init?(
@@ -128,6 +130,8 @@ class HealthCertifiedPersonCellModel {
 		self.onTapToDelete = {
 			onTapToDelete(decodingFailedHealthCertificate)
 		}
+		
+		setupSubscriptions()
 	}
 
 	// MARK: - Internal
@@ -156,6 +160,7 @@ class HealthCertifiedPersonCellModel {
 	let switchableHealthCertificates: OrderedDictionary<String, HealthCertificate>
 
 	let onTapToDelete: (() -> Void)?
+	var onUpdateGradientType: ((GradientView.GradientType) -> Void)?
 
 	var fontColorForMaskState: UIColor {
 		switch maskStateIdentifier {
@@ -199,6 +204,8 @@ class HealthCertifiedPersonCellModel {
 	// MARK: - Private
 	
 	private var healthCertifiedPerson: HealthCertifiedPerson?
+	
+	private var subscriptions: Set<AnyCancellable> = []
 
 	private static func initialCertificate(for person: HealthCertifiedPerson) -> HealthCertificate? {
 		if let firstVerificationCertificate = person.dccWalletInfo?.verification.certificates.first,
@@ -240,6 +247,14 @@ class HealthCertifiedPersonCellModel {
 				description: AppStrings.HealthCertificate.ValidityState.blockedRevoked
 			)
 		}
+	}
+	
+	private func setupSubscriptions() {
+		guard let healthCertifiedPerson = healthCertifiedPerson else { return }
+		
+		healthCertifiedPerson.$gradientType
+			.sink { [weak self] in self?.onUpdateGradientType?($0) }
+			.store(in: &subscriptions)
 	}
 }
 

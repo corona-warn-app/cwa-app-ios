@@ -115,6 +115,12 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 			segmentedControlIsVisible: !cellModel.switchableHealthCertificates.isEmpty,
 			validityStateTitleIsVisible: cellModel.caption != nil
 		)
+		
+		cellModel.onUpdateGradientType = { [weak self] gradientType in
+			DispatchQueue.main.async { [weak self] in
+				self?.gradientView.type = gradientType
+			}
+		}
 	}
 	
 	// MARK: - Private

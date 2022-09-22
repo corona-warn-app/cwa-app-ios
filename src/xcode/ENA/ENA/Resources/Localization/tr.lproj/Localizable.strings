@@ -1300,7 +1300,7 @@
 /* - Expired */
 "Home_resultCard_ExpiredTitle" = "Artık Geçerli Değil";
 
-"Home_resultCard_ExpiredDesc" = "Testiniz 21 günden eski ve bu nedenle artık geçerli değil. Lütfen testi silin. Ardından başka bir test ekleyebilirsiniz.";
+"Home_resultCard_ExpiredDesc" = "Testiniz 2 günden eski ve bu nedenle artık geçerli değil. Lütfen testi silin. Ardından başka bir test ekleyebilirsiniz.";
 
 /* - Outdated */
 "Home_resultCard_OutdatedTitle" = "Test Artık Geçerli Değil";
@@ -1657,9 +1657,9 @@
 "NewVersionFeatures_Info_about_abb_information" = "Bu sürümdeki değişiklikleri uygulama bilgilerinde “Yeni Özellikler” bölümünde bulabilirsiniz.";
 
 /* Version 2.27 */
-"NewVersionFeature_227_wear_mask_title" = "Maske Muafiyetini Görüntüle";
+"NewVersionFeature_227_wear_mask_title" = "Maske Zorunluluğunu Görüntüle";
 
-"NewVersionFeature_227_wear_mask_description" = "Dijital COVID sertifikanız, mevcut geçerli kurallara göre maske takma konusunda muafiyetinizin olduğunu ya da maske takmanızın gerektiğini belirtir.";
+"NewVersionFeature_227_wear_mask_description" = "Bu uygulama, Almanya eyaletinizdeki belirli yerlerde maske takmanız gerekip gerekmediğini veya bu gereksinimden muaf olup olmadığınızı görüntüleyebilir. Bu ekran yalnızca eyaletinizde uzatılmış maske zorunluluğu kuralları uygulandıysa görüntülenir.\n\nGüncel olarak bulunduğunuz eyalet maske zorunluluğu uyguluyorsa negatif hızlı test veya PCR testi sizi eğlence amaçlı etkinlikler, kültürel etkinlikler ve spor etkinlikleri, restoranlar ve barlar için 24 saatliğine bu maske zorunluluğundan muaf tutar. Ancak gözetimsiz olarak kendi kendine yapılan testler yeterli değildir. Ayrıca eyaletiniz, aşı olduktan veya enfeksiyon geçirdikten (en az üç ay içinde) sonra maske zorunluluğundan muafiyetler uygulayabilir. Maske zorunluluğundan muafiyetler toplu taşımada, hastanelerde ve bakım tesislerinde veya doktor muayenehanesindeki hastalar için geçerli değildir.\n\nUygulamada kaydettiğiniz COVID sertifikaları sizi eyaletinizdeki maske zorunluluğundan muaf tutmak için yeterliyse sertifikalar yeşil renkte görüntülenir. Maske zorunluluğu muafiyetiniz, CovPassCheck uygulamasıyla QR kodunuz taranarak doğrulanabilir.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Uluslararası Maruz Kalma Günlüğü";
