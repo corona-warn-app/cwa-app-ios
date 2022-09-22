@@ -1300,7 +1300,7 @@
 /* - Expired */
 "Home_resultCard_ExpiredTitle" = "Utrata ważności";
 
-"Home_resultCard_ExpiredDesc" = "Twój test ma więcej niż 21 dni i stracił ważność. Usuń test. Będziesz mieć wówczas możliwość dodania kolejnego.";
+"Home_resultCard_ExpiredDesc" = "Twój test ma więcej niż 2 dni i stracił ważność. Usuń test. Będziesz mieć wówczas możliwość dodania kolejnego.";
 
 /* - Outdated */
 "Home_resultCard_OutdatedTitle" = "Test nie jest już aktualny";
@@ -1657,9 +1657,9 @@
 "NewVersionFeatures_Info_about_abb_information" = "Dane o zmianach w tej wersji można znaleźć w informacjach o aplikacji w sekcji „Nowe funkcje”.";
 
 /* Version 2.27 */
-"NewVersionFeature_227_wear_mask_title" = "Wyświetl zwolnienie z obowiązku noszenia maseczki";
+"NewVersionFeature_227_wear_mask_title" = "Wyświetl obowiązek noszenia maseczki";
 
-"NewVersionFeature_227_wear_mask_description" = "Twój cyfrowy certyfikat COVID wskazuje, czy jesteś zwolniony(-a) z noszenia maseczki zgodnie z aktualnie obowiązującymi przepisami, czy też musisz ją nosić.";
+"NewVersionFeature_227_wear_mask_description" = "W aplikacji może wyświetlać się informacja, czy masz obowiązek noszenia maseczki w pewnych miejscach w Twoim niemieckim kraju związkowym, czy jesteś zwolniony(-a) z tego obowiązku. Ta informacja wyświetlana jest tylko wtedy, gdy Twój kraj związkowy wdrożył reguły przedłużonego obowiązku noszenia maseczki.\n\nJeśli kraj związkowy, w którym obecnie przebywasz, nałożył obowiązek noszenia maseczki, negatywny wynik szybkiego testu lub testu PCR zwolni Cię z tego obowiązku w przypadku aktywności rekreacyjnych, wydarzeń kulturalnych i sportowych oraz wizyt w restauracjach i barach przez 24 godziny. Jednak nie wystarczy samodzielne wykonanie testu bez nadzoru. Twój kraj związkowy może także wdrożyć zwolnienie z obowiązku noszenia maseczki po zaszczepieniu lub przebyciu infekcji (w ciągu ostatnich trzech miesięcy). Zwolnienie z obowiązku noszenia maseczki nie dotyczy transportu publicznego, szpitali i ośrodków zdrowia lub pacjentów w gabinetach lekarskich.\n\nJeśli zapisane przez Ciebie w aplikacji certyfikaty COVID wystarczają do zwolnienia z obowiązku noszenia maseczki w Twoim kraju związkowym, certyfikat wyświetla się na zielono. Możesz potwierdzić swoje zwolnienie z obowiązku noszenia maseczki poprzez zeskanowanie kodu QR w aplikacji CovPassCheck.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Rejestrowanie narażenia w różnych krajach";

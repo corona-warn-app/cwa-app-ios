@@ -27,11 +27,15 @@ class MaskStateCellModel {
 	}
 	
 	var badgeImage: UIImage? {
-		switch healthCertifiedPerson.dccWalletInfo?.maskState?.identifier {
+		guard let maskStateIdentifier = healthCertifiedPerson.dccWalletInfo?.maskState?.identifier else { return nil }
+		
+		switch maskStateIdentifier {
 		case .maskRequired:
 			return UIImage(named: "Badge_mask")
-		default:
+		case .maskOptional:
 			return UIImage(named: "Badge_nomask")
+		case .other:
+			return nil
 		}
 	}
 	
