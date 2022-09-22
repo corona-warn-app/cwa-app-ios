@@ -100,7 +100,7 @@ enum SymptomsOnset: Equatable, Codable {
 		}
 	}
 
-	/// Days since onset of symptoms according to https://github.com/corona-warn-app/cwa-app-tech-spec/blob/56521167b688f418127adde09a18a48f262af382/docs/spec/days-since-onset-of-symptoms.md
+	/// Days since onset of symptoms
 	var daysSinceOnsetOfSymptomsVector: [Int32] {
 		switch self {
 		case .noInformation:
