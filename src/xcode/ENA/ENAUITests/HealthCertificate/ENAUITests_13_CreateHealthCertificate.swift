@@ -601,6 +601,19 @@ class ENAUITests_13_CreateHealthCertificate: CWATestCase {
 		snapshot("screenshot_2g_plus_certificate_overview")
 	}
 	
+	func test_screenshot_ExportCertificatesTooltip() throws {
+		app.setLaunchArgument(LaunchArguments.infoScreen.healthCertificateInfoScreenShown, to: true)
+		app.setLaunchArgument(LaunchArguments.healthCertificate.recoveryCertificateRegistered, to: true)
+		app.setLaunchArgument(LaunchArguments.healthCertificate.shouldShowExportCertificatesTooltip, to: true)
+		app.launch()
+		
+		// Navigate to Certificates Tab.
+		app.buttons[AccessibilityIdentifiers.TabBar.certificates].waitAndTap()
+		
+		XCTAssertTrue(app.staticTexts[AccessibilityLabels.localized(AppStrings.Tooltip.ExportCertificates.title)].waitForExistence(timeout: .medium))
+		XCTAssertTrue(app.staticTexts[AccessibilityLabels.localized(AppStrings.Tooltip.ExportCertificates.description)].waitForExistence(timeout: .short))
+	}
+	
 	func test_screenshot_maskRequiredForFederalStateBW() throws {
 		app.setLaunchArgument(LaunchArguments.healthCertificate.firstAndSecondHealthCertificate, to: true)
 		app.setLaunchArgument(LaunchArguments.healthCertificate.isDCCAdmissionCheckScenariosEnabled, to: true)
@@ -728,18 +741,5 @@ class ENAUITests_13_CreateHealthCertificate: CWATestCase {
 		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.HealthCertificate.MaskState.title].waitForExistence(timeout: .medium))
 		
 		snapshot("screenshot_maskOptionalDetailScreen")
-	}
-	
-	func test_screenshot_ExportCertificatesTooltip() throws {
-		app.setLaunchArgument(LaunchArguments.infoScreen.healthCertificateInfoScreenShown, to: true)
-		app.setLaunchArgument(LaunchArguments.healthCertificate.recoveryCertificateRegistered, to: true)
-		app.setLaunchArgument(LaunchArguments.healthCertificate.shouldShowExportCertificatesTooltip, to: true)
-		app.launch()
-		
-		// Navigate to Certificates Tab.
-		app.buttons[AccessibilityIdentifiers.TabBar.certificates].waitAndTap()
-		
-		XCTAssertTrue(app.staticTexts[AccessibilityLabels.localized(AppStrings.Tooltip.ExportCertificates.title)].waitForExistence(timeout: .medium))
-		XCTAssertTrue(app.staticTexts[AccessibilityLabels.localized(AppStrings.Tooltip.ExportCertificates.description)].waitForExistence(timeout: .short))
 	}
 }
