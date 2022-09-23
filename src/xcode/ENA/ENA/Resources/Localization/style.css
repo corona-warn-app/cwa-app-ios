@@ -71,12 +71,6 @@ a:link, a:visited {
 	color: #007fad;
 }
 
-/* Any element that directly contains an <a> element */
-*:has(> a) {
-	/* Avoid broken layouts due long URL text flowing outside a container. */
-	overflow-wrap: break-word;
-}
-
 p, ul {
 	font-size: 1.0em;
 	font-weight: normal;
@@ -101,4 +95,18 @@ li {
 
 p, ul {
 	margin-bottom: 1em;
+}
+
+/* wrap long URL hyperlinks
+   (Avoid broken layouts due long URL text flowing outside a container.
+*/
+
+/* iOS 14 workaround */
+p, li {
+	overflow-wrap: break-word;
+}
+
+/* iOS 15+ */
+*:has(> a) {
+	overflow-wrap: break-word;
 }
