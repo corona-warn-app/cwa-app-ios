@@ -788,6 +788,12 @@ class HealthCertificateService: HealthCertificateServiceServable {
 							certifiedPerson: person
 						)
 					}
+					if LaunchArguments.healthCertificate.isMaskRequiredStateEnabled.boolValue {
+						person.dccWalletInfo = self.updateDccWalletInfoForMockRequiredMaskState(dccWalletInfo: dccWalletInfo)
+					}
+					if LaunchArguments.healthCertificate.isMaskOptionalStateEnabled.boolValue {
+						person.dccWalletInfo = self.updateDccWalletInfoForMockOptionalMaskState(dccWalletInfo: dccWalletInfo)
+					}
 				}
 				#endif
 

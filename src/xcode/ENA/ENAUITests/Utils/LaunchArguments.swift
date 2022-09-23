@@ -186,6 +186,8 @@ enum LaunchArguments {
 		static let invalidCertificateCheck = LaunchArgument(name: "invalidCertificateCheck")
 		static let showTestCertificateOnTestResult = LaunchArgument(name: "showTestCertificateOnTestResult")
 		static let isDCCAdmissionCheckScenariosEnabled = LaunchArgument(name: "isDCCAdmissionCheckScenariosEnabled")
+		static let isMaskOptionalStateEnabled = LaunchArgument(name: "isMaskOptionalStateEnabled")
+		static let isMaskRequiredStateEnabled = LaunchArgument(name: "isMaskRequiredStateEnabled")
 		static let shouldShowExportCertificatesTooltip = LaunchArgument(name: "shouldShowExportCertificatesTooltip")
 	}
 

@@ -3,6 +3,7 @@
 //
 
 import HealthCertificateToolkit
+import Foundation
 
 // swiftlint:disable line_length
 // swiftlint:disable function_body_length
@@ -311,6 +312,106 @@ extension HealthCertificateService {
 					)
 				]
 			),
+			certificatesRevokedByInvalidationRules: dccWalletInfo.certificatesRevokedByInvalidationRules
+		)
+	}
+	
+	func updateDccWalletInfoForMockRequiredMaskState(dccWalletInfo: DCCWalletInfo) -> DCCWalletInfo {
+		let titleText = DCCUIText(
+			type: "string",
+			quantity: nil,
+			quantityParameterIndex: nil,
+			functionName: nil,
+			localizedText: ["de": "Maskenpflicht"],
+			parameters: []
+		)
+		
+		let subtitleText = DCCUIText(
+			type: "string",
+			quantity: nil,
+			quantityParameterIndex: nil,
+			functionName: nil,
+			localizedText: ["de": "Sie Sind nicht von der Maskenpflicht ausgenommen"],
+			parameters: []
+		)
+		
+		let badgeText = DCCUIText(
+			type: "string",
+			quantity: nil,
+			quantityParameterIndex: nil,
+			functionName: nil,
+			localizedText: ["de": "Maskenpflicht"],
+			parameters: []
+		)
+		
+		let longText = DCCUIText(
+			type: "string",
+			quantity: nil,
+			quantityParameterIndex: nil,
+			functionName: nil,
+			localizedText: ["de": "Von der Maskenpflicht sind alle Personen befreit, die innerhalb der letzten 3 Monate geimpft wurden oder genesen sind oder innerhalb der letzten 24 Stunden negativ getestet wurden."],
+			parameters: []
+		)
+		
+		return DCCWalletInfo(
+			admissionState: dccWalletInfo.admissionState,
+			vaccinationState: dccWalletInfo.vaccinationState,
+			maskState: DCCMaskState(visible: true, badgeText: badgeText, titleText: titleText, subtitleText: subtitleText, longText: longText, faqAnchor: "maskstate", identifier: .maskRequired),
+			boosterNotification: dccWalletInfo.boosterNotification,
+			mostRelevantCertificate: dccWalletInfo.mostRelevantCertificate,
+			verification: dccWalletInfo.verification,
+			validUntil: dccWalletInfo.validUntil,
+			certificateReissuance: dccWalletInfo.certificateReissuance,
+			certificatesRevokedByInvalidationRules: dccWalletInfo.certificatesRevokedByInvalidationRules
+		)
+	}
+	
+	func updateDccWalletInfoForMockOptionalMaskState(dccWalletInfo: DCCWalletInfo) -> DCCWalletInfo {
+		let titleText = DCCUIText(
+			type: "string",
+			quantity: nil,
+			quantityParameterIndex: nil,
+			functionName: nil,
+			localizedText: ["de": "Keine Maskenpflicht"],
+			parameters: []
+		)
+		
+		let subtitleText = DCCUIText(
+			type: "string",
+			quantity: nil,
+			quantityParameterIndex: nil,
+			functionName: nil,
+			localizedText: ["de": "Eine Maske ist dennoch empfohlen"],
+			parameters: []
+		)
+		
+		let badgeText = DCCUIText(
+			type: "string",
+			quantity: nil,
+			quantityParameterIndex: nil,
+			functionName: nil,
+			localizedText: ["de": "Keine Maskenpflicht"],
+			parameters: []
+		)
+		
+		let longText = DCCUIText(
+			type: "string",
+			quantity: nil,
+			quantityParameterIndex: nil,
+			functionName: nil,
+			localizedText: ["de": "Von der Maskenpflicht sind alle Personen befreit, die innerhalb der letzten 3 Monate geimpft wurden oder genesen sind oder innerhalb der letzten 24 Stunden negativ getestet wurden."],
+			parameters: []
+		)
+		
+		return DCCWalletInfo(
+			admissionState: dccWalletInfo.admissionState,
+			vaccinationState: dccWalletInfo.vaccinationState,
+			maskState: DCCMaskState(visible: true, badgeText: badgeText, titleText: titleText, subtitleText: subtitleText, longText: longText, faqAnchor: "maskstate", identifier: .maskOptional),
+			boosterNotification: dccWalletInfo.boosterNotification,
+			mostRelevantCertificate: dccWalletInfo.mostRelevantCertificate,
+			verification: dccWalletInfo.verification,
+			validUntil: dccWalletInfo.validUntil,
+			certificateReissuance: dccWalletInfo.certificateReissuance,
 			certificatesRevokedByInvalidationRules: dccWalletInfo.certificatesRevokedByInvalidationRules
 		)
 	}
