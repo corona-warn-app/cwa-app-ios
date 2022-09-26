@@ -281,7 +281,7 @@ class CCLService: CCLServable {
 			quantity: nil,
 			quantityParameterIndex: nil,
 			functionName: nil,
-			localizedText: ["de": "Status für folgendes Bundesland"],
+			localizedText: ["de": "Regelungen für:"],
 			parameters: []
 		)
 		
@@ -290,7 +290,7 @@ class CCLService: CCLServable {
 			quantity: nil,
 			quantityParameterIndex: nil,
 			functionName: nil,
-			localizedText: ["de": "Regeln des Bundes"],
+			localizedText: ["de": "keine Auswahl"],
 			parameters: []
 		)
 

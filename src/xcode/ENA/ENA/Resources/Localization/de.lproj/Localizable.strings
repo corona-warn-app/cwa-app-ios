@@ -2901,9 +2901,9 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_Overview_Scanning_Info" = "Fügen Sie weitere Zertifikate über den QR-Code-Scanner in der unteren Navigationsleiste hinzu.";
 
-"HealthCertificate_Admission_Scenario_Status_Label" = "Status für folgendes Bundesland";
+"HealthCertificate_Admission_Scenario_Status_Label" = "Regelungen für:";
 
-"HealthCertificate_Admission_Scenario_Button_Label" = "Regeln des Bundes";
+"HealthCertificate_Admission_Scenario_Button_Label" = "keine Auswahl";
 
 "HealthCertificate_Loading_Indicator_Label" = "Status wird ermittelt";
 
