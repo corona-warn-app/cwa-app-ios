@@ -31,14 +31,8 @@ class HealthCertificatePDFVersionViewController: DynamicTableViewController, UIA
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		
-		// Avoid assertion when init with non-zero scale.
-		let pdfView = PDFView(frame: .init(x: 0, y: 0, width: 1, height: 1))
 
 		pdfView.document = viewModel.pdfDocument
-		pdfView.scaleFactor = pdfView.scaleFactorForSizeToFit
-		pdfView.autoScales = true
-
 		view = pdfView
 		view.backgroundColor = .enaColor(for: .background)
 		
@@ -60,6 +54,9 @@ class HealthCertificatePDFVersionViewController: DynamicTableViewController, UIA
 		if let dismissHandlingNC = navigationController as? DismissHandlingNavigationController {
 			dismissHandlingNC.restoreOriginalNavigationBar()
 		}
+		
+		pdfView.minScaleFactor = pdfView.scaleFactorForSizeToFit
+		pdfView.scaleFactor = pdfView.scaleFactorForSizeToFit
 	}
 	
 	override func viewWillDisappear(_ animated: Bool) {
@@ -97,6 +94,12 @@ class HealthCertificatePDFVersionViewController: DynamicTableViewController, UIA
 
 	// MARK: - Private
 
+	private let pdfView: PDFView = {
+		let pdfView = PDFView()
+		pdfView.autoScales = true
+		pdfView.maxScaleFactor = 3.0
+		return pdfView
+	}()
 	private let viewModel: HealthCertificatePDFVersionViewModel
 	private let onTapPrintPdf: (Data) -> Void
 	private let onTapExportPdf: (PDFExportItem) -> Void
