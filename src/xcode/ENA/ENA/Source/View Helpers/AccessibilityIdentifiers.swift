@@ -469,6 +469,7 @@ enum AccessibilityIdentifiers {
 		static let optionNo = "AppStrings.ExposureSubmissionWarnEuropeTravelConfirmation.optionNo"
 		static let optionNone = "AppStrings.ExposureSubmissionWarnEuropeTravelConfirmation.optionNone"
 	}
+
 	enum LocalStatistics {
 		static let title = "AppStrings.Statistics.Card.Incidence.title"
 		static let infoButton = "AppStrings.Statistics.Card.Incidence.infoButton"
@@ -477,11 +478,15 @@ enum AccessibilityIdentifiers {
 		static let manageStatisticsCard = "AppStrings.LocalStatistics.manageStatisticsCard"
 		static let localStatisticsCard = "AppStrings.LocalStatistics.localStatisticsCard"
 		static let localStatisticsCardTitle = "AppStrings.LocalStatistics.localStatisticsCardTitle"
+		static let localStatisticsCardSubtitle = "AppStrings.LocalStatistics.localStatisticsCardSubtitle"
+		static let localStatisticsCardPrimaryValue = "AppStrings.LocalStatistics.localStatisticsCardPrimaryValue"
+		static let localStatisticsCardSecondaryValue = "AppStrings.LocalStatistics.localStatisticsCardSecondaryValue"
 		static let addLocalIncidencesButton = "AppStrings.LocalStatistics.addLocalIncidencesButton"
 		static let addLocalIncidenceLabel = "AppStrings.LocalStatistics.addLocalIncidenceLabel"
 		static let modifyLocalIncidencesButton = "AppStrings.LocalStatistics.modifyLocalIncidencesButton"
 		static let modifyLocalIncidenceLabel = "AppStrings.LocalStatistics.modifyLocalIncidenceLabel"
 	}
+
 	enum ExposureSubmissionWarnEuropeCountrySelection {
 		static let description1 = "AppStrings.ExposureSubmissionWarnEuropeTravelConfirmation.description1"
 		static let description2 = "AppStrings.ExposureSubmissionWarnEuropeTravelConfirmation.description2"

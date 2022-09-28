@@ -57,8 +57,11 @@ class HomeStatisticsCardViewModel {
 	
 	init(regionStatisticsData: RegionStatisticsData) {
 		title = AppStrings.Statistics.AddCard.localCardTitle
-		titleAccessibilityIdentifier = AccessibilityIdentifiers.LocalStatistics.localStatisticsCardTitle
 		subtitle = regionStatisticsData.region.localizedName
+		titleAccessibilityIdentifier = AccessibilityIdentifiers.LocalStatistics.localStatisticsCardTitle
+		subtitleAccessibilityIdentifier = "\(AccessibilityIdentifiers.LocalStatistics.localStatisticsCardSubtitle).\(regionStatisticsData.region.localizedName)"
+		primaryValueAccessibilityIdentifier = "\(AccessibilityIdentifiers.LocalStatistics.localStatisticsCardPrimaryValue).\(regionStatisticsData.region.localizedName)"
+		secondaryValueAccessibilityIdentifier = "\(AccessibilityIdentifiers.LocalStatistics.localStatisticsCardSecondaryValue).\(regionStatisticsData.region.localizedName)"
 		illustrationImage = UIImage(named: "Illu_7-Tage-Lokal-Inzidenz")
 
 		if let sevenDayTrend = regionStatisticsData.sevenDayIncidence, let updatedAt = regionStatisticsData.updatedAt {
