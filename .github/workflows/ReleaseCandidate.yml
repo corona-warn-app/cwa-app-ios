@@ -1,6 +1,8 @@
 name: Create Release Candidate
 on:
   push:
+    tags:
+      - 'v[0-9]+.[0-9]+.[0-9]+*'
 
 jobs:
   dependencies:
@@ -32,6 +34,35 @@ jobs:
             src/xcode/.bundle
           key: ${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('src/xcode/Gemfile.lock') }}
 
+  testFlight:
+    runs-on: self-hosted
+    needs: dependencies
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v2
+      - name: Restore Dependencies
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-dependencies
+        with:
+          path: |
+            src/xcode/vendor
+            src/xcode/.bundle
+          key: ${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('src/xcode/Gemfile.lock') }}
+      - name: swtich to testing environment
+        env:
+            ENVIRONMENTS_FILE_URL: '${{ secrets.ENVIRONMENTS_FILE_URL }}'
+            GITHUB_ACCESS_TOKEN: '${{ secrets.ACCESS_TOKEN_GITHUB }}'
+        run: |
+          ./scripts/switch_to_dev_env.sh
+      - name: fastlane testflight
+        env:
+            MATCH_PASSWORD: '${{ secrets.MATCH_PASSWORD }}'
+            FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD: '${{ secrets.FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD }}'
+            MATCH_GIT_BASIC_AUTHORIZATION: '${{ secrets.MATCH_GIT_BASIC_AUTHORIZATION }}'
+
+        run: |
+          cd src/xcode && bundle exec fastlane betaRelease --env TestFlight
 
   adHocDistribution:
     runs-on: self-hosted
