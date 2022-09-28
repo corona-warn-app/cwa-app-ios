@@ -83,7 +83,7 @@ class QRScannerViewController: UIViewController {
 	}
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
-		viewModel?.activateScanning()
+		activateScanning()
 	}
 
 	override func viewWillDisappear(_ animated: Bool) {
@@ -95,7 +95,14 @@ class QRScannerViewController: UIViewController {
 	// MARK: - Internal
 
 	func activateScanning() {
-		viewModel?.activateScanning()
+		// This extra check of the visible view controller is for Testing purposes only
+		if let viewControllers = navigationController?.viewControllers {
+			for viewController in viewControllers {
+				if viewController.isKind(of: HomeTableViewController.self) {
+					viewModel?.activateScanning()
+				}
+			}
+		}
 	}
 
 	func deactivateScanning() {
@@ -303,12 +310,18 @@ class QRScannerViewController: UIViewController {
 			previewLayer = AVCaptureVideoPreviewLayer()
 			return
 		}
-		viewModel?.startCaptureSession()
-		
-		previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
-		previewLayer.frame = view.layer.bounds
-		previewLayer.videoGravity = .resizeAspectFill
-		view.layer.insertSublayer(previewLayer, at: 0)
+		// This extra check of the visible view controller is for Testing purposes only
+		if let viewControllers = navigationController?.viewControllers {
+			for viewController in viewControllers {
+				if viewController.isKind(of: HomeTableViewController.self) {
+					viewModel?.startCaptureSession()
+					previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
+					previewLayer.frame = view.layer.bounds
+					previewLayer.videoGravity = .resizeAspectFill
+					view.layer.insertSublayer(previewLayer, at: 0)
+				}
+			}
+		}
 	}
 
 	private func updatePreviewMask() {
