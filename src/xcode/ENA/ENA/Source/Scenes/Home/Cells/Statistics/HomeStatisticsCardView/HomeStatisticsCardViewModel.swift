@@ -58,7 +58,7 @@ class HomeStatisticsCardViewModel {
 	init(regionStatisticsData: RegionStatisticsData) {
 		title = AppStrings.Statistics.AddCard.localCardTitle
 		subtitle = regionStatisticsData.region.localizedName
-		titleAccessibilityIdentifier = "\(AccessibilityIdentifiers.LocalStatistics.localStatisticsCardTitle).\(regionStatisticsData.region.localizedName)"
+		titleAccessibilityIdentifier = AccessibilityIdentifiers.LocalStatistics.localStatisticsCardTitle)
 		subtitleAccessibilityIdentifier = "\(AccessibilityIdentifiers.LocalStatistics.localStatisticsCardSubtitle).\(regionStatisticsData.region.localizedName)"
 		primaryValueAccessibilityIdentifier = "\(AccessibilityIdentifiers.LocalStatistics.localStatisticsCardPrimaryValue).\(regionStatisticsData.region.localizedName)"
 		secondaryValueAccessibilityIdentifier = "\(AccessibilityIdentifiers.LocalStatistics.localStatisticsCardSecondaryValue).\(regionStatisticsData.region.localizedName)"
