@@ -199,7 +199,8 @@ platform :ios do
       clean: true
     )
     version = get_version_number(
-      xcodeproj: "./ENA/ENA.xcodeproj"
+      xcodeproj: "./ENA/ENA.xcodeproj",
+      target: "ENA"
     )
     UI.success "The app version number is #{version}"
     # Upload to Mobile Device Cloud
