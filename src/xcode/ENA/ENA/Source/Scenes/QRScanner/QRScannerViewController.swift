@@ -98,7 +98,7 @@ class QRScannerViewController: UIViewController {
 		// This extra check of the visible view controller is for Testing purposes only
 		if let viewControllers = navigationController?.viewControllers {
 			for viewController in viewControllers {
-				if viewController.isKind(of: HomeTableViewController.self) {
+				if viewController.isKind(of: QRScannerViewController.self) {
 					viewModel?.activateScanning()
 				}
 			}
@@ -313,7 +313,7 @@ class QRScannerViewController: UIViewController {
 		// This extra check of the visible view controller is for Testing purposes only
 		if let viewControllers = navigationController?.viewControllers {
 			for viewController in viewControllers {
-				if viewController.isKind(of: HomeTableViewController.self) {
+				if viewController.isKind(of: QRScannerViewController.self) {
 					viewModel?.startCaptureSession()
 					previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
 					previewLayer.frame = view.layer.bounds
