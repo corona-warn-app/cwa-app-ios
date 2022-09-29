@@ -126,10 +126,16 @@ class AppInformationViewController: DynamicTableViewController, NavigationBarOpa
 
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		tableView.deselectRow(at: indexPath, animated: true)
-
-		if let category = Category(rawValue: indexPath.row),
-			let action = model[category]?.action {
-			self.execute(action: action)
+		
+		if let category = Category(rawValue: indexPath.row) {
+			
+			if category == .versionInfo {
+				execute(action: versionInfoAppInformationCellModel.action)
+			} else {
+				if let action = model[category]?.action {
+					execute(action: action)
+				}
+			}
 		}
 	}
 	
@@ -182,5 +188,13 @@ class AppInformationViewController: DynamicTableViewController, NavigationBarOpa
 		versionLabel.bottomAnchor.constraint(equalTo: footerView.bottomAnchor, constant: -16).isActive = true
 
 		return footerView
+	}
+	
+	private var versionInfoAppInformationCellModel: AppInformationCellModel {
+		AppInformationCellModel(
+			text: AppStrings.AppInformation.newFeaturesNavigation,
+			accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.newFeaturesNavigation,
+			action: .push(viewController: DeltaOnboardingNewVersionFeaturesViewController(hasCloseButton: false))
+		)
 	}
 }
