@@ -199,16 +199,21 @@ platform :ios do
       clean: true
     )
     version = get_version_number(
+      xcodeproj: "./ENA/ENA.xcodeproj",
+      target: "ENA",
+      configuration: "AdHoc"
+    )
+    build = get_build_number(
       xcodeproj: "./ENA/ENA.xcodeproj"
     )
-    UI.success "The app version number is #{version}"
+    UI.success "The app version number is #{version}-RC#{build}"
     # Upload to Mobile Device Cloud
     sh("curl \
       --location \
       --request POST '#{ENV["TSI_CLOUD_URL"]}' \
       --header 'Authorization: Bearer #{ENV["TSI_CLOUD_TOKEN"]}' \
-      --form 'uniqueName=\"#{version}\"' \ 
-      --form 'file=@../ENA.ipa'"
+      --form 'file=@../ENA.ipa' \
+      --form 'uniqueName=\"#{version}-RC#{build}\"'"
     )
 
     # Trigger Tests on Mobile Device Cloud via GitHub Action on Repo cwa-app-automation
