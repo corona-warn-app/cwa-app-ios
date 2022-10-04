@@ -278,7 +278,7 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 		let certificatesWithNews = healthCertificates.filter { $0.isNew || $0.isValidityStateNew }
 
 		return certificatesWithNews.count
-		    + (dccWalletInfo?.admissionState.visible == true && isAdmissionStateChanged ? 1 : 0)
+			+ (dccWalletInfo?.admissionState.visible == true && isAdmissionStateChanged ? 1 : 0)
 			+ (dccWalletInfo?.boosterNotification.identifier != nil && isNewBoosterRule ? 1 : 0)
 			+ (dccWalletInfo?.certificateReissuance?.reissuanceDivision.visible == true && isNewCertificateReissuance ? 1 : 0)
 	}
