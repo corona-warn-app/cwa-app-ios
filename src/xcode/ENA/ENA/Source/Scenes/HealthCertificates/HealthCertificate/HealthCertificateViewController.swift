@@ -53,21 +53,21 @@ class HealthCertificateViewController: UIViewController, UITableViewDataSource, 
 		
 		parent?.navigationController?.navigationBar.backgroundAlpha = 0.0
 	}
+
 	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
 				
 		viewModel.markAsSeen()
-
 	}
 	
 	override func viewWillDisappear(_ animated: Bool) {
-	super.viewWillDisappear(animated)
+		super.viewWillDisappear(animated)
 
-	if let dismissHandlingNC = navigationController as? DismissHandlingNavigationController {
-		dismissHandlingNC.restoreOriginalNavigationBar()
-	}
-		
-	parent?.navigationController?.navigationBar.backgroundAlpha = 1.0
+		if let dismissHandlingNC = navigationController as? DismissHandlingNavigationController {
+			dismissHandlingNC.restoreOriginalNavigationBar()
+		}
+			
+		parent?.navigationController?.navigationBar.backgroundAlpha = 1.0
 	}
 
 	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
