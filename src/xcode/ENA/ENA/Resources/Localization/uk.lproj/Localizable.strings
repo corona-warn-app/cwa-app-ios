@@ -2802,9 +2802,9 @@
 
 "HealthCertificate_Overview_Scanning_Info" = "Щоб додати додаткові сертифікати, скористайтеся сканером QR-коду на панелі навігації нижче.";
 
-"HealthCertificate_Admission_Scenario_Status_Label" = "Статус для наступної федеральної землі";
+"HealthCertificate_Admission_Scenario_Status_Label" = "Правила для:";
 
-"HealthCertificate_Admission_Scenario_Button_Label" = "Постанови федерального уряду";
+"HealthCertificate_Admission_Scenario_Button_Label" = "Нічого не вибрано";
 
 "HealthCertificate_Loading_Indicator_Label" = "Визначення статусу...";
 

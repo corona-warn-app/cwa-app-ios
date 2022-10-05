@@ -2802,9 +2802,9 @@
 
 "HealthCertificate_Overview_Scanning_Info" = "Aby dodać kolejne certyfikaty, użyj skanera kodów QR na pasku nawigacyjnym poniżej.";
 
-"HealthCertificate_Admission_Scenario_Status_Label" = "Status dla następujących krajów związkowych";
+"HealthCertificate_Admission_Scenario_Status_Label" = "Zasady dotyczące:";
 
-"HealthCertificate_Admission_Scenario_Button_Label" = "Przepisy władz federalnych";
+"HealthCertificate_Admission_Scenario_Button_Label" = "Bez zaznaczenia";
 
 "HealthCertificate_Loading_Indicator_Label" = "Ustalanie statusu...";
 
