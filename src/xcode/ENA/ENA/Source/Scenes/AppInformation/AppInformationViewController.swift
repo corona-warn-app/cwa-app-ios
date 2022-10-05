@@ -128,7 +128,6 @@ class AppInformationViewController: DynamicTableViewController, NavigationBarOpa
 		tableView.deselectRow(at: indexPath, animated: true)
 		
 		if let category = Category(rawValue: indexPath.row) {
-			
 			if category == .versionInfo {
 				execute(action: versionInfoAppInformationCellModel.action)
 			} else {
