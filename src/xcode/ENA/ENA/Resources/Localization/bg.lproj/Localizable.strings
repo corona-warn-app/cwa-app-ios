@@ -2802,9 +2802,9 @@
 
 "HealthCertificate_Overview_Scanning_Info" = "За да добавите допълнителни сертификати, използвайте скенера за QR кодове долу в навигационната лента.";
 
-"HealthCertificate_Admission_Scenario_Status_Label" = "Статус за следните федерални провинции";
+"HealthCertificate_Admission_Scenario_Status_Label" = "Правила за:";
 
-"HealthCertificate_Admission_Scenario_Button_Label" = "Разпоредби на федералните правителства";
+"HealthCertificate_Admission_Scenario_Button_Label" = "Няма избор";
 
 "HealthCertificate_Loading_Indicator_Label" = "Определяне на статус...";
 
