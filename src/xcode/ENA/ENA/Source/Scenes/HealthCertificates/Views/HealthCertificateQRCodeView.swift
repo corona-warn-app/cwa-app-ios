@@ -76,7 +76,7 @@ class HealthCertificateQRCodeView: UIView {
 	private lazy var covPassCheckInfoStackView: UIStackView = {
 		let stackView = UIStackView(arrangedSubviews: [covPassCheckInfoLabel, covPassCheckInfoButton])
 		stackView.spacing = 4
-		stackView.alignment = .center
+		stackView.alignment = .top
 
 		return stackView
 	}()
