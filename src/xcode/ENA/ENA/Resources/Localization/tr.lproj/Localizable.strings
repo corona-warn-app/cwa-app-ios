@@ -2802,9 +2802,9 @@
 
 "HealthCertificate_Overview_Scanning_Info" = "İlave sertifikalar eklemek için aşağıdaki gezinti çubuğundaki QR kod tarayıcıyı kullanın.";
 
-"HealthCertificate_Admission_Scenario_Status_Label" = "Şu eyalete ilişkin durum";
+"HealthCertificate_Admission_Scenario_Status_Label" = "Şuna ilişkin kurallar:";
 
-"HealthCertificate_Admission_Scenario_Button_Label" = "Federal hükûmet düzenlemeleri";
+"HealthCertificate_Admission_Scenario_Button_Label" = "Seçim yok";
 
 "HealthCertificate_Loading_Indicator_Label" = "Durum belirleniyor...";
 
