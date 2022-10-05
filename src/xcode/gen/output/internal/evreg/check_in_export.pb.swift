@@ -89,6 +89,14 @@ struct SAP_Internal_Evreg_CheckInExportOption3 {
   init() {}
 }
 
+#if swift(>=5.5) && canImport(_Concurrency)
+extension SAP_Internal_Evreg_CheckInExport: @unchecked Sendable {}
+extension SAP_Internal_Evreg_CheckInExportItem: @unchecked Sendable {}
+extension SAP_Internal_Evreg_CheckInExportOption1: @unchecked Sendable {}
+extension SAP_Internal_Evreg_CheckInExportOption2: @unchecked Sendable {}
+extension SAP_Internal_Evreg_CheckInExportOption3: @unchecked Sendable {}
+#endif  // swift(>=5.5) && canImport(_Concurrency)
+
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
 fileprivate let _protobuf_package = "SAP.internal.evreg"

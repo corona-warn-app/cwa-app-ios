@@ -208,6 +208,14 @@ struct SAP_Internal_Stats_SevenDayIncidenceData {
   init() {}
 }
 
+#if swift(>=5.5) && canImport(_Concurrency)
+extension SAP_Internal_Stats_LocalStatistics: @unchecked Sendable {}
+extension SAP_Internal_Stats_FederalStateData: @unchecked Sendable {}
+extension SAP_Internal_Stats_FederalStateData.FederalState: @unchecked Sendable {}
+extension SAP_Internal_Stats_AdministrativeUnitData: @unchecked Sendable {}
+extension SAP_Internal_Stats_SevenDayIncidenceData: @unchecked Sendable {}
+#endif  // swift(>=5.5) && canImport(_Concurrency)
+
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
 fileprivate let _protobuf_package = "SAP.internal.stats"

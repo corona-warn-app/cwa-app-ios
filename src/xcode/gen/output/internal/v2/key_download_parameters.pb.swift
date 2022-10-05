@@ -104,6 +104,14 @@ struct SAP_Internal_V2_TraceWarningPackageMetadata {
   init() {}
 }
 
+#if swift(>=5.5) && canImport(_Concurrency)
+extension SAP_Internal_V2_KeyDownloadParametersIOS: @unchecked Sendable {}
+extension SAP_Internal_V2_KeyDownloadParametersAndroid: @unchecked Sendable {}
+extension SAP_Internal_V2_DayPackageMetadata: @unchecked Sendable {}
+extension SAP_Internal_V2_HourPackageMetadata: @unchecked Sendable {}
+extension SAP_Internal_V2_TraceWarningPackageMetadata: @unchecked Sendable {}
+#endif  // swift(>=5.5) && canImport(_Concurrency)
+
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
 fileprivate let _protobuf_package = "SAP.internal.v2"
