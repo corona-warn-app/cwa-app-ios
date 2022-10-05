@@ -14,14 +14,17 @@ class HomeLinkCardView: UIView {
 	
 	// MARK: - Private
 	
-	@IBOutlet weak var containerStackView: UIStackView!
-	@IBOutlet weak var middleStackView: UIStackView!
+	@IBOutlet private weak var containerStackView: UIStackView!
+	@IBOutlet private weak var middleStackView: UIStackView!
+
 	@IBOutlet private weak var infoButton: UIButton!
 	@IBOutlet private weak var deleteButton: UIButton!
+
+	// Content dependent elements
 	@IBOutlet private weak var titleLabel: ENALabel!
 	@IBOutlet private weak var subtitleLabel: ENALabel!
-	@IBOutlet weak var descriptionLabel: StackViewLabel!
-	@IBOutlet weak var illustrationImageView: UIImageView!
+	@IBOutlet private weak var descriptionLabel: StackViewLabel!
+	@IBOutlet private weak var assetImageView: UIImageView!
 	@IBOutlet private weak var button: ENAButton!
 	
 	@IBAction private func infoButtonTapped(_ sender: UIButton) {

@@ -15,3 +15,7 @@ enum HomeStatisticsCard: Int32, CaseIterable {
 	case combinedSevenDayAndHospitalization = 10
 	case boosterVaccination = 11
 }
+
+enum HomeLinkCard: Int32, CaseIterable {
+	case pandemicRadar = 12
+}

@@ -149,11 +149,11 @@
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
+                <outlet property="assetImageView" destination="Ccw-c4-NAN" id="34E-6H-YlU"/>
                 <outlet property="button" destination="THC-wK-Iaz" id="ZUO-MN-fSR"/>
                 <outlet property="containerStackView" destination="8Jk-KN-Zcm" id="Fm4-Ra-ZT5"/>
                 <outlet property="deleteButton" destination="1WI-Vf-dCD" id="mag-sh-GVJ"/>
                 <outlet property="descriptionLabel" destination="a7U-TP-Tas" id="xH5-Rv-v51"/>
-                <outlet property="illustrationImageView" destination="Ccw-c4-NAN" id="k8H-yb-xAZ"/>
                 <outlet property="infoButton" destination="EcL-bM-EEW" id="2gb-J7-yAf"/>
                 <outlet property="middleStackView" destination="xv9-Fi-Lxh" id="tXT-Au-rai"/>
                 <outlet property="subtitleLabel" destination="l7A-oj-oyh" id="LTE-U6-25Z"/>
