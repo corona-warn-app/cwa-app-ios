@@ -277,7 +277,8 @@ extension DynamicCell {
 				spacing: spacing,
 				alignment: alignment,
 				accessibilityTraits: accessibilityTraits,
-				accessibilityIdentifier: accessibilityIdentifier
+				accessibilityIdentifier: accessibilityIdentifier,
+				keepOriginalAttributes: true
 			)
 			configure?(viewController, cell, indexPath)
 		}
