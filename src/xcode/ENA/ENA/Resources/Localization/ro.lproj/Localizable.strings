@@ -2802,9 +2802,9 @@
 
 "HealthCertificate_Overview_Scanning_Info" = "Pentru a adăuga certificate suplimentare, utilizați scannerul de coduri QR de pe bara de navigare de mai jos.";
 
-"HealthCertificate_Admission_Scenario_Status_Label" = "Starea pentru următorul stat federal";
+"HealthCertificate_Admission_Scenario_Status_Label" = "Reguli pentru:";
 
-"HealthCertificate_Admission_Scenario_Button_Label" = "Reglementările guvernului federal";
+"HealthCertificate_Admission_Scenario_Button_Label" = "Nicio selecție";
 
 "HealthCertificate_Loading_Indicator_Label" = "Se determină starea...";
 
