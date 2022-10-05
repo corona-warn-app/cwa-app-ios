@@ -2802,9 +2802,9 @@
 
 "HealthCertificate_Overview_Scanning_Info" = "To add additional certificates, use the QR code scanner in the navigation bar below.";
 
-"HealthCertificate_Admission_Scenario_Status_Label" = "Status for the following federal state";
+"HealthCertificate_Admission_Scenario_Status_Label" = "Rules for:";
 
-"HealthCertificate_Admission_Scenario_Button_Label" = "Federal government regulations";
+"HealthCertificate_Admission_Scenario_Button_Label" = "No selection";
 
 "HealthCertificate_Loading_Indicator_Label" = "Determining status...";
 
