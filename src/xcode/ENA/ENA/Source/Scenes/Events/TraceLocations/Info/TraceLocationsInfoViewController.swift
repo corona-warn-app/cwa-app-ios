@@ -34,9 +34,6 @@ class TraceLocationsInfoViewController: DynamicTableViewController, FooterViewHa
 				self?.onDismiss(false)
 			})
 		}
-		if #available(iOS 13.0, *) {
-			parent?.isModalInPresentation = true
-		}
 		navigationItem.title = AppStrings.TraceLocations.Information.title
 		navigationController?.navigationBar.prefersLargeTitles = true
 	}
