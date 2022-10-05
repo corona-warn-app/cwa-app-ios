@@ -32,6 +32,10 @@ struct SAP_Internal_V2_EventRegistrationParameters {
   init() {}
 }
 
+#if swift(>=5.5) && canImport(_Concurrency)
+extension SAP_Internal_V2_EventRegistrationParameters: @unchecked Sendable {}
+#endif  // swift(>=5.5) && canImport(_Concurrency)
+
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
 fileprivate let _protobuf_package = "SAP.internal.v2"

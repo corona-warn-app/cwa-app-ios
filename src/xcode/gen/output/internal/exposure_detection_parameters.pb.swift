@@ -48,6 +48,11 @@ struct SAP_Internal_ExposureDetectionParametersAndroid {
   init() {}
 }
 
+#if swift(>=5.5) && canImport(_Concurrency)
+extension SAP_Internal_ExposureDetectionParametersIOS: @unchecked Sendable {}
+extension SAP_Internal_ExposureDetectionParametersAndroid: @unchecked Sendable {}
+#endif  // swift(>=5.5) && canImport(_Concurrency)
+
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
 fileprivate let _protobuf_package = "SAP.internal"
