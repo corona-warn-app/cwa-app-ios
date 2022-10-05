@@ -146,6 +146,11 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 			onDismissDistrict: onDismissDistrict,
 			onAccessibilityFocus: onAccessibilityFocus
 		)
+		configurePandemicRadarCard(
+			onInfoButtonTap: onInfoButtonTap,
+			onAccessibilityFocus: {},
+			onUpdate: {}
+		)
 		configureLocalStatisticsCards(
 			onInfoButtonTap: onInfoButtonTap,
 			onAccessibilityFocus: onAccessibilityFocus,
@@ -226,6 +231,27 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 				}
 			)
 		}
+	}
+	
+	private func configurePandemicRadarCard(
+		onInfoButtonTap: @escaping CompletionVoid,
+		onAccessibilityFocus: @escaping CompletionVoid,
+		onUpdate: @escaping CompletionVoid
+	) {
+		guard let cellModel = cellModel else { return }
+		
+		let nibName = String(describing: HomeLinkCardView.self)
+		let nib = UINib(nibName: nibName, bundle: .main)
+		
+		guard
+			let linkCardView = nib.instantiate(withOwner: self, options: nil).first as? HomeLinkCardView,
+			!stackView.arrangedSubviews.isEmpty
+		else { return }
+		
+		stackView.addArrangedSubview(linkCardView)
+		
+		let widthConstraint = linkCardView.widthAnchor.constraint(equalTo: scrollView.widthAnchor)
+		widthConstraint.isActive = true
 	}
 
 	private func configureLocalStatisticsCards(

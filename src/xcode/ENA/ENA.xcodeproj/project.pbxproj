@@ -1726,6 +1726,8 @@
 		CDA262F824AB808800612E15 /* HomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDA262F724AB808800612E15 /* HomeCoordinator.swift */; };
 		CDCE11D6247D644100F30825 /* NotificationSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDCE11D5247D644100F30825 /* NotificationSettingsViewModel.swift */; };
 		CDD87C56247556DE007CE6CA /* MainSettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDD87C54247556DE007CE6CA /* MainSettingsCell.swift */; };
+		DC03798228EDA34E00E1EE20 /* HomeLinkCardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = DC03798128EDA34E00E1EE20 /* HomeLinkCardView.xib */; };
+		DC03798428EDA39800E1EE20 /* HomeLinkCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC03798328EDA39800E1EE20 /* HomeLinkCardView.swift */; };
 		DC7002D9284F6B7900B164AC /* HealthCertificateExportCertificatesInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC7002D8284F6B7900B164AC /* HealthCertificateExportCertificatesInfoViewModel.swift */; };
 		DC7002DB284F8BA100B164AC /* HealthCertificateExportCertificatesInfoViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC7002DA284F8BA100B164AC /* HealthCertificateExportCertificatesInfoViewModelTests.swift */; };
 		DC7002DD2850EA7800B164AC /* TooltipViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC7002DC2850EA7800B164AC /* TooltipViewController.swift */; };
@@ -3594,6 +3596,8 @@
 		CDD87C54247556DE007CE6CA /* MainSettingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainSettingsCell.swift; sourceTree = "<group>"; };
 		CDD87C5C247559E3007CE6CA /* SettingsLabelCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsLabelCell.swift; sourceTree = "<group>"; };
 		CDF27BD2246ADBA70044D32B /* ExposureSubmissionServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionServiceTests.swift; sourceTree = "<group>"; };
+		DC03798128EDA34E00E1EE20 /* HomeLinkCardView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeLinkCardView.xib; sourceTree = "<group>"; };
+		DC03798328EDA39800E1EE20 /* HomeLinkCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeLinkCardView.swift; sourceTree = "<group>"; };
 		DC7002D8284F6B7900B164AC /* HealthCertificateExportCertificatesInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateExportCertificatesInfoViewModel.swift; sourceTree = "<group>"; };
 		DC7002DA284F8BA100B164AC /* HealthCertificateExportCertificatesInfoViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateExportCertificatesInfoViewModelTests.swift; sourceTree = "<group>"; };
 		DC7002DC2850EA7800B164AC /* TooltipViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TooltipViewController.swift; sourceTree = "<group>"; };
@@ -4221,6 +4225,7 @@
 				0130F66625B1813000B6BDA3 /* HomeStatisticsCard.swift */,
 				3484AC782693629C00CB0500 /* Model */,
 				8F3BB93626848F63000B9A95 /* Manage Statistics */,
+				DC03798028EDA31400E1EE20 /* HomePandemicRadarCardView */,
 				0105D88B25B87300007E288B /* HomeStatisticsCardView */,
 				0105D88F25B8731D007E288B /* Extensions */,
 			);
@@ -10458,6 +10463,15 @@
 			path = Cells;
 			sourceTree = "<group>";
 		};
+		DC03798028EDA31400E1EE20 /* HomePandemicRadarCardView */ = {
+			isa = PBXGroup;
+			children = (
+				DC03798128EDA34E00E1EE20 /* HomeLinkCardView.xib */,
+				DC03798328EDA39800E1EE20 /* HomeLinkCardView.swift */,
+			);
+			path = HomePandemicRadarCardView;
+			sourceTree = "<group>";
+		};
 		DC7003052858A7D200B164AC /* Mocks */ = {
 			isa = PBXGroup;
 			children = (
@@ -10932,6 +10946,7 @@
 				BA6D163B255AD35900ED3492 /* DMSwitchTableViewCell.xib in Resources */,
 				013069512705D4A900D945E3 /* QRScannerTooltipViewController.xib in Resources */,
 				85D7594B24570491008175F0 /* Assets.xcassets in Resources */,
+				DC03798228EDA34E00E1EE20 /* HomeLinkCardView.xib in Resources */,
 				342F8960284F962D00E683F5 /* NonDE_TestCertificateTemplate_v4.1.pdf in Resources */,
 				AB9B991426D522B700F2506D /* OpenSans-Bold.ttf in Resources */,
 				711EFCC924935C79005FEF21 /* ExposureSubmissionTestResultHeaderView.xib in Resources */,
@@ -11465,6 +11480,7 @@
 				019C9F2D258951B700B26392 /* ContactPersonEncounter.swift in Sources */,
 				35E121DC25B273280098D754 /* key_figure_card.pb.swift in Sources */,
 				711EFCC72492EE31005FEF21 /* ENAFooterView.swift in Sources */,
+				DC03798428EDA39800E1EE20 /* HomeLinkCardView.swift in Sources */,
 				BAE11F5728217F0100CA2790 /* FetchDaysServiceHelper.swift in Sources */,
 				AB7DE73925C8528700C52B3F /* ExposureDetectionSurveyCellModel.swift in Sources */,
 				BA258CB2281AB8CC002C56D4 /* AvailableHoursResource.swift in Sources */,
