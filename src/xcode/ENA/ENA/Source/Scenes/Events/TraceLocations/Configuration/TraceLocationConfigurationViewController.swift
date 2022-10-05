@@ -147,8 +147,9 @@ class TraceLocationConfigurationViewController: UIViewController, FooterViewHand
 	@IBOutlet private weak var permanentDefaultLengthPicker: UIDatePicker!
 
 	private func setUpLayout() {
-		footerView?.setBackgroundColor(.enaColor(for: .darkBackground))
+		footerView?.setBackgroundColor(.enaColor(for: .background))
 
+		scrollView.backgroundColor = .enaColor(for: .background)
 		textFieldContainerView.layer.cornerRadius = 8
 		temporarySettingsContainerView.layer.cornerRadius = 8
 		temporaryDefaultLengthPickerBackgroundView.layer.cornerRadius = 14
