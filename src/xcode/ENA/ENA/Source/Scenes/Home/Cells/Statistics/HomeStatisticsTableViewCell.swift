@@ -289,7 +289,7 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 		// linkCardView.accessibilityIdentifier =
 		
 		// TODO: Editing
-		// linkCardView.setEditMode(Self.editingStatistics, animated: false)
+		linkCardView.set(editMode: Self.editingStatistics, animated: false)
 	}
 
 	private func configureLocalStatisticsCards(

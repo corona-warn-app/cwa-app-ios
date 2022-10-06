@@ -42,6 +42,9 @@ class HomeLinkCardView: UIView {
 				accessibilityElements.append(button)
 			}
 			
+			deleteButton.accessibilityTraits = .button
+			accessibilityElements.append(deleteButton)
+			
 			return accessibilityElements as [Any]
 		}
 		set {}
@@ -56,7 +59,7 @@ class HomeLinkCardView: UIView {
 		onButtonTap: @escaping CompletionURL
 	) {
 		self.viewModel = viewModel
-
+		
 		viewModel.$title
 			.sink { [weak self] in
 				self?.titleLabel.text = $0
@@ -95,6 +98,15 @@ class HomeLinkCardView: UIView {
 		self.onInfoButtonTap = onInfoButtonTap
 		self.onDeleteButtonTap = onDeleteButtonTap
 		self.onButtonTap = onButtonTap
+	}
+	
+	func set(editMode enabled: Bool, animated: Bool) {
+		UIView.animate(withDuration: animated ? 0.3 : 0) {
+			if self.deleteButton.isHidden { self.deleteButton.isHidden.toggle() }
+			self.deleteButton.alpha = enabled ? 1 : 0
+		} completion: { _ in
+			self.deleteButton.alpha = enabled ? 1 : 0
+		}
 	}
 	
 	// MARK: - Private
@@ -138,6 +150,9 @@ class HomeLinkCardView: UIView {
 	
 	
 	private func setupLayout() {
+		// Initial state
+		deleteButton.isHidden = true
+		
 		containerStackView.setCustomSpacing(16, after: middleStackView)
 		
 		descriptionLabel.style = .subheadline
@@ -147,3 +162,4 @@ class HomeLinkCardView: UIView {
 			button.heightAnchor.constraint(equalToConstant: 50)
 		])
 	}
+}

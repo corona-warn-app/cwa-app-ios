@@ -273,7 +273,8 @@ class HomeStatisticsCardView: UIView {
 			if self.deleteButton.isHidden { self.deleteButton.isHidden.toggle() }
 			self.deleteButton.alpha = enabled ? 1 : 0
 		}, completion: { _ in
-			self.deleteButton.isHidden = !enabled
+			if self.deleteButton.isHidden { self.deleteButton.isHidden.toggle() }
+			self.deleteButton.alpha = enabled ? 1 : 0
 		})
 	}
 	// MARK: - Private
