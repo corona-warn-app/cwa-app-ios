@@ -252,6 +252,44 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 		
 		let widthConstraint = linkCardView.widthAnchor.constraint(equalTo: scrollView.widthAnchor)
 		widthConstraint.isActive = true
+		
+		// TODO: Discuss wether fetch card id is useful or just iterate over the array of link cards
+		guard let pandemicLinkCard = cellModel.linkCards.first(where: { $0.header.cardID == 12 }) else {
+			return
+		}
+		
+		
+		linkCardView.configure(
+			viewModel: HomeLinkCardViewModel(for: pandemicLinkCard),
+			onInfoButtonTap: {
+				onInfoButtonTap()
+			},
+			onDeleteButtonTap: { [weak self] in
+				widthConstraint.isActive = false
+//				baselineConstraints.forEach { $0.isActive = false }
+
+				UIView.animate(
+					withDuration: 0.25,
+					animations: {
+						linkCardView.isHidden = true
+						linkCardView.alpha = 0
+					},
+					completion: { _ in
+						// TODO: Remove
+						// self?.cellModel?.remove(pandemicLinkCard)
+						self?.updateManagementCellState()
+					}
+				)
+			},
+			onButtonTap: { [weak self] url in
+				LinkHelper.open(url: url)
+			})
+		
+		// TODO: Accessibility
+		// linkCardView.accessibilityIdentifier =
+		
+		// TODO: Editing
+		// linkCardView.setEditMode(Self.editingStatistics, animated: false)
 	}
 
 	private func configureLocalStatisticsCards(

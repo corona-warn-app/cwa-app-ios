@@ -22,6 +22,14 @@ class HomeStatisticsCellModel {
 					.compactMap { cardID in
 						statistics.keyFigureCards.first { $0.header.cardID == cardID }
 					}
+				
+				self?.linkCards = statistics.supportedCardIDSequence
+					.compactMap { cardID in
+						statistics.linkCards.first { $0.header.cardID == cardID }
+				}
+				
+				// TODO: DELETE
+				self?.linkCards.append(HomeLinkCardViewModel.mock(cardID: 12))
 			}
 			.store(in: &subscriptions)
 		
@@ -43,6 +51,7 @@ class HomeStatisticsCellModel {
 	// MARK: - Internal
 	
 	/// The default set of 'global' statistics for every user
+	@DidSetPublished private(set) var linkCards = [SAP_Internal_Stats_LinkCard]()
 	@DidSetPublished private(set) var keyFigureCards = [SAP_Internal_Stats_KeyFigureCard]()
 	@DidSetPublished private(set) var regionStatisticsData = [RegionStatisticsData]()
 
