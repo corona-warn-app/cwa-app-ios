@@ -15,6 +15,38 @@ class HomeLinkCardView: UIView {
 		setupLayout()
 	}
 	
+	override var accessibilityElements: [Any]? {
+		get {
+			var accessibilityElements = [Any?]()
+			
+			if viewModel?.title != nil {
+				titleLabel.accessibilityTraits = .header
+				accessibilityElements.append(titleLabel)
+			}
+			
+			if viewModel?.subtitle != nil {
+				titleLabel.accessibilityTraits = .staticText
+				accessibilityElements.append(subtitleLabel)
+			}
+			
+			infoButton.accessibilityTraits = .button
+			accessibilityElements.append(infoButton)
+			
+			if viewModel?.description != nil {
+				descriptionLabel.accessibilityTraits = .staticText
+				accessibilityElements.append(descriptionLabel)
+			}
+			
+			if viewModel?.buttonTitle != nil {
+				button.accessibilityTraits = .button
+				accessibilityElements.append(button)
+			}
+			
+			return accessibilityElements as [Any]
+		}
+		set {}
+	}
+	
 	// MARK: Internal
 	
 	func configure(
@@ -72,7 +104,7 @@ class HomeLinkCardView: UIView {
 	
 	@IBOutlet private weak var infoButton: UIButton!
 	@IBOutlet private weak var deleteButton: UIButton!
-
+	
 	// Content dependent elements
 	@IBOutlet private weak var titleLabel: ENALabel!
 	@IBOutlet private weak var subtitleLabel: ENALabel!
@@ -104,7 +136,7 @@ class HomeLinkCardView: UIView {
 		onButtonTap?(url)
 	}
 	
-
+	
 	private func setupLayout() {
 		containerStackView.setCustomSpacing(16, after: middleStackView)
 		
@@ -115,4 +147,3 @@ class HomeLinkCardView: UIView {
 			button.heightAnchor.constraint(equalToConstant: 50)
 		])
 	}
-}
