@@ -35,10 +35,11 @@ class HomeLinkCardViewModel {
 	// MARK: - Private
 	
 	private let buttonTitleAttributedString: NSAttributedString = {
-		let attachment = NSTextAttachment()
+		let textAttachment = NSTextAttachment()
 		if #available(iOS 13.0, *) {
-			attachment.image = UIImage(
-				systemName: "rectangle.portrait.and.arrow.right"
+			textAttachment.image = UIImage(
+				systemName: "rectangle.portrait.and.arrow.right",
+				withConfiguration: UIImage.SymbolConfiguration(weight: .semibold)
 			)?.withTintColor(
 				.enaColor(for: .buttonPrimary),
 				renderingMode: .alwaysOriginal
@@ -50,10 +51,11 @@ class HomeLinkCardViewModel {
 		let textString = NSMutableAttributedString(
 			string: "Externen Link öffnen  ",
 			attributes: [
-				.foregroundColor: UIColor.enaColor(for: .buttonPrimary)
+				.foregroundColor: UIColor.enaColor(for: .buttonPrimary),
+				.font: UIFont.enaFont(for: .body, weight: .semibold)
 			]
 		)
-		let imageString = NSMutableAttributedString(attachment: attachment)
+		let imageString = NSMutableAttributedString(attachment: textAttachment)
 		textString.append(imageString)
 		
 		return textString
