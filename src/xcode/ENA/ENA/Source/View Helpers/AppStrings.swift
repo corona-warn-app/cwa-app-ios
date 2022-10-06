@@ -1422,7 +1422,17 @@ enum AppStrings {
 		enum Card {
 			static let fromNationWide = NSLocalizedString("Statistics_Card_From_Nationwide", comment: "")
 			static let fromCWA = NSLocalizedString("Statistics_Card_From_CWA", comment: "")
+			
+			enum LinkCardCommon {
+				static let buttonTitle = NSLocalizedString("Statistics_Card_LinkCard_buttonTitle", comment: "")
+			}
 
+			enum PandemicRadar {
+				static let title = NSLocalizedString("Statistics_Card_PandemicRadar_title", comment: "")
+				static let subtitle = NSLocalizedString("Statistics_Card_PandemicRadar_subtitle", comment: "")
+				static let description = NSLocalizedString("Statistics_Card_PandemicRadar_description", comment: "")
+			}
+			
 			enum Infections {
 				static let title = NSLocalizedString("Statistics_Card_Infections_Title", comment: "")
 				static let today = NSLocalizedString("Statistics_Card_Infections_Today", comment: "")

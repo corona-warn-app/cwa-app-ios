@@ -13,6 +13,7 @@ class HomeLinkCardView: UIView {
 		super.awakeFromNib()
 		
 		setupLayout()
+		setupAccessibility()
 	}
 	
 	override var accessibilityElements: [Any]? {
@@ -113,16 +114,13 @@ class HomeLinkCardView: UIView {
 	
 	@IBOutlet private weak var containerStackView: UIStackView!
 	@IBOutlet private weak var middleStackView: UIStackView!
-	
-	@IBOutlet private weak var infoButton: UIButton!
-	@IBOutlet private weak var deleteButton: UIButton!
-	
-	// Content dependent elements
 	@IBOutlet private weak var titleLabel: ENALabel!
 	@IBOutlet private weak var subtitleLabel: ENALabel!
 	@IBOutlet private weak var descriptionLabel: StackViewLabel!
 	@IBOutlet private weak var assetImageView: UIImageView!
 	@IBOutlet private weak var button: ENAButton!
+	@IBOutlet private weak var infoButton: UIButton!
+	@IBOutlet private weak var deleteButton: UIButton!
 	
 	// Callbacks
 	private var onInfoButtonTap: CompletionVoid?
@@ -161,5 +159,68 @@ class HomeLinkCardView: UIView {
 		NSLayoutConstraint.activate([
 			button.heightAnchor.constraint(equalToConstant: 50)
 		])
+	}
+	
+	private func setupAccessibility() {
+		viewModel?.$titleAccessibilityIdentifier
+			.assign(to: \.accessibilityIdentifier, on: titleLabel)
+			.store(in: &subscriptions)
+		viewModel?.$subtitleAccessibilityIdentifier
+			.assign(to: \.accessibilityIdentifier, on: subtitleLabel)
+			.store(in: &subscriptions)
+		viewModel?.$descriptionAccessibilityIdentifier
+			.assign(to: \.accessibilityIdentifier, on: descriptionLabel)
+			.store(in: &subscriptions)
+		viewModel?.$assetAccessibilityIdentifier
+			.assign(to: \.accessibilityIdentifier, on: assetImageView)
+			.store(in: &subscriptions)
+		viewModel?.$buttonAccessibilityIdentifier
+			.assign(to: \.accessibilityIdentifier, on: button)
+			.store(in: &subscriptions)
+		viewModel?.$infoButtonAccessibilityIdentifier
+			.assign(to: \.accessibilityIdentifier, on: infoButton)
+			.store(in: &subscriptions)
+		viewModel?.$deleteButtonAccessibilityIdentifier
+			.assign(to: \.accessibilityIdentifier, on: deleteButton)
+			.store(in: &subscriptions)
+		
+		viewModel?.$titleAccessibilityLabel
+			.assign(to: \.accessibilityLabel, on: titleLabel)
+			.store(in: &subscriptions)
+		viewModel?.$subtitleAccessibilityLabel
+			.assign(to: \.accessibilityLabel, on: subtitleLabel)
+			.store(in: &subscriptions)
+		viewModel?.$descriptionAccessibilityLabel
+			.assign(to: \.accessibilityLabel, on: descriptionLabel)
+			.store(in: &subscriptions)
+		viewModel?.$assetAccessibilityLabel
+			.assign(to: \.accessibilityLabel, on: assetImageView)
+			.store(in: &subscriptions)
+		viewModel?.$buttonAccessibilityLabel
+			.assign(to: \.accessibilityLabel, on: button)
+			.store(in: &subscriptions)
+		viewModel?.$infoButtonAccessibilityLabel
+			.assign(to: \.accessibilityLabel, on: infoButton)
+			.store(in: &subscriptions)
+		viewModel?.$deleteButtonAccessibilityLabel
+			.assign(to: \.accessibilityLabel, on: deleteButton)
+			.store(in: &subscriptions)
+		
+		
+//		titleLabel.accessibilityIdentifier = viewModel?.titleAccessibilityIdentifier
+//		subtitleLabel.accessibilityIdentifier = viewModel?.subtitleAccessibilityIdentifier
+//		descriptionLabel.accessibilityIdentifier = viewModel?.descriptionAccessibilityIdentifier
+//		assetImageView.accessibilityIdentifier = viewModel?.assetAccessibilityIdentifier
+//		button.accessibilityIdentifier = viewModel?.buttonAccessibilityIdentifier
+//		infoButton.accessibilityIdentifier = viewModel?.infoButtonAccessibilityIdentifier
+//		deleteButton.accessibilityIdentifier = viewModel?.deleteButtonAccessibilityIdentifier
+		
+		titleLabel.accessibilityTraits = .header
+		subtitleLabel.accessibilityTraits = .staticText
+		descriptionLabel.accessibilityTraits = .staticText
+		assetImageView.accessibilityTraits = .image
+		button.accessibilityTraits = .button
+		infoButton.accessibilityTraits = .button
+		deleteButton.accessibilityTraits = .button
 	}
 }

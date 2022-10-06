@@ -2041,7 +2041,10 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 /* - General Card Texts */
 
 "Statistics_Card_From_Nationwide" = "Bundesweit";
+
 "Statistics_Card_From_CWA" = "über die Corona-Warn-App";
+
+"Statistics_Card_LinkCard_buttonTitle" = "Externen Link öffnen  ";
 
 /* - Add Statistics Card */
 
@@ -2054,6 +2057,17 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 "Statistics_Add_fromTheWholeCountry" = "Gesamtes Bundesland";
 
 "Statistics_Card_Manage" = "Bearbeiten";
+
+/* - Pandemic Radar */
+
+"Statistics_Card_PandemicRadar_title" = "Pandemieradar";
+
+"Statistics_Card_PandemicRadar_subtitle" = "des Robert-Koch-Instituts";
+
+"Statistics_Card_PandemicRadar_description" = "Entdecken Sie weitere Statistiken zur Pandemie";
+
+"Statistics_Card_PandemicRadar_buttonTitle" = "Externen Link öffnen  ";
+
 
 /* - 7 Days Incedence */
 
