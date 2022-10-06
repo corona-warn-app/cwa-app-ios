@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "Pandemieradar_Light.pdf",
+      "filename" : "Link_Light.pdf",
       "idiom" : "universal"
     },
     {
@@ -11,7 +11,7 @@
           "value" : "dark"
         }
       ],
-      "filename" : "Pandemieradar_Dark.pdf",
+      "filename" : "Link_Dark.pdf",
       "idiom" : "universal"
     }
   ],

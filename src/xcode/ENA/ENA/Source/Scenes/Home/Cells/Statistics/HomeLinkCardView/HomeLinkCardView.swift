@@ -69,7 +69,7 @@ class HomeLinkCardView: UIView {
 	
 	@IBOutlet private weak var containerStackView: UIStackView!
 	@IBOutlet private weak var middleStackView: UIStackView!
-
+	
 	@IBOutlet private weak var infoButton: UIButton!
 	@IBOutlet private weak var deleteButton: UIButton!
 
@@ -110,5 +110,9 @@ class HomeLinkCardView: UIView {
 		
 		descriptionLabel.style = .subheadline
 		descriptionLabel.numberOfLines = 0
+		
+		NSLayoutConstraint.activate([
+			button.heightAnchor.constraint(equalToConstant: 50)
+		])
 	}
 }

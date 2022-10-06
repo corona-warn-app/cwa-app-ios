@@ -79,11 +79,11 @@
                                     <rect key="frame" x="0.0" y="84" width="443" height="38.666666666666657"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a7U-TP-Tas" customClass="StackViewLabel" customModule="ENA" customModuleProvider="target">
-                                            <rect key="frame" x="0.0" y="0.0" width="311" height="38.666666666666664"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="309" height="38.666666666666664"/>
                                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         </view>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" image="Illu_Radar" translatesAutoresizingMaskIntoConstraints="NO" id="Ccw-c4-NAN">
-                                            <rect key="frame" x="327" y="0.0" width="116" height="38.666666666666664"/>
+                                            <rect key="frame" x="325" y="0.0" width="118" height="38.666666666666664"/>
                                         </imageView>
                                     </subviews>
                                 </stackView>
@@ -92,9 +92,6 @@
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="THC-wK-Iaz" customClass="ENAButton" customModule="ENA" customModuleProvider="target">
                                             <rect key="frame" x="0.0" y="0.0" width="427" height="36.333333333333336"/>
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="50" id="GuW-sc-KKi"/>
-                                            </constraints>
                                             <state key="normal" title="Button"/>
                                             <buttonConfiguration key="configuration" style="plain" title="Button"/>
                                             <userDefinedRuntimeAttributes>
@@ -108,9 +105,9 @@
                                                 <action selector="buttonTapped:" destination="zgw-Iz-pIy" eventType="touchUpInside" id="Rnf-tS-2k1"/>
                                             </connections>
                                         </button>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MOL-fP-xAM">
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MOL-fP-xAM" userLabel="Spacer">
                                             <rect key="frame" x="427" y="0.0" width="16" height="36.333333333333336"/>
-                                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="16" id="v9X-uP-tKe"/>
                                             </constraints>
@@ -162,7 +159,7 @@
                 <outlet property="subtitleLabel" destination="l7A-oj-oyh" id="LTE-U6-25Z"/>
                 <outlet property="titleLabel" destination="Sp6-M0-hGo" id="2BN-V0-ygl"/>
             </connections>
-            <point key="canvasLocation" x="107" y="-42"/>
+            <point key="canvasLocation" x="106.15384615384615" y="-42.654028436018955"/>
         </view>
     </objects>
     <designables>
@@ -177,7 +174,7 @@
         </designable>
     </designables>
     <resources>
-        <image name="Illu_Radar" width="116" height="131"/>
+        <image name="Illu_Radar" width="118" height="135"/>
         <image name="delete" width="24" height="24"/>
         <namedColor name="ENA Background Color">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
