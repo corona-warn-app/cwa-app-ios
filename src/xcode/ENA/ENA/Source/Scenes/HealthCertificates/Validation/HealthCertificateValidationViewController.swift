@@ -50,7 +50,7 @@ class HealthCertificateValidationViewController: DynamicTableViewController, Foo
 
 		view.backgroundColor = .enaColor(for: .background)
 	}
-
+	
 	// MARK: - Protocol FooterViewHandling
 
 	func didTapFooterViewButton(_ type: FooterViewModel.ButtonType) {
