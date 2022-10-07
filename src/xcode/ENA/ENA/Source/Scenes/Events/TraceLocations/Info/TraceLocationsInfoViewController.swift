@@ -4,7 +4,7 @@
 
 import UIKit
 
-class TraceLocationsInfoViewController: DynamicTableViewController, FooterViewHandling {
+class TraceLocationsInfoViewController: DynamicTableViewController, FooterViewHandling, UIAdaptivePresentationControllerDelegate {
 	
 	// MARK: - Init
 	
@@ -34,8 +34,19 @@ class TraceLocationsInfoViewController: DynamicTableViewController, FooterViewHa
 				self?.onDismiss(false)
 			})
 		}
+		navigationController?.presentationController?.delegate = self
 		navigationItem.title = AppStrings.TraceLocations.Information.title
 		navigationController?.navigationBar.prefersLargeTitles = true
+	}
+	
+	// MARK: - Protocol UIAdaptivePresentationControllerDelegate
+	
+	func presentationControllerShouldDismiss(_ presentationController: UIPresentationController) -> Bool {
+		return false
+	}
+
+	func presentationControllerDidAttemptToDismiss(_ presentationController: UIPresentationController) {
+		self.onDismiss(false)
 	}
 	
 	// MARK: - Protocol FooterViewHandling
