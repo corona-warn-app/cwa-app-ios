@@ -122,7 +122,7 @@ class HomeTableViewModel {
 
 	func heightForRow(at indexPath: IndexPath) -> CGFloat {
 		let isStatisticsCell = HomeTableViewModel.Section(rawValue: indexPath.section) == .statistics
-		let isGlobalStatisticsNotLoaded = state.statistics.supportedCardIDSequence.isEmpty
+		let isGlobalStatisticsNotLoaded = state.statistics.supportedStatisticsCardIDSequence.isEmpty
 		let isLocalStatisticsNotCached = state.store.selectedLocalStatisticsRegions.isEmpty
 		
 		if isStatisticsCell && isGlobalStatisticsNotLoaded && isLocalStatisticsNotCached {

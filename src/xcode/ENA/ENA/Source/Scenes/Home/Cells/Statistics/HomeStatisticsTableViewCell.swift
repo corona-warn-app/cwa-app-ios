@@ -238,7 +238,9 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 		onAccessibilityFocus: @escaping CompletionVoid,
 		onUpdate: @escaping CompletionVoid
 	) {
-		guard let cellModel = cellModel else { return }
+		guard let pandemicLinkCard = cellModel?.linkCards.first(where: { $0.header.cardID == 12 }) else {
+			return
+		}
 		
 		let nibName = String(describing: HomeLinkCardView.self)
 		let nib = UINib(nibName: nibName, bundle: .main)
@@ -252,12 +254,6 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 		
 		let widthConstraint = linkCardView.widthAnchor.constraint(equalTo: scrollView.widthAnchor)
 		widthConstraint.isActive = true
-		
-		// TODO: Discuss wether fetch card id is useful or just iterate over the array of link cards
-		guard let pandemicLinkCard = cellModel.linkCards.first(where: { $0.header.cardID == 12 }) else {
-			return
-		}
-		
 		
 		linkCardView.configure(
 			viewModel: HomeLinkCardViewModel(for: pandemicLinkCard),

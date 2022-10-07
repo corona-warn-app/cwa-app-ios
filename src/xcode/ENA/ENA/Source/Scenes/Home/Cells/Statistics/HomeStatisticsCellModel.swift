@@ -18,18 +18,15 @@ class HomeStatisticsCellModel {
 
 		homeState.$statistics
 			.sink { [weak self] statistics in
-				self?.keyFigureCards = statistics.supportedCardIDSequence
+				self?.keyFigureCards = statistics.supportedStatisticsCardIDSequence
 					.compactMap { cardID in
 						statistics.keyFigureCards.first { $0.header.cardID == cardID }
 					}
 				
-				self?.linkCards = statistics.supportedCardIDSequence
+				self?.linkCards = statistics.supportedLinkCardIDSequence
 					.compactMap { cardID in
 						statistics.linkCards.first { $0.header.cardID == cardID }
-				}
-				
-				// TODO: DELETE
-				self?.linkCards.append(HomeLinkCardViewModel.mock(cardID: 12))
+					}
 			}
 			.store(in: &subscriptions)
 		
