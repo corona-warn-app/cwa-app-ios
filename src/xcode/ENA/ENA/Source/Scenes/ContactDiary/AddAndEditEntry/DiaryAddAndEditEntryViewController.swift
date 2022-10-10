@@ -78,6 +78,8 @@ class DiaryAddAndEditEntryViewController: UITableViewController, UITextFieldDele
 		guard let row = Row(rawValue: indexPath.row) else {
 			fatalError("Something went horribly wrong")
 		}
+		cell.backgroundColor = .enaColor(for: .background)
+		
 		cell.textField.tag = row.rawValue
 		cell.textField.addTarget(self, action: #selector(textValueChanged(sender:)), for: .editingChanged)
 		cell.textField.delegate = self
