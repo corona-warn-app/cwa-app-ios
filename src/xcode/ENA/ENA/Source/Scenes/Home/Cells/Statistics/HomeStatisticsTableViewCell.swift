@@ -34,10 +34,11 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 		// Scroll to first statistics card initially if local statistics exist, and when entering/leaving edit mode
 		if let cellModel = cellModel, !cellModel.regionStatisticsData.isEmpty,
 			scrollView.bounds.origin.x == 0,
-			let firstStatisticsCard = stackView.arrangedSubviews[safe: 1] {
-			DispatchQueue.main.async {
-				self.scrollView.scrollRectToVisible(firstStatisticsCard.frame, animated: self.wasAlreadyShown)
-				self.wasAlreadyShown = true
+			let firstStatisticsCard = stackView.arrangedSubviews[safe: 1],
+			let secondStatisticsCard = stackView.arrangedSubviews[safe: 2] {
+			DispatchQueue.main.async { [weak self] in
+				self?.scrollView.scrollRectToVisible(HomeStatisticsTableViewCell.editingStatistics ? secondStatisticsCard.frame : firstStatisticsCard.frame, animated: self?.wasAlreadyShown ?? false)
+				self?.wasAlreadyShown = true
 			}
 		}
 	}
@@ -255,6 +256,11 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 		let widthConstraint = linkCardView.widthAnchor.constraint(equalTo: scrollView.widthAnchor)
 		widthConstraint.isActive = true
 		
+		// TODO: Discuss wether fetch card id is useful or just iterate over the array of link cards
+		guard let pandemicLinkCard = cellModel.linkCards.first(where: { $0.header.cardID == 12 }) else {
+			return
+		}
+
 		linkCardView.configure(
 			viewModel: HomeLinkCardViewModel(for: pandemicLinkCard),
 			onInfoButtonTap: {
