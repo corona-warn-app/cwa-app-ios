@@ -148,6 +148,11 @@ class TraceLocationConfigurationViewController: UIViewController, FooterViewHand
 
 	private func setUpLayout() {
 		footerView?.setBackgroundColor(.enaColor(for: .background))
+		textFieldContainerView.backgroundColor = .enaColor(for: .cellBackground)
+		permanentSettingsContainerView.backgroundColor = .enaColor(for: .cellBackground)
+		temporarySettingsContainerView.backgroundColor = .enaColor(for: .cellBackground)
+		temporaryDefaultLengthPickerBackgroundView.backgroundColor = .enaColor(for: .cellBackground)
+		temporaryDefaultLengthPickerContainerView.backgroundColor = .enaColor(for: .cellBackground)
 
 		scrollView.backgroundColor = .enaColor(for: .background)
 		textFieldContainerView.layer.cornerRadius = 8

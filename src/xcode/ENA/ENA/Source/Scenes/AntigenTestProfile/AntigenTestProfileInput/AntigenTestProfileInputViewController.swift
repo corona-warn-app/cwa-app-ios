@@ -59,11 +59,15 @@ class AntigenTestProfileInputViewController: UITableViewController, FooterViewHa
 			guard let cell = tableView.dequeueReusableCell(withIdentifier: AntigenTestProfileInputDescriptionCell.reuseIdentifier, for: indexPath) as? AntigenTestProfileInputDescriptionCell else {
 				fatalError("Wrong cell")
 			}
+			
+			cell.backgroundColor = .enaColor(for: .background)
 			return cell
 		case .inputFields:
 			guard let cell = tableView.dequeueReusableCell(withIdentifier: AntigenTestProfileInputCell.reuseIdentifier, for: indexPath) as? AntigenTestProfileInputCell else {
 				fatalError("Wrong cell")
 			}
+			
+			cell.backgroundColor = .enaColor(for: .background)
 			
 			if #available(iOS 14.0, *) {
 				cell.birthdayPicker.addTarget(self, action: #selector(dateOfBirthDidChange(datePicker:)), for: .editingDidEnd)
