@@ -285,8 +285,8 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 		// TODO: Accessibility
 		// linkCardView.accessibilityIdentifier =
 		
-		// TODO: Editing
-		linkCardView.set(editMode: Self.editingStatistics, animated: false)
+		// Pandemic Radar shouldn't be removable
+		linkCardView.set(editMode: false, animated: false)
 	}
 
 	private func configureLocalStatisticsCards(
