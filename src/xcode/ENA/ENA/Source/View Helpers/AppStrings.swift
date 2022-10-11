@@ -1540,6 +1540,8 @@ enum AppStrings {
 		enum Info {
 			static let title = NSLocalizedString("Statistics_Info_Title", comment: "")
 			static let subtitle = NSLocalizedString("Statistics_Info_Subtitle", comment: "")
+			static let pandemicRadarTitle = NSLocalizedString("Statistics_Info_PandemicRadar_Title", comment: "")
+			static let pandemicRadarText = NSLocalizedString("Statistics_Info_PandemicRadar_Text", comment: "")
 			static let incidenceTitle = NSLocalizedString("Statistics_Info_Incidence_Title", comment: "")
 			static let local7DaysTitle = NSLocalizedString("Statistics_Info_Local7Days_Title", comment: "")
 			static let local7DaysText = NSLocalizedString("Statistics_Info_Local7Days_Text", comment: "")
