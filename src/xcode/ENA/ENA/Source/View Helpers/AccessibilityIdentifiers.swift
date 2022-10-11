@@ -496,6 +496,7 @@ enum AccessibilityIdentifiers {
 			static let button = "AppStrings.LinkCard.PandemicRadar.button"
 			static let infoButton = "AppStrings.LinkCard.PandemicRadar.infoButton"
 			static let deleteButton = "AppStrings.LinkCard.PandemicRadar.deleteButton"
+			static let card = "AppStrings.LinkCard.PandemicRadar"
 		}
 	}
 

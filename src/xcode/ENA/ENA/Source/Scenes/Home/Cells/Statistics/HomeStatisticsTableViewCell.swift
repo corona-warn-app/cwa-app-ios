@@ -267,8 +267,7 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 			}
 		)
 		
-		// TODO: Accessibility
-		// linkCardView.accessibilityIdentifier =
+		linkCardView.accessibilityIdentifier = AccessibilityIdentifiers.LinkCard.PandemicRadar.card
 		
 		// Pandemic Radar shouldn't be removable
 		linkCardView.set(editMode: false, animated: false)
