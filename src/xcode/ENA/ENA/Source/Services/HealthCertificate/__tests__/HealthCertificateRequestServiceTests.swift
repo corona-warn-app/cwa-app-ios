@@ -93,7 +93,7 @@ class HealthCertificateRequestServiceTests: CWATestCase {
 			}
 		
 		let personsExpectation = expectation(description: "Persons not empty")
-		personsExpectation.expectedFulfillmentCount = 4
+		personsExpectation.expectedFulfillmentCount = 2
 		let personsSubscription = healthCertificateService.$healthCertifiedPersons
 			.sink {
 				if !$0.isEmpty {
@@ -222,7 +222,7 @@ class HealthCertificateRequestServiceTests: CWATestCase {
 		)
 
 		let personsExpectation = expectation(description: "Persons not empty")
-		personsExpectation.expectedFulfillmentCount = 4
+		personsExpectation.expectedFulfillmentCount = 2
 		let personsSubscription = healthCertificateService.$healthCertifiedPersons
 			.sink {
 				if !$0.isEmpty {
@@ -339,7 +339,7 @@ class HealthCertificateRequestServiceTests: CWATestCase {
 		)
 
 		let personsExpectation = expectation(description: "Persons not empty")
-		personsExpectation.expectedFulfillmentCount = 4
+		personsExpectation.expectedFulfillmentCount = 2
 		let personsSubscription = healthCertificateService.$healthCertifiedPersons
 			.sink {
 				if !$0.isEmpty {
@@ -458,7 +458,7 @@ class HealthCertificateRequestServiceTests: CWATestCase {
 		)
 
 		let personsExpectation = expectation(description: "Persons not empty")
-		personsExpectation.expectedFulfillmentCount = 4
+		personsExpectation.expectedFulfillmentCount = 2
 		let personsSubscription = healthCertificateService.$healthCertifiedPersons
 			.sink {
 				if !$0.isEmpty {
@@ -481,7 +481,7 @@ class HealthCertificateRequestServiceTests: CWATestCase {
 			}
 		)
 
-		waitForExpectations(timeout: .medium)
+		waitForExpectations(timeout: .long)
 
 		personsSubscription.cancel()
 
@@ -642,7 +642,7 @@ class HealthCertificateRequestServiceTests: CWATestCase {
 		)
 
 		let personsExpectation = expectation(description: "Persons not empty")
-		personsExpectation.expectedFulfillmentCount = 4
+		personsExpectation.expectedFulfillmentCount = 2
 		let personsSubscription = healthCertificateService.$healthCertifiedPersons
 			.sink {
 				if !$0.isEmpty {
