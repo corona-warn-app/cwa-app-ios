@@ -261,26 +261,11 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 			onInfoButtonTap: {
 				onInfoButtonTap()
 			},
-			onDeleteButtonTap: { [weak self] in
-				widthConstraint.isActive = false
-//				baselineConstraints.forEach { $0.isActive = false }
-
-				UIView.animate(
-					withDuration: 0.25,
-					animations: {
-						linkCardView.isHidden = true
-						linkCardView.alpha = 0
-					},
-					completion: { _ in
-						// TODO: Remove
-						// self?.cellModel?.remove(pandemicLinkCard)
-						self?.updateManagementCellState()
-					}
-				)
-			},
-			onButtonTap: { [weak self] url in
+			onDeleteButtonTap: nil,
+			onButtonTap: { url in
 				LinkHelper.open(url: url)
-			})
+			}
+		)
 		
 		// TODO: Accessibility
 		// linkCardView.accessibilityIdentifier =

@@ -90,20 +90,3 @@ class HomeLinkCardViewModel {
 		deleteButtonAccessibilityIdentifier = AccessibilityIdentifiers.LinkCard.PandemicRadar.deleteButton
 	}
 }
-
-// TODO: DELETE
-extension HomeLinkCardViewModel {
-	static func mock(
-		cardID: Int32 = 0,
-		updatedAt: Int64 = 0
-	) -> SAP_Internal_Stats_LinkCard {
-		var cardHeader = SAP_Internal_Stats_CardHeader()
-		cardHeader.cardID = cardID
-		cardHeader.updatedAt = updatedAt
-		
-		var card = SAP_Internal_Stats_LinkCard()
-		card.header = cardHeader
-		card.url = "https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/Situationsberichte/COVID-19-Trends/COVID-19-Trends.html?__blob=publicationFile#/home"
-		return card
-	}
-}

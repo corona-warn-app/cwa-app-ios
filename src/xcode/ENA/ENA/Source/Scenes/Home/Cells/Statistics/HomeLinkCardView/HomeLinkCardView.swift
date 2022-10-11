@@ -56,7 +56,7 @@ class HomeLinkCardView: UIView {
 	func configure(
 		viewModel: HomeLinkCardViewModel,
 		onInfoButtonTap: @escaping CompletionVoid,
-		onDeleteButtonTap: @escaping CompletionVoid,
+		onDeleteButtonTap: CompletionVoid?,
 		onButtonTap: @escaping CompletionURL
 	) {
 		self.viewModel = viewModel
