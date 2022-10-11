@@ -33,9 +33,8 @@ class HomeStatisticsCellModel {
 		localStatisticsProvider.regionStatisticsData
 			.sink { [weak self] newRegionStatisticsData in
 				guard let self = self else { return }
-				self.hasFreshRegion = newRegionStatisticsData.count > self.regionStatisticsData.count
 				self.regionStatisticsData = newRegionStatisticsData
-				Log.debug("Updating local statistics cell model. \(private: "\(self.regionStatisticsData.count ?? -1)")", log: .localStatistics)
+				Log.debug("Updating local statistics cell model. \(private: "\(self.regionStatisticsData.count)")", log: .localStatistics)
 			}
 			.store(in: &subscriptions)
 		
@@ -50,7 +49,9 @@ class HomeStatisticsCellModel {
 	// MARK: - Internal
 	
 	/// The default set of 'global' statistics for every user
-	private(set) var hasFreshRegion = false
+	var hasNewRegion: Bool {
+		return localStatisticsProvider.hasNewRegion
+	}
 	
 	@DidSetPublished private(set) var linkCards = [SAP_Internal_Stats_LinkCard]()
 	@DidSetPublished private(set) var keyFigureCards = [SAP_Internal_Stats_KeyFigureCard]()
