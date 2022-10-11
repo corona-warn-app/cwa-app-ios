@@ -4,7 +4,7 @@
 
 import Foundation
 
-enum ELSError: Error {
+indirect enum ELSError: Error {
 	
 	case ppacError(PPACError)
 	case otpError(OTPError)
