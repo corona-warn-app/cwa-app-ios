@@ -56,7 +56,7 @@ class HomeLinkCardViewModelTests: XCTestCase {
 			location: 0,
 			length: AppStrings.Statistics.Card.LinkCardCommon.buttonTitle.count
 		)
-		var attachementRange = NSRange(
+		let attachementRange = NSRange(
 			location: textRange.length,
 			length: buttonTitle.length
 		)
