@@ -155,6 +155,8 @@ class HomeLinkCardView: UIView {
 		
 		descriptionLabel.style = .subheadline
 		descriptionLabel.numberOfLines = 0
+		descriptionLabel.font = .enaFont(for: .body)
+		descriptionLabel.textColor = .enaColor(for: .textPrimary2)
 		
 		NSLayoutConstraint.activate([
 			button.heightAnchor.constraint(equalToConstant: 50)
@@ -205,15 +207,6 @@ class HomeLinkCardView: UIView {
 		viewModel?.$deleteButtonAccessibilityLabel
 			.assign(to: \.accessibilityLabel, on: deleteButton)
 			.store(in: &subscriptions)
-		
-		
-//		titleLabel.accessibilityIdentifier = viewModel?.titleAccessibilityIdentifier
-//		subtitleLabel.accessibilityIdentifier = viewModel?.subtitleAccessibilityIdentifier
-//		descriptionLabel.accessibilityIdentifier = viewModel?.descriptionAccessibilityIdentifier
-//		assetImageView.accessibilityIdentifier = viewModel?.assetAccessibilityIdentifier
-//		button.accessibilityIdentifier = viewModel?.buttonAccessibilityIdentifier
-//		infoButton.accessibilityIdentifier = viewModel?.infoButtonAccessibilityIdentifier
-//		deleteButton.accessibilityIdentifier = viewModel?.deleteButtonAccessibilityIdentifier
 		
 		titleLabel.accessibilityTraits = .header
 		subtitleLabel.accessibilityTraits = .staticText
