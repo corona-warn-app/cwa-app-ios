@@ -239,7 +239,7 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 		onAccessibilityFocus: @escaping CompletionVoid,
 		onUpdate: @escaping CompletionVoid
 	) {
-		guard let pandemicLinkCard = cellModel?.linkCards.first(where: { $0.header.cardID == 12 }) else {
+		guard let pandemicLinkCard = cellModel?.linkCards.first(where: { $0.header.cardID == HomeLinkCard.pandemicRadar.rawValue }) else {
 			return
 		}
 		
