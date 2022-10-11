@@ -336,6 +336,7 @@ final class ExposureNotificationSettingViewController: UITableViewController, Ac
 			self?.tableView.updateHeights()
 		}
 		
+		daysSinceInstallationCell.backgroundColor = .enaColor(for: .background)
 		return daysSinceInstallationCell
 	}
 
