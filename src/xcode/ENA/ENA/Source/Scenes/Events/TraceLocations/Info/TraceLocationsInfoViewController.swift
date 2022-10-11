@@ -34,10 +34,11 @@ class TraceLocationsInfoViewController: DynamicTableViewController, FooterViewHa
 				self?.onDismiss(false)
 			})
 		}
+		navigationController?.presentationController?.delegate = self
 		navigationItem.title = AppStrings.TraceLocations.Information.title
 		navigationController?.navigationBar.prefersLargeTitles = true
 	}
-	
+
 	// MARK: - Protocol FooterViewHandling
 
 	func didTapFooterViewButton(_ type: FooterViewModel.ButtonType) {
@@ -68,4 +69,18 @@ class TraceLocationsInfoViewController: DynamicTableViewController, FooterViewHa
 		dynamicTableViewModel = viewModel.dynamicTableViewModel
 		tableView.separatorStyle = .none
 	}
+}
+
+extension TraceLocationsInfoViewController: UIAdaptivePresentationControllerDelegate {
+	
+	func presentationControllerShouldDismiss(_ presentationController: UIPresentationController) -> Bool {
+		return false
+		
+	}
+	
+	func presentationControllerDidAttemptToDismiss(_ presentationController: UIPresentationController) {
+		self.onDismiss(false)
+		
+	}
+	
 }
