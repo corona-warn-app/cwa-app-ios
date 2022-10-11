@@ -1423,7 +1423,7 @@ enum AppStrings {
 			static let fromNationWide = NSLocalizedString("Statistics_Card_From_Nationwide", comment: "")
 			static let fromCWA = NSLocalizedString("Statistics_Card_From_CWA", comment: "")
 			
-			enum LinkCardCommon {
+			enum LinkCard {
 				static let buttonTitle = NSLocalizedString("Statistics_Card_LinkCard_buttonTitle", comment: "")
 			}
 

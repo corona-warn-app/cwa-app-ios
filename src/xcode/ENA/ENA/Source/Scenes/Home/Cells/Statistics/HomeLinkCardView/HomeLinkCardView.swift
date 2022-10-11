@@ -82,10 +82,10 @@ class HomeLinkCardView: UIView {
 			}
 			.store(in: &subscriptions)
 		
-		viewModel.$asset
+		viewModel.$image
 			.sink { [weak self] in
-				self?.assetImageView.image = $0
-				self?.assetImageView.accessibilityIdentifier = viewModel.assetAccessibilityIdentifier
+				self?.imageView.image = $0
+				self?.imageView.accessibilityIdentifier = viewModel.imageAccessibilityIdentifier
 			}
 			.store(in: &subscriptions)
 		
@@ -113,11 +113,12 @@ class HomeLinkCardView: UIView {
 	// MARK: - Private
 	
 	@IBOutlet private weak var containerStackView: UIStackView!
+	/// Wraps the `descriptionLabel` and the `imageView`
 	@IBOutlet private weak var middleStackView: UIStackView!
 	@IBOutlet private weak var titleLabel: ENALabel!
 	@IBOutlet private weak var subtitleLabel: ENALabel!
 	@IBOutlet private weak var descriptionLabel: StackViewLabel!
-	@IBOutlet private weak var assetImageView: UIImageView!
+	@IBOutlet private weak var imageView: UIImageView!
 	@IBOutlet private weak var button: ENAButton!
 	@IBOutlet private weak var infoButton: UIButton!
 	@IBOutlet private weak var deleteButton: UIButton!
@@ -145,8 +146,7 @@ class HomeLinkCardView: UIView {
 		}
 		onButtonTap?(url)
 	}
-	
-	
+
 	private func setupLayout() {
 		// Initial state
 		deleteButton.isHidden = true
@@ -173,8 +173,8 @@ class HomeLinkCardView: UIView {
 		viewModel?.$descriptionAccessibilityIdentifier
 			.assign(to: \.accessibilityIdentifier, on: descriptionLabel)
 			.store(in: &subscriptions)
-		viewModel?.$assetAccessibilityIdentifier
-			.assign(to: \.accessibilityIdentifier, on: assetImageView)
+		viewModel?.$imageAccessibilityIdentifier
+			.assign(to: \.accessibilityIdentifier, on: imageView)
 			.store(in: &subscriptions)
 		viewModel?.$buttonAccessibilityIdentifier
 			.assign(to: \.accessibilityIdentifier, on: button)
@@ -195,8 +195,8 @@ class HomeLinkCardView: UIView {
 		viewModel?.$descriptionAccessibilityLabel
 			.assign(to: \.accessibilityLabel, on: descriptionLabel)
 			.store(in: &subscriptions)
-		viewModel?.$assetAccessibilityLabel
-			.assign(to: \.accessibilityLabel, on: assetImageView)
+		viewModel?.$imageAccessibilityLabel
+			.assign(to: \.accessibilityLabel, on: imageView)
 			.store(in: &subscriptions)
 		viewModel?.$buttonAccessibilityLabel
 			.assign(to: \.accessibilityLabel, on: button)
@@ -211,7 +211,7 @@ class HomeLinkCardView: UIView {
 		titleLabel.accessibilityTraits = .header
 		subtitleLabel.accessibilityTraits = .staticText
 		descriptionLabel.accessibilityTraits = .staticText
-		assetImageView.accessibilityTraits = .image
+		imageView.accessibilityTraits = .image
 		button.accessibilityTraits = .button
 		infoButton.accessibilityTraits = .button
 		deleteButton.accessibilityTraits = .button

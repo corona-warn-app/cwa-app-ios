@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina6_0" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -17,16 +15,16 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ti7-5A-dGL" customClass="HomeCardView" customModule="ENA" customModuleProvider="target">
-                    <rect key="frame" x="4" y="71" width="459" height="175"/>
+                    <rect key="frame" x="4" y="24" width="459" height="256"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="8Jk-KN-Zcm">
-                            <rect key="frame" x="16" y="0.0" width="443" height="159"/>
+                            <rect key="frame" x="16" y="0.0" width="443" height="240"/>
                             <subviews>
                                 <stackView opaque="NO" contentMode="scaleToFill" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="Pzb-s6-86O" userLabel="Top Stack View">
-                                    <rect key="frame" x="0.0" y="0.0" width="443" height="84"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="443" height="106.66666666666667"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="SSz-hy-qWh">
-                                            <rect key="frame" x="0.0" y="0.0" width="387" height="84"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="387" height="106.66666666666667"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" verticalHuggingPriority="252" verticalCompressionResistancePriority="752" translatesAutoresizingMaskIntoConstraints="NO" id="5mM-cK-Z48" userLabel="Spacer">
                                                     <rect key="frame" x="0.0" y="0.0" width="387" height="16"/>
@@ -36,7 +34,7 @@
                                                     </constraints>
                                                 </view>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" horizontalCompressionResistancePriority="752" verticalCompressionResistancePriority="751" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sp6-M0-hGo" userLabel="Title" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                                    <rect key="frame" x="0.0" y="16" width="387" height="0.0"/>
+                                                    <rect key="frame" x="0.0" y="15.999999999999998" width="387" height="20.333333333333329"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -45,7 +43,7 @@
                                                     </userDefinedRuntimeAttributes>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" horizontalCompressionResistancePriority="752" verticalCompressionResistancePriority="752" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l7A-oj-oyh" userLabel="Subtitle" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                                    <rect key="frame" x="0.0" y="16" width="387" height="18"/>
+                                                    <rect key="frame" x="0.0" y="36.333333333333336" width="387" height="20.333333333333336"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" name="ENA Text Primary 2 Color"/>
                                                     <nil key="highlightedColor"/>
@@ -54,7 +52,7 @@
                                                     </userDefinedRuntimeAttributes>
                                                 </label>
                                                 <view contentMode="scaleToFill" verticalHuggingPriority="750" verticalCompressionResistancePriority="754" translatesAutoresizingMaskIntoConstraints="NO" id="Ms2-wl-EZT" userLabel="Spacer">
-                                                    <rect key="frame" x="0.0" y="34" width="387" height="50"/>
+                                                    <rect key="frame" x="0.0" y="56.666666666666671" width="387" height="50"/>
                                                     <color key="backgroundColor" name="ENA Background Color"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="999" constant="24" identifier="top.spacer.height" id="7Kb-Hc-U18"/>
@@ -76,22 +74,22 @@
                                     </subviews>
                                 </stackView>
                                 <stackView opaque="NO" contentMode="scaleToFill" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="xv9-Fi-Lxh">
-                                    <rect key="frame" x="0.0" y="84" width="443" height="38.666666666666657"/>
+                                    <rect key="frame" x="0.0" y="106.66666666666664" width="443" height="133.33333333333337"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a7U-TP-Tas" customClass="StackViewLabel" customModule="ENA" customModuleProvider="target">
-                                            <rect key="frame" x="0.0" y="0.0" width="309" height="38.666666666666664"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="309" height="133.33333333333334"/>
                                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         </view>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" image="Illu_Radar" translatesAutoresizingMaskIntoConstraints="NO" id="Ccw-c4-NAN">
-                                            <rect key="frame" x="325" y="0.0" width="118" height="38.666666666666664"/>
+                                            <rect key="frame" x="325" y="0.0" width="118" height="133.33333333333334"/>
                                         </imageView>
                                     </subviews>
                                 </stackView>
                                 <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FBh-sa-JBx" userLabel="Bottom Stack View">
-                                    <rect key="frame" x="0.0" y="122.66666666666664" width="443" height="36.333333333333329"/>
+                                    <rect key="frame" x="0.0" y="240" width="443" height="0.0"/>
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="THC-wK-Iaz" customClass="ENAButton" customModule="ENA" customModuleProvider="target">
-                                            <rect key="frame" x="0.0" y="0.0" width="427" height="36.333333333333336"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="427" height="0.0"/>
                                             <state key="normal" title="Button"/>
                                             <buttonConfiguration key="configuration" style="plain" title="Button"/>
                                             <userDefinedRuntimeAttributes>
@@ -106,7 +104,7 @@
                                             </connections>
                                         </button>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MOL-fP-xAM" userLabel="Spacer">
-                                            <rect key="frame" x="427" y="0.0" width="16" height="36.333333333333336"/>
+                                            <rect key="frame" x="427" y="0.0" width="16" height="0.0"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="16" id="v9X-uP-tKe"/>
@@ -126,7 +124,7 @@
                     </constraints>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1WI-Vf-dCD">
-                    <rect key="frame" x="0.0" y="47" width="48" height="48"/>
+                    <rect key="frame" x="0.0" y="0.0" width="48" height="48"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="48" id="Q4Y-A4-X8I"/>
                         <constraint firstAttribute="height" constant="48" id="sSA-iG-9CF"/>
@@ -149,11 +147,11 @@
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
-                <outlet property="assetImageView" destination="Ccw-c4-NAN" id="34E-6H-YlU"/>
                 <outlet property="button" destination="THC-wK-Iaz" id="ZUO-MN-fSR"/>
                 <outlet property="containerStackView" destination="8Jk-KN-Zcm" id="Fm4-Ra-ZT5"/>
                 <outlet property="deleteButton" destination="1WI-Vf-dCD" id="mag-sh-GVJ"/>
                 <outlet property="descriptionLabel" destination="a7U-TP-Tas" id="xH5-Rv-v51"/>
+                <outlet property="imageView" destination="Ccw-c4-NAN" id="34E-6H-YlU"/>
                 <outlet property="infoButton" destination="EcL-bM-EEW" id="2gb-J7-yAf"/>
                 <outlet property="middleStackView" destination="xv9-Fi-Lxh" id="tXT-Au-rai"/>
                 <outlet property="subtitleLabel" destination="l7A-oj-oyh" id="LTE-U6-25Z"/>
@@ -162,17 +160,6 @@
             <point key="canvasLocation" x="106.15384615384615" y="-42.654028436018955"/>
         </view>
     </objects>
-    <designables>
-        <designable name="Sp6-M0-hGo">
-            <size key="intrinsicContentSize" width="45" height="26.333333333333332"/>
-        </designable>
-        <designable name="THC-wK-Iaz">
-            <size key="intrinsicContentSize" width="75" height="50"/>
-        </designable>
-        <designable name="l7A-oj-oyh">
-            <size key="intrinsicContentSize" width="52.666666666666664" height="18"/>
-        </designable>
-    </designables>
     <resources>
         <image name="Illu_Radar" width="118" height="135"/>
         <image name="delete" width="24" height="24"/>

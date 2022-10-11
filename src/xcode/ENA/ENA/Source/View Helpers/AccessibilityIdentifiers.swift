@@ -492,7 +492,7 @@ enum AccessibilityIdentifiers {
 			static let titleLabel = "AppStrings.LinkCard.PandemicRadar.titleLabel"
 			static let subtitleLabel = "AppStrings.LinkCard.PandemicRadar.subtitleLabel"
 			static let descriptionLabel = "AppStrings.LinkCard.PandemicRadar.descriptionLabel"
-			static let asset = "AppStrings.LinkCard.PandemicRadar.asset"
+			static let image = "AppStrings.LinkCard.PandemicRadar.image"
 			static let button = "AppStrings.LinkCard.PandemicRadar.button"
 			static let infoButton = "AppStrings.LinkCard.PandemicRadar.infoButton"
 			static let deleteButton = "AppStrings.LinkCard.PandemicRadar.deleteButton"

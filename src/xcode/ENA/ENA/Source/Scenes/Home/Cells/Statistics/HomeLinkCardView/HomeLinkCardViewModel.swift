@@ -23,14 +23,14 @@ class HomeLinkCardViewModel {
 	@OpenCombine.Published private(set) var title: String?
 	@OpenCombine.Published private(set) var subtitle: String?
 	@OpenCombine.Published private(set) var description: String?
-	@OpenCombine.Published private(set) var asset: UIImage?
+	@OpenCombine.Published private(set) var image: UIImage?
 	@OpenCombine.Published private(set) var buttonTitle: NSAttributedString?
 	@OpenCombine.Published private(set) var buttonURL: URL?
 	
 	@OpenCombine.Published private(set) var titleAccessibilityIdentifier: String?
 	@OpenCombine.Published private(set) var subtitleAccessibilityIdentifier: String?
 	@OpenCombine.Published private(set) var descriptionAccessibilityIdentifier: String?
-	@OpenCombine.Published private(set) var assetAccessibilityIdentifier: String?
+	@OpenCombine.Published private(set) var imageAccessibilityIdentifier: String?
 	@OpenCombine.Published private(set) var buttonAccessibilityIdentifier: String?
 	@OpenCombine.Published private(set) var infoButtonAccessibilityIdentifier: String?
 	@OpenCombine.Published private(set) var deleteButtonAccessibilityIdentifier: String?
@@ -38,7 +38,7 @@ class HomeLinkCardViewModel {
 	@OpenCombine.Published private(set) var titleAccessibilityLabel: String?
 	@OpenCombine.Published private(set) var subtitleAccessibilityLabel: String?
 	@OpenCombine.Published private(set) var descriptionAccessibilityLabel: String?
-	@OpenCombine.Published private(set) var assetAccessibilityLabel: String?
+	@OpenCombine.Published private(set) var imageAccessibilityLabel: String?
 	@OpenCombine.Published private(set) var buttonAccessibilityLabel: String?
 	@OpenCombine.Published private(set) var infoButtonAccessibilityLabel: String?
 	@OpenCombine.Published private(set) var deleteButtonAccessibilityLabel: String?
@@ -56,12 +56,13 @@ class HomeLinkCardViewModel {
 				renderingMode: .alwaysOriginal
 			)
 		} else {
+			// to.do
 			// Fallback iOS 12
 			// UIImage(named: "Icons_Link")
 		}
 
 		let textString = NSMutableAttributedString(
-			string: AppStrings.Statistics.Card.LinkCardCommon.buttonTitle,
+			string: "\(AppStrings.Statistics.Card.LinkCard.buttonTitle)  ",
 			attributes: [
 				.foregroundColor: UIColor.enaColor(for: .buttonPrimary),
 				.font: UIFont.enaFont(for: .body, weight: .semibold)
@@ -77,14 +78,14 @@ class HomeLinkCardViewModel {
 		title = AppStrings.Statistics.Card.PandemicRadar.title
 		subtitle = AppStrings.Statistics.Card.PandemicRadar.subtitle
 		description = AppStrings.Statistics.Card.PandemicRadar.description
-		asset = UIImage(named: "Illu_Radar")
+		image = UIImage(named: "Illu_Radar")
 		buttonTitle = buttonTitleAttributedString
 		buttonURL = URL(string: linkCard.url)
 		
 		titleAccessibilityIdentifier = AccessibilityIdentifiers.LinkCard.PandemicRadar.titleLabel
 		subtitleAccessibilityIdentifier = AccessibilityIdentifiers.LinkCard.PandemicRadar.subtitleLabel
 		descriptionAccessibilityIdentifier = AccessibilityIdentifiers.LinkCard.PandemicRadar.descriptionLabel
-		assetAccessibilityIdentifier = AccessibilityIdentifiers.LinkCard.PandemicRadar.asset
+		imageAccessibilityIdentifier = AccessibilityIdentifiers.LinkCard.PandemicRadar.image
 		buttonAccessibilityIdentifier = AccessibilityIdentifiers.LinkCard.PandemicRadar.button
 		infoButtonAccessibilityIdentifier = AccessibilityIdentifiers.LinkCard.PandemicRadar.infoButton
 		deleteButtonAccessibilityIdentifier = AccessibilityIdentifiers.LinkCard.PandemicRadar.deleteButton

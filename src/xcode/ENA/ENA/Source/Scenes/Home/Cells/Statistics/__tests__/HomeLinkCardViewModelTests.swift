@@ -39,7 +39,7 @@ class HomeLinkCardViewModelTests: XCTestCase {
 		let sut = HomeLinkCardViewModel(for: pandemicRadarLinkCard)
 		
 		// Then
-		XCTAssertEqual(sut.asset, UIImage(named: "Illu_Radar"))
+		XCTAssertEqual(sut.image, UIImage(named: "Illu_Radar"))
 	}
 	
 	func testButtonTitle_pandemicRadar() {
@@ -54,7 +54,7 @@ class HomeLinkCardViewModelTests: XCTestCase {
 		// Then
 		var textRange = NSRange(
 			location: 0,
-			length: AppStrings.Statistics.Card.LinkCardCommon.buttonTitle.count
+			length: AppStrings.Statistics.Card.LinkCard.buttonTitle.count
 		)
 		let attachementRange = NSRange(
 			location: textRange.length,
@@ -63,7 +63,7 @@ class HomeLinkCardViewModelTests: XCTestCase {
 		
 		XCTAssertEqual(
 			buttonTitle.attributedSubstring(from: textRange).string,
-			AppStrings.Statistics.Card.LinkCardCommon.buttonTitle
+			AppStrings.Statistics.Card.LinkCard.buttonTitle
 		)
 
 		XCTAssertTrue(buttonTitle.containsAttachments(in: attachementRange))
@@ -78,7 +78,7 @@ class HomeLinkCardViewModelTests: XCTestCase {
 			UIColor.enaColor(for: .buttonPrimary)
 		)
 		
-		let buttonTitleImage = buttonTitle.attachementImage
+		let buttonTitleImage = buttonTitle.attachmentImage
 		XCTAssertNotNil(buttonTitleImage)
 
 		if #available(iOS 13.0, *) {
@@ -141,8 +141,8 @@ class HomeLinkCardViewModelTests: XCTestCase {
 		
 		// Then
 		XCTAssertEqual(
-			sut.assetAccessibilityIdentifier,
-			AccessibilityIdentifiers.LinkCard.PandemicRadar.asset
+			sut.imageAccessibilityIdentifier,
+			AccessibilityIdentifiers.LinkCard.PandemicRadar.image
 		)
 	}
 	

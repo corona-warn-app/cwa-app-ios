@@ -5,7 +5,7 @@
 import UIKit
 
 extension NSAttributedString {
-	var attachementImage: UIImage? {
+	var attachmentImage: UIImage? {
 		var image: UIImage?
 
 		self.enumerateAttribute(.attachment, in: NSRange(location: 0, length: self.length)) { value, _, _ in
