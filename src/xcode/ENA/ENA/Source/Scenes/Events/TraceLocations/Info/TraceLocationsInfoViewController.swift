@@ -4,7 +4,7 @@
 
 import UIKit
 
-class TraceLocationsInfoViewController: DynamicTableViewController, FooterViewHandling, UIAdaptivePresentationControllerDelegate {
+class TraceLocationsInfoViewController: DynamicTableViewController, FooterViewHandling {
 	
 	// MARK: - Init
 	
@@ -38,17 +38,7 @@ class TraceLocationsInfoViewController: DynamicTableViewController, FooterViewHa
 		navigationItem.title = AppStrings.TraceLocations.Information.title
 		navigationController?.navigationBar.prefersLargeTitles = true
 	}
-	
-	// MARK: - Protocol UIAdaptivePresentationControllerDelegate
-	
-	func presentationControllerShouldDismiss(_ presentationController: UIPresentationController) -> Bool {
-		return false
-	}
 
-	func presentationControllerDidAttemptToDismiss(_ presentationController: UIPresentationController) {
-		self.onDismiss(false)
-	}
-	
 	// MARK: - Protocol FooterViewHandling
 
 	func didTapFooterViewButton(_ type: FooterViewModel.ButtonType) {
@@ -79,4 +69,18 @@ class TraceLocationsInfoViewController: DynamicTableViewController, FooterViewHa
 		dynamicTableViewModel = viewModel.dynamicTableViewModel
 		tableView.separatorStyle = .none
 	}
+}
+
+extension TraceLocationsInfoViewController: UIAdaptivePresentationControllerDelegate {
+	
+	func presentationControllerShouldDismiss(_ presentationController: UIPresentationController) -> Bool {
+		return false
+		
+	}
+	
+	func presentationControllerDidAttemptToDismiss(_ presentationController: UIPresentationController) {
+		self.onDismiss(false)
+		
+	}
+	
 }
