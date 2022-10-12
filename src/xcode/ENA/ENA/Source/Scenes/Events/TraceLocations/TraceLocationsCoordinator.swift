@@ -258,8 +258,7 @@ class TraceLocationsCoordinator {
 				primaryButtonName: AppStrings.TraceLocations.Configuration.primaryButtonTitle,
 				primaryIdentifier: AccessibilityIdentifiers.ExposureSubmission.primaryButton,
 				isSecondaryButtonEnabled: false,
-				isSecondaryButtonHidden: true,
-				primaryCustomDisableBackgroundColor: .enaColor(for: .cellBackground)
+				isSecondaryButtonHidden: true
 			)
 		)
 		

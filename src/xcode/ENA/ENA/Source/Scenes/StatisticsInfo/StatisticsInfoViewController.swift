@@ -95,6 +95,15 @@ class StatisticsInfoViewController: DynamicTableViewController {
 				),
 				footer: .space(height: 16),
 				cells: [
+					// Pandemieradar
+					.title2(
+						text: AppStrings.Statistics.Info.pandemicRadarTitle,
+						accessibilityIdentifier: nil
+					) { _, cell, _ in cell.accessibilityTraits = .header },
+					.body(
+						text: AppStrings.Statistics.Info.pandemicRadarText,
+						accessibilityIdentifier: nil
+					),
 					// 7-Tage-Inzidenz
 					.title2(
 						text: AppStrings.Statistics.Info.incidenceTitle,

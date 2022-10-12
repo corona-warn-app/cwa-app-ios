@@ -259,6 +259,18 @@ struct SAP_Internal_V2_TransmissionRiskValueMapping {
   init() {}
 }
 
+#if swift(>=5.5) && canImport(_Concurrency)
+extension SAP_Internal_V2_RiskCalculationParameters: @unchecked Sendable {}
+extension SAP_Internal_V2_Range: @unchecked Sendable {}
+extension SAP_Internal_V2_MinutesAtAttenuationFilter: @unchecked Sendable {}
+extension SAP_Internal_V2_TrlFilter: @unchecked Sendable {}
+extension SAP_Internal_V2_MinutesAtAttenuationWeight: @unchecked Sendable {}
+extension SAP_Internal_V2_NormalizedTimeToRiskLevelMapping: @unchecked Sendable {}
+extension SAP_Internal_V2_NormalizedTimeToRiskLevelMapping.RiskLevel: @unchecked Sendable {}
+extension SAP_Internal_V2_TransmissionRiskLevelEncoding: @unchecked Sendable {}
+extension SAP_Internal_V2_TransmissionRiskValueMapping: @unchecked Sendable {}
+#endif  // swift(>=5.5) && canImport(_Concurrency)
+
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
 fileprivate let _protobuf_package = "SAP.internal.v2"

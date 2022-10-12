@@ -243,6 +243,12 @@ struct SAP_External_Exposurenotification_TemporaryExposureKey {
   fileprivate var _daysSinceOnsetOfSymptoms: Int32? = nil
 }
 
+#if swift(>=5.5) && canImport(_Concurrency)
+extension SAP_External_Exposurenotification_TemporaryExposureKeyExport: @unchecked Sendable {}
+extension SAP_External_Exposurenotification_SignatureInfo: @unchecked Sendable {}
+extension SAP_External_Exposurenotification_TemporaryExposureKey: @unchecked Sendable {}
+#endif  // swift(>=5.5) && canImport(_Concurrency)
+
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
 fileprivate let _protobuf_package = "SAP.external.exposurenotification"

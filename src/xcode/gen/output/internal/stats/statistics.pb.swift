@@ -33,10 +33,16 @@ struct SAP_Internal_Stats_Statistics {
 
   var keyFigureCards: [SAP_Internal_Stats_KeyFigureCard] = []
 
+  var linkCards: [SAP_Internal_Stats_LinkCard] = []
+
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
   init() {}
 }
+
+#if swift(>=5.5) && canImport(_Concurrency)
+extension SAP_Internal_Stats_Statistics: @unchecked Sendable {}
+#endif  // swift(>=5.5) && canImport(_Concurrency)
 
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
@@ -47,6 +53,7 @@ extension SAP_Internal_Stats_Statistics: SwiftProtobuf.Message, SwiftProtobuf._M
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "cardIdSequence"),
     2: .same(proto: "keyFigureCards"),
+    3: .same(proto: "linkCards"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -57,6 +64,7 @@ extension SAP_Internal_Stats_Statistics: SwiftProtobuf.Message, SwiftProtobuf._M
       switch fieldNumber {
       case 1: try { try decoder.decodeRepeatedInt32Field(value: &self.cardIDSequence) }()
       case 2: try { try decoder.decodeRepeatedMessageField(value: &self.keyFigureCards) }()
+      case 3: try { try decoder.decodeRepeatedMessageField(value: &self.linkCards) }()
       default: break
       }
     }
@@ -69,12 +77,16 @@ extension SAP_Internal_Stats_Statistics: SwiftProtobuf.Message, SwiftProtobuf._M
     if !self.keyFigureCards.isEmpty {
       try visitor.visitRepeatedMessageField(value: self.keyFigureCards, fieldNumber: 2)
     }
+    if !self.linkCards.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.linkCards, fieldNumber: 3)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   static func ==(lhs: SAP_Internal_Stats_Statistics, rhs: SAP_Internal_Stats_Statistics) -> Bool {
     if lhs.cardIDSequence != rhs.cardIDSequence {return false}
     if lhs.keyFigureCards != rhs.keyFigureCards {return false}
+    if lhs.linkCards != rhs.linkCards {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
