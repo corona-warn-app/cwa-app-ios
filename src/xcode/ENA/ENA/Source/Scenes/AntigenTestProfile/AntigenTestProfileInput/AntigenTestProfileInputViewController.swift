@@ -59,6 +59,7 @@ class AntigenTestProfileInputViewController: UITableViewController, FooterViewHa
 			guard let cell = tableView.dequeueReusableCell(withIdentifier: AntigenTestProfileInputDescriptionCell.reuseIdentifier, for: indexPath) as? AntigenTestProfileInputDescriptionCell else {
 				fatalError("Wrong cell")
 			}
+			
 			return cell
 		case .inputFields:
 			guard let cell = tableView.dequeueReusableCell(withIdentifier: AntigenTestProfileInputCell.reuseIdentifier, for: indexPath) as? AntigenTestProfileInputCell else {
