@@ -136,6 +136,13 @@ struct SAP_Internal_Pt_QRCodePosterTemplateIOS {
   fileprivate var _addressTextBox: SAP_Internal_Pt_QRCodePosterTemplateIOS.QRCodeTextBoxIOS? = nil
 }
 
+#if swift(>=5.5) && canImport(_Concurrency)
+extension SAP_Internal_Pt_QRCodePosterTemplateAndroid: @unchecked Sendable {}
+extension SAP_Internal_Pt_QRCodePosterTemplateAndroid.QRCodeTextBoxAndroid: @unchecked Sendable {}
+extension SAP_Internal_Pt_QRCodePosterTemplateIOS: @unchecked Sendable {}
+extension SAP_Internal_Pt_QRCodePosterTemplateIOS.QRCodeTextBoxIOS: @unchecked Sendable {}
+#endif  // swift(>=5.5) && canImport(_Concurrency)
+
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
 fileprivate let _protobuf_package = "SAP.internal.pt"

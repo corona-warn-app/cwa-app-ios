@@ -1422,7 +1422,17 @@ enum AppStrings {
 		enum Card {
 			static let fromNationWide = NSLocalizedString("Statistics_Card_From_Nationwide", comment: "")
 			static let fromCWA = NSLocalizedString("Statistics_Card_From_CWA", comment: "")
+			
+			enum LinkCard {
+				static let buttonTitle = NSLocalizedString("Statistics_Card_LinkCard_buttonTitle", comment: "")
+			}
 
+			enum PandemicRadar {
+				static let title = NSLocalizedString("Statistics_Card_PandemicRadar_title", comment: "")
+				static let subtitle = NSLocalizedString("Statistics_Card_PandemicRadar_subtitle", comment: "")
+				static let description = NSLocalizedString("Statistics_Card_PandemicRadar_description", comment: "")
+			}
+			
 			enum Infections {
 				static let title = NSLocalizedString("Statistics_Card_Infections_Title", comment: "")
 				static let today = NSLocalizedString("Statistics_Card_Infections_Today", comment: "")
@@ -1530,6 +1540,8 @@ enum AppStrings {
 		enum Info {
 			static let title = NSLocalizedString("Statistics_Info_Title", comment: "")
 			static let subtitle = NSLocalizedString("Statistics_Info_Subtitle", comment: "")
+			static let pandemicRadarTitle = NSLocalizedString("Statistics_Info_PandemicRadar_Title", comment: "")
+			static let pandemicRadarText = NSLocalizedString("Statistics_Info_PandemicRadar_Text", comment: "")
 			static let incidenceTitle = NSLocalizedString("Statistics_Info_Incidence_Title", comment: "")
 			static let local7DaysTitle = NSLocalizedString("Statistics_Info_Local7Days_Title", comment: "")
 			static let local7DaysText = NSLocalizedString("Statistics_Info_Local7Days_Text", comment: "")

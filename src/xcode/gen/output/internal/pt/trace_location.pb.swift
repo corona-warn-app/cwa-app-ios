@@ -198,6 +198,14 @@ struct SAP_Internal_Pt_CWALocationData {
   init() {}
 }
 
+#if swift(>=5.5) && canImport(_Concurrency)
+extension SAP_Internal_Pt_TraceLocationType: @unchecked Sendable {}
+extension SAP_Internal_Pt_QRCodePayload: @unchecked Sendable {}
+extension SAP_Internal_Pt_TraceLocation: @unchecked Sendable {}
+extension SAP_Internal_Pt_CrowdNotifierData: @unchecked Sendable {}
+extension SAP_Internal_Pt_CWALocationData: @unchecked Sendable {}
+#endif  // swift(>=5.5) && canImport(_Concurrency)
+
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
 fileprivate let _protobuf_package = "SAP.internal.pt"
