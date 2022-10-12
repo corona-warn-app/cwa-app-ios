@@ -97,6 +97,13 @@ struct SAP_Internal_V2_DGCBlockedUVCIChunk {
   init() {}
 }
 
+#if swift(>=5.5) && canImport(_Concurrency)
+extension SAP_Internal_V2_DGCParameters: @unchecked Sendable {}
+extension SAP_Internal_V2_DGCTestCertificateParameters: @unchecked Sendable {}
+extension SAP_Internal_V2_DGCBlocklistParameters: @unchecked Sendable {}
+extension SAP_Internal_V2_DGCBlockedUVCIChunk: @unchecked Sendable {}
+#endif  // swift(>=5.5) && canImport(_Concurrency)
+
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
 fileprivate let _protobuf_package = "SAP.internal.v2"

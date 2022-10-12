@@ -18,17 +18,23 @@ class HomeStatisticsCellModel {
 
 		homeState.$statistics
 			.sink { [weak self] statistics in
-				self?.keyFigureCards = statistics.supportedCardIDSequence
+				self?.keyFigureCards = statistics.supportedStatisticsCardIDSequence
 					.compactMap { cardID in
 						statistics.keyFigureCards.first { $0.header.cardID == cardID }
+					}
+				
+				self?.linkCards = statistics.supportedLinkCardIDSequence
+					.compactMap { cardID in
+						statistics.linkCards.first { $0.header.cardID == cardID }
 					}
 			}
 			.store(in: &subscriptions)
 		
 		localStatisticsProvider.regionStatisticsData
-			.sink { [weak self] regionStatisticsData in
-				  self?.regionStatisticsData = regionStatisticsData
-				  Log.debug("Updating local statistics cell model. \(private: "\(self?.regionStatisticsData.count ?? -1)")", log: .localStatistics)
+			.sink { [weak self] newRegionStatisticsData in
+				guard let self = self else { return }
+				self.regionStatisticsData = newRegionStatisticsData
+				Log.debug("Updating local statistics cell model. \(private: "\(self.regionStatisticsData.count)")", log: .localStatistics)
 			}
 			.store(in: &subscriptions)
 		
@@ -43,9 +49,14 @@ class HomeStatisticsCellModel {
 	// MARK: - Internal
 	
 	/// The default set of 'global' statistics for every user
+	var hasNewRegion: Bool {
+		return localStatisticsProvider.hasNewRegion
+	}
+	
+	@DidSetPublished private(set) var linkCards = [SAP_Internal_Stats_LinkCard]()
 	@DidSetPublished private(set) var keyFigureCards = [SAP_Internal_Stats_KeyFigureCard]()
 	@DidSetPublished private(set) var regionStatisticsData = [RegionStatisticsData]()
-
+	
 	func add(_ region: LocalStatisticsRegion) {
 		localStatisticsProvider.add(region)
 	}

@@ -486,6 +486,19 @@ enum AccessibilityIdentifiers {
 		static let modifyLocalIncidencesButton = "AppStrings.LocalStatistics.modifyLocalIncidencesButton"
 		static let modifyLocalIncidenceLabel = "AppStrings.LocalStatistics.modifyLocalIncidenceLabel"
 	}
+	
+	enum LinkCard {
+		enum PandemicRadar {
+			static let titleLabel = "AppStrings.LinkCard.PandemicRadar.titleLabel"
+			static let subtitleLabel = "AppStrings.LinkCard.PandemicRadar.subtitleLabel"
+			static let descriptionLabel = "AppStrings.LinkCard.PandemicRadar.descriptionLabel"
+			static let image = "AppStrings.LinkCard.PandemicRadar.image"
+			static let button = "AppStrings.LinkCard.PandemicRadar.button"
+			static let infoButton = "AppStrings.LinkCard.PandemicRadar.infoButton"
+			static let deleteButton = "AppStrings.LinkCard.PandemicRadar.deleteButton"
+			static let card = "AppStrings.LinkCard.PandemicRadar"
+		}
+	}
 
 	enum ExposureSubmissionWarnEuropeCountrySelection {
 		static let description1 = "AppStrings.ExposureSubmissionWarnEuropeTravelConfirmation.description1"

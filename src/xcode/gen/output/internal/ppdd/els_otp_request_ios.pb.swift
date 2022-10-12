@@ -53,6 +53,10 @@ struct SAP_Internal_Ppdd_ELSOneTimePasswordRequestIOS {
   fileprivate var _payload: SAP_Internal_Ppdd_ELSOneTimePassword? = nil
 }
 
+#if swift(>=5.5) && canImport(_Concurrency)
+extension SAP_Internal_Ppdd_ELSOneTimePasswordRequestIOS: @unchecked Sendable {}
+#endif  // swift(>=5.5) && canImport(_Concurrency)
+
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
 fileprivate let _protobuf_package = "SAP.internal.ppdd"

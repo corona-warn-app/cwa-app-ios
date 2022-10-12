@@ -310,6 +310,19 @@ extension SAP_Internal_V2_PresenceTracingQRCodeDescriptor.PayloadEncoding: CaseI
 
 #endif  // swift(>=4.2)
 
+#if swift(>=5.5) && canImport(_Concurrency)
+extension SAP_Internal_V2_PresenceTracingParameters: @unchecked Sendable {}
+extension SAP_Internal_V2_PresenceTracingParameters.QRCodeErrorCorrectionLevel: @unchecked Sendable {}
+extension SAP_Internal_V2_PresenceTracingRiskCalculationParameters: @unchecked Sendable {}
+extension SAP_Internal_V2_PresenceTracingSubmissionParameters: @unchecked Sendable {}
+extension SAP_Internal_V2_PresenceTracingSubmissionParameters.DurationFilter: @unchecked Sendable {}
+extension SAP_Internal_V2_PresenceTracingSubmissionParameters.AerosoleDecayFunctionLinear: @unchecked Sendable {}
+extension SAP_Internal_V2_PresenceTracingPlausibleDeniabilityParameters: @unchecked Sendable {}
+extension SAP_Internal_V2_PresenceTracingPlausibleDeniabilityParameters.NumberOfFakeCheckInsFunctionParameters: @unchecked Sendable {}
+extension SAP_Internal_V2_PresenceTracingQRCodeDescriptor: @unchecked Sendable {}
+extension SAP_Internal_V2_PresenceTracingQRCodeDescriptor.PayloadEncoding: @unchecked Sendable {}
+#endif  // swift(>=5.5) && canImport(_Concurrency)
+
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
 fileprivate let _protobuf_package = "SAP.internal.v2"

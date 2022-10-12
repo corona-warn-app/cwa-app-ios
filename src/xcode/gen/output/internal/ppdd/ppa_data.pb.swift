@@ -794,6 +794,28 @@ struct SAP_Internal_Ppdd_PPASemanticVersion {
   init() {}
 }
 
+#if swift(>=5.5) && canImport(_Concurrency)
+extension SAP_Internal_Ppdd_PPARiskLevel: @unchecked Sendable {}
+extension SAP_Internal_Ppdd_PPAExposureWindowReportType: @unchecked Sendable {}
+extension SAP_Internal_Ppdd_PPAExposureWindowInfectiousness: @unchecked Sendable {}
+extension SAP_Internal_Ppdd_PPATestResult: @unchecked Sendable {}
+extension SAP_Internal_Ppdd_PPALastSubmissionFlowScreen: @unchecked Sendable {}
+extension SAP_Internal_Ppdd_PPAFederalState: @unchecked Sendable {}
+extension SAP_Internal_Ppdd_PPAAgeGroup: @unchecked Sendable {}
+extension SAP_Internal_Ppdd_PPADataIOS: @unchecked Sendable {}
+extension SAP_Internal_Ppdd_PPADataAndroid: @unchecked Sendable {}
+extension SAP_Internal_Ppdd_ExposureRiskMetadata: @unchecked Sendable {}
+extension SAP_Internal_Ppdd_PPANewExposureWindow: @unchecked Sendable {}
+extension SAP_Internal_Ppdd_PPATestResultMetadata: @unchecked Sendable {}
+extension SAP_Internal_Ppdd_PPAKeySubmissionMetadata: @unchecked Sendable {}
+extension SAP_Internal_Ppdd_PPAExposureWindow: @unchecked Sendable {}
+extension SAP_Internal_Ppdd_PPAExposureWindowScanInstance: @unchecked Sendable {}
+extension SAP_Internal_Ppdd_PPAClientMetadataIOS: @unchecked Sendable {}
+extension SAP_Internal_Ppdd_PPAClientMetadataAndroid: @unchecked Sendable {}
+extension SAP_Internal_Ppdd_PPAUserMetadata: @unchecked Sendable {}
+extension SAP_Internal_Ppdd_PPASemanticVersion: @unchecked Sendable {}
+#endif  // swift(>=5.5) && canImport(_Concurrency)
+
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
 fileprivate let _protobuf_package = "SAP.internal.ppdd"

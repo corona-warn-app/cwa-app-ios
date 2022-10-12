@@ -79,18 +79,15 @@ class ELSServiceTests: CWATestCase {
 
 	func testGIVEN_ELSService_WHEN_UploadIsTriggered_THEN_OTPErrorIsReturned() throws {
 		// GIVEN
-		let restServiceProvider = RestServiceProviderStub(
-			loadResources: [],
-			cacheResources: [],
-			isFakeResourceLoadingActive: false
-		)
-
+		let restServiceProvider = RestServiceProviderStub(results: [
+			.failure(ServiceError<ELSError>.receivedResourceError(ELSError.otpError(.otherServerError)))
+		])
 		let elsService = createELSService(restService: restServiceProvider)
 		// need at least no empty log file
 		elsService.startLogging()
 		let testExpectation = expectation(description: "Test should fail expectation")
 		var expectedError: ELSError?
-
+		
 		// WHEN
 		elsService.submit(completion: { result in
 			switch result {
@@ -107,16 +104,23 @@ class ELSServiceTests: CWATestCase {
 			XCTFail("expectedError should not be nil")
 			return
 		}
-		XCTAssertEqual(ELSError.otpError(.otherServerError), error)
+		XCTAssertEqual(
+			.restServiceError(
+				ServiceError<ELSError>.receivedResourceError(
+					ELSError.otpError(
+						.otherServerError
+					)
+				)
+			),
+			error
+		)
 	}
 	
 	func testGIVEN_ELSService_WHEN_UploadIsTriggered_THEN_ServerErrorIsReturned() throws {
 		// GIVEN
-		let restServiceProvider = RestServiceProviderStub(
-			loadResources: [],
-			cacheResources: [],
-			isFakeResourceLoadingActive: false
-		)
+		let restServiceProvider = RestServiceProviderStub(results: [
+			.failure(ServiceError<ELSError>.receivedResourceError(.jsonError))
+		])
 		let elsService = createELSService(restService: restServiceProvider)
 		// need at least no empty log file
 		elsService.startLogging()
@@ -134,7 +138,6 @@ class ELSServiceTests: CWATestCase {
 				testExpectation.fulfill()
 			}
 		})
-
 		waitForExpectations(timeout: .medium)
 
 		// THEN
@@ -142,7 +145,7 @@ class ELSServiceTests: CWATestCase {
 			XCTFail("expectedError should not be nil")
 			return
 		}
-		XCTAssertEqual(.jsonError, error)
+		XCTAssertEqual(.restServiceError(.receivedResourceError(.jsonError)), error)
 	}
 	
 	func testGIVEN_ELSService_WHEN_UploadIsTriggered_THEN_EmptyLogFileIsReturned() throws {

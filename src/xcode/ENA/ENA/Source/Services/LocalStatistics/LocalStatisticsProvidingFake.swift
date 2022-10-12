@@ -7,6 +7,8 @@ import OpenCombine
 @testable import ENA
 
 class LocalStatisticsProvidingFake: LocalStatisticsProviding {
+	var hasNewRegion: Bool = false
+	
 	var regionStatisticsData: CurrentValueSubject<[RegionStatisticsData], Never> = .init([RegionStatisticsData]())
 	
 	func add(_ region: LocalStatisticsRegion) { }
