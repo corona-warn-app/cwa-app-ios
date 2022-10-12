@@ -13,7 +13,6 @@ class HomeLinkCardView: UIView {
 		super.awakeFromNib()
 		
 		setupLayout()
-		setupAccessibility()
 	}
 	
 	override var accessibilityElements: [Any]? {
@@ -21,29 +20,23 @@ class HomeLinkCardView: UIView {
 			var accessibilityElements = [Any?]()
 			
 			if viewModel?.title != nil {
-				titleLabel.accessibilityTraits = .header
 				accessibilityElements.append(titleLabel)
 			}
 			
 			if viewModel?.subtitle != nil {
-				titleLabel.accessibilityTraits = .staticText
 				accessibilityElements.append(subtitleLabel)
 			}
 			
-			infoButton.accessibilityTraits = .button
 			accessibilityElements.append(infoButton)
 			
 			if viewModel?.description != nil {
-				descriptionLabel.accessibilityTraits = .staticText
 				accessibilityElements.append(descriptionLabel)
 			}
 			
 			if viewModel?.buttonTitle != nil {
-				button.accessibilityTraits = .button
 				accessibilityElements.append(button)
 			}
 			
-			deleteButton.accessibilityTraits = .button
 			accessibilityElements.append(deleteButton)
 			
 			return accessibilityElements as [Any]
@@ -99,6 +92,8 @@ class HomeLinkCardView: UIView {
 		self.onInfoButtonTap = onInfoButtonTap
 		self.onDeleteButtonTap = onDeleteButtonTap
 		self.onButtonTap = onButtonTap
+		
+		setupAccessibility()
 	}
 	
 	func set(editMode enabled: Bool, animated: Bool) {
