@@ -1656,10 +1656,10 @@
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Bu sürümdeki değişiklikleri uygulama bilgilerinde “Yeni Özellikler” bölümünde bulabilirsiniz.";
 
-/* Version 2.27 */
-"NewVersionFeature_227_wear_mask_title" = "Maske Zorunluluğunu Görüntüle";
+/* Version 2.28 */
+"NewVersionFeature_228_pandemic_radar_title" = "Pandemi Radarı";
 
-"NewVersionFeature_227_wear_mask_description" = "Bu uygulama, Almanya eyaletinizdeki belirli yerlerde maske takmanız gerekip gerekmediğini veya bu gereksinimden muaf olup olmadığınızı görüntüleyebilir. Bu ekran yalnızca eyaletinizde uzatılmış maske zorunluluğu kuralları uygulandıysa görüntülenir.\n\nGüncel olarak bulunduğunuz eyalet maske zorunluluğu uyguluyorsa negatif hızlı test veya PCR testi sizi eğlence amaçlı etkinlikler, kültürel etkinlikler ve spor etkinlikleri, restoranlar ve barlar için 24 saatliğine bu maske zorunluluğundan muaf tutar. Ancak gözetimsiz olarak kendi kendine yapılan testler yeterli değildir. Ayrıca eyaletiniz, aşı olduktan veya enfeksiyon geçirdikten (en az üç ay içinde) sonra maske zorunluluğundan muafiyetler uygulayabilir. Maske zorunluluğundan muafiyetler toplu taşımada, hastanelerde ve bakım tesislerinde veya doktor muayenehanesindeki hastalar için geçerli değildir.\n\nUygulamada kaydettiğiniz COVID sertifikaları sizi eyaletinizdeki maske zorunluluğundan muaf tutmak için yeterliyse sertifikalar yeşil renkte görüntülenir. Maske zorunluluğu muafiyetiniz, CovPassCheck uygulamasıyla QR kodunuz taranarak doğrulanabilir.";
+"NewVersionFeature_228_pandemic_radar_description" = "Corona-Warn-App artık bir “Pandemi Radarı” kutucuğu içermektedir. Bu kutucuğa dokunulduğunda, doğrudan bir Robert Koch Institute web sitesine (Almanca) yönlendirilirsiniz. Pandemi Radarı, her iş günü güncellenen çeşitli koronavirüs pandemisi istatiklerini içermektedir. Web sitesini açarken kullanılan tüm verilerin, veri planınızdan düşüleceğini ve web sitesinin engellilere uygun şekilde tasarlanmadığını unutmayın.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Uluslararası Maruz Kalma Günlüğü";
@@ -1985,6 +1985,8 @@
 
 "Statistics_Card_From_CWA" = "Corona-Warn-App üzerinden";
 
+"Statistics_Card_LinkCard_buttonTitle" = "Harici bağlantıyı aç";
+
 /* - Add Statistics Card */
 "Statistics_Add_SevenDayIncidence" = "Yerel 7 günlük olay ekle";
 
@@ -1995,6 +1997,15 @@
 "Statistics_Add_fromTheWholeCountry" = "Tüm eyalet";
 
 "Statistics_Card_Manage" = "Düzenle";
+
+/* - Pandemic Radar */
+"Statistics_Card_PandemicRadar_title" = "Pandemi Radarı";
+
+"Statistics_Card_PandemicRadar_subtitle" = "Robert Koch Institute tarafından sunulur";
+
+"Statistics_Card_PandemicRadar_description" = "Pandemi ile ilgili ilave istatistikleri keşfedin";
+
+"Statistics_Card_PandemicRadar_buttonTitle" = "Harici bağlantıyı aç";
 
 /* - 7 Days Incedence */
 "Statistics_Card_CombinedIncidence_Title" = "7 Günlük Olay";
@@ -2137,6 +2148,10 @@
 "Statistics_Info_Title" = "Önemli Değerler";
 
 "Statistics_Info_Subtitle" = "İstatistiklerin Açıklaması";
+
+"Statistics_Info_PandemicRadar_Title" = "Pandemi Radarı";
+
+"Statistics_Info_PandemicRadar_Text" = "Robert Koch Institute web sitesinde sunulan çeşitli koronavirüs pandemisi istatistikleri.\nWeb sitesini açarken kullanılan tüm verilerin, veri planınızdan düşüleceğini ve web sitesinin engellilere uygun şekilde tasarlanmadığını unutmayın.";
 
 "Statistics_Info_Incidence_Title" = "7 Günlük Olay";
 
