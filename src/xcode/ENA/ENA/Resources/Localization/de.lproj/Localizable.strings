@@ -2062,9 +2062,9 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Statistics_Card_PandemicRadar_title" = "Pandemieradar";
 
-"Statistics_Card_PandemicRadar_subtitle" = "des Robert-Koch-Instituts";
+"Statistics_Card_PandemicRadar_subtitle" = "des Robert Koch-Instituts";
 
-"Statistics_Card_PandemicRadar_description" = "Entdecken Sie weitere Statistiken zur Pandemie";
+"Statistics_Card_PandemicRadar_description" = "Entdecken Sie weitere Statistiken zur Pandemie.";
 
 "Statistics_Card_PandemicRadar_buttonTitle" = "Externen Link öffnen  ";
 
