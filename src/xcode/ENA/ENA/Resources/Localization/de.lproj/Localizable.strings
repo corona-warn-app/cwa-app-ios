@@ -2225,7 +2225,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Statistics_Info_PandemicRadar_Title" = "Pandemieradar";
 
-"Statistics_Info_PandemicRadar_Text" = "Diverse Statistiken zur Corona-Pandemie, die auf einer Webseite des Robert Koch-Instituts bereitgestellt werden. Bitte beachten Sie, dass die anfallenden Daten auf Ihr Datenvolumen angerechnet werden und die Webseite nicht barrierefrei und nur in deutscher Sprache verfügbar ist.";
+"Statistics_Info_PandemicRadar_Text" = "Diverse Statistiken zur Corona-Pandemie, die auf einer Webseite des Robert Koch-Instituts bereitgestellt werden. Bitte beachten Sie, dass die anfallenden Daten auf Ihr Datenvolumen angerechnet werden, die Webseite nicht barrierefrei und nur in deutscher Sprache verfügbar ist.";
 
 "Statistics_Info_Incidence_Title" = "7-Tage-Inzidenz";
 
