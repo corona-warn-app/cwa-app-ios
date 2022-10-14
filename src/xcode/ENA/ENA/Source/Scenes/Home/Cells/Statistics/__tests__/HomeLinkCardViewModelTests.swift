@@ -80,18 +80,9 @@ class HomeLinkCardViewModelTests: XCTestCase {
 		
 		let buttonTitleImage = buttonTitle.attachmentImage
 		XCTAssertNotNil(buttonTitleImage)
-
-		if #available(iOS 13.0, *) {
-			let buttonTitleImageSFSymbol = UIImage(
-				systemName: "rectangle.portrait.and.arrow.right",
-				withConfiguration: UIImage.SymbolConfiguration(weight: .semibold)
-			)?.withTintColor(
-				.enaColor(for: .buttonPrimary),
-				renderingMode: .alwaysOriginal
-			)
-			
-			XCTAssertEqual(buttonTitleImage, buttonTitleImageSFSymbol)
-		}
+		
+		let buttonTitleImageSFSymbol = UIImage(named: "export_icon")
+		XCTAssertEqual(buttonTitleImage, buttonTitleImageSFSymbol)
 	}
 	
 	func testButtonURL_pandemicRadar() {

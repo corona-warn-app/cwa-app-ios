@@ -47,20 +47,7 @@ class HomeLinkCardViewModel {
 	
 	private let buttonTitleAttributedString: NSAttributedString = {
 		let textAttachment = NSTextAttachment()
-		if #available(iOS 13.0, *) {
-			textAttachment.image = UIImage(
-				systemName: "rectangle.portrait.and.arrow.right",
-				withConfiguration: UIImage.SymbolConfiguration(weight: .semibold)
-			)?.withTintColor(
-				.enaColor(for: .buttonPrimary),
-				renderingMode: .alwaysOriginal
-			)
-		} else {
-			// to.do
-			// Fallback iOS 12
-			// UIImage(named: "Icons_Link")
-		}
-
+		textAttachment.image = UIImage(named: "export_icon")
 		let textString = NSMutableAttributedString(
 			string: "\(AppStrings.Statistics.Card.LinkCard.buttonTitle)  ",
 			attributes: [

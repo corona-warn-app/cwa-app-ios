@@ -27,6 +27,11 @@ class HomeStatisticsCellModel {
 					.compactMap { cardID in
 						statistics.linkCards.first { $0.header.cardID == cardID }
 					}
+				#if DEBUG
+				if isUITesting {
+					self?.setupMockLinkCards()
+				}
+				#endif
 			}
 			.store(in: &subscriptions)
 		
@@ -45,7 +50,7 @@ class HomeStatisticsCellModel {
 		}
 		#endif
 	}
-
+	
 	// MARK: - Internal
 	
 	/// The default set of 'global' statistics for every user
@@ -73,6 +78,11 @@ class HomeStatisticsCellModel {
 	private var subscriptions = Set<AnyCancellable>()
 	
 	#if DEBUG
+	private func setupMockLinkCards() {
+			let mockedPandemicLinkCardModel: SAP_Internal_Stats_LinkCard = .mock(cardID: HomeLinkCard.pandemicRadar.rawValue)
+			linkCards.append(mockedPandemicLinkCardModel)
+	}
+
 	private func setupMockDataMaximumCards() {
 		var sevenDayIncidence = SAP_Internal_Stats_SevenDayIncidenceData()
 		sevenDayIncidence.trend = .increasing
