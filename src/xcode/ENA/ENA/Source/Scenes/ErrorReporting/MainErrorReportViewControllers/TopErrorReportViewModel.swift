@@ -52,7 +52,10 @@ class TopErrorReportViewModel {
 		if isHistorySectionIncluded {
 			dynamic.add(
 				.section(
-					header: .separator(color: .enaColor(for: .hairline), insets: .init(top: 0, left: 16, bottom: 0, right: 16)),
+					header: .separator(
+						color: .enaColor(for: .hairline),
+						insets: .init(top: 0, left: 16, bottom: 0, right: 16)
+					),
 					cells: [
 						.custom(
 							withIdentifier: ErrorReportHistoryViewController.CustomCellReuseIdentifiers.historyCell,
