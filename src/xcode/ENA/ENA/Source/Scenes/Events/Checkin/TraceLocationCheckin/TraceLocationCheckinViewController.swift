@@ -96,6 +96,11 @@ class TraceLocationCheckinViewController: UIViewController, DismissHandling {
 				self.checkOutView.accessibilityLabel = "\(AppStrings.Checkins.Details.automaticCheckout)\(self.viewModel.pickerButtonAccessibilityLabel)"
 			}
 			.store(in: &subscriptions)
+		
+		viewModel.$locationDescription
+			.receive(on: DispatchQueue.main.ocombine)
+			.assign(to: \.attributedText, on: descriptionLabel)
+			.store(in: &subscriptions)
 	}
 	
 	private func setupNavigationBar() {
@@ -172,7 +177,7 @@ class TraceLocationCheckinViewController: UIViewController, DismissHandling {
 		switchView.accessibilityLabel = "\(AppStrings.Checkins.Details.saveToDiary) \(AppStrings.Checkins.Details.saveSwitch) \(pickerSwitch.isOn ? AppStrings.Checkins.Details.saveSwitchOn : AppStrings.Checkins.Details.saveSwitchOff)"
 
 		activityLabel.text = viewModel.locationType
-		descriptionLabel.text = viewModel.locationDescription
+//		descriptionLabel.attributedText = viewModel.locationDescription
 		addressLabel.text = viewModel.locationAddress
 	}
 	
