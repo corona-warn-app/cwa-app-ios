@@ -100,7 +100,6 @@
         "ENAUITests_01a_Home\/test_screenshot_homescreen_riskCardLow_DetailsScreen()",
         "ENAUITests_01a_Home\/test_screenshot_homescreen_riskCardLow_riskNoDays()",
         "ENAUITests_01a_Home\/test_screenshot_homescreen_riskCardLow_riskOneDay()",
-        "ENAUITests_01b_Statistics",
         "ENAUITests_01b_Statistics\/test_screenshot_local_statistics_card()",
         "ENAUITests_01b_Statistics\/test_screenshot_statistics_card_titles()",
         "ENAUITests_04a_ExposureSubmission\/test_screenshot_SubmitQR()",
