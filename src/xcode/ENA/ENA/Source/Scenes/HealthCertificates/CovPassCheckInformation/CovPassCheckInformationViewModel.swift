@@ -12,6 +12,7 @@ final class CovPassCheckInformationViewModel {
 	var dynamicTableViewModel: DynamicTableViewModel {
 		DynamicTableViewModel([
 			.section(
+				footer: .space(height: 32),
 				cells: [
 					.headlineWithImage(
 						headerText: AppStrings.CovPass.Information.title,
