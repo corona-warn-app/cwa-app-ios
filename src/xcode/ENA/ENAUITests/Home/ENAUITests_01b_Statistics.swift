@@ -111,16 +111,17 @@ class ENAUITests_01b_Statistics: CWATestCase {
 	}
 
 	func test_StatisticsCardTitles() throws {
-		// flow for 2.13 and later versions
+		// flow for 2.28 and later versions
 		// GIVEN
-		let title1 = AccessibilityIdentifiers.Statistics.Combined7DayIncidence.title
-		let title2 = AccessibilityIdentifiers.Statistics.IntensiveCare.title
-		let title3 = AccessibilityIdentifiers.Statistics.Infections.title
-		let title4 = AccessibilityIdentifiers.Statistics.KeySubmissions.title
-		let title5 = AccessibilityIdentifiers.Statistics.ReproductionNumber.title
-		let title6 = AccessibilityIdentifiers.Statistics.AtLeastOneVaccination.title
-		let title7 = AccessibilityIdentifiers.Statistics.FullyVaccinated.title
-		let title8 = AccessibilityIdentifiers.Statistics.BoosterVaccination.title
+		let title0 = AccessibilityIdentifiers.LinkCard.PandemicRadar.titleLabel
+		let title1 = AccessibilityIdentifiers.Statistics.IntensiveCare.title
+		let title2 = AccessibilityIdentifiers.Statistics.Infections.title
+		let title3 = AccessibilityIdentifiers.Statistics.KeySubmissions.title
+		let title4 = AccessibilityIdentifiers.Statistics.ReproductionNumber.title
+		let title5 = AccessibilityIdentifiers.Statistics.AtLeastOneVaccination.title
+		let title6 = AccessibilityIdentifiers.Statistics.FullyVaccinated.title
+		let title7 = AccessibilityIdentifiers.Statistics.BoosterVaccination.title
+		let title8 = AccessibilityIdentifiers.Statistics.Doses.title
 		let title9 = AccessibilityIdentifiers.Statistics.Doses.title
 
 		let layoutDirection = UIView.userInterfaceLayoutDirection(for: UIView().semanticContentAttribute)
@@ -151,9 +152,14 @@ class ENAUITests_01b_Statistics: CWATestCase {
 			app.staticTexts[title2].swipeLeft()
 			XCTAssertTrue(self.app.staticTexts[title1].waitForExistence(timeout: .medium))
 			app.staticTexts[title1].swipeRight()
+			XCTAssertTrue(self.app.staticTexts[title0].waitForExistence(timeout: .extraLong))
+			app.staticTexts[title0].swipeLeft()
+
 		default:
+			XCTAssertTrue(self.app.staticTexts[title0].waitForExistence(timeout: .extraLong))
+			app.staticTexts[title0].swipeLeft()
 			app.swipeLeft()
-			XCTAssertTrue(self.app.staticTexts[title1].waitForExistence(timeout: .extraLong))
+			XCTAssertTrue(self.app.staticTexts[title1].waitForExistence(timeout: .medium))
 			app.staticTexts[title1].swipeLeft()
 			XCTAssertTrue(self.app.staticTexts[title2].waitForExistence(timeout: .medium))
 			app.staticTexts[title2].swipeLeft()
@@ -174,8 +180,34 @@ class ENAUITests_01b_Statistics: CWATestCase {
 		}
 	}
 	
+	func test_pandemicRadarCard_exists() {
+		app.setPreferredContentSizeCategory(accessibility: .normal, size: .S)
+		app.launch()
+		app.swipeUp(velocity: .slow)
+		
+		XCTAssertTrue(
+			self.app.staticTexts[AccessibilityIdentifiers.LinkCard.PandemicRadar.titleLabel].waitForExistence(timeout: .medium)
+		)
+		XCTAssertTrue(
+			self.app.staticTexts[AccessibilityIdentifiers.LinkCard.PandemicRadar.subtitleLabel].waitForExistence(timeout: .medium)
+		)
+		XCTAssertTrue(
+			self.app.staticTexts[AccessibilityIdentifiers.LinkCard.PandemicRadar.descriptionLabel].waitForExistence(timeout: .medium)
+		)
+		XCTAssertTrue(
+			self.app.buttons[AccessibilityIdentifiers.LinkCard.PandemicRadar.button].waitForExistence(timeout: .medium)
+		)
+		XCTAssertTrue(
+			self.app.buttons[AccessibilityIdentifiers.LinkCard.PandemicRadar.infoButton].waitForExistence(timeout: .medium)
+		)
+		XCTAssertTrue(
+			self.app.buttons[AccessibilityIdentifiers.LinkCard.PandemicRadar.deleteButton].waitForExistence(timeout: .medium)
+		)
+	}
+	
 	func test_StatisticsCardInfoButtons() throws {
 		// GIVEN
+		let title0 = AccessibilityIdentifiers.LinkCard.PandemicRadar.titleLabel
 		let title1 = AccessibilityIdentifiers.Statistics.Combined7DayIncidence.title
 		let title2 = AccessibilityIdentifiers.Statistics.IntensiveCare.title
 		let title3 = AccessibilityIdentifiers.Statistics.Infections.title
@@ -221,10 +253,14 @@ class ENAUITests_01b_Statistics: CWATestCase {
 			app.staticTexts[title2].swipeLeft()
 
 			cardCombinedIncidencesInfoScreenTest(title1)
-			app.staticTexts[title1].swipeRight()
-		default:
-			app.swipeLeft()
+			app.staticTexts[title1].swipeLeft()
 			
+			cardPandemicRadatInfoScreenTest(title0)
+			app.staticTexts[title2].swipeRight()
+		default:
+			cardPandemicRadatInfoScreenTest(title0)
+			app.staticTexts[title0].swipeLeft()
+
 			cardCombinedIncidencesInfoScreenTest(title1)
 			app.staticTexts[title1].swipeLeft()
 						
@@ -258,6 +294,7 @@ class ENAUITests_01b_Statistics: CWATestCase {
 	
 	func test_screenshot_local_statistics_card() throws {
 		// GIVEN
+		let pandemicRadarTitle = AccessibilityIdentifiers.LinkCard.PandemicRadar.titleLabel
 		let addStatisticsButtonTitle = AccessibilityIdentifiers.LocalStatistics.addLocalIncidencesButton
 		let localStatisticsTitle = AccessibilityIdentifiers.LocalStatistics.localStatisticsCardTitle
 
@@ -266,6 +303,9 @@ class ENAUITests_01b_Statistics: CWATestCase {
 		app.launch()
 		app.swipeUp(velocity: .slow)
 		
+		XCTAssertTrue(self.app.staticTexts[pandemicRadarTitle].waitForExistence(timeout: .extraLong))
+		app.staticTexts[pandemicRadarTitle].swipeRight()
+
 		XCTAssert(app.buttons[addStatisticsButtonTitle].waitForExistence(timeout: .medium))
 		snapshot("statistics_add_local_statistics")
 		app.buttons[addStatisticsButtonTitle].waitAndTap()
@@ -293,6 +333,7 @@ class ENAUITests_01b_Statistics: CWATestCase {
 
 	func test_screenshot_statistics_card_titles() throws {
 		// GIVEN
+		let pandemicRadarTitle = AccessibilityIdentifiers.LinkCard.PandemicRadar.titleLabel
 		let combinedIncidenceTitle = AccessibilityIdentifiers.Statistics.Combined7DayIncidence.title
 		let intensiveCareTitle = AccessibilityIdentifiers.Statistics.IntensiveCare.title
 		let infectionsTitle = AccessibilityIdentifiers.Statistics.Infections.title
@@ -341,7 +382,10 @@ class ENAUITests_01b_Statistics: CWATestCase {
 			XCTAssert(self.app.staticTexts[combinedIncidenceTitle].waitForExistence(timeout: .medium))
 			app.staticTexts[combinedIncidenceTitle].swipeRight()
 		default:
-			app.swipeLeft()
+			
+			XCTAssert(self.app.staticTexts[pandemicRadarTitle].waitForExistence(timeout: .medium))
+			snapshot("statistics_pandemic_radar")
+			app.staticTexts[pandemicRadarTitle].swipeLeft()
 
 			XCTAssert(self.app.staticTexts[combinedIncidenceTitle].waitForExistence(timeout: .medium))
 			snapshot("statistics_7day_combined_incidences")
@@ -388,6 +432,12 @@ class ENAUITests_01b_Statistics: CWATestCase {
 	}
 
 	// MARK: - Private
+	
+	private func cardPandemicRadatInfoScreenTest(_ title0: String) {
+		XCTAssertTrue(app.staticTexts[title0].waitForExistence(timeout: .medium))
+		app.buttons[AccessibilityIdentifiers.LinkCard.PandemicRadar.infoButton].waitAndTap()
+		app.buttons["AppStrings.AccessibilityLabel.close"].waitAndTap()
+	}
 	
 	private func cardCombinedIncidencesInfoScreenTest(_ title1: String) {
 		XCTAssertTrue(app.staticTexts[title1].waitForExistence(timeout: .medium))
