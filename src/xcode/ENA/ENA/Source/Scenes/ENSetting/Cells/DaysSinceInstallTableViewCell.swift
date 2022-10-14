@@ -107,6 +107,7 @@ class DaysSinceInstallTableViewCell: UITableViewCell {
 	private var line = SeperatorLineLayer()
 
 	private func createAndLayoutViewHierarchy() {
+		contentView.layer.insertSublayer(line, at: 0)
 		addSubview(stackView)
 		NSLayoutConstraint.activate([
 			stackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
