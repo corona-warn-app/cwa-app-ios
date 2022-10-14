@@ -27,7 +27,11 @@ class HomeStatisticsCellModel {
 					.compactMap { cardID in
 						statistics.linkCards.first { $0.header.cardID == cardID }
 					}
-				self?.setupMockLinkCards()
+				#if DEBUG
+				if isUITesting {
+					self?.setupMockLinkCards()
+				}
+				#endif
 			}
 			.store(in: &subscriptions)
 		
@@ -75,10 +79,8 @@ class HomeStatisticsCellModel {
 	
 	#if DEBUG
 	private func setupMockLinkCards() {
-		if isUITesting {
 			let mockedPandemicLinkCardModel: SAP_Internal_Stats_LinkCard = .mock(cardID: HomeLinkCard.pandemicRadar.rawValue)
 			linkCards.append(mockedPandemicLinkCardModel)
-		}
 	}
 
 	private func setupMockDataMaximumCards() {
