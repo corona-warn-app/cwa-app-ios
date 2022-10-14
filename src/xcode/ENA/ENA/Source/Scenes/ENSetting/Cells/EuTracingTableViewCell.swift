@@ -39,7 +39,7 @@ class EuTracingTableViewCell: UITableViewCell {
 			iconView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
 			iconView.trailingAnchor.constraint(lessThanOrEqualTo: contentView.trailingAnchor, constant: -16),
 			iconView.topAnchor.constraint(greaterThanOrEqualTo: contentView.topAnchor, constant: 0),
-			iconView.bottomAnchor.constraint(lessThanOrEqualTo: contentView.bottomAnchor, constant: -16),
+			iconView.bottomAnchor.constraint(lessThanOrEqualTo: contentView.bottomAnchor),
 			iconView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
 			iconView.widthAnchor.constraint(equalToConstant: 50),
 			iconView.heightAnchor.constraint(equalToConstant: 50),
@@ -52,7 +52,7 @@ class EuTracingTableViewCell: UITableViewCell {
 			countryList.leadingAnchor.constraint(equalTo: iconView.trailingAnchor, constant: 10),
 			countryList.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
 			countryList.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 2),
-			countryList.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+			countryList.bottomAnchor.constraint(lessThanOrEqualTo: contentView.bottomAnchor)
 		])
 	}
 	
