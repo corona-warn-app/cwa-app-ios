@@ -27,6 +27,13 @@ class HomeStatisticsCellModel {
 					.compactMap { cardID in
 						statistics.linkCards.first { $0.header.cardID == cardID }
 					}
+				#if DEBUG
+				if isUITesting {
+					var mockedPandemicLinkCardModel = SAP_Internal_Stats_LinkCard()
+					mockedPandemicLinkCardModel.header.cardID = 12
+					self?.linkCards.append(mockedPandemicLinkCardModel)
+				}
+				#endif
 			}
 			.store(in: &subscriptions)
 		
