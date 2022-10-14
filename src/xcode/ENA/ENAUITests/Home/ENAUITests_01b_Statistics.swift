@@ -255,10 +255,10 @@ class ENAUITests_01b_Statistics: CWATestCase {
 			cardCombinedIncidencesInfoScreenTest(title1)
 			app.staticTexts[title1].swipeLeft()
 			
-			cardPandemicRadatInfoScreenTest(title0)
+			cardPandemicRadarInfoScreenTest(title0)
 			app.staticTexts[title2].swipeRight()
 		default:
-			cardPandemicRadatInfoScreenTest(title0)
+			cardPandemicRadarInfoScreenTest(title0)
 			app.staticTexts[title0].swipeLeft()
 
 			cardCombinedIncidencesInfoScreenTest(title1)
@@ -433,7 +433,7 @@ class ENAUITests_01b_Statistics: CWATestCase {
 
 	// MARK: - Private
 	
-	private func cardPandemicRadatInfoScreenTest(_ title0: String) {
+	private func cardPandemicRadarInfoScreenTest(_ title0: String) {
 		XCTAssertTrue(app.staticTexts[title0].waitForExistence(timeout: .medium))
 		app.buttons[AccessibilityIdentifiers.LinkCard.PandemicRadar.infoButton].waitAndTap()
 		app.buttons["AppStrings.AccessibilityLabel.close"].waitAndTap()
