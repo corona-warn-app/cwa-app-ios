@@ -9,11 +9,22 @@ class ELSServiceTests: CWATestCase {
 	
 	func testGIVEN_ELSService_WHEN_UploadIsTriggered_THEN_HappyCaseAllSucceeds() throws {
 		// GIVEN
-		let elsService = createELSService()
+		let restServiceProvider = RestServiceProviderStub(
+			loadResources: [
+				LoadResource(
+					result: .success(ELSSubmitReceiveModel(id: "", hash: "")),
+					willLoadResource: nil
+				)
+			],
+			cacheResources: [],
+			isFakeResourceLoadingActive: false
+		)
+
+		let elsService = createELSService(restService: restServiceProvider)
 		// need at least no empty log file
 		elsService.startLogging()
 		let testExpectation = expectation(description: "Test should success expectation")
-		var expectedResponse: LogUploadResponse?
+		var expectedResponse: ELSSubmitReceiveModel?
 		
 		// WHEN
 		elsService.submit(completion: { result in
@@ -65,18 +76,19 @@ class ELSServiceTests: CWATestCase {
 		}
 		XCTAssertEqual(ELSError.ppacError(.generationFailed), error)
 	}
-	
+
 	func testGIVEN_ELSService_WHEN_UploadIsTriggered_THEN_OTPErrorIsReturned() throws {
 		// GIVEN
-		let client = ClientMock()
-		client.onGetOTPEls = { _, _, completion in
-			completion(.failure(OTPError.otherServerError))
-		}
-		let elsService = createELSService(client: client)
+		let restServiceProvider = RestServiceProviderStub(
+			loadResources: [],
+			cacheResources: [],
+			isFakeResourceLoadingActive: false
+		)
+
+		let elsService = createELSService(restService: restServiceProvider)
 		// need at least no empty log file
 		elsService.startLogging()
 		let testExpectation = expectation(description: "Test should fail expectation")
-		
 		var expectedError: ELSError?
 
 		// WHEN
@@ -89,9 +101,7 @@ class ELSServiceTests: CWATestCase {
 				testExpectation.fulfill()
 			}
 		})
-		
 		waitForExpectations(timeout: .medium)
-		
 		// THEN
 		guard let error = expectedError else {
 			XCTFail("expectedError should not be nil")
@@ -102,16 +112,16 @@ class ELSServiceTests: CWATestCase {
 	
 	func testGIVEN_ELSService_WHEN_UploadIsTriggered_THEN_ServerErrorIsReturned() throws {
 		// GIVEN
-		let client = ClientMock()
-		let serverFailure = ELSError.defaultServerError(URLSession.Response.Failure.noResponse)
-		client.onSubmitErrorLog = { _, completion in
-			completion(.failure(serverFailure))
-		}
-		let elsService = createELSService(client: client)
+		let restServiceProvider = RestServiceProviderStub(
+			loadResources: [],
+			cacheResources: [],
+			isFakeResourceLoadingActive: false
+		)
+		let elsService = createELSService(restService: restServiceProvider)
 		// need at least no empty log file
 		elsService.startLogging()
 		let testExpectation = expectation(description: "Test should fail expectation")
-		
+
 		var expectedError: ELSError?
 
 		// WHEN
@@ -124,15 +134,15 @@ class ELSServiceTests: CWATestCase {
 				testExpectation.fulfill()
 			}
 		})
-		
+
 		waitForExpectations(timeout: .medium)
-		
+
 		// THEN
 		guard let error = expectedError else {
 			XCTFail("expectedError should not be nil")
 			return
 		}
-		XCTAssertEqual(serverFailure, error)
+		XCTAssertEqual(.jsonError, error)
 	}
 	
 	func testGIVEN_ELSService_WHEN_UploadIsTriggered_THEN_EmptyLogFileIsReturned() throws {
@@ -172,7 +182,7 @@ class ELSServiceTests: CWATestCase {
 	// This thing currently doesn't handle all customizations
 	private func createELSService(
 		store: Store & PPAnalyticsData = MockTestStore(),
-		client: ClientMock = ClientMock(),
+		restService: RestServiceProviding = RestServiceProviderStub(),
 		ppacSucceeds: Bool = true
 	) -> ErrorLogSubmissionService {
 
@@ -187,14 +197,22 @@ class ELSServiceTests: CWATestCase {
 			deviceCheck: deviceCheck
 		)
 		let riskProvider = MockRiskProvider()
+		let loadResource = LoadResource(
+			result: .success(
+				OTPResponsePropertiesReceiveModel(
+					expirationDate: Date(),
+					errorCode: nil)
+			),
+			willLoadResource: nil
+		)
 		let otpService = OTPService(
 			store: store,
-			client: client,
+			client: ClientMock(),
+			restServiceProvider: RestServiceProviderStub(loadResources: [loadResource]),
 			riskProvider: riskProvider
 		)
-
 		let elsService = ErrorLogSubmissionService(
-			client: client,
+			restServicerProvider: restService,
 			store: store,
 			ppacService: ppacService,
 			otpService: otpService

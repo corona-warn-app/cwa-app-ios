@@ -13,11 +13,11 @@ struct DeltaOnboardingNewVersionFeaturesViewModel {
 		
 		// ADD NEW FEATURES HERE
 		
-		self.featureVersion = "2.24"
+		self.featureVersion = "2.27"
 		
 		self.newVersionFeatures.append(
-			// batch export
-			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature224BatchExportTitle, description: AppStrings.NewVersionFeatures.feature224BatchExportDescription)
+			// wear mask
+			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature227WearMaskTitle, description: AppStrings.NewVersionFeatures.feature227WearMaskDescription)
 		)
 	}
 

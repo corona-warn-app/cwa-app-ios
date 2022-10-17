@@ -5,6 +5,7 @@
 import UIKit
 import OpenCombine
 
+// swiftlint:disable type_body_length
 class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProviding {
 	
 	// MARK: - Init
@@ -72,9 +73,27 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 			captionStackView.arrangedSubviews.forEach { $0.isHidden = true }
 		}
 
-		admissionStateStackView.isHidden = !cellModel.isStatusTitleVisible
-		admissionStateView.configure(title: cellModel.shortStatus, gradientType: cellModel.backgroundGradientType)
-
+		admissionStateView.isHidden = !cellModel.isShortAdmissionStatusVisible
+		admissionStateView.configure(
+			title: cellModel.shortAdmissionStatus,
+			gradientType: cellModel.gradientForAdmissionState,
+			accessibilityIdentifier: AccessibilityIdentifiers.HealthCertificate.AdmissionState.roundedView,
+			labelAccessibilityIdentifier: AccessibilityIdentifiers.HealthCertificate.AdmissionState.title
+		)
+		
+		maskStateView.isHidden = !cellModel.isMaskStatusVisible
+		maskStateView.configure(
+			title: cellModel.maskStatus,
+			fontColor: cellModel.fontColorForMaskState,
+			image: cellModel.imageForMaskState,
+			gradientType: cellModel.gradientForMaskState,
+			accessibilityIdentifier: AccessibilityIdentifiers.HealthCertificate.MaskState.roundedView,
+			labelAccessibilityIdentifier: AccessibilityIdentifiers.HealthCertificate.MaskState.title
+		)
+		
+		maskAdmissionStatesStackView.isHidden = !cellModel.isShortAdmissionStatusVisible && !cellModel.isMaskStatusVisible
+		configureMaskAdmissionStatesStackView()
+		
 		segmentedControl.isHidden = cellModel.switchableHealthCertificates.isEmpty
 
 		segmentedControl.removeAllSegments()
@@ -91,10 +110,17 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 		}
 
 		setupAccessibility(
-			admissionStateIsVisible: cellModel.isStatusTitleVisible,
+			maskStateIsVisible: cellModel.isMaskStatusVisible,
+			admissionStateIsVisible: cellModel.isShortAdmissionStatusVisible,
 			segmentedControlIsVisible: !cellModel.switchableHealthCertificates.isEmpty,
 			validityStateTitleIsVisible: cellModel.caption != nil
 		)
+		
+		cellModel.onUpdateGradientType = { [weak self] gradientType in
+			DispatchQueue.main.async { [weak self] in
+				self?.gradientView.type = gradientType
+			}
+		}
 	}
 	
 	// MARK: - Private
@@ -171,33 +197,27 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 	}()
 
 	private lazy var qrCodeContainerStackView: UIStackView = {
-		let stackView = UIStackView(arrangedSubviews: [admissionStateStackView, qrCodeView, segmentedControl])
+		let stackView = UIStackView(arrangedSubviews: [maskAdmissionStatesStackView, qrCodeView, segmentedControl])
 		stackView.axis = .vertical
 		stackView.spacing = 14.0
 
 		return stackView
 	}()
 
-	private lazy var admissionStateStackView: UIStackView = {
-		let stackView = AccessibleStackView(arrangedSubviews: [admissionStateTitleLabel, admissionStateView])
-		stackView.spacing = 8.0
-		stackView.alignment = .center
-
-		return stackView
-	}()
-
-	private let admissionStateTitleLabel: ENALabel = {
-		let admissionStateTitleLabel = ENALabel(style: .headline)
-		admissionStateTitleLabel.numberOfLines = 0
-		admissionStateTitleLabel.textColor = .enaColor(for: .textPrimary1)
-		admissionStateTitleLabel.text = AppStrings.HealthCertificate.Overview.admissionStateTitle
-		admissionStateTitleLabel.setContentCompressionResistancePriority(.init(rawValue: 998), for: .horizontal)
-
-		return admissionStateTitleLabel
-	}()
-
 	private lazy var admissionStateView = RoundedLabeledView()
-
+	
+	private lazy var maskStateView = RoundedLabeledView()
+	
+	private lazy var emptySpacerView = UIView()
+	
+	private lazy var maskAdmissionStatesStackView: UIStackView = {
+		let maskAdmissionStatesStackView = UIStackView()
+		maskAdmissionStatesStackView.axis = .horizontal
+		maskAdmissionStatesStackView.spacing = 6
+		maskAdmissionStatesStackView.distribution = .fill
+		return maskAdmissionStatesStackView
+	}()
+	
 	private let qrCodeView = HealthCertificateQRCodeView()
 
 	private lazy var segmentedControl: UISegmentedControl = {
@@ -294,14 +314,19 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 	private var cellModel: HealthCertifiedPersonCellModel?
 
 	private func setupAccessibility(
+		maskStateIsVisible: Bool,
 		admissionStateIsVisible: Bool,
 		segmentedControlIsVisible: Bool,
 		validityStateTitleIsVisible: Bool
 	) {
 		cardView.accessibilityElements = [titleLabel, nameLabel]
 
+		if maskStateIsVisible {
+			cardView.accessibilityElements?.append(maskStateView)
+		}
+		
 		if admissionStateIsVisible {
-			cardView.accessibilityElements?.append(admissionStateStackView)
+			cardView.accessibilityElements?.append(admissionStateView)
 		}
 
 		cardView.accessibilityElements?.append(qrCodeView)
@@ -339,6 +364,8 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 		qrCodeContainerView.translatesAutoresizingMaskIntoConstraints = false
 		cardView.addSubview(qrCodeContainerView)
 
+		maskStateView.translatesAutoresizingMaskIntoConstraints = false
+		
 		qrCodeContainerStackView.translatesAutoresizingMaskIntoConstraints = false
 		qrCodeContainerView.addSubview(qrCodeContainerStackView)
 
@@ -376,7 +403,7 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 				titleStackView.leadingAnchor.constraint(equalTo: gradientView.leadingAnchor, constant: 15.0),
 				titleStackView.topAnchor.constraint(equalTo: gradientView.topAnchor, constant: 20.0),
 				titleStackView.trailingAnchor.constraint(equalTo: accessoryIconView.leadingAnchor, constant: 8.0),
-
+				
 				qrCodeContainerView.leadingAnchor.constraint(equalTo: cardView.leadingAnchor, constant: 16.0),
 				qrCodeContainerView.topAnchor.constraint(equalTo: titleStackView.bottomAnchor, constant: 20.0),
 				qrCodeContainerView.trailingAnchor.constraint(equalTo: cardView.trailingAnchor, constant: -16.0),
@@ -395,6 +422,7 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 				captionStackView.bottomAnchor.constraint(lessThanOrEqualTo: bottomView.bottomAnchor, constant: -16.0),
 
 				captionCountView.widthAnchor.constraint(greaterThanOrEqualTo: captionCountView.heightAnchor),
+				captionCountView.heightAnchor.constraint(equalToConstant: 20),
 
 				captionCountLabel.leadingAnchor.constraint(equalTo: captionCountView.leadingAnchor, constant: 2.0),
 				captionCountLabel.topAnchor.constraint(equalTo: captionCountView.topAnchor, constant: 2.0),
@@ -405,12 +433,70 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 
 		addGestureRecognizer(tapGestureRecognizer)
 	}
+	
+	private func configureMaskAdmissionStatesStackView() {
+		guard let maskAndAdmissionStatesConfiguration = cellModel?.maskAndAdmissionStatesConfiguration, let cellModel = cellModel else {
+			maskAdmissionStatesStackView.isHidden = true
+			return
+		}
+		
+		[maskStateView, admissionStateView, emptySpacerView].forEach {
+			$0.isHidden = true
+			$0.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+		}
+
+		switch maskAndAdmissionStatesConfiguration {
+		case .maskStateInvisibleAdmissionStateInvisible:
+			maskAdmissionStatesStackView.isHidden = true
+			
+		case .maskStateInvisibleAdmissionStateVisible:
+			emptySpacerView.setContentHuggingPriority(.defaultLow, for: .horizontal)
+			admissionStateView.setContentHuggingPriority(.required, for: .horizontal)
+			maskAdmissionStatesStackView.addArrangedSubview(emptySpacerView)
+			maskAdmissionStatesStackView.addArrangedSubview(admissionStateView)
+			emptySpacerView.isHidden = false
+			admissionStateView.isHidden = false
+
+		case .maskStateVisibleAdmissionStateVisible:
+			maskStateView.setContentHuggingPriority(.defaultLow, for: .horizontal)
+			admissionStateView.setContentHuggingPriority(.required, for: .horizontal)
+			maskAdmissionStatesStackView.addArrangedSubview(maskStateView)
+			maskAdmissionStatesStackView.addArrangedSubview(admissionStateView)
+			maskStateView.isHidden = false
+			admissionStateView.isHidden = false
+			
+		case .maskStateVisibleAdmissionStateInvisible:
+			maskStateView.setContentHuggingPriority(.defaultLow, for: .horizontal)
+			maskAdmissionStatesStackView.addArrangedSubview(maskStateView)
+			maskStateView.isHidden = false
+			
+		case .maskStateInvisibleAdmissionStateNull, .maskStateNullAdmissionStateNull:
+			maskAdmissionStatesStackView.addArrangedSubview(emptySpacerView)
+			emptySpacerView.translatesAutoresizingMaskIntoConstraints = false
+			emptySpacerView.heightAnchor.constraint(equalToConstant: 31).isActive = true
+			emptySpacerView.isHidden = false
+			
+		case .maskStateVisibleAdmissionStateNull:
+			maskStateView.setContentHuggingPriority(.defaultLow, for: .horizontal)
+			maskStateView.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
+			emptySpacerView.setContentHuggingPriority(.required, for: .horizontal)
+			emptySpacerView.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+			maskAdmissionStatesStackView.addArrangedSubview(maskStateView)
+			maskAdmissionStatesStackView.addArrangedSubview(emptySpacerView)
+			maskStateView.widthAnchor.constraint(greaterThanOrEqualTo: maskAdmissionStatesStackView.widthAnchor, multiplier: 0.8).isActive = true
+			maskStateView.isHidden = false
+		}
+		
+		// Hide empty badges
+		maskStateView.isHidden = !cellModel.isMaskStatusVisible
+		admissionStateView.isHidden = !cellModel.isShortAdmissionStatusVisible
+	}
 
 	private func updateBorderColors() {
 		bottomView.layer.borderColor = UIColor.enaColor(for: .cardBorder).cgColor
 		qrCodeContainerView.layer.borderColor = UIColor.enaColor(for: .cardBorder).cgColor
 	}
-
+	
 	@objc
 	func segmentedControlValueChanged(_ sender: UISegmentedControl) {
 		cellModel?.showHealthCertificate(at: sender.selectedSegmentIndex)

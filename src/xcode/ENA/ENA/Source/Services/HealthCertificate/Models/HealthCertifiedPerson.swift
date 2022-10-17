@@ -131,6 +131,10 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 
 		return preferredPersonPrecedesNonPreferred || haveSamePreferredStateAndAreInAlphabeticalOrder
 	}
+	
+	static func << (lhs: HealthCertifiedPerson, rhs: HealthCertifiedPerson) -> Bool {
+		return lhs.name?.fullName ?? "" < rhs.name?.fullName ?? ""
+	}
 
 	// MARK: - Internal
 
@@ -169,7 +173,7 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 			}
 		}
 	}
-
+	
 	@DidSetPublished var gradientType: GradientView.GradientType = .lightBlue
 
 	@DidSetPublished var dccWalletInfo: DCCWalletInfo? {
@@ -283,10 +287,21 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 		(dccWalletInfo?.mostRelevantCertificate).flatMap { self.healthCertificate(for: $0.certificateRef) } ?? healthCertificates.fallback
 	}
 
+	var isMaskOptional: Bool {
+		guard let maskState = dccWalletInfo?.maskState else {
+			return false
+		}
+		
+		return maskState.visible && maskState.identifier == .maskOptional
+	}
+	
 	var needsDCCWalletInfoUpdate: Bool {
-		let now = Date()
-
-		return dccWalletInfo == nil || mostRecentWalletInfoUpdateFailed || (dccWalletInfo?.validUntil ?? now) < now
+		guard let validUntil = dccWalletInfo?.validUntil else {
+			// should never happen
+			return true
+		}
+		
+		return dccWalletInfo == nil || mostRecentWalletInfoUpdateFailed || validUntil < Date()
 	}
 	
 	func healthCertificate(for reference: DCCCertificateReference) -> HealthCertificate? {

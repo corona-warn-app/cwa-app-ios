@@ -140,6 +140,14 @@ class HomeStatisticsCardView: UIView {
 			}
 			.store(in: &subscriptions)
 
+		viewModel.$subtitle
+			.sink { [weak self] in
+				self?.subtitleLabel.isHidden = $0 == nil
+				self?.subtitleLabel.text = $0
+				self?.subtitleLabel.accessibilityIdentifier = viewModel.subtitleAccessibilityIdentifier
+			}
+			.store(in: &subscriptions)
+		
 		viewModel.$illustrationImage
 			.assign(to: \.image, on: illustrationImageView)
 			.store(in: &subscriptions)
@@ -148,6 +156,7 @@ class HomeStatisticsCardView: UIView {
 			.sink { [weak self] in
 				self?.primaryTitleLabel.isHidden = $0 == nil
 				self?.primaryTitleLabel.text = $0
+				self?.primaryTitleLabel.accessibilityIdentifier = viewModel.primaryValueAccessibilityIdentifier
 			}
 			.store(in: &subscriptions)
 
@@ -188,6 +197,7 @@ class HomeStatisticsCardView: UIView {
 			.sink { [weak self] in
 				self?.secondaryTitleLabel.isHidden = $0 == nil
 				self?.secondaryTitleLabel.text = $0
+				self?.secondaryTitleLabel.accessibilityIdentifier = viewModel.secondaryValueAccessibilityIdentifier
 			}
 			.store(in: &subscriptions)
 
@@ -234,6 +244,7 @@ class HomeStatisticsCardView: UIView {
 			.sink { [weak self] in
 				self?.tertiaryTitleLabel.isHidden = $0 == nil
 				self?.tertiaryTitleLabel.text = $0
+				self?.tertiaryTitleLabel.accessibilityIdentifier = viewModel.tertiaryValueAccessibilityIdentifier
 			}
 			.store(in: &subscriptions)
 
@@ -241,13 +252,6 @@ class HomeStatisticsCardView: UIView {
 			.sink { [weak self] in
 				self?.tertiaryValueLabel.isHidden = $0 == nil
 				self?.tertiaryValueLabel.text = $0
-			}
-			.store(in: &subscriptions)
-
-		viewModel.$subtitle
-			.sink { [weak self] in
-				self?.subtitleLabel.isHidden = $0 == nil
-				self?.subtitleLabel.text = $0
 			}
 			.store(in: &subscriptions)
 

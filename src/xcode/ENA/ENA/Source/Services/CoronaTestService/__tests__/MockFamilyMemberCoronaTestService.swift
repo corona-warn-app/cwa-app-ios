@@ -83,7 +83,9 @@ class MockFamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding 
 		onMoveTestToBin(coronaTest)
 	}
 
-	func removeTest(_ coronaTest: FamilyMemberCoronaTest) {}
+	func removeTest(_ coronaTest: FamilyMemberCoronaTest) {
+		onRemoveTest(coronaTest)
+	}
 
 	func evaluateShowing(of coronaTest: FamilyMemberCoronaTest, keepMarkedAsNew: Bool) {}
 
@@ -137,6 +139,10 @@ class MockFamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding 
 	var getSubmissionTANResult: Result<String, CoronaTestServiceError>?
 
 	var onMoveTestToBin: (
+		_ coronaTest: FamilyMemberCoronaTest
+	) -> Void = { _ in }
+	
+	var onRemoveTest: (
 		_ coronaTest: FamilyMemberCoronaTest
 	) -> Void = { _ in }
 

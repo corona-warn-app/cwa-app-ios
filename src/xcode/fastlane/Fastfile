@@ -146,7 +146,7 @@ platform :ios do
         test_without_building: true,
         skip_package_dependencies_resolution: true,
         disable_package_automatic_updates: true,
-        number_of_retries: 2      
+        number_of_retries: 2
         )
     rescue
       UI.user_error!("Tests did fail, please check logs above or ENA.xcresult.zip")
@@ -193,6 +193,9 @@ platform :ios do
       scheme: "ENA",
       configuration: "AdHoc",
       export_method: "ad-hoc",
+      export_options: {
+        compileBitcode: false
+      },
       clean: true
     )
 
@@ -204,12 +207,25 @@ platform :ios do
       --form 'file=@../ENA.ipa'"
     )
 
-    # Trigger Tests on Mobile Device Cloud via CircleCI (cwa-app-automation)
-    sh("curl -u '#{ENV["CIRCLE_API_ADMIN_TOKEN"]}': \
-      -d '{\"branch\":\"main\",\"parameters\":{\"mobile-os\":\"ios\"}}' \
-      -H 'content-type: application/json' \
-      https://circleci.com/api/v2/project/github/corona-warn-app/cwa-app-automation/pipeline"
+    # Trigger Tests on Mobile Device Cloud via GitHub Action on Repo cwa-app-automation
+    sh("
+      curl \
+      -X POST \
+      -H 'Accept: application/vnd.github.v3+json' \
+      -H 'authorization: Bearer #{ENV["GITHUB_ACCESS_TOKEN"]}' \
+      -d '{\"ref\":\"main\"}' \
+      https://api.github.com/repos/corona-warn-app/cwa-app-automation/actions/workflows/32065376/dispatches"
     )
+
+    sh("
+      curl \
+      -X POST \
+      -H 'Accept: application/vnd.github.v3+json' \
+      -H 'authorization: Bearer #{ENV["GITHUB_ACCESS_TOKEN"]}' \
+      -d '{\"ref\":\"main\"}' \
+      https://api.github.com/repos/corona-warn-app/cwa-app-automation/actions/workflows/32065377/dispatches"
+    )
+
   end
 
   desc "Update GitHub Pages"

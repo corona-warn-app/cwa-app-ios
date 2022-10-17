@@ -12,5 +12,6 @@ struct AntigenTestProfileOverviewEmptyStateViewModel: EmptyStateViewModel {
 	let title = AppStrings.AntigenProfile.Overview.emptyTitle
 	let description = AppStrings.AntigenProfile.Overview.emptyDescription
 	let imageDescription = AppStrings.AntigenProfile.Overview.emptyImageDescription
+	let imageAccessibilityIdentifier: String? = AccessibilityIdentifiers.AntigenProfile.Overview.emptyState
 
 }

@@ -39,7 +39,9 @@ final class HomeShownPositiveTestResultTableViewCell: UITableViewCell {
 		topContainer.accessibilityLabel = cellModel.title
 
 		statusTitleLabel.text = cellModel.statusTitle
+		statusTitleLabel.accessibilityIdentifier = cellModel.statuesTitleAccessibilityIdentifier
 		statusSubtitleLabel.text = cellModel.statusSubtitle
+		statusSubtitleLabel.accessibilityIdentifier = cellModel.statuesSubtitleAccessibilityIdentifier
 
 		cellModel.$statusFootnote
 			.receive(on: DispatchQueue.OCombine(.main))

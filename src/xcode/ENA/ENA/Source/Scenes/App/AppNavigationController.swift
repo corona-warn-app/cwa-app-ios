@@ -8,9 +8,17 @@ import UIKit
 class AppNavigationController: UINavigationController {
 	private var scrollViewObserver: NSKeyValueObservation?
 	
-	@available(iOS 13.0, *)
-	private(set) lazy var defaultScrollEdgeAppearance: UINavigationBarAppearance? = nil
+	private(set) lazy var _defaultScrollEdgeAppearance: Any? = nil
 
+	@available(iOS 13.0, *)
+	fileprivate var defaultScrollEdgeAppearance: UINavigationBarAppearance {
+		if _defaultScrollEdgeAppearance == nil {
+			_defaultScrollEdgeAppearance = UINavigationBarAppearance()
+		}
+		// swiftlint:disable:next force_cast
+		return _defaultScrollEdgeAppearance as! UINavigationBarAppearance
+	}
+	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
@@ -18,7 +26,7 @@ class AppNavigationController: UINavigationController {
 		navigationBar.prefersLargeTitles = true
 
 		if #available(iOS 13.0, *) {
-			defaultScrollEdgeAppearance = navigationBar.scrollEdgeAppearance
+			_defaultScrollEdgeAppearance = navigationBar.scrollEdgeAppearance
 		}
 
 		view.backgroundColor = .enaColor(for: .separator)

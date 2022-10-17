@@ -35,11 +35,10 @@ class FamilyMemberCoronaTestsViewController: UITableViewController, FooterViewHa
 		navigationItem.title = AppStrings.FamilyMemberCoronaTest.title
 		navigationItem.rightBarButtonItem = editButtonItem
 
-		tableView.reloadData()
-
 		viewModel.onUpdate = { [weak self] in
 			DispatchQueue.main.async {
 				self?.animateCellHeightChanges()
+				self?.tableView.reloadData()
 			}
 		}
 
@@ -221,12 +220,15 @@ class FamilyMemberCoronaTestsViewController: UITableViewController, FooterViewHa
 		let cellModel = viewModel.coronaTestCellModels[indexPath.row]
 		cell.configure(
 			with: cellModel,
-			onPrimaryAction: { [weak self] in
+			onPrimaryAction: { [weak self] skipRecycleBin in
 				guard let self = self,
 					  let currentIndexPath = self.tableView.indexPath(for: cell) else {
 					return
 				}
-				self.viewModel.didTapCoronaTestCellButton(at: currentIndexPath)
+				self.viewModel.didTapCoronaTestCellButton(
+					at: currentIndexPath,
+					action: skipRecycleBin ? .removeTest : .moveTestToBin
+				)
 			}
 		)
 		

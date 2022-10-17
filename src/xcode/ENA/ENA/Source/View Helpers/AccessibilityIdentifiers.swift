@@ -47,6 +47,25 @@ enum AccessibilityIdentifiers {
 		static let tableView = "AppStrings.Home.tableView"
 
 		enum RiskTableViewCell {
+			enum LowRisk {
+				static let title = "AccessibilityIdentifiers.Home.RiskTableViewCell.LowRiskTitle"
+				static let noExposuresLabel = "AccessibilityIdentifiers.Home.RiskTableViewCell.NoExposuresLabel"
+				static let installedLabel = "AccessibilityIdentifiers.Home.RiskTableViewCell.InstalledLabel"
+				static let calculatedOnLabel = "AccessibilityIdentifiers.Home.RiskTableViewCell.CalculatedOnLabel"
+				static let updatedOnLabel = "AccessibilityIdentifiers.Home.RiskTableViewCell.UpdatedOnLabel"
+			}
+
+			enum HighRisk {
+				static let title = "AccessibilityIdentifiers.Home.RiskTableViewCell.HighRiskTitle"
+				static let daysWithIncreasedRiskLabel = "AccessibilityIdentifiers.Home.RiskTableViewCell.DaysWithIncreasedRiskLabel"
+				static let calculatedOnLabel = "AccessibilityIdentifiers.Home.RiskTableViewCell.CalculatedOnLabel"
+				static let updatedOnLabel = "AccessibilityIdentifiers.Home.RiskTableViewCell.UpdatedOnLabel"
+			}
+
+			static let loadingRiskTitle = "AccessibilityIdentifiers.Home.RiskTableViewCell.LoadingRiskTitle"
+			static let failedRiskTitle = "AccessibilityIdentifiers.Home.RiskTableViewCell.FailedRiskTitle"
+			static let inactiveRiskTitle = "AccessibilityIdentifiers.Home.RiskTableViewCell.InactiveRiskTitle"
+			
 			static let topContainer = "[AccessibilityIdentifiers.Home.RiskTableViewCell.topContainer]"
 			static let bodyLabel = "HomeRiskTableViewCell.bodyLabel"
 			static let updateButton = "HomeRiskTableViewCell.updateButton"
@@ -78,8 +97,21 @@ enum AccessibilityIdentifiers {
 		}
 
 		enum ShownPositiveTestResultCell {
-			static let pcrCell = "AccessibilityIdentifiers.Home.pcrCell"
-			static let antigenCell = "AccessibilityIdentifiers.Home.antigenCell"
+			enum PCR {
+				static let pcrCell = "AccessibilityIdentifiers.Home.pcrCell"
+				static let title = "AccessibilityIdentifiers.Home.pcrCell.Positive.Title"
+				static let subtitle = "AccessibilityIdentifiers.Home.pcrCell.Positive.Subtitle"
+				static let firstBulletPoint = "AccessibilityIdentifiers.Home.pcrCell.Positive.Item0"
+				static let secondBulletPoint = "AccessibilityIdentifiers.Home.pcrCell.Positive.Item1"
+				static let thirdBulletPoint = "AccessibilityIdentifiers.Home.pcrCell.Positive.Item2"
+
+			}
+			enum RAT {
+				static let antigenCell = "AccessibilityIdentifiers.Home.antigenCell"
+				static let firstBulletPoint = "AccessibilityIdentifiers.Home.ratCell.Positive.Item0"
+				static let secondBulletPoint = "AccessibilityIdentifiers.Home.ratCell.Positive.Item1"
+				static let thirdBulletPoint = "AccessibilityIdentifiers.Home.ratCell.Positive.Item2"
+			}
 			static let submittedPCRCell = "AccessibilityIdentifiers.Home.submittedPCRCell"
 			static let submittedAntigenCell = "AccessibilityIdentifiers.Home.submittedAntigenCell"
 			static let removeTestButton = "AppStrings.Home.TestResult.ShownPositive.removeTestButton"
@@ -119,9 +151,14 @@ enum AccessibilityIdentifiers {
 		static let legal_1 = "AppStrings.ContactDiaryInformation.legalHeadline_1"
 		
 		enum Day {
+			static let cellView = "AppStrings.ContactDiaryInformation.cellView-%d"
+			static let headerStackView = "AppStrings.ContactDiaryInformation.headerStackView-%d"
+			static let checkboxImageView = "AppStrings.ContactDiaryInformation.checkboxImageView-%d"
+			static let label = "AppStrings.ContactDiaryInformation.label-%d"
 			static let durationSegmentedContol = "AppStrings.ContactDiaryInformation.durationSegmentedContol"
 			static let maskSituationSegmentedControl = "AppStrings.ContactDiaryInformation.maskSituationSegmentedControl"
 			static let settingSegmentedControl = "AppStrings.ContactDiaryInformation.settingSegmentedControl"
+			static let durationLabel = "AppStrings.ContactDiaryInformation.durationLabel"
 			static let notesTextField = "AppStrings.ContactDiaryInformation.notesTextField"
 			static let notesInfoButton = "AppStrings.ContactDiaryInformation.notesInfoButton"
 		}
@@ -137,7 +174,8 @@ enum AccessibilityIdentifiers {
 			static let riskLevelLow = "AppStrings.ContactDiary.Overview.lowRiskTitle"
 			static let riskLevelHigh = "AppStrings.ContactDiary.Overview.increasedRiskTitle"
 			static let tableView = "AppStrings.ContactDiary.Overview.tableView"
-			
+			static let emptyState = "AppStrings.ContactDiary.Overview.emptyState"
+
 			static let checkinRiskLevelLow = "AppStrings.ContactDiary.Overview.CheckinEncounter.titleLowRisk"
 			static let checkinRiskLevelHigh = "AppStrings.ContactDiary.Overview.CheckinEncounter.titleHighRisk"
 			static let checkinTableView = "AppStrings.ContactDiary.Overview.CheckinEncounter.tableView"
@@ -192,6 +230,7 @@ enum AccessibilityIdentifiers {
 	enum RecycleBin {
 		static let itemCell = "RecycleBin.itemCell"
 		static let restorationConfirmationButton = "RecycleBin.restorationConfirmationButton"
+		static let emptyState = "RecycleBin.emptyState"
 	}
 	
 	enum Settings {
@@ -317,6 +356,7 @@ enum AccessibilityIdentifiers {
 		static let sectionHeadline2 = "AppStrings.ExposureSubmission_DispatchSectionHeadline2"
 		static let qrCodeButtonDescription = "AppStrings.ExposureSubmissionDispatch.qrCodeButtonDescription"
 		static let tanButtonDescription = "AppStrings.ExposureSubmissionDispatch.tanButtonDescription"
+		static let tanInputView = "AppStrings.ExposureSubmissionDispatch.TaninputView"
 		static let hotlineButtonDescription = "AppStrings.ExposureSubmissionDispatch.hotlineButtonDescription"
 		static let findTestCentersButtonDescription = "AppStrings.ExposureSubmissionDispatch.findTestCentersButtonDescription"
 	}
@@ -567,38 +607,69 @@ enum AccessibilityIdentifiers {
 	enum Statistics {
 		enum Infections {
 			static let title = "AppStrings.Statistics.Card.Infections.title"
+			static let subtitle = "AppStrings.Statistics.Card.Infections.subtitle"
+			static let primaryValueTitle = "AppStrings.Statistics.Card.Infections.primaryValueTitle"
+			static let secondaryValueTitle = "AppStrings.Statistics.Card.Infections.secondaryValueTitle"
+			static let tertiaryValueTitle = "AppStrings.Statistics.Card.Infections.tertiaryValueTitle"
 			static let infoButton = "AppStrings.Statistics.Card.Infections.infoButton"
 		}
 		enum KeySubmissions {
 			static let title = "AppStrings.Statistics.Card.KeySubmissions.title"
+			static let subtitle = "AppStrings.Statistics.Card.KeySubmissions.subtitle"
+			static let primaryValueTitle = "AppStrings.Statistics.Card.KeySubmissions.primaryValueTitle"
+			static let secondaryValueTitle = "AppStrings.Statistics.Card.KeySubmissions.secondaryValueTitle"
+			static let tertiaryValueTitle = "AppStrings.Statistics.Card.KeySubmissions.tertiaryValueTitle"
 			static let infoButton = "AppStrings.Statistics.Card.KeySubmissions.infoButton"
 		}
 		enum ReproductionNumber {
 			static let title = "AppStrings.Statistics.Card.ReproductionNumber.title"
+			static let subtitle = "AppStrings.Statistics.Card.ReproductionNumber.subtitle"
+			static let primaryValueTitle = "AppStrings.Statistics.Card.ReproductionNumber.primaryValueTitle"
 			static let infoButton = "AppStrings.Statistics.Card.ReproductionNumber.infoButton"
 		}
 		enum AtLeastOneVaccination {
 			static let title = "AppStrings.Statistics.Card.AtLeastOneVaccination.title"
+			static let subtitle = "AppStrings.Statistics.Card.AtLeastOneVaccination.subtitle"
+			static let primaryValueTitle = "AppStrings.Statistics.Card.AtLeastOneVaccination.primaryValueTitle"
+			static let secondaryValueTitle = "AppStrings.Statistics.Card.AtLeastOneVaccination.secondaryValueTitle"
+			static let tertiaryValueTitle = "AppStrings.Statistics.Card.AtLeastOneVaccination.tertiaryValueTitle"
 			static let infoButton = "AppStrings.Statistics.Card.AtLeastOneVaccination.infoButton"
 		}
 		enum FullyVaccinated {
 			static let title = "AppStrings.Statistics.Card.FullyVaccinated.title"
+			static let subtitle = "AppStrings.Statistics.Card.FullyVaccinated.subtitle"
+			static let primaryValueTitle = "AppStrings.Statistics.Card.FullyVaccinated.primaryValueTitle"
+			static let secondaryValueTitle = "AppStrings.Statistics.Card.FullyVaccinated.secondaryValueTitle"
+			static let tertiaryValueTitle = "AppStrings.Statistics.Card.FullyVaccinated.tertiaryValueTitle"
 			static let infoButton = "AppStrings.Statistics.Card.FullyVaccinated.infoButton"
 		}
 		enum BoosterVaccination {
 			static let title = "AppStrings.Statistics.Card.BoosterVaccination.title"
+			static let subtitle = "AppStrings.Statistics.Card.BoosterVaccination.subtitle"
+			static let primaryValueTitle = "AppStrings.Statistics.Card.BoosterVaccination.primaryValueTitle"
+			static let secondaryValueTitle = "AppStrings.Statistics.Card.BoosterVaccination.secondaryValueTitle"
+			static let tertiaryValueTitle = "AppStrings.Statistics.Card.BoosterVaccination.tertiaryValueTitle"
 			static let infoButton = "AppStrings.Statistics.Card.BoosterVaccination.infoButton"
 		}
 		enum Doses {
 			static let title = "AppStrings.Statistics.Card.Doses.title"
+			static let subtitle = "AppStrings.Statistics.Card.Doses.subtitle"
+			static let primaryValueTitle = "AppStrings.Statistics.Card.Doses.primaryValueTitle"
+			static let secondaryValueTitle = "AppStrings.Statistics.Card.Doses.secondaryValueTitle"
+			static let tertiaryValueTitle = "AppStrings.Statistics.Card.Doses.tertiaryValueTitle"
 			static let infoButton = "AppStrings.Statistics.Card.Doses.infoButton"
 		}
 		enum IntensiveCare {
 			static let title = "AppStrings.Statistics.Card.IntensiveCare.title"
+			static let subtitle = "AppStrings.Statistics.Card.IntensiveCare.subtitle"
+			static let primaryValueTitle = "AppStrings.Statistics.Card.IntensiveCare.primaryValueTitle"
 			static let infoButton = "AppStrings.Statistics.Card.IntensiveCare.infoButton"
 		}
 		enum Combined7DayIncidence {
 			static let title = "AppStrings.Statistics.Card.Combined7DayIncidence.title"
+			static let subtitle = "AppStrings.Statistics.Card.Combined7DayIncidence.subtitle"
+			static let primaryValueTitle = "AppStrings.Statistics.Card.Combined7DayIncidence.primaryValueTitle"
+			static let secondaryValueTitle = "AppStrings.Statistics.Card.Combined7DayIncidence.secondaryValueTitle"
 			static let infoButton = "AppStrings.Statistics.Card.Combined7DayIncidence.infoButton"
 		}
 		enum General {
@@ -699,6 +770,14 @@ enum AccessibilityIdentifiers {
 		enum Overview {
 			static let tableView = "TableView.TracelocationOverview"
 			static let menueButton = "AppStrings.TraceLocations.Overview.menueButton"
+			static let addButton = "AppStrings.TraceLocations.Overview.addButton"
+			static let emptyState = "AppStrings.TraceLocations.Overview.emptyState"
+			
+			enum MenuActionSheet {
+				static let infoAction = "AppStrings.TraceLocations.Overview.MenuActionSheet.infoAction"
+				static let editAction = "AppStrings.TraceLocations.Overview.MenuActionSheet.editAction"
+				static let onBehalfCheckinSubmissionAction = "AppStrings.TraceLocations.Overview.MenuActionSheet.onBehalfCheckinSubmissionAction"
+			}
 		}
 		
 		enum Configuration {
@@ -716,6 +795,8 @@ enum AccessibilityIdentifiers {
 		
 		enum Overview {
 			static let menueButton = "AppStrings.CheckIn.Overview.menueButton"
+			static let addButton = "AppStrings.CheckIn.Overview.addButton"
+			static let emptyState = "AppStrings.CheckIn.Overview.emptyState"
 		}
 		
 		enum Details {
@@ -769,8 +850,10 @@ enum AccessibilityIdentifiers {
 		}
 		
 		enum Overview {
+			static let addButton = "AppStrings.AntigenProfile.AddButton"
 			static let tableView = "TableView.AntigenProfileOverview"
 			static let antigenTestPersonProfileCell = "AppStrings.AntigenProfile.Overview.antigenTestPersonProfileCell"
+			static let emptyState = "AppStrings.AntigenProfile.Overview.emptyState"
 		}
 	}
 
@@ -800,6 +883,7 @@ enum AccessibilityIdentifiers {
 				"AppStrings.HealthCertificate.changeAdmissionScenarioCell"
 			static let healthCertifiedPersonCell = "AppStrings.HealthCertificate.healthCertifiedPersonCell"
 			static let testCertificateRequestCell = "AppStrings.HealthCertificate.testCertificateRequestCell"
+			static let emptyState = "AppStrings.HealthCertificate.emptyState"
 		}
 
 		enum Info {
@@ -834,7 +918,15 @@ enum AccessibilityIdentifiers {
 			static let description = "HealthCertificate.AdmissionState.description"
 			static let faq = "HealthCertificate.AdmissionState.faq"
 			static let unseenNewsIndicator = "HealthCertificate.AdmissionState.unseenNewsIndicator"
+		}
 
+		enum MaskState {
+			static let roundedView = "HealthCertificate.MaskState.roundedView"
+			static let title = "HealthCertificate.MaskState.title"
+			static let subtitle = "HealthCertificate.MaskState.subtitle"
+			static let badgeImage = "HealthCertificate.MaskState.badgeImage"
+			static let description = "HealthCertificate.MaskState.description"
+			static let faq = "HealthCertificate.MaskState.faq"
 		}
 
 		enum Certificate {
@@ -854,6 +946,7 @@ enum AccessibilityIdentifiers {
 
 		static let header = "HealthCertificate.header"
 		static let qrCodeCell = "HealthCertificate.qrCodeCell"
+		static func qrCodeView(of identifier: String) -> String { "HealthCertificate.QRCode.\(identifier)" }
 		
 		enum Reissuance {
 			static let cell = "AppStrings.HealthCertificate.Reissuance.cell"

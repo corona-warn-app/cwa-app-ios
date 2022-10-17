@@ -11,11 +11,13 @@ struct DiaryDayEntryCellModel {
 	init(
 		entry: DiaryEntry,
 		dateString: String,
-		store: DiaryStoringProviding
+		store: DiaryStoringProviding,
+		accessibilityIdentifierIndex: Int = 0
 	) {
 		self.entry = entry
 		self.dateString = dateString
 		self.store = store
+		self.accessibilityIdentifierIndex = accessibilityIdentifierIndex
 
 		image = entry.isSelected ? UIImage(named: "Diary_Checkmark_Selected") : UIImage(named: "Diary_Checkmark_Unselected")
 		text = entry.name
@@ -46,6 +48,7 @@ struct DiaryDayEntryCellModel {
 	let parametersHidden: Bool
 
 	let accessibilityTraits: UIAccessibilityTraits
+	let accessibilityIdentifierIndex: Int
 
 	let durationValues: [SegmentedControlValue<ContactPersonEncounter.Duration>] = [
 		SegmentedControlValue(title: AppStrings.ContactDiary.Day.Encounter.lessThan10Minutes, value: .lessThan10Minutes),

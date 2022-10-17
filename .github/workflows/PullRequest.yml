@@ -193,7 +193,7 @@ jobs:
         with:
           name: xcresult-${{ github.sha }}
           path: src/xcode/fastlane/test_output/ENA.xcresult.zip
-
+          
   runScreenshotTests:
     runs-on: self-hosted
     needs: buildForTesting

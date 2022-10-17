@@ -34,7 +34,7 @@ final class BoosterNotificationCellModel {
 
 	// MARK: - Private
 
-	let healthCertifiedPerson: HealthCertifiedPerson
-	let cclService: CCLServable
+	private let healthCertifiedPerson: HealthCertifiedPerson
+	private let cclService: CCLServable
 
 }

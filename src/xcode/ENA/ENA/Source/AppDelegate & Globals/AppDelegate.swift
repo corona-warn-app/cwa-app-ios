@@ -160,12 +160,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 
 		UIDevice.current.isBatteryMonitoringEnabled = true
 
-		// some delegates
+		// Setting delegates
 		taskScheduler.delegate = taskExecutionDelegate
 		UNUserNotificationCenter.current().delegate = notificationManager
 
-		/// Setup DeadmanNotification after AppLaunch
+		// Setup DeadmanNotification after AppLaunch
 		DeadmanNotificationManager().scheduleDeadmanNotificationIfNeeded()
+
+		// Removing pdf documents from temporary directory
+		FileManager.default.removePDFsFromTemporaryDirectory()
+
+		// Caters a corner case when the exposure check is disabled
+		if exposureManager.exposureManagerState.status == .disabled {
+			// Delete all the packages that are older than 15 days
+			let fifteenDaysBackDate = Calendar.current.date(byAdding: .day, value: -15, to: Date())
+			let fifteenDaysBackDateString = DateFormatter.packagesDayDateFormatter.string(from: fifteenDaysBackDate ?? Date())
+			downloadedPackagesStore.deleteOldPackages(before: fifteenDaysBackDateString)
+		}
 
 		consumer.didFailCalculateRisk = { [weak self] error in
 			if self?.store.isOnboarded == true {
@@ -178,11 +189,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 
 		NotificationCenter.default.addObserver(self, selector: #selector(isOnboardedDidChange(_:)), name: .isOnboardedDidChange, object: nil)
 		NotificationCenter.default.addObserver(self, selector: #selector(backgroundRefreshStatusDidChange), name: UIApplication.backgroundRefreshStatusDidChangeNotification, object: nil)
-
-		// Background task registration on iOS 12.5 requires us to activate the ENManager (https://jira-ibs.wbs.net.sap/browse/EXPOSUREAPP-8919)
-		if #available(iOS 13.5, *) {
-			// Do nothing since we can use BGTask in this case.
-		} else if NSClassFromString("ENManager") != nil { // Make sure that ENManager is available. -> iOS 12.5.x
+		
+		guard #available(iOS 13.5, *) else {
+			// Background task registration on iOS 12.5 requires us to activate the ENManager (https://jira-ibs.wbs.net.sap/browse/EXPOSUREAPP-8919)
 			if store.isOnboarded, exposureManager.exposureManagerState.status == .unknown {
 				self.exposureManager.activate { error in
 					if let error = error {
@@ -190,8 +199,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 					}
 				}
 			}
+			return handleQuickActions(with: launchOptions)
 		}
-
 		return handleQuickActions(with: launchOptions)
 	}
 
@@ -204,11 +213,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		updateExposureState(state)
 		Analytics.triggerAnalyticsSubmission()
 		appUpdateChecker.checkAppVersionDialog(for: window?.rootViewController)
+		healthCertificateService.updateValidityStatesAndNotifications(completion: { })
 		healthCertificateService.updateDCCWalletInfosIfNeeded()
 	}
 	
 	func applicationWillTerminate(_ application: UIApplication) {
 		Log.info("Application will terminate.", log: .appLifecycle)
+		
+		// Removing pdf documents from temporary directory
+		FileManager.default.removePDFsFromTemporaryDirectory()
 	}
 
 	func applicationDidBecomeActive(_ application: UIApplication) {
@@ -427,7 +440,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	private lazy var analyticsSubmitter: PPAnalyticsSubmitting = {
 		return PPAnalyticsSubmitter(
 			store: store,
-			client: client,
+			restServiceProvider: restServiceProvider,
 			appConfig: appConfigurationProvider,
 			coronaTestService: coronaTestService,
 			ppacService: ppacService
@@ -437,6 +450,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	private lazy var otpService: OTPServiceProviding = OTPService(
 		store: store,
 		client: client,
+		restServiceProvider: restServiceProvider,
 		riskProvider: riskProvider
 	)
 	
@@ -507,7 +521,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	
 	/// Reference to the ELS server handling error log recording & submission
 	private lazy var elsService: ErrorLogSubmissionProviding = ErrorLogSubmissionService(
-		client: client,
+		restServicerProvider: restServiceProvider,
 		store: store,
 		ppacService: ppacService,
 		otpService: otpService

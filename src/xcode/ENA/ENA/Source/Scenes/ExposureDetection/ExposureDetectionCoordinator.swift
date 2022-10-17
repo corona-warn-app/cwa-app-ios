@@ -3,6 +3,7 @@
 //
 
 import UIKit
+import OpenCombine
 
 final class ExposureDetectionCoordinator {
 	
@@ -50,19 +51,7 @@ final class ExposureDetectionCoordinator {
 					}
 				},
 				onInactiveButtonTap: { [weak self] in
-					guard let self = self else {
-						return
-					}
-
-					let vc = ExposureNotificationSettingViewController(
-						initialEnState: self.homeState.enState,
-						store: self.store,
-						appConfigurationProvider: self.appConfigurationProvider,
-						setExposureManagerEnabled: { [weak self] newState, completion in
-							self?.setExposureManagerEnabled(newState, then: completion)
-						}
-					)
-					self.navigationController?.pushViewController(vc, animated: true)
+					self?.showExposureNotificationSettingsScreen()
 				},
 				onHygieneRulesInfoButtonTap: { [weak self] in
 					self?.showHygieneRulesInfoScreen()
@@ -91,6 +80,25 @@ final class ExposureDetectionCoordinator {
 	private let exposureManager: ExposureManager
 	private let otpService: OTPServiceProviding
 	private let surveyURLProvider: SurveyURLProviding
+
+	private var subscriptions = [AnyCancellable]()
+	
+	private func showExposureNotificationSettingsScreen() {
+		let viewController = ExposureNotificationSettingViewController(
+			initialEnState: homeState.enState,
+			store: store,
+			appConfigurationProvider: appConfigurationProvider,
+			setExposureManagerEnabled: { [weak self] newState, completion in
+				self?.setExposureManagerEnabled(newState, then: completion)
+			}
+		)
+		
+		homeState.$enState
+			.sink { viewController.updateEnState($0) }
+			.store(in: &subscriptions)
+		
+		self.navigationController?.pushViewController(viewController, animated: true)
+	}
 	
 	private func showHygieneRulesInfoScreen() {
 		let viewController = HygieneRulesInfoViewController(

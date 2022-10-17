@@ -6,6 +6,7 @@ import XCTest
 import HealthCertificateToolkit
 @testable import ENA
 
+// swiftlint:disable type_body_length
 class ExposureSubmissionTestResultFamilyMemberViewModelTests: CWATestCase {
 	
 	private var store: Store!
@@ -327,7 +328,7 @@ class ExposureSubmissionTestResultFamilyMemberViewModelTests: CWATestCase {
 		
 		let section = model.dynamicTableViewModelPublisher.value.section(1)
 		let cells = section.cells
-		XCTAssertEqual(cells.count, 10)
+		XCTAssertEqual(cells.count, 9)
 		
 		let firstItem = cells[0]
 		var id = firstItem.cellReuseIdentifier
@@ -339,15 +340,15 @@ class ExposureSubmissionTestResultFamilyMemberViewModelTests: CWATestCase {
 		
 		let thirdItem = cells[2]
 		id = thirdItem.cellReuseIdentifier
-		XCTAssertEqual(id.rawValue, "labelCell")
+		XCTAssertEqual(id.rawValue, "stepCell")
 		
 		let fourthItem = cells[3]
 		id = fourthItem.cellReuseIdentifier
 		XCTAssertEqual(id.rawValue, "stepCell")
 		
-		let fifthItem = cells[4]
+		let  fifthItem = cells[4]
 		id = fifthItem.cellReuseIdentifier
-		XCTAssertEqual(id.rawValue, "stepCell")
+		XCTAssertEqual(id.rawValue, "labelCell")
 		
 		let sixthItem = cells[5]
 		id = sixthItem.cellReuseIdentifier
@@ -355,7 +356,64 @@ class ExposureSubmissionTestResultFamilyMemberViewModelTests: CWATestCase {
 		
 		let seventhItem = cells[6]
 		id = seventhItem.cellReuseIdentifier
+		XCTAssertEqual(id.rawValue, "bulletPointCell")
+		
+		let eigthItem = cells[7]
+		id = eigthItem.cellReuseIdentifier
+		XCTAssertEqual(id.rawValue, "bulletPointCell")
+
+		let ninthItem = cells[8]
+		id = ninthItem.cellReuseIdentifier
+		XCTAssertEqual(id.rawValue, "bulletPointCell")
+	}
+	
+	func testDynamicTableViewModelForAntigenNegativeTestResult() {
+		let familyMemberCoronaTestService = MockFamilyMemberCoronaTestService()
+		let antigenTest: FamilyMemberCoronaTest = .antigen(.mock(registrationDate: Date(), registrationToken: "regToken", qrCodeHash: "antigenQRCodeHash", testResult: .negative))
+		familyMemberCoronaTestService.coronaTests.value = [antigenTest]
+		
+		let model = ExposureSubmissionTestResultFamilyMemberViewModel(
+			familyMemberCoronaTest: antigenTest,
+			familyMemberCoronaTestService: familyMemberCoronaTestService,
+			keepMarkedAsNew: false,
+			onTestDeleted: { },
+			onTestCertificateCellTap: { _, _ in }
+		)
+		
+		XCTAssertEqual(model.dynamicTableViewModelPublisher.value.numberOfSection, 2)
+		XCTAssertNotNil(model.dynamicTableViewModelPublisher.value.section(1).header)
+		
+		let section = model.dynamicTableViewModelPublisher.value.section(1)
+		let cells = section.cells
+		XCTAssertEqual(cells.count, 9)
+		
+		let firstItem = cells[0]
+		var id = firstItem.cellReuseIdentifier
 		XCTAssertEqual(id.rawValue, "labelCell")
+		
+		let secondItem = cells[1]
+		id = secondItem.cellReuseIdentifier
+		XCTAssertEqual(id.rawValue, "labelCell")
+		
+		let thirdItem = cells[2]
+		id = thirdItem.cellReuseIdentifier
+		XCTAssertEqual(id.rawValue, "stepCell")
+		
+		let fourthItem = cells[3]
+		id = fourthItem.cellReuseIdentifier
+		XCTAssertEqual(id.rawValue, "stepCell")
+		
+		let  fifthItem = cells[4]
+		id = fifthItem.cellReuseIdentifier
+		XCTAssertEqual(id.rawValue, "labelCell")
+		
+		let sixthItem = cells[5]
+		id = sixthItem.cellReuseIdentifier
+		XCTAssertEqual(id.rawValue, "labelCell")
+		
+		let seventhItem = cells[6]
+		id = seventhItem.cellReuseIdentifier
+		XCTAssertEqual(id.rawValue, "bulletPointCell")
 		
 		let eigthItem = cells[7]
 		id = eigthItem.cellReuseIdentifier
@@ -363,10 +421,6 @@ class ExposureSubmissionTestResultFamilyMemberViewModelTests: CWATestCase {
 		
 		let ninthItem = cells[8]
 		id = ninthItem.cellReuseIdentifier
-		XCTAssertEqual(id.rawValue, "bulletPointCell")
-
-		let tenthItem = cells[9]
-		id = tenthItem.cellReuseIdentifier
 		XCTAssertEqual(id.rawValue, "bulletPointCell")
 	}
 	

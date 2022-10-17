@@ -78,6 +78,9 @@
     {
       "parallelizable" : true,
       "skippedTests" : [
+        "ELSServiceTests\/testGIVEN_ELSService_WHEN_UploadIsTriggered_THEN_EmptyLogFileIsReturned()",
+        "ELSServiceTests\/testGIVEN_ELSService_WHEN_UploadIsTriggered_THEN_OTPErrorIsReturned()",
+        "ELSServiceTests\/testGIVEN_ELSService_WHEN_UploadIsTriggered_THEN_ServerErrorIsReturned()",
         "HTTPClientCertificatePinningTests\/testAllProductionEndpoints()",
         "HealthCertificateQRCodeViewModelTests",
         "StatisticsProviderTests\/testFetchLiveStats()"
@@ -92,7 +95,12 @@
       "parallelizable" : true,
       "skippedTests" : [
         "CWATestCase",
-        "ENAUITests_11_QuickActions\/testLaunchViaShortcutFromFreshInstall()"
+        "ENAUITests_11_QuickActions\/testLaunchViaShortcutFromFreshInstall()",
+        "ENAUITests_13_CreateHealthCertificate\/test_AdmissionStateChanges_Then_StateChangeIndicatorIsVisible()",
+        "ENAUITests_13_CreateHealthCertificate\/test_CompleteVaccination_AdmissionState()",
+        "ENAUITests_13_CreateHealthCertificate\/test_CompleteVaccination_MaskState()",
+        "ENAUITests_21_FamilyMember\/test_RegisterCoronaTestFromSubmitCardButton()",
+        "ENAUITests_21_FamilyMember\/test_screenshot_RegisterCoronaTestFromUniversalQRCodeScanner()"
       ],
       "target" : {
         "containerPath" : "container:ENA.xcodeproj",

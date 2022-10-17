@@ -296,21 +296,21 @@ class FamilyMemberCoronaTestsViewModelTest: CWATestCase {
 		XCTAssertEqual(receivedDisplayNames, expectedDisplayNames)
 	}
 
-	func testDidTapCoronaTestCellButton() throws {
-		let testToRemove: FamilyMemberCoronaTest = .pcr(.mock(displayName: "qwer", registrationDate: Date(timeIntervalSinceNow: 1), qrCodeHash: "1"))
+	func testDidTapCoronaTestCellButton_moveTestToBin() throws {
+		let testToMoveToRecycleBin: FamilyMemberCoronaTest = .pcr(.mock(displayName: "qwer", registrationDate: Date(timeIntervalSinceNow: 1), qrCodeHash: "1"))
 
 		let familyMemberCoronaTestService = MockFamilyMemberCoronaTestService()
 		familyMemberCoronaTestService.coronaTests.value = [
 			.pcr(.mock(displayName: "asdf", registrationDate: Date(timeIntervalSinceNow: 0), qrCodeHash: "0")),
-			testToRemove,
+			testToMoveToRecycleBin,
 			.antigen(.mock(displayName: "zxcv", sampleCollectionDate: Date(timeIntervalSinceNow: 3), qrCodeHash: "3"))
 		]
 
-		let moveTestToBinExpectation = expectation(description: "onCoronaTestCellTap called")
+		let moveTestToRecycleBinExpectation = expectation(description: "onCoronaTestCellTap called")
 
 		familyMemberCoronaTestService.onMoveTestToBin = {
-			XCTAssertEqual($0, testToRemove)
-			moveTestToBinExpectation.fulfill()
+			XCTAssertEqual($0, testToMoveToRecycleBin)
+			moveTestToRecycleBinExpectation.fulfill()
 		}
 
 		let viewModel = FamilyMemberCoronaTestsViewModel(
@@ -320,7 +320,42 @@ class FamilyMemberCoronaTestsViewModelTest: CWATestCase {
 			onLastDeletion: { }
 		)
 
-		viewModel.didTapCoronaTestCellButton(at: IndexPath(row: 1, section: FamilyMemberCoronaTestsViewModel.Section.coronaTests.rawValue))
+		viewModel.didTapCoronaTestCellButton(
+			at: IndexPath(row: 1, section: FamilyMemberCoronaTestsViewModel.Section.coronaTests.rawValue),
+			action: .moveTestToBin
+		)
+
+		waitForExpectations(timeout: .medium)
+	}
+	
+	func testDidTapCoronaTestCellButton_removeTest() throws {
+		let testToRemove: FamilyMemberCoronaTest = .pcr(.mock(displayName: "qwer", registrationDate: Date(timeIntervalSinceNow: 1), qrCodeHash: "1"))
+
+		let familyMemberCoronaTestService = MockFamilyMemberCoronaTestService()
+		familyMemberCoronaTestService.coronaTests.value = [
+			.pcr(.mock(displayName: "asdf", registrationDate: Date(timeIntervalSinceNow: 0), qrCodeHash: "0")),
+			testToRemove,
+			.antigen(.mock(displayName: "zxcv", sampleCollectionDate: Date(timeIntervalSinceNow: 3), qrCodeHash: "3"))
+		]
+
+		let removeTestExpectation = expectation(description: "onCoronaTestCellTap called")
+
+		familyMemberCoronaTestService.onRemoveTest = {
+			XCTAssertEqual($0, testToRemove)
+			removeTestExpectation.fulfill()
+		}
+
+		let viewModel = FamilyMemberCoronaTestsViewModel(
+			familyMemberCoronaTestService: familyMemberCoronaTestService,
+			appConfigurationProvider: CachedAppConfigurationMock(),
+			onCoronaTestCellTap: { _ in },
+			onLastDeletion: { }
+		)
+
+		viewModel.didTapCoronaTestCellButton(
+			at: IndexPath(row: 1, section: FamilyMemberCoronaTestsViewModel.Section.coronaTests.rawValue),
+			action: .removeTest
+		)
 
 		waitForExpectations(timeout: .medium)
 	}

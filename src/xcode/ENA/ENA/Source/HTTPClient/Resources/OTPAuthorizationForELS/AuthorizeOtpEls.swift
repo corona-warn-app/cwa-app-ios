@@ -10,20 +10,12 @@ extension Locator {
 	// receive:	JSON
 	// type:	default
 	// comment:
-	static func authorizeOtpEls(
-		forceApiTokenHeader: Bool = false,
-		isFake: Bool
-	) -> Locator {
-		let fake = String(isFake ? 1 : 0)
-		let forceApiHeader = String(forceApiTokenHeader ? 1 : 0)
+	static func authorizeOtpEls() -> Locator {
 		return Locator(
 			endpoint: .dataDonation,
 			paths: ["version", "v1", "ios", "els"],
 			method: .post,
-			defaultHeaders: [
-				"cwa-fake": fake,
-				"cwa-ppac-ios-accept-api-token": forceApiHeader
-			]
+			defaultHeaders: ["Content-Type": "application/x-protobuf"]
 		)
 	}
 

@@ -485,10 +485,12 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		switch coronaTestType {
 		case .pcr:
 			if let cell = pcrTestResultCell {
+				refreshUI()
 				return cell
 			}
 		case .antigen:
 			if let cell = antigenTestResultCell {
+				refreshUI()
 				return cell
 			}
 		}
@@ -804,16 +806,17 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 				message: message,
 				preferredStyle: .alert
 			)
-			
-			alert.addAction(
-				UIAlertAction(
-					title: NSLocalizedString("Alert_ActionOk", comment: ""),
-					style: .default,
-					handler: { _ in
-						completion()
-					}
-				)
+			let okAction = UIAlertAction(
+				title: NSLocalizedString("Alert_ActionOk", comment: ""),
+				style: .default,
+				handler: { _ in
+					completion()
+				}
 			)
+			okAction.isAccessibilityElement = true
+			okAction.accessibilityIdentifier = "AccessibilityIdentifier.InformationAboutExposureLogging_alert_Ok_Action"
+			okAction.accessibilityLabel = AppStrings.Common.alertActionOk
+			alert.addAction(okAction)
 			
 			self.present(alert, animated: true) { [weak self] in
 				self?.viewModel.store.userNeedsToBeInformedAboutHowRiskDetectionWorks = false

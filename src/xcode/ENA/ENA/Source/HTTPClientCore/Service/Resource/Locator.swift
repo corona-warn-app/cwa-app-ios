@@ -19,13 +19,14 @@ struct Locator: UniqueHash {
 		endpoint: Endpoint,
 		paths: [String],
 		method: HTTP.Method,
+		alreadyEncodedData: Data? = nil,
 		defaultHeaders: [String: String] = [:]
 	) {
 		self.endpoint = endpoint
 		self.paths = paths
 		self.method = method
 		self.headers = defaultHeaders
-
+		self.alreadyEncodedData = alreadyEncodedData
 		// we need a unique identifier to persist data inside the cache
 		guard let uniqueData = [
 			endpoint.description,
@@ -50,7 +51,8 @@ struct Locator: UniqueHash {
 	let paths: [String]
 	let method: HTTP.Method
 	let headers: [String: String]
-
+	let alreadyEncodedData: Data?
+	
 	var isFake: Bool {
 		guard let isFakeValue = headers["cwa-fake"] else {
 			return false
