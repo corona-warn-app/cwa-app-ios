@@ -177,7 +177,6 @@ class TraceLocationCheckinViewController: UIViewController, DismissHandling {
 		switchView.accessibilityLabel = "\(AppStrings.Checkins.Details.saveToDiary) \(AppStrings.Checkins.Details.saveSwitch) \(pickerSwitch.isOn ? AppStrings.Checkins.Details.saveSwitchOn : AppStrings.Checkins.Details.saveSwitchOff)"
 
 		activityLabel.text = viewModel.locationType
-//		descriptionLabel.attributedText = viewModel.locationDescription
 		addressLabel.text = viewModel.locationAddress
 	}
 	
