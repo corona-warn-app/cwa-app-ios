@@ -122,7 +122,6 @@
         "ENAUITests_12_AntigenTestProfile\/test_screenshot_FIRST_CreateAntigenTestProfile_THEN_EditProfile_THEN_DeleteProfile()",
         "ENAUITests_13_CreateHealthCertificate\/test_AdmissionStateChanges_Then_StateChangeIndicatorIsVisible()",
         "ENAUITests_13_CreateHealthCertificate\/test_CompleteVaccination_AdmissionState()",
-        "ENAUITests_13_CreateHealthCertificate\/test_CompleteVaccination_MaskState()",
         "ENAUITests_13_CreateHealthCertificate\/test_screenshot_2GPlusCertificate()",
         "ENAUITests_13_CreateHealthCertificate\/test_screenshot_CreateAntigenTestProfileWithLastCertificate()",
         "ENAUITests_13_CreateHealthCertificate\/test_screenshot_ExportCertificatesTooltip()",

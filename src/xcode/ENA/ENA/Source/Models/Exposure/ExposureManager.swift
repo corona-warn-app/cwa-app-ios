@@ -64,7 +64,7 @@ struct ExposureManagerState: Equatable {
 	private(set) var authorized: Bool
 	private(set) var enabled: Bool
 	private(set) var status: ENStatus
-	var isGood: Bool { authorized && enabled && status == .active }
+	var isGood: Bool { authorized && enabled && (status == .active || status == .bluetoothOff) }
 }
 
 @objc protocol Manager: NSObjectProtocol {

@@ -18,6 +18,7 @@ class AntigenTestProfileInputDescriptionCell: UITableViewCell, ReuseIdentifierPr
 		super.init(style: style, reuseIdentifier: reuseIdentifier)
 
 		selectionStyle = .none
+		contentView.backgroundColor = .enaColor(for: .background)
 
 		let label = ENALabel()
 		label.text = AppStrings.AntigenProfile.Create.description

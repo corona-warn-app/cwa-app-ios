@@ -1656,10 +1656,10 @@
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Modificările din această versiune pot fi găsite în informațiile aplicației, la „Caracteristici noi”.";
 
-/* Version 2.27 */
-"NewVersionFeature_227_wear_mask_title" = "Afișarea obligativității purtării măștii";
+/* Version 2.28 */
+"NewVersionFeature_228_pandemic_radar_title" = "Radar pandemic";
 
-"NewVersionFeature_227_wear_mask_description" = "Aplicația poate afișa dacă sunteți obligat(ă) să purtați masca facială în anumite locuri din statul german în care vă aflați sau dacă sunteți scutit(ă) de această obligativitate. Acest anunț apare doar dacă statul în care vă aflați a aplicat regulile extinse de obligativitate a purtării măștii.\n\nDacă statul în care vă aflați momentan a impus obligativitatea purtării măștii, un test rapid negativ sau un test PCR negativ vă va scuti de obligativitatea purtării măștii timp de 24 de ore pentru activitățile recreative, culturale și evenimentele sportive, precum și pentru accesul în baruri sau restaurante. O testare acasă nesupravegheată nu este totuși suficientă. De asemenea, statul în care vă aflați poate aplica scutiri de la obligativitatea purtării măștii în urma vaccinării sau a recuperării după boală (în ultimele trei luni). Scutirea de la obligativitatea purtării măștii nu se aplică în transportul public, în spitale și în instituțiile de asistență și nici pacienților aflați în cabinetele medicilor.\n\nDacă certificatele COVID pe care le-ați salvat în aplicație sunt suficiente pentru a vă scuti de obligativitatea purtării măștii în statul dvs., acestea apar cu verde în aplicație. Scutirea de la obligativitatea purtării măștii în statul dvs. poate fi confirmată prin scanarea codului QR cu aplicația CovPassCheck.";
+"NewVersionFeature_228_pandemic_radar_description" = "Aplicația Corona-Warn conține acum un mozaic denumit „Radar pandemic”, ce vă conduce direct la un site web al Institutului Robert Koch (în germană), atunci când îl apăsați. Radarul pandemic conține o varietate de statistici referitoare la pandemia de coronavirus, care sunt actualizate în fiecare zi lucrătoare. Rețineți că orice date utilizate la deschiderea site-ului web vor fi deduse din planul tarifar al datelor dvs. mobile și acest site web nu este conceput să fie fără bariere.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Înregistrare transnațională a expunerilor în jurnal";
@@ -1985,6 +1985,8 @@
 
 "Statistics_Card_From_CWA" = "prin aplicația Corona-Warn";
 
+"Statistics_Card_LinkCard_buttonTitle" = "Deschidere legătură externă";
+
 /* - Add Statistics Card */
 "Statistics_Add_SevenDayIncidence" = "Adăugați incidența pe 7 zile la nivel local";
 
@@ -1995,6 +1997,15 @@
 "Statistics_Add_fromTheWholeCountry" = "Întregul stat";
 
 "Statistics_Card_Manage" = "Editare";
+
+/* - Pandemic Radar */
+"Statistics_Card_PandemicRadar_title" = "Radar pandemic";
+
+"Statistics_Card_PandemicRadar_subtitle" = "De la Institutul Robert Koch";
+
+"Statistics_Card_PandemicRadar_description" = "Explorați statistici suplimentare referitoare la pandemie";
+
+"Statistics_Card_PandemicRadar_buttonTitle" = "Deschidere legătură externă";
 
 /* - 7 Days Incedence */
 "Statistics_Card_CombinedIncidence_Title" = "Incidența pe 7 zile";
@@ -2137,6 +2148,10 @@
 "Statistics_Info_Title" = "Indicatori";
 
 "Statistics_Info_Subtitle" = "Explicarea statisticii";
+
+"Statistics_Info_PandemicRadar_Title" = "Radar pandemic";
+
+"Statistics_Info_PandemicRadar_Text" = "O varietate de statistici referitoare la pandemia de coronavirus, furnizate pe un site web al Institutului Robert Koch.\nRețineți că orice date utilizate la deschiderea site-ului web vor fi deduse din planul tarifar al datelor dvs. mobile și acest site web nu este conceput să fie fără bariere.";
 
 "Statistics_Info_Incidence_Title" = "Incidența pe 7 zile";
 
@@ -2802,9 +2817,9 @@
 
 "HealthCertificate_Overview_Scanning_Info" = "Pentru a adăuga certificate suplimentare, utilizați scannerul de coduri QR de pe bara de navigare de mai jos.";
 
-"HealthCertificate_Admission_Scenario_Status_Label" = "Starea pentru următorul stat federal";
+"HealthCertificate_Admission_Scenario_Status_Label" = "Reguli pentru:";
 
-"HealthCertificate_Admission_Scenario_Button_Label" = "Reglementările guvernului federal";
+"HealthCertificate_Admission_Scenario_Button_Label" = "Nicio selecție";
 
 "HealthCertificate_Loading_Indicator_Label" = "Se determină starea...";
 

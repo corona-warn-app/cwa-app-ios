@@ -1656,10 +1656,10 @@
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Dane o zmianach w tej wersji można znaleźć w informacjach o aplikacji w sekcji „Nowe funkcje”.";
 
-/* Version 2.27 */
-"NewVersionFeature_227_wear_mask_title" = "Wyświetl obowiązek noszenia maseczki";
+/* Version 2.28 */
+"NewVersionFeature_228_pandemic_radar_title" = "Radar pandemiczny";
 
-"NewVersionFeature_227_wear_mask_description" = "W aplikacji może wyświetlać się informacja, czy masz obowiązek noszenia maseczki w pewnych miejscach w Twoim niemieckim kraju związkowym, czy jesteś zwolniony(-a) z tego obowiązku. Ta informacja wyświetlana jest tylko wtedy, gdy Twój kraj związkowy wdrożył reguły przedłużonego obowiązku noszenia maseczki.\n\nJeśli kraj związkowy, w którym obecnie przebywasz, nałożył obowiązek noszenia maseczki, negatywny wynik szybkiego testu lub testu PCR zwolni Cię z tego obowiązku w przypadku aktywności rekreacyjnych, wydarzeń kulturalnych i sportowych oraz wizyt w restauracjach i barach przez 24 godziny. Jednak nie wystarczy samodzielne wykonanie testu bez nadzoru. Twój kraj związkowy może także wdrożyć zwolnienie z obowiązku noszenia maseczki po zaszczepieniu lub przebyciu infekcji (w ciągu ostatnich trzech miesięcy). Zwolnienie z obowiązku noszenia maseczki nie dotyczy transportu publicznego, szpitali i ośrodków zdrowia lub pacjentów w gabinetach lekarskich.\n\nJeśli zapisane przez Ciebie w aplikacji certyfikaty COVID wystarczają do zwolnienia z obowiązku noszenia maseczki w Twoim kraju związkowym, certyfikat wyświetla się na zielono. Możesz potwierdzić swoje zwolnienie z obowiązku noszenia maseczki poprzez zeskanowanie kodu QR w aplikacji CovPassCheck.";
+"NewVersionFeature_228_pandemic_radar_description" = "Aplikacja Corona-Warn-App zawiera teraz kafelek „Radar pandemiczny”, który po dotknięciu prowadzi bezpośrednio do strony internetowej Instytutu Roberta Kocha (w języku niemieckim). Radar pandemiczny zawiera różnorodne statystyki dotyczące pandemii koronawirusa, które są aktualizowane w każdym dniu roboczym. Zwróć uwagę, że wszelkie dane użyte podczas otwierania strony zostaną odjęte od Twojego planu danych oraz że strona nie została zaprojektowana jako pozbawiona barier.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Rejestrowanie narażenia w różnych krajach";
@@ -1985,6 +1985,8 @@
 
 "Statistics_Card_From_CWA" = "za pośrednictwem Corona-Warn-App";
 
+"Statistics_Card_LinkCard_buttonTitle" = "Otwórz zewnętrzny link";
+
 /* - Add Statistics Card */
 "Statistics_Add_SevenDayIncidence" = "Dodaj lokalną 7-dniową zapadalność";
 
@@ -1995,6 +1997,15 @@
 "Statistics_Add_fromTheWholeCountry" = "Cały kraj związkowy";
 
 "Statistics_Card_Manage" = "Edytuj";
+
+/* - Pandemic Radar */
+"Statistics_Card_PandemicRadar_title" = "Radar pandemiczny";
+
+"Statistics_Card_PandemicRadar_subtitle" = "Z Instytutu Roberta Kocha";
+
+"Statistics_Card_PandemicRadar_description" = "Poznaj dodatkowe statystyki związane z pandemią";
+
+"Statistics_Card_PandemicRadar_buttonTitle" = "Otwórz zewnętrzny link";
 
 /* - 7 Days Incedence */
 "Statistics_Card_CombinedIncidence_Title" = "7-dniowa zapadalność";
@@ -2137,6 +2148,10 @@
 "Statistics_Info_Title" = "Wskaźniki";
 
 "Statistics_Info_Subtitle" = "Objaśnienie statystyk";
+
+"Statistics_Info_PandemicRadar_Title" = "Radar pandemiczny";
+
+"Statistics_Info_PandemicRadar_Text" = "Różnorodne statystyki dotyczące pandemii koronawirusa, które znajdują się na stronie Instytutu Roberta Kocha.\nZwróć uwagę, że wszelkie dane użyte podczas otwierania strony zostaną odjęte od Twojego planu danych oraz że strona nie została zaprojektowana jako pozbawiona barier.";
 
 "Statistics_Info_Incidence_Title" = "7-dniowa zapadalność";
 
@@ -2802,9 +2817,9 @@
 
 "HealthCertificate_Overview_Scanning_Info" = "Aby dodać kolejne certyfikaty, użyj skanera kodów QR na pasku nawigacyjnym poniżej.";
 
-"HealthCertificate_Admission_Scenario_Status_Label" = "Status dla następujących krajów związkowych";
+"HealthCertificate_Admission_Scenario_Status_Label" = "Zasady dotyczące:";
 
-"HealthCertificate_Admission_Scenario_Button_Label" = "Przepisy władz federalnych";
+"HealthCertificate_Admission_Scenario_Button_Label" = "Bez zaznaczenia";
 
 "HealthCertificate_Loading_Indicator_Label" = "Ustalanie statusu...";
 
