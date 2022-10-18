@@ -27,6 +27,7 @@ public enum ENAColor: String, CaseIterable {
 	case buttonHighlight = "ENA Button Highlight Color"
 	case buttonPrimary = "ENA Button Primary Color"
 	case selectedSegmentTint = "ENA Selected Segment Tint Color"
+	case buttonLinkCard = "ENA Button LinkCard Color"
 
 	// MARK: - Card Colors
 	case dashedCardBorder = "ENA Dashed Card Border Color"
@@ -84,7 +85,7 @@ public extension UIColor {
 		switch style {
 		case .background: return UIColor(rgb: 0xFFFFFF, alpha: 1.0)
 		case .backgroundLightGray: return UIColor(rgb: 0xF8F8F8, alpha: 1.0)
-		case .buttonPrimary: return UIColor(rgb: 0x007FAD, alpha: 1.0)
+		case .buttonPrimary,.buttonLinkCard: return UIColor(rgb: 0x007FAD, alpha: 1.0)
 		case .buttonHighlight: return UIColor(rgb: 0x17191A, alpha: 0.1)
 		case .listHighlight: return UIColor(rgb: 0x17191A, alpha: 0.2)
 		case .separator: return UIColor(rgb: 0xF5F5F5, alpha: 1.0)
