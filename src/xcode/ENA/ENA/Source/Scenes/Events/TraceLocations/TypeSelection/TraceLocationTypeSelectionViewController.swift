@@ -55,7 +55,10 @@ class TraceLocationTypeSelectionViewController: UITableViewController {
 			Log.debug("Failed to dequeue SelectTraceLocationTypeHeaderView")
 			return nil
 		}
-		headerView.configure(viewModel.sectionTitle(for: section))
+		headerView.configure(
+			viewModel.sectionTitle(for: section),
+			accessibilityIdentifier: viewModel.sectionHeaderAccessibilityIdentifier(for: section)
+		)
 		return headerView
 	}
 

@@ -47,7 +47,9 @@ struct TraceLocationsInfoViewModel {
 					.icon(
 						UIImage(imageLiteralResourceName: "Icons_CheckInRiskStatus"),
 						text: .string(AppStrings.TraceLocations.Information.itemCheckinRiskStatus),
-						alignment: .top
+						alignment: .top,
+						imageAccessibilityIdentifier: AccessibilityIdentifiers.TraceLocation.infoBulletIconCheckinRiskStatus,
+						textAccessibilityIdentifier: AccessibilityIdentifiers.TraceLocation.infoBulletTextCheckinRiskStatus
 					),
 					.space(
 						height: 15.0,
@@ -56,7 +58,9 @@ struct TraceLocationsInfoViewModel {
 					.icon(
 						UIImage(imageLiteralResourceName: "Icons_Checkin_QR"),
 						text: .string(AppStrings.TraceLocations.Information.itemCheckinTitle),
-						alignment: .top
+						alignment: .top,
+						imageAccessibilityIdentifier: AccessibilityIdentifiers.TraceLocation.infoBulletIconCheckinQR,
+						textAccessibilityIdentifier: AccessibilityIdentifiers.TraceLocation.infoBulletTextCheckinQR
 					),
 					.space(
 						height: 15.0,
@@ -65,7 +69,9 @@ struct TraceLocationsInfoViewModel {
 					.icon(
 						UIImage(imageLiteralResourceName: "Icons_Diary_Deleted_Automatically"),
 						text: .string(AppStrings.TraceLocations.Information.itemContactTitle),
-						alignment: .top
+						alignment: .top,
+						imageAccessibilityIdentifier: AccessibilityIdentifiers.TraceLocation.infoBulletIconDiaryDeletedAutomatically,
+						textAccessibilityIdentifier: AccessibilityIdentifiers.TraceLocation.infoBulletTextDiaryDeletedAutomatically
 					),
 					.space(
 						height: 15.0,
@@ -74,7 +80,9 @@ struct TraceLocationsInfoViewModel {
 					.icon(
 						UIImage(imageLiteralResourceName: "Icons_Group"),
 						text: .string(AppStrings.TraceLocations.Information.itemGroupTitle),
-						alignment: .top
+						alignment: .top,
+						imageAccessibilityIdentifier: AccessibilityIdentifiers.TraceLocation.infoBulletIconGroup,
+						textAccessibilityIdentifier: AccessibilityIdentifiers.TraceLocation.infoBulletTextGroup
 					),
 					.space(
 						height: 15.0,
