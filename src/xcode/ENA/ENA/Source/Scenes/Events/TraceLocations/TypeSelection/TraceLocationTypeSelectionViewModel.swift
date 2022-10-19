@@ -47,6 +47,10 @@ struct TraceLocationTypeSelectionViewModel {
 	func sectionTitle(for index: Int) -> String {
 		TraceLocationSection.allCases[index].title
 	}
+	
+	func sectionHeaderAccessibilityIdentifier(for index: Int) -> String {
+		String(format: AccessibilityIdentifiers.TraceLocations.sectionHeader, TraceLocationSection.allCases[index].rawValue)
+	}
 
 	func cellViewModel(at indexPath: IndexPath) -> TraceLocationType {
 		guard let traceLocationSection = TraceLocationSection(rawValue: indexPath.section),

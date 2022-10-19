@@ -20,8 +20,9 @@ class SelectTraceLocationTypeHeaderView: UITableViewHeaderFooterView, ReuseIdent
 
 	// MARK: - Internal
 
-	func configure(_ model: String) {
+	func configure(_ model: String, accessibilityIdentifier: String? = nil) {
 		titleLabel.text = model
+		setupAccessibility(accessibilityIdentifier: accessibilityIdentifier)
 	}
 
 	// MARK: - Private
@@ -35,7 +36,6 @@ class SelectTraceLocationTypeHeaderView: UITableViewHeaderFooterView, ReuseIdent
 		contentView.addSubview(titleLabel)
 		titleLabel.font = .enaFont(for: .footnote)
 		titleLabel.textColor = .enaColor(for: .textSemanticGray)
-		titleLabel.accessibilityTraits = .header
 
 		let separatorView = UIView()
 		separatorView.translatesAutoresizingMaskIntoConstraints = false
@@ -52,5 +52,10 @@ class SelectTraceLocationTypeHeaderView: UITableViewHeaderFooterView, ReuseIdent
 			separatorView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
 			separatorView.heightAnchor.constraint(equalToConstant: 1.0)
 		])
+	}
+	
+	private func setupAccessibility(accessibilityIdentifier: String? = nil) {
+		titleLabel.accessibilityTraits = .header
+		titleLabel.accessibilityIdentifier = accessibilityIdentifier
 	}
 }

@@ -64,6 +64,8 @@ class EmptyStateView: UIView {
 		titleLabel.adjustsFontSizeToFitWidth = true
 		titleLabel.setContentCompressionResistancePriority(.required, for: .vertical)
 		titleLabel.text = viewModel.title
+		titleLabel.accessibilityTraits = .staticText
+		titleLabel.accessibilityIdentifier = viewModel.titleAccessibilityIdentifier
 		stackView.addArrangedSubview(titleLabel)
 
 		let descriptionLabel = ENALabel()
@@ -74,6 +76,8 @@ class EmptyStateView: UIView {
 		descriptionLabel.adjustsFontSizeToFitWidth = true
 		descriptionLabel.setContentCompressionResistancePriority(.required, for: .vertical)
 		descriptionLabel.text = viewModel.description
+		descriptionLabel.accessibilityTraits = .staticText
+		descriptionLabel.accessibilityIdentifier = viewModel.descriptionAccessibilityIdentifier
 		stackView.addArrangedSubview(descriptionLabel)
 
 		// We take a number for that the image is not too big and not too small and fits for big and small devices for all five occurrences of the EmptyStateView

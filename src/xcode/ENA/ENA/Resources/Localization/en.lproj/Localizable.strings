@@ -2001,9 +2001,9 @@
 /* - Pandemic Radar */
 "Statistics_Card_PandemicRadar_title" = "Pandemic Radar";
 
-"Statistics_Card_PandemicRadar_subtitle" = "From the Robert Koch Institute";
+"Statistics_Card_PandemicRadar_subtitle" = "from the Robert Koch Institute";
 
-"Statistics_Card_PandemicRadar_description" = "Explore additional pandemic-related statistics";
+"Statistics_Card_PandemicRadar_description" = "Explore additional pandemic-related statistics.";
 
 "Statistics_Card_PandemicRadar_buttonTitle" = "Open external link";
 
@@ -2151,7 +2151,7 @@
 
 "Statistics_Info_PandemicRadar_Title" = "Pandemic Radar";
 
-"Statistics_Info_PandemicRadar_Text" = "A variety of statistics on the coronavirus pandemic, which is provided on a Robert Koch Institute website.\nPlease note that any data used when opening the website will be deducted from your data plan and that the website is not designed to be barrier-free.";
+"Statistics_Info_PandemicRadar_Text" = "A variety of statistics on the coronavirus pandemic, which is provided on a Robert Koch Institute website. Please note that any data used when opening the website will be deducted from your data plan and that the website is not designed to be barrier-free and is only available in German.";
 
 "Statistics_Info_Incidence_Title" = "7-Day Incidence";
 
