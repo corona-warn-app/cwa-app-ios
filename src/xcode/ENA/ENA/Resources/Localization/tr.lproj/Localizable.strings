@@ -2003,7 +2003,7 @@
 
 "Statistics_Card_PandemicRadar_subtitle" = "Robert Koch Institute tarafından sunulur";
 
-"Statistics_Card_PandemicRadar_description" = "Pandemi ile ilgili ilave istatistikleri keşfedin";
+"Statistics_Card_PandemicRadar_description" = "Pandemi ile ilgili ilave istatistikleri keşfedin.";
 
 "Statistics_Card_PandemicRadar_buttonTitle" = "Harici bağlantıyı aç";
 
@@ -2151,7 +2151,7 @@
 
 "Statistics_Info_PandemicRadar_Title" = "Pandemi Radarı";
 
-"Statistics_Info_PandemicRadar_Text" = "Robert Koch Institute web sitesinde sunulan çeşitli koronavirüs pandemisi istatistikleri.\nWeb sitesini açarken kullanılan tüm verilerin, veri planınızdan düşüleceğini ve web sitesinin engellilere uygun şekilde tasarlanmadığını unutmayın.";
+"Statistics_Info_PandemicRadar_Text" = "Robert Koch Institute web sitesinde sunulan çeşitli koronavirüs pandemisi istatistikleri. Web sitesini açarken kullanılan tüm verilerin veri planınızdan düşüleceğini, web sitesinin engellilere uygun şekilde tasarlanmadığını ve yalnızca Almanca dilinde kullanılabildiğini unutmayın.";
 
 "Statistics_Info_Incidence_Title" = "7 Günlük Olay";
 
