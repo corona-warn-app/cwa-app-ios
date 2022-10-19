@@ -70,7 +70,9 @@ class DynamicTableViewIconCell: UITableViewCell {
 		style: ENAFont,
 		iconWidth: CGFloat,
 		selectionStyle: UITableViewCell.SelectionStyle,
-		alignment: UIStackView.Alignment
+		alignment: UIStackView.Alignment,
+		imageAccessibilityIdentifier: String? = nil,
+		textAccessibilityIdentifier: String? = nil
 	) {
 		stackView.alignment = alignment
 
@@ -101,6 +103,11 @@ class DynamicTableViewIconCell: UITableViewCell {
 		}
 		
 		self.selectionStyle = selectionStyle
+		
+		configureAccessibility(
+			imageAccessibilityIdentifier: imageAccessibilityIdentifier,
+			textAccessibilityIdentifier: textAccessibilityIdentifier
+		)
 	}
 
 	// MARK: - Private
@@ -110,4 +117,19 @@ class DynamicTableViewIconCell: UITableViewCell {
 	private var iconImageView = UIImageView()
 	private var contentTextLabel = ENALabel()
 
+	private func configureAccessibility(
+		imageAccessibilityIdentifier: String? = nil,
+		textAccessibilityIdentifier: String? = nil
+	) {
+		iconImageView.accessibilityTraits = .image
+		iconImageView.accessibilityIdentifier = imageAccessibilityIdentifier
+
+		contentTextLabel.accessibilityTraits = .staticText
+		contentTextLabel.accessibilityIdentifier = textAccessibilityIdentifier
+		
+		accessibilityElements = [
+			iconImageView,
+			contentTextLabel
+		]
+	}
 }
