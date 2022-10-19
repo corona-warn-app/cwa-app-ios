@@ -194,6 +194,7 @@ class ENAButton: DynamicTypeButton {
 		super.traitCollectionDidChange(previousTraitCollection)
 
 		updateActivityIndicatorStyle()
+		applyStyle()
 	}
 }
 

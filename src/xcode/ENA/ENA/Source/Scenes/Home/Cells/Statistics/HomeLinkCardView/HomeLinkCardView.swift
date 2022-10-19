@@ -44,6 +44,12 @@ class HomeLinkCardView: UIView {
 		set {}
 	}
 	
+	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+		super.traitCollectionDidChange(previousTraitCollection)
+
+		viewModel?.updateButtonTitle()
+	}
+	
 	// MARK: Internal
 	
 	func configure(
@@ -152,10 +158,6 @@ class HomeLinkCardView: UIView {
 		descriptionLabel.numberOfLines = 0
 		descriptionLabel.font = .enaFont(for: .body)
 		descriptionLabel.textColor = .enaColor(for: .textPrimary2)
-		
-		NSLayoutConstraint.activate([
-			button.heightAnchor.constraint(equalToConstant: 50)
-		])
 	}
 	
 	private func setupAccessibility() {
