@@ -43,15 +43,29 @@ class HomeLinkCardViewModel {
 	@OpenCombine.Published private(set) var infoButtonAccessibilityLabel: String?
 	@OpenCombine.Published private(set) var deleteButtonAccessibilityLabel: String?
 	
+	func updateButtonTitle() {
+		buttonTitle = buttonTitleAttributedString
+	}
+	
 	// MARK: - Private
 	
-	private let buttonTitleAttributedString: NSAttributedString = {
+	private var buttonTitleAttributedString: NSAttributedString {
 		let textAttachment = NSTextAttachment()
-		textAttachment.image = UIImage(named: "export_icon")
+		
+		if #available(iOS 15.0, *) {
+			textAttachment.image = .sfSymbol(
+				.rectanglePortraitAndArrowRight,
+				withConfiguration: .init(weight: .semibold),
+				withTintColor: .enaColor(for: .buttonLinkCard)
+			)
+		} else {
+			textAttachment.image = UIImage(named: "export_icon")
+		}
+
 		let textString = NSMutableAttributedString(
 			string: "\(AppStrings.Statistics.Card.LinkCard.buttonTitle)  ",
 			attributes: [
-				.foregroundColor: UIColor.enaColor(for: .buttonPrimary),
+				.foregroundColor: UIColor.enaColor(for: .buttonLinkCard),
 				.font: UIFont.enaFont(for: .body, weight: .semibold)
 			]
 		)
@@ -59,7 +73,7 @@ class HomeLinkCardViewModel {
 		textString.append(imageString)
 		
 		return textString
-	}()
+	}
 	
 	private func setupPandemicRadar(for linkCard: SAP_Internal_Stats_LinkCard) {
 		title = AppStrings.Statistics.Card.PandemicRadar.title
