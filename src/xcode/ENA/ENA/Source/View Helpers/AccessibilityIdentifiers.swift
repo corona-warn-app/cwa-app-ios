@@ -767,12 +767,21 @@ enum AccessibilityIdentifiers {
 		static let temporaryClubActivity = "AppStrings.TraceLocations.temporary.title.clubActivity"
 		static let temporaryPrivateEvent = "AppStrings.TraceLocations.temporary.title.privateEvent"
 		static let temporaryWorshipService = "AppStrings.TraceLocations.temporary.title.worshipService"
+		static let sectionHeader = "AppStrings.TraceLocations.sectionHeader-%d"
 	}
 	
 	enum TraceLocation {
 		static let imageDescription = "AppStrings.TraceLocations.imageDescription"
 		static let descriptionTitle = "AppStrings.TraceLocations.descriptionTitle"
 		static let descriptionSubHeadline = "AppStrings.TraceLocations.descriptionSubHeadline"
+		static let infoBulletIconCheckinRiskStatus = "AppStrings.TraceLocations.InfoBullet.Icon.itemCheckinRiskStatus"
+		static let infoBulletTextCheckinRiskStatus = "AppStrings.TraceLocations.InfoBullet.Text.itemCheckinRiskStatus"
+		static let infoBulletIconCheckinQR = "AppStrings.TraceLocations.InfoBullet.Icon.checkinQR"
+		static let infoBulletTextCheckinQR = "AppStrings.TraceLocations.InfoBullet.Text.checkinQR"
+		static let infoBulletIconDiaryDeletedAutomatically = "AppStrings.TraceLocations.InfoBullet.Icon.diaryDeletedAutomatically"
+		static let infoBulletTextDiaryDeletedAutomatically = "AppStrings.TraceLocations.InfoBullet.Text.diaryDeletedAutomatically"
+		static let infoBulletIconGroup = "AppStrings.TraceLocations.InfoBullet.Icon.Group"
+		static let infoBulletTextGroup = "AppStrings.TraceLocations.InfoBullet.Text.Group"
 		static let dataPrivacyTitle = "AppStrings.TraceLocations.dataPrivacyTitle"
 		static let acknowledgementTitle = "TraceLocation.acknowledgementTitle"
 		static let legal_1 = "AppStrings.TraceLocations.legalHeadline_1"
@@ -789,7 +798,11 @@ enum AccessibilityIdentifiers {
 			static let tableView = "TableView.TracelocationOverview"
 			static let menueButton = "AppStrings.TraceLocations.Overview.menueButton"
 			static let addButton = "AppStrings.TraceLocations.Overview.addButton"
-			static let emptyState = "AppStrings.TraceLocations.Overview.emptyState"
+			static let emptyStateImage = "AppStrings.TraceLocations.Overview.emptyStateImage"
+			static let emptyStateTitle = "AppStrings.TraceLocations.Overview.emptyStateTitle"
+			static let emptyStateDescription = "AppStrings.TraceLocations.Overview.emptyStateDescription"
+			static let eventTableViewCellTitleLabel = "AppStrings.TraceLocations.Overview.eventTableViewCell.titleLabel"
+			static let eventTableViewCellAddressLabel = "AppStrings.TraceLocations.Overview.eventTableViewCell.addressLabel"
 			
 			enum MenuActionSheet {
 				static let infoAction = "AppStrings.TraceLocations.Overview.MenuActionSheet.infoAction"
@@ -799,11 +812,13 @@ enum AccessibilityIdentifiers {
 		}
 		
 		enum Configuration {
+			static let traceLocationTypeLabel = "AppStrings.TraceLocations.Configuration.traceLocationTypeLabel"
 			static let descriptionPlaceholder = "AppStrings.TraceLocations.Configuration.descriptionPlaceholder"
 			static let addressPlaceholder = "AppStrings.TraceLocations.Configuration.addressPlaceholder"
 			static let temporaryDefaultLengthTitleLabel = "AppStrings.TraceLocations.Configuration.temporaryDefaultLengthTitleLabel"
 			static let temporaryDefaultLengthFootnoteLabel = "AppStrings.TraceLocations.Configuration.temporaryDefaultLengthFootnoteLabel"
 			static let permanentDefaultLengthTitleLabel = "AppStrings.TraceLocations.Configuration.permanentDefaultLengthTitleLabel"
+			static let permanentDefaultLengthValueLabel = "AppStrings.TraceLocations.Configuration.permanentDefaultLengthValueLabel"
 			static let permanentDefaultLengthFootnoteLabel = "AppStrings.TraceLocations.Configuration.permanentDefaultLengthFootnoteLabel"
 			static let eventTableViewCellButton = "AppStrings.TraceLocations.Configuration.eventTableViewCellButton"
 		}
