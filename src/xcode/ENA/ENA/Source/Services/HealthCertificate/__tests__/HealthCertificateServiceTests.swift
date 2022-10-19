@@ -352,7 +352,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		registrationResult = service.registerHealthCertificate(base45: firstRecoveryCertificateBase45, completedNotificationRegistration: { })
 		
 		let newsExpectation = expectation(description: "unseenNewsCount publisher triggered")
-		newsExpectation.expectedFulfillmentCount = 2
+		newsExpectation.expectedFulfillmentCount = 1
 
 		let newsSubscription = service.unseenNewsCount
 			.sink { _ in
