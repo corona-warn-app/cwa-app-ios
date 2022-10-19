@@ -32,7 +32,7 @@ class TraceLocationCheckinViewModelTests: CWATestCase {
 		let sut = TraceLocationCheckinViewModel(traceLocation, eventStore: MockEventStore(), store: store)
 		
 		XCTAssertEqual(sut.locationType, TraceLocationType.locationTypePermanentFoodService.title)
-		XCTAssertEqual(sut.locationDescription, "Los Pollos Hermanos")
+		XCTAssertEqual(sut.locationDescription?.string, "Los Pollos Hermanos")
 		XCTAssertEqual(sut.locationAddress, "13 Main Street, Albuquerque")
 		// Duration should be rounded up to 30
 		XCTAssertEqual(sut.duration, 30 * 60)
@@ -66,7 +66,7 @@ class TraceLocationCheckinViewModelTests: CWATestCase {
 		let sut = TraceLocationCheckinViewModel(traceLocation, eventStore: MockEventStore(), store: store)
 		
 		XCTAssertEqual(sut.locationType, TraceLocationType.locationTypePermanentFoodService.title)
-		XCTAssertEqual(sut.locationDescription, "Los Pollos Hermanos")
+		XCTAssertEqual(sut.locationDescription?.string, "Los Pollos Hermanos")
 		XCTAssertEqual(sut.locationAddress, "13 Main Street, Albuquerque")
 		// max checkout Duration should be clipped to 23:45 to match the picker
 		XCTAssertEqual(sut.duration, ((23 * 60) + 45) * 60)
