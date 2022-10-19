@@ -170,7 +170,9 @@ extension DynamicCell {
 		selectionStyle: UITableViewCell.SelectionStyle = .none,
 		action: DynamicAction = .none,
 		configure: CellConfigurator? = nil,
-		alignment: UIStackView.Alignment = .center
+		alignment: UIStackView.Alignment = .center,
+		imageAccessibilityIdentifier: String? = nil,
+		textAccessibilityIdentifier: String? = nil
 	) -> Self {
 		.identifier(
 			CellReuseIdentifier.icon,
@@ -188,7 +190,9 @@ extension DynamicCell {
 					style: style,
 					iconWidth: iconWidth,
 					selectionStyle: selectionStyle,
-					alignment: alignment
+					alignment: alignment,
+					imageAccessibilityIdentifier: imageAccessibilityIdentifier,
+					textAccessibilityIdentifier: textAccessibilityIdentifier
 				)
 				configure?(viewController, cell, indexPath)
 			}

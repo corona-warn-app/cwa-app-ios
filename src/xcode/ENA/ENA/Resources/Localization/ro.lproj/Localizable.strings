@@ -2001,9 +2001,9 @@
 /* - Pandemic Radar */
 "Statistics_Card_PandemicRadar_title" = "Radar pandemic";
 
-"Statistics_Card_PandemicRadar_subtitle" = "De la Institutul Robert Koch";
+"Statistics_Card_PandemicRadar_subtitle" = "de la Institutul Robert Koch";
 
-"Statistics_Card_PandemicRadar_description" = "Explorați statistici suplimentare referitoare la pandemie";
+"Statistics_Card_PandemicRadar_description" = "Explorați statistici suplimentare referitoare la pandemie.";
 
 "Statistics_Card_PandemicRadar_buttonTitle" = "Deschidere legătură externă";
 
@@ -2151,7 +2151,7 @@
 
 "Statistics_Info_PandemicRadar_Title" = "Radar pandemic";
 
-"Statistics_Info_PandemicRadar_Text" = "O varietate de statistici referitoare la pandemia de coronavirus, furnizate pe un site web al Institutului Robert Koch.\nRețineți că orice date utilizate la deschiderea site-ului web vor fi deduse din planul tarifar al datelor dvs. mobile și acest site web nu este conceput să fie fără bariere.";
+"Statistics_Info_PandemicRadar_Text" = "O varietate de statistici referitoare la pandemia de coronavirus, furnizate pe un site web al Institutului Robert Koch.\nRețineți că orice date utilizate la deschiderea site-ului web vor fi deduse din planul tarifar al datelor dvs. mobile și acest site web nu este conceput să fie fără bariere. De asemenea, este disponibil doar în germană.";
 
 "Statistics_Info_Incidence_Title" = "Incidența pe 7 zile";
 

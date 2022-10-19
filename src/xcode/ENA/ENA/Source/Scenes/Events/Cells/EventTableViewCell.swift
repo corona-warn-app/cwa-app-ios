@@ -103,12 +103,14 @@ class EventTableViewCell: UITableViewCell, ReuseIdentifierProviding {
 
 		titleLabel.text = cellModel.title
 		titleLabel.accessibilityLabel = cellModel.titleAccessibilityLabelPublisher.value
+		titleLabel.accessibilityIdentifier = AccessibilityIdentifiers.TraceLocation.Overview.eventTableViewCellTitleLabel
 		cellModel.titleAccessibilityLabelPublisher
 			.receive(on: DispatchQueue.main.ocombine)
 			.assign(to: \.accessibilityLabel, on: titleLabel)
 			.store(in: &subscriptions)
 		
 		addressLabel.text = cellModel.address
+		addressLabel.accessibilityIdentifier = AccessibilityIdentifiers.TraceLocation.Overview.eventTableViewCellAddressLabel
 
 		button.setTitle(cellModel.buttonTitle, for: .normal)
 		button.accessibilityIdentifier = AccessibilityIdentifiers.TraceLocation.Configuration.eventTableViewCellButton
