@@ -2001,9 +2001,9 @@
 /* - Pandemic Radar */
 "Statistics_Card_PandemicRadar_title" = "Radar pandemiczny";
 
-"Statistics_Card_PandemicRadar_subtitle" = "Z Instytutu Roberta Kocha";
+"Statistics_Card_PandemicRadar_subtitle" = "z Instytutu Roberta Kocha";
 
-"Statistics_Card_PandemicRadar_description" = "Poznaj dodatkowe statystyki związane z pandemią";
+"Statistics_Card_PandemicRadar_description" = "Poznaj dodatkowe statystyki związane z pandemią.";
 
 "Statistics_Card_PandemicRadar_buttonTitle" = "Otwórz zewnętrzny link";
 
@@ -2151,7 +2151,7 @@
 
 "Statistics_Info_PandemicRadar_Title" = "Radar pandemiczny";
 
-"Statistics_Info_PandemicRadar_Text" = "Różnorodne statystyki dotyczące pandemii koronawirusa, które znajdują się na stronie Instytutu Roberta Kocha.\nZwróć uwagę, że wszelkie dane użyte podczas otwierania strony zostaną odjęte od Twojego planu danych oraz że strona nie została zaprojektowana jako pozbawiona barier.";
+"Statistics_Info_PandemicRadar_Text" = "Różnorodne statystyki dotyczące pandemii koronawirusa, które znajdują się na stronie Instytutu Roberta Kocha.\nZwróć uwagę, że wszelkie dane użyte podczas otwierania strony zostaną odjęte od Twojego planu danych oraz że strona nie została zaprojektowana jako pozbawiona barier i jest dostępna tylko w języku niemieckim.";
 
 "Statistics_Info_Incidence_Title" = "7-dniowa zapadalność";
 
