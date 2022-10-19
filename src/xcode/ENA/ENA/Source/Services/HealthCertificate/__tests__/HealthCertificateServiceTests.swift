@@ -26,7 +26,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		service.syncSetup()
 		
 		let healthCertifiedPersonsExpectation = expectation(description: "healthCertifiedPersons publisher updated")
-		healthCertifiedPersonsExpectation.expectedFulfillmentCount = 2
+		healthCertifiedPersonsExpectation.expectedFulfillmentCount = 3
 		
 		let subscription = service.$healthCertifiedPersons
 			.dropFirst()
@@ -351,9 +351,18 @@ class HealthCertificateServiceTests: CWATestCase {
 		
 		registrationResult = service.registerHealthCertificate(base45: firstRecoveryCertificateBase45, completedNotificationRegistration: { })
 		
+		let newsExpectation = expectation(description: "unseenNewsCount publisher triggered")
+		newsExpectation.expectedFulfillmentCount = 2
+
+		let newsSubscription = service.unseenNewsCount
+			.sink { _ in
+				newsExpectation.fulfill()
+			}
+
 		waitForExpectations(timeout: .short)
 		personsSubscription.cancel()
-		
+		newsSubscription.cancel()
+
 		switch registrationResult {
 		case let .success(certificateResult):
 			XCTAssertEqual(certificateResult.person.healthCertificates.map { $0.base45 }, [firstRecoveryCertificate.base45])
