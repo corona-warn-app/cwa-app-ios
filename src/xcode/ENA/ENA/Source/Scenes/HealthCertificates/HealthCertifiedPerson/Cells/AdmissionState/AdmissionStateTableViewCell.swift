@@ -45,7 +45,12 @@ class AdmissionStateTableViewCell: UITableViewCell, UITextViewDelegate, ReuseIde
 		faqLinkTextView.attributedText = cellModel.faqLink
 		faqLinkTextView.isHidden = (cellModel.faqLink?.string ?? "").isEmpty
 
-		roundedLabeledView.configure(title: cellModel.shortTitle, gradientType: cellModel.gradientType)
+		roundedLabeledView.configure(
+			title: cellModel.shortTitle,
+			gradientType: cellModel.gradientType,
+			accessibilityIdentifier: AccessibilityIdentifiers.HealthCertificate.AdmissionState.roundedView,
+			labelAccessibilityIdentifier: AccessibilityIdentifiers.HealthCertificate.AdmissionState.title
+		)
 		roundedLabeledView.isHidden = (cellModel.shortTitle ?? "").isEmpty
 		
 		unseenNewsIndicator.isHidden = !cellModel.isAdmissionStateChanged
@@ -79,6 +84,7 @@ class AdmissionStateTableViewCell: UITableViewCell, UITextViewDelegate, ReuseIde
 		let topStackView = AccessibleStackView()
 		topStackView.distribution = .fill
 		topStackView.alignment = .top
+		topStackView.distribution = .equalSpacing
 		topStackView.spacing = 6
 
 		return topStackView
@@ -89,7 +95,7 @@ class AdmissionStateTableViewCell: UITableViewCell, UITextViewDelegate, ReuseIde
 		titleStackView.axis = .vertical
 		titleStackView.distribution = .fill
 		titleStackView.alignment = .fill
-		titleStackView.spacing = 6
+		titleStackView.setContentHuggingPriority(.defaultLow, for: .horizontal)
 
 		return titleStackView
 	}()
@@ -123,7 +129,11 @@ class AdmissionStateTableViewCell: UITableViewCell, UITextViewDelegate, ReuseIde
 		return subtitleLabel
 	}()
 
-	private lazy var roundedLabeledView = RoundedLabeledView()
+	private lazy var roundedLabeledView: RoundedLabeledView = {
+		let roundedLabeledView = RoundedLabeledView()
+		roundedLabeledView.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+		return roundedLabeledView
+	}()
 
 	private let descriptionLabel: ENALabel = {
 		let descriptionLabel = ENALabel(style: .body)
@@ -182,7 +192,7 @@ class AdmissionStateTableViewCell: UITableViewCell, UITextViewDelegate, ReuseIde
 
 		titleStackView.addArrangedSubview(mainTitleStackView)
 		titleStackView.addArrangedSubview(subtitleLabel)
-
+		
 		topStackView.addArrangedSubview(titleStackView)
 		topStackView.addArrangedSubview(roundedLabeledView)
 

@@ -300,7 +300,7 @@
 
 "Settings_Reset_Label" = "Uygulamayı Sıfırla";
 
-"Settings_Tracing_Description" = "COVID-19 rastgele kimliklerinin oluşturulmasına ve paylaşılmasına izin verin.";
+"Settings_Tracing_Description" = "COVID-19 rastgele kimliklerinin kaydedilmesine ve paylaşılmasına izin verin.";
 
 "Settings_Notification_Description" = "COVID-19 risk durumunuz ile ilgili otomatik bildirimlere izin verin.";
 
@@ -343,7 +343,7 @@
 
 "NotificationSettings_BulletHeadlineOn" = "Bildirimleri Yönet";
 
-"NotificationSettings_BulletHeadlineOff" = "Bildirimleri Yönet";
+"NotificationSettings_BulletHeadlineOff" = "Bildirimleri Etkinleştir";
 
 "NotificationSettings_BulletDescOn" = "Burada şu ayarları tanımlayabilirsiniz:";
 
@@ -423,7 +423,7 @@
 "BackgroundAppRefreshSettings_ShareButton_Title" = "Talimatları Paylaş";
 
 /* Onboarding */
-"Onboarding_LetsGo_actionText" = "Haydi başlayalım";
+"Onboarding_LetsGo_actionText" = "Haydi Başlayalım";
 
 "Onboarding_Continue_actionText" = "Sonraki";
 
@@ -481,7 +481,7 @@
 
 "OnboardingInfo_howDoesDataExchangeWorkPage_boldText" = "Pozitif test sonucu alırsanız lütfen bunu uygulamada belirtin. Test sonuçlarınızı paylaşmanız gönüllülük esasına dayalıdır ve güvenlidir. Lütfen herkesin sağlığı için bunu yapın.";
 
-"OnboardingInfo_howDoesDataExchangeWorkPage_normalText" = "Bildiriminiz güvenli olarak şifrelenir ve güvenli bir sunucuda işlenir. Cihazınızda şifrelenmiş rastgele kimlikleri toplanan kişilere bundan sonra atmaları gereken adımlarla birlikte bir uyarı gönderilir.";
+"OnboardingInfo_howDoesDataExchangeWorkPage_normalText" = "Bildiriminiz güvenli olarak şifrelenir ve güvenli bir sunucuda işlenir. Akıllı telefonunuza şifrelenmiş rastgele kimlikleri toplanan kişilere bundan sonra atmaları gereken adımlarla birlikte bir uyarı gönderilir.";
 
 "OnboardingInfo_alwaysStayInformedPage_imageDescription" = "Bir kadın Corona-Warn-App uygulamasından bildirim alıyor.";
 
@@ -1300,7 +1300,7 @@
 /* - Expired */
 "Home_resultCard_ExpiredTitle" = "Artık Geçerli Değil";
 
-"Home_resultCard_ExpiredDesc" = "Testiniz 21 günden eski ve bu nedenle artık geçerli değil. Lütfen testi silin. Ardından başka bir test ekleyebilirsiniz.";
+"Home_resultCard_ExpiredDesc" = "Testiniz 2 günden eski ve bu nedenle artık geçerli değil. Lütfen testi silin. Ardından başka bir test ekleyebilirsiniz.";
 
 /* - Outdated */
 "Home_resultCard_OutdatedTitle" = "Test Artık Geçerli Değil";
@@ -1651,10 +1651,15 @@
 
 "DeltaOnboarding_NewVersionFeatures_Button_Continue" = "Sonraki";
 
-"DeltaOnboarding_NewVersionFeatures_Description" = "Bu güncelleme ile hatalar düzeltilmektedir. Bu güncellemede yeni özellik sunulmamaktadır.";
+"DeltaOnboarding_NewVersionFeatures_Description" = "Hata düzeltmelerinin yanında bu güncelleme ile birlikte yeni ve gelişmiş özellikler sunulmaktadır.";
 
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Bu sürümdeki değişiklikleri uygulama bilgilerinde “Yeni Özellikler” bölümünde bulabilirsiniz.";
+
+/* Version 2.28 */
+"NewVersionFeature_228_pandemic_radar_title" = "Pandemi Radarı";
+
+"NewVersionFeature_228_pandemic_radar_description" = "Corona-Warn-App artık bir “Pandemi Radarı” kutucuğu içermektedir. Bu kutucuğa dokunulduğunda, doğrudan bir Robert Koch Institute web sitesine (Almanca) yönlendirilirsiniz. Pandemi Radarı, her iş günü güncellenen çeşitli koronavirüs pandemisi istatiklerini içermektedir. Web sitesini açarken kullanılan tüm verilerin, veri planınızdan düşüleceğini ve web sitesinin engellilere uygun şekilde tasarlanmadığını unutmayın.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Uluslararası Maruz Kalma Günlüğü";
@@ -1980,6 +1985,8 @@
 
 "Statistics_Card_From_CWA" = "Corona-Warn-App üzerinden";
 
+"Statistics_Card_LinkCard_buttonTitle" = "Harici bağlantıyı aç";
+
 /* - Add Statistics Card */
 "Statistics_Add_SevenDayIncidence" = "Yerel 7 günlük olay ekle";
 
@@ -1990,6 +1997,15 @@
 "Statistics_Add_fromTheWholeCountry" = "Tüm eyalet";
 
 "Statistics_Card_Manage" = "Düzenle";
+
+/* - Pandemic Radar */
+"Statistics_Card_PandemicRadar_title" = "Pandemi Radarı";
+
+"Statistics_Card_PandemicRadar_subtitle" = "Robert Koch Institute tarafından sunulur";
+
+"Statistics_Card_PandemicRadar_description" = "Pandemi ile ilgili ilave istatistikleri keşfedin";
+
+"Statistics_Card_PandemicRadar_buttonTitle" = "Harici bağlantıyı aç";
 
 /* - 7 Days Incedence */
 "Statistics_Card_CombinedIncidence_Title" = "7 Günlük Olay";
@@ -2133,13 +2149,17 @@
 
 "Statistics_Info_Subtitle" = "İstatistiklerin Açıklaması";
 
+"Statistics_Info_PandemicRadar_Title" = "Pandemi Radarı";
+
+"Statistics_Info_PandemicRadar_Text" = "Robert Koch Institute web sitesinde sunulan çeşitli koronavirüs pandemisi istatistikleri.\nWeb sitesini açarken kullanılan tüm verilerin, veri planınızdan düşüleceğini ve web sitesinin engellilere uygun şekilde tasarlanmadığını unutmayın.";
+
 "Statistics_Info_Incidence_Title" = "7 Günlük Olay";
 
 "Statistics_Info_Local7Days_Title" = "Yerel 7 Günlük Olay";
 
 "Statistics_Info_Local7Days_Text" = "Konfigüre edilen bölgede veya federal eyalette her 100.000 vatandaşta son 7 günde (bildirme tarihine göre) onaylanan toplam yeni enfeksiyon sayısı.\nHastaneye yatış verilerinde, Almanya'daki ilgili eyaleti referans alınır.";
 
-"Statistics_Info_NewInfection_Title" = "Onaylanan Yeni Enfeksiyon Sayısı";
+"Statistics_Info_NewInfection_Title" = "Yeni Enfeksiyon Sayısı";
 
 "Statistics_Info_NewInfection_Text" = "Her 100.000 vatandaşta son 7 günde (bildirme tarihine göre) onaylanan toplam yeni enfeksiyon sayısı.";
 
@@ -2153,7 +2173,7 @@
 
 "Statistics_Info_Infections_Title" = "Onaylanan Yeni Enfeksiyon Sayısı";
 
-"Statistics_Info_Infections_Text" = "Koronavirüs tanısı alan ve RKI’ye bildirilen kişi sayısı.";
+"Statistics_Info_Infections_Text" = "Koronavirüs tanısı alan ve RKI’ye bildirilen kişi sayısı. 7 günlük ortalamanın %1 eşiğinin altındaki sayılar görüntülenmez; Açıklama > Dönem bölümündeki açıklamaya da bakın.";
 
 "Statistics_Info_KeySubmissions_Title" = "Uygulama Kullanıcılarının Uyarıları";
 
@@ -2189,7 +2209,7 @@
 
 "Statistics_Info_Yesterday_Title" = "Dün/Düne kadar";
 
-"Statistics_Info_Yesterday_Text" = "Önceki güne ait/önceki güne kadar olan sayıdır. Önceki güne ait hiçbir değer yoksa değer olan son güne ait veriler görüntülenir.";
+"Statistics_Info_Yesterday_Text" = "\"Dün/Düne kadar\" için, önceki güne ait/önceki güne kadar olan sayı görüntülenir. Örneğin hafta sonlarında ve resmi tatillerde yalnızca birkaç kamu sağlığı görevlisinin RKI'ye veri göndermesi gibi bir nedenle, önceki güne ait hiçbir değer yoksa değer olan son güne ait veriler görüntülenir.";
 
 "Statistics_Info_Mean_Title" = "7 Günlük Ortalama";
 
@@ -2797,9 +2817,9 @@
 
 "HealthCertificate_Overview_Scanning_Info" = "İlave sertifikalar eklemek için aşağıdaki gezinti çubuğundaki QR kod tarayıcıyı kullanın.";
 
-"HealthCertificate_Admission_Scenario_Status_Label" = "Şu eyalete ilişkin durum";
+"HealthCertificate_Admission_Scenario_Status_Label" = "Şuna ilişkin kurallar:";
 
-"HealthCertificate_Admission_Scenario_Button_Label" = "Federal hükûmet düzenlemeleri";
+"HealthCertificate_Admission_Scenario_Button_Label" = "Seçim yok";
 
 "HealthCertificate_Loading_Indicator_Label" = "Durum belirleniyor...";
 
@@ -2915,6 +2935,8 @@
 
 /* Health Certified Person */
 "HealthCertifiedPerson_faq" = "Daha fazla bilgi için lütfen SSS sayfamıza bakın.";
+
+"HealthCertifiedPerson_faq_maskState" = "Maske zorunlulukları hakkında daha fazla bilgi için lütfen SSS sayfamıza bakın.";
 
 "HealthCertifiedPerson_dateOfBirth" = "Doğum tarihi: %@";
 
@@ -3295,6 +3317,8 @@
 
 "UniversalQRScanner_InstructionDescription" = "Testler, Sertifikalarınız, Check-in'ler ve Biletleme Sırasında Doğrulama";
 
+"UniversalQRScanner_InstructionDescriptionWarnOthers" = "Sildiğiniz etkinlikleri geri yüklemek için check-in'leri tarayabilirsiniz.";
+
 "UniversalQRScanner_FileButtonTitle" = "Dosya Aç";
 
 "UniversalQRScanner_CameraFlash" = "Kamera flaşı";
@@ -3438,7 +3462,7 @@
 
 "RecycleBin_deleteAllButtonTitle" = "Tümünü Kalıcı Olarak Sil";
 
-"RecycleBin_expirationDateTime" = "şu zamanda kalıcı olarak silinecek: %@, %@";
+"RecycleBin_expirationDateTime" = "Şu zamanda kalıcı olarak silinecek: %@, %@";
 
 /* - Vaccination Certificate */
 "RecycleBin_VaccinationCertificate_headline" = "Aşı Sertifikası";

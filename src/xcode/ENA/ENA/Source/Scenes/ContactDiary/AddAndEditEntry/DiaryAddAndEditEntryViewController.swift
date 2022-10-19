@@ -78,6 +78,7 @@ class DiaryAddAndEditEntryViewController: UITableViewController, UITextFieldDele
 		guard let row = Row(rawValue: indexPath.row) else {
 			fatalError("Something went horribly wrong")
 		}
+		
 		cell.textField.tag = row.rawValue
 		cell.textField.addTarget(self, action: #selector(textValueChanged(sender:)), for: .editingChanged)
 		cell.textField.delegate = self
@@ -226,6 +227,7 @@ private final class TextFieldCell: UITableViewCell {
 		textField.textColor = .enaColor(for: .textPrimary1)
 		textField.translatesAutoresizingMaskIntoConstraints = false
 		contentView.addSubview(textField)
+		contentView.backgroundColor = .enaColor(for: .background)
 		// activate constraints
 		NSLayoutConstraint.activate([
 			textField.safeAreaLayoutGuide.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16.0),

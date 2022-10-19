@@ -50,10 +50,6 @@ class BoosterDetailsViewController: DynamicTableViewController, DismissHandling 
 
 	override func viewWillDisappear(_ animated: Bool) {
 		super.viewWillDisappear(animated)
-
-		if let dismissHandlingNC = navigationController as? DismissHandlingNavigationController {
-			dismissHandlingNC.setupTransparentNavigationBar()
-		}
 		
 		navigationController?.navigationBar.tintColor = .white
 	}

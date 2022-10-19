@@ -108,6 +108,7 @@ class PreferredPersonTableViewCell: UITableViewCell, ReuseIdentifierProviding {
 		preferredPersonSwitch.setContentHuggingPriority(.required, for: .horizontal)
 		preferredPersonSwitch.addTarget(self, action: #selector(didTogglePreferredPersonSwitch(sender:)), for: .valueChanged)
 		topContentStackView.addArrangedSubview(preferredPersonSwitch)
+		preferredPersonSwitch.transform = CGAffineTransform(translationX: -2, y: 0)
 
 		descriptionLabel.numberOfLines = 0
 		contentStackView.addArrangedSubview(descriptionLabel)

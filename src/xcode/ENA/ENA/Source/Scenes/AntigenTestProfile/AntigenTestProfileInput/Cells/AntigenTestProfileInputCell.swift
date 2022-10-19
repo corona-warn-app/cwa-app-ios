@@ -18,6 +18,7 @@ class AntigenTestProfileInputCell: UITableViewCell, ReuseIdentifierProviding {
 		super.init(style: style, reuseIdentifier: reuseIdentifier)
 
 		selectionStyle = .none
+		contentView.backgroundColor = .enaColor(for: .background)
 
 		firstNameTextField = textField()
 		firstNameTextField.placeholder = AppStrings.AntigenProfile.Create.firstNameTextFieldPlaceholder

@@ -173,7 +173,7 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 			}
 		}
 	}
-
+	
 	@DidSetPublished var gradientType: GradientView.GradientType = .lightBlue
 
 	@DidSetPublished var dccWalletInfo: DCCWalletInfo? {
@@ -278,7 +278,7 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 		let certificatesWithNews = healthCertificates.filter { $0.isNew || $0.isValidityStateNew }
 
 		return certificatesWithNews.count
-			+ (isAdmissionStateChanged ? 1 : 0)
+			+ (dccWalletInfo?.admissionState.visible == true && isAdmissionStateChanged ? 1 : 0)
 			+ (dccWalletInfo?.boosterNotification.identifier != nil && isNewBoosterRule ? 1 : 0)
 			+ (dccWalletInfo?.certificateReissuance?.reissuanceDivision.visible == true && isNewCertificateReissuance ? 1 : 0)
 	}
@@ -287,10 +287,21 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 		(dccWalletInfo?.mostRelevantCertificate).flatMap { self.healthCertificate(for: $0.certificateRef) } ?? healthCertificates.fallback
 	}
 
+	var isMaskOptional: Bool {
+		guard let maskState = dccWalletInfo?.maskState else {
+			return false
+		}
+		
+		return maskState.visible && maskState.identifier == .maskOptional
+	}
+	
 	var needsDCCWalletInfoUpdate: Bool {
-		let now = Date()
-
-		return dccWalletInfo == nil || mostRecentWalletInfoUpdateFailed || (dccWalletInfo?.validUntil ?? now) < now
+		guard let validUntil = dccWalletInfo?.validUntil else {
+			// should never happen
+			return true
+		}
+		
+		return dccWalletInfo == nil || mostRecentWalletInfoUpdateFailed || validUntil < Date()
 	}
 	
 	func healthCertificate(for reference: DCCCertificateReference) -> HealthCertificate? {

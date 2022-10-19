@@ -3,6 +3,7 @@
 //
 
 import HealthCertificateToolkit
+import Foundation
 
 // swiftlint:disable line_length
 // swiftlint:disable function_body_length
@@ -213,6 +214,7 @@ extension HealthCertificateService {
 		return DCCWalletInfo(
 			admissionState: dccWalletInfo.admissionState,
 			vaccinationState: dccWalletInfo.vaccinationState,
+			maskState: dccWalletInfo.maskState,
 			boosterNotification: DCCBoosterNotification(visible: true, identifier: "hello", titleText: titleText, subtitleText: subtitleText, longText: testLongText, faqAnchor: "test"),
 			mostRelevantCertificate: dccWalletInfo.mostRelevantCertificate,
 			verification: dccWalletInfo.verification,
@@ -265,6 +267,7 @@ extension HealthCertificateService {
 		return DCCWalletInfo(
 			admissionState: dccWalletInfo.admissionState,
 			vaccinationState: dccWalletInfo.vaccinationState,
+			maskState: dccWalletInfo.maskState,
 			boosterNotification: dccWalletInfo.boosterNotification,
 			mostRelevantCertificate: dccWalletInfo.mostRelevantCertificate,
 			verification: dccWalletInfo.verification,
@@ -312,6 +315,107 @@ extension HealthCertificateService {
 			certificatesRevokedByInvalidationRules: dccWalletInfo.certificatesRevokedByInvalidationRules
 		)
 	}
+	
+	func updateDccWalletInfoForMockRequiredMaskState(dccWalletInfo: DCCWalletInfo) -> DCCWalletInfo {
+		let titleText = DCCUIText(
+			type: "string",
+			quantity: nil,
+			quantityParameterIndex: nil,
+			functionName: nil,
+			localizedText: ["de": "Maskenpflicht"],
+			parameters: []
+		)
+		
+		let subtitleText = DCCUIText(
+			type: "string",
+			quantity: nil,
+			quantityParameterIndex: nil,
+			functionName: nil,
+			localizedText: ["de": "Sie Sind nicht von der Maskenpflicht ausgenommen"],
+			parameters: []
+		)
+		
+		let badgeText = DCCUIText(
+			type: "string",
+			quantity: nil,
+			quantityParameterIndex: nil,
+			functionName: nil,
+			localizedText: ["de": "Maskenpflicht"],
+			parameters: []
+		)
+		
+		let longText = DCCUIText(
+			type: "string",
+			quantity: nil,
+			quantityParameterIndex: nil,
+			functionName: nil,
+			localizedText: ["de": "Von der Maskenpflicht sind alle Personen befreit, die innerhalb der letzten 3 Monate geimpft wurden oder genesen sind oder innerhalb der letzten 24 Stunden negativ getestet wurden."],
+			parameters: []
+		)
+		
+		return DCCWalletInfo(
+			admissionState: dccWalletInfo.admissionState,
+			vaccinationState: dccWalletInfo.vaccinationState,
+			maskState: DCCMaskState(visible: true, badgeText: badgeText, titleText: titleText, subtitleText: subtitleText, longText: longText, faqAnchor: "maskstate", identifier: .maskRequired),
+			boosterNotification: dccWalletInfo.boosterNotification,
+			mostRelevantCertificate: dccWalletInfo.mostRelevantCertificate,
+			verification: dccWalletInfo.verification,
+			validUntil: dccWalletInfo.validUntil,
+			certificateReissuance: dccWalletInfo.certificateReissuance,
+			certificatesRevokedByInvalidationRules: dccWalletInfo.certificatesRevokedByInvalidationRules
+		)
+	}
+	
+	func updateDccWalletInfoForMockOptionalMaskState(dccWalletInfo: DCCWalletInfo) -> DCCWalletInfo {
+		let titleText = DCCUIText(
+			type: "string",
+			quantity: nil,
+			quantityParameterIndex: nil,
+			functionName: nil,
+			localizedText: ["de": "Keine Maskenpflicht"],
+			parameters: []
+		)
+		
+		let subtitleText = DCCUIText(
+			type: "string",
+			quantity: nil,
+			quantityParameterIndex: nil,
+			functionName: nil,
+			localizedText: ["de": "Eine Maske ist dennoch empfohlen"],
+			parameters: []
+		)
+		
+		let badgeText = DCCUIText(
+			type: "string",
+			quantity: nil,
+			quantityParameterIndex: nil,
+			functionName: nil,
+			localizedText: ["de": "Keine Maskenpflicht"],
+			parameters: []
+		)
+		
+		let longText = DCCUIText(
+			type: "string",
+			quantity: nil,
+			quantityParameterIndex: nil,
+			functionName: nil,
+			localizedText: ["de": "Von der Maskenpflicht sind alle Personen befreit, die innerhalb der letzten 3 Monate geimpft wurden oder genesen sind oder innerhalb der letzten 24 Stunden negativ getestet wurden."],
+			parameters: []
+		)
+		
+		return DCCWalletInfo(
+			admissionState: dccWalletInfo.admissionState,
+			vaccinationState: dccWalletInfo.vaccinationState,
+			maskState: DCCMaskState(visible: true, badgeText: badgeText, titleText: titleText, subtitleText: subtitleText, longText: longText, faqAnchor: "maskstate", identifier: .maskOptional),
+			boosterNotification: dccWalletInfo.boosterNotification,
+			mostRelevantCertificate: dccWalletInfo.mostRelevantCertificate,
+			verification: dccWalletInfo.verification,
+			validUntil: dccWalletInfo.validUntil,
+			certificateReissuance: dccWalletInfo.certificateReissuance,
+			certificatesRevokedByInvalidationRules: dccWalletInfo.certificatesRevokedByInvalidationRules
+		)
+	}
+	
 	private var firstReissuanceBase45: String {
 		"HC1:6BFOXN*TS0BI$ZDFRH5TSWK3*93X+01V80RBZEJ8USXG43NI 7EFXRV7P4XUS4FDMP7JM:UC*GP-S4FT5D75W9AV88E34L/5R3F9JAY-BI9EW+9K.CMIAO/B.OC4-9D.B6LFDC9 AE 2AB7LOKEH-BXPLV6I-TL8KES/F-1JZ.KBIH:HG43MWY8%FAGUU0QIRR97I2HOAXL92L0: KQMK8J4RK46YBBOAXM42%K:XFEK0OH6PO9:TUQJAJG9-*NIRICVELZUZM9EN9-O97LAQCK /P/T14SIWG9$R7064B69X5QNEQT56QHE+.6L80TM8$M8SNCNAK09TU*5KGIDPS7A8Q/DA-7TLOJ3KV:BW.7-$4UGGBEG*Z1W1O4WDQETN:523EDZT/P7+7S/ZEJZ9Q:NIBV84W1-HGN33SNVMAS6C4XL QQU6S9QLJ KX$FTDAM2H3TS3KNY%AI:OF/9NHB%3KKS06GBF E"
 	}

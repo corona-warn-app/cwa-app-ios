@@ -52,10 +52,8 @@ class HealthCertificateValidationResultViewController: DynamicTableViewControlle
 
 	override func viewWillDisappear(_ animated: Bool) {
 		super.viewWillDisappear(animated)
-		
-		DispatchQueue.main.async { [weak self] in
-			self?.navigationController?.restoreOriginalNavigationBar()
-		}
+
+		self.navigationController?.restoreOriginalNavigationBar()
 		revertStatusBarViewBackgroundColorIfNeeded()
 	}
 

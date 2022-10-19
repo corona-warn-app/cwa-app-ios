@@ -31,13 +31,18 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 	override func layoutSubviews() {
 		super.layoutSubviews()
 
+		if !wasAlreadyShown {
+			scrollView.scrollRectToVisible(stackView.arrangedSubviews[safe: 1]?.frame ?? .zero, animated: true)
+		}
 		// Scroll to first statistics card initially if local statistics exist, and when entering/leaving edit mode
 		if let cellModel = cellModel, !cellModel.regionStatisticsData.isEmpty,
 			scrollView.bounds.origin.x == 0,
-			let firstStatisticsCard = stackView.arrangedSubviews[safe: 1] {
-			DispatchQueue.main.async {
-				self.scrollView.scrollRectToVisible(firstStatisticsCard.frame, animated: self.wasAlreadyShown)
-				self.wasAlreadyShown = true
+			let firstStatisticsCard = stackView.arrangedSubviews[safe: 1],
+			let secondStatisticsCard = stackView.arrangedSubviews[safe: 2] {
+			DispatchQueue.main.async { [weak self] in
+				let shouldScrollToLocalStatistics = HomeStatisticsTableViewCell.editingStatistics || cellModel.hasNewRegion
+				self?.scrollView.scrollRectToVisible(shouldScrollToLocalStatistics ? secondStatisticsCard.frame : firstStatisticsCard.frame, animated: self?.wasAlreadyShown ?? false)
+				self?.wasAlreadyShown = true
 			}
 		}
 	}
@@ -146,6 +151,11 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 			onDismissDistrict: onDismissDistrict,
 			onAccessibilityFocus: onAccessibilityFocus
 		)
+		configurePandemicRadarCard(
+			onInfoButtonTap: onInfoButtonTap,
+			onAccessibilityFocus: {},
+			onUpdate: {}
+		)
 		configureLocalStatisticsCards(
 			onInfoButtonTap: onInfoButtonTap,
 			onAccessibilityFocus: onAccessibilityFocus,
@@ -226,6 +236,45 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 				}
 			)
 		}
+	}
+	
+	private func configurePandemicRadarCard(
+		onInfoButtonTap: @escaping CompletionVoid,
+		onAccessibilityFocus: @escaping CompletionVoid,
+		onUpdate: @escaping CompletionVoid
+	) {
+		guard let pandemicLinkCard = cellModel?.linkCards.first(where: { $0.header.cardID == HomeLinkCard.pandemicRadar.rawValue }) else {
+			return
+		}
+		
+		let nibName = String(describing: HomeLinkCardView.self)
+		let nib = UINib(nibName: nibName, bundle: .main)
+		
+		guard
+			let linkCardView = nib.instantiate(withOwner: self, options: nil).first as? HomeLinkCardView,
+			!stackView.arrangedSubviews.isEmpty
+		else { return }
+		
+		stackView.addArrangedSubview(linkCardView)
+		
+		let widthConstraint = linkCardView.widthAnchor.constraint(equalTo: scrollView.widthAnchor)
+		widthConstraint.isActive = true
+
+		linkCardView.configure(
+			viewModel: HomeLinkCardViewModel(for: pandemicLinkCard),
+			onInfoButtonTap: {
+				onInfoButtonTap()
+			},
+			onDeleteButtonTap: nil,
+			onButtonTap: { url in
+				LinkHelper.open(url: url)
+			}
+		)
+		
+		linkCardView.accessibilityIdentifier = AccessibilityIdentifiers.LinkCard.PandemicRadar.card
+		
+		// Pandemic Radar shouldn't be removable
+		linkCardView.set(editMode: false, animated: false)
 	}
 
 	private func configureLocalStatisticsCards(

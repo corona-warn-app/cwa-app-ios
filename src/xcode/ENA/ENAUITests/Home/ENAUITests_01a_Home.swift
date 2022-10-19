@@ -277,7 +277,15 @@ class ENAUITests_01a_Home: CWATestCase {
 		app.swipeUp(velocity: .fast)
 		
 		snapshot("homescreenrisk_level_\(riskLevel)_risk_one_day_Details_\(String(format: "%04d", (screenshotCounter.inc() )))")
-
+		
+		// Provide additional screenshots to avoid clipping
+		
+		app.swipeDown(velocity: .slow)
+		
+		snapshot("homescreenrisk_level_\(riskLevel)_risk_one_day_Details_\(String(format: "%04d", (screenshotCounter.inc() )))")
+		app.swipeDown(velocity: .slow)
+		
+		snapshot("homescreenrisk_level_\(riskLevel)_risk_one_day_Details_\(String(format: "%04d", (screenshotCounter.inc() )))")
 	}
 	
 	func test_screenshot_homescreen_riskCardHigh_DetailsScreen() throws {
@@ -303,6 +311,18 @@ class ENAUITests_01a_Home: CWATestCase {
 		
 		snapshot("homescreenrisk_level_\(riskLevel)_risk_one_day_Details_\(String(format: "%04d", (screenshotCounter.inc() )))")
 		app.swipeUp()
+		
+		snapshot("homescreenrisk_level_\(riskLevel)_risk_one_day_Details_\(String(format: "%04d", (screenshotCounter.inc() )))")
+		
+		// Provide additional screenshots to avoid clipping
+		
+		app.swipeDown(velocity: .slow)
+		
+		snapshot("homescreenrisk_level_\(riskLevel)_risk_one_day_Details_\(String(format: "%04d", (screenshotCounter.inc() )))")
+		app.swipeDown(velocity: .slow)
+		
+		snapshot("homescreenrisk_level_\(riskLevel)_risk_one_day_Details_\(String(format: "%04d", (screenshotCounter.inc() )))")
+		app.swipeDown(velocity: .slow)
 		
 		snapshot("homescreenrisk_level_\(riskLevel)_risk_one_day_Details_\(String(format: "%04d", (screenshotCounter.inc() )))")
 

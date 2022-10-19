@@ -300,7 +300,7 @@
 
 "Settings_Reset_Label" = "Reset App";
 
-"Settings_Tracing_Description" = "Allow COVID-19 random IDs to be generated and shared.";
+"Settings_Tracing_Description" = "Allow COVID-19 random IDs to be recorded and shared.";
 
 "Settings_Notification_Description" = "Allow automatic notifications of your COVID-19 risk status.";
 
@@ -343,7 +343,7 @@
 
 "NotificationSettings_BulletHeadlineOn" = "Manage Notifications";
 
-"NotificationSettings_BulletHeadlineOff" = "Manage Notifications";
+"NotificationSettings_BulletHeadlineOff" = "Activate Notifications";
 
 "NotificationSettings_BulletDescOn" = "You can define the following settings here:";
 
@@ -423,7 +423,7 @@
 "BackgroundAppRefreshSettings_ShareButton_Title" = "Share Instructions";
 
 /* Onboarding */
-"Onboarding_LetsGo_actionText" = "Let’s get started";
+"Onboarding_LetsGo_actionText" = "Let’s Get Started";
 
 "Onboarding_Continue_actionText" = "Next";
 
@@ -481,7 +481,7 @@
 
 "OnboardingInfo_howDoesDataExchangeWorkPage_boldText" = "If you receive a positive test result, please report this in the app. Sharing your test results is voluntary and secure. Please do this for the sake of everyone’s health.";
 
-"OnboardingInfo_howDoesDataExchangeWorkPage_normalText" = "Your notification is encrypted securely and processed on a secure server. People whose encrypted random IDs your device has collected will now receive a warning along with information about what they should now do.";
+"OnboardingInfo_howDoesDataExchangeWorkPage_normalText" = "Your notification is encrypted securely and processed on a secure server. People whose encrypted random IDs your smartphone has collected will now receive a warning along with information about what they should now do.";
 
 "OnboardingInfo_alwaysStayInformedPage_imageDescription" = "A woman receives a notification from her Corona-Warn-App.";
 
@@ -1300,7 +1300,7 @@
 /* - Expired */
 "Home_resultCard_ExpiredTitle" = "No Longer Valid";
 
-"Home_resultCard_ExpiredDesc" = "Your test is more than 21 days old and is therefore no longer relevant. Please delete the test. You can then add another.";
+"Home_resultCard_ExpiredDesc" = "Your test is more than 2 days old and is therefore no longer relevant. Please delete the test. You can then add another.";
 
 /* - Outdated */
 "Home_resultCard_OutdatedTitle" = "Test No Longer Current";
@@ -1651,10 +1651,15 @@
 
 "DeltaOnboarding_NewVersionFeatures_Button_Continue" = "Next";
 
-"DeltaOnboarding_NewVersionFeatures_Description" = "This update corrects bugs in the app. It does not contain any new features.";
+"DeltaOnboarding_NewVersionFeatures_Description" = "Along with bug fixes, this update also includes new and enhanced features.";
 
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Changes in this release can be found in the app information, under “New Features”.";
+
+/* Version 2.28 */
+"NewVersionFeature_228_pandemic_radar_title" = "Pandemic Radar";
+
+"NewVersionFeature_228_pandemic_radar_description" = "The Corona-Warn-App now contains a “Pandemic Radar” tile, which takes you directly to a Robert Koch Institute website (in German) when tapped. The Pandemic Radar contains a variety of statistics on the coronavirus pandemic, which are updated every working day. Please note that any data used when opening the website will be deducted from your data plan and that the website is not designed to be barrier-free.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Transnational Exposure Logging";
@@ -1980,6 +1985,8 @@
 
 "Statistics_Card_From_CWA" = "through the Corona-Warn-App";
 
+"Statistics_Card_LinkCard_buttonTitle" = "Open external link";
+
 /* - Add Statistics Card */
 "Statistics_Add_SevenDayIncidence" = "Add local 7-day incidence";
 
@@ -1990,6 +1997,15 @@
 "Statistics_Add_fromTheWholeCountry" = "Entire state";
 
 "Statistics_Card_Manage" = "Edit";
+
+/* - Pandemic Radar */
+"Statistics_Card_PandemicRadar_title" = "Pandemic Radar";
+
+"Statistics_Card_PandemicRadar_subtitle" = "From the Robert Koch Institute";
+
+"Statistics_Card_PandemicRadar_description" = "Explore additional pandemic-related statistics";
+
+"Statistics_Card_PandemicRadar_buttonTitle" = "Open external link";
 
 /* - 7 Days Incedence */
 "Statistics_Card_CombinedIncidence_Title" = "7-Day Incidence";
@@ -2133,13 +2149,17 @@
 
 "Statistics_Info_Subtitle" = "Explanation of Statistics";
 
+"Statistics_Info_PandemicRadar_Title" = "Pandemic Radar";
+
+"Statistics_Info_PandemicRadar_Text" = "A variety of statistics on the coronavirus pandemic, which is provided on a Robert Koch Institute website.\nPlease note that any data used when opening the website will be deducted from your data plan and that the website is not designed to be barrier-free.";
+
 "Statistics_Info_Incidence_Title" = "7-Day Incidence";
 
 "Statistics_Info_Local7Days_Title" = "Local 7-Day Incidence";
 
 "Statistics_Info_Local7Days_Text" = "Total number of confirmed new infections in the last 7 days (by reporting date) per 100,000 residents in the configured district or federal state.\nThe hospitalization data refers to the corresponding German state.";
 
-"Statistics_Info_NewInfection_Title" = "Confirmed New Infections";
+"Statistics_Info_NewInfection_Title" = "New Infections";
 
 "Statistics_Info_NewInfection_Text" = "Total number of confirmed new infections in the last 7 days (by reporting date) per 100,000 residents.";
 
@@ -2153,7 +2173,7 @@
 
 "Statistics_Info_Infections_Title" = "Confirmed New Infections";
 
-"Statistics_Info_Infections_Text" = "Number of persons who have been diagnosed with coronavirus and reported to the RKI.";
+"Statistics_Info_Infections_Text" = "Number of persons who have been diagnosed with coronavirus and reported to the RKI. Numbers below a threshold of 1% of the 7-day average are not displayed; also see the explanation under Legend > Time Period.";
 
 "Statistics_Info_KeySubmissions_Title" = "Warnings by App Users";
 
@@ -2189,7 +2209,7 @@
 
 "Statistics_Info_Yesterday_Title" = "Yesterday/Up to yesterday";
 
-"Statistics_Info_Yesterday_Text" = "Number for the previous day/up to the previous day. If no figures are available yet for the previous day, the last date for which figures are available is displayed.";
+"Statistics_Info_Yesterday_Text" = "For “Yesterday/Up to yesterday”, the number for the previous day/up to the previous day is displayed. If no figures are available yet for the previous day, for example, because only few public health offices now send data to the RKI on weekends and public holidays, then the last date for which figures are available is displayed.";
 
 "Statistics_Info_Mean_Title" = "7-Day Average";
 
@@ -2797,9 +2817,9 @@
 
 "HealthCertificate_Overview_Scanning_Info" = "To add additional certificates, use the QR code scanner in the navigation bar below.";
 
-"HealthCertificate_Admission_Scenario_Status_Label" = "Status for the following federal state";
+"HealthCertificate_Admission_Scenario_Status_Label" = "Rules for:";
 
-"HealthCertificate_Admission_Scenario_Button_Label" = "Federal government regulations";
+"HealthCertificate_Admission_Scenario_Button_Label" = "No selection";
 
 "HealthCertificate_Loading_Indicator_Label" = "Determining status...";
 
@@ -2915,6 +2935,8 @@
 
 /* Health Certified Person */
 "HealthCertifiedPerson_faq" = "For further information, please see our FAQ page.";
+
+"HealthCertifiedPerson_faq_maskState" = "For further information about mask mandates, please see our FAQ page.";
 
 "HealthCertifiedPerson_dateOfBirth" = "Born %@";
 
@@ -3295,6 +3317,8 @@
 
 "UniversalQRScanner_InstructionDescription" = "Tests, Your Certificates, Check-ins, and Validation during Ticketing";
 
+"UniversalQRScanner_InstructionDescriptionWarnOthers" = "You can scan check-ins to restore events that you deleted.";
+
 "UniversalQRScanner_FileButtonTitle" = "Open File";
 
 "UniversalQRScanner_CameraFlash" = "Camera flash";
@@ -3438,7 +3462,7 @@
 
 "RecycleBin_deleteAllButtonTitle" = "Delete All Permanently";
 
-"RecycleBin_expirationDateTime" = "will be permanently deleted on %@ at %@";
+"RecycleBin_expirationDateTime" = "Will be permanently deleted on %@ at %@";
 
 /* - Vaccination Certificate */
 "RecycleBin_VaccinationCertificate_headline" = "Vaccination Certificate";

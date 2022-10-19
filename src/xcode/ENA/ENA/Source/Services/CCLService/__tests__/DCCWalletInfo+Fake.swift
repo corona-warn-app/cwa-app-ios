@@ -12,6 +12,7 @@ extension DCCWalletInfo {
 	static func fake(
 		admissionState: DCCAdmissionState = .fake(),
 		vaccinationState: DCCVaccinationState = .fake(),
+		maskState: DCCMaskState = .fake(),
 		boosterNotification: DCCBoosterNotification = .fake(),
 		mostRelevantCertificate: DCCCertificateContainer = .fake(),
 		verification: DCCVerification = .fake(),
@@ -22,6 +23,7 @@ extension DCCWalletInfo {
 		DCCWalletInfo(
 			admissionState: admissionState,
 			vaccinationState: vaccinationState,
+			maskState: maskState,
 			boosterNotification: boosterNotification,
 			mostRelevantCertificate: mostRelevantCertificate,
 			verification: verification,
@@ -100,6 +102,30 @@ extension DCCVaccinationState {
 		)
 	}
 
+}
+
+extension DCCMaskState {
+	
+	static func fake(
+		visible: Bool = false,
+		badgeText: DCCUIText? = nil,
+		titleText: DCCUIText? = nil,
+		subtitleText: DCCUIText? = nil,
+		longText: DCCUIText? = nil,
+		faqAnchor: String? = nil,
+		identifier: MaskStateIdentifier = .maskOptional
+	) -> DCCMaskState {
+		DCCMaskState(
+			visible: visible,
+			badgeText: badgeText,
+			titleText: titleText,
+			subtitleText: subtitleText,
+			longText: longText,
+			faqAnchor: faqAnchor,
+			identifier: identifier
+		)
+	}
+	
 }
 
 extension DCCBoosterNotification {

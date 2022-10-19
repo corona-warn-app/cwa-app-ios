@@ -17,6 +17,7 @@ enum ENAFormatter {
 		let dateFormatter = DateFormatter()
 		dateFormatter.dateStyle = .long
 		dateFormatter.timeStyle = .short
+		dateFormatter.dateFormat = "yyyy.MM.dd HH:mm"
 		let target = Locale.autoupdatingCurrent
 		dateFormatter.locale = target
 		

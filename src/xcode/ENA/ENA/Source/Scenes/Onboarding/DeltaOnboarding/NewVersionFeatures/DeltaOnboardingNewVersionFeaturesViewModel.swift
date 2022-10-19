@@ -13,7 +13,12 @@ struct DeltaOnboardingNewVersionFeaturesViewModel {
 		
 		// ADD NEW FEATURES HERE
 		
-		self.featureVersion = "2.26"
+		self.featureVersion = "2.28"
+		
+		self.newVersionFeatures.append(
+			// Pandemic Radar
+			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature228PandemicRadarTitle, description: AppStrings.NewVersionFeatures.feature228PandemicRadarDescription)
+		)
 	}
 
 	// MARK: - Internal

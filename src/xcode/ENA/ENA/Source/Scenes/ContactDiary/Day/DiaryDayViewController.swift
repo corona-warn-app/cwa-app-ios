@@ -202,9 +202,18 @@ class DiaryDayViewController: UIViewController, UITableViewDataSource, UITableVi
 		segmentedControl.setTitle(AppStrings.ContactDiary.Day.locationsSegment, forSegmentAt: 1)
 		segmentedControl.accessibilityIdentifier = AccessibilityIdentifiers.ContactDiary.segmentedControl
 
-		// required to make segmented control look a bit like iOS 13
-		if #available(iOS 13, *) {
-		} else {
+		segmentedControl.setTitleTextAttributes([
+			.font: UIFont.unscaledENAFont(for: .subheadline),
+			.foregroundColor: UIColor.enaColor(for: .textPrimary1)
+		], for: .normal)
+
+		segmentedControl.setTitleTextAttributes([
+			.font: UIFont.unscaledENAFont(for: .subheadline, weight: .bold),
+			.foregroundColor: UIColor.enaColor(for: .textPrimary1)
+		], for: .selected)
+		
+		// Required to make segmented control look a bit like iOS 13
+		guard #available(iOS 13, *) else {
 			Log.debug("setup segmented control for iOS 12", log: .ui)
 			topSpaceConstraint.constant = 8.0
 			segmentedControl.tintColor = .enaColor(for: .cellBackground)
@@ -221,10 +230,9 @@ class DiaryDayViewController: UIViewController, UITableViewDataSource, UITableVi
 			segmentedControl.layer.masksToBounds = true
 			segmentedControl.layer.cornerRadius = 5.0
 			segmentedControl.layer.borderColor = UIColor.enaColor(for: .cellBackground).cgColor
+			
+			return
 		}
-
-		segmentedControl.setTitleTextAttributes([.font: UIFont.unscaledENAFont(for: .subheadline), .foregroundColor: UIColor.enaColor(for: .textPrimary1)], for: .normal)
-		segmentedControl.setTitleTextAttributes([.font: UIFont.unscaledENAFont(for: .subheadline, weight: .bold), .foregroundColor: UIColor.enaColor(for: .textPrimary1)], for: .selected)
 	}
 
 	private func setupTableView() {

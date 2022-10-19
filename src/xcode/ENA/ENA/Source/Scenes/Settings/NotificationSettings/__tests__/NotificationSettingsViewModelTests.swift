@@ -25,7 +25,7 @@ class NotificationSettingsViewModelTests: CWATestCase {
 		XCTAssertEqual(numberOfSections, 3)
 		XCTAssertEqual(numberOfRowsInSection0, 1)
 		XCTAssertEqual(numberOfRowsInSection1, 2)
-		XCTAssertEqual(numberOfRowsInSection2, 11)
+		XCTAssertEqual(numberOfRowsInSection2, 12)
 	}
 	
 	func testGIVEN_ViewModel_WHEN_NotificationsOff_THEN_CorrectNumberOfCells() {

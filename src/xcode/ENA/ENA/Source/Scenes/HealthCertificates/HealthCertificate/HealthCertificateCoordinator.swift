@@ -281,11 +281,6 @@ final class HealthCertificateCoordinator {
 			title: AppStrings.HealthCertificate.PrintPDF.showVersion,
 			style: .default,
 			handler: { [weak self] _ in
-				// Check first if the certificate is obtained in DE. If not, show error alert.
-				guard healthCertificate.cborWebTokenHeader.issuer == "DE" else {
-					self?.showPdfPrintErrorAlert()
-					return
-				}
 				self?.showPdfGenerationInfo(
 					healthCertificate: healthCertificate
 				)
@@ -490,36 +485,6 @@ final class HealthCertificateCoordinator {
 	) {
 		let activityViewController = UIActivityViewController(activityItems: [exportItem], applicationActivities: nil)
 		printNavigationController.present(activityViewController, animated: true, completion: nil)
-	}
-	
-	private func showPdfPrintErrorAlert() {
-		let alert = UIAlertController(
-			title: AppStrings.HealthCertificate.PrintPDF.ErrorAlert.pdfGeneration.title,
-			message: AppStrings.HealthCertificate.PrintPDF.ErrorAlert.pdfGeneration.message,
-			preferredStyle: .alert
-		)
-		
-		let faqAction = UIAlertAction(
-			title: AppStrings.HealthCertificate.PrintPDF.ErrorAlert.pdfGeneration.faq,
-			style: .default,
-			handler: { _ in
-				LinkHelper.open(urlString: AppStrings.Links.healthCertificatePrintFAQ)
-			}
-		)
-		faqAction.accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.PrintPdf.faqAction
-		alert.addAction(faqAction)
-		
-		let okayAction = UIAlertAction(
-			title: AppStrings.HealthCertificate.PrintPDF.ErrorAlert.pdfGeneration.ok,
-			style: .cancel,
-			handler: { _ in
-				alert.dismiss(animated: true)
-			}
-		)
-		okayAction.accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.PrintPdf.okAction
-		alert.addAction(okayAction)
-
-		navigationController.present(alert, animated: true, completion: nil)
 	}
 	
 	private func showValidationFlow(

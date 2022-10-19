@@ -128,7 +128,7 @@
 
 "ExposureDetection_Guide_Point1" = "Możesz zapoznać się z możliwościami testowania w tym miejscu lub skontaktować się z lekarzem rodzinnym lub apteką.";
 
-"ExposureDetection_Guide_Point1_LinkText" = "Możesz zapoznać się z możliwościami testowania w tym miejscu.";
+"ExposureDetection_Guide_Point1_LinkText" = "Możesz zapoznać się z możliwościami testowania w tym miejscu";
 
 "ExposureDetection_Guide_Point2" = "Więcej informacji na temat procedury testowania można znaleźć na naszej stronie „Często zadawane pytania”.";
 
@@ -300,7 +300,7 @@
 
 "Settings_Reset_Label" = "Resetuj aplikację";
 
-"Settings_Tracing_Description" = "Zezwól na generowanie i udostępnianie losowych identyfikatorów COVID-19.";
+"Settings_Tracing_Description" = "Zezwól na rejestrowanie i udostępnianie losowych identyfikatorów COVID-19.";
 
 "Settings_Notification_Description" = "Zezwól na automatyczne powiadomienia o statusie ryzyka COVID-19";
 
@@ -343,7 +343,7 @@
 
 "NotificationSettings_BulletHeadlineOn" = "Zarządzaj powiadomieniami";
 
-"NotificationSettings_BulletHeadlineOff" = "Zarządzaj powiadomieniami";
+"NotificationSettings_BulletHeadlineOff" = "Aktywuj powiadomienia";
 
 "NotificationSettings_BulletDescOn" = "Tutaj możesz zdefiniować następujące ustawienia:";
 
@@ -481,7 +481,7 @@
 
 "OnboardingInfo_howDoesDataExchangeWorkPage_boldText" = "Jeżeli otrzymasz pozytywny wynik testu, zgłoś ten fakt w aplikacji. Udostępnianie wyników testu jest dobrowolne i bezpieczne. Zrób to ze względu na zdrowie innych osób.";
 
-"OnboardingInfo_howDoesDataExchangeWorkPage_normalText" = "Twoje powiadomienie jest szyfrowane w bezpieczny sposób i przetwarzane na bezpiecznym serwerze. Osoby, których zaszyfrowane losowe identyfikatory zostały zgromadzone przez Twoje urządzenie, otrzymają wtedy ostrzeżenie wraz z informacją na temat dalszych kroków postępowania.";
+"OnboardingInfo_howDoesDataExchangeWorkPage_normalText" = "Twoje powiadomienie jest szyfrowane w bezpieczny sposób i przetwarzane na bezpiecznym serwerze. Osoby, których zaszyfrowane losowe identyfikatory zostały zgromadzone przez Twój smartfon, otrzymają wtedy ostrzeżenie wraz z informacją na temat dalszych kroków postępowania.";
 
 "OnboardingInfo_alwaysStayInformedPage_imageDescription" = "Kobieta otrzymuje powiadomienie od swojej aplikacji Corona-Warn-App.";
 
@@ -1300,7 +1300,7 @@
 /* - Expired */
 "Home_resultCard_ExpiredTitle" = "Utrata ważności";
 
-"Home_resultCard_ExpiredDesc" = "Twój test ma więcej niż 21 dni i stracił ważność. Usuń test. Będziesz mieć wówczas możliwość dodania kolejnego.";
+"Home_resultCard_ExpiredDesc" = "Twój test ma więcej niż 2 dni i stracił ważność. Usuń test. Będziesz mieć wówczas możliwość dodania kolejnego.";
 
 /* - Outdated */
 "Home_resultCard_OutdatedTitle" = "Test nie jest już aktualny";
@@ -1651,10 +1651,15 @@
 
 "DeltaOnboarding_NewVersionFeatures_Button_Continue" = "Dalej";
 
-"DeltaOnboarding_NewVersionFeatures_Description" = "Ta aktualizacja poprawia błędy w aplikacji. Nie zawiera żadnych nowych funkcji.";
+"DeltaOnboarding_NewVersionFeatures_Description" = "Oprócz poprawek błędów ta aktualizacja zawiera również nowe i ulepszone funkcje.";
 
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Dane o zmianach w tej wersji można znaleźć w informacjach o aplikacji w sekcji „Nowe funkcje”.";
+
+/* Version 2.28 */
+"NewVersionFeature_228_pandemic_radar_title" = "Radar pandemiczny";
+
+"NewVersionFeature_228_pandemic_radar_description" = "Aplikacja Corona-Warn-App zawiera teraz kafelek „Radar pandemiczny”, który po dotknięciu prowadzi bezpośrednio do strony internetowej Instytutu Roberta Kocha (w języku niemieckim). Radar pandemiczny zawiera różnorodne statystyki dotyczące pandemii koronawirusa, które są aktualizowane w każdym dniu roboczym. Zwróć uwagę, że wszelkie dane użyte podczas otwierania strony zostaną odjęte od Twojego planu danych oraz że strona nie została zaprojektowana jako pozbawiona barier.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Rejestrowanie narażenia w różnych krajach";
@@ -1980,6 +1985,8 @@
 
 "Statistics_Card_From_CWA" = "za pośrednictwem Corona-Warn-App";
 
+"Statistics_Card_LinkCard_buttonTitle" = "Otwórz zewnętrzny link";
+
 /* - Add Statistics Card */
 "Statistics_Add_SevenDayIncidence" = "Dodaj lokalną 7-dniową zapadalność";
 
@@ -1990,6 +1997,15 @@
 "Statistics_Add_fromTheWholeCountry" = "Cały kraj związkowy";
 
 "Statistics_Card_Manage" = "Edytuj";
+
+/* - Pandemic Radar */
+"Statistics_Card_PandemicRadar_title" = "Radar pandemiczny";
+
+"Statistics_Card_PandemicRadar_subtitle" = "Z Instytutu Roberta Kocha";
+
+"Statistics_Card_PandemicRadar_description" = "Poznaj dodatkowe statystyki związane z pandemią";
+
+"Statistics_Card_PandemicRadar_buttonTitle" = "Otwórz zewnętrzny link";
 
 /* - 7 Days Incedence */
 "Statistics_Card_CombinedIncidence_Title" = "7-dniowa zapadalność";
@@ -2133,13 +2149,17 @@
 
 "Statistics_Info_Subtitle" = "Objaśnienie statystyk";
 
+"Statistics_Info_PandemicRadar_Title" = "Radar pandemiczny";
+
+"Statistics_Info_PandemicRadar_Text" = "Różnorodne statystyki dotyczące pandemii koronawirusa, które znajdują się na stronie Instytutu Roberta Kocha.\nZwróć uwagę, że wszelkie dane użyte podczas otwierania strony zostaną odjęte od Twojego planu danych oraz że strona nie została zaprojektowana jako pozbawiona barier.";
+
 "Statistics_Info_Incidence_Title" = "7-dniowa zapadalność";
 
 "Statistics_Info_Local7Days_Title" = "Lokalna 7-dniowa zapadalność";
 
 "Statistics_Info_Local7Days_Text" = "Łączna liczba potwierdzonych nowych zakażeń w ciągu ostatnich 7 dni (według daty raportowania) na 100 000 mieszkańców w skonfigurowanym okręgu lub kraju związkowym.\nDane dotyczące hospitalizacji odnoszą się do odpowiedniego niemieckiego kraju związkowego.";
 
-"Statistics_Info_NewInfection_Title" = "Potwierdzone nowe zakażenia";
+"Statistics_Info_NewInfection_Title" = "Nowe zakażenia";
 
 "Statistics_Info_NewInfection_Text" = "Łączna liczba potwierdzonych nowych zakażeń w ciągu ostatnich 7 dni (według daty zgłoszenia) na 100 000 mieszkańców.";
 
@@ -2153,7 +2173,7 @@
 
 "Statistics_Info_Infections_Title" = "Potwierdzone nowe zakażenia";
 
-"Statistics_Info_Infections_Text" = "Liczba osób ze zdiagnozowanym zakażeniem koronawirusem zgłoszonych do RKI.";
+"Statistics_Info_Infections_Text" = "Liczba osób, u których zdiagnozowano koronawirusa i które zostały zgłoszone do RKI. Liczby poniżej progu wynoszącego 1% średniej z 7 dni nie są wyświetlane; zobacz również wyjaśnienie w opcji menu: Legenda > Okres czasu.";
 
 "Statistics_Info_KeySubmissions_Title" = "Ostrzeżenia od użytkowników aplikacji";
 
@@ -2189,7 +2209,7 @@
 
 "Statistics_Info_Yesterday_Title" = "Wczoraj/do wczoraj";
 
-"Statistics_Info_Yesterday_Text" = "Liczba dotycząca dnia poprzedniego/okresu do dnia poprzedniego. Jeśli dane liczbowe za poprzedni dzień nie są jeszcze dostępne, wyświetlana jest ostatnia data, dla której istnieją dane.";
+"Statistics_Info_Yesterday_Text" = "W przypadku przedziału czasu „Wczoraj/do wczoraj” wyświetlana jest liczba dotycząca dnia poprzedniego/okresu do dnia poprzedniego. Jeśli dane liczbowe za poprzedni dzień nie są jeszcze dostępne, na przykład dlatego, że tylko nieliczne instytucje zdrowia publicznego przesyłają obecnie dane do RKI w weekendy i dni świąteczne, wyświetlana jest ostatnia data, dla której dane są dostępne.";
 
 "Statistics_Info_Mean_Title" = "7-dniowa średnia";
 
@@ -2797,9 +2817,9 @@
 
 "HealthCertificate_Overview_Scanning_Info" = "Aby dodać kolejne certyfikaty, użyj skanera kodów QR na pasku nawigacyjnym poniżej.";
 
-"HealthCertificate_Admission_Scenario_Status_Label" = "Status dla następujących krajów związkowych";
+"HealthCertificate_Admission_Scenario_Status_Label" = "Zasady dotyczące:";
 
-"HealthCertificate_Admission_Scenario_Button_Label" = "Przepisy władz federalnych";
+"HealthCertificate_Admission_Scenario_Button_Label" = "Bez zaznaczenia";
 
 "HealthCertificate_Loading_Indicator_Label" = "Ustalanie statusu...";
 
@@ -2915,6 +2935,8 @@
 
 /* Health Certified Person */
 "HealthCertifiedPerson_faq" = "Więcej informacji znajduje się na naszej stronie „Często zadawane pytania”.";
+
+"HealthCertifiedPerson_faq_maskState" = "Więcej informacji na temat obowiązku noszenia maseczki znajduje się na naszej stronie z często zadawanymi pytaniami.";
 
 "HealthCertifiedPerson_dateOfBirth" = "Data urodzenia %@";
 
@@ -3295,6 +3317,8 @@
 
 "UniversalQRScanner_InstructionDescription" = "Testy, Twoje certyfikaty, zameldowania i walidacja podczas rezerwacji biletów";
 
+"UniversalQRScanner_InstructionDescriptionWarnOthers" = "Możesz zeskanować zameldowania, aby przywrócić usunięte wydarzenia.";
+
 "UniversalQRScanner_FileButtonTitle" = "Otwórz plik";
 
 "UniversalQRScanner_CameraFlash" = "Lampa błyskowa aparatu";
@@ -3438,7 +3462,7 @@
 
 "RecycleBin_deleteAllButtonTitle" = "Usuń trwale wszystko";
 
-"RecycleBin_expirationDateTime" = "zostanie trwale usunięty dnia %@ o %@";
+"RecycleBin_expirationDateTime" = "Zostanie trwale usunięty dnia %@ o %@";
 
 /* - Vaccination Certificate */
 "RecycleBin_VaccinationCertificate_headline" = "Certyfikat szczepienia";

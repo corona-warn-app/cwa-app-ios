@@ -123,6 +123,10 @@ class HealthCertificateService: HealthCertificateServiceServable {
 		return allDatesToExam.min()
 	}
 
+	var hasAppVersionChangedSinceLastWalletInfoUpdate: Bool {
+		store.appVersion != Bundle.main.appVersion
+	}
+	
 	func setup(
 		updatingWalletInfos: Bool,
 		completion: @escaping () -> Void
@@ -407,14 +411,15 @@ class HealthCertificateService: HealthCertificateServiceServable {
 				return
 			}
 			let dispatchGroup = DispatchGroup()
-			for person in self.healthCertifiedPersons where (configurationDidChange || person.needsDCCWalletInfoUpdate || isForced) {
+			for person in self.healthCertifiedPersons where (configurationDidChange || person.needsDCCWalletInfoUpdate || self.hasAppVersionChangedSinceLastWalletInfoUpdate || isForced) {
 				dispatchGroup.enter()
 				self.updateDCCWalletInfo(for: person) {
 					dispatchGroup.leave()
 				}
 			}
 
-			dispatchGroup.notify(queue: .global()) {
+			dispatchGroup.notify(queue: .global()) { [weak self] in
+				self?.store.appVersion = Bundle.main.appVersion
 				completion?()
 			}
 		}
@@ -746,13 +751,18 @@ class HealthCertificateService: HealthCertificateServiceServable {
 				} else {
 					person.gradientType = .solidGrey
 				}
+				
+				// Overwrite the blue or grey with green when mask state is optional
+				if person.isMaskOptional {
+					person.gradientType = .green
+				}
 			}
 	}
 
 	private func updateDCCWalletInfo(for person: HealthCertifiedPerson, completion: (() -> Void)? = nil) {
 		person.queue.async {
 			let result = self.cclService.dccWalletInfo(
-				for: person.healthCertificates.map { $0.dccWalletCertificate }, with: self.store.lastSelectedScenarioIdentifier ?? ""
+				for: person.healthCertificates.map { $0.dccWalletCertificate }, with: self.cclService.dccAdmissionCheckScenariosEnabled ? self.store.lastSelectedScenarioIdentifier : ""
 			)
 
 			switch result {
@@ -777,6 +787,12 @@ class HealthCertificateService: HealthCertificateServiceServable {
 							dccWalletInfo: dccWalletInfo,
 							certifiedPerson: person
 						)
+					}
+					if LaunchArguments.healthCertificate.isMaskRequiredStateEnabled.boolValue {
+						person.dccWalletInfo = self.updateDccWalletInfoForMockRequiredMaskState(dccWalletInfo: dccWalletInfo)
+					}
+					if LaunchArguments.healthCertificate.isMaskOptionalStateEnabled.boolValue {
+						person.dccWalletInfo = self.updateDccWalletInfoForMockOptionalMaskState(dccWalletInfo: dccWalletInfo)
 					}
 				}
 				#endif
@@ -819,6 +835,8 @@ class HealthCertificateService: HealthCertificateServiceServable {
 				person.mostRecentWalletInfoUpdateFailed = true
 				completion?()
 			}
+			
+			self.updateGradients()
 		}
 	}
 

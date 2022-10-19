@@ -57,8 +57,11 @@ class HomeStatisticsCardViewModel {
 	
 	init(regionStatisticsData: RegionStatisticsData) {
 		title = AppStrings.Statistics.AddCard.localCardTitle
-		titleAccessibilityIdentifier = AccessibilityIdentifiers.LocalStatistics.localStatisticsCardTitle
 		subtitle = regionStatisticsData.region.localizedName
+		titleAccessibilityIdentifier = AccessibilityIdentifiers.LocalStatistics.localStatisticsCardTitle
+		subtitleAccessibilityIdentifier = "\(AccessibilityIdentifiers.LocalStatistics.localStatisticsCardSubtitle).\(regionStatisticsData.region.localizedName)"
+		primaryValueAccessibilityIdentifier = "\(AccessibilityIdentifiers.LocalStatistics.localStatisticsCardPrimaryValue).\(regionStatisticsData.region.localizedName)"
+		secondaryValueAccessibilityIdentifier = "\(AccessibilityIdentifiers.LocalStatistics.localStatisticsCardSecondaryValue).\(regionStatisticsData.region.localizedName)"
 		illustrationImage = UIImage(named: "Illu_7-Tage-Lokal-Inzidenz")
 
 		if let sevenDayTrend = regionStatisticsData.sevenDayIncidence, let updatedAt = regionStatisticsData.updatedAt {
@@ -133,6 +136,10 @@ class HomeStatisticsCardViewModel {
 	@OpenCombine.Published private(set) var footnote: String?
 
 	var titleAccessibilityIdentifier: String?
+	var subtitleAccessibilityIdentifier: String?
+	var primaryValueAccessibilityIdentifier: String?
+	var secondaryValueAccessibilityIdentifier: String?
+	var tertiaryValueAccessibilityIdentifier: String?
 	var infoButtonAccessibilityIdentifier: String?
 	
 	// MARK: - Private
@@ -140,6 +147,10 @@ class HomeStatisticsCardViewModel {
 	private func setupInfections(for keyFigureCard: SAP_Internal_Stats_KeyFigureCard) {
 		title = AppStrings.Statistics.Card.Infections.title
 		titleAccessibilityIdentifier = AccessibilityIdentifiers.Statistics.Infections.title
+		subtitleAccessibilityIdentifier = AccessibilityIdentifiers.Statistics.Infections.subtitle
+		primaryValueAccessibilityIdentifier = AccessibilityIdentifiers.Statistics.Infections.primaryValueTitle
+		secondaryValueAccessibilityIdentifier = AccessibilityIdentifiers.Statistics.Infections.secondaryValueTitle
+		tertiaryValueAccessibilityIdentifier = AccessibilityIdentifiers.Statistics.Infections.tertiaryValueTitle
 		subtitle = AppStrings.Statistics.Card.fromNationWide
 		infoButtonAccessibilityIdentifier = AccessibilityIdentifiers.Statistics.Infections.infoButton
 		illustrationImage = UIImage(named: "Illu_Bestaetigte_Neuinfektionen")
@@ -167,6 +178,10 @@ class HomeStatisticsCardViewModel {
 		title = AppStrings.Statistics.Card.KeySubmissions.title
 		subtitle = AppStrings.Statistics.Card.fromCWA
 		titleAccessibilityIdentifier = AccessibilityIdentifiers.Statistics.KeySubmissions.title
+		subtitleAccessibilityIdentifier = AccessibilityIdentifiers.Statistics.KeySubmissions.subtitle
+		primaryValueAccessibilityIdentifier = AccessibilityIdentifiers.Statistics.KeySubmissions.primaryValueTitle
+		secondaryValueAccessibilityIdentifier = AccessibilityIdentifiers.Statistics.KeySubmissions.secondaryValueTitle
+		tertiaryValueAccessibilityIdentifier = AccessibilityIdentifiers.Statistics.KeySubmissions.tertiaryValueTitle
 		infoButtonAccessibilityIdentifier = AccessibilityIdentifiers.Statistics.KeySubmissions.infoButton
 		illustrationImage = UIImage(named: "Illu_Warnende_Personen")
 
@@ -193,6 +208,8 @@ class HomeStatisticsCardViewModel {
 		title = AppStrings.Statistics.Card.ReproductionNumber.title
 		subtitle = AppStrings.Statistics.Card.fromNationWide
 		titleAccessibilityIdentifier = AccessibilityIdentifiers.Statistics.ReproductionNumber.title
+		subtitleAccessibilityIdentifier = AccessibilityIdentifiers.Statistics.ReproductionNumber.subtitle
+		primaryValueAccessibilityIdentifier = AccessibilityIdentifiers.Statistics.ReproductionNumber.primaryValueTitle
 		infoButtonAccessibilityIdentifier = AccessibilityIdentifiers.Statistics.ReproductionNumber.infoButton
 		illustrationImage = UIImage(named: "Illu_7-Tage-R-Wert")
 
@@ -211,6 +228,10 @@ class HomeStatisticsCardViewModel {
 	private func setupAtLeastOneVaccinatedPerson(for keyFigureCard: SAP_Internal_Stats_KeyFigureCard) {
 		title = AppStrings.Statistics.Card.AtleastOneVaccinated.title
 		titleAccessibilityIdentifier = AccessibilityIdentifiers.Statistics.AtLeastOneVaccination.title
+		subtitleAccessibilityIdentifier = AccessibilityIdentifiers.Statistics.AtLeastOneVaccination.subtitle
+		primaryValueAccessibilityIdentifier = AccessibilityIdentifiers.Statistics.AtLeastOneVaccination.primaryValueTitle
+		secondaryValueAccessibilityIdentifier = AccessibilityIdentifiers.Statistics.AtLeastOneVaccination.secondaryValueTitle
+		tertiaryValueAccessibilityIdentifier = AccessibilityIdentifiers.Statistics.AtLeastOneVaccination.tertiaryValueTitle
 		infoButtonAccessibilityIdentifier = AccessibilityIdentifiers.Statistics.AtLeastOneVaccination.infoButton
 		illustrationImage = UIImage(named: "AtleastOneVaccinated")
 		subtitle = AppStrings.Statistics.Card.fromNationWide
@@ -239,6 +260,10 @@ class HomeStatisticsCardViewModel {
 		title = AppStrings.Statistics.Card.FullyVaccinated.title
 		subtitle = AppStrings.Statistics.Card.fromNationWide
 		titleAccessibilityIdentifier = AccessibilityIdentifiers.Statistics.FullyVaccinated.title
+		subtitleAccessibilityIdentifier = AccessibilityIdentifiers.Statistics.FullyVaccinated.subtitle
+		primaryValueAccessibilityIdentifier = AccessibilityIdentifiers.Statistics.FullyVaccinated.primaryValueTitle
+		secondaryValueAccessibilityIdentifier = AccessibilityIdentifiers.Statistics.FullyVaccinated.secondaryValueTitle
+		tertiaryValueAccessibilityIdentifier = AccessibilityIdentifiers.Statistics.FullyVaccinated.tertiaryValueTitle
 		infoButtonAccessibilityIdentifier = AccessibilityIdentifiers.Statistics.FullyVaccinated.infoButton
 
 		illustrationImage = UIImage(named: "FullyVaccinated")
@@ -267,6 +292,10 @@ class HomeStatisticsCardViewModel {
 		title = AppStrings.Statistics.Card.DoseRates.title
 		subtitle = AppStrings.Statistics.Card.fromNationWide
 		titleAccessibilityIdentifier = AccessibilityIdentifiers.Statistics.Doses.title
+		subtitleAccessibilityIdentifier = AccessibilityIdentifiers.Statistics.Doses.subtitle
+		primaryValueAccessibilityIdentifier = AccessibilityIdentifiers.Statistics.Doses.primaryValueTitle
+		secondaryValueAccessibilityIdentifier = AccessibilityIdentifiers.Statistics.Doses.secondaryValueTitle
+		tertiaryValueAccessibilityIdentifier = AccessibilityIdentifiers.Statistics.Doses.tertiaryValueTitle
 		infoButtonAccessibilityIdentifier = AccessibilityIdentifiers.Statistics.Doses.infoButton
 		illustrationImage = UIImage(named: "Doses")
 
@@ -290,8 +319,10 @@ class HomeStatisticsCardViewModel {
 		
 	private func setupInfectedPeopleInIntensiveCare(for keyFigureCard: SAP_Internal_Stats_KeyFigureCard) {
 		title = AppStrings.Statistics.Card.IntensiveCare.title
-		titleAccessibilityIdentifier = AccessibilityIdentifiers.Statistics.IntensiveCare.title
 		subtitle = AppStrings.Statistics.Card.fromNationWide
+		titleAccessibilityIdentifier = AccessibilityIdentifiers.Statistics.IntensiveCare.title
+		subtitleAccessibilityIdentifier = AccessibilityIdentifiers.Statistics.IntensiveCare.subtitle
+		primaryValueAccessibilityIdentifier = AccessibilityIdentifiers.Statistics.IntensiveCare.primaryValueTitle
 		infoButtonAccessibilityIdentifier = AccessibilityIdentifiers.Statistics.IntensiveCare.infoButton
 		illustrationImage = UIImage(named: "Illu_Intensive_Care")
 
@@ -311,6 +342,9 @@ class HomeStatisticsCardViewModel {
 		title = AppStrings.Statistics.Card.Combined7DaysIncidence.title
 		subtitle = AppStrings.Statistics.Card.fromNationWide
 		titleAccessibilityIdentifier = AccessibilityIdentifiers.Statistics.Combined7DayIncidence.title
+		subtitleAccessibilityIdentifier = AccessibilityIdentifiers.Statistics.Combined7DayIncidence.subtitle
+		primaryValueAccessibilityIdentifier = AccessibilityIdentifiers.Statistics.Combined7DayIncidence.primaryValueTitle
+		secondaryValueAccessibilityIdentifier = AccessibilityIdentifiers.Statistics.Combined7DayIncidence.secondaryValueTitle
 		infoButtonAccessibilityIdentifier = AccessibilityIdentifiers.Statistics.Combined7DayIncidence.infoButton
 
 		illustrationImage = UIImage(named: "Illu_7-Tage-Inzidenz")
@@ -343,6 +377,10 @@ class HomeStatisticsCardViewModel {
 		title = AppStrings.Statistics.Card.BoosterVaccination.title
 		subtitle = AppStrings.Statistics.Card.fromNationWide
 		titleAccessibilityIdentifier = AccessibilityIdentifiers.Statistics.BoosterVaccination.title
+		subtitleAccessibilityIdentifier = AccessibilityIdentifiers.Statistics.BoosterVaccination.subtitle
+		primaryValueAccessibilityIdentifier = AccessibilityIdentifiers.Statistics.BoosterVaccination.primaryValueTitle
+		secondaryValueAccessibilityIdentifier = AccessibilityIdentifiers.Statistics.BoosterVaccination.secondaryValueTitle
+		tertiaryValueAccessibilityIdentifier = AccessibilityIdentifiers.Statistics.BoosterVaccination.tertiaryValueTitle
 		infoButtonAccessibilityIdentifier = AccessibilityIdentifiers.Statistics.BoosterVaccination.infoButton
 
 		illustrationImage = UIImage(named: "Illu_Booster_Vaccination")

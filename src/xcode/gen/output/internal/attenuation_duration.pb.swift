@@ -87,6 +87,12 @@ struct SAP_Internal_Weights {
   init() {}
 }
 
+#if swift(>=5.5) && canImport(_Concurrency)
+extension SAP_Internal_AttenuationDuration: @unchecked Sendable {}
+extension SAP_Internal_Thresholds: @unchecked Sendable {}
+extension SAP_Internal_Weights: @unchecked Sendable {}
+#endif  // swift(>=5.5) && canImport(_Concurrency)
+
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
 fileprivate let _protobuf_package = "SAP.internal"

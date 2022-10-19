@@ -20,7 +20,8 @@ class HealthCertifiedPersonCellModel {
 			return nil
 		}
 
-		backgroundGradientType = healthCertifiedPerson.gradientType
+		self.healthCertifiedPerson = healthCertifiedPerson
+		backgroundGradientType = healthCertifiedPerson.isMaskOptional ? .green : healthCertifiedPerson.gradientType
 
 		title = AppStrings.HealthCertificate.Overview.covidTitle
 		name = healthCertifiedPerson.name?.fullName
@@ -58,12 +59,23 @@ class HealthCertifiedPersonCellModel {
 		}
 
 		if let admissionState = healthCertifiedPerson.dccWalletInfo?.admissionState,
-		   admissionState.visible && !(admissionState.badgeText?.localized(cclService: cclService) ?? "").isEmpty {
-			isStatusTitleVisible = true
-			shortStatus = admissionState.badgeText?.localized(cclService: cclService)
+		   admissionState.visible, !(admissionState.badgeText?.localized(cclService: cclService) ?? "").isEmpty {
+			isShortAdmissionStatusVisible = true
+			shortAdmissionStatus = admissionState.badgeText?.localized(cclService: cclService)
 		} else {
-			isStatusTitleVisible = false
-			shortStatus = nil
+			isShortAdmissionStatusVisible = false
+			shortAdmissionStatus = nil
+		}
+		
+		if let maskState = healthCertifiedPerson.dccWalletInfo?.maskState,
+		   maskState.visible, !(maskState.badgeText?.localized(cclService: cclService) ?? "").isEmpty {
+			maskStatus = maskState.badgeText?.localized(cclService: cclService)
+			isMaskStatusVisible = true
+			maskStateIdentifier = maskState.identifier
+		} else {
+			maskStatus = nil
+			isMaskStatusVisible = false
+			maskStateIdentifier = .other
 		}
 
 		if let certificates = healthCertifiedPerson.dccWalletInfo?.verification.certificates.prefix(3), certificates.count == 2 || certificates.count == 3 {
@@ -77,6 +89,8 @@ class HealthCertifiedPersonCellModel {
 		}
 
 		self.onTapToDelete = nil
+		
+		setupSubscriptions()
 	}
 
 	init?(
@@ -104,14 +118,20 @@ class HealthCertifiedPersonCellModel {
 			description: "\(String(describing: decodingFailedHealthCertificate.error))"
 		)
 
-		isStatusTitleVisible = false
-		shortStatus = nil
+		shortAdmissionStatus = nil
+		maskStatus = nil
+		maskStateIdentifier = .other
+		
+		isShortAdmissionStatusVisible = false
+		isMaskStatusVisible = false
 
 		switchableHealthCertificates = [:]
 
 		self.onTapToDelete = {
 			onTapToDelete(decodingFailedHealthCertificate)
 		}
+		
+		setupSubscriptions()
 	}
 
 	// MARK: - Internal
@@ -130,18 +150,62 @@ class HealthCertifiedPersonCellModel {
 
 	let caption: Caption?
 
-	let isStatusTitleVisible: Bool
-	let shortStatus: String?
-
+	let shortAdmissionStatus: String?
+	let maskStatus: String?
+	let maskStateIdentifier: MaskStateIdentifier
+	
+	let isShortAdmissionStatusVisible: Bool
+	let isMaskStatusVisible: Bool
+	
 	let switchableHealthCertificates: OrderedDictionary<String, HealthCertificate>
 
 	let onTapToDelete: (() -> Void)?
+	var onUpdateGradientType: ((GradientView.GradientType) -> Void)?
 
+	var fontColorForMaskState: UIColor {
+		switch maskStateIdentifier {
+		case .maskRequired:
+			return .enaColor(for: .maskBadgeGrey)
+		case .maskOptional, .other:
+			return .enaColor(for: .textContrast)
+		}
+	}
+	
+	var imageForMaskState: UIImage? {
+		switch maskStateIdentifier {
+		case .maskRequired:
+			return UIImage(imageLiteralResourceName: "Icon_maskRequired")
+		case .maskOptional, .other:
+			return UIImage(imageLiteralResourceName: "Icon_maskOptional")
+		}
+	}
+
+	var gradientForMaskState: GradientView.GradientType {
+		switch maskStateIdentifier {
+		case .maskRequired:
+			return .whiteWithGreyBorder
+		case .maskOptional, .other:
+			return .solidLightGreen
+		}
+	}
+	
+	var gradientForAdmissionState: GradientView.GradientType {
+		if maskStateIdentifier == .maskOptional {
+			return .solidDarkGreen
+		} else {
+			return backgroundGradientType
+		}
+	}
+	
 	func showHealthCertificate(at index: Int) {
 		qrCodeViewModel.updateImage(with: switchableHealthCertificates.elements[index].value)
 	}
 
 	// MARK: - Private
+	
+	private var healthCertifiedPerson: HealthCertifiedPerson?
+	
+	private var subscriptions: Set<AnyCancellable> = []
 
 	private static func initialCertificate(for person: HealthCertifiedPerson) -> HealthCertificate? {
 		if let firstVerificationCertificate = person.dccWalletInfo?.verification.certificates.first,
@@ -182,6 +246,59 @@ class HealthCertifiedPersonCellModel {
 				image: UIImage(named: "Icon_ExpiredInvalid"),
 				description: AppStrings.HealthCertificate.ValidityState.blockedRevoked
 			)
+		}
+	}
+	
+	private func setupSubscriptions() {
+		guard let healthCertifiedPerson = healthCertifiedPerson else { return }
+		
+		healthCertifiedPerson.$gradientType
+			.sink { [weak self] in self?.onUpdateGradientType?($0) }
+			.store(in: &subscriptions)
+	}
+}
+
+extension HealthCertifiedPersonCellModel {
+	enum MaskAndAdmissionStatesConfiguration {
+		/// Show Nothing
+		case maskStateInvisibleAdmissionStateInvisible
+		
+		/// Show Admission Status Badge alone on the right side
+		case maskStateInvisibleAdmissionStateVisible
+		
+		/// Show only Mask Status Badge with 100% width
+		case maskStateVisibleAdmissionStateInvisible
+		
+		/// Show Mask Status Badge and Admission Status Badge
+		case maskStateVisibleAdmissionStateVisible
+		
+		/// Show Spacer with 100% width
+		case maskStateInvisibleAdmissionStateNull
+		
+		/// Show Mask Status Badge with 80% width
+		case maskStateVisibleAdmissionStateNull
+		
+		/// Show Spacer with 100% width
+		case maskStateNullAdmissionStateNull
+	}
+	
+	/// Returns how to configure the view for mask and admission states
+	var maskAndAdmissionStatesConfiguration: MaskAndAdmissionStatesConfiguration {
+		switch (healthCertifiedPerson?.dccWalletInfo?.maskState?.visible, healthCertifiedPerson?.dccWalletInfo?.admissionState.visible) {
+		case (false, false):
+			return .maskStateInvisibleAdmissionStateInvisible
+		case (false, true):
+			return .maskStateInvisibleAdmissionStateVisible
+		case (true, true):
+			return .maskStateVisibleAdmissionStateVisible
+		case (false, nil):
+			return .maskStateInvisibleAdmissionStateNull
+		case (true, nil):
+			return .maskStateVisibleAdmissionStateNull
+		case (nil, nil):
+			return .maskStateNullAdmissionStateNull
+		default:
+			return .maskStateInvisibleAdmissionStateInvisible
 		}
 	}
 }

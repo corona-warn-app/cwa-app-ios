@@ -19,12 +19,13 @@ class LocalStatisticsProvider: LocalStatisticsProviding {
 	// MARK: - Internal
 
 	var regionStatisticsData = OpenCombine.CurrentValueSubject<[RegionStatisticsData], Never>([])
+	private(set) var hasNewRegion = false
 
 	func add(_ region: LocalStatisticsRegion) {
 		guard !store.selectedLocalStatisticsRegions.contains(region) else {
 			return
 		}
-
+		hasNewRegion = true
 		store.selectedLocalStatisticsRegions.append(region)
 		updatePublisherFromStore()
 		updateLocalStatistics()

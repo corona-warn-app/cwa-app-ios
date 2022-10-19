@@ -300,7 +300,7 @@
 
 "Settings_Reset_Label" = "Изчистване на данните в приложението";
 
-"Settings_Tracing_Description" = "Разрешаване на генерирането и споделянето на случайни ИД кодове за COVID-19";
+"Settings_Tracing_Description" = "Разрешаване на записването и споделянето на случайни ИД кодове за COVID-19";
 
 "Settings_Notification_Description" = "Разрешаване на автоматични известия за Вашия статус на риск от заразяване с COVID-19.";
 
@@ -343,7 +343,7 @@
 
 "NotificationSettings_BulletHeadlineOn" = "Управление на известия";
 
-"NotificationSettings_BulletHeadlineOff" = "Управление на известия";
+"NotificationSettings_BulletHeadlineOff" = "Активиране на известия";
 
 "NotificationSettings_BulletDescOn" = "Можете да дефинирате следните настройки тук:";
 
@@ -481,7 +481,7 @@
 
 "OnboardingInfo_howDoesDataExchangeWorkPage_boldText" = "Ако получите положителен резултат от тест, моля съобщете за това в приложението. Споделянето на резултатите от Вашите тестове е доброволно и безопасно. Направете го в името на общото здраве.";
 
-"OnboardingInfo_howDoesDataExchangeWorkPage_normalText" = "Вашето известие се криптира с висока степен на сигурност и се обработва на защитен сървър. Лицата, чиито криптирани случайни ИД кодове са запазени на Вашето устройство, ще получат предупреждение, както и информация относно това, което трябва да направят.";
+"OnboardingInfo_howDoesDataExchangeWorkPage_normalText" = "Вашето известие се криптира с висока степен на сигурност и се обработва на защитен сървър. Лицата, чиито криптирани случайни ИД кодове са запазени на Вашия смартфон, ще получат предупреждение, както и информация относно това, което трябва да направят.";
 
 "OnboardingInfo_alwaysStayInformedPage_imageDescription" = "Жена, която получава известие от приложението Corona-Warn-App.";
 
@@ -1300,7 +1300,7 @@
 /* - Expired */
 "Home_resultCard_ExpiredTitle" = "Вече не е валиден";
 
-"Home_resultCard_ExpiredDesc" = "Вашият тест е направен преди повече от 21 дни и вече не е валиден. Моля, изтрийте го, за да можете да добавите друг след това.";
+"Home_resultCard_ExpiredDesc" = "Вашият тест е направен преди повече от 2 дни и вече не е валиден. Моля, изтрийте го, за да можете да добавите друг след това.";
 
 /* - Outdated */
 "Home_resultCard_OutdatedTitle" = "Тестът вече не е актуален";
@@ -1651,10 +1651,15 @@
 
 "DeltaOnboarding_NewVersionFeatures_Button_Continue" = "Напред";
 
-"DeltaOnboarding_NewVersionFeatures_Description" = "Настоящата актуализация съдържа корекциите на грешки в приложението. Не съдържа нови функции.";
+"DeltaOnboarding_NewVersionFeatures_Description" = "Наред с корекциите на грешки настоящата актуализация съдържа също и нови и разширени функции.";
 
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Може да видите промените в тази версия в подраздела „Нови функции“ на информацията за приложението.";
+
+/* Version 2.28 */
+"NewVersionFeature_228_pandemic_radar_title" = "Радар на пандемия";
+
+"NewVersionFeature_228_pandemic_radar_description" = "Приложението Corona-Warn-App вече има плочка „Радар на пандемията“, която при натискане Ви отвежда директно до уебсайта на института „Роберт Кох“(на немски език). Този Радар на пандемията съдържа различни статистики относно пандемията с коронавируса SARS-CoV-2, които се актуализират всеки работен ден. Моля, обърнете внимание, че всички мобилни данни използвани при отварянето на уебсайта на института ще бъдат приспаднати от Вашия мобилен план и, че уебсайтът не е проектиран да бъде с улеснена достъпност.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Международно регистриране на излаганията";
@@ -1980,6 +1985,8 @@
 
 "Statistics_Card_From_CWA" = "чрез приложението Corona-Warn-App";
 
+"Statistics_Card_LinkCard_buttonTitle" = "Отваряне на външна връзка";
+
 /* - Add Statistics Card */
 "Statistics_Add_SevenDayIncidence" = "Добавяне на 7-дневна заболеваемост на местно ниво";
 
@@ -1990,6 +1997,15 @@
 "Statistics_Add_fromTheWholeCountry" = "Национално ниво";
 
 "Statistics_Card_Manage" = "Редактиране";
+
+/* - Pandemic Radar */
+"Statistics_Card_PandemicRadar_title" = "Радар на пандемия";
+
+"Statistics_Card_PandemicRadar_subtitle" = "От института „Роберт Кох“";
+
+"Statistics_Card_PandemicRadar_description" = "Разгледайте допълнителни статистики свързани с пандемията";
+
+"Statistics_Card_PandemicRadar_buttonTitle" = "Отваряне на външна връзка";
 
 /* - 7 Days Incedence */
 "Statistics_Card_CombinedIncidence_Title" = "7-дневна заболеваемост";
@@ -2133,13 +2149,17 @@
 
 "Statistics_Info_Subtitle" = "Пояснение на статистиката";
 
+"Statistics_Info_PandemicRadar_Title" = "Радар на пандемия";
+
+"Statistics_Info_PandemicRadar_Text" = "Различни статистики относно  пандемията с коронавируса SARS-CoV-2, които могат да се намерят на уебсайта на института „Роберт Кох“. Моля, обърнете внимание, че всички мобилни данни използвани при отварянето на уебсайта на института ще бъдат приспаднати от Вашия мобилен план и, че уебсайтът не е проектиран да бъде с улеснена достъпност.";
+
 "Statistics_Info_Incidence_Title" = "7-дневна заболеваемост";
 
 "Statistics_Info_Local7Days_Title" = "7-дневна заболеваемост на местно ниво";
 
 "Statistics_Info_Local7Days_Text" = "Общ брой потвърдени нови случаи на заразяване за последните 7 дни (по дата на регистриране) на 100 000 души в посочения окръг или федерална провинция.\nДанните за хоспитализация се отнасят за съответната провинция в Германия.";
 
-"Statistics_Info_NewInfection_Title" = "Потвърдени нови случаи на заразяване";
+"Statistics_Info_NewInfection_Title" = "Нови случаи на заразяване";
 
 "Statistics_Info_NewInfection_Text" = "Общ брой потвърдени нови случаи на заразяване за последните 7 дни (по дата на регистриране) на 100 000 души.";
 
@@ -2153,7 +2173,7 @@
 
 "Statistics_Info_Infections_Title" = "Потвърдени нови случаи на заразяване";
 
-"Statistics_Info_Infections_Text" = "Брой диагностицирани с коронавирус лица, регистрирани в института „Роберт Кох“.";
+"Statistics_Info_Infections_Text" = "Брой диагностицирани с коронавирус лица, регистрирани в института „Роберт Кох“. Числа под прагова стойност на 1% от 7-дневната заболеваемост не се показват. Вижте обяснението под Легенда>Времеви период.";
 
 "Statistics_Info_KeySubmissions_Title" = "Лица, които изпращат предупреждения";
 
@@ -2189,7 +2209,7 @@
 
 "Statistics_Info_Yesterday_Title" = "Вчера/до вчера";
 
-"Statistics_Info_Yesterday_Text" = "Брой за предишния ден/до предишния ден. Ако все още няма данни за предишния ден, се показва последната дата, за която има данни.";
+"Statistics_Info_Yesterday_Text" = "За \"Вчера/до вчера\" се показва броят за предишния ден/до предишния ден. Ако все още няма данни за предишния ден, защото например само няколко служби за обществено здравеопазване сега изпращат данни към института \"Роберт Кох\" пред уикендите и национални празници, то тогава се показва последната дата, за която има данни.";
 
 "Statistics_Info_Mean_Title" = "7 дни средно";
 
@@ -2797,9 +2817,9 @@
 
 "HealthCertificate_Overview_Scanning_Info" = "За да добавите допълнителни сертификати, използвайте скенера за QR кодове долу в навигационната лента.";
 
-"HealthCertificate_Admission_Scenario_Status_Label" = "Статус за следните федерални провинции";
+"HealthCertificate_Admission_Scenario_Status_Label" = "Правила за:";
 
-"HealthCertificate_Admission_Scenario_Button_Label" = "Разпоредби на федералните правителства";
+"HealthCertificate_Admission_Scenario_Button_Label" = "Няма избор";
 
 "HealthCertificate_Loading_Indicator_Label" = "Определяне на статус...";
 
@@ -2915,6 +2935,8 @@
 
 /* Health Certified Person */
 "HealthCertifiedPerson_faq" = "За повече информация вижте страницата „ЧЗВ“.";
+
+"HealthCertifiedPerson_faq_maskState" = "За повече информация относно изискванията за носене на маска вижте страницата ни за „ЧЗВ”.";
 
 "HealthCertifiedPerson_dateOfBirth" = "Дата на раждане %@";
 
@@ -3294,6 +3316,8 @@
 "UniversalQRScanner_InstructionTitle" = "Какви QR кодове можете да сканирате?";
 
 "UniversalQRScanner_InstructionDescription" = "Тестове, Вашите сертификати, регистрации и валидиране при продажба на билети";
+
+"UniversalQRScanner_InstructionDescriptionWarnOthers" = "Можете да сканирате регистрации, за да възстановите събития, които сте изтрили.";
 
 "UniversalQRScanner_FileButtonTitle" = "Отваряне на файл";
 

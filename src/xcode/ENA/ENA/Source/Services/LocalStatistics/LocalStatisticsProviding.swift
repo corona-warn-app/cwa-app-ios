@@ -7,7 +7,8 @@ import OpenCombine
 
 protocol LocalStatisticsProviding {
 	var regionStatisticsData: OpenCombine.CurrentValueSubject<[RegionStatisticsData], Never> { get }
-
+	var hasNewRegion: Bool { get }
+	
 	func add(_ region: LocalStatisticsRegion)
 	func remove(_ region: LocalStatisticsRegion)
 	func updateLocalStatistics(completion: ((Result<Void, Error>) -> Void)?)

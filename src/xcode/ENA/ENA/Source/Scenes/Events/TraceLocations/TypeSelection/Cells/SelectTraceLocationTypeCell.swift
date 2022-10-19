@@ -33,7 +33,7 @@ class SelectTraceLocationTypeCell: UITableViewCell, ReuseIdentifierProviding {
 	private let subtitleLabel = ENALabel()
 
 	private func setupView() {
-		backgroundColor = .enaColor(for: .darkBackground)
+		backgroundColor = .enaColor(for: .background)
 
 		accessibilityTraits = .button
 		titleLabel.translatesAutoresizingMaskIntoConstraints = false
