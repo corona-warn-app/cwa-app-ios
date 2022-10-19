@@ -15,7 +15,7 @@ extension UserAntigenTest {
 		registrationDate: Date? = nil,
 		testedPerson: TestedPerson = TestedPerson(firstName: nil, lastName: nil, dateOfBirth: nil),
 		testResult: TestResult = .pending,
-		finalTestResultReceivedDate: Date? = nil,
+		finalTestResultReceivedDate: Date? = Date(),
 		positiveTestResultWasShown: Bool = false,
 		isSubmissionConsentGiven: Bool = false,
 		submissionTAN: String? = nil,
