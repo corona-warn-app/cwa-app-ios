@@ -390,6 +390,7 @@ class HomeCoordinator: RequiresAppDependencies {
 		rootViewController.pushViewController(
 			AppInformationViewController(
 				elsService: elsService,
+				store: store,
 				cclService: cclService
 			),
 			animated: true

@@ -11,15 +11,17 @@ class AppInformationViewController: DynamicTableViewController, NavigationBarOpa
 	
 	init(
 		elsService: ErrorLogSubmissionProviding,
+		store: Store,
 		cclService: CCLServable
 	) {
 		self.cclService = cclService
+		self.store = store
 
 		self.model = [
 			.versionInfo: AppInformationCellModel(
 				text: AppStrings.AppInformation.newFeaturesNavigation,
 				accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.newFeaturesNavigation,
-				action: .push(viewController: DeltaOnboardingNewVersionFeaturesViewController(hasCloseButton: false))
+				action: .push(viewController: DeltaOnboardingNewVersionFeaturesViewController(hasCloseButton: false, store: store))
 			),
 			.about: AppInformationCellModel(
 				text: AppStrings.AppInformation.aboutNavigation,
@@ -163,6 +165,7 @@ class AppInformationViewController: DynamicTableViewController, NavigationBarOpa
 	// MARK: - Private
 
 	private var cclService: CCLServable
+	private var store: Store
 	
 	private func footerView() -> UIView {
 		let versionLabel = ENALabel()
@@ -193,7 +196,7 @@ class AppInformationViewController: DynamicTableViewController, NavigationBarOpa
 		AppInformationCellModel(
 			text: AppStrings.AppInformation.newFeaturesNavigation,
 			accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.newFeaturesNavigation,
-			action: .push(viewController: DeltaOnboardingNewVersionFeaturesViewController(hasCloseButton: false))
+			action: .push(viewController: DeltaOnboardingNewVersionFeaturesViewController(hasCloseButton: false, store: store))
 		)
 	}
 }
