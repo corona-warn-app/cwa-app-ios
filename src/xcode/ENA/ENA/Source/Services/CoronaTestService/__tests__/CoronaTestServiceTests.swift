@@ -2557,7 +2557,7 @@ class CoronaTestServiceTests: CWATestCase {
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
-		service.pcrTest.value = UserPCRTest.mock(registrationToken: nil, finalTestResultReceivedDate = nil)
+		service.pcrTest.value = UserPCRTest.mock(registrationToken: nil, finalTestResultReceivedDate: nil)
 
 		let expectation = self.expectation(description: "Expect to receive a result.")
 
@@ -2611,7 +2611,7 @@ class CoronaTestServiceTests: CWATestCase {
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
-		service.antigenTest.value = UserAntigenTest.mock(registrationToken: nil, finalTestResultReceivedDate = nil)
+		service.antigenTest.value = UserAntigenTest.mock(registrationToken: nil, finalTestResultReceivedDate: nil)
 
 		let expectation = self.expectation(description: "Expect to receive a result.")
 
