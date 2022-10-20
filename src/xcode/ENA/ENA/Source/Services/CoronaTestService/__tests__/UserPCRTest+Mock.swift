@@ -12,7 +12,7 @@ extension UserPCRTest {
 		qrCodeHash: String? = nil,
 		registrationDate: Date = Date(),
 		testResult: TestResult = .pending,
-		finalTestResultReceivedDate: Date? = Date(),
+		finalTestResultReceivedDate: Date? = nil,
 		positiveTestResultWasShown: Bool = false,
 		isSubmissionConsentGiven: Bool = false,
 		submissionTAN: String? = nil,
