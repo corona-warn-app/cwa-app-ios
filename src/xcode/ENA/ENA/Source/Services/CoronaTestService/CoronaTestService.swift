@@ -976,12 +976,6 @@ class CoronaTestService: CoronaTestServiceProviding {
 				case .pending:
 					completion(.success(testResult))
 				case .expired:
-					switch coronaTestType {
-					case .pcr:
-						self.pcrTest.value = nil
-					case .antigen:
-						self.antigenTest.value = nil
-					}
 					if duringRegistration {
 						// The .expired status is only known after the test has been registered on the server
 						// so we generate an error here, even if the server returned the http result 201
