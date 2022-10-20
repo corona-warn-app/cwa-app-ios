@@ -26,8 +26,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		service.syncSetup()
 		
 		let healthCertifiedPersonsExpectation = expectation(description: "healthCertifiedPersons publisher updated")
-		// One for registration, one for the validity state update, and one for the wallet info update
-		healthCertifiedPersonsExpectation.expectedFulfillmentCount = 4
+		healthCertifiedPersonsExpectation.expectedFulfillmentCount = 3
 		
 		let subscription = service.$healthCertifiedPersons
 			.dropFirst()
@@ -343,27 +342,27 @@ class HealthCertificateServiceTests: CWATestCase {
 		let firstRecoveryCertificate = try HealthCertificate(base45: firstRecoveryCertificateBase45, validityState: .expired, isValidityStateNew: false)
 		
 		let personsExpectation = expectation(description: "healthCertifiedPersons publisher triggered")
-		personsExpectation.expectedFulfillmentCount = 5
+		personsExpectation.expectedFulfillmentCount = 4
 		
 		let personsSubscription = service.$healthCertifiedPersons
 			.sink { _ in
 				personsExpectation.fulfill()
 			}
 		
-		let newsExpectation = expectation(description: "unseenNewsCount publisher triggered")
-		newsExpectation.expectedFulfillmentCount = 2
+		registrationResult = service.registerHealthCertificate(base45: firstRecoveryCertificateBase45, completedNotificationRegistration: { })
 		
+		let newsExpectation = expectation(description: "unseenNewsCount publisher triggered")
+		newsExpectation.expectedFulfillmentCount = 1
+
 		let newsSubscription = service.unseenNewsCount
 			.sink { _ in
 				newsExpectation.fulfill()
 			}
-		
-		registrationResult = service.registerHealthCertificate(base45: firstRecoveryCertificateBase45, completedNotificationRegistration: { })
-		
+
 		waitForExpectations(timeout: .short)
 		personsSubscription.cancel()
 		newsSubscription.cancel()
-		
+
 		switch registrationResult {
 		case let .success(certificateResult):
 			XCTAssertEqual(certificateResult.person.healthCertificates.map { $0.base45 }, [firstRecoveryCertificate.base45])
@@ -378,11 +377,10 @@ class HealthCertificateServiceTests: CWATestCase {
 		
 		XCTAssertEqual(store.healthCertifiedPersons[safe: 1]?.healthCertificates.map { $0.base45 }, [firstRecoveryCertificate.base45])
 		XCTAssertEqual(service.healthCertifiedPersons[safe: 1]?.gradientType, .solidGrey)
-		XCTAssertEqual(try XCTUnwrap(store.healthCertifiedPersons[safe: 1]).unseenNewsCount, 1)
 		
-		// Expired state does not increase unseen news count
-		XCTAssertEqual(service.unseenNewsCount.value, 3)
-		XCTAssertTrue(try XCTUnwrap(store.healthCertifiedPersons[safe: 1]?.healthCertificates[safe: 0]).isValidityStateNew)
+		// Exipiring soon and expired state does not increase unseen news count
+		XCTAssertEqual(service.unseenNewsCount.value, 2)
+		XCTAssertFalse(try XCTUnwrap(store.healthCertifiedPersons[safe: 1]?.healthCertificates[safe: 0]).isValidityStateNew)
 		
 		XCTAssertEqual(store.healthCertifiedPersons[safe: 2]?.healthCertificates.map { $0.base45 }, [firstVaccinationCertificate, firstTestCertificate, secondTestCertificate].map { $0.base45 })
 		XCTAssertEqual(service.healthCertifiedPersons[safe: 2]?.gradientType, .darkBlue)
