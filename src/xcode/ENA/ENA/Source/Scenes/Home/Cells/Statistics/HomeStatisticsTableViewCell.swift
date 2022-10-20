@@ -40,8 +40,12 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 			let firstStatisticsCard = stackView.arrangedSubviews[safe: 1],
 			let secondStatisticsCard = stackView.arrangedSubviews[safe: 2] {
 			DispatchQueue.main.async { [weak self] in
+				var animated = false
+				if #available(iOS 13.0, *) {
+					animated = true
+				}
 				let shouldScrollToLocalStatistics = HomeStatisticsTableViewCell.editingStatistics || cellModel.hasNewRegion
-				self?.scrollView.scrollRectToVisible(shouldScrollToLocalStatistics ? secondStatisticsCard.frame : firstStatisticsCard.frame, animated: self?.wasAlreadyShown ?? false)
+				self?.scrollView.scrollRectToVisible(shouldScrollToLocalStatistics ? secondStatisticsCard.frame : firstStatisticsCard.frame, animated: animated)
 				self?.wasAlreadyShown = true
 			}
 		}
