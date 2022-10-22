@@ -37,6 +37,7 @@ class TraceLocationConfigurationViewController: UIViewController, FooterViewHand
 		setUpLayout()
 		setUpGestureRecognizers()
 		setUpBindings()
+		setupAccessibility()
 
 		temporaryDefaultLengthPicker.countDownDuration = TimeInterval(minutes: viewModel.defaultCheckInLengthInMinutes) ?? viewModel.defaultTemporaryCheckInLengthTimeInterval
 		permanentDefaultLengthPicker.countDownDuration = TimeInterval(minutes: viewModel.defaultCheckInLengthInMinutes) ?? viewModel.defaultPermanentCheckInLengthTimeInterval
@@ -46,23 +47,17 @@ class TraceLocationConfigurationViewController: UIViewController, FooterViewHand
 		permanentSettingsContainerView.isHidden = viewModel.permanentSettingsContainerIsHidden
 
 		descriptionTextField.placeholder = AppStrings.TraceLocations.Configuration.descriptionPlaceholder
-		descriptionTextField.accessibilityIdentifier = AccessibilityIdentifiers.TraceLocation.Configuration.descriptionPlaceholder
 		descriptionTextField.autocapitalizationType = .sentences
 		addressTextField.placeholder = AppStrings.TraceLocations.Configuration.addressPlaceholder
-		addressTextField.accessibilityIdentifier = AccessibilityIdentifiers.TraceLocation.Configuration.addressPlaceholder
 		addressTextField.autocapitalizationType = .sentences
 
 		startDateTitleLabel.text = AppStrings.TraceLocations.Configuration.startDateTitle
 		endDateTitleLabel.text = AppStrings.TraceLocations.Configuration.endDateTitle
 
 		temporaryDefaultLengthTitleLabel.text = AppStrings.TraceLocations.Configuration.defaultCheckinLengthTitle
-		temporaryDefaultLengthTitleLabel.accessibilityIdentifier = AccessibilityIdentifiers.TraceLocation.Configuration.temporaryDefaultLengthTitleLabel
 		temporaryDefaultLengthFootnoteLabel.text = AppStrings.TraceLocations.Configuration.defaultCheckinLengthFootnote
-		temporaryDefaultLengthFootnoteLabel.accessibilityIdentifier = AccessibilityIdentifiers.TraceLocation.Configuration.temporaryDefaultLengthFootnoteLabel
 		permanentDefaultLengthTitleLabel.text = AppStrings.TraceLocations.Configuration.defaultCheckinLengthTitle
-		permanentDefaultLengthTitleLabel.accessibilityIdentifier = AccessibilityIdentifiers.TraceLocation.Configuration.permanentDefaultLengthTitleLabel
 		permanentDefaultLengthFootnoteLabel.text = AppStrings.TraceLocations.Configuration.defaultCheckinLengthFootnote
-		permanentDefaultLengthFootnoteLabel.accessibilityIdentifier = AccessibilityIdentifiers.TraceLocation.Configuration.permanentDefaultLengthFootnoteLabel
 
 	}
 
@@ -385,6 +380,18 @@ class TraceLocationConfigurationViewController: UIViewController, FooterViewHand
 				self?.footerView?.setEnabled($0, button: .primary)
 			}
 			.store(in: &subscriptions)
+	}
+	
+	private func setupAccessibility() {
+		traceLocationTypeLabel.accessibilityTraits = .header
+		traceLocationTypeLabel.accessibilityIdentifier = AccessibilityIdentifiers.TraceLocation.Configuration.traceLocationTypeLabel
+		descriptionTextField.accessibilityIdentifier = AccessibilityIdentifiers.TraceLocation.Configuration.descriptionPlaceholder
+		addressTextField.accessibilityIdentifier = AccessibilityIdentifiers.TraceLocation.Configuration.addressPlaceholder
+		temporaryDefaultLengthTitleLabel.accessibilityIdentifier = AccessibilityIdentifiers.TraceLocation.Configuration.temporaryDefaultLengthTitleLabel
+		temporaryDefaultLengthFootnoteLabel.accessibilityIdentifier = AccessibilityIdentifiers.TraceLocation.Configuration.temporaryDefaultLengthFootnoteLabel
+		permanentDefaultLengthTitleLabel.accessibilityIdentifier = AccessibilityIdentifiers.TraceLocation.Configuration.permanentDefaultLengthTitleLabel
+		permanentDefaultLengthValueLabel.accessibilityIdentifier = AccessibilityIdentifiers.TraceLocation.Configuration.permanentDefaultLengthValueLabel
+		permanentDefaultLengthFootnoteLabel.accessibilityIdentifier = AccessibilityIdentifiers.TraceLocation.Configuration.permanentDefaultLengthFootnoteLabel
 	}
 
 	private func showError(_ error: Error) {

@@ -39,8 +39,8 @@ class AddButtonAsTableViewCell: UITableViewCell, ReuseIdentifierProviding {
 
 	func configure(cellModel: AddButtonAsTableViewCelling) {
 		label.text = cellModel.text
-		label.accessibilityIdentifier = cellModel.accessibilityIdentifier
-		
+
+		containerView.accessibilityIdentifier = cellModel.accessibilityIdentifier
 		containerView.accessibilityLabel = cellModel.text
 		
 		cellModel.iconImagePublisher
