@@ -104,14 +104,13 @@ class AntigenTestProfileInputCell: UITableViewCell, ReuseIdentifierProviding {
 			addressLineTextField.bottomAnchor.constraint(lessThanOrEqualTo: contentView.bottomAnchor, constant: -inset),
 
 			postalCodeTextField.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: inset),
-			postalCodeTextField.trailingAnchor.constraint(lessThanOrEqualTo: contentView.trailingAnchor, constant: -inset),
+			postalCodeTextField.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -inset),
 			postalCodeTextField.topAnchor.constraint(equalTo: addressLineTextField.bottomAnchor, constant: 7),
 			postalCodeTextField.bottomAnchor.constraint(lessThanOrEqualTo: contentView.bottomAnchor, constant: -inset),
-			postalCodeTextField.widthAnchor.constraint(equalTo: addressLineTextField.widthAnchor, multiplier: 0.4),
 
-			cityTextField.leadingAnchor.constraint(equalTo: postalCodeTextField.trailingAnchor, constant: 7),
-			cityTextField.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor, constant: -inset),
-			cityTextField.topAnchor.constraint(equalTo: addressLineTextField.bottomAnchor, constant: 7),
+			cityTextField.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: inset),
+			cityTextField.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -inset),
+			cityTextField.topAnchor.constraint(equalTo: postalCodeTextField.bottomAnchor, constant: 7),
 			cityTextField.bottomAnchor.constraint(lessThanOrEqualTo: contentView.bottomAnchor, constant: -inset),
 
 			phoneNumberTextField.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: inset),
