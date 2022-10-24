@@ -1924,11 +1924,11 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ContactDiary_Day_Encounter_Inside" = "drinnen";
 
-"ContactDiary_Day_Encounter_Notes_Placeholder" = "Notiz (z.\U00A0B. geringer Abstand)";
+"ContactDiary_Day_Encounter_Notes_Placeholder" = "Notiz";
 
 "ContactDiary_Day_Visit_Duration" = "Dauer";
 
-"ContactDiary_Day_Visit_Notes_Placeholder" = "Notiz (z.\U00A0B. sehr voll, schlecht gelüftet)";
+"ContactDiary_Day_Visit_Notes_Placeholder" = "Notiz";
 
 /* Edit Entries */
 
@@ -2859,7 +2859,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "AntigenProfile_Create_BirthDatePlaceholder" = "Geburtsdatum";
 
-"AntigenProfile_Create_StreetPlaceholder" = "Straße und Hausnummer";
+"AntigenProfile_Create_StreetPlaceholder" = "Adresse";
 
 "AntigenProfile_Create_PostalCodePlaceholder" = "PLZ";
 
