@@ -45,16 +45,19 @@ final class SettingsViewController: UITableViewController, ExposureStateUpdating
 
 		tableView.separatorColor = .enaColor(for: .hairline)
 
+		navigationItem.largeTitleDisplayMode = .always
 		navigationItem.title = AppStrings.Settings.navigationBarTitle
-		navigationItem.largeTitleDisplayMode = .never
-		
+
+		tableView.contentInset = .init(top: 30, left: 0, bottom: 0, right: 0)
+
 		registerCells()
 		setupView()
 	}
 
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
-		navigationController?.navigationBar.prefersLargeTitles = false
+		navigationController?.navigationBar.prefersLargeTitles = true
+		navigationController?.navigationBar.sizeToFit()
 		updateUI()
 	}
 
