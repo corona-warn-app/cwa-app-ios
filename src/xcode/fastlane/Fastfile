@@ -176,6 +176,7 @@ platform :ios do
     upload_to_testflight(
       username: "cwa.technical-user@sap.com",
       apple_id: "1515713549",
+      itc_provider: "523TP53AQF",
       skip_waiting_for_build_processing: true,
       skip_submission: true,  # only upload
     )
