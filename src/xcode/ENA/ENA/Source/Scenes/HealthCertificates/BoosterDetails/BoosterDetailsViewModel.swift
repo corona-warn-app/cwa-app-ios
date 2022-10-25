@@ -36,7 +36,13 @@ class BoosterDetailsViewModel {
 			cells.append(
 				.subheadline(text: subtitleText, color: .enaColor(for: .textPrimary2)) { _, cell, _ in
 					cell.contentView.preservesSuperviewLayoutMargins = false
-					cell.contentView.layoutMargins.left += 5
+					
+					if #available(iOS 15, *) {
+						cell.contentView.layoutMargins.left += 5
+					} else {
+						cell.contentView.layoutMargins.left += 0
+					}
+					
 					cell.contentView.layoutMargins.top = 0
 				}
 			)
