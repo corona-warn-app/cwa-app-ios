@@ -1,4 +1,4 @@
-# This file contains the fastlane.tools configuration
+This file contains the fastlane.tools configuration
 # You can find the documentation at https://docs.fastlane.tools
 #
 # For a list of all available actions, check out
@@ -176,7 +176,7 @@ platform :ios do
     upload_to_testflight(
       username: "cwa.technical-user@sap.com",
       apple_id: "1515713549",
-      itc_provider: "118870206",
+      itc_provider: "Robert Koch-Institut",
       skip_waiting_for_build_processing: true,
       skip_submission: true,  # only upload
     )
