@@ -50,8 +50,8 @@ class TraceLocationCellModel: EventCellModel {
 	var isActiveIconHidden: Bool = false
 	var isDurationStackViewHidden: Bool = true
 
-	var title: String {
-		traceLocation.description
+	var title: NSAttributedString {
+		traceLocation.description.withHyhenationStyle()
 	}
 
 	var address: String {

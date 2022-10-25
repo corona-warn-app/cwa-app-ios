@@ -38,8 +38,8 @@ class CheckinCellModel: EventCellModel {
 	var isActiveIconHidden: Bool = true
 	var isDurationStackViewHidden: Bool = false
 
-	var title: String {
-		checkin.traceLocationDescription
+	var title: NSAttributedString {
+		checkin.traceLocationDescription.withHyhenationStyle()
 	}
 
 	var address: String {
