@@ -39,7 +39,7 @@ class CheckinCellModel: EventCellModel {
 	var isDurationStackViewHidden: Bool = false
 
 	var title: NSAttributedString {
-		checkin.traceLocationDescription.withHyhenationStyle()
+		checkin.traceLocationDescription.withHyphenationStyle()
 	}
 
 	var address: String {

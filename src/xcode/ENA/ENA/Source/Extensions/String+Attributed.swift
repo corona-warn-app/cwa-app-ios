@@ -5,7 +5,7 @@
 import UIKit
 
 extension String {
-	func withHyhenationStyle(factor: Float = 0.8) -> NSAttributedString {
+	func withHyphenationStyle(factor: Float = 0.8) -> NSAttributedString {
 		let paragraphStyle = NSMutableParagraphStyle()
 		paragraphStyle.hyphenationFactor = factor
 		

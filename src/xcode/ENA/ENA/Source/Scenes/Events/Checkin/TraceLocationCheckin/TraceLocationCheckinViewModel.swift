@@ -23,7 +23,7 @@ final class TraceLocationCheckinViewModel {
 		#endif
 		self.locationType = traceLocation.type.title
 		self.locationAddress = traceLocation.address
-		locationDescription = traceLocation.description.withHyhenationStyle()
+		locationDescription = traceLocation.description.withHyphenationStyle()
 		self.shouldSaveToContactJournal = store.shouldAddCheckinToContactDiaryByDefault
 
 		self.duration = TimeInterval(traceLocation.suggestedCheckoutLengthInMinutes * 60)
