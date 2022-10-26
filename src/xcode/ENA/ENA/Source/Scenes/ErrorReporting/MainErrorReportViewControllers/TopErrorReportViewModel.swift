@@ -27,7 +27,13 @@ class TopErrorReportViewModel {
 					text: AppStrings.ErrorReport.description1,
 					accessibilityIdentifier: AccessibilityIdentifiers.ErrorReport.topBody
 				),
-				.link(placeholder: AppStrings.ErrorReport.faq, link: AppStrings.ErrorReport.faqURL, font: .subheadline, style: .subheadline, accessibilityIdentifier: AccessibilityIdentifiers.ErrorReport.faq)
+				.link(
+					placeholder: AppStrings.ErrorReport.faq,
+					link: AppStrings.ErrorReport.faqURL,
+					font: .subheadline,
+					style: .subheadline,
+					accessibilityIdentifier: AccessibilityIdentifiers.ErrorReport.faq
+				)
 			])
 		)
 		dynamic.add(
