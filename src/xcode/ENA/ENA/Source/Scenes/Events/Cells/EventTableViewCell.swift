@@ -101,7 +101,7 @@ class EventTableViewCell: UITableViewCell, ReuseIdentifierProviding {
 		activeIconImageView.isHidden = cellModel.isActiveIconHidden
 		durationStackView.isHidden = cellModel.isDurationStackViewHidden
 
-		titleLabel.text = cellModel.title
+		titleLabel.attributedText = cellModel.title
 		titleLabel.accessibilityLabel = cellModel.titleAccessibilityLabelPublisher.value
 		titleLabel.accessibilityIdentifier = AccessibilityIdentifiers.TraceLocation.Overview.eventTableViewCellTitleLabel
 		cellModel.titleAccessibilityLabelPublisher
