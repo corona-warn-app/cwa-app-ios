@@ -218,6 +218,8 @@ private final class TextFieldCell: UITableViewCell {
 		textField = ENATextField(frame: .zero)
 		textField.autocorrectionType = .no
 		textField.isUserInteractionEnabled = true
+		textField.font = UIFont.preferredFont(forTextStyle: .body)
+		textField.adjustsFontForContentSizeCategory = true
 		textField.clearButtonMode = .whileEditing
 		textField.spellCheckingType = .no
 		textField.smartQuotesType = .no
