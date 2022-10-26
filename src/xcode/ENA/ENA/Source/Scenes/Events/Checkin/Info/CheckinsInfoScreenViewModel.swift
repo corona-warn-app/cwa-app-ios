@@ -71,7 +71,11 @@ struct CheckInsInfoScreenViewModel {
 						bulletPointCellWithBoldText(text: AppStrings.Checkins.Information.legalText02),
 						bulletPointCellWithBoldText(text: AppStrings.Checkins.Information.legalText03)
 						],
-					subheadline2: NSAttributedString(string: AppStrings.Checkins.Information.legalSubHeadline02),
+					subheadline2: NSAttributedString(
+						string: AppStrings.Checkins.Information.legalSubHeadline02,
+						attributes: [
+							.font: UIFont.preferredFont(forTextStyle: .body)
+					]),
 					accessibilityIdentifier: AccessibilityIdentifiers.Checkin.Information.acknowledgementTitle,
 					configure: { _, cell, _ in
 						cell.backgroundColor = .enaColor(for: .background)
