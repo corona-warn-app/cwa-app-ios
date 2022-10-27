@@ -19,7 +19,7 @@ protocol EventCellModel {
 	var isActiveIconHidden: Bool { get }
 	var isDurationStackViewHidden: Bool { get }
 
-	var title: String { get }
+	var title: NSAttributedString { get }
 	var address: String { get }
 	
 	var buttonTitle: String { get }

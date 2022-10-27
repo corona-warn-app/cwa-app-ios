@@ -23,7 +23,7 @@ class OnBehalfTraceLocationCellModelTests: CWATestCase {
 		XCTAssertTrue(cellViewModel.isDurationStackViewHidden)
 		XCTAssertTrue(cellViewModel.isButtonHiddenPublisher.value)
 
-		XCTAssertEqual(cellViewModel.title, "Sportstudio")
+		XCTAssertEqual(cellViewModel.title.string, "Sportstudio")
 		XCTAssertEqual(cellViewModel.address, "Musterstraße 1a, 01234 Musterstadt")
 		XCTAssertNil(cellViewModel.timePublisher.value)
 	}
@@ -46,7 +46,7 @@ class OnBehalfTraceLocationCellModelTests: CWATestCase {
 		XCTAssertTrue(cellViewModel.isDurationStackViewHidden)
 		XCTAssertTrue(cellViewModel.isButtonHiddenPublisher.value)
 
-		XCTAssertEqual(cellViewModel.title, "Sportstudio")
+		XCTAssertEqual(cellViewModel.title.string, "Sportstudio")
 		XCTAssertEqual(cellViewModel.address, "Musterstraße 1a, 01234 Musterstadt")
 		XCTAssertNotNil(cellViewModel.timePublisher.value)
 	}
@@ -69,7 +69,7 @@ class OnBehalfTraceLocationCellModelTests: CWATestCase {
 		XCTAssertTrue(cellViewModel.isDurationStackViewHidden)
 		XCTAssertTrue(cellViewModel.isButtonHiddenPublisher.value)
 
-		XCTAssertEqual(cellViewModel.title, "Sportstudio")
+		XCTAssertEqual(cellViewModel.title.string, "Sportstudio")
 		XCTAssertEqual(cellViewModel.address, "Musterstraße 1a, 01234 Musterstadt")
 		XCTAssertNotNil(cellViewModel.timePublisher.value)
 	}
