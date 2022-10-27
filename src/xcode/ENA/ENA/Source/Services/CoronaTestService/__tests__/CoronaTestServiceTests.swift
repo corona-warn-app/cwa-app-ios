@@ -2557,7 +2557,7 @@ class CoronaTestServiceTests: CWATestCase {
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
-		service.pcrTest.value = .mock(registrationToken: nil)
+		service.pcrTest.value = .mock(registrationToken: nil, finalTestResultReceivedDate: nil)
 
 		let expectation = self.expectation(description: "Expect to receive a result.")
 
@@ -2611,7 +2611,7 @@ class CoronaTestServiceTests: CWATestCase {
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
-		service.antigenTest.value = .mock(registrationToken: nil)
+		service.antigenTest.value = .mock(registrationToken: nil, finalTestResultReceivedDate: nil)
 
 		let expectation = self.expectation(description: "Expect to receive a result.")
 
@@ -2962,8 +2962,8 @@ class CoronaTestServiceTests: CWATestCase {
 		waitForExpectations(timeout: .short)
 
 		XCTAssertEqual(diaryStore.coronaTests.count, 0)
-		XCTAssertFalse(try XCTUnwrap(testService.antigenTest.value?.journalEntryCreated))
-		XCTAssertFalse(try XCTUnwrap(testService.pcrTest.value?.journalEntryCreated))
+		XCTAssertNil(testService.antigenTest.value?.journalEntryCreated)
+		XCTAssertNil(testService.pcrTest.value?.journalEntryCreated)
 	}
 
 	func test_When_UpdateTestResultSuccessWithInvalid_Then_ContactJournalHasNoEntry() throws {

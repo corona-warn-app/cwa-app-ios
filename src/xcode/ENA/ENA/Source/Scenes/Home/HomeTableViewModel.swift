@@ -216,7 +216,7 @@ class HomeTableViewModel {
 			riskAndTestResultsRows.append(.risk)
 		}
 
-		if let pcrTest = coronaTestService.pcrTest.value {
+		if let pcrTest = coronaTestService.pcrTest.value, pcrTest.finalTestResultReceivedDate != nil {
 			let testResultState: TestResultState
 			if pcrTest.testResult == .positive && pcrTest.positiveTestResultWasShown {
 				testResultState = .positiveResultWasShown
@@ -226,7 +226,7 @@ class HomeTableViewModel {
 			riskAndTestResultsRows.append(.pcrTestResult(testResultState))
 		}
 
-		if let antigenTest = coronaTestService.antigenTest.value {
+		if let antigenTest = coronaTestService.antigenTest.value, antigenTest.finalTestResultReceivedDate != nil {
 			let testResultState: TestResultState
 			if antigenTest.testResult == .positive && antigenTest.positiveTestResultWasShown {
 				testResultState = .positiveResultWasShown
