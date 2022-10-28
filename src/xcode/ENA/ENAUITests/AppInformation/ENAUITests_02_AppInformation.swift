@@ -119,7 +119,7 @@ class ENAUITests_02_AppInformation: CWATestCase {
 		navigateToErrorReporting()
 
 		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.ErrorReport.topBody].waitForExistence(timeout: .short))
-		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.ErrorReport.faq].exists)
+		XCTAssertTrue(app.links[AccessibilityIdentifiers.ErrorReport.faq].exists)
 
 		XCTAssertTrue(app.cells[AccessibilityIdentifiers.ErrorReport.privacyInformation].exists)
 		
