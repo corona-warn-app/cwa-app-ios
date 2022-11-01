@@ -1004,6 +1004,7 @@ enum AppStrings {
 
 		enum TestRegistration {
 			static let title = NSLocalizedString("Home_TestRegistration_Title", comment: "")
+			static let subtitle = NSLocalizedString("Home_TestRegistration_Subtitle", comment: "")
 			static let description = NSLocalizedString("Home_TestRegistration_Body", comment: "")
 			static let button = NSLocalizedString("Home_TestRegistration_Button", comment: "")
 		}

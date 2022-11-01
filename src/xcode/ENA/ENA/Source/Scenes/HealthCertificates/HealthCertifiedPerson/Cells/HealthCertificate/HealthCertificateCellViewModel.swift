@@ -189,6 +189,8 @@ final class HealthCertificateCellViewModel {
 			return UIImage(named: "Icon_CurrentlyUsedCertificate_green")
 		case .blueRedTilted, .blueOnly, .solidGrey, .whiteWithGreyBorder, .whiteToLightBlue:
 			return UIImage(named: "Icon_CurrentlyUsedCertificate_grey")
+		default:
+			return nil
 		}
 	}()
 

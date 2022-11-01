@@ -61,6 +61,7 @@ class GradientView: UIView {
 		case green
 		case whiteWithGreyBorder
 		case whiteToLightBlue
+		case bottomLightBlueToTopWhite
 
 		
 		var starsColor: UIColor? {
@@ -96,6 +97,14 @@ class GradientView: UIView {
 	// MARK: - Private
 
 	private let imageView: UIImageView = UIImageView()
+	
+	private var isDarkMode: Bool {
+		if #available(iOS 13, *) {
+			return UITraitCollection.current.userInterfaceStyle == .dark
+		} else {
+			return false
+		}
+	}
 
 	private func setupView() {
 		imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -196,11 +205,6 @@ class GradientView: UIView {
 			gradientLayer.borderWidth = 0
 	
 		case .solidDarkGreen:
-			var isDarkMode: Bool = false
-			if #available(iOS 13.0, *) {
-				isDarkMode = UITraitCollection.current.userInterfaceStyle == .dark
-			}
-
 			let lightColors = [
 				UIColor(red: 42 / 255, green: 142 / 255, blue: 75 / 255, alpha: 1).cgColor,
 				UIColor(red: 42 / 255, green: 142 / 255, blue: 75 / 255, alpha: 1).cgColor
@@ -227,11 +231,6 @@ class GradientView: UIView {
 			gradientLayer.endPoint = CGPoint(x: 0.75, y: 0.5)
 			
 		case .whiteWithGreyBorder:
-			var isDarkMode: Bool = false
-			if #available(iOS 13.0, *) {
-				isDarkMode = UITraitCollection.current.userInterfaceStyle == .dark
-			}
-			
 			let lightColors = [
 				UIColor(red: 255 / 255, green: 255 / 255, blue: 255 / 255, alpha: 1).cgColor,
 				UIColor(red: 255 / 255, green: 255 / 255, blue: 255 / 255, alpha: 1).cgColor
@@ -251,11 +250,6 @@ class GradientView: UIView {
 			gradientLayer.borderWidth = 2
 			
 		case .whiteToLightBlue:
-			var isDarkMode: Bool = false
-			if #available(iOS 13.0, *) {
-				isDarkMode = UITraitCollection.current.userInterfaceStyle == .dark
-			}
-
 			let lightColors = [
 				UIColor(red: 255 / 255, green: 255 / 255, blue: 255 / 255, alpha: 1).cgColor,
 				UIColor(red: 255 / 255, green: 255 / 255, blue: 255 / 255, alpha: 1).cgColor,
@@ -271,6 +265,25 @@ class GradientView: UIView {
 			gradientLayer.locations = [0.0, 0.6, 1.0]
 			gradientLayer.startPoint = CGPoint(x: 0.0, y: 0.0)
 			gradientLayer.endPoint = CGPoint(x: 1.0, y: 0.95)
+		
+		case .bottomLightBlueToTopWhite:
+			let lightColors = [
+				UIColor(red: 255 / 255, green: 255 / 255, blue: 255 / 255, alpha: 1).cgColor,
+				UIColor(red: 255 / 255, green: 255 / 255, blue: 255 / 255, alpha: 1).cgColor,
+				UIColor(red: 227 / 255, green: 243 / 255, blue: 255 / 255, alpha: 1).cgColor
+			]
+			
+			// --todo Update when dark colors defined
+			let darkColors = [
+				UIColor(red: 255 / 255, green: 255 / 255, blue: 255 / 255, alpha: 1).cgColor,
+				UIColor(red: 255 / 255, green: 255 / 255, blue: 255 / 255, alpha: 1).cgColor,
+				UIColor(red: 227 / 255, green: 243 / 255, blue: 255 / 255, alpha: 1).cgColor
+			]
+			
+			gradientLayer.colors = isDarkMode ? lightColors : darkColors
+			gradientLayer.locations = [0, 0.34, 0.85]
+			gradientLayer.startPoint = CGPoint(x: 0.25, y: 0)
+			gradientLayer.endPoint = CGPoint(x: 0.75, y: 1)
 		}
 	}
 
