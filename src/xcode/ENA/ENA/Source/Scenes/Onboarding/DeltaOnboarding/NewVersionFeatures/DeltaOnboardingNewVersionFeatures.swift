@@ -15,7 +15,7 @@ class DeltaOnboardingNewVersionFeatures: DeltaOnboarding {
 	}
 
 	func makeViewController() -> DeltaOnboardingViewControllerProtocol {
-		let deltaOnboardingViewController = DeltaOnboardingNewVersionFeaturesViewController()
+		let deltaOnboardingViewController = DeltaOnboardingNewVersionFeaturesViewController(finishedDeltaOnboardings: store.finishedDeltaOnboardings)
 
 		let navigationController = DeltaOnboardingNavigationController(rootViewController: deltaOnboardingViewController)
 		navigationController.navigationBar.prefersLargeTitles = true
