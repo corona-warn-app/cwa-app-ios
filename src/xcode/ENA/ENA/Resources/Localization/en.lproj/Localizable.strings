@@ -670,7 +670,7 @@
 
 "ExposureSubmissionSuccess_listItem2_1" = "Please monitor how your symptoms develop closely.";
 
-"ExposureSubmissionSuccess_listItem2_2" = "You will be asked by your public health authority to create a list of people you have had contact with. This should include all people with whom you have had close contact with (less than 2 meters, face-to-face conversation) for over 10 minutes in the two days before you became ill. You can use your contact journal for this: simply export the entries and then print them out or send them via e-mail.";
+"ExposureSubmissionSuccess_listItem2_2" = "You may be asked by your public health authority to create a list of people you have had contact with. This should include all people with whom you have had close contact with (less than 2 meters, face-to-face conversation) for over 10 minutes in the two days before you became ill. You can use your contact journal for this: simply export the entries and then print them out or send them via e-mail.";
 
 "ExposureSubmissionSuccess_listItem2_3" = "Please particularly consider people who will not be notified directly by the app since they don’t own a smartphone, or haven’t installed the app.";
 
@@ -1762,7 +1762,7 @@
 
 "TestResultPositive_KeysSubmitted_FurtherInfo1" = "Please monitor how your symptoms develop closely.";
 
-"TestResultPositive_KeysSubmitted_FurtherInfo2" = "You will be asked by your public health authority to create a list of people you have had contact with. This should include all people with whom you have had close contact with (less than 2 meters, face-to-face conversation) for over 10 minutes in the two days before you became ill. You can use your contact journal for this: simply export the entries and then print them out or send them via e-mail.";
+"TestResultPositive_KeysSubmitted_FurtherInfo2" = "You may be asked by your public health authority to create a list of people you have had contact with. This should include all people with whom you have had close contact with (less than 2 meters, face-to-face conversation) for over 10 minutes in the two days before you became ill. You can use your contact journal for this: simply export the entries and then print them out or send them via e-mail.";
 
 "TestResultPositive_KeysSubmitted_FurtherInfo3" = "Please particularly consider people who will not be notified directly by the app since they don’t own a smartphone, or haven’t installed the app.";
 
@@ -1870,11 +1870,11 @@
 
 "ContactDiary_Day_Encounter_Inside" = "Indoors";
 
-"ContactDiary_Day_Encounter_Notes_Placeholder" = "Note (e.g. close distance)";
+"ContactDiary_Day_Encounter_Notes_Placeholder" = "Note";
 
 "ContactDiary_Day_Visit_Duration" = "Duration";
 
-"ContactDiary_Day_Visit_Notes_Placeholder" = "Note (e.g. very full, poorly ventilated)";
+"ContactDiary_Day_Visit_Notes_Placeholder" = "Note";
 
 /* Edit Entries */
 "ContactDiary_EditEntries_ContactPersons_Title" = "Edit People";
@@ -2760,7 +2760,7 @@
 
 "AntigenProfile_Create_BirthDatePlaceholder" = "Date of Birth";
 
-"AntigenProfile_Create_StreetPlaceholder" = "Street and House Number";
+"AntigenProfile_Create_StreetPlaceholder" = "Address";
 
 "AntigenProfile_Create_PostalCodePlaceholder" = "Postal Code";
 
