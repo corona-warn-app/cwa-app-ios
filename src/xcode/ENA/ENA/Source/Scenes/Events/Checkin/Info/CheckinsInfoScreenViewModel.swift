@@ -64,7 +64,15 @@ struct CheckInsInfoScreenViewModel {
 			// Legal text
 			.section(cells: [
 				.legalExtended(
-					title: NSAttributedString(string: AppStrings.Checkins.Information.legalHeadline01),
+					title: NSAttributedString(
+						string: AppStrings.Checkins.Information.legalHeadline01,
+						attributes: [
+							.font: UIFont.preferredFont(forTextStyle: ENAFont.title2.textStyle)
+							.scaledFont(
+								size: ENAFont.title2.fontSize,
+								weight: ENAFont.title2.fontWeight
+								)
+						]),
 					subheadline1: NSAttributedString(string: AppStrings.Checkins.Information.legalSubHeadline01),
 					bulletPoints1: [
 						bulletPointCellWithBoldHeadline(title: AppStrings.Checkins.Information.legalText01bold, text: AppStrings.Checkins.Information.legalText01normal),
