@@ -10,7 +10,7 @@ class DeltaOnboardingNewVersionFeaturesControllerTests: CWATestCase {
 	
 	private func createVC() -> DeltaOnboardingNewVersionFeaturesViewController {
 		let store = MockTestStore()
-		return DeltaOnboardingNewVersionFeaturesViewController(store: store)
+		return DeltaOnboardingNewVersionFeaturesViewController(finishedDeltaOnboardings: store.finishedDeltaOnboardings)
 	}
 	
 	func testCellsInSection0() {

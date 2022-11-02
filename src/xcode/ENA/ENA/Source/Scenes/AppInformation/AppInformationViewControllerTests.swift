@@ -18,7 +18,7 @@ class AppInformationViewControllerTests: XCTestCase {
 		fakeCCSService = FakeCCLService()
         sut = AppInformationViewController(
 			elsService: errorLogSubmissionProvidingMock,
-			store: store,
+			finishedDeltaOnboardings: store.finishedDeltaOnboardings,
 			cclService: fakeCCSService
 		)
     }

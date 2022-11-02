@@ -390,7 +390,7 @@ class HomeCoordinator: RequiresAppDependencies {
 		rootViewController.pushViewController(
 			AppInformationViewController(
 				elsService: elsService,
-				store: store,
+				finishedDeltaOnboardings: store.finishedDeltaOnboardings,
 				cclService: cclService
 			),
 			animated: true
