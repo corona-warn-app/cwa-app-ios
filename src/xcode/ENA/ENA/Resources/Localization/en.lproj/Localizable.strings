@@ -2173,13 +2173,13 @@
 
 "Statistics_Info_Infections_Title" = "Confirmed New Infections";
 
-"Statistics_Info_Infections_Text" = "Number of persons who have been diagnosed with coronavirus and reported to the RKI. Numbers below a threshold of 1% of the 7-day average are not displayed; also see the explanation under Legend > Time Period.";
+"Statistics_Info_Infections_Text" = "Number of persons who have been diagnosed with coronavirus and reported to the RKI. Numbers below a threshold of 1% of the 7-Day average are not displayed; also see the explanation under Legend > Time Period.";
 
 "Statistics_Info_KeySubmissions_Title" = "Warnings by App Users";
 
 "Statistics_Info_KeySubmissions_Text" = "Number of app users who have been diagnosed with coronavirus and have warned others through the app";
 
-"Statistics_Info_ReproductionNumber_Title" = "7-day R value";
+"Statistics_Info_ReproductionNumber_Title" = "7-Day R value";
 
 "Statistics_Info_ReproductionNumber_Text" = "The reproduction figure, R, indicates how many people an average infected person has infected further. The current value takes data up to the last 5 days into account.";
 
@@ -2191,7 +2191,7 @@
 
 "Statistics_Info_FullyVaccinated_Text" = "Number of persons reported to the RKI who have received all the vaccine doses necessary for basic immunization.";
 
-"Statistics_Info_BoosterVaccination_Title" = "People who have received a booster vaccination";
+"Statistics_Info_BoosterVaccination_Title" = "People who have received a Booster Vaccination";
 
 "Statistics_Info_BoosterVaccination_Text" = "Number of persons reported to the RKI who have received a booster vaccination.";
 
