@@ -34,8 +34,6 @@ class DiaryDayViewController: UIViewController, UITableViewDataSource, UITableVi
 
 		view.backgroundColor = .enaColor(for: .darkBackground)
 
-		setupTabBarAppearance()
-		
 		tableView.keyboardDismissMode = .interactive
 
 		setupSegmentedControl()
@@ -124,9 +122,19 @@ class DiaryDayViewController: UIViewController, UITableViewDataSource, UITableVi
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 		
-		// After change the tab bar items and switch back again to the Journal tab then need to set the same appearance as before.
-		setupTabBarAppearance()
-		
+		/*
+		 In iOS 15, the tab bar background automatically adjusts it self, when there is no content on the back it becomes transparent
+		 where as it has a background when there is content on the back. Unfortunately, in our case the tab bar remains transparent even
+		 through there is content on the back, so we fix this by overriding the appearance with a background.
+		 Solution is inspired from: https://developer.apple.com/forums/thread/682420
+		 */
+		if #available(iOS 15, *) {
+			let appearance = UITabBarAppearance()
+			appearance.configureWithOpaqueBackground()
+			appearance.backgroundColor = .enaColor(for: .backgroundLightGray)
+			tabBarController?.tabBar.standardAppearance = appearance
+			tabBarController?.tabBar.scrollEdgeAppearance = tabBarController?.tabBar.standardAppearance
+		}
 	}
 	
 	override func viewWillDisappear(_ animated: Bool) {
@@ -193,22 +201,6 @@ class DiaryDayViewController: UIViewController, UITableViewDataSource, UITableVi
 		return viewModel.day
 	}
 
-	private func setupTabBarAppearance() {
-		/*
-		 In iOS 15, the tab bar background automatically adjusts it self, when there is no content on the back it becomes transparent
-		 where as it has a background when there is content on the back. Unfortunately, in our case the tab bar remains transparent even
-		 through there is content on the back, so we fix this by overriding the appearance with a background.
-		 Solution is inspired from: https://developer.apple.com/forums/thread/682420
-		 */
-		if #available(iOS 15, *) {
-			let appearance = UITabBarAppearance()
-			appearance.configureWithOpaqueBackground()
-			appearance.backgroundColor = .enaColor(for: .backgroundLightGray)
-			tabBarController?.tabBar.standardAppearance = appearance
-			tabBarController?.tabBar.scrollEdgeAppearance = tabBarController?.tabBar.standardAppearance
-		}
-	}
-	
 	private func setupSegmentedControl() {
 		segmentedControl.setTitle(AppStrings.ContactDiary.Day.contactPersonsSegment, forSegmentAt: 0)
 		segmentedControl.setTitle(AppStrings.ContactDiary.Day.locationsSegment, forSegmentAt: 1)
