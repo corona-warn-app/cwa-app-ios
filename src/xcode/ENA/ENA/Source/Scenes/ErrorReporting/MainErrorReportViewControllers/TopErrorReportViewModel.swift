@@ -28,8 +28,10 @@ class TopErrorReportViewModel {
 					accessibilityIdentifier: AccessibilityIdentifiers.ErrorReport.topBody
 				),
 				.link(
-					text: AppStrings.ErrorReport.faq,
-					url: URL(string: AppStrings.ErrorReport.faqURL),
+					placeholder: AppStrings.ErrorReport.faq,
+					link: AppStrings.ErrorReport.faqURL,
+					font: .subheadline,
+					style: .subheadline,
 					accessibilityIdentifier: AccessibilityIdentifiers.ErrorReport.faq
 				)
 			])
