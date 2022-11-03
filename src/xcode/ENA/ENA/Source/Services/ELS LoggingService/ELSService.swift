@@ -247,3 +247,22 @@ extension FileManager {
 		return data.isEmpty
 	}
 }
+
+extension Array where Element == ErrorLogUploadReceipt {
+	enum SortOrder {
+		case ascending
+		case descending
+	}
+
+	/// Sorts the receipts by timestamp.
+	/// - Parameter sort: Whether the sort order is ascending or descending
+	/// - Returns: Returns the receipts based on sortOrder
+	func sorted(_ sortOrder: SortOrder) -> Self {
+		switch sortOrder {
+		case .ascending:
+			return self.sorted(by: { $0.timestamp < $1.timestamp })
+		case .descending:
+			return self.sorted(by: { $0.timestamp > $1.timestamp })
+		}
+	}
+}
