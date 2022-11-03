@@ -13,10 +13,12 @@ class AppInformationViewControllerTests: XCTestCase {
 	private var fakeCCSService: FakeCCLService!
 
     override func setUpWithError() throws {
+		let store = MockTestStore()
 		errorLogSubmissionProvidingMock = ErrorLogSubmissionProvidingMock()
 		fakeCCSService = FakeCCLService()
         sut = AppInformationViewController(
 			elsService: errorLogSubmissionProvidingMock,
+			finishedDeltaOnboardings: store.finishedDeltaOnboardings,
 			cclService: fakeCCSService
 		)
     }

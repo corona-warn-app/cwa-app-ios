@@ -670,7 +670,7 @@
 
 "ExposureSubmissionSuccess_listItem2_1" = "Lütfen belirtilerinizin nasıl geliştiğini yakından izleyin.";
 
-"ExposureSubmissionSuccess_listItem2_2" = "Kamu sağlığı yetkiliniz, temasa geçtiğiniz kişilerin bir listesini oluşturmanızı isteyecektir. Bu listeye, hasta olmadan önceki iki gün içinde 10 dakikadan uzun süreyle yakın temas halinde (2 metreden kısa mesafede, yüz yüze görüşme) olduğunuz herkesi dahil etmeniz gerekir. Bunun için temas güncenizi kullanabilirsiniz: Girişleri dışa aktarmanız ve ardından yazdırmanız ya da e-posta yoluyla göndermeniz yeterlidir.";
+"ExposureSubmissionSuccess_listItem2_2" = "Kamu sağlığı yetkiliniz, temasa geçtiğiniz kişilerin bir listesini oluşturmanızı isteyebilir. Bu listeye, hasta olmadan önceki iki gün içinde 10 dakikadan uzun süreyle yakın temas halinde (2 metreden kısa mesafede, yüz yüze görüşme) olduğunuz herkesi dahil etmeniz gerekir. Bunun için temas güncenizi kullanabilirsiniz: Girişleri dışa aktarmanız ve ardından yazdırmanız ya da e-posta yoluyla göndermeniz yeterlidir.";
 
 "ExposureSubmissionSuccess_listItem2_3" = "Lütfen özellikle akıllı telefonu olmadığı veya uygulamayı yüklemediği için doğrudan uygulamanın uyarmayacağı kişileri göz önünde bulundurun.";
 
@@ -1762,7 +1762,7 @@
 
 "TestResultPositive_KeysSubmitted_FurtherInfo1" = "Lütfen belirtilerinizin nasıl geliştiğini yakından izleyin.";
 
-"TestResultPositive_KeysSubmitted_FurtherInfo2" = "Kamu sağlığı yetkiliniz, temasa geçtiğiniz kişilerin bir listesini oluşturmanızı isteyecektir. Bu listeye, hasta olmadan önceki iki gün içinde 10 dakikadan uzun süreyle yakın temas halinde (2 metreden kısa mesafede, yüz yüze görüşme) olduğunuz herkesi dahil etmeniz gerekir. Bunun için temas güncenizi kullanabilirsiniz: Girişleri dışa aktarmanız ve ardından yazdırmanız ya da e-posta yoluyla göndermeniz yeterlidir.";
+"TestResultPositive_KeysSubmitted_FurtherInfo2" = "Kamu sağlığı yetkiliniz, temasa geçtiğiniz kişilerin bir listesini oluşturmanızı isteyebilir. Bu listeye, hasta olmadan önceki iki gün içinde 10 dakikadan uzun süreyle yakın temas halinde (2 metreden kısa mesafede, yüz yüze görüşme) olduğunuz herkesi dahil etmeniz gerekir. Bunun için temas güncenizi kullanabilirsiniz: Girişleri dışa aktarmanız ve ardından yazdırmanız ya da e-posta yoluyla göndermeniz yeterlidir.";
 
 "TestResultPositive_KeysSubmitted_FurtherInfo3" = "Lütfen özellikle akıllı telefonu olmadığı veya uygulamayı yüklemediği için doğrudan uygulamanın uyarmayacağı kişileri göz önünde bulundurun.";
 
@@ -1870,11 +1870,11 @@
 
 "ContactDiary_Day_Encounter_Inside" = "Kapalı ortam";
 
-"ContactDiary_Day_Encounter_Notes_Placeholder" = "Not (ör. yakın mesafe)";
+"ContactDiary_Day_Encounter_Notes_Placeholder" = "Not";
 
 "ContactDiary_Day_Visit_Duration" = "Süre";
 
-"ContactDiary_Day_Visit_Notes_Placeholder" = "Not (ör. çok dolu, yetersiz havalandırma)";
+"ContactDiary_Day_Visit_Notes_Placeholder" = "Not";
 
 /* Edit Entries */
 "ContactDiary_EditEntries_ContactPersons_Title" = "Kişileri Düzenle";
@@ -2760,7 +2760,7 @@
 
 "AntigenProfile_Create_BirthDatePlaceholder" = "Doğum Tarihi";
 
-"AntigenProfile_Create_StreetPlaceholder" = "Sokak ve Konut Numarası";
+"AntigenProfile_Create_StreetPlaceholder" = "Adres";
 
 "AntigenProfile_Create_PostalCodePlaceholder" = "Posta Kodu";
 

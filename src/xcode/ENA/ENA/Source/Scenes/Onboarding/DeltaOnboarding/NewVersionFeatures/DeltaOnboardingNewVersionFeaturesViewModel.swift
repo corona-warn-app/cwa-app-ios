@@ -9,11 +9,12 @@ struct DeltaOnboardingNewVersionFeaturesViewModel {
 	
 	// MARK: - Init
 
-	init() {
+	init(finishedDeltaOnboardings: [String: [String]]) {
 		
 		// ADD NEW FEATURES HERE
 		
 		self.featureVersion = "2.28"
+		self.finishedDeltaOnboarding = finishedDeltaOnboardings
 		
 		self.newVersionFeatures.append(
 			// Pandemic Radar
@@ -58,13 +59,8 @@ struct DeltaOnboardingNewVersionFeaturesViewModel {
 			)
 			$0.add(
 				.section(
-					cells: [
-						.body(
-							text: AppStrings.NewVersionFeatures.aboutAppInformation,
-							color: .enaColor(for: .textPrimary1),
-							accessibilityIdentifier: AccessibilityIdentifiers.DeltaOnboarding.newVersionFeaturesGeneralAboutAppInformation
-						)
-					]
+					separators: .none,
+					cells: showFooterNote()
 				)
 			)
 		}
@@ -73,6 +69,7 @@ struct DeltaOnboardingNewVersionFeaturesViewModel {
 	// MARK: - Private
 	
 	private var newVersionFeatures: [NewVersionFeature] = []
+	private var finishedDeltaOnboarding: [String: [String]]
 	
 	private func buildNewFeaturesCells() -> [DynamicCell] {
 		var cells: [DynamicCell] = []
@@ -89,6 +86,14 @@ struct DeltaOnboardingNewVersionFeaturesViewModel {
 			featureBulletPoint.append(NSAttributedString(string: feature.description, attributes: normalTextAttribute))
 			featureBulletPoint.append(NSAttributedString(string: "\n", attributes: normalTextAttribute))
 			cells.append(.bulletPoint(attributedText: featureBulletPoint))
+		}
+		return cells
+	}
+	
+	private func showFooterNote() -> [DynamicCell] {
+		var cells: [DynamicCell] = []
+		if finishedDeltaOnboarding[featureVersion] == nil {
+			cells.append(.body(text: AppStrings.NewVersionFeatures.aboutAppInformation, color: .enaColor(for: .textPrimary1), accessibilityIdentifier: AccessibilityIdentifiers.DeltaOnboarding.newVersionFeaturesGeneralAboutAppInformation))
 		}
 		return cells
 	}
