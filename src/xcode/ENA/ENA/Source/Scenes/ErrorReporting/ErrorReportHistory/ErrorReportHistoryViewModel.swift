@@ -40,7 +40,7 @@ final class ErrorReportHistoryViewModel {
 	
 	private func buildHistoryCells() -> [DynamicCell] {
 		var cells: [DynamicCell] = []
-		for item in items {
+		for item in items.sorted(.descending) {
 			cells.append(.custom(
 				withIdentifier: ErrorReportHistoryViewController.CustomCellReuseIdentifiers.historyCell,
 				configure: { _, cell, _ in
