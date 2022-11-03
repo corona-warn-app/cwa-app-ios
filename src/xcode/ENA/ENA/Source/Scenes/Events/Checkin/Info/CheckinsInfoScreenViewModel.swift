@@ -72,7 +72,8 @@ struct CheckInsInfoScreenViewModel {
 								size: ENAFont.title2.fontSize,
 								weight: ENAFont.title2.fontWeight
 								)
-						]),
+ 						]
+					),
 					subheadline1: NSAttributedString(string: AppStrings.Checkins.Information.legalSubHeadline01),
 					bulletPoints1: [
 						bulletPointCellWithBoldHeadline(title: AppStrings.Checkins.Information.legalText01bold, text: AppStrings.Checkins.Information.legalText01normal),
