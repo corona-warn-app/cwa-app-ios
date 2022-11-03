@@ -256,7 +256,7 @@ extension Array where Element == ErrorLogUploadReceipt {
 
 	/// Sorts the receipts by timestamp.
 	/// - Parameter sort: Whether the sort order is ascending or descending
-	/// - Returns: Returns the receipts in the specific order
+	/// - Returns: Returns the receipts based on sortOrder
 	func sorted(_ sortOrder: SortOrder) -> Self {
 		switch sortOrder {
 		case .ascending:
