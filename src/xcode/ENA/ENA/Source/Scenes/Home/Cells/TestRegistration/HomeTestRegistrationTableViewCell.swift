@@ -20,6 +20,12 @@ final class HomeTestRegistrationTableViewCell: UITableViewCell {
 
 		setup()
 	}
+	
+	override func layoutSubviews() {
+		super.layoutSubviews()
+		
+		gradientView.roundCorners(corners: [.topLeft, .topRight], radius: 16)
+	}
 
 	override func setHighlighted(_ highlighted: Bool, animated: Bool) {
 		super.setHighlighted(highlighted, animated: animated)
@@ -72,9 +78,9 @@ final class HomeTestRegistrationTableViewCell: UITableViewCell {
 
 	private func updateIllustration(for traitCollection: UITraitCollection) {
 		if traitCollection.preferredContentSizeCategory >= .accessibilityLarge {
-			illustrationView.superview?.isHidden = true
+			illustrationView.isHidden = true
 		} else {
-			illustrationView.superview?.isHidden = false
+			illustrationView.isHidden = false
 		}
 	}
 
@@ -88,4 +94,17 @@ final class HomeTestRegistrationTableViewCell: UITableViewCell {
 		onPrimaryAction?()
 	}
 
+}
+
+extension UIView {
+   func roundCorners(corners: UIRectCorner, radius: CGFloat) {
+		let path = UIBezierPath(
+			roundedRect: bounds,
+			byRoundingCorners: corners,
+			cornerRadii: CGSize(width: radius, height: radius)
+		)
+		let mask = CAShapeLayer()
+		mask.path = path.cgPath
+		layer.mask = mask
+	}
 }

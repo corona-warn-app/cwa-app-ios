@@ -1,7 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "Illu_WarningAfterSelfTest.pdf",
+      "filename" : "Illu_WarningAfterSelfTest_light.pdf",
+      "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "Illu_WarningAfterSelfTest_dark.pdf",
       "idiom" : "universal"
     }
   ],

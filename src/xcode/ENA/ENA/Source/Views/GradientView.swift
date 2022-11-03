@@ -273,15 +273,13 @@ class GradientView: UIView {
 				UIColor(red: 227 / 255, green: 243 / 255, blue: 255 / 255, alpha: 1).cgColor
 			]
 			
-			// --todo Update when dark colors defined
 			let darkColors = [
-				UIColor(red: 255 / 255, green: 255 / 255, blue: 255 / 255, alpha: 1).cgColor,
-				UIColor(red: 255 / 255, green: 255 / 255, blue: 255 / 255, alpha: 1).cgColor,
-				UIColor(red: 227 / 255, green: 243 / 255, blue: 255 / 255, alpha: 1).cgColor
+				UIColor(red: 30 / 255, green: 30 / 255, blue: 31 / 255, alpha: 1).cgColor,
+				UIColor(red: 45 / 255, green: 65 / 255, blue: 77 / 255, alpha: 1).cgColor
 			]
 			
-			gradientLayer.colors = isDarkMode ? lightColors : darkColors
-			gradientLayer.locations = [0, 0.34, 0.85]
+			gradientLayer.colors = isDarkMode ? darkColors : lightColors
+			gradientLayer.locations = isDarkMode ? [0, 1] : [0, 0.34, 0.85]
 			gradientLayer.startPoint = CGPoint(x: 0.25, y: 0)
 			gradientLayer.endPoint = CGPoint(x: 0.75, y: 1)
 		}
