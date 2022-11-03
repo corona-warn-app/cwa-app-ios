@@ -9,7 +9,8 @@ import XCTest
 class DeltaOnboardingNewVersionFeaturesControllerTests: CWATestCase {
 	
 	private func createVC() -> DeltaOnboardingNewVersionFeaturesViewController {
-		DeltaOnboardingNewVersionFeaturesViewController()
+		let store = MockTestStore()
+		return DeltaOnboardingNewVersionFeaturesViewController(finishedDeltaOnboardings: store.finishedDeltaOnboardings)
 	}
 	
 	func testCellsInSection0() {
