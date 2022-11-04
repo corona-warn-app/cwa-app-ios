@@ -250,6 +250,7 @@ class ENAUITests_04a_ExposureSubmission: CWATestCase {
 
 	}
 
+	/* Commented out in favour of SRS story
 	func test_SubmitTAN_CancelOnTestResultScreen() {
 		app.setLaunchArgument(LaunchArguments.common.ENStatus, to: ENStatus.active.stringValue)
 		launch()
@@ -289,7 +290,6 @@ class ENAUITests_04a_ExposureSubmission: CWATestCase {
 		app.cells[AccessibilityIdentifiers.Home.activateCardOnTitle].waitAndTap()
 	}
 	
-	/* Commented out in favour of SRS story
 	func test_SubmitTAN_SecondaryFlowWithoutSymptomsScreens() {
 		app.setLaunchArgument(LaunchArguments.common.ENStatus, to: ENStatus.active.stringValue)
 		launch()
@@ -426,6 +426,7 @@ class ENAUITests_04a_ExposureSubmission: CWATestCase {
 
 	}
 	
+	/* Commented out in favour of SRS story
 	func test_SubmissionNotPossible() throws {
 		try XCTSkipIf(Locale.current.identifier == "bg_BG") // temporary hack!
 
@@ -452,6 +453,7 @@ class ENAUITests_04a_ExposureSubmission: CWATestCase {
 		// expect an error dialogue due to disabled exposure notification
 		XCTAssertTrue(app.alerts.firstMatch.waitForExistence(timeout: .short))
 	}
+	*/
 	
 	func test_test_result_negative() {
 		app.setLaunchArgument(LaunchArguments.common.ENStatus, to: ENStatus.active.stringValue)
