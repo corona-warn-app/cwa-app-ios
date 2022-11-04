@@ -16,7 +16,7 @@ class HomeTestRegistrationCellModelTests: CWATestCase {
 		XCTAssertEqual(cellModel.subtitle, AppStrings.Home.TestRegistration.subtitle)
 		XCTAssertEqual(cellModel.description, AppStrings.Home.TestRegistration.description)
 		XCTAssertEqual(cellModel.buttonTitle, AppStrings.Home.TestRegistration.button)
-		XCTAssertEqual(cellModel.image, UIImage(named: "Illu_WarningAfterSelfTest-initial"))
+		XCTAssertEqual(cellModel.image, UIImage(named: "Illu_WarningAfterSelfTest"))
 		XCTAssertEqual(cellModel.gradientViewType, .bottomLightBlueToTopWhite)
 		XCTAssertEqual(cellModel.buttonAccessibilityIdentifier, AccessibilityIdentifiers.Home.submitCardButton)
 	}
