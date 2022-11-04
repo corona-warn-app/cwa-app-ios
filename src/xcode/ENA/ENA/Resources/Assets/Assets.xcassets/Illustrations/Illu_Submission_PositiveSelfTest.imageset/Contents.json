@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "Illu_SelbstTest_light.pdf",
+      "filename" : "test_light.pdf",
       "idiom" : "universal"
     },
     {
@@ -11,7 +11,7 @@
           "value" : "dark"
         }
       ],
-      "filename" : "Illu_SelbstTest_dark.pdf",
+      "filename" : "test_dark.pdf",
       "idiom" : "universal"
     }
   ],
