@@ -145,12 +145,10 @@ class DiaryDayEntryTableViewCell: UITableViewCell, UITextFieldDelegate {
 		durationPicker.minuteInterval = 10
 		durationPicker.tintColor = .enaColor(for: .tint)
 
-		if #available(iOS 15.0, *) {
+		if #available(iOS 14.0, *) {
 			durationPicker.preferredDatePickerStyle = .inline
-		} else if #available(iOS 13.4, *) {
-			durationPicker.preferredDatePickerStyle = .wheels
 		}
-
+		
 		durationPicker.widthAnchor.constraint(lessThanOrEqualToConstant: 100).isActive = true
 
 		return durationPicker
