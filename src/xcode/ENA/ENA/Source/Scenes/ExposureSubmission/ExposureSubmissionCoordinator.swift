@@ -155,7 +155,9 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		// By default, we show the intro view.
 		let viewModel = ExposureSubmissionIntroViewModel(
 			onQRCodeButtonTap: { [weak self] isLoading in
-				self?.showQRScreen(testRegistrationInformation: nil, isLoading: isLoading)
+				#warning("Remove, only for DEV")
+				self?.showTypeOfTestsScreen()
+//				self?.showQRScreen(testRegistrationInformation: nil, isLoading: isLoading)
 			},
 			onFindTestCentersTap: {
 				LinkHelper.open(urlString: AppStrings.Links.findTestCentersFAQ)
@@ -202,6 +204,12 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 	private func push(_ vc: UIViewController) {
 		navigationController?.topViewController?.view.endEditing(true)
 		navigationController?.pushViewController(vc, animated: true)
+	}
+	
+	private func present(_ vc: UIViewController, withNavigation: Bool = true) {
+		let navVC = NavigationControllerWithLargeTitle(rootViewController: vc)
+		navigationController?.topViewController?.view.endEditing(true)
+		navigationController?.present(navVC, animated: true)
 	}
 
 	private func popViewController() {
@@ -879,6 +887,30 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 	}
 
 	// MARK: Symptoms
+	
+	private func showTypeOfTestsScreen() {
+		let vc = TypeOfTestViewController { [weak self] submissionType in
+			print(submissionType)
+		} onDismiss: { [weak self] _ in
+			print("Warn-Vorgang abbrechen? Alert")
+		}
+		
+		let footerViewController = FooterViewController(
+			FooterViewModel(
+				primaryButtonName: "Weiter",
+				primaryIdentifier: "todo",
+				isSecondaryButtonEnabled: false,
+				isSecondaryButtonHidden: true
+			)
+		)
+		
+		let topBottomContainerViewController = TopBottomContainerViewController(
+			topController: vc,
+			bottomController: footerViewController
+		)
+
+		present(topBottomContainerViewController)
+	}
 
 	private func showSymptomsScreen() {
 		if let testType = model.coronaTestType {
