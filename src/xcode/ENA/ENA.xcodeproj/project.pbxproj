@@ -596,6 +596,7 @@
 		34CF3B1F2615C1D1004A9435 /* QRCodeErrorCorrectionLevelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34CF3B1E2615C1D1004A9435 /* QRCodeErrorCorrectionLevelType.swift */; };
 		34E03F822823BEF8001A352B /* ccl-configuration.bin in Resources */ = {isa = PBXBuildFile; fileRef = 34E03F812823BEF8001A352B /* ccl-configuration.bin */; };
 		34E03F842823ED29001A352B /* HealthCertificateWebTokenHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34E03F832823ED29001A352B /* HealthCertificateWebTokenHeader.swift */; };
+		34F687B4291553970062A6D2 /* ppdd_srs_parameters.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34F687B3291553970062A6D2 /* ppdd_srs_parameters.pb.swift */; };
 		34FE156A26010A840002CB69 /* TraceLocation+GenerateQRCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34FE156926010A830002CB69 /* TraceLocation+GenerateQRCode.swift */; };
 		34FE15A02604B1880002CB69 /* QRCodePosterTemplateProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34FE159B2604B1800002CB69 /* QRCodePosterTemplateProviderTests.swift */; };
 		34FE15A82604F99E0002CB69 /* UIColor+HEX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34FE15A72604F99D0002CB69 /* UIColor+HEX.swift */; };
@@ -2458,6 +2459,7 @@
 		34CF3B1E2615C1D1004A9435 /* QRCodeErrorCorrectionLevelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeErrorCorrectionLevelType.swift; sourceTree = "<group>"; };
 		34E03F812823BEF8001A352B /* ccl-configuration.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = "ccl-configuration.bin"; sourceTree = "<group>"; };
 		34E03F832823ED29001A352B /* HealthCertificateWebTokenHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateWebTokenHeader.swift; sourceTree = "<group>"; };
+		34F687B3291553970062A6D2 /* ppdd_srs_parameters.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ppdd_srs_parameters.pb.swift; sourceTree = "<group>"; };
 		34FE156926010A830002CB69 /* TraceLocation+GenerateQRCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TraceLocation+GenerateQRCode.swift"; sourceTree = "<group>"; };
 		34FE156E26010FBD0002CB69 /* TraceLocation+GenerateQRCodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TraceLocation+GenerateQRCodeTests.swift"; sourceTree = "<group>"; };
 		34FE1580260126080002CB69 /* QRCodePosterTemplateProviding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodePosterTemplateProviding.swift; sourceTree = "<group>"; };
@@ -4047,6 +4049,7 @@
 		0138F53B25ECD44300A9B075 /* v2 */ = {
 			isa = PBXGroup;
 			children = (
+				34F687B3291553970062A6D2 /* ppdd_srs_parameters.pb.swift */,
 				0138F54125ECD44300A9B075 /* app_config_ios.pb.swift */,
 				0138F53C25ECD44300A9B075 /* app_features.pb.swift */,
 				EB43DB9A2624439D0063687D /* corona_test_parameters.pb.swift */,
@@ -12026,6 +12029,7 @@
 				DC03798E28F449D000E1EE20 /* HomeLinkCard.swift in Sources */,
 				BA8A528327EB4F6D007A93DE /* FamilyNameTextFieldCell.swift in Sources */,
 				5071A88226EB80D900B09B40 /* ServiceError.swift in Sources */,
+				34F687B4291553970062A6D2 /* ppdd_srs_parameters.pb.swift in Sources */,
 				013069522705D4A900D945E3 /* QRScannerTooltipViewController.swift in Sources */,
 				8FEC1231275656AC00C5DADC /* TicketValidationAllowList.swift in Sources */,
 				017D8DAC263BEF920009E91C /* HealthCertificateServiceError.swift in Sources */,
