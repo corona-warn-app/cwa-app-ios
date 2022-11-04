@@ -289,6 +289,7 @@ class ENAUITests_04a_ExposureSubmission: CWATestCase {
 		app.cells[AccessibilityIdentifiers.Home.activateCardOnTitle].waitAndTap()
 	}
 	
+	/* Commented out in favour of SRS story
 	func test_SubmitTAN_SecondaryFlowWithoutSymptomsScreens() {
 		app.setLaunchArgument(LaunchArguments.common.ENStatus, to: ENStatus.active.stringValue)
 		launch()
@@ -320,7 +321,8 @@ class ENAUITests_04a_ExposureSubmission: CWATestCase {
 		// Click secondary button to skip symptoms screen.
 		app.buttons[AccessibilityIdentifiers.ExposureSubmission.secondaryButton].waitAndTap()
 	}
-	
+	*/
+
 	// Navigate to the Thank You screen after getting the positive test result.
 	func test_ThankYouScreen_withWarnOthers() {
 		app.setLaunchArgument(LaunchArguments.exposureSubmission.isFetchingSubmissionTan, to: true)
