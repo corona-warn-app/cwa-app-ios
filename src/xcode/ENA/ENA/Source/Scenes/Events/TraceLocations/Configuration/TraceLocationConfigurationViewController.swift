@@ -173,9 +173,12 @@ class TraceLocationConfigurationViewController: UIViewController, FooterViewHand
 		descriptionTextField.layer.cornerRadius = 0
 		addressTextField.layer.cornerRadius = 0
 
-		if #available(iOS 14.0, *) {
+		if #available(iOS 15.0, *) {
 			startDatePicker.preferredDatePickerStyle = .inline
 			endDatePicker.preferredDatePickerStyle = .inline
+		} else if #available(iOS 13.4, *) {
+			startDatePicker.preferredDatePickerStyle = .wheels
+			endDatePicker.preferredDatePickerStyle = .wheels
 		}
 
 		startDatePicker.addTarget(self, action: #selector(selectDatePicker(sender:)), for: .editingDidBegin)
