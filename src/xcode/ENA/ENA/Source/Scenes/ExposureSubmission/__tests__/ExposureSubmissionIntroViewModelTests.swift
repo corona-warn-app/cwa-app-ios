@@ -30,7 +30,7 @@ class ExposureSubmissionIntroViewModelTests: CWATestCase {
 			antigenTestProfileStore: store
 		)
 
-		let profileCell = viewModel.dynamicTableModel.cell(at: IndexPath(row: 2, section: 1))
+		let profileCell = viewModel.dynamicTableModel.cell(at: IndexPath(row: 5, section: 1))
 
 		XCTAssertEqual(profileCell.tag, "AntigenTestProfileCard")
 	}
