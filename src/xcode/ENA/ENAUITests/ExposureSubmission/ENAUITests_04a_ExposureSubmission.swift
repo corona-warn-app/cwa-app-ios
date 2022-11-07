@@ -650,6 +650,7 @@ class ENAUITests_04a_ExposureSubmission: CWATestCase {
 		snapshot("tan_submissionflow_symptoms_selection\(String(format: "%04d", (screenshotCounter.inc() )))")
 	}
 
+	/* Commented out in favour of SRS story
 	func test_screenshot_SubmitTAN() {
 		var screenshotCounter = 0
 
@@ -679,6 +680,7 @@ class ENAUITests_04a_ExposureSubmission: CWATestCase {
 		// Click secondary button to skip symptoms.
 		app.buttons[AccessibilityIdentifiers.ExposureSubmission.secondaryButton].waitAndTap()
 	}
+	*/
 
 	func test_screenshot_SubmitQR() throws {
 		var screenshotCounter = 0
@@ -796,7 +798,6 @@ class ENAUITests_04a_ExposureSubmission: CWATestCase {
 
 		snapshot("submissionflow_screenshot_symptoms_onset_date_option")
 	}
-	
 }
 
 // MARK: - Helpers.
@@ -855,7 +856,6 @@ extension ENAUITests_04a_ExposureSubmission {
 		// Thank You screen.
 		XCTAssertTrue(app.navigationBars[AccessibilityIdentifiers.General.exposureSubmissionNavigationControllerTitle].waitForExistence(timeout: .medium))
         app.buttons[AccessibilityIdentifiers.ExposureSubmission.primaryButton].waitAndTap()
-		
 	}
 
 	func launchAndNavigateToSymptomsOnsetScreen() {
