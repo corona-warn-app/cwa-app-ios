@@ -670,7 +670,7 @@
 
 "ExposureSubmissionSuccess_listItem2_1" = "Obserwuj swoje objawy i monitoruj ich rozwój.";
 
-"ExposureSubmissionSuccess_listItem2_2" = "Zostaniesz poproszony(-a) przez organ ds. zdrowia publicznego o stworzenie listy osób, z którymi miałeś(-aś) kontakt. Powinna ona obejmować wszystkie osoby, z którymi miałeś(-aś) bliski kontakt (w odległości mniejszej niż 2 metry, rozmowa twarzą w twarz) przez ponad 10 minut w ciągu dwóch dni poprzedzających zachorowanie. Możesz do tego celu wykorzystać swój dziennik kontaktów: po prostu wyeksportuj wpisy, a następnie wydrukuj je lub wyślij pocztą e-mail.";
+"ExposureSubmissionSuccess_listItem2_2" = "Możesz zostać poproszony(-a) przez organ ds. zdrowia publicznego o stworzenie listy osób, z którymi miałeś(-aś) kontakt. Powinna ona obejmować wszystkie osoby, z którymi miałeś(-aś) bliski kontakt (w odległości mniejszej niż 2 metry, rozmowa twarzą w twarz) przez ponad 10 minut w ciągu dwóch dni poprzedzających zachorowanie. Możesz do tego celu wykorzystać swój dziennik kontaktów: po prostu wyeksportuj wpisy, a następnie wydrukuj je lub wyślij pocztą e-mail.";
 
 "ExposureSubmissionSuccess_listItem2_3" = "Zwróć szczególną uwagę na osoby, które nie zostaną powiadomione bezpośrednio przez aplikację, ponieważ nie posiadają smartfonów lub nie zainstalowały aplikacji.";
 
@@ -1762,7 +1762,7 @@
 
 "TestResultPositive_KeysSubmitted_FurtherInfo1" = "Obserwuj swoje objawy i monitoruj ich rozwój.";
 
-"TestResultPositive_KeysSubmitted_FurtherInfo2" = "Zostaniesz poproszony(-a) przez organ ds. zdrowia publicznego o stworzenie listy osób, z którymi miałeś(-aś) kontakt. Powinna ona obejmować wszystkie osoby, z którymi miałeś(-aś) bliski kontakt (w odległości mniejszej niż 2 metry, rozmowa twarzą w twarz) przez ponad 10 minut w ciągu dwóch dni poprzedzających zachorowanie. Możesz do tego celu wykorzystać swój dziennik kontaktów: po prostu wyeksportuj wpisy, a następnie wydrukuj je lub wyślij pocztą e-mail.";
+"TestResultPositive_KeysSubmitted_FurtherInfo2" = "Możesz zostać poproszony(-a) przez organ ds. zdrowia publicznego o stworzenie listy osób, z którymi miałeś(-aś) kontakt. Powinna ona obejmować wszystkie osoby, z którymi miałeś(-aś) bliski kontakt (w odległości mniejszej niż 2 metry, rozmowa twarzą w twarz) przez ponad 10 minut w ciągu dwóch dni poprzedzających zachorowanie. Możesz do tego celu wykorzystać swój dziennik kontaktów: po prostu wyeksportuj wpisy, a następnie wydrukuj je lub wyślij pocztą e-mail.";
 
 "TestResultPositive_KeysSubmitted_FurtherInfo3" = "Zwróć szczególną uwagę na osoby, które nie zostaną powiadomione bezpośrednio przez aplikację, ponieważ nie posiadają smartfonów lub nie zainstalowały aplikacji.";
 
@@ -1870,11 +1870,11 @@
 
 "ContactDiary_Day_Encounter_Inside" = "W pomieszczeniu";
 
-"ContactDiary_Day_Encounter_Notes_Placeholder" = "Uwaga (np. bliska odległość)";
+"ContactDiary_Day_Encounter_Notes_Placeholder" = "Uwaga";
 
 "ContactDiary_Day_Visit_Duration" = "Czas trwania";
 
-"ContactDiary_Day_Visit_Notes_Placeholder" = "Uwaga (np. bardzo pełne, słabo wentylowane)";
+"ContactDiary_Day_Visit_Notes_Placeholder" = "Uwaga";
 
 /* Edit Entries */
 "ContactDiary_EditEntries_ContactPersons_Title" = "Edytuj osoby";
@@ -2760,7 +2760,7 @@
 
 "AntigenProfile_Create_BirthDatePlaceholder" = "Data urodzenia";
 
-"AntigenProfile_Create_StreetPlaceholder" = "Ulica i numer domu";
+"AntigenProfile_Create_StreetPlaceholder" = "Adres";
 
 "AntigenProfile_Create_PostalCodePlaceholder" = "Kod pocztowy";
 

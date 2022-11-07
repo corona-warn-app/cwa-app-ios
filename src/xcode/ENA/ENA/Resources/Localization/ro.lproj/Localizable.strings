@@ -670,7 +670,7 @@
 
 "ExposureSubmissionSuccess_listItem2_1" = "Monitorizați cu atenție modul în care evoluează simptomele dvs.";
 
-"ExposureSubmissionSuccess_listItem2_2" = "Autoritatea dvs. de sănătate publică vă va solicita să întocmiți o listă a persoanelor cu care ați intrat în contact. Aceasta trebuie să cuprindă toate persoanele cu care ați avut contact strâns (mai puțin de 2 metri, conversații față în față) timp de peste 10 minute începând cu două zile înainte de a vă îmbolnăvi. Puteți utiliza jurnalul de contacte în acest scop: trebuie doar să exportați intrările și apoi să le tipăriți sau să le expediați pe e-mail.";
+"ExposureSubmissionSuccess_listItem2_2" = "Autoritatea dvs. de sănătate publică vă poate solicita să întocmiți o listă a persoanelor cu care ați intrat în contact. Aceasta trebuie să cuprindă toate persoanele cu care ați avut contact strâns (mai puțin de 2 metri, conversații față în față) timp de peste 10 minute începând cu două zile înainte de a vă îmbolnăvi. Puteți utiliza jurnalul de contacte în acest scop: trebuie doar să exportați intrările și apoi să le tipăriți sau să le expediați pe e-mail.";
 
 "ExposureSubmissionSuccess_listItem2_3" = "Luați în considerare în special persoanele care nu vor fi notificate direct de aplicație dacă nu au un smartphone sau dacă nu și-au instalat aplicația.";
 
@@ -1762,7 +1762,7 @@
 
 "TestResultPositive_KeysSubmitted_FurtherInfo1" = "Monitorizați cu atenție modul în care evoluează simptomele dvs.";
 
-"TestResultPositive_KeysSubmitted_FurtherInfo2" = "Autoritatea dvs. de sănătate publică vă va solicita să întocmiți o listă a persoanelor cu care ați intrat în contact. Aceasta trebuie să cuprindă toate persoanele cu care ați avut contact strâns (mai puțin de 2 metri, conversații față în față) timp de peste 10 minute începând cu două zile înainte de a vă îmbolnăvi. Puteți utiliza jurnalul de contacte în acest scop: trebuie doar să exportați intrările și apoi să le tipăriți sau să le expediați pe e-mail.";
+"TestResultPositive_KeysSubmitted_FurtherInfo2" = "Autoritatea dvs. de sănătate publică vă poate solicita să întocmiți o listă a persoanelor cu care ați intrat în contact. Aceasta trebuie să cuprindă toate persoanele cu care ați avut contact strâns (mai puțin de 2 metri, conversații față în față) timp de peste 10 minute începând cu două zile înainte de a vă îmbolnăvi. Puteți utiliza jurnalul de contacte în acest scop: trebuie doar să exportați intrările și apoi să le tipăriți sau să le expediați pe e-mail.";
 
 "TestResultPositive_KeysSubmitted_FurtherInfo3" = "Luați în considerare în special persoanele care nu vor fi notificate direct de aplicație dacă nu au un smartphone sau dacă nu și-au instalat aplicația.";
 
@@ -1870,11 +1870,11 @@
 
 "ContactDiary_Day_Encounter_Inside" = "În interior";
 
-"ContactDiary_Day_Encounter_Notes_Placeholder" = "Notă (de ex., distanță mică)";
+"ContactDiary_Day_Encounter_Notes_Placeholder" = "Notă";
 
 "ContactDiary_Day_Visit_Duration" = "Durată";
 
-"ContactDiary_Day_Visit_Notes_Placeholder" = "Notă (de ex., foarte plin, aerisire slabă)";
+"ContactDiary_Day_Visit_Notes_Placeholder" = "Notă";
 
 /* Edit Entries */
 "ContactDiary_EditEntries_ContactPersons_Title" = "Editare persoane";
@@ -2760,7 +2760,7 @@
 
 "AntigenProfile_Create_BirthDatePlaceholder" = "Data nașterii";
 
-"AntigenProfile_Create_StreetPlaceholder" = "Strada și numărul";
+"AntigenProfile_Create_StreetPlaceholder" = "Adresă";
 
 "AntigenProfile_Create_PostalCodePlaceholder" = "Cod poștal";
 

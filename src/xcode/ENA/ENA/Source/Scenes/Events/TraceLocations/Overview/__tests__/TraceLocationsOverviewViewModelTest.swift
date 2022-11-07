@@ -92,15 +92,15 @@ class TraceLocationsOverviewViewModelTest: CWATestCase {
 		)
 
 		XCTAssertEqual(
-			viewModel.traceLocationCellModel(at: IndexPath(row: 0, section: 1), onUpdate: {}).title,
+			viewModel.traceLocationCellModel(at: IndexPath(row: 0, section: 1), onUpdate: {}).title.string,
 			"asdf"
 		)
 		XCTAssertEqual(
-			viewModel.traceLocationCellModel(at: IndexPath(row: 1, section: 1), onUpdate: {}).title,
+			viewModel.traceLocationCellModel(at: IndexPath(row: 1, section: 1), onUpdate: {}).title.string,
 			"qwer"
 		)
 		XCTAssertEqual(
-			viewModel.traceLocationCellModel(at: IndexPath(row: 2, section: 1), onUpdate: {}).title,
+			viewModel.traceLocationCellModel(at: IndexPath(row: 2, section: 1), onUpdate: {}).title.string,
 			"zxcv"
 		)
 	}

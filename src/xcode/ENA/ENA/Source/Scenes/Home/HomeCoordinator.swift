@@ -54,7 +54,7 @@ class HomeCoordinator: RequiresAppDependencies {
 
 	// MARK: - Internal
 
-	let rootViewController: UINavigationController = AppNavigationController(rootViewController: UIViewController())
+	let rootViewController: UINavigationController = NavigationControllerWithLargeTitle(rootViewController: UIViewController())
 
 	func showHome(enStateHandler: ENStateHandler, route: Route?, startupErrors: [Error]) {
 		guard homeController == nil else {
@@ -390,6 +390,7 @@ class HomeCoordinator: RequiresAppDependencies {
 		rootViewController.pushViewController(
 			AppInformationViewController(
 				elsService: elsService,
+				finishedDeltaOnboardings: store.finishedDeltaOnboardings,
 				cclService: cclService
 			),
 			animated: true

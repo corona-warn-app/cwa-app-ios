@@ -29,7 +29,7 @@ class CheckinCellModelTests: CWATestCase {
 		XCTAssertFalse(cellViewModel.isDurationStackViewHidden)
 		XCTAssertFalse(cellViewModel.isButtonHiddenPublisher.value)
 
-		XCTAssertEqual(cellViewModel.title, "Sportstudio")
+		XCTAssertEqual(cellViewModel.title.string, "Sportstudio")
 		XCTAssertEqual(cellViewModel.address, "Musterstraße 1a, 01234 Musterstadt")
 	}
 
@@ -68,7 +68,7 @@ class CheckinCellModelTests: CWATestCase {
 		XCTAssertFalse(cellViewModel.isDurationStackViewHidden)
 		XCTAssertTrue(cellViewModel.isButtonHiddenPublisher.value)
 
-		XCTAssertEqual(cellViewModel.title, "Sportstudio")
+		XCTAssertEqual(cellViewModel.title.string, "Sportstudio")
 		XCTAssertEqual(cellViewModel.address, "Musterstraße 1a, 01234 Musterstadt")
 	}
 

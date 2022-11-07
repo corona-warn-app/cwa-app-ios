@@ -670,7 +670,7 @@
 
 "ExposureSubmissionSuccess_listItem2_1" = "Please monitor how your symptoms develop closely.";
 
-"ExposureSubmissionSuccess_listItem2_2" = "You will be asked by your public health authority to create a list of people you have had contact with. This should include all people with whom you have had close contact with (less than 2 meters, face-to-face conversation) for over 10 minutes in the two days before you became ill. You can use your contact journal for this: simply export the entries and then print them out or send them via e-mail.";
+"ExposureSubmissionSuccess_listItem2_2" = "You may be asked by your public health authority to create a list of people you have had contact with. This should include all people with whom you have had close contact with (less than 2 meters, face-to-face conversation) for over 10 minutes in the two days before you became ill. You can use your contact journal for this: simply export the entries and then print them out or send them via e-mail.";
 
 "ExposureSubmissionSuccess_listItem2_3" = "Please particularly consider people who will not be notified directly by the app since they don’t own a smartphone, or haven’t installed the app.";
 
@@ -1762,7 +1762,7 @@
 
 "TestResultPositive_KeysSubmitted_FurtherInfo1" = "Please monitor how your symptoms develop closely.";
 
-"TestResultPositive_KeysSubmitted_FurtherInfo2" = "You will be asked by your public health authority to create a list of people you have had contact with. This should include all people with whom you have had close contact with (less than 2 meters, face-to-face conversation) for over 10 minutes in the two days before you became ill. You can use your contact journal for this: simply export the entries and then print them out or send them via e-mail.";
+"TestResultPositive_KeysSubmitted_FurtherInfo2" = "You may be asked by your public health authority to create a list of people you have had contact with. This should include all people with whom you have had close contact with (less than 2 meters, face-to-face conversation) for over 10 minutes in the two days before you became ill. You can use your contact journal for this: simply export the entries and then print them out or send them via e-mail.";
 
 "TestResultPositive_KeysSubmitted_FurtherInfo3" = "Please particularly consider people who will not be notified directly by the app since they don’t own a smartphone, or haven’t installed the app.";
 
@@ -1870,11 +1870,11 @@
 
 "ContactDiary_Day_Encounter_Inside" = "Indoors";
 
-"ContactDiary_Day_Encounter_Notes_Placeholder" = "Note (e.g. close distance)";
+"ContactDiary_Day_Encounter_Notes_Placeholder" = "Note";
 
 "ContactDiary_Day_Visit_Duration" = "Duration";
 
-"ContactDiary_Day_Visit_Notes_Placeholder" = "Note (e.g. very full, poorly ventilated)";
+"ContactDiary_Day_Visit_Notes_Placeholder" = "Note";
 
 /* Edit Entries */
 "ContactDiary_EditEntries_ContactPersons_Title" = "Edit People";
@@ -2173,13 +2173,13 @@
 
 "Statistics_Info_Infections_Title" = "Confirmed New Infections";
 
-"Statistics_Info_Infections_Text" = "Number of persons who have been diagnosed with coronavirus and reported to the RKI. Numbers below a threshold of 1% of the 7-day average are not displayed; also see the explanation under Legend > Time Period.";
+"Statistics_Info_Infections_Text" = "Number of persons who have been diagnosed with coronavirus and reported to the RKI. Numbers below a threshold of 1% of the 7-Day average are not displayed; also see the explanation under Legend > Time Period.";
 
 "Statistics_Info_KeySubmissions_Title" = "Warnings by App Users";
 
 "Statistics_Info_KeySubmissions_Text" = "Number of app users who have been diagnosed with coronavirus and have warned others through the app";
 
-"Statistics_Info_ReproductionNumber_Title" = "7-day R value";
+"Statistics_Info_ReproductionNumber_Title" = "7-Day R value";
 
 "Statistics_Info_ReproductionNumber_Text" = "The reproduction figure, R, indicates how many people an average infected person has infected further. The current value takes data up to the last 5 days into account.";
 
@@ -2191,7 +2191,7 @@
 
 "Statistics_Info_FullyVaccinated_Text" = "Number of persons reported to the RKI who have received all the vaccine doses necessary for basic immunization.";
 
-"Statistics_Info_BoosterVaccination_Title" = "People who have received a booster vaccination";
+"Statistics_Info_BoosterVaccination_Title" = "People who have received a Booster Vaccination";
 
 "Statistics_Info_BoosterVaccination_Text" = "Number of persons reported to the RKI who have received a booster vaccination.";
 
@@ -2760,7 +2760,7 @@
 
 "AntigenProfile_Create_BirthDatePlaceholder" = "Date of Birth";
 
-"AntigenProfile_Create_StreetPlaceholder" = "Street and House Number";
+"AntigenProfile_Create_StreetPlaceholder" = "Address";
 
 "AntigenProfile_Create_PostalCodePlaceholder" = "Postal Code";
 

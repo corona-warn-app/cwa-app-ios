@@ -35,7 +35,7 @@ final class DataDonationDetailsViewModel {
 										string: AppStrings.DataDonation.DetailedInfo.legalParagraph
 									),
 									textColor: .textPrimary1,
-									bgColor: .background
+									bgColor: .cellBackground3
 								)
 							}
 						),

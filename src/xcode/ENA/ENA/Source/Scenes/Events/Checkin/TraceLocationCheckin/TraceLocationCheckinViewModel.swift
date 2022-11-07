@@ -23,10 +23,10 @@ final class TraceLocationCheckinViewModel {
 		#endif
 		self.locationType = traceLocation.type.title
 		self.locationAddress = traceLocation.address
+		locationDescription = traceLocation.description.withHyphenationStyle()
 		self.shouldSaveToContactJournal = store.shouldAddCheckinToContactDiaryByDefault
 
 		self.duration = TimeInterval(traceLocation.suggestedCheckoutLengthInMinutes * 60)
-		setTraceLocation(description: traceLocation.description)
 	}
 	
 	// MARK: - Internal
@@ -135,19 +135,4 @@ final class TraceLocationCheckinViewModel {
 		formatter.zeroFormattingBehavior = .pad
 		return formatter
 	}()
-	
-	private func setTraceLocation(description: String) {
-		let paragraphStyle = NSMutableParagraphStyle()
-		paragraphStyle.hyphenationFactor = 0.8
-
-		let attributedString = NSAttributedString(
-			string: description,
-			attributes: [
-				.paragraphStyle: paragraphStyle
-			]
-		)
-
-		locationDescription = attributedString
-	}
-
 }
