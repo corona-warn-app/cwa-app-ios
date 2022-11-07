@@ -461,7 +461,40 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 
 		push(vc)
 	}
-
+	
+	private func makeShowSRSConsentScreen(srsFlowType: SRSFlowType) -> SRSConsentViewController {
+		return SRSConsentViewController { [weak self] isLoading in
+			guard let self = self else { return }
+			
+			isLoading(true)
+			self.model.exposureSubmissionService.getTemporaryExposureKeys { error in
+				isLoading(false)
+				
+				guard let error = error else {
+					switch srsFlowType {
+					case .srsPositive:
+						self.showCheckinsScreen()
+					case .positiveWithoutResultInTheApp:
+						// TODO
+						// show select test type screen
+						break
+					}
+					return
+				}
+				
+				// User selected "Don't Share" / "Nicht teilen"
+				if error == .notAuthorized {
+					Log.info("OS submission authorization was declined.")
+					self.model.setSubmissionConsentGiven(false)
+				} else {
+					self.showErrorAlert(for: error)
+				}
+			}
+		} dismiss: {
+			[weak self] in self?.dismiss()
+		}
+	}
+	
 	private func makeQRInfoScreen(supportedCountries: [Country], testRegistrationInformation: CoronaTestRegistrationInformation) -> UIViewController {
 		let vc = ExposureSubmissionQRInfoViewController(
 			supportedCountries: supportedCountries,
