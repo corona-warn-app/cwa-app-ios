@@ -893,7 +893,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		let vc = TestTypeSelectionViewController(
 			viewModel: TestTypeSelectionViewModel(preSelectSelfTest: preSelectSelfTest),
 			onPrimaryButtonTap: { [weak self] submissionType in
-				#warning("Store submission type ...")
+				self?.model.submissionTypeSRSSelected(submissionType)
 				self?.showNextScreenFromTestTypeSelectionScreen()
 			}, onDismiss: { [weak self] in
 				self?.parentViewController?.dismiss(animated: true)
