@@ -5,12 +5,12 @@
 import UIKit
 import OpenCombine
 
-class TypeOfTestViewController: DynamicTableViewController {
+class TestTypeSelectionViewController: DynamicTableViewController {
 	
 	// MARK: - Init
 	
 	init(
-		viewModel: TypeOfTestViewModel = TypeOfTestViewModel(),
+		viewModel: TestTypeSelectionViewModel,
 		onPrimaryButtonTap: @escaping (SAP_Internal_SubmissionPayload.SubmissionType) -> Void,
 		onDismiss: @escaping CompletionBool
 	) {
@@ -39,7 +39,7 @@ class TypeOfTestViewController: DynamicTableViewController {
 
 	// MARK: - Private
 	
-	private let viewModel: TypeOfTestViewModel
+	private let viewModel: TestTypeSelectionViewModel
 	private let onPrimaryButtonTap: (SAP_Internal_SubmissionPayload.SubmissionType) -> Void
 	private let onDismiss: CompletionBool
 	private var subscriptions = Set<AnyCancellable>()
@@ -73,7 +73,7 @@ class TypeOfTestViewController: DynamicTableViewController {
 	}
 }
 
-extension TypeOfTestViewController: FooterViewHandling {
+extension TestTypeSelectionViewController: FooterViewHandling {
 
 	func didTapFooterViewButton(_ type: FooterViewModel.ButtonType) {
 		guard let submissionType = viewModel.selectedSubmissionType else {
@@ -85,7 +85,7 @@ extension TypeOfTestViewController: FooterViewHandling {
 	}
 }
 
-extension TypeOfTestViewController: DismissHandling {
+extension TestTypeSelectionViewController: DismissHandling {
 	
 	func wasAttemptedToBeDismissed() {
 		onDismiss(true)

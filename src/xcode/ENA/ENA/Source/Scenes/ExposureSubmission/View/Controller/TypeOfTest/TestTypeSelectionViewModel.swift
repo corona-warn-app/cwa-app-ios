@@ -5,7 +5,13 @@
 import Foundation
 import OpenCombine
 
-class TypeOfTestViewModel {
+class TestTypeSelectionViewModel {
+	
+	// MARK: - Init
+	
+	init(preSelectSelfTest: Bool) {
+		isInitialSelectionSelfTestSubmissionType = preSelectSelfTest
+	}
 	
 	// MARK: - Internal
 	
@@ -45,7 +51,7 @@ class TypeOfTestViewModel {
 							
 							cell.configure(
 								options: options,
-								initialSelection: nil // --todo
+								initialSelection: self.initialSelection
 							)
 							
 							self.optionGroupSelectionSubscription = cell.$selection.sink {
@@ -75,6 +81,16 @@ class TypeOfTestViewModel {
 	]
 	
 	private var optionGroupSelectionSubscription: AnyCancellable?
+	
+	private let isInitialSelectionSelfTestSubmissionType: Bool
+	
+	private var initialSelection: OptionGroupViewModel.Selection? {
+		if isInitialSelectionSelfTestSubmissionType, let index = submissionTypeForChoosing.firstIndex(of: .srsSelfTest) {
+			return .option(index: index)
+		} else {
+			return nil
+		}
+	}
 }
 
 fileprivate extension SAP_Internal_SubmissionPayload.SubmissionType {

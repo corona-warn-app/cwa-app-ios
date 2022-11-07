@@ -156,7 +156,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		let viewModel = ExposureSubmissionIntroViewModel(
 			onQRCodeButtonTap: { [weak self] isLoading in
 				#warning("Remove, only for DEV")
-				self?.showTypeOfTestsScreen()
+				self?.showTestTypeSelectionScreen()
 //				self?.showQRScreen(testRegistrationInformation: nil, isLoading: isLoading)
 			},
 			onFindTestCentersTap: {
@@ -886,14 +886,20 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		push(topBottomContainerViewController)
 	}
 
-	// MARK: Symptoms
+	// MARK: - Test Type Selection
 	
-	private func showTypeOfTestsScreen() {
-		let vc = TypeOfTestViewController { [weak self] submissionType in
-			print(submissionType)
-		} onDismiss: { [weak self] _ in
-			print("Warn-Vorgang abbrechen? Alert")
-		}
+	#warning("14717: Remove default value.")
+	/// Shows the Type of Tests screen
+	/// - Parameter preSelectSelfTest: If the process was started via self-report with self-test on the Manage Your Tests View, the Self-test entry shall be pre-selected. Otherwise, no entry shall be selected.
+	private func showTestTypeSelectionScreen(preSelectSelfTest: Bool = false) {
+		let vc = TestTypeSelectionViewController(
+			viewModel: TestTypeSelectionViewModel(preSelectSelfTest: preSelectSelfTest),
+			onPrimaryButtonTap: { [weak self] submissionType in
+				print(submissionType)
+			}, onDismiss: { [weak self] _ in
+				print("Warn-Vorgang abbrechen? Alert")
+			}
+		)
 		
 		let footerViewController = FooterViewController(
 			FooterViewModel(
@@ -911,6 +917,8 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 
 		present(topBottomContainerViewController)
 	}
+
+	// MARK: Symptoms
 
 	private func showSymptomsScreen() {
 		if let testType = model.coronaTestType {
