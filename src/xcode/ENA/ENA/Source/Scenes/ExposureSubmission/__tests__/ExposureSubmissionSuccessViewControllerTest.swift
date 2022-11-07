@@ -14,7 +14,7 @@ class ExposureSubmissionSuccessViewControllerTest: CWATestCase {
 		XCTAssertEqual(vc.navigationItem.title, AppStrings.ExposureSubmissionSuccess.title)
 		XCTAssertTrue(vc.navigationItem.hidesBackButton)
 		XCTAssertEqual(vc.tableView.numberOfSections, 1)
-		XCTAssertEqual(vc.tableView.numberOfRows(inSection: 0), 10)
+		XCTAssertEqual(vc.tableView.numberOfRows(inSection: 0), 11)
 	}
 
 	func testAntigen() {
@@ -24,7 +24,7 @@ class ExposureSubmissionSuccessViewControllerTest: CWATestCase {
 		XCTAssertEqual(vc.navigationItem.title, AppStrings.ExposureSubmissionSuccess.title)
 		XCTAssertTrue(vc.navigationItem.hidesBackButton)
 		XCTAssertEqual(vc.tableView.numberOfSections, 1)
-		XCTAssertEqual(vc.tableView.numberOfRows(inSection: 0), 10)
+		XCTAssertEqual(vc.tableView.numberOfRows(inSection: 0), 11)
 	}
 
 }
