@@ -155,9 +155,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		// By default, we show the intro view.
 		let viewModel = ExposureSubmissionIntroViewModel(
 			onQRCodeButtonTap: { [weak self] isLoading in
-				#warning("Remove, only for DEV")
-				self?.showTestTypeSelectionScreen()
-//				self?.showQRScreen(testRegistrationInformation: nil, isLoading: isLoading)
+				self?.showQRScreen(testRegistrationInformation: nil, isLoading: isLoading)
 			},
 			onFindTestCentersTap: {
 				LinkHelper.open(urlString: AppStrings.Links.findTestCentersFAQ)
@@ -895,7 +893,8 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		let vc = TestTypeSelectionViewController(
 			viewModel: TestTypeSelectionViewModel(preSelectSelfTest: preSelectSelfTest),
 			onPrimaryButtonTap: { [weak self] submissionType in
-				print(submissionType)
+				#warning("Store submission type ...")
+				self?.showNextScreenFromTestTypeSelectionScreen()
 			}, onDismiss: { [weak self] in
 				self?.parentViewController?.dismiss(animated: true)
 			}
@@ -915,7 +914,16 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 			bottomController: footerViewController
 		)
 
-		present(topBottomContainerViewController)
+		push(topBottomContainerViewController)
+	}
+	
+	private func showNextScreenFromTestTypeSelectionScreen() {
+		if model.eventProvider.checkinsPublisher.value.isEmpty {
+			showSymptomsScreen()
+		} else {
+			print("to.do 14717: app crash, model.coronaTestType and model.coronaTest are nil")
+			// showCheckinsScreen()
+		}
 	}
 
 	// MARK: Symptoms
