@@ -34,6 +34,7 @@ class TypeOfTestViewController: DynamicTableViewController {
 		setupNavigation()
 		setupView()
 		setupTableView()
+		setupBindings()
     }
 
 	// MARK: - Private
@@ -41,8 +42,7 @@ class TypeOfTestViewController: DynamicTableViewController {
 	private let viewModel: TypeOfTestViewModel
 	private let onPrimaryButtonTap: (SAP_Internal_SubmissionPayload.SubmissionType) -> Void
 	private let onDismiss: CompletionBool
-	
-	@OpenCombine.Published private var selectedSubmissionType: SAP_Internal_SubmissionPayload.SubmissionType?
+	private var subscriptions = Set<AnyCancellable>()
 	
 	private func setupNavigation() {
 		navigationItem.title = "Art des Tests"
@@ -63,12 +63,20 @@ class TypeOfTestViewController: DynamicTableViewController {
 		
 		dynamicTableViewModel = viewModel.dynamicTableViewModel
 	}
+	
+	private func setupBindings() {
+		viewModel.$selectedSubmissionType
+			.sink { [weak self] in
+				self?.footerView?.setEnabled($0 != nil, button: .primary)
+			}
+			.store(in: &subscriptions)
+	}
 }
 
 extension TypeOfTestViewController: FooterViewHandling {
 
 	func didTapFooterViewButton(_ type: FooterViewModel.ButtonType) {
-		guard let submissionType = selectedSubmissionType else {
+		guard let submissionType = viewModel.selectedSubmissionType else {
 			Log.error("\(#function): Primary button must not be enabled before the user has selected an option")
 			return
 		}

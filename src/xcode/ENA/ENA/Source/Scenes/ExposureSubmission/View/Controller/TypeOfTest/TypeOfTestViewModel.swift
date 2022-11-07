@@ -7,6 +7,8 @@ import OpenCombine
 
 class TypeOfTestViewModel {
 	
+	// MARK: - Internal
+	
 	var dynamicTableViewModel: DynamicTableViewModel {
 		.init([
 			.section(
@@ -43,11 +45,12 @@ class TypeOfTestViewModel {
 							
 							cell.configure(
 								options: options,
-								initialSelection: nil
+								initialSelection: nil // --todo
 							)
 							
 							self.optionGroupSelectionSubscription = cell.$selection.sink {
-								print($0)
+								guard case let .option(index) = $0 else { return }
+								self.selectedSubmissionType = self.submissionTypeForChoosing[index]
 							}
 						})
 				]
@@ -55,7 +58,15 @@ class TypeOfTestViewModel {
 		])
 	}
 	
+	/// The `SAP_Internal_SubmissionPayload.SubmissionType` that the user has selected in the list.
+	/// Is `nil`, as long as the user hasn't made a selection.
+	@OpenCombine.Published var selectedSubmissionType: SAP_Internal_SubmissionPayload.SubmissionType?
+	
+	// MARK: - Private
+
+	/// The order of the list entries shown.
 	private let submissionTypeForChoosing: [SAP_Internal_SubmissionPayload.SubmissionType] = [
+		.srsSelfTest,
 		.srsRat,
 		.srsRegisteredPcr,
 		.srsUnregisteredPcr,
