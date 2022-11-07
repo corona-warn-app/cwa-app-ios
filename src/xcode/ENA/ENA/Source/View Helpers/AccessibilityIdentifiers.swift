@@ -104,13 +104,14 @@ enum AccessibilityIdentifiers {
 				static let firstBulletPoint = "AccessibilityIdentifiers.Home.pcrCell.Positive.Item0"
 				static let secondBulletPoint = "AccessibilityIdentifiers.Home.pcrCell.Positive.Item1"
 				static let thirdBulletPoint = "AccessibilityIdentifiers.Home.pcrCell.Positive.Item2"
-
+				static let fourthBulletPoint = "AccessibilityIdentifiers.Home.pcrCell.Positive.Item3"
 			}
 			enum RAT {
 				static let antigenCell = "AccessibilityIdentifiers.Home.antigenCell"
 				static let firstBulletPoint = "AccessibilityIdentifiers.Home.ratCell.Positive.Item0"
 				static let secondBulletPoint = "AccessibilityIdentifiers.Home.ratCell.Positive.Item1"
 				static let thirdBulletPoint = "AccessibilityIdentifiers.Home.ratCell.Positive.Item2"
+				static let fourthBulletPoint = "AccessibilityIdentifiers.Home.ratCell.Positive.Item3"
 			}
 			static let submittedPCRCell = "AccessibilityIdentifiers.Home.submittedPCRCell"
 			static let submittedAntigenCell = "AccessibilityIdentifiers.Home.submittedAntigenCell"
