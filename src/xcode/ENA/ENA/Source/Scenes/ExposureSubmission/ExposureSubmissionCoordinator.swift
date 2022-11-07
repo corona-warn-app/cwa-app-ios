@@ -896,8 +896,8 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 			viewModel: TestTypeSelectionViewModel(preSelectSelfTest: preSelectSelfTest),
 			onPrimaryButtonTap: { [weak self] submissionType in
 				print(submissionType)
-			}, onDismiss: { [weak self] _ in
-				print("Warn-Vorgang abbrechen? Alert")
+			}, onDismiss: { [weak self] in
+				self?.parentViewController?.dismiss(animated: true)
 			}
 		)
 		

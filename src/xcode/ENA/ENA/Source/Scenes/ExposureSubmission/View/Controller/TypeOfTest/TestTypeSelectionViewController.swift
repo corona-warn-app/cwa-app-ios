@@ -12,7 +12,7 @@ class TestTypeSelectionViewController: DynamicTableViewController {
 	init(
 		viewModel: TestTypeSelectionViewModel,
 		onPrimaryButtonTap: @escaping (SAP_Internal_SubmissionPayload.SubmissionType) -> Void,
-		onDismiss: @escaping CompletionBool
+		onDismiss: @escaping CompletionVoid
 	) {
 		self.viewModel = viewModel
 		self.onPrimaryButtonTap = onPrimaryButtonTap
@@ -41,7 +41,7 @@ class TestTypeSelectionViewController: DynamicTableViewController {
 	
 	private let viewModel: TestTypeSelectionViewModel
 	private let onPrimaryButtonTap: (SAP_Internal_SubmissionPayload.SubmissionType) -> Void
-	private let onDismiss: CompletionBool
+	private let onDismiss: CompletionVoid
 	private var subscriptions = Set<AnyCancellable>()
 	
 	private func setupNavigation() {
@@ -71,6 +71,29 @@ class TestTypeSelectionViewController: DynamicTableViewController {
 			}
 			.store(in: &subscriptions)
 	}
+	
+	private func showWarnProcessCancelAlert() {
+		let alert = UIAlertController(
+			title: "Warn-Vorgang abbrechen?",
+			message: "Sind Sie sich sicher, dass Sie den Warn-Vorgang abbrechen wollen?\n\nWenn Ihr Test positiv war, können Sie mit einer Warnung helfen, Infektionsketten zu unterbrechen.",
+			preferredStyle: .alert
+		)
+		
+		alert.addAction(UIAlertAction(
+			title: "Warnen fortsetzen",
+			style: .default
+		))
+		
+		alert.addAction(UIAlertAction(
+			title: "Nicht warnen",
+			style: .cancel,
+			handler: { [weak self] _ in
+				self?.onDismiss()
+			}
+		))
+		
+		navigationController?.topViewController?.present(alert, animated: true)
+	}
 }
 
 extension TestTypeSelectionViewController: FooterViewHandling {
@@ -88,6 +111,6 @@ extension TestTypeSelectionViewController: FooterViewHandling {
 extension TestTypeSelectionViewController: DismissHandling {
 	
 	func wasAttemptedToBeDismissed() {
-		onDismiss(true)
+		showWarnProcessCancelAlert()
 	}
 }
