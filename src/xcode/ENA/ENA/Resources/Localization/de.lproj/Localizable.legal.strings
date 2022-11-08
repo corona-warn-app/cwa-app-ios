@@ -157,7 +157,7 @@
 /* SRS Consent Screen */
 
 "SRS_Consent_Legal_Headline_1" = "Ihr Einverständnis";
-"SRS_Description_Legal_Text" = "Durch Antippen von „Einverstanden“ willigen Sie in folgende Schritte ein:";
+"SRS_Consent_Legal_Description_Text" = "Durch Antippen von „Einverstanden“ willigen Sie in folgende Schritte ein:";
 
 "SRS_Consent_Legal_Text_1" = "Die App teilt Ihr positives Testergebnis, um Nutzer, denen Sie begegnet sind, zu warnen. Dies betrifft auch Nutzer der Corona-Warn-App, die zeitgleich am selben Event oder Ort wie Sie eingecheckt waren.";
 "SRS_Consent_Legal_Text_2" = "Ihre Angaben zur Art des Tests werden anonym statistisch ausgewertet.";
