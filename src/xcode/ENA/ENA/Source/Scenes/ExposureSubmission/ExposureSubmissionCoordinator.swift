@@ -926,7 +926,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 			bottomController: footerViewController
 		)
 
-		push(topBottomContainerViewController)
+		present(topBottomContainerViewController)
 	}
 	
 	private func showNextScreenFromTestTypeSelectionScreen() {
