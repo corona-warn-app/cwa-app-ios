@@ -51,8 +51,10 @@ class CheckInDatePickerCell: UITableViewCell, ReuseIdentifierProviding {
 	private lazy var timeDatePicker: UIDatePicker = {
 		let datePicker = UIDatePicker()
 
-		if #available(iOS 14.0, *) {
+		if #available(iOS 15.0, *) {
 			datePicker.preferredDatePickerStyle = .inline
+		} else if #available(iOS 13.4, *) {
+			datePicker.preferredDatePickerStyle = .wheels
 		}
 		datePicker.datePickerMode = .dateAndTime
 		datePicker.tintColor = .enaColor(for: .tint)
