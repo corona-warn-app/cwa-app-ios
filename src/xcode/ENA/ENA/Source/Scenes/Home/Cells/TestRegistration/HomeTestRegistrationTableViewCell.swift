@@ -58,7 +58,6 @@ final class HomeTestRegistrationTableViewCell: UITableViewCell {
 
 	// MARK: - Private
 
-	
 	@IBOutlet private var gradientView: GradientView!
 	@IBOutlet private var titleLabel: ENALabel!
 	@IBOutlet private var subtitleLabel: ENALabel!
