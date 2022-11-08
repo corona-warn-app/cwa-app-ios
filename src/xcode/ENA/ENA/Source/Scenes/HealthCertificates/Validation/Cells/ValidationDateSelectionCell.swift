@@ -119,7 +119,7 @@ final class ValidationDateSelectionCell: UITableViewCell {
 		datePicker.tintColor = .enaColor(for: .tint)
 		datePicker.minimumDate = Date()
 
-		if #available(iOS 14.0, *) {
+		if #available(iOS 15.0, *) {
 			datePicker.preferredDatePickerStyle = .inline
 		} else if #available(iOS 13.4, *) {
 			datePicker.preferredDatePickerStyle = .wheels

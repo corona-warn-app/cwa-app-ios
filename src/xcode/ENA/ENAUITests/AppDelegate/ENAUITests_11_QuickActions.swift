@@ -81,7 +81,7 @@ class ENAUITests_11_QuickActions: CWATestCase {
 		XCTAssertTrue(app.segmentedControls[AccessibilityIdentifiers.ContactDiary.segmentedControl].waitForExistence(timeout: .short))
 	}
 	
-
+	/* Commented out in favour SRS story
 	func testShortcutAvailabilityDuringSubmissionFlow() throws {
 		let app = XCUIApplication()
 		app.setDefaults()
@@ -130,7 +130,7 @@ class ENAUITests_11_QuickActions: CWATestCase {
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitForExistence(timeout: .medium))
 		try checkAppMenu(expectNewDiaryItem: true, expectEventCheckin: true) // available again?
 	}
-
+	*/
 
 	/// Checks the state of the quick action menu according to given parameter.
 	///

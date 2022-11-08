@@ -564,19 +564,19 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmission_DispatchSectionHeadline" = "Sie haben sich bereits testen lassen?";
 
-"ExposureSubmission_DispatchSectionHeadline2" = "Ihr PCR-Test ist positiv?";
+"ExposureSubmission_DispatchSectionHeadline2" = "Test registrieren";
 
 "ExposureSubmissionDispatch_QRCodeButtonTitle" = "QR-Code scannen";
 
 "ExposureSubmissionDispatch_QRCodeButtonDescription" = "Erhalten Sie Ihr Testergebnis und die Ihrer Familienmitglieder und fordern Sie Ihr COVID-Testzertifikat an.";
 
-"ExposureSubmissionDispatch_TANButtonTitle" = "TAN für PCR-Test eingeben";
+"ExposureSubmissionDispatch_PositiveSelfTestButtonTitle" = "Selbsttest positiv?";
 
-"ExposureSubmissionDispatch_TANButtonDescription" = "Ihnen liegt eine TAN für Ihren PCR-Test vor? Weiter zur TAN-Eingabe, um andere zu warnen.";
+"ExposureSubmissionDispatch_PositiveSelfTestButtonDescription" = "Warnen Sie andere, wenn Ihr eigener Selbsttest positiv ist.";
 
-"ExposureSubmissionDispatch_HotlineButtonTitle" = "TAN für PCR-Test anfragen";
+"ExposureSubmissionDispatch_SRSButtonTitle" = "Test positiv und kein Ergebnis in der App?";
 
-"ExposureSubmissionDispatch_HotlineButtonDescription" = "Rufen Sie uns an und erhalten Sie eine TAN für Ihren PCR-Test.";
+"ExposureSubmissionDispatch_SRSButtonDescription" = "Warnen Sie andere mit Ihrem eigenen positiven Schnell- oder PCR-Test, auch wenn Ihr Test nicht registriert war oder Ihr Testergebnis nicht in der App zugestellt wurde.";
 
 "ExposureSubmissionDispatch_FindTestCentersTitle" = "Testmöglichkeit finden";
 
@@ -673,15 +673,19 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionSuccess_PCR_listItem0" = "Sie sind sehr wahrscheinlich ansteckend. Isolieren Sie sich von anderen Personen.";
 
-"ExposureSubmissionSuccess_PCR_listItem1" = "Das Gesundheitsamt wird sich möglicherweise in den nächsten Tagen bei Ihnen melden.";
+"ExposureSubmissionSuccess_PCR_listItem1" = "Ihre Warnung wird dem Kontakt-Tagebuch hinzugefügt.";
 
-"ExposureSubmissionSuccess_PCR_listItem2" = "Falls Sie Risikofaktoren für eine schwere COVID-19-Erkrankung haben, lassen Sie sich ärztlich beraten. Bekannte Risikofaktoren sind z.B. Alter über 60 Jahre, Immunschwäche, Diabetes und hohes Übergewicht.";
+"ExposureSubmissionSuccess_PCR_listItem2" = "Das Gesundheitsamt wird sich möglicherweise in den nächsten Tagen bei Ihnen melden.";
+
+"ExposureSubmissionSuccess_PCR_listItem3" = "Falls Sie Risikofaktoren für eine schwere COVID-19-Erkrankung haben, lassen Sie sich ärztlich beraten. Bekannte Risikofaktoren sind z.B. Alter über 60 Jahre, Immunschwäche, Diabetes und hohes Übergewicht.";
 
 "ExposureSubmissionSuccess_RAT_listItem0" = "Sie sind sehr wahrscheinlich ansteckend. Isolieren Sie sich von anderen Personen.";
 
-"ExposureSubmissionSuccess_RAT_listItem1" = "Machen Sie einen PCR-Test, um dieses Test-Ergebnis zu verifizieren.";
+"ExposureSubmissionSuccess_RAT_listItem1" = "Ihre Warnung wird dem Kontakt-Tagebuch hinzugefügt.";
 
-"ExposureSubmissionSuccess_RAT_listItem2" = "Das Gesundheitsamt wird sich möglicherweise in den nächsten Tagen bei Ihnen melden.";
+"ExposureSubmissionSuccess_RAT_listItem2" = "Machen Sie einen PCR-Test, um dieses Test-Ergebnis zu verifizieren.";
+
+"ExposureSubmissionSuccess_RAT_listItem3" = "Das Gesundheitsamt wird sich möglicherweise in den nächsten Tagen bei Ihnen melden.";
 
 "ExposureSubmissionSuccess_listItem2_1" = "Bitte beobachten Sie genau, wie sich Ihre Symptome entwickeln.";
 

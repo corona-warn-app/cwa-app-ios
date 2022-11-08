@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "Illu_Submission_TAN.pdf",
+      "filename" : "Illu_Submission_SRS_light.pdf",
       "idiom" : "universal"
     },
     {
@@ -11,7 +11,7 @@
           "value" : "dark"
         }
       ],
-      "filename" : "Illu_Submission_TAN-Dark.pdf",
+      "filename" : "Illu_Submission_SRS_dark.pdf",
       "idiom" : "universal"
     }
   ],

@@ -101,6 +101,14 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		QuickAction.exposureSubmissionFlowTestResult = model.coronaTest?.testResult
 	}
 
+	func showPositiveSelfTestFlow() {
+		// To.do
+	}
+	
+	func showSelfReportSubmissionFlow() {
+		// To.do
+	}
+	
 	func showTanScreen() {
 		let tanInputViewModel = TanInputViewModel(
 			title: AppStrings.ExposureSubmissionTanEntry.title,
@@ -154,14 +162,18 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 
 		// By default, we show the intro view.
 		let viewModel = ExposureSubmissionIntroViewModel(
+			onPositiveSelfTestButtonTap: { [weak self] in
+				self?.showPositiveSelfTestFlow()
+			},
+			onSelfReportSubmissionButtonTap: { [weak self] in
+				self?.showSelfReportSubmissionFlow()
+			},
 			onQRCodeButtonTap: { [weak self] isLoading in
 				self?.showQRScreen(testRegistrationInformation: nil, isLoading: isLoading)
 			},
 			onFindTestCentersTap: {
 				LinkHelper.open(urlString: AppStrings.Links.findTestCentersFAQ)
 			},
-			onTANButtonTap: { [weak self] in self?.showTanScreen() },
-			onHotlineButtonTap: { [weak self] in self?.showHotlineScreen() },
 			onRapidTestProfileTap: { [weak self] in
 				guard let antigenTestProfileInfoScreenShown = self?.store.antigenTestProfileInfoScreenShown, antigenTestProfileInfoScreenShown else {
 					self?.showAntigenTestProfileInformation()

@@ -73,7 +73,7 @@ class TestTypeSelectionViewModel {
 	/// The order of the list entries shown.
 	private let submissionTypeForChoosing: [SAP_Internal_SubmissionPayload.SubmissionType] = [
 		.srsSelfTest,
-		.srsRat,
+		.srsRegisteredRat,
 		.srsRegisteredPcr,
 		.srsUnregisteredPcr,
 		.srsRapidPcr,
@@ -98,7 +98,7 @@ fileprivate extension SAP_Internal_SubmissionPayload.SubmissionType {
 		switch self {
 		case .srsSelfTest:
 			return "Selbsttest"
-		case .srsRat:
+		case .srsRegisteredRat:
 			return "Schnelltest"
 		case .srsRegisteredPcr:
 			return "PCR-Labortest in der App registriert, aber kein Ergebnis erhalten"
@@ -117,7 +117,7 @@ fileprivate extension SAP_Internal_SubmissionPayload.SubmissionType {
 		switch self {
 		case .srsSelfTest:
 			return "srsSelfTest.Identifier"
-		case .srsRat:
+		case .srsRegisteredRat:
 			return "srsRat.Identifier"
 		case .srsRegisteredPcr:
 			return "srsRegisteredPcr.Identifier"
