@@ -1737,6 +1737,7 @@
 		DC28F7C828FEC94100EFFA34 /* UIImage+SFSymbols.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC28F7C728FEC94100EFFA34 /* UIImage+SFSymbols.swift */; };
 		DC3B278D28F55B6D00A55769 /* SAP_Internal_Stats_LinkCard+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC3B278C28F55B6D00A55769 /* SAP_Internal_Stats_LinkCard+Mock.swift */; };
 		DC3B278F28F5936700A55769 /* NSAttributedString+Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC3B278E28F5936700A55769 /* NSAttributedString+Image.swift */; };
+		DC4618C129142B220035CAA7 /* UIView+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC4618C029142B220035CAA7 /* UIView+Utils.swift */; };
 		DC7002D9284F6B7900B164AC /* HealthCertificateExportCertificatesInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC7002D8284F6B7900B164AC /* HealthCertificateExportCertificatesInfoViewModel.swift */; };
 		DC7002DB284F8BA100B164AC /* HealthCertificateExportCertificatesInfoViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC7002DA284F8BA100B164AC /* HealthCertificateExportCertificatesInfoViewModelTests.swift */; };
 		DC7002DD2850EA7800B164AC /* TooltipViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC7002DC2850EA7800B164AC /* TooltipViewController.swift */; };
@@ -3616,6 +3617,7 @@
 		DC28F7C728FEC94100EFFA34 /* UIImage+SFSymbols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+SFSymbols.swift"; sourceTree = "<group>"; };
 		DC3B278C28F55B6D00A55769 /* SAP_Internal_Stats_LinkCard+Mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SAP_Internal_Stats_LinkCard+Mock.swift"; sourceTree = "<group>"; };
 		DC3B278E28F5936700A55769 /* NSAttributedString+Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSAttributedString+Image.swift"; sourceTree = "<group>"; };
+		DC4618C029142B220035CAA7 /* UIView+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Utils.swift"; sourceTree = "<group>"; };
 		DC7002D8284F6B7900B164AC /* HealthCertificateExportCertificatesInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateExportCertificatesInfoViewModel.swift; sourceTree = "<group>"; };
 		DC7002DA284F8BA100B164AC /* HealthCertificateExportCertificatesInfoViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateExportCertificatesInfoViewModelTests.swift; sourceTree = "<group>"; };
 		DC7002DC2850EA7800B164AC /* TooltipViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TooltipViewController.swift; sourceTree = "<group>"; };
@@ -6859,6 +6861,7 @@
 				514EE997246D4BEB00DE4884 /* UITableView */,
 				3494D92B261EF8AC00EC532C /* UITextField+CGFloat.swift */,
 				2F3218CF248063E300A7AC0A /* UIView+Convenience.swift */,
+				DC4618C029142B220035CAA7 /* UIView+Utils.swift */,
 				EB858D1F24E700D10048A0AA /* UIView+Screenshot.swift */,
 				85142500245DA0B3009D2791 /* UIViewController+Alert.swift */,
 				2F26CE2D248B9C4F00BE30EE /* UIViewController+BackButton.swift */,
@@ -12267,6 +12270,7 @@
 				01E10277266BC4B1009ED803 /* TestCertificateRequestTableViewCell.swift in Sources */,
 				713EA26324798F8500AB7EE8 /* ExposureDetectionHeaderCell.swift in Sources */,
 				BA3A79C92631B82A00B6D6C0 /* AntigenTestProfileInformationViewModel.swift in Sources */,
+				DC4618C129142B220035CAA7 /* UIView+Utils.swift in Sources */,
 				FEDCE09E9F78ABEB4AA9A484 /* ExposureDetectionExecutor.swift in Sources */,
 				FEDCE50B4AC5E24D4E11AA52 /* RequiresAppDependencies.swift in Sources */,
 				ABC506BF2747DF8B00698A95 /* Data+Random.swift in Sources */,
