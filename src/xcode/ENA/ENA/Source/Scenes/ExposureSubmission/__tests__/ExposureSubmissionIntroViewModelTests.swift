@@ -22,17 +22,61 @@ class ExposureSubmissionIntroViewModelTests: CWATestCase {
 		store.antigenTestProfiles = [antigenTestProfile]
 
 		let viewModel = ExposureSubmissionIntroViewModel(
+			onPositiveSelfTestButtonTap: { },
+			onSelfReportSubmissionButtonTap: { },
 			onQRCodeButtonTap: { _ in },
 			onFindTestCentersTap: { },
-			onTANButtonTap: { },
-			onHotlineButtonTap: { },
 			onRapidTestProfileTap: { },
 			antigenTestProfileStore: store
 		)
 
-		let profileCell = viewModel.dynamicTableModel.cell(at: IndexPath(row: 2, section: 1))
+		let profileCell = viewModel.dynamicTableModel.cell(at: IndexPath(row: 5, section: 1))
 
 		XCTAssertEqual(profileCell.tag, "AntigenTestProfileCard")
 	}
 
+	func test_When_DynamicTableViewModel_Then_NumberOfCellsAndTypeIsCorrect() {
+		let store = MockTestStore()
+
+		let viewModel = ExposureSubmissionIntroViewModel(
+			onPositiveSelfTestButtonTap: { },
+			onSelfReportSubmissionButtonTap: { },
+			onQRCodeButtonTap: { _ in },
+			onFindTestCentersTap: { },
+			onRapidTestProfileTap: { },
+			antigenTestProfileStore: store
+		)
+
+		let section0 = viewModel.dynamicTableModel.section(0)
+		var cells = section0.cells
+		XCTAssertEqual(cells.count, 0)
+		
+		let section1 = viewModel.dynamicTableModel.section(1)
+		cells = section1.cells
+		XCTAssertEqual(cells.count, 6)
+		
+		let firstItem = cells[0]
+		var id = firstItem.cellReuseIdentifier
+		XCTAssertEqual(id.rawValue, "imageCardCell")
+		
+		let secondItem = cells[1]
+		id = secondItem.cellReuseIdentifier
+		XCTAssertEqual(id.rawValue, "imageCardCell")
+		
+		let thirdItem = cells[2]
+		id = thirdItem.cellReuseIdentifier
+		XCTAssertEqual(id.rawValue, "labelCell")
+		
+		let fourthItem = cells[3]
+		id = fourthItem.cellReuseIdentifier
+		XCTAssertEqual(id.rawValue, "imageCardCell")
+		
+		let fifthItem = cells[4]
+		id = fifthItem.cellReuseIdentifier
+		XCTAssertEqual(id.rawValue, "imageCardCell")
+		
+		let sixthItem = cells[5]
+		id = sixthItem.cellReuseIdentifier
+		XCTAssertEqual(id.rawValue, "imageCardCell")
+	}
 }
