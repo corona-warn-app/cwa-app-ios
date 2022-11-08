@@ -462,7 +462,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		push(vc)
 	}
 	
-	private func makeShowSRSConsentScreen(srsFlowType: SRSFlowType) -> SRSConsentViewController {
+	private func makeSRSConsentScreen(srsFlowType: SRSFlowType) -> SRSConsentViewController {
 		return SRSConsentViewController { [weak self] isLoading in
 			guard let self = self else { return }
 			

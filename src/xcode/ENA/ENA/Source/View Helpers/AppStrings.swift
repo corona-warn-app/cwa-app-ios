@@ -325,7 +325,7 @@ enum AppStrings {
 
 	enum SRSConsentScreen {
 		static let title = NSLocalizedString("ExposureSubmissionQRInfo_title", comment: "")
-		static let headerSection1 = NSLocalizedString("SRSConsentScreen_warnOthers", comment: "")
+		static let headerSection1 = NSLocalizedString("SRS_ConsentScreen_Title1", comment: "")
 		static let titleDescription1 = NSLocalizedString("SRSConsentScreen_title_description1", comment: "")
 		static let instruction1 = NSLocalizedString("SRSConsentScreen_instruction1", comment: "")
 		static let instruction2 = NSLocalizedString("SRSConsentScreen_instruction2", comment: "")

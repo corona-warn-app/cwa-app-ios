@@ -66,7 +66,7 @@ class SRSConsentViewController: DynamicTableViewController, FooterViewHandling {
 		view.backgroundColor = .enaColor(for: .background)
 
 		tableView.register(
-			UINib(nibName: String(describing: DynamicLegalExtendedCell.self), bundle: nil),
+			DynamicLegalExtendedCell.self,
 			forCellReuseIdentifier: ReuseIdentifiers.legalExtended.rawValue
 		)
 
