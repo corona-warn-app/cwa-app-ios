@@ -29,7 +29,7 @@ class TestTypeSelectionViewModel {
 						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmission.TestTypeSelection.body
 					),
 					.custom(
-						withIdentifier: ExposureSubmissionSymptomsViewController.CustomCellReuseIdentifiers.optionGroupCell,
+						withIdentifier: TestTypeSelectionViewController.CustomCellReuseIdentifiers.optionGroupCell,
 						configure: { _, cell, _ in
 							guard let cell = cell as? DynamicTableViewOptionGroupCell else {
 								return

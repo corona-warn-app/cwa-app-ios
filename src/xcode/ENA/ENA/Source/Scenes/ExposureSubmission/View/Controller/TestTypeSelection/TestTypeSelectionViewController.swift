@@ -58,7 +58,7 @@ class TestTypeSelectionViewController: DynamicTableViewController {
 		
 		tableView.register(
 			DynamicTableViewOptionGroupCell.self,
-			forCellReuseIdentifier: ExposureSubmissionSymptomsViewController.CustomCellReuseIdentifiers.optionGroupCell.rawValue
+			forCellReuseIdentifier: Self.CustomCellReuseIdentifiers.optionGroupCell.rawValue
 		)
 		
 		dynamicTableViewModel = viewModel.dynamicTableViewModel
@@ -97,6 +97,8 @@ class TestTypeSelectionViewController: DynamicTableViewController {
 	}
 }
 
+// MARK: - FooterViewHandling
+
 extension TestTypeSelectionViewController: FooterViewHandling {
 
 	func didTapFooterViewButton(_ type: FooterViewModel.ButtonType) {
@@ -109,9 +111,20 @@ extension TestTypeSelectionViewController: FooterViewHandling {
 	}
 }
 
+// MARK: - DismissHandling
+
 extension TestTypeSelectionViewController: DismissHandling {
 	
 	func wasAttemptedToBeDismissed() {
 		showWarnProcessCancelAlert()
+	}
+}
+
+
+// MARK: - Cell reuse identifiers.
+
+extension TestTypeSelectionViewController {
+	enum CustomCellReuseIdentifiers: String, TableViewCellReuseIdentifiers {
+		case optionGroupCell
 	}
 }
