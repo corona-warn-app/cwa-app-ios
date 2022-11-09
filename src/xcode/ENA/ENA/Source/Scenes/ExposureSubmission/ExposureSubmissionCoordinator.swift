@@ -475,7 +475,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 					case .srsPositive:
 						self.showCheckinsScreen()
 					case .positiveWithoutResultInTheApp:
-						// to. do
+						// to.do
 						// show select test type screen
 						break
 					}
