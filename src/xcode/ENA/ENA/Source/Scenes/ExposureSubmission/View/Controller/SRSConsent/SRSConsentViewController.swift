@@ -67,7 +67,7 @@ class SRSConsentViewController: DynamicTableViewController, FooterViewHandling {
 
 		tableView.register(
 			DynamicLegalExtendedCell.self,
-			forCellReuseIdentifier: ReuseIdentifiers.legalExtended.rawValue
+			forCellReuseIdentifier: DynamicLegalExtendedCell.reuseIdentifier
 		)
 
 		dynamicTableViewModel = viewModel.dynamicTableViewModel
