@@ -536,7 +536,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 								)
 							}
 						}
-					})
+					}
 				} else {
 					self?.showOverrideTestNoticeIfNecessary(
 						testRegistrationInformation: testRegistrationInformation,
