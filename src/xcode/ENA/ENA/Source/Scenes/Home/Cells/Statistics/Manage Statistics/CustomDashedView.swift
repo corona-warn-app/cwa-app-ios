@@ -53,7 +53,9 @@ class CustomDashedView: UIControl {
 
 	override var accessibilityElements: [Any]? {
 		get { [label, icon].compactMap { $0 } }
-		set { _ = newValue }
+		set {
+			_ = newValue
+		}
 	}
 
 	override func accessibilityElementDidBecomeFocused() {
