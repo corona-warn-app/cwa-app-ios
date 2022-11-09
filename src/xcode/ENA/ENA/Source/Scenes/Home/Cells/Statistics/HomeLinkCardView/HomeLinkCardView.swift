@@ -41,8 +41,10 @@ class HomeLinkCardView: UIView {
 			
 			return accessibilityElements as [Any]
 		}
-		// swiftlint:disable unused_setter_value
-		set {}
+
+		set {
+			_ = newValue
+		}
 	}
 	
 	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {

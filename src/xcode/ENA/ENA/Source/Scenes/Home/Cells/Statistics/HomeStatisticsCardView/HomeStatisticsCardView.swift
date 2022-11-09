@@ -100,8 +100,10 @@ class HomeStatisticsCardView: UIView {
 
 			return accessibilityElements
 		}
-		// swiftlint:disable unused_setter_value
-		set { }
+
+		set {
+			_ = newValue
+		}
 	}
 
 	// MARK: - Internal

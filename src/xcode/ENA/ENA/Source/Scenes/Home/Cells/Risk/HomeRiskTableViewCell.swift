@@ -39,8 +39,9 @@ final class HomeRiskTableViewCell: UITableViewCell {
 
 			return accessibilityElements
 		}
-		// swiftlint:disable unused_setter_value
-		set { }
+		set {
+			_ = newValue
+		}
 	}
 
 	// Ignore touches on the button when it's disabled

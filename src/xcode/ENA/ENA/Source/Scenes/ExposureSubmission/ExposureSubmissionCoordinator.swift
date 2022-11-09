@@ -490,8 +490,8 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 					self.showErrorAlert(for: error)
 				}
 			}
-		} dismiss: {
-			[weak self] in self?.dismiss()
+		} dismiss: { [weak self] in
+			self?.dismiss()
 		}
 	}
 	
