@@ -7673,7 +7673,7 @@
 				BA6F006F265FD2590020721B /* TestCertificate */,
 				347A36AC27E8CA6700DA82D2 /* TestOwnerSelection */,
 				BAD962F925668E5D00FAB615 /* TestResultAvailable */,
-				DC4618C229155AEF0035CAA7 /* TypeOfTest */,
+				DC4618C229155AEF0035CAA7 /* TestTypeSelection */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -10505,13 +10505,13 @@
 			path = HomeLinkCardView;
 			sourceTree = "<group>";
 		};
-		DC4618C229155AEF0035CAA7 /* TypeOfTest */ = {
+		DC4618C229155AEF0035CAA7 /* TestTypeSelection */ = {
 			isa = PBXGroup;
 			children = (
 				DC4618C329155B2F0035CAA7 /* TestTypeSelectionViewController.swift */,
 				DC4618C529155E560035CAA7 /* TestTypeSelectionViewModel.swift */,
 			);
-			path = TypeOfTest;
+			path = TestTypeSelection;
 			sourceTree = "<group>";
 		};
 		DC7003052858A7D200B164AC /* Mocks */ = {

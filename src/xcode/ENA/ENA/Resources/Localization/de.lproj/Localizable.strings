@@ -929,6 +929,32 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionWarnOthers_continueButton" = "Einverstanden";
 
+/* Exposure Submission Warn Others Test Type Selection */
+
+"ExposureSubmission_TestTypeSelection_title" = "Art des Tests";
+
+"ExposureSubmission_TestTypeSelection_body" = "Bitte wählen Sie die Art des Tests aus, auf dessen Grundlage Sie warnen.";
+
+"ExposureSubmission_TestTypeSelection_optionSRSSelfTest_title" = "Antigen-Schnelltest nicht in der App registriert";
+
+"ExposureSubmission_TestTypeSelection_optionSRSRegisteredRat_title" = "Antigen-Schnelltest in der App registriert, aber kein Ergebnis erhalten";
+
+"ExposureSubmission_TestTypeSelection_optionSRSRegisteredPcr_title" = "PCR-Labortest in der App registriert, aber kein Ergebnis erhalten";
+
+"ExposureSubmission_TestTypeSelection_optionSRSUnregisteredPcr_title" = "PCR-Labortest nicht in der App registriert";
+
+"ExposureSubmission_TestTypeSelection_optionSRSRapidPcr_title" = "PCR-Schnelltest (PoC-NAT-Test)";
+
+"ExposureSubmission_TestTypeSelection_optionSRSOther_title" = "Sonstige / keine Angabe";
+
+"ExposureSubmission_TestTypeSelection_warnProcessCancelAlert_Title" = "Warn-Vorgang abbrechen?";
+
+"ExposureSubmission_TestTypeSelection_warnProcessCancelAlert_Message" = "Sind Sie sich sicher, dass Sie den Warn-Vorgang abbrechen wollen?\n\nWenn Ihr Test positiv war, können Sie mit einer Warnung helfen, Infektionsketten zu unterbrechen.";
+
+"ExposureSubmission_TestTypeSelection_warnProcessCancelAlert_ActionContinue" = "Warnen fortsetzen";
+
+"ExposureSubmission_TestTypeSelection_warnProcessCancelAlert_ActionCancel" = "Nicht warnen";
+
 /* Exposure Submission Result */
 
 "ExposureSubmissionResult_RemoveAlert_Title" = "Wollen Sie Ihr Testergebnis löschen?";
