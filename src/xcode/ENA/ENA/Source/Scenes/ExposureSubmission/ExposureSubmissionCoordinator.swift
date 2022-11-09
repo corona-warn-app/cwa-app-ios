@@ -933,7 +933,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		if model.eventProvider.checkinsPublisher.value.isEmpty {
 			showSymptomsScreen()
 		} else {
-			print("to.do 14717: app crash, model.coronaTestType and model.coronaTest are nil")
+			#warning("to.do 14717: app crash, model.coronaTestType and model.coronaTest are nil")
 			// showCheckinsScreen()
 		}
 	}
