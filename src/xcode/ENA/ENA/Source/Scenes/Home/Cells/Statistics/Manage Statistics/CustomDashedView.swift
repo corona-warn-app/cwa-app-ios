@@ -53,6 +53,7 @@ class CustomDashedView: UIControl {
 
 	override var accessibilityElements: [Any]? {
 		get { [label, icon].compactMap { $0 } }
+		// swiftlint:disable unused_setter_value
 		set { }
 	}
 

@@ -2,8 +2,6 @@
 // 🦠 Corona-Warn-App
 //
 
-@testable import ENA
-
 extension SAP_Internal_Stats_LinkCard {
 	static let rkiPandemicRadarURL: String = "https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/Situationsberichte/COVID-19-Trends/COVID-19-Trends.html?__blob=publicationFile#/home"
 	

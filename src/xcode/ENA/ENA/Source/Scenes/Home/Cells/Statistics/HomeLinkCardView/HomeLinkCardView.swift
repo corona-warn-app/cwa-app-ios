@@ -41,6 +41,7 @@ class HomeLinkCardView: UIView {
 			
 			return accessibilityElements as [Any]
 		}
+		// swiftlint:disable unused_setter_value
 		set {}
 	}
 	
