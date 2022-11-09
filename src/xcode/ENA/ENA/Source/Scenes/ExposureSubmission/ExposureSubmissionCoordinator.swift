@@ -502,7 +502,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 				if #available(iOS 14.4, *) {
 					Log.info("Start preauthorizaton for keys...")
 
-					self?.exposureManager.preAuthorizeKeys { error in
+					self?.exposureManager.preAuthorizeKeys(completion: { error in
 						DispatchQueue.main.async { [weak self] in
 							if let error = error as? ENError {
 								let submissionError = error.toExposureSubmissionError()
@@ -536,7 +536,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 								)
 							}
 						}
-					}
+					})
 				} else {
 					self?.showOverrideTestNoticeIfNecessary(
 						testRegistrationInformation: testRegistrationInformation,
