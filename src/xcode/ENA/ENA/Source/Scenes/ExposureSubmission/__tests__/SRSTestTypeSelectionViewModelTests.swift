@@ -5,7 +5,7 @@
 import XCTest
 @testable import ENA
 
-final class TestTypeSelectionViewModelTests: XCTestCase {
+final class SRSTestTypeSelectionViewModelTests: XCTestCase {
 
     func test_When_DynamicTableViewModel_Then_NumberOfCellsAndTypeIsCorrect() throws {
 		// Given
