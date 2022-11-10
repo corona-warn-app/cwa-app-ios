@@ -182,6 +182,21 @@ enum AppStrings {
 
 			}
 		}
+
+		enum TestTypeSelection {
+			static let title = NSLocalizedString("ExposureSubmission_TestTypeSelection_title", comment: "")
+			static let body = NSLocalizedString("ExposureSubmission_TestTypeSelection_body", comment: "")
+			static let optionSRSSelfTestTitle = NSLocalizedString("ExposureSubmission_TestTypeSelection_optionSRSSelfTest_title", comment: "")
+			static let optionSRSRegisteredRatTitle = NSLocalizedString("ExposureSubmission_TestTypeSelection_optionSRSRegisteredRat_title", comment: "")
+			static let optionSRSRegisteredPcrTitle = NSLocalizedString("ExposureSubmission_TestTypeSelection_optionSRSRegisteredPcr_title", comment: "")
+			static let optionSRSUnregisteredPcrTitle = NSLocalizedString("ExposureSubmission_TestTypeSelection_optionSRSUnregisteredPcr_title", comment: "")
+			static let optionSRSRapidPcrTitle = NSLocalizedString("ExposureSubmission_TestTypeSelection_optionSRSRapidPcr_title", comment: "")
+			static let optionSRSOtherTitle = NSLocalizedString("ExposureSubmission_TestTypeSelection_optionSRSOther_title", comment: "")
+			static let warnProcessCancelAlertTitle = NSLocalizedString("ExposureSubmission_TestTypeSelection_warnProcessCancelAlert_Title", comment: "")
+			static let warnProcessCancelAlertMessage = NSLocalizedString("ExposureSubmission_TestTypeSelection_warnProcessCancelAlert_Message", comment: "")
+			static let warnProcessCancelAlertActionContinue = NSLocalizedString("ExposureSubmission_TestTypeSelection_warnProcessCancelAlert_ActionContinue", comment: "")
+			static let warnProcessCancelAlertActionCancel = NSLocalizedString("ExposureSubmission_TestTypeSelection_warnProcessCancelAlert_ActionCancel", comment: "")
+		}
 	}
 
 	enum ExposureSubmissionTanEntry {
@@ -1006,6 +1021,7 @@ enum AppStrings {
 
 		enum TestRegistration {
 			static let title = NSLocalizedString("Home_TestRegistration_Title", comment: "")
+			static let subtitle = NSLocalizedString("Home_TestRegistration_Subtitle", comment: "")
 			static let description = NSLocalizedString("Home_TestRegistration_Body", comment: "")
 			static let button = NSLocalizedString("Home_TestRegistration_Button", comment: "")
 		}

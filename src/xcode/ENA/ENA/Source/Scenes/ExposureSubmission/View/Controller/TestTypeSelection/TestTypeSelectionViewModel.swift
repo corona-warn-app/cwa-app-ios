@@ -25,11 +25,11 @@ class TestTypeSelectionViewModel {
 				background: .none,
 				cells: [
 					.body(
-						text: "Bitte wählen Sie die Art des Tests aus, auf dessen Grundlage Sie warnen.",
-						accessibilityIdentifier: nil
+						text: AppStrings.ExposureSubmission.TestTypeSelection.body,
+						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmission.TestTypeSelection.body
 					),
 					.custom(
-						withIdentifier: ExposureSubmissionSymptomsViewController.CustomCellReuseIdentifiers.optionGroupCell,
+						withIdentifier: TestTypeSelectionViewController.CustomCellReuseIdentifiers.optionGroupCell,
 						configure: { _, cell, _ in
 							guard let cell = cell as? DynamicTableViewOptionGroupCell else {
 								return
@@ -97,17 +97,17 @@ fileprivate extension SAP_Internal_SubmissionPayload.SubmissionType {
 	var optionTitle: String {
 		switch self {
 		case .srsSelfTest:
-			return "Antigen-Schnelltest nicht in der App registriert"
+			return AppStrings.ExposureSubmission.TestTypeSelection.optionSRSSelfTestTitle
 		case .srsRegisteredRat:
-			return "Antigen-Schnelltest in der App registriert, aber kein Ergebnis erhalten"
+			return AppStrings.ExposureSubmission.TestTypeSelection.optionSRSRegisteredRatTitle
 		case .srsRegisteredPcr:
-			return "PCR-Labortest in der App registriert, aber kein Ergebnis erhalten"
+			return AppStrings.ExposureSubmission.TestTypeSelection.optionSRSRegisteredPcrTitle
 		case .srsUnregisteredPcr:
-			return "PCR-Labortest nicht in der App registriert"
+			return AppStrings.ExposureSubmission.TestTypeSelection.optionSRSUnregisteredPcrTitle
 		case .srsRapidPcr:
-			return "PCR-Schnelltest (PoC-NAT-Test)"
+			return AppStrings.ExposureSubmission.TestTypeSelection.optionSRSRapidPcrTitle
 		case .srsOther:
-			return "Sonstige / keine Angabe"
+			return AppStrings.ExposureSubmission.TestTypeSelection.optionSRSOtherTitle
 		default:
 			return ""
 		}
@@ -116,17 +116,17 @@ fileprivate extension SAP_Internal_SubmissionPayload.SubmissionType {
 	var optionAccessibilityIdentifier: String? {
 		switch self {
 		case .srsSelfTest:
-			return "srsSelfTest.Identifier"
+			return AccessibilityIdentifiers.ExposureSubmission.TestTypeSelection.optionSRSSelfTest
 		case .srsRegisteredRat:
-			return "srsRat.Identifier"
+			return AccessibilityIdentifiers.ExposureSubmission.TestTypeSelection.optionSRSRegisteredRat
 		case .srsRegisteredPcr:
-			return "srsRegisteredPcr.Identifier"
+			return AccessibilityIdentifiers.ExposureSubmission.TestTypeSelection.optionSRSRegisteredPcr
 		case .srsUnregisteredPcr:
-			return "srsUnregisteredPcr.Identifier"
+			return AccessibilityIdentifiers.ExposureSubmission.TestTypeSelection.optionSRSUnregisteredPcr
 		case .srsRapidPcr:
-			return "srsRapidPcr.Identifier"
+			return AccessibilityIdentifiers.ExposureSubmission.TestTypeSelection.optionSRSRapidPcr
 		case .srsOther:
-			return "srsOther.Identifier"
+			return AccessibilityIdentifiers.ExposureSubmission.TestTypeSelection.optionSRSOther
 		default:
 			return nil
 		}

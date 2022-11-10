@@ -45,7 +45,7 @@ class TestTypeSelectionViewController: DynamicTableViewController {
 	private var subscriptions = Set<AnyCancellable>()
 	
 	private func setupNavigation() {
-		navigationItem.title = "Art des Tests"
+		navigationItem.title = AppStrings.ExposureSubmission.TestTypeSelection.title
 		navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton
 	}
 	
@@ -58,7 +58,7 @@ class TestTypeSelectionViewController: DynamicTableViewController {
 		
 		tableView.register(
 			DynamicTableViewOptionGroupCell.self,
-			forCellReuseIdentifier: ExposureSubmissionSymptomsViewController.CustomCellReuseIdentifiers.optionGroupCell.rawValue
+			forCellReuseIdentifier: Self.CustomCellReuseIdentifiers.optionGroupCell.rawValue
 		)
 		
 		dynamicTableViewModel = viewModel.dynamicTableViewModel
@@ -72,20 +72,21 @@ class TestTypeSelectionViewController: DynamicTableViewController {
 			.store(in: &subscriptions)
 	}
 	
+	// to.do move alert handling to coordinator
 	private func showWarnProcessCancelAlert() {
 		let alert = UIAlertController(
-			title: "Warn-Vorgang abbrechen?",
-			message: "Sind Sie sich sicher, dass Sie den Warn-Vorgang abbrechen wollen?\n\nWenn Ihr Test positiv war, können Sie mit einer Warnung helfen, Infektionsketten zu unterbrechen.",
+			title: AppStrings.ExposureSubmission.TestTypeSelection.warnProcessCancelAlertTitle,
+			message: AppStrings.ExposureSubmission.TestTypeSelection.warnProcessCancelAlertMessage,
 			preferredStyle: .alert
 		)
 		
 		alert.addAction(UIAlertAction(
-			title: "Warnen fortsetzen",
+			title: AppStrings.ExposureSubmission.TestTypeSelection.warnProcessCancelAlertActionContinue,
 			style: .default
 		))
 		
 		alert.addAction(UIAlertAction(
-			title: "Nicht warnen",
+			title: AppStrings.ExposureSubmission.TestTypeSelection.warnProcessCancelAlertActionCancel,
 			style: .cancel,
 			handler: { [weak self] _ in
 				self?.onDismiss()
@@ -95,6 +96,8 @@ class TestTypeSelectionViewController: DynamicTableViewController {
 		navigationController?.topViewController?.present(alert, animated: true)
 	}
 }
+
+// MARK: - FooterViewHandling
 
 extension TestTypeSelectionViewController: FooterViewHandling {
 
@@ -108,9 +111,20 @@ extension TestTypeSelectionViewController: FooterViewHandling {
 	}
 }
 
+// MARK: - DismissHandling
+
 extension TestTypeSelectionViewController: DismissHandling {
 	
 	func wasAttemptedToBeDismissed() {
 		showWarnProcessCancelAlert()
+	}
+}
+
+
+// MARK: - Cell reuse identifiers.
+
+extension TestTypeSelectionViewController {
+	enum CustomCellReuseIdentifiers: String, TableViewCellReuseIdentifiers {
+		case optionGroupCell
 	}
 }

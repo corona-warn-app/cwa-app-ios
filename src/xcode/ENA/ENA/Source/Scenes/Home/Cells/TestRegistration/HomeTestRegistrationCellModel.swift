@@ -9,10 +9,12 @@ class HomeTestRegistrationCellModel {
 	// MARK: - Internal
 
 	var title = AppStrings.Home.TestRegistration.title
+	var subtitle = AppStrings.Home.TestRegistration.subtitle
 	var description = AppStrings.Home.TestRegistration.description
 	var buttonTitle = AppStrings.Home.TestRegistration.button
-	var image = UIImage(named: "Illu_Hand_with_phone-initial")
+	var image = UIImage(named: "Illu_WarningAfterSelfTest")
 	var tintColor: UIColor = .enaColor(for: .textPrimary1)
-	var accessibilityIdentifier = AccessibilityIdentifiers.Home.submitCardButton
+	var gradientViewType: GradientView.GradientType = .lightBlueToWhite
+	var buttonAccessibilityIdentifier = AccessibilityIdentifiers.Home.submitCardButton
 
 }
