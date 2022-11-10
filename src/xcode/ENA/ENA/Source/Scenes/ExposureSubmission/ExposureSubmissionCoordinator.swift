@@ -211,15 +211,15 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 
 	private var antigenTestProfileOverviewViewController: AntigenTestProfileOverviewViewController?
 	
-	private func push(_ vc: UIViewController) {
+	private func push(_ viewController: UIViewController) {
 		navigationController?.topViewController?.view.endEditing(true)
-		navigationController?.pushViewController(vc, animated: true)
+		navigationController?.pushViewController(viewController, animated: true)
 	}
-	
-	private func present(_ vc: UIViewController, withNavigation: Bool = true) {
-		let navVC = NavigationControllerWithLargeTitle(rootViewController: vc)
+
+	private func present(_ viewController: UIViewController, withNavigation: Bool = true) {
+		let navigationControllerWithLargeTitle = NavigationControllerWithLargeTitle(rootViewController: viewController)
 		navigationController?.topViewController?.view.endEditing(true)
-		navigationController?.present(navVC, animated: true)
+		navigationController?.present(navigationControllerWithLargeTitle, animated: true)
 	}
 
 	private func popViewController() {
@@ -900,13 +900,13 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 	
 	// to.do 14717: Remove default value."
 	/// Shows the Type of Tests screen
-	/// - Parameter preSelectSelfTest: If the process was started via self-report with self-test on the Manage Your Tests View, the Self-test entry shall be pre-selected. Otherwise, no entry shall be selected.
-	private func showTestTypeSelectionScreen(preSelectSelfTest: Bool = false) {
-		let vc = TestTypeSelectionViewController(
-			viewModel: TestTypeSelectionViewModel(preSelectSelfTest: preSelectSelfTest),
+	/// - Parameter isSelfTestTypePreselected: If the process was started via self-report with self-test on the Manage Your Tests View, the Self-test entry shall be pre-selected. Otherwise, no entry shall be selected.
+	private func showSRSTestTypeSelectionScreen(isSelfTestTypePreselected: Bool = false) {
+		let srsTestTypeSelectionViewController = SRSTestTypeSelectionViewController(
+			viewModel: SRSTestTypeSelectionViewModel(isSelfTestTypePreselected: isSelfTestTypePreselected),
 			onPrimaryButtonTap: { [weak self] submissionType in
-				self?.model.submissionTypeSRSSelected(submissionType)
-				self?.showNextScreenFromTestTypeSelectionScreen()
+				self?.model.storeSelectedSRSSubmissionType(submissionType)
+				self?.showSRSFlowNextScreen()
 			}, onDismiss: { [weak self] in
 				self?.parentViewController?.dismiss(animated: true)
 			}
@@ -914,22 +914,21 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		
 		let footerViewController = FooterViewController(
 			FooterViewModel(
-				primaryButtonName: "Weiter",
-				primaryIdentifier: "todo",
+				primaryButtonName: AppStrings.ExposureSubmission.SRSTestTypeSelection.primaryButtonTitle,
 				isSecondaryButtonEnabled: false,
 				isSecondaryButtonHidden: true
 			)
 		)
 		
 		let topBottomContainerViewController = TopBottomContainerViewController(
-			topController: vc,
+			topController: srsTestTypeSelectionViewController,
 			bottomController: footerViewController
 		)
 
 		present(topBottomContainerViewController)
 	}
 	
-	private func showNextScreenFromTestTypeSelectionScreen() {
+	private func showSRSFlowNextScreen() {
 		if model.eventProvider.checkinsPublisher.value.isEmpty {
 			showSymptomsScreen()
 		} else {

@@ -5,12 +5,12 @@
 import UIKit
 import OpenCombine
 
-class TestTypeSelectionViewController: DynamicTableViewController {
+class SRSTestTypeSelectionViewController: DynamicTableViewController {
 	
 	// MARK: - Init
 	
 	init(
-		viewModel: TestTypeSelectionViewModel,
+		viewModel: SRSTestTypeSelectionViewModel,
 		onPrimaryButtonTap: @escaping (SAP_Internal_SubmissionPayload.SubmissionType) -> Void,
 		onDismiss: @escaping CompletionVoid
 	) {
@@ -39,13 +39,13 @@ class TestTypeSelectionViewController: DynamicTableViewController {
 
 	// MARK: - Private
 	
-	private let viewModel: TestTypeSelectionViewModel
+	private let viewModel: SRSTestTypeSelectionViewModel
 	private let onPrimaryButtonTap: (SAP_Internal_SubmissionPayload.SubmissionType) -> Void
 	private let onDismiss: CompletionVoid
 	private var subscriptions = Set<AnyCancellable>()
 	
 	private func setupNavigation() {
-		navigationItem.title = AppStrings.ExposureSubmission.TestTypeSelection.title
+		navigationItem.title = AppStrings.ExposureSubmission.SRSTestTypeSelection.title
 		navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton
 	}
 	
@@ -75,18 +75,18 @@ class TestTypeSelectionViewController: DynamicTableViewController {
 	// to.do move alert handling to coordinator
 	private func showWarnProcessCancelAlert() {
 		let alert = UIAlertController(
-			title: AppStrings.ExposureSubmission.TestTypeSelection.warnProcessCancelAlertTitle,
-			message: AppStrings.ExposureSubmission.TestTypeSelection.warnProcessCancelAlertMessage,
+			title: AppStrings.ExposureSubmission.SRSTestTypeSelection.warnProcessCancelAlertTitle,
+			message: AppStrings.ExposureSubmission.SRSTestTypeSelection.warnProcessCancelAlertMessage,
 			preferredStyle: .alert
 		)
 		
 		alert.addAction(UIAlertAction(
-			title: AppStrings.ExposureSubmission.TestTypeSelection.warnProcessCancelAlertActionContinue,
+			title: AppStrings.ExposureSubmission.SRSTestTypeSelection.warnProcessCancelAlertActionContinue,
 			style: .default
 		))
 		
 		alert.addAction(UIAlertAction(
-			title: AppStrings.ExposureSubmission.TestTypeSelection.warnProcessCancelAlertActionCancel,
+			title: AppStrings.ExposureSubmission.SRSTestTypeSelection.warnProcessCancelAlertActionCancel,
 			style: .cancel,
 			handler: { [weak self] _ in
 				self?.onDismiss()
@@ -99,7 +99,7 @@ class TestTypeSelectionViewController: DynamicTableViewController {
 
 // MARK: - FooterViewHandling
 
-extension TestTypeSelectionViewController: FooterViewHandling {
+extension SRSTestTypeSelectionViewController: FooterViewHandling {
 
 	func didTapFooterViewButton(_ type: FooterViewModel.ButtonType) {
 		guard let submissionType = viewModel.selectedSubmissionType else {
@@ -113,7 +113,7 @@ extension TestTypeSelectionViewController: FooterViewHandling {
 
 // MARK: - DismissHandling
 
-extension TestTypeSelectionViewController: DismissHandling {
+extension SRSTestTypeSelectionViewController: DismissHandling {
 	
 	func wasAttemptedToBeDismissed() {
 		showWarnProcessCancelAlert()
@@ -123,7 +123,7 @@ extension TestTypeSelectionViewController: DismissHandling {
 
 // MARK: - Cell reuse identifiers.
 
-extension TestTypeSelectionViewController {
+extension SRSTestTypeSelectionViewController {
 	enum CustomCellReuseIdentifiers: String, TableViewCellReuseIdentifiers {
 		case optionGroupCell
 	}

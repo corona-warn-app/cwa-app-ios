@@ -572,14 +572,14 @@ enum AccessibilityIdentifiers {
 
 		}
 
-		enum TestTypeSelection {
-			static let body = "AppStrings.ExposureSubmission.TestTypeSelection.body"
-			static let optionSRSSelfTest = "AppStrings.ExposureSubmission.TestTypeSelection.submissionType.srsSelfTest"
-			static let optionSRSRegisteredRat = "AppStrings.ExposureSubmission.TestTypeSelection.submissionType.srsRegisteredRat"
-			static let optionSRSRegisteredPcr = "AppStrings.ExposureSubmission.TestTypeSelection.submissionType.srsRegisteredPcr"
-			static let optionSRSUnregisteredPcr = "AppStrings.ExposureSubmission.TestTypeSelection.submissionType.srsUnregisteredPcr"
-			static let optionSRSRapidPcr = "AppStrings.ExposureSubmission.TestTypeSelection.submissionType.srsRapidPcr"
-			static let optionSRSOther = "AppStrings.ExposureSubmission.TestTypeSelection.submissionType.srsOther"
+		enum SRSTestTypeSelection {
+			static let body = "AppStrings.ExposureSubmission.SRSTestTypeSelection.body"
+			static let optionSRSSelfTest = "AppStrings.ExposureSubmission.SRSTestTypeSelection.submissionType.srsSelfTest"
+			static let optionSRSRegisteredRat = "AppStrings.ExposureSubmission.SRSTestTypeSelection.submissionType.srsRegisteredRat"
+			static let optionSRSRegisteredPcr = "AppStrings.ExposureSubmission.SRSTestTypeSelection.submissionType.srsRegisteredPcr"
+			static let optionSRSUnregisteredPcr = "AppStrings.ExposureSubmission.SRSTestTypeSelection.submissionType.srsUnregisteredPcr"
+			static let optionSRSRapidPcr = "AppStrings.ExposureSubmission.SRSTestTypeSelection.submissionType.srsRapidPcr"
+			static let optionSRSOther = "AppStrings.ExposureSubmission.SRSTestTypeSelection.submissionType.srsOther"
 		}
 	}
 	

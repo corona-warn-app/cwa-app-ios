@@ -5,12 +5,12 @@
 import Foundation
 import OpenCombine
 
-class TestTypeSelectionViewModel {
+class SRSTestTypeSelectionViewModel {
 	
 	// MARK: - Init
 	
-	init(preSelectSelfTest: Bool) {
-		isInitialSelectionSelfTestSubmissionType = preSelectSelfTest
+	init(isSelfTestTypePreselected: Bool) {
+		isSelfTestTypePreSelected = isSelfTestTypePreselected
 	}
 	
 	// MARK: - Internal
@@ -25,17 +25,17 @@ class TestTypeSelectionViewModel {
 				background: .none,
 				cells: [
 					.body(
-						text: AppStrings.ExposureSubmission.TestTypeSelection.body,
-						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmission.TestTypeSelection.body
+						text: AppStrings.ExposureSubmission.SRSTestTypeSelection.body,
+						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmission.SRSTestTypeSelection.body
 					),
 					.custom(
-						withIdentifier: TestTypeSelectionViewController.CustomCellReuseIdentifiers.optionGroupCell,
+						withIdentifier: SRSTestTypeSelectionViewController.CustomCellReuseIdentifiers.optionGroupCell,
 						configure: { _, cell, _ in
 							guard let cell = cell as? DynamicTableViewOptionGroupCell else {
 								return
 							}
 							
-							let options: [OptionGroupViewModel.Option] = self.submissionTypeForChoosing
+							let options: [OptionGroupViewModel.Option] = self.submissionTypes
 								.map {
 									(title: $0.optionTitle, accessibilityIdentifier: $0.optionAccessibilityIdentifier)
 								}
@@ -56,7 +56,7 @@ class TestTypeSelectionViewModel {
 							
 							self.optionGroupSelectionSubscription = cell.$selection.sink {
 								guard case let .option(index) = $0 else { return }
-								self.selectedSubmissionType = self.submissionTypeForChoosing[index]
+								self.selectedSubmissionType = self.submissionTypes[index]
 							}
 						})
 				]
@@ -71,7 +71,7 @@ class TestTypeSelectionViewModel {
 	// MARK: - Private
 
 	/// The order of the list entries shown.
-	private let submissionTypeForChoosing: [SAP_Internal_SubmissionPayload.SubmissionType] = [
+	private let submissionTypes: [SAP_Internal_SubmissionPayload.SubmissionType] = [
 		.srsRegisteredRat,
 		.srsSelfTest,
 		.srsRegisteredPcr,
@@ -82,10 +82,10 @@ class TestTypeSelectionViewModel {
 	
 	private var optionGroupSelectionSubscription: AnyCancellable?
 	
-	private let isInitialSelectionSelfTestSubmissionType: Bool
+	private let isSelfTestTypePreSelected: Bool
 	
 	private var initialSelection: OptionGroupViewModel.Selection? {
-		if isInitialSelectionSelfTestSubmissionType, let index = submissionTypeForChoosing.firstIndex(of: .srsSelfTest) {
+		if isSelfTestTypePreSelected, let index = submissionTypes.firstIndex(of: .srsSelfTest) {
 			return .option(index: index)
 		} else {
 			return nil
@@ -97,17 +97,17 @@ fileprivate extension SAP_Internal_SubmissionPayload.SubmissionType {
 	var optionTitle: String {
 		switch self {
 		case .srsSelfTest:
-			return AppStrings.ExposureSubmission.TestTypeSelection.optionSRSSelfTestTitle
+			return AppStrings.ExposureSubmission.SRSTestTypeSelection.optionSRSSelfTestTitle
 		case .srsRegisteredRat:
-			return AppStrings.ExposureSubmission.TestTypeSelection.optionSRSRegisteredRatTitle
+			return AppStrings.ExposureSubmission.SRSTestTypeSelection.optionSRSRegisteredRatTitle
 		case .srsRegisteredPcr:
-			return AppStrings.ExposureSubmission.TestTypeSelection.optionSRSRegisteredPcrTitle
+			return AppStrings.ExposureSubmission.SRSTestTypeSelection.optionSRSRegisteredPcrTitle
 		case .srsUnregisteredPcr:
-			return AppStrings.ExposureSubmission.TestTypeSelection.optionSRSUnregisteredPcrTitle
+			return AppStrings.ExposureSubmission.SRSTestTypeSelection.optionSRSUnregisteredPcrTitle
 		case .srsRapidPcr:
-			return AppStrings.ExposureSubmission.TestTypeSelection.optionSRSRapidPcrTitle
+			return AppStrings.ExposureSubmission.SRSTestTypeSelection.optionSRSRapidPcrTitle
 		case .srsOther:
-			return AppStrings.ExposureSubmission.TestTypeSelection.optionSRSOtherTitle
+			return AppStrings.ExposureSubmission.SRSTestTypeSelection.optionSRSOtherTitle
 		default:
 			return ""
 		}
@@ -116,17 +116,17 @@ fileprivate extension SAP_Internal_SubmissionPayload.SubmissionType {
 	var optionAccessibilityIdentifier: String? {
 		switch self {
 		case .srsSelfTest:
-			return AccessibilityIdentifiers.ExposureSubmission.TestTypeSelection.optionSRSSelfTest
+			return AccessibilityIdentifiers.ExposureSubmission.SRSTestTypeSelection.optionSRSSelfTest
 		case .srsRegisteredRat:
-			return AccessibilityIdentifiers.ExposureSubmission.TestTypeSelection.optionSRSRegisteredRat
+			return AccessibilityIdentifiers.ExposureSubmission.SRSTestTypeSelection.optionSRSRegisteredRat
 		case .srsRegisteredPcr:
-			return AccessibilityIdentifiers.ExposureSubmission.TestTypeSelection.optionSRSRegisteredPcr
+			return AccessibilityIdentifiers.ExposureSubmission.SRSTestTypeSelection.optionSRSRegisteredPcr
 		case .srsUnregisteredPcr:
-			return AccessibilityIdentifiers.ExposureSubmission.TestTypeSelection.optionSRSUnregisteredPcr
+			return AccessibilityIdentifiers.ExposureSubmission.SRSTestTypeSelection.optionSRSUnregisteredPcr
 		case .srsRapidPcr:
-			return AccessibilityIdentifiers.ExposureSubmission.TestTypeSelection.optionSRSRapidPcr
+			return AccessibilityIdentifiers.ExposureSubmission.SRSTestTypeSelection.optionSRSRapidPcr
 		case .srsOther:
-			return AccessibilityIdentifiers.ExposureSubmission.TestTypeSelection.optionSRSOther
+			return AccessibilityIdentifiers.ExposureSubmission.SRSTestTypeSelection.optionSRSOther
 		default:
 			return nil
 		}

@@ -75,7 +75,7 @@ class ExposureSubmissionCoordinatorModel {
 	
 	/// Handle the storing of the selected submission type (only SRS types!).
 	/// - Parameter _ type: The selected submission type (SRS)
-	func submissionTypeSRSSelected(_ type: SAP_Internal_SubmissionPayload.SubmissionType) {
+	func storeSelectedSRSSubmissionType(_ type: SAP_Internal_SubmissionPayload.SubmissionType) {
 		// to.do Discuss how we store the selected type
 		Log.info("TODO: Discuss how to store selected submission type \(type)")
 	}

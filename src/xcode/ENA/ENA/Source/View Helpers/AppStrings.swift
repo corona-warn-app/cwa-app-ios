@@ -183,19 +183,20 @@ enum AppStrings {
 			}
 		}
 
-		enum TestTypeSelection {
-			static let title = NSLocalizedString("ExposureSubmission_TestTypeSelection_title", comment: "")
-			static let body = NSLocalizedString("ExposureSubmission_TestTypeSelection_body", comment: "")
-			static let optionSRSSelfTestTitle = NSLocalizedString("ExposureSubmission_TestTypeSelection_optionSRSSelfTest_title", comment: "")
-			static let optionSRSRegisteredRatTitle = NSLocalizedString("ExposureSubmission_TestTypeSelection_optionSRSRegisteredRat_title", comment: "")
-			static let optionSRSRegisteredPcrTitle = NSLocalizedString("ExposureSubmission_TestTypeSelection_optionSRSRegisteredPcr_title", comment: "")
-			static let optionSRSUnregisteredPcrTitle = NSLocalizedString("ExposureSubmission_TestTypeSelection_optionSRSUnregisteredPcr_title", comment: "")
-			static let optionSRSRapidPcrTitle = NSLocalizedString("ExposureSubmission_TestTypeSelection_optionSRSRapidPcr_title", comment: "")
-			static let optionSRSOtherTitle = NSLocalizedString("ExposureSubmission_TestTypeSelection_optionSRSOther_title", comment: "")
-			static let warnProcessCancelAlertTitle = NSLocalizedString("ExposureSubmission_TestTypeSelection_warnProcessCancelAlert_Title", comment: "")
-			static let warnProcessCancelAlertMessage = NSLocalizedString("ExposureSubmission_TestTypeSelection_warnProcessCancelAlert_Message", comment: "")
-			static let warnProcessCancelAlertActionContinue = NSLocalizedString("ExposureSubmission_TestTypeSelection_warnProcessCancelAlert_ActionContinue", comment: "")
-			static let warnProcessCancelAlertActionCancel = NSLocalizedString("ExposureSubmission_TestTypeSelection_warnProcessCancelAlert_ActionCancel", comment: "")
+		enum SRSTestTypeSelection {
+			static let title = NSLocalizedString("ExposureSubmission_SRSTestTypeSelection_title", comment: "")
+			static let body = NSLocalizedString("ExposureSubmission_SRSTestTypeSelection_body", comment: "")
+			static let optionSRSSelfTestTitle = NSLocalizedString("ExposureSubmission_SRSTestTypeSelection_optionSRSSelfTest_title", comment: "")
+			static let optionSRSRegisteredRatTitle = NSLocalizedString("ExposureSubmission_SRSTestTypeSelection_optionSRSRegisteredRat_title", comment: "")
+			static let optionSRSRegisteredPcrTitle = NSLocalizedString("ExposureSubmission_SRSTestTypeSelection_optionSRSRegisteredPcr_title", comment: "")
+			static let optionSRSUnregisteredPcrTitle = NSLocalizedString("ExposureSubmission_SRSTestTypeSelection_optionSRSUnregisteredPcr_title", comment: "")
+			static let optionSRSRapidPcrTitle = NSLocalizedString("ExposureSubmission_SRSTestTypeSelection_optionSRSRapidPcr_title", comment: "")
+			static let optionSRSOtherTitle = NSLocalizedString("ExposureSubmission_SRSTestTypeSelection_optionSRSOther_title", comment: "")
+			static let warnProcessCancelAlertTitle = NSLocalizedString("ExposureSubmission_SRSTestTypeSelection_warnProcessCancelAlert_Title", comment: "")
+			static let warnProcessCancelAlertMessage = NSLocalizedString("ExposureSubmission_SRSTestTypeSelection_warnProcessCancelAlert_Message", comment: "")
+			static let warnProcessCancelAlertActionContinue = NSLocalizedString("ExposureSubmission_SRSTestTypeSelection_warnProcessCancelAlert_ActionContinue", comment: "")
+			static let warnProcessCancelAlertActionCancel = NSLocalizedString("ExposureSubmission_SRSTestTypeSelection_warnProcessCancelAlert_ActionCancel", comment: "")
+			static let primaryButtonTitle = NSLocalizedString("ExposureSubmission_SRSTestTypeSelection_primaryButtonTitle", comment: "")
 		}
 	}
 
