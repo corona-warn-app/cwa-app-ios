@@ -9,9 +9,11 @@ class SRSConsentViewController: DynamicTableViewController, FooterViewHandling {
 	// MARK: - Init
 	
 	init(
+		viewModel: SRSConsentViewModel = .init(),
 		onPrimaryButtonTap: @escaping (@escaping (Bool) -> Void) -> Void,
 		dismiss: @escaping () -> Void
 	) {
+		self.viewModel = viewModel
 		self.onPrimaryButtonTap = onPrimaryButtonTap
 		self.dismiss = dismiss
 		super.init(nibName: nil, bundle: nil)
@@ -48,7 +50,7 @@ class SRSConsentViewController: DynamicTableViewController, FooterViewHandling {
 
 	// MARK: - Private
 
-	private let viewModel = SRSConsentViewModel()
+	private let viewModel: SRSConsentViewModel
 	private let onPrimaryButtonTap: (@escaping (Bool) -> Void) -> Void
 	private let dismiss: () -> Void
 	
