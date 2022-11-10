@@ -898,7 +898,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 
 	// MARK: - Test Type Selection
 	
-	#warning("14717: Remove default value.")
+	// to.do 14717: Remove default value."
 	/// Shows the Type of Tests screen
 	/// - Parameter preSelectSelfTest: If the process was started via self-report with self-test on the Manage Your Tests View, the Self-test entry shall be pre-selected. Otherwise, no entry shall be selected.
 	private func showTestTypeSelectionScreen(preSelectSelfTest: Bool = false) {
