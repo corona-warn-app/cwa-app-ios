@@ -475,7 +475,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 					case .srsPositive:
 						self.showCheckinsScreen()
 					case .positiveWithoutResultInTheApp:
-						// to. do
+						// to.do
 						// show select test type screen
 						break
 					}
@@ -490,8 +490,8 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 					self.showErrorAlert(for: error)
 				}
 			}
-		} dismiss: {
-			[weak self] in self?.dismiss()
+		} dismiss: { [weak self] in
+			self?.dismiss()
 		}
 	}
 	
@@ -502,7 +502,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 				if #available(iOS 14.4, *) {
 					Log.info("Start preauthorizaton for keys...")
 
-					self?.exposureManager.preAuthorizeKeys { error in
+					self?.exposureManager.preAuthorizeKeys(completion: { error in
 						DispatchQueue.main.async { [weak self] in
 							if let error = error as? ENError {
 								let submissionError = error.toExposureSubmissionError()

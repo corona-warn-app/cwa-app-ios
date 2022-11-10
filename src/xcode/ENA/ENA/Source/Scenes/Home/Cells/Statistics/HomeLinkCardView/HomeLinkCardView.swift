@@ -41,7 +41,10 @@ class HomeLinkCardView: UIView {
 			
 			return accessibilityElements as [Any]
 		}
-		set {}
+
+		set {
+			_ = newValue
+		}
 	}
 	
 	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
