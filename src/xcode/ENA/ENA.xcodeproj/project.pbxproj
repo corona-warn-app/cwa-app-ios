@@ -1735,7 +1735,6 @@
 		DC03798C28F4483C00E1EE20 /* HomeLinkCardViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC03798B28F4483B00E1EE20 /* HomeLinkCardViewModelTests.swift */; };
 		DC03798E28F449D000E1EE20 /* HomeLinkCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC03798D28F449D000E1EE20 /* HomeLinkCard.swift */; };
 		DC28F7C828FEC94100EFFA34 /* UIImage+SFSymbols.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC28F7C728FEC94100EFFA34 /* UIImage+SFSymbols.swift */; };
-		DC3B278D28F55B6D00A55769 /* SAP_Internal_Stats_LinkCard+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC3B278C28F55B6D00A55769 /* SAP_Internal_Stats_LinkCard+Mock.swift */; };
 		DC3B278F28F5936700A55769 /* NSAttributedString+Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC3B278E28F5936700A55769 /* NSAttributedString+Image.swift */; };
 		DC4618C429155B2F0035CAA7 /* TestTypeSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC4618C329155B2F0035CAA7 /* TestTypeSelectionViewController.swift */; };
 		DC4618C629155E560035CAA7 /* TestTypeSelectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC4618C529155E560035CAA7 /* TestTypeSelectionViewModel.swift */; };
@@ -12388,7 +12387,6 @@
 				3421AFD428102C800059802B /* AntigenTestProfileOverviewViewModelTests.swift in Sources */,
 				2EF6906E26A07FBB006DE99F /* FooterViewControllerTests.swift in Sources */,
 				019DDEDF26F1E48C00390509 /* VaccinationStateCellModelTests.swift in Sources */,
-				DC3B278D28F55B6D00A55769 /* SAP_Internal_Stats_LinkCard+Mock.swift in Sources */,
 				0156F05C25D2DA2300543640 /* DeadmanNotificationManagerTests.swift in Sources */,
 				2E4C3FE4263A91FD00E9FAFF /* CreateAntigenTestProfileViewModelTests.swift in Sources */,
 				ABFDBEFD281AD7C000A11FA8 /* KeySubmissionResourceTests.swift in Sources */,

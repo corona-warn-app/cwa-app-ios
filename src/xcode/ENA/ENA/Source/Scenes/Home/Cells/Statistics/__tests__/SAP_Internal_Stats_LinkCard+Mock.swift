@@ -3,7 +3,7 @@
 //
 
 extension SAP_Internal_Stats_LinkCard {
-	static let rkiPandemicRadarURL: String = "https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/Situationsberichte/COVID-19-Trends/COVID-19-Trends.html?__blob=publicationFile#/home"
+	static let rkiPandemicRadarURLMock: String = "https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/Situationsberichte/COVID-19-Trends/COVID-19-Trends.html?__blob=publicationFile#/home"
 	
 	/**
 	 Returns a mocked `SAP_Internal_Stats_LinkCard`
@@ -15,7 +15,7 @@ extension SAP_Internal_Stats_LinkCard {
 	static func mock(
 		cardID: Int32 = 0,
 		updatedAt: Int64 = 0,
-		url: String = Self.rkiPandemicRadarURL
+		url: String = Self.rkiPandemicRadarURLMock
 	) -> SAP_Internal_Stats_LinkCard {
 		var cardHeader = SAP_Internal_Stats_CardHeader()
 		cardHeader.cardID = cardID
