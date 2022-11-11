@@ -7,7 +7,7 @@ import XCTest
 
 final class SRSTestTypeSelectionViewModelTests: XCTestCase {
 
-    func test_When_DynamicTableViewModel_Then_NumberOfCellsAndTypeIsCorrect() throws {
+	func test_When_DynamicTableViewModel_Then_NumberOfCellsAndTypeIsCorrect() throws {
 		// Given
 		let sut = SRSTestTypeSelectionViewModel(isSelfTestTypePreselected: false)
 		let cells = sut.dynamicTableViewModel.section(0).cells
@@ -21,7 +21,7 @@ final class SRSTestTypeSelectionViewModelTests: XCTestCase {
 		].enumerated().forEach { index, identifier in
 			XCTAssertEqual(cells[index].cellReuseIdentifier.rawValue, identifier)
 		}
-    }
+	}
 	
 	func test_When_IsSelfTestTypePreselected_False_Then_selectedSubmissionTypeShouldBeNil() throws {
 		// Given
