@@ -943,6 +943,34 @@ Es werden auch Nutzer gewarnt, die zeitgleich mit Ihnen an denselben Events oder
 
 "ExposureSubmissionWarnOthers_continueButton" = "Einverstanden";
 
+/* Exposure Submission Warn Others Test Type Selection */
+
+"ExposureSubmission_SRSTestTypeSelection_title" = "Art des Tests";
+
+"ExposureSubmission_SRSTestTypeSelection_body" = "Bitte wählen Sie die Art des Tests aus, auf dessen Grundlage Sie warnen.";
+
+"ExposureSubmission_SRSTestTypeSelection_optionSRSSelfTest_title" = "Antigen-Schnelltest nicht in der App registriert";
+
+"ExposureSubmission_SRSTestTypeSelection_optionSRSRegisteredRat_title" = "Antigen-Schnelltest in der App registriert, aber kein Ergebnis erhalten";
+
+"ExposureSubmission_SRSTestTypeSelection_optionSRSRegisteredPcr_title" = "PCR-Labortest in der App registriert, aber kein Ergebnis erhalten";
+
+"ExposureSubmission_SRSTestTypeSelection_optionSRSUnregisteredPcr_title" = "PCR-Labortest nicht in der App registriert";
+
+"ExposureSubmission_SRSTestTypeSelection_optionSRSRapidPcr_title" = "PCR-Schnelltest (PoC-NAT-Test)";
+
+"ExposureSubmission_SRSTestTypeSelection_optionSRSOther_title" = "Sonstige / keine Angabe";
+
+"ExposureSubmission_SRSTestTypeSelection_warnProcessCancelAlert_Title" = "Warn-Vorgang abbrechen?";
+
+"ExposureSubmission_SRSTestTypeSelection_warnProcessCancelAlert_Message" = "Sind Sie sich sicher, dass Sie den Warn-Vorgang abbrechen wollen?\n\nWenn Ihr Test positiv war, können Sie mit einer Warnung helfen, Infektionsketten zu unterbrechen.";
+
+"ExposureSubmission_SRSTestTypeSelection_warnProcessCancelAlert_ActionContinue" = "Warnen fortsetzen";
+
+"ExposureSubmission_SRSTestTypeSelection_warnProcessCancelAlert_ActionCancel" = "Nicht warnen";
+
+"ExposureSubmission_SRSTestTypeSelection_primaryButtonTitle" = "Weiter";
+
 /* Exposure Submission Result */
 
 "ExposureSubmissionResult_RemoveAlert_Title" = "Wollen Sie Ihr Testergebnis löschen?";

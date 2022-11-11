@@ -575,6 +575,15 @@ enum AccessibilityIdentifiers {
 
 		}
 
+		enum SRSTestTypeSelection {
+			static let body = "AppStrings.ExposureSubmission.SRSTestTypeSelection.body"
+			static let optionSRSSelfTest = "AppStrings.ExposureSubmission.SRSTestTypeSelection.submissionType.srsSelfTest"
+			static let optionSRSRegisteredRat = "AppStrings.ExposureSubmission.SRSTestTypeSelection.submissionType.srsRegisteredRat"
+			static let optionSRSRegisteredPcr = "AppStrings.ExposureSubmission.SRSTestTypeSelection.submissionType.srsRegisteredPcr"
+			static let optionSRSUnregisteredPcr = "AppStrings.ExposureSubmission.SRSTestTypeSelection.submissionType.srsUnregisteredPcr"
+			static let optionSRSRapidPcr = "AppStrings.ExposureSubmission.SRSTestTypeSelection.submissionType.srsRapidPcr"
+			static let optionSRSOther = "AppStrings.ExposureSubmission.SRSTestTypeSelection.submissionType.srsOther"
+		}
 	}
 	
 	enum ExposureSubmissionTestResultConsent {
