@@ -354,7 +354,7 @@ class ExposureSubmissionCoordinatorModel {
 		}
 	}
 	
-	func checkIfSRSFlowPreconditionsAreSatisfied(completion: @escaping (Result<Void, ExposureSubmissionCoordinator.SRSFlowError>) -> Void) {
+	func checkIfSRSFlowPreconditionsAreSatisfied(completion: @escaping (Result<Void, ExposureSubmissionCoordinator.SRSFlowAlert.PreconditionError>) -> Void) {
 		// Check if app was installed less than 48 hours
 		guard
 			let appInstallationDate = store.appInstallationDate,

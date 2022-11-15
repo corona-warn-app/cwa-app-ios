@@ -104,23 +104,23 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 	}
 
 	func showPositiveSelfTestFlow() {
-		model.checkIfSRSFlowPreconditionsAreSatisfied { [weak self] (result: Result<Void, SRSFlowError>) in
+		model.checkIfSRSFlowPreconditionsAreSatisfied { [weak self] (result: Result<Void, SRSFlowAlert.PreconditionError>) in
 			switch result {
 			case .success:
 				self?.showSRSTestTypeSelectionScreen(isSelfTestTypePreselected: true)
 			case .failure(let error):
-				self?.showSelfTestFlowAlert(for: error)
+				self?.showSRSFlowAlert(for: error)
 			}
 		}
 	}
 	
 	func showSelfReportSubmissionFlow() {
-		model.checkIfSRSFlowPreconditionsAreSatisfied { [weak self] (result: Result<Void, SRSFlowError>) in
+		model.checkIfSRSFlowPreconditionsAreSatisfied { [weak self] (result: Result<Void, SRSFlowAlert.PreconditionError>) in
 			switch result {
 			case .success:
 				self?.showSRSTestTypeSelectionScreen(isSelfTestTypePreselected: false)
 			case .failure(let error):
-				self?.showSelfTestFlowAlert(for: error)
+				self?.showSRSFlowAlert(for: error)
 			}
 		}
 	}
@@ -957,7 +957,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 				self?.model.storeSelectedSRSSubmissionType(submissionType)
 				self?.showSRSFlowNextScreen()
 			}, onDismiss: { [weak self] in
-				self?.parentViewController?.dismiss(animated: true)
+				self?.showSRSFlowAlert(for: .cancelWarnOthers)
 			}
 		)
 		
@@ -1534,7 +1534,45 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		navigationController?.present(alert, animated: true)
 	}
 	
-	private func showSelfTestFlowAlert(for error: SRSFlowError) {
+	private func showSRSFlowAlert(for srsFlowAlert: SRSFlowAlert) {
+		switch srsFlowAlert {
+		case let .preconditionFailed(srsFlowError):
+			showSRSFlowAlert(for: srsFlowError)
+		case let .consent(srsFlowConsent):
+			showSRSFlowAlert(for: srsFlowConsent)
+		}
+	}
+	
+	private func showSRSFlowAlert(for consent: SRSFlowAlert.Consent) {
+		switch consent {
+		case .cancelWarnOthers:
+			let alert = UIAlertController(
+				title: AppStrings.ExposureSubmission.SRSTestTypeSelection.warnProcessCancelAlertTitle,
+				message: AppStrings.ExposureSubmission.SRSTestTypeSelection.warnProcessCancelAlertMessage,
+				preferredStyle: .alert
+			)
+			
+			alert.addAction(UIAlertAction(
+				title: AppStrings.ExposureSubmission.SRSTestTypeSelection.warnProcessCancelAlertActionContinue,
+				style: .default
+			))
+			
+			alert.addAction(UIAlertAction(
+				title: AppStrings.ExposureSubmission.SRSTestTypeSelection.warnProcessCancelAlertActionCancel,
+				style: .cancel,
+				handler: { [weak self] _ in
+					self?.navigationController?.dismissAllModalViewControllers(animated: true)
+				}
+			))
+			
+			navigationController?.presentedViewController?.present(alert, animated: true)
+		case .confirmWarnOthers:
+			// to.do show alert
+			break
+		}
+	}
+	
+	private func showSRSFlowAlert(for error: SRSFlowAlert.PreconditionError) {
 		let alert = UIAlertController.errorAlert(
 			title: AppStrings.ExposureSubmissionDispatch.SRSWarnOthersPreconditionAlert.title,
 			message: error.message,
@@ -1839,36 +1877,46 @@ extension ExposureSubmissionCoordinator: UIAdaptivePresentationControllerDelegat
 }
 
 extension ExposureSubmissionCoordinator {
+	
+	enum SRSFlowAlert {
+		case preconditionFailed(PreconditionError)
+		case consent(Consent)
 
-	enum SRSFlowError: Error {
-
-		/// Precondition: the app was installed less than 48h
-		case insufficientAppUsageTime
-
-		/// Precondition: there was already a key submission without a registered test in the last 3 months
-		case positiveTestResultWasAlreadySubmittedWithin90Days
-		
-		var errorCode: String {
-			switch self {
-			case .insufficientAppUsageTime:
-				return "XYZ" // to.do
-			case .positiveTestResultWasAlreadySubmittedWithin90Days:
-				return "XYZ" // to.do
-			}
+		enum Consent {
+			case cancelWarnOthers
+			case confirmWarnOthers
 		}
-		
-		var message: String {
-			switch self {
-			case .insufficientAppUsageTime:
-				return String(
-					format: AppStrings.ExposureSubmissionDispatch.SRSWarnOthersPreconditionAlert.insufficientAppUsageTime_message,
-					errorCode
-				)
-			case  .positiveTestResultWasAlreadySubmittedWithin90Days:
-				return String(
-					format: AppStrings.ExposureSubmissionDispatch.SRSWarnOthersPreconditionAlert.positiveTestResultWasAlreadySubmittedWithin90Days_message,
-					errorCode
-				)
+
+		enum PreconditionError: Error {
+			
+			/// Precondition: the app was installed less than 48h
+			case insufficientAppUsageTime
+			
+			/// Precondition: there was already a key submission without a registered test in the last 3 months
+			case positiveTestResultWasAlreadySubmittedWithin90Days
+			
+			var errorCode: String {
+				switch self {
+				case .insufficientAppUsageTime:
+					return "XYZ" // to.do
+				case .positiveTestResultWasAlreadySubmittedWithin90Days:
+					return "XYZ" // to.do
+				}
+			}
+			
+			var message: String {
+				switch self {
+				case .insufficientAppUsageTime:
+					return String(
+						format: AppStrings.ExposureSubmissionDispatch.SRSWarnOthersPreconditionAlert.insufficientAppUsageTime_message,
+						errorCode
+					)
+				case  .positiveTestResultWasAlreadySubmittedWithin90Days:
+					return String(
+						format: AppStrings.ExposureSubmissionDispatch.SRSWarnOthersPreconditionAlert.positiveTestResultWasAlreadySubmittedWithin90Days_message,
+						errorCode
+					)
+				}
 			}
 		}
 	}
