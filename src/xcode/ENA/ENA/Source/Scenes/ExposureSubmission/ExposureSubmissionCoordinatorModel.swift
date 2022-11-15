@@ -365,9 +365,15 @@ class ExposureSubmissionCoordinatorModel {
 			return
 		}
 		
+		// to.do remove Mock and implement from service
+		var selfReportSubmissionParametersCommon = SAP_Internal_V2_PPDDSelfReportSubmissionParametersCommon()
+		selfReportSubmissionParametersCommon.timeBetweenSubmissionsInDays = 91
+
 		// Check if there was already a key submission without a registered test in the last 3 months
-		// to.do
-		// completion(.failure(.positiveTestResultWasAlreadySubmittedWithin90Days))
+		guard selfReportSubmissionParametersCommon.timeBetweenSubmissionsInDays > 90 else {
+			completion(.failure(.positiveTestResultWasAlreadySubmittedWithin90Days))
+			return
+		}
 		
 		completion(.success(()))
 	}

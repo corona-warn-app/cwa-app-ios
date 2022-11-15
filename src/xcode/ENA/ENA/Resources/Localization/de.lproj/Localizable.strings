@@ -588,7 +588,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_insufficientAppUsageTime_message" = "Leider können Sie momentan andere noch nicht warnen, da Sie die App noch nicht lange genug installiert haben. Dies dient der Vermeidung von Missbrauch.\nEinen offiziellen Test können Sie jederzeit registrieren und andere damit warnen. (Fehlercode %@)";
 
-"ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_positiveTestResultWasAlreadySubmittedWithin90Days_message" = "Leider können Sie momentan andere noch nicht warnen, da Sie die App noch nicht lange genug installiert haben. Dies dient der Vermeidung von Missbrauch.\nEinen offiziellen Test können Sie jederzeit registrieren und andere damit warnen. (Fehlercode %@)";
+"ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_positiveTestResultWasAlreadySubmittedWithin90Days_message" = "Sie können momentan andere nicht warnen, da Sie innerhalb der vergangenen 90 Tage bereits ein positives Testergebnis gemeldet haben. Dies dient der Vermeidung von Missbrauch.\nEinen offiziellen Test können Sie jederzeit registrieren und andere damit warnen. (Fehlercode %@)";
 
 "ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_faqButtonTitle" = "FAQ";
 
