@@ -337,6 +337,14 @@ enum AppStrings {
 		static let SRSButtonDescription = NSLocalizedString("ExposureSubmissionDispatch_SRSButtonDescription", comment: "")
 		static let findTestCentersButtonTitle = NSLocalizedString("ExposureSubmissionDispatch_FindTestCentersTitle", comment: "")
 		static let findTestCentersButtonDescription = NSLocalizedString("ExposureSubmissionDispatch_FindTestCentersDescription", comment: "")
+		
+		enum SRSWarnOthersPreconditionAlert {
+			static let title = NSLocalizedString("ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_title", comment: "")
+			static let insufficientAppUsageTime_message = NSLocalizedString("ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_insufficientAppUsageTime_message", comment: "")
+			static let positiveTestResultWasAlreadySubmittedWithin90Days_message = NSLocalizedString("ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_positiveTestResultWasAlreadySubmittedWithin90Days_message", comment: "")
+			static let faqButtonTitle = NSLocalizedString("ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_faqButtonTitle", comment: "")
+			static let okButtonTitle = NSLocalizedString("ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_okButtonTitle", comment: "")	
+		}
 	}
 
 	enum SRSConsentScreen {

@@ -15,13 +15,15 @@ class ExposureSubmissionCoordinatorModel {
 		coronaTestService: CoronaTestServiceProviding,
 		familyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding,
 		eventProvider: EventProviding,
-		recycleBin: RecycleBin
+		recycleBin: RecycleBin,
+		store: Store
 	) {
 		self.exposureSubmissionService = exposureSubmissionService
 		self.familyMemberCoronaTestService = familyMemberCoronaTestService
 		self.coronaTestService = coronaTestService
 		self.eventProvider = eventProvider
 		self.recycleBin = recycleBin
+		self.store = store
 
 		// Try to load current country list initially to make it virtually impossible the user has to wait for it later.
 		exposureSubmissionService.loadSupportedCountries { _ in
@@ -351,4 +353,25 @@ class ExposureSubmissionCoordinatorModel {
 			fatalError("Cannot set submission consent, no corona test type is set")
 		}
 	}
+	
+	func checkIfSelfTestFlowCanBeStart(completion: @escaping (Result<Void, ExposureSubmissionCoordinator.SRSWarnOthersPreconditionError>) -> Void) {
+		// Check if app was installed less than 48 hours
+		if let appInstallationDate = store.appInstallationDate,
+		   let numberOfHoursSinceAppInstallation = Calendar.current.dateComponents([.hour], from: appInstallationDate, to: Date()).hour {
+
+			if numberOfHoursSinceAppInstallation < 48 {
+				completion(.failure(.insufficientAppUsageTime))
+			}
+		}
+		
+		// Check if there was already a key submission without a registered test in the last 3 months
+		// to.do
+		// completion(.failure(.positiveTestResultWasAlreadySubmittedWithin90Days))
+		
+		completion(.success(()))
+	}
+	
+	// MARK: - Private
+	
+	private let store: Store
 }

@@ -323,7 +323,8 @@ class HomeCoordinator: RequiresAppDependencies {
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
 			healthCertificateValidationOnboardedCountriesProvider: healthCertificateValidationOnboardedCountriesProvider,
 			qrScannerCoordinator: qrScannerCoordinator,
-			recycleBin: recycleBin
+			recycleBin: recycleBin,
+			store: store
 		)
 
 		if let testInformationResult = testInformationResult {

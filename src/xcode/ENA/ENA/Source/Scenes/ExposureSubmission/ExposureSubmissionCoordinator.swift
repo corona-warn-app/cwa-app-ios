@@ -26,7 +26,8 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		vaccinationValueSetsProvider: VaccinationValueSetsProviding,
 		healthCertificateValidationOnboardedCountriesProvider: HealthCertificateValidationOnboardedCountriesProviding,
 		qrScannerCoordinator: QRScannerCoordinator,
-		recycleBin: RecycleBin
+		recycleBin: RecycleBin,
+		store: Store
 	) {
 		self.parentViewController = parentViewController
 		self.healthCertificateService = healthCertificateService
@@ -43,7 +44,8 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 			coronaTestService: coronaTestService,
 			familyMemberCoronaTestService: familyMemberCoronaTestService,
 			eventProvider: eventProvider,
-			recycleBin: recycleBin
+			recycleBin: recycleBin,
+			store: store
 		)
 	}
 
@@ -102,11 +104,25 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 	}
 
 	func showPositiveSelfTestFlow() {
-		// To.do
+		model.checkIfSelfTestFlowCanBeStart { [weak self] result in
+			switch result {
+			case .success:
+				self?.showSRSTestTypeSelectionScreen(isSelfTestTypePreselected: true)
+			case .failure(let error):
+				self?.showSelfTestFlowAlert(for: error)
+			}
+		}
 	}
 	
 	func showSelfReportSubmissionFlow() {
-		// To.do
+		model.checkIfSelfTestFlowCanBeStart { [weak self] result in
+			switch result {
+			case .success:
+				self?.showSRSTestTypeSelectionScreen(isSelfTestTypePreselected: false)
+			case .failure(let error):
+				self?.showSelfTestFlowAlert(for: error)
+			}
+		}
 	}
 	
 	func showTanScreen() {
@@ -1517,6 +1533,21 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 
 		navigationController?.present(alert, animated: true)
 	}
+	
+	private func showSelfTestFlowAlert(for error: SRSWarnOthersPreconditionError) {
+		let alert = UIAlertController.errorAlert(
+			title: error.title,
+			message: error.message,
+			okTitle: AppStrings.ExposureSubmissionDispatch.SRSWarnOthersPreconditionAlert.faqButtonTitle,
+			secondaryActionTitle: AppStrings.ExposureSubmissionDispatch.SRSWarnOthersPreconditionAlert.okButtonTitle,
+			completion: { [weak self] in
+				// to.do Open FAQ (de/en)
+				print("Open FAQ")
+			}
+		)
+		
+		navigationController?.present(alert, animated: true)
+	}
 
 	// MARK: Test Result Helper
 
@@ -1805,5 +1836,41 @@ extension ExposureSubmissionCoordinator: UIAdaptivePresentationControllerDelegat
 
 	func presentationControllerDidAttemptToDismiss(_ presentationController: UIPresentationController) {
 		dismiss()
+	}
+}
+
+extension ExposureSubmissionCoordinator {
+
+	enum SRSWarnOthersPreconditionError: Error {
+
+		/// Figma Error 1
+		/// The app is installed lesss than 48h
+		case insufficientAppUsageTime
+
+		/// Figmar Error 2
+		/// There was already a key submission without a registered test in the last 3 months
+		case positiveTestResultWasAlreadySubmittedWithin90Days
+		
+		var title: String {
+			switch self {
+			case .insufficientAppUsageTime, .positiveTestResultWasAlreadySubmittedWithin90Days:
+				return AppStrings.ExposureSubmissionDispatch.SRSWarnOthersPreconditionAlert.title
+			}
+		}
+		
+		var message: String {
+			switch self {
+			case .insufficientAppUsageTime:
+				return String(
+					format: AppStrings.ExposureSubmissionDispatch.SRSWarnOthersPreconditionAlert.insufficientAppUsageTime_message,
+					"to.do XYZ"
+				)
+			case .positiveTestResultWasAlreadySubmittedWithin90Days:
+				return String(
+					format: AppStrings.ExposureSubmissionDispatch.SRSWarnOthersPreconditionAlert.positiveTestResultWasAlreadySubmittedWithin90Days_message,
+					"to.do XYZ"
+				)
+			}
+		}
 	}
 }

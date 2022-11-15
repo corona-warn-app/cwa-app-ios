@@ -773,7 +773,8 @@ class QRScannerCoordinator {
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
 			healthCertificateValidationOnboardedCountriesProvider: healthCertificateValidationOnboardedCountriesProvider,
 			qrScannerCoordinator: self,
-			recycleBin: recycleBin
+			recycleBin: recycleBin,
+			store: store
 		)
 	}
 	
