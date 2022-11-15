@@ -104,7 +104,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 	}
 
 	func showPositiveSelfTestFlow() {
-		model.checkIfSelfTestFlowCanBeStart { [weak self] result in
+		model.checkIfSRSWarnOthersFlowCanBeStart { [weak self] result in
 			switch result {
 			case .success:
 				self?.showSRSTestTypeSelectionScreen(isSelfTestTypePreselected: true)
@@ -115,7 +115,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 	}
 	
 	func showSelfReportSubmissionFlow() {
-		model.checkIfSelfTestFlowCanBeStart { [weak self] result in
+		model.checkIfSRSWarnOthersFlowCanBeStart { [weak self] result in
 			switch result {
 			case .success:
 				self?.showSRSTestTypeSelectionScreen(isSelfTestTypePreselected: false)
@@ -1536,13 +1536,12 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 	
 	private func showSelfTestFlowAlert(for error: SRSWarnOthersPreconditionError) {
 		let alert = UIAlertController.errorAlert(
-			title: error.title,
+			title: AppStrings.ExposureSubmissionDispatch.SRSWarnOthersPreconditionAlert.title,
 			message: error.message,
 			okTitle: AppStrings.ExposureSubmissionDispatch.SRSWarnOthersPreconditionAlert.faqButtonTitle,
 			secondaryActionTitle: AppStrings.ExposureSubmissionDispatch.SRSWarnOthersPreconditionAlert.okButtonTitle,
-			completion: { [weak self] in
-				// to.do Open FAQ (de/en)
-				print("Open FAQ")
+			completion: {
+				LinkHelper.open(urlString: AppStrings.Links.warnWithoutTANFAQLink)
 			}
 		)
 		
@@ -1851,10 +1850,12 @@ extension ExposureSubmissionCoordinator {
 		/// There was already a key submission without a registered test in the last 3 months
 		case positiveTestResultWasAlreadySubmittedWithin90Days
 		
-		var title: String {
+		var errorCode: String {
 			switch self {
-			case .insufficientAppUsageTime, .positiveTestResultWasAlreadySubmittedWithin90Days:
-				return AppStrings.ExposureSubmissionDispatch.SRSWarnOthersPreconditionAlert.title
+			case .insufficientAppUsageTime:
+				return "XYZ" // to.do
+			case .positiveTestResultWasAlreadySubmittedWithin90Days:
+				return "XYZ" // to.do
 			}
 		}
 		
@@ -1863,12 +1864,12 @@ extension ExposureSubmissionCoordinator {
 			case .insufficientAppUsageTime:
 				return String(
 					format: AppStrings.ExposureSubmissionDispatch.SRSWarnOthersPreconditionAlert.insufficientAppUsageTime_message,
-					"to.do XYZ"
+					errorCode
 				)
-			case .positiveTestResultWasAlreadySubmittedWithin90Days:
+			case  .positiveTestResultWasAlreadySubmittedWithin90Days:
 				return String(
 					format: AppStrings.ExposureSubmissionDispatch.SRSWarnOthersPreconditionAlert.positiveTestResultWasAlreadySubmittedWithin90Days_message,
-					"to.do XYZ"
+					errorCode
 				)
 			}
 		}

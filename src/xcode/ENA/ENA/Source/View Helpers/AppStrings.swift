@@ -58,6 +58,7 @@ enum AppStrings {
 		static let selfQuarantineFAQ = NSLocalizedString("Risk_Voluntary_Self_Quarantine_FAQ_URL", tableName: "Localizable.links", comment: "")
 		static let coronaWarnAppStoreLink = NSLocalizedString("TicketValidation_CoronaWarnAppLink", tableName: "Localizable.links", comment: "")
 		static let stikoVaccinationRecommendations = NSLocalizedString("Stiko_VaccinationRecommendations", tableName: "Localizable.links", comment: "")
+		static let warnWithoutTANFAQLink = NSLocalizedString("ExposureSubmission_WarnWithoutTAN_FAQLink", tableName: "Localizable.links", comment: "")
 	}
 
 	enum QuickActions {

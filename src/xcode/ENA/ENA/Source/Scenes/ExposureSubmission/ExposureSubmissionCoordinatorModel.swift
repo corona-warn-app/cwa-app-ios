@@ -354,14 +354,15 @@ class ExposureSubmissionCoordinatorModel {
 		}
 	}
 	
-	func checkIfSelfTestFlowCanBeStart(completion: @escaping (Result<Void, ExposureSubmissionCoordinator.SRSWarnOthersPreconditionError>) -> Void) {
+	func checkIfSRSWarnOthersFlowCanBeStart(completion: @escaping (Result<Void, ExposureSubmissionCoordinator.SRSWarnOthersPreconditionError>) -> Void) {
 		// Check if app was installed less than 48 hours
-		if let appInstallationDate = store.appInstallationDate,
-		   let numberOfHoursSinceAppInstallation = Calendar.current.dateComponents([.hour], from: appInstallationDate, to: Date()).hour {
+		guard
+			let appInstallationDate = store.appInstallationDate,
+			let numberOfHoursSinceAppInstallation = Calendar.current.dateComponents([.hour], from: appInstallationDate, to: Date()).hour,
+			numberOfHoursSinceAppInstallation > 48 else {
 
-			if numberOfHoursSinceAppInstallation < 48 {
-				completion(.failure(.insufficientAppUsageTime))
-			}
+			completion(.failure(.insufficientAppUsageTime))
+			return
 		}
 		
 		// Check if there was already a key submission without a registered test in the last 3 months
