@@ -40,7 +40,9 @@ class ExposureSubmissionCoordinatorModel {
 	let recycleBin: RecycleBin
 	
 	var coronaTestType: CoronaTestType?
+	var srsSubmissionType: SAP_Internal_SubmissionPayload.SubmissionType?
 	var markNewlyAddedCoronaTestAsUnseen: Bool = false
+	var shouldShowSymptomsOnsetScreen = false
 
 	var coronaTest: UserCoronaTest? {
 		guard let coronaTestType = coronaTestType else {
@@ -76,11 +78,8 @@ class ExposureSubmissionCoordinatorModel {
 	/// Handle the storing of the selected submission type (only SRS types!).
 	/// - Parameter _ type: The selected submission type (SRS)
 	func storeSelectedSRSSubmissionType(_ type: SAP_Internal_SubmissionPayload.SubmissionType) {
-		// to.do Discuss how we store the selected type
-		Log.info("TODO: Discuss how to store selected submission type \(type)")
+		srsSubmissionType = type
 	}
-	
-	var shouldShowSymptomsOnsetScreen = false
 
 	func symptomsOptionSelected(
 		_ selectedSymptomsOption: ExposureSubmissionSymptomsViewController.SymptomsOption
