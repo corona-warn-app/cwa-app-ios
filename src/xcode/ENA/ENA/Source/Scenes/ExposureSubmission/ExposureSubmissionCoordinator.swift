@@ -104,7 +104,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 	}
 
 	func showPositiveSelfTestFlow() {
-		model.checkIfSRSWarnOthersFlowCanBeStart { [weak self] result in
+		model.checkIfSRSFlowPreconditionsAreSatisfied { [weak self] (result: Result<Void, SRSFlowError>) in
 			switch result {
 			case .success:
 				self?.showSRSTestTypeSelectionScreen(isSelfTestTypePreselected: true)
@@ -115,7 +115,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 	}
 	
 	func showSelfReportSubmissionFlow() {
-		model.checkIfSRSWarnOthersFlowCanBeStart { [weak self] result in
+		model.checkIfSRSFlowPreconditionsAreSatisfied { [weak self] (result: Result<Void, SRSFlowError>) in
 			switch result {
 			case .success:
 				self?.showSRSTestTypeSelectionScreen(isSelfTestTypePreselected: false)
@@ -1534,7 +1534,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		navigationController?.present(alert, animated: true)
 	}
 	
-	private func showSelfTestFlowAlert(for error: SRSWarnOthersPreconditionError) {
+	private func showSelfTestFlowAlert(for error: SRSFlowError) {
 		let alert = UIAlertController.errorAlert(
 			title: AppStrings.ExposureSubmissionDispatch.SRSWarnOthersPreconditionAlert.title,
 			message: error.message,
@@ -1840,14 +1840,12 @@ extension ExposureSubmissionCoordinator: UIAdaptivePresentationControllerDelegat
 
 extension ExposureSubmissionCoordinator {
 
-	enum SRSWarnOthersPreconditionError: Error {
+	enum SRSFlowError: Error {
 
-		/// Figma Error 1
-		/// The app is installed lesss than 48h
+		/// Precondition: the app was installed less than 48h
 		case insufficientAppUsageTime
 
-		/// Figmar Error 2
-		/// There was already a key submission without a registered test in the last 3 months
+		/// Precondition: there was already a key submission without a registered test in the last 3 months
 		case positiveTestResultWasAlreadySubmittedWithin90Days
 		
 		var errorCode: String {
