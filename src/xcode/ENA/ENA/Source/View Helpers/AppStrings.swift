@@ -355,7 +355,6 @@ enum AppStrings {
 		static let legalBulletPoint02 = NSLocalizedString("SRS_Consent_Legal_Text_2", tableName: "Localizable.legal", comment: "")
 		static let legalBulletPoint03 = NSLocalizedString("SRS_Consent_Legal_Text_3", tableName: "Localizable.legal", comment: "")
 	}
-
 	
 	enum ExposureSubmissionQRInfo {
 		static let title = NSLocalizedString("ExposureSubmissionQRInfo_title", comment: "")
