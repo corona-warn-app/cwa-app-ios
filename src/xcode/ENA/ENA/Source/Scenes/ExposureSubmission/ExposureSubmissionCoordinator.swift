@@ -480,8 +480,8 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		push(vc)
 	}
 	
-	private func makeSRSConsentScreen(srsFlowType: SRSFlowType) -> SRSConsentViewController {
-		return SRSConsentViewController { [weak self] isLoading in
+	private func makeSRSConsentScreen(srsFlowType: SRSFlowType) -> UIViewController {
+		let vc = SRSConsentViewController { [weak self] isLoading in
 			guard let self = self else { return }
 			
 			isLoading(true)
@@ -511,6 +511,23 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		} dismiss: { [weak self] in
 			self?.dismiss()
 		}
+		
+		let footerViewController = FooterViewController(
+			FooterViewModel(
+				primaryButtonName: AppStrings.SRSConsentScreen.primaryButtonTitle,
+				primaryIdentifier: AccessibilityIdentifiers.SRSConsentScreen.primaryButton,
+				isSecondaryButtonEnabled: false,
+				isSecondaryButtonHidden: true
+			)
+		)
+
+		let topBottomContainerViewController = TopBottomContainerViewController(
+			topController: vc,
+			bottomController: footerViewController
+		)
+
+		return topBottomContainerViewController
+
 	}
 	
 	private func makeQRInfoScreen(supportedCountries: [Country], testRegistrationInformation: CoronaTestRegistrationInformation) -> UIViewController {

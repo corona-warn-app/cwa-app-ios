@@ -733,6 +733,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 "SRSConsentScreen_HelpOthers" = "Helfen Sie mit, indem Sie andere warnen, denen Sie begegnet sind!.";
 "SRSConsentScreen_title_description2" = "Wenn Ihr Corona-Test positiv ist, können Sie Nutzer über die App warnen. Es wird nur innerhalb Deutschlands gewarnt.
 Es werden auch Nutzer gewarnt, die zeitgleich mit Ihnen an denselben Events oder Orten eingecheckt waren.";
+"SRSConsentScreen_primaryButtonTitle" = "Einverstanden";
 
 /* Exposure Submission Result */
 "ExposureSubmissionResult_Title" = "Ihr Testergebnis";

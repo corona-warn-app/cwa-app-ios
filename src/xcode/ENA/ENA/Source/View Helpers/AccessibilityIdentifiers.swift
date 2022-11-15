@@ -343,6 +343,7 @@ enum AccessibilityIdentifiers {
 		static let file = "FileScanner_Sheet_File_Button"
 	}
 	enum SRSConsentScreen {
+		static let primaryButton = "AppStrings.SRSConsentScreen.primaryButton"
 		static let accImageDescription = "AppStrings.SRSConsentScreen.accImageDescription"
 		static let headerSection1 = "AppStrings.SRSConsentScreen.headerSection1"
 	}
