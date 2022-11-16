@@ -213,6 +213,11 @@ final class SecureStore: SecureKeyValueStoring, Store {
 		set { kvStore["journalWithExposureHistoryInfoScreenShown"] = newValue }
 	}
 	
+	var mostRecentKeySubmissionDate: Date? {
+		get { kvStore["mostRecentKeySubmissionDate"] as Date? }
+		set { kvStore["mostRecentKeySubmissionDate"] = newValue }
+	}
+	
 	var lastBoosterNotificationsExecutionDate: Date? {
 		get { kvStore["lastBoosterNotificationsExecutionDate"] as Date? }
 		set { kvStore["lastBoosterNotificationsExecutionDate"] = newValue }
@@ -516,6 +521,11 @@ extension SecureStore: PrivacyPreservingProviding {
 		get { kvStore["ppacApiToken"] as TimestampedToken? }
 		set { kvStore["ppacApiToken"] = newValue }
 	}
+	
+	var previousPpacApiTokenEdus: TimestampedToken? {
+		get { kvStore["previousPpacApiTokenEdus"] as TimestampedToken? }
+		set { kvStore["previousPpacApiTokenEdus"] = newValue }
+	}
 }
 
 extension SecureStore: ErrorLogProviding {
@@ -535,6 +545,11 @@ extension SecureStore: ErrorLogProviding {
 		set { kvStore["ppacApiTokenEls"] = newValue }
 	}
 	
+	var previousPpacApiTokenEls: TimestampedToken? {
+		get { kvStore["previousPpacApiTokenEls"] as TimestampedToken? }
+		set { kvStore["previousPpacApiTokenEls"] = newValue }
+	}
+
 	var otpTokenEls: OTPToken? {
 		get { kvStore["otpTokenEls"] as OTPToken? }
 		set { kvStore["otpTokenEls"] = newValue }
@@ -551,6 +566,24 @@ extension SecureStore: ErrorLogProviding {
 		set { kvStore["elsLoggingActiveAtStartup"] = newValue }
 	}
 	#endif
+}
+
+extension SecureStore: SRSProviding {
+	
+	var ppacApiTokenSRS: TimestampedToken? {
+		get { kvStore["ppacApiTokenSRS"] as TimestampedToken? }
+		set { kvStore["ppacApiTokenSRS"] = newValue }
+	}
+	
+	var previousPpacApiTokenSRS: TimestampedToken? {
+		get { kvStore["previousPpacApiTokenSRS"] as TimestampedToken? }
+		set { kvStore["previousPpacApiTokenSRS"] = newValue }
+	}
+
+	var otpTokenSRS: OTPToken? {
+		get { kvStore["otpTokenSRS"] as OTPToken? }
+		set { kvStore["otpTokenSRS"] = newValue }
+	}
 }
 
 extension SecureStore: ErrorLogUploadHistoryProviding {
