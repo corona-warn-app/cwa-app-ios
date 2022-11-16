@@ -8,7 +8,6 @@ import OpenCombine
 #if !RELEASE
 
 final class MockTestStore: Store, PPAnalyticsData {
-
 	init() {
 #if DEBUG
 		if isUITesting {
@@ -52,7 +51,8 @@ final class MockTestStore: Store, PPAnalyticsData {
 	var submissionSymptomsOnset: SymptomsOnset = .noInformation
 	var journalWithExposureHistoryInfoScreenShown: Bool = false
 	var lastBoosterNotificationsExecutionDate: Date?
-	
+	var mostRecentKeySubmissionDate: Date?
+
 	func wipeAll(key: String?) {}
 	#if !RELEASE
 	// Settings from the debug menu.
@@ -83,12 +83,19 @@ final class MockTestStore: Store, PPAnalyticsData {
 	
 	var selectedLocalStatisticsRegions: [LocalStatisticsRegion] = []
 
+	// MARK: - SRS Providing
+
+	var ppacApiTokenSRS: TimestampedToken?
+	var previousPpacApiTokenSRS: TimestampedToken?
+	var otpTokenSRS: OTPToken?
+
 	// MARK: - PrivacyPreservingProviding
 
 	var isPrivacyPreservingAnalyticsConsentGiven: Bool = false
 	var otpTokenEdus: OTPToken?
 	var otpEdusAuthorizationDate: Date?
 	var ppacApiTokenEdus: TimestampedToken?
+	var previousPpacApiTokenEdus: TimestampedToken?
 	var userData: UserMetadata?
 
 	// MARK: - PPAnalyticsData
@@ -116,6 +123,7 @@ final class MockTestStore: Store, PPAnalyticsData {
 	var lastLoggedAppVersionNumber: Version?
 	var lastLoggedAppVersionTimestamp: Date?
 	var ppacApiTokenEls: TimestampedToken?
+	var previousPpacApiTokenEls: TimestampedToken?
 	var otpTokenEls: OTPToken?
 	var otpElsAuthorizationDate: Date?
 	#if !RELEASE
