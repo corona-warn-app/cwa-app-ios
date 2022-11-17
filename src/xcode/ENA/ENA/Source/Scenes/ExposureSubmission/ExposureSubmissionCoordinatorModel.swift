@@ -382,7 +382,8 @@ class ExposureSubmissionCoordinatorModel {
 				fatalError("Cannot set submission consent, no corona test type is set")
 			}
 		case .srs:
-			break // to.do
+			// we don't store the consent in case of SRS
+			break
 		case .none:
 			fatalError("Cannot set submission consent, no corona test type is set")
 		}

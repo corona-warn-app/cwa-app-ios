@@ -496,7 +496,6 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 					// User selected "Don't Share" / "Nicht teilen"
 					if error == .notAuthorized {
 						Log.info("OS submission authorization was declined.")
-						self.model.setSubmissionConsentGiven(false)
 					} else {
 						self.showErrorAlert(for: error)
 					}
