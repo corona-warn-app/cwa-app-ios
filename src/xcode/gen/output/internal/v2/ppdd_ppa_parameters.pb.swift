@@ -97,6 +97,29 @@ struct SAP_Internal_V2_PPDDPrivacyPreservingAnalyticsParametersCommon {
 
   var hoursSinceTestResultToSubmitKeySubmissionMetadata: Int32 = 0
 
+  var plausibleDeniabilityParameters: SAP_Internal_V2_PPDDPrivacyPreservingAnalyticsPlausibleDeniabilityParameters {
+    get {return _plausibleDeniabilityParameters ?? SAP_Internal_V2_PPDDPrivacyPreservingAnalyticsPlausibleDeniabilityParameters()}
+    set {_plausibleDeniabilityParameters = newValue}
+  }
+  /// Returns true if `plausibleDeniabilityParameters` has been explicitly set.
+  var hasPlausibleDeniabilityParameters: Bool {return self._plausibleDeniabilityParameters != nil}
+  /// Clears the value of `plausibleDeniabilityParameters`. Subsequent reads from it will return its default value.
+  mutating func clearPlausibleDeniabilityParameters() {self._plausibleDeniabilityParameters = nil}
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+
+  fileprivate var _plausibleDeniabilityParameters: SAP_Internal_V2_PPDDPrivacyPreservingAnalyticsPlausibleDeniabilityParameters? = nil
+}
+
+struct SAP_Internal_V2_PPDDPrivacyPreservingAnalyticsPlausibleDeniabilityParameters {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var probabilityOfFakeKeySubmission: Double = 0
+
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
   init() {}
@@ -106,6 +129,7 @@ struct SAP_Internal_V2_PPDDPrivacyPreservingAnalyticsParametersCommon {
 extension SAP_Internal_V2_PPDDPrivacyPreservingAnalyticsParametersIOS: @unchecked Sendable {}
 extension SAP_Internal_V2_PPDDPrivacyPreservingAnalyticsParametersAndroid: @unchecked Sendable {}
 extension SAP_Internal_V2_PPDDPrivacyPreservingAnalyticsParametersCommon: @unchecked Sendable {}
+extension SAP_Internal_V2_PPDDPrivacyPreservingAnalyticsPlausibleDeniabilityParameters: @unchecked Sendable {}
 #endif  // swift(>=5.5) && canImport(_Concurrency)
 
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
@@ -203,6 +227,7 @@ extension SAP_Internal_V2_PPDDPrivacyPreservingAnalyticsParametersCommon: SwiftP
     2: .same(proto: "probabilityToSubmitExposureWindows"),
     3: .same(proto: "hoursSinceTestRegistrationToSubmitTestResultMetadata"),
     4: .same(proto: "hoursSinceTestResultToSubmitKeySubmissionMetadata"),
+    5: .same(proto: "plausibleDeniabilityParameters"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -215,12 +240,17 @@ extension SAP_Internal_V2_PPDDPrivacyPreservingAnalyticsParametersCommon: SwiftP
       case 2: try { try decoder.decodeSingularDoubleField(value: &self.probabilityToSubmitExposureWindows) }()
       case 3: try { try decoder.decodeSingularInt32Field(value: &self.hoursSinceTestRegistrationToSubmitTestResultMetadata) }()
       case 4: try { try decoder.decodeSingularInt32Field(value: &self.hoursSinceTestResultToSubmitKeySubmissionMetadata) }()
+      case 5: try { try decoder.decodeSingularMessageField(value: &self._plausibleDeniabilityParameters) }()
       default: break
       }
     }
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
     if self.probabilityToSubmit != 0 {
       try visitor.visitSingularDoubleField(value: self.probabilityToSubmit, fieldNumber: 1)
     }
@@ -233,6 +263,9 @@ extension SAP_Internal_V2_PPDDPrivacyPreservingAnalyticsParametersCommon: SwiftP
     if self.hoursSinceTestResultToSubmitKeySubmissionMetadata != 0 {
       try visitor.visitSingularInt32Field(value: self.hoursSinceTestResultToSubmitKeySubmissionMetadata, fieldNumber: 4)
     }
+    try { if let v = self._plausibleDeniabilityParameters {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 5)
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -241,6 +274,39 @@ extension SAP_Internal_V2_PPDDPrivacyPreservingAnalyticsParametersCommon: SwiftP
     if lhs.probabilityToSubmitExposureWindows != rhs.probabilityToSubmitExposureWindows {return false}
     if lhs.hoursSinceTestRegistrationToSubmitTestResultMetadata != rhs.hoursSinceTestRegistrationToSubmitTestResultMetadata {return false}
     if lhs.hoursSinceTestResultToSubmitKeySubmissionMetadata != rhs.hoursSinceTestResultToSubmitKeySubmissionMetadata {return false}
+    if lhs._plausibleDeniabilityParameters != rhs._plausibleDeniabilityParameters {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension SAP_Internal_V2_PPDDPrivacyPreservingAnalyticsPlausibleDeniabilityParameters: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".PPDDPrivacyPreservingAnalyticsPlausibleDeniabilityParameters"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "probabilityOfFakeKeySubmission"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularDoubleField(value: &self.probabilityOfFakeKeySubmission) }()
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.probabilityOfFakeKeySubmission != 0 {
+      try visitor.visitSingularDoubleField(value: self.probabilityOfFakeKeySubmission, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: SAP_Internal_V2_PPDDPrivacyPreservingAnalyticsPlausibleDeniabilityParameters, rhs: SAP_Internal_V2_PPDDPrivacyPreservingAnalyticsPlausibleDeniabilityParameters) -> Bool {
+    if lhs.probabilityOfFakeKeySubmission != rhs.probabilityOfFakeKeySubmission {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

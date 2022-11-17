@@ -45,6 +45,8 @@ struct SAP_Internal_Ppdd_SRSOneTimePasswordRequestIOS {
   /// Clears the value of `payload`. Subsequent reads from it will return its default value.
   mutating func clearPayload() {self._payload = nil}
 
+  var requestPadding: Data = Data()
+
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
   init() {}
@@ -66,6 +68,7 @@ extension SAP_Internal_Ppdd_SRSOneTimePasswordRequestIOS: SwiftProtobuf.Message,
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "authentication"),
     2: .same(proto: "payload"),
+    3: .same(proto: "requestPadding"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -76,6 +79,7 @@ extension SAP_Internal_Ppdd_SRSOneTimePasswordRequestIOS: SwiftProtobuf.Message,
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularMessageField(value: &self._authentication) }()
       case 2: try { try decoder.decodeSingularMessageField(value: &self._payload) }()
+      case 3: try { try decoder.decodeSingularBytesField(value: &self.requestPadding) }()
       default: break
       }
     }
@@ -92,12 +96,16 @@ extension SAP_Internal_Ppdd_SRSOneTimePasswordRequestIOS: SwiftProtobuf.Message,
     try { if let v = self._payload {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
     } }()
+    if !self.requestPadding.isEmpty {
+      try visitor.visitSingularBytesField(value: self.requestPadding, fieldNumber: 3)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   static func ==(lhs: SAP_Internal_Ppdd_SRSOneTimePasswordRequestIOS, rhs: SAP_Internal_Ppdd_SRSOneTimePasswordRequestIOS) -> Bool {
     if lhs._authentication != rhs._authentication {return false}
     if lhs._payload != rhs._payload {return false}
+    if lhs.requestPadding != rhs.requestPadding {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
