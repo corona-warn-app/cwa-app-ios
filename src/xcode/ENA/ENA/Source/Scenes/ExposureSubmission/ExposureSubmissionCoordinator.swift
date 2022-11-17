@@ -385,8 +385,8 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 	}
 	
 	private func createWarnOthersViewController(supportedCountries: [Country]) -> UIViewController {
-		if let testType = model.coronaTestType {
-			Analytics.collect(.keySubmissionMetadata(.lastSubmissionFlowScreen(.submissionFlowScreenWarnOthers, testType)))
+		if let coronaTestType = model.coronaTestType {
+			Analytics.collect(.keySubmissionMetadata(.lastSubmissionFlowScreen(.submissionFlowScreenWarnOthers, coronaTestType)))
 		}
 
 		let exposureSubmissionWarnOthersViewController = ExposureSubmissionWarnOthersViewController(
@@ -864,8 +864,8 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 			onDismiss: { [weak self] in
 				if self?.model.coronaTest?.positiveTestResultWasShown == true {
 					self?.showSkipCheckinsAlert(dontShareHandler: {
-						if let testType = self?.model.coronaTestType {
-							Analytics.collect(.keySubmissionMetadata(.submittedAfterCancel(true, testType)))
+						if let coronaTestType = self?.model.coronaTestType {
+							Analytics.collect(.keySubmissionMetadata(.submittedAfterCancel(true, coronaTestType)))
 							self?.submitExposure(showSubmissionSuccess: false) { isLoading in
 								footerViewModel.setLoadingIndicator(isLoading, disable: isLoading, button: .secondary)
 								footerViewModel.setLoadingIndicator(false, disable: isLoading, button: .primary)
@@ -987,8 +987,8 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 	// MARK: Symptoms
 
 	private func showSymptomsScreen() {
-		if let testType = model.coronaTestType {
-			Analytics.collect(.keySubmissionMetadata(.lastSubmissionFlowScreen(.submissionFlowScreenSymptoms, testType)))
+		if let coronaTestType = model.coronaTestType {
+			Analytics.collect(.keySubmissionMetadata(.lastSubmissionFlowScreen(.submissionFlowScreenSymptoms, coronaTestType)))
 		}
 
 		let exposureSubmissionSymptomsViewController = ExposureSubmissionSymptomsViewController(
@@ -1000,8 +1000,8 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 				switch self.model.submissionTestType {
 				case .registeredTest(let coronaTestType):
 					// we don't need to set it true if yes is selected
-					if selectedSymptomsOption != .yes, let testType = coronaTestType {
-						Analytics.collect(.keySubmissionMetadata(.submittedAfterSymptomFlow(true, testType)))
+					if selectedSymptomsOption != .yes, let coronaTestType = coronaTestType {
+						Analytics.collect(.keySubmissionMetadata(.submittedAfterSymptomFlow(true, coronaTestType)))
 					}
 					
 					self.model.shouldShowSymptomsOnsetScreen ? self.showSymptomsOnsetScreen() : self.submitExposure(showSubmissionSuccess: true, isLoading: isLoading)
@@ -1036,8 +1036,8 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 	}
 
 	private func showSymptomsOnsetScreen() {
-		if let testType = model.coronaTestType {
-			Analytics.collect(.keySubmissionMetadata(.lastSubmissionFlowScreen(.submissionFlowScreenSymptomOnset, testType)))
+		if let coronaTestType = model.coronaTestType {
+			Analytics.collect(.keySubmissionMetadata(.lastSubmissionFlowScreen(.submissionFlowScreenSymptomOnset, coronaTestType)))
 		}
 
 		let exposureSubmissionSymptomsOnsetViewController = ExposureSubmissionSymptomsOnsetViewController(
@@ -1046,9 +1046,9 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 
 				switch self?.model.submissionTestType {
 				case .registeredTest(let coronaTestType):
-					if let testType = coronaTestType {
+					if let coronaTestType = coronaTestType {
 						// setting it to true regardless of the options selected
-						Analytics.collect(.keySubmissionMetadata(.submittedAfterSymptomFlow(true, testType)))
+						Analytics.collect(.keySubmissionMetadata(.submittedAfterSymptomFlow(true, coronaTestType)))
 					}
 					
 					self?.submitExposure(showSubmissionSuccess: true, isLoading: isLoading)
@@ -1472,8 +1472,8 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 				title: cancelAlertButtonTitle,
 				style: .cancel,
 				handler: { [weak self] _ in
-					if let testType = self?.model.coronaTestType {
-						Analytics.collect(.keySubmissionMetadata(.submittedAfterCancel(true, testType)))
+					if let coronaTestType = self?.model.coronaTestType {
+						Analytics.collect(.keySubmissionMetadata(.submittedAfterCancel(true, coronaTestType)))
 						self?.submitExposure(showSubmissionSuccess: false, isLoading: isLoading)
 					}
 				}
@@ -1502,8 +1502,8 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 				title: AppStrings.ExposureSubmissionSymptomsCancelAlert.cancelButton,
 				style: .cancel,
 				handler: { [weak self] _ in
-					if let testType = self?.model.coronaTestType {
-						Analytics.collect(.keySubmissionMetadata(.submittedAfterCancel(true, testType)))
+					if let coronaTestType = self?.model.coronaTestType {
+						Analytics.collect(.keySubmissionMetadata(.submittedAfterCancel(true, coronaTestType)))
 						self?.submitExposure(showSubmissionSuccess: false, isLoading: isLoading)
 					}
 				}
@@ -1693,11 +1693,11 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 				}
 			},
 			onError: { [weak self] error in
-				if let testType = self?.model.coronaTestType {
+				if let coronaTestType = self?.model.coronaTestType {
 					// reset all the values taken during the submission flow because submission failed
-					Analytics.collect(.keySubmissionMetadata(.submittedAfterSymptomFlow(false, testType)))
-					Analytics.collect(.keySubmissionMetadata(.submittedAfterCancel(false, testType)))
-					Analytics.collect(.keySubmissionMetadata(.lastSubmissionFlowScreen(.submissionFlowScreenUnknown, testType)))
+					Analytics.collect(.keySubmissionMetadata(.submittedAfterSymptomFlow(false, coronaTestType)))
+					Analytics.collect(.keySubmissionMetadata(.submittedAfterCancel(false, coronaTestType)))
+					Analytics.collect(.keySubmissionMetadata(.lastSubmissionFlowScreen(.submissionFlowScreenUnknown, coronaTestType)))
 				}
 				self?.showServiceErrorAlert(for: error) {
 					self?.dismiss()

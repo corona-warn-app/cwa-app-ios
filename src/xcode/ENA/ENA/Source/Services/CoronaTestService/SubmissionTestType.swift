@@ -9,6 +9,8 @@ enum SubmissionTestType: Equatable {
 	case srs(SRSSubmissionType)
 }
 
+// Wrapping SAP_Internal_SubmissionPayload.SubmissionType with SRSSubmissionType
+// as it does not conform to protocol equatable
 enum SRSSubmissionType: Equatable {
 	case srsRegisteredRat
 	case srsSelfTest

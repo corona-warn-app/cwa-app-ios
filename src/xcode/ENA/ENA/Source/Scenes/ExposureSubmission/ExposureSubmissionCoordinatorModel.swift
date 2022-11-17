@@ -44,11 +44,11 @@ class ExposureSubmissionCoordinatorModel {
 	var shouldShowSymptomsOnsetScreen = false
 
 	var coronaTest: UserCoronaTest? {
-		guard case let .registeredTest(coronaTestType) = submissionTestType, let testType = coronaTestType else {
+		guard case let .registeredTest(coronaTestType) = submissionTestType, let coronaTestType = coronaTestType else {
 			return nil
 		}
 
-		return coronaTestService.coronaTest(ofType: testType)
+		return coronaTestService.coronaTest(ofType: coronaTestType)
 	}
 
 	var coronaTestType: CoronaTestType? {
@@ -151,14 +151,14 @@ class ExposureSubmissionCoordinatorModel {
 		onSuccess: @escaping () -> Void,
 		onError: @escaping (ExposureSubmissionServiceError) -> Void
 	) {
-		guard case let .registeredTest(coronaTestType) = submissionTestType, let testType = coronaTestType else {
+		guard case let .registeredTest(coronaTestType) = submissionTestType, let coronaTestType = coronaTestType else {
 			onError(.preconditionError(.noCoronaTestTypeGiven))
 			return
 		}
 
 		isLoading(true)
 
-		exposureSubmissionService.submitExposure(coronaTestType: testType) { error in
+		exposureSubmissionService.submitExposure(coronaTestType: coronaTestType) { error in
 			isLoading(false)
 
 			switch error {
@@ -184,7 +184,7 @@ class ExposureSubmissionCoordinatorModel {
 		onSuccess: @escaping () -> Void,
 		onError: @escaping (ExposureSubmissionServiceError) -> Void
 	) {
-		/*
+		/* to.do submit to the server
 		guard let srsSubmissionType = srsSubmissionType else {
 			// onError(.)
 			return
