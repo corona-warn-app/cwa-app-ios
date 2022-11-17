@@ -866,10 +866,10 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 					self?.showSkipCheckinsAlert(dontShareHandler: {
 						if let testType = self?.model.coronaTestType {
 							Analytics.collect(.keySubmissionMetadata(.submittedAfterCancel(true, testType)))
-						}
-						self?.submitExposure(showSubmissionSuccess: false) { isLoading in
-							footerViewModel.setLoadingIndicator(isLoading, disable: isLoading, button: .secondary)
-							footerViewModel.setLoadingIndicator(false, disable: isLoading, button: .primary)
+							self?.submitExposure(showSubmissionSuccess: false) { isLoading in
+								footerViewModel.setLoadingIndicator(isLoading, disable: isLoading, button: .secondary)
+								footerViewModel.setLoadingIndicator(false, disable: isLoading, button: .primary)
+							}
 						}
 					})
 				} else {
@@ -996,11 +996,22 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 				guard let self = self else { return }
 
 				self.model.symptomsOptionSelected(selectedSymptomsOption)
-				// we don't need to set it true if yes is selected
-				if selectedSymptomsOption != .yes, let testType = self.model.coronaTestType {
-					Analytics.collect(.keySubmissionMetadata(.submittedAfterSymptomFlow(true, testType)))
+				
+				switch self.model.submissionTestType {
+				case .registeredTest(let coronaTestType):
+					// we don't need to set it true if yes is selected
+					if selectedSymptomsOption != .yes, let testType = coronaTestType {
+						Analytics.collect(.keySubmissionMetadata(.submittedAfterSymptomFlow(true, testType)))
+					}
+					
+					self.model.shouldShowSymptomsOnsetScreen ? self.showSymptomsOnsetScreen() : self.submitExposure(showSubmissionSuccess: true, isLoading: isLoading)
+				case .srs:
+					if self.model.shouldShowSymptomsOnsetScreen {
+						self.showSymptomsOnsetScreen()
+					}
+				case .none:
+					break
 				}
-				self.model.shouldShowSymptomsOnsetScreen ? self.showSymptomsOnsetScreen() : self.submitExposure(showSubmissionSuccess: true, isLoading: isLoading)
 			},
 			onDismiss: { [weak self] isLoading in
 				self?.showSubmissionSymptomsCancelAlert(isLoading: isLoading)
@@ -1033,12 +1044,19 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 			onPrimaryButtonTap: { [weak self] selectedSymptomsOnsetOption, isLoading in
 				self?.model.symptomsOnsetOptionSelected(selectedSymptomsOnsetOption)
 
-				if let testType = self?.model.coronaTestType {
-					// setting it to true regardless of the options selected
-					Analytics.collect(.keySubmissionMetadata(.submittedAfterSymptomFlow(true, testType)))
+				switch self?.model.submissionTestType {
+				case .registeredTest(let coronaTestType):
+					if let testType = coronaTestType {
+						// setting it to true regardless of the options selected
+						Analytics.collect(.keySubmissionMetadata(.submittedAfterSymptomFlow(true, testType)))
+					}
+					
+					self?.submitExposure(showSubmissionSuccess: true, isLoading: isLoading)
+				case .srs:
+					self?.submitSRSExposure(showSubmissionSuccess: true, isLoading: isLoading)
+				case .none:
+					break
 				}
-				
-				self?.submitExposure(showSubmissionSuccess: true, isLoading: isLoading)
 			},
 			onDismiss: { [weak self] isLoading in
 				self?.showSubmissionSymptomsCancelAlert(isLoading: isLoading)
@@ -1456,8 +1474,8 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 				handler: { [weak self] _ in
 					if let testType = self?.model.coronaTestType {
 						Analytics.collect(.keySubmissionMetadata(.submittedAfterCancel(true, testType)))
+						self?.submitExposure(showSubmissionSuccess: false, isLoading: isLoading)
 					}
-					self?.submitExposure(showSubmissionSuccess: false, isLoading: isLoading)
 				}
 			)
 		)
@@ -1486,8 +1504,8 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 				handler: { [weak self] _ in
 					if let testType = self?.model.coronaTestType {
 						Analytics.collect(.keySubmissionMetadata(.submittedAfterCancel(true, testType)))
+						self?.submitExposure(showSubmissionSuccess: false, isLoading: isLoading)
 					}
-					self?.submitExposure(showSubmissionSuccess: false, isLoading: isLoading)
 				}
 			)
 		)
@@ -1693,7 +1711,8 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 			isLoading: isLoading,
 			onSuccess: { [weak self] in
 				if showSubmissionSuccess {
-					self?.showExposureSubmissionSuccessViewController()
+					// to.do refactor thank you screen for SRS
+					// self?.showExposureSubmissionSuccessViewController()
 				} else {
 					self?.dismiss()
 				}
