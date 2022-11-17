@@ -66,12 +66,12 @@ class SRSTestTypeSelectionViewModel {
 	
 	/// The `SAP_Internal_SubmissionPayload.SubmissionType` that the user has selected in the list.
 	/// Is `nil`, as long as the user hasn't made a selection.
-	@OpenCombine.Published var selectedSubmissionType: SAP_Internal_SubmissionPayload.SubmissionType?
+	@OpenCombine.Published var selectedSubmissionType: SRSSubmissionType?
 	
 	// MARK: - Private
 
 	/// The order of the list entries shown.
-	private let submissionTypes: [SAP_Internal_SubmissionPayload.SubmissionType] = [
+	private let submissionTypes: [SRSSubmissionType] = [
 		.srsRegisteredRat,
 		.srsSelfTest,
 		.srsRegisteredPcr,
@@ -93,7 +93,7 @@ class SRSTestTypeSelectionViewModel {
 	}
 }
 
-fileprivate extension SAP_Internal_SubmissionPayload.SubmissionType {
+fileprivate extension SRSSubmissionType {
 	var optionTitle: String {
 		switch self {
 		case .srsSelfTest:
@@ -108,8 +108,6 @@ fileprivate extension SAP_Internal_SubmissionPayload.SubmissionType {
 			return AppStrings.ExposureSubmission.SRSTestTypeSelection.optionSRSRapidPcrTitle
 		case .srsOther:
 			return AppStrings.ExposureSubmission.SRSTestTypeSelection.optionSRSOtherTitle
-		default:
-			return ""
 		}
 	}
 	
@@ -127,8 +125,6 @@ fileprivate extension SAP_Internal_SubmissionPayload.SubmissionType {
 			return AccessibilityIdentifiers.ExposureSubmission.SRSTestTypeSelection.optionSRSRapidPcr
 		case .srsOther:
 			return AccessibilityIdentifiers.ExposureSubmission.SRSTestTypeSelection.optionSRSOther
-		default:
-			return nil
 		}
 	}
 }

@@ -41,13 +41,6 @@ class SRSConsentViewController: DynamicTableViewController, FooterViewHandling {
 		}
 	}
 
-	// MARK: - Internal
-
-	enum ReuseIdentifiers: String, TableViewCellReuseIdentifiers {
-		case legal = "DynamicLegalCell"
-		case legalExtended = "DynamicLegalExtendedCell"
-	}
-
 	// MARK: - Private
 
 	private let viewModel: SRSConsentViewModel
@@ -68,7 +61,7 @@ class SRSConsentViewController: DynamicTableViewController, FooterViewHandling {
 		view.backgroundColor = .enaColor(for: .background)
 
 		tableView.register(
-			DynamicLegalExtendedCell.self,
+			UINib(nibName: String(describing: DynamicLegalExtendedCell.self), bundle: nil),
 			forCellReuseIdentifier: DynamicLegalExtendedCell.reuseIdentifier
 		)
 

@@ -329,7 +329,7 @@ class HomeCoordinator: RequiresAppDependencies {
 		if let testInformationResult = testInformationResult {
 			coordinator.start(with: testInformationResult)
 		} else {
-			coordinator.start(with: testType)
+			coordinator.start(with: .registeredTest(testType))
 		}
 	}
 
