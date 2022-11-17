@@ -9,6 +9,8 @@ enum PPACError: Error {
 	case deviceNotSupported
 	case timeIncorrect
 	case timeUnverified
+	case minimumTimeSinceOnboarding
+	case submissionTooEarly
 
 	var description: String {
 		switch self {
@@ -20,6 +22,11 @@ enum PPACError: Error {
 			return "timeIncorrect"
 		case .timeUnverified:
 			return "timeUnverified"
+		case .minimumTimeSinceOnboarding:
+			return "minimumTimeSinceOnboarding"
+		case .submissionTooEarly:
+			return "SUBMISSION_TOO_EARLY"
+
 		}
 	}
 }
