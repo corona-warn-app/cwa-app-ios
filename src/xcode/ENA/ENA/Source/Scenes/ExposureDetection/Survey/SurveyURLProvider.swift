@@ -12,6 +12,8 @@ enum SurveyError: Error {
 	case deviceNotSupported(String)
 	case changeDeviceTime(String)
 	case alreadyParticipated(String)
+	case minimumTimeSinceOnboarding(String)
+	case submissionTooEarly(String)
 
 	// MARK: - Init
 
@@ -23,6 +25,10 @@ enum SurveyError: Error {
 			self = .deviceNotSupported(ppacError.description)
 		case .timeIncorrect:
 			self = .changeDeviceTime(ppacError.description)
+		case .submissionTooEarly:
+			self = .submissionTooEarly(ppacError.description)
+		case .minimumTimeSinceOnboarding:
+			self = .minimumTimeSinceOnboarding(ppacError.description)
 		}
 	}
 
@@ -51,6 +57,10 @@ enum SurveyError: Error {
 			return String(format: AppStrings.SurveyConsent.errorChangeDeviceTime, errorCode)
 		case .alreadyParticipated(let errorCode):
 			return String(format: AppStrings.SurveyConsent.errorAlreadyParticipated, errorCode)
+		case .submissionTooEarly, .minimumTimeSinceOnboarding:
+			//these cases are un related to the survay
+			return ""
+			break
 		}
 	}
 }
