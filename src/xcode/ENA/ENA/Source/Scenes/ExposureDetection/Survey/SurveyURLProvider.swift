@@ -58,7 +58,7 @@ enum SurveyError: Error {
 		case .alreadyParticipated(let errorCode):
 			return String(format: AppStrings.SurveyConsent.errorAlreadyParticipated, errorCode)
 		case .submissionTooEarly, .minimumTimeSinceOnboarding:
-			//these cases are un related to the survay
+			/ /these cases are unrelated to the survey
 			return ""
 			break
 		}
