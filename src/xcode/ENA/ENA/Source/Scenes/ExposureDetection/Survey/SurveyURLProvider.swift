@@ -60,7 +60,6 @@ enum SurveyError: Error {
 		case .submissionTooEarly, .minimumTimeSinceOnboarding:
 			// these cases are unrelated to the survey
 			return ""
-			break
 		}
 	}
 }
