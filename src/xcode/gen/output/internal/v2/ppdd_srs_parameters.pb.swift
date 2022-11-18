@@ -93,6 +93,31 @@ struct SAP_Internal_V2_PPDDSelfReportSubmissionParametersCommon {
 
   var timeBetweenSubmissionsInDays: Int32 = 0
 
+  var plausibleDeniabilityParameters: SAP_Internal_V2_PPDDSelfReportSubmissionPlausibleDeniabilityParameters {
+    get {return _plausibleDeniabilityParameters ?? SAP_Internal_V2_PPDDSelfReportSubmissionPlausibleDeniabilityParameters()}
+    set {_plausibleDeniabilityParameters = newValue}
+  }
+  /// Returns true if `plausibleDeniabilityParameters` has been explicitly set.
+  var hasPlausibleDeniabilityParameters: Bool {return self._plausibleDeniabilityParameters != nil}
+  /// Clears the value of `plausibleDeniabilityParameters`. Subsequent reads from it will return its default value.
+  mutating func clearPlausibleDeniabilityParameters() {self._plausibleDeniabilityParameters = nil}
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+
+  fileprivate var _plausibleDeniabilityParameters: SAP_Internal_V2_PPDDSelfReportSubmissionPlausibleDeniabilityParameters? = nil
+}
+
+struct SAP_Internal_V2_PPDDSelfReportSubmissionPlausibleDeniabilityParameters {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var minRequestPaddingBytes: Int32 = 0
+
+  var maxRequestPaddingBytes: Int32 = 0
+
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
   init() {}
@@ -102,6 +127,7 @@ struct SAP_Internal_V2_PPDDSelfReportSubmissionParametersCommon {
 extension SAP_Internal_V2_PPDDSelfReportSubmissionParametersIOS: @unchecked Sendable {}
 extension SAP_Internal_V2_PPDDSelfReportSubmissionParametersAndroid: @unchecked Sendable {}
 extension SAP_Internal_V2_PPDDSelfReportSubmissionParametersCommon: @unchecked Sendable {}
+extension SAP_Internal_V2_PPDDSelfReportSubmissionPlausibleDeniabilityParameters: @unchecked Sendable {}
 #endif  // swift(>=5.5) && canImport(_Concurrency)
 
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
@@ -197,6 +223,7 @@ extension SAP_Internal_V2_PPDDSelfReportSubmissionParametersCommon: SwiftProtobu
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "timeSinceOnboardingInHours"),
     2: .same(proto: "timeBetweenSubmissionsInDays"),
+    3: .same(proto: "plausibleDeniabilityParameters"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -207,24 +234,71 @@ extension SAP_Internal_V2_PPDDSelfReportSubmissionParametersCommon: SwiftProtobu
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularInt32Field(value: &self.timeSinceOnboardingInHours) }()
       case 2: try { try decoder.decodeSingularInt32Field(value: &self.timeBetweenSubmissionsInDays) }()
+      case 3: try { try decoder.decodeSingularMessageField(value: &self._plausibleDeniabilityParameters) }()
       default: break
       }
     }
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
     if self.timeSinceOnboardingInHours != 0 {
       try visitor.visitSingularInt32Field(value: self.timeSinceOnboardingInHours, fieldNumber: 1)
     }
     if self.timeBetweenSubmissionsInDays != 0 {
       try visitor.visitSingularInt32Field(value: self.timeBetweenSubmissionsInDays, fieldNumber: 2)
     }
+    try { if let v = self._plausibleDeniabilityParameters {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
   static func ==(lhs: SAP_Internal_V2_PPDDSelfReportSubmissionParametersCommon, rhs: SAP_Internal_V2_PPDDSelfReportSubmissionParametersCommon) -> Bool {
     if lhs.timeSinceOnboardingInHours != rhs.timeSinceOnboardingInHours {return false}
     if lhs.timeBetweenSubmissionsInDays != rhs.timeBetweenSubmissionsInDays {return false}
+    if lhs._plausibleDeniabilityParameters != rhs._plausibleDeniabilityParameters {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension SAP_Internal_V2_PPDDSelfReportSubmissionPlausibleDeniabilityParameters: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".PPDDSelfReportSubmissionPlausibleDeniabilityParameters"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "minRequestPaddingBytes"),
+    2: .same(proto: "maxRequestPaddingBytes"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularInt32Field(value: &self.minRequestPaddingBytes) }()
+      case 2: try { try decoder.decodeSingularInt32Field(value: &self.maxRequestPaddingBytes) }()
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.minRequestPaddingBytes != 0 {
+      try visitor.visitSingularInt32Field(value: self.minRequestPaddingBytes, fieldNumber: 1)
+    }
+    if self.maxRequestPaddingBytes != 0 {
+      try visitor.visitSingularInt32Field(value: self.maxRequestPaddingBytes, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: SAP_Internal_V2_PPDDSelfReportSubmissionPlausibleDeniabilityParameters, rhs: SAP_Internal_V2_PPDDSelfReportSubmissionPlausibleDeniabilityParameters) -> Bool {
+    if lhs.minRequestPaddingBytes != rhs.minRequestPaddingBytes {return false}
+    if lhs.maxRequestPaddingBytes != rhs.maxRequestPaddingBytes {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

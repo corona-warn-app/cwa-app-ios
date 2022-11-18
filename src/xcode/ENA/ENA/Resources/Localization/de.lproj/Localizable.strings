@@ -735,16 +735,21 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 /* SRS Consent Screen */
 
-"SRS_ConsentScreen_Title1" = "Andere warnen";
-"SRSConsentScreen_title_description1" = "Bevor Sie andere warnen können, ist Ihr Einverständnis erforderlich.";
+"SRS_ConsentScreen_title" = "Ihr Einverständnis";
 
-"SRSConsentScreen_instruction1" = "Sie bestätigen hiermit, dass Sie persönlich durch einen Selbsttest oder von einer Teststelle positiv getestet wurden. Sie können hier nicht in Vertretung von Familienmitgliedern warnen.";
-"SRSConsentScreen_instruction2" = "Sie können andere nur ein Mal innerhalb von 3 Monaten warnen, es sei denn, Sie haben Ihr Testergebnis in der App erhalten. Dies dient der Vermeidung von Missbrauch.";
-"SRSConsentScreen_instruction3" = "Sie können für einen Selbsttest kein offizielles COVID-Testzertifikat erhalten.";
+"SRS_ConsentScreen_header_section1" = "Andere warnen";
 
-"SRSConsentScreen_HelpOthers" = "Helfen Sie mit, indem Sie andere warnen, denen Sie begegnet sind!.";
-"SRSConsentScreen_title_description2" = "Wenn Ihr Corona-Test positiv ist, können Sie Nutzer über die App warnen. Es wird nur innerhalb Deutschlands gewarnt.
-Es werden auch Nutzer gewarnt, die zeitgleich mit Ihnen an denselben Events oder Orten eingecheckt waren.";
+"SRS_ConsentScreen_title_description1" = "Bevor Sie andere warnen können, ist Ihr Einverständnis erforderlich.";
+
+"SRS_ConsentScreen_instruction1" = "Sie bestätigen hiermit, dass Sie persönlich durch einen Selbsttest oder von einer Teststelle positiv getestet wurden. Sie können hier nicht in Vertretung von Familienmitgliedern warnen.";
+
+"SRS_ConsentScreen_instruction2" = "Sie können andere nur ein Mal innerhalb von 3 Monaten warnen, es sei denn, Sie haben Ihr Testergebnis in der App erhalten. Dies dient der Vermeidung von Missbrauch.";
+
+"SRS_ConsentScreen_instruction3" = "Sie können für einen Selbsttest kein offizielles COVID-Testzertifikat erhalten.";
+
+"SRS_ConsentScreen_header_section2" = "Helfen Sie mit, indem Sie andere warnen, denen Sie begegnet sind!";
+
+"SRS_ConsentScreen_title_description2" = "Wenn Ihr Corona-Test positiv ist, können Sie Nutzer über die App warnen. Es wird nur innerhalb Deutschlands gewarnt.\nEs werden auch Nutzer gewarnt, die zeitgleich mit Ihnen an denselben Events oder Orten eingecheckt waren.";
 
 /* Exposure Submission Result */
 "ExposureSubmissionResult_Title" = "Ihr Testergebnis";

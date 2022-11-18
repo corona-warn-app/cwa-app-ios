@@ -11,7 +11,7 @@ class SRSTestTypeSelectionViewController: DynamicTableViewController {
 	
 	init(
 		viewModel: SRSTestTypeSelectionViewModel,
-		onPrimaryButtonTap: @escaping (SAP_Internal_SubmissionPayload.SubmissionType) -> Void,
+		onPrimaryButtonTap: @escaping (SRSSubmissionType) -> Void,
 		onDismiss: @escaping CompletionVoid
 	) {
 		self.viewModel = viewModel
@@ -40,7 +40,7 @@ class SRSTestTypeSelectionViewController: DynamicTableViewController {
 	// MARK: - Private
 	
 	private let viewModel: SRSTestTypeSelectionViewModel
-	private let onPrimaryButtonTap: (SAP_Internal_SubmissionPayload.SubmissionType) -> Void
+	private let onPrimaryButtonTap: (SRSSubmissionType) -> Void
 	private let onDismiss: CompletionVoid
 	private var subscriptions = Set<AnyCancellable>()
 	

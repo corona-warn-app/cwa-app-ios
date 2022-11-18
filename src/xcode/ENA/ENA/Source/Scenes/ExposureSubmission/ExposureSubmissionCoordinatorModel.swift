@@ -41,17 +41,26 @@ class ExposureSubmissionCoordinatorModel {
 	let eventProvider: EventProviding
 	let recycleBin: RecycleBin
 	
-	var coronaTestType: CoronaTestType?
+	var submissionTestType: SubmissionTestType?
 	var markNewlyAddedCoronaTestAsUnseen: Bool = false
+	var shouldShowSymptomsOnsetScreen = false
 
 	var coronaTest: UserCoronaTest? {
-		guard let coronaTestType = coronaTestType else {
+		guard case let .registeredTest(coronaTestType) = submissionTestType, let coronaTestType = coronaTestType else {
 			return nil
 		}
 
 		return coronaTestService.coronaTest(ofType: coronaTestType)
 	}
 
+	var coronaTestType: CoronaTestType? {
+		guard case let .registeredTest(coronaTestType) = self.submissionTestType else {
+			return nil
+		}
+
+		return coronaTestType
+	}
+	
 	func shouldShowOverrideTestNotice(for coronaTestType: CoronaTestType) -> Bool {
 		if let oldTest = coronaTestService.coronaTest(ofType: coronaTestType),
 		   oldTest.testResult != .expired,
@@ -77,12 +86,9 @@ class ExposureSubmissionCoordinatorModel {
 	
 	/// Handle the storing of the selected submission type (only SRS types!).
 	/// - Parameter _ type: The selected submission type (SRS)
-	func storeSelectedSRSSubmissionType(_ type: SAP_Internal_SubmissionPayload.SubmissionType) {
-		// to.do Discuss how we store the selected type
-		Log.info("TODO: Discuss how to store selected submission type \(type)")
+	func storeSelectedSRSSubmissionType(_ type: SRSSubmissionType) {
+		submissionTestType = .srs(type)
 	}
-	
-	var shouldShowSymptomsOnsetScreen = false
 
 	func symptomsOptionSelected(
 		_ selectedSymptomsOption: ExposureSubmissionSymptomsViewController.SymptomsOption
@@ -147,7 +153,7 @@ class ExposureSubmissionCoordinatorModel {
 		onSuccess: @escaping () -> Void,
 		onError: @escaping (ExposureSubmissionServiceError) -> Void
 	) {
-		guard let coronaTestType = coronaTestType else {
+		guard case let .registeredTest(coronaTestType) = submissionTestType, let coronaTestType = coronaTestType else {
 			onError(.preconditionError(.noCoronaTestTypeGiven))
 			return
 		}
@@ -173,6 +179,29 @@ class ExposureSubmissionCoordinatorModel {
 				onError(error)
 			}
 		}
+	}
+
+	func submitSRSExposure(
+		isLoading: @escaping (Bool) -> Void,
+		onSuccess: @escaping () -> Void,
+		onError: @escaping (ExposureSubmissionServiceError) -> Void
+	) {
+		/* to.do submit to the server
+		guard let srsSubmissionType = srsSubmissionType else {
+			// onError(.)
+			return
+		}
+
+		isLoading(true)
+
+		exposureSubmissionService.submitSRSExposure(srsSubmissionType: srsSubmissionType) { error in
+			isLoading(false)
+
+			switch error {
+
+			// cases
+		}
+		*/
 	}
 
 	// swiftlint:disable cyclomatic_complexity
@@ -344,11 +373,19 @@ class ExposureSubmissionCoordinatorModel {
 	}
 	
 	func setSubmissionConsentGiven(_ isSubmissionConsentGiven: Bool) {
-		switch coronaTestType {
-		case .pcr:
-			coronaTestService.pcrTest.value?.isSubmissionConsentGiven = isSubmissionConsentGiven
-		case .antigen:
-			coronaTestService.antigenTest.value?.isSubmissionConsentGiven = isSubmissionConsentGiven
+		switch submissionTestType {
+		case .registeredTest(let coronaTestType):
+			switch coronaTestType {
+			case .pcr:
+				coronaTestService.pcrTest.value?.isSubmissionConsentGiven = isSubmissionConsentGiven
+			case .antigen:
+				coronaTestService.antigenTest.value?.isSubmissionConsentGiven = isSubmissionConsentGiven
+			case .none:
+				fatalError("Cannot set submission consent, no corona test type is set")
+			}
+		case .srs:
+			// we don't store the consent in case of SRS
+			break
 		case .none:
 			fatalError("Cannot set submission consent, no corona test type is set")
 		}
