@@ -9,17 +9,24 @@ enum PPACError: Error {
 	case deviceNotSupported
 	case timeIncorrect
 	case timeUnverified
-
+	case minimumTimeSinceOnboarding
+	case submissionTooEarly
+	
 	var description: String {
 		switch self {
 		case .generationFailed:
-			return "deviceCheck Token generation failed"
+			return "DEVICE_TOKEN_GENERATION_FAILED"
 		case .deviceNotSupported:
-			return "deviceNotSupported"
+			return "DEVICE_TOKEN_NOT_SUPPORTED"
 		case .timeIncorrect:
-			return "timeIncorrect"
+			return "DEVICE_TIME_INCORRECT"
 		case .timeUnverified:
-			return "timeUnverified"
+			return "DEVICE_TIME_UNVERIFIED"
+		case .minimumTimeSinceOnboarding:
+			return "TIME_SINCE_ONBOARDING_UNVERIFIED"
+		case .submissionTooEarly:
+			return "SUBMISSION_TOO_EARLY"
+
 		}
 	}
 }
