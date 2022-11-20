@@ -36,9 +36,9 @@ extension PPACError: ErrorTextKeyProviding {
 	var textKey: String {
 		switch self {
 		case .generationFailed:
-			return ""
+			return "TRY_AGAIN_LATER"
 		case .deviceNotSupported:
-			return "CHANGE_DEVICE_TIME"
+			return "DEVICE_NOT_SUPPORTED"
 		case .timeIncorrect:
 			return "CHANGE_DEVICE_TIME"
 		case .timeUnverified:
