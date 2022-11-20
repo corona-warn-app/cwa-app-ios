@@ -347,6 +347,22 @@ enum AppStrings {
 			static let okButtonTitle = NSLocalizedString("ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_okButtonTitle", comment: "")	
 		}
 	}
+	
+	enum SRSErrorAlert {
+		static let title = NSLocalizedString("ExposureSubmission_SRSError_title", comment: "")
+		static let callHotline = NSLocalizedString("ExposureSubmission_SRSError_message_CALL_HOTLINE", comment: "")
+		static let changeDeviceTime = NSLocalizedString("ExposureSubmission_SRSError_message_CHANGE_DEVICE_TIME", comment: "")
+		static let deviceNotSupported = NSLocalizedString("ExposureSubmission_SRSError_message_DEVICE_NOT_SUPPORTED", comment: "")
+		static let deviceNotTrusted = NSLocalizedString("ExposureSubmission_SRSError_message_DEVICE_NOT_TRUSTED", comment: "")
+		static let noNetwork = NSLocalizedString("ExposureSubmission_SRSError_message_NO_NETWORK", comment: "")
+		static let submissionTooEarly = NSLocalizedString("ExposureSubmission_SRSError_message_SUBMISSION_TOO_EARLY", comment: "")
+		static let timeSinceOnboardingUnverified = NSLocalizedString("ExposureSubmission_SRSError_message_TIME_SINCE_ONBOARDING_UNVERIFIED", comment: "")
+		static let tryAgainLater = NSLocalizedString("ExposureSubmission_SRSError_message_TRY_AGAIN_LATER", comment: "")
+		static let tryAgainNextMonth = NSLocalizedString("ExposureSubmission_SRSError_message_TRY_AGAIN_NEXT_MONTH", comment: "")
+		static let faqButtonTitle = NSLocalizedString("ExposureSubmission_SRSError_faqButtonTitle", comment: "")
+		static let okButtonTitle = NSLocalizedString("ExposureSubmission_SRSError_okButtonTitle", comment: "")
+		
+	}
 
 	enum SRSConsentScreen {
 		static let title = NSLocalizedString("SRS_ConsentScreen_title", comment: "")

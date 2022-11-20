@@ -11,7 +11,9 @@ enum PPACError: Error {
 	case timeUnverified
 	case minimumTimeSinceOnboarding
 	case submissionTooEarly
-	
+}
+
+extension PPACError: ErrorCodeProviding {
 	var description: String {
 		switch self {
 		case .generationFailed:
@@ -26,7 +28,25 @@ enum PPACError: Error {
 			return "TIME_SINCE_ONBOARDING_UNVERIFIED"
 		case .submissionTooEarly:
 			return "SUBMISSION_TOO_EARLY"
+		}
+	}
+}
 
+extension PPACError: ErrorTextKeyProviding {
+	var textKey: String {
+		switch self {
+		case .generationFailed:
+			return ""
+		case .deviceNotSupported:
+			return "CHANGE_DEVICE_TIME"
+		case .timeIncorrect:
+			return "CHANGE_DEVICE_TIME"
+		case .timeUnverified:
+			return "TIME_SINCE_ONBOARDING_UNVERIFIED"
+		case .minimumTimeSinceOnboarding:
+			return "SUBMISSION_TOO_EARLY"
+		case .submissionTooEarly:
+			return "TIME_SINCE_ONBOARDING_UNVERIFIED"
 		}
 	}
 }

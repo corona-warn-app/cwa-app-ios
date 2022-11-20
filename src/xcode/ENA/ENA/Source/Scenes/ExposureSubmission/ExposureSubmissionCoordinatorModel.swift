@@ -391,7 +391,8 @@ class ExposureSubmissionCoordinatorModel {
 		}
 	}
 	
-	func checkIfSRSFlowPreconditionsAreSatisfied(completion: @escaping (Result<Void, ExposureSubmissionCoordinator.SRSFlowAlert.PreconditionError>) -> Void) {
+	/// Checking Local SRS Prerequisites
+	func checkLocalSRSPrerequisites(completion: @escaping (Result<Void, ExposureSubmissionCoordinator.SRSFlowAlert.SRSPreconditionError>) -> Void) {
 		// Check if app was installed less than 48 hours
 		guard
 			let appInstallationDate = store.appInstallationDate,
@@ -413,6 +414,24 @@ class ExposureSubmissionCoordinatorModel {
 		}
 		
 		completion(.success(()))
+	}
+	
+	func message<E: ErrorTextKeyProviding & ErrorCodeProviding>(from error: E) -> String {
+		let srsErrorAlert = SRSErrorAlert(error: error)
+		
+		let message: String!
+
+		if case .submissionTooEarly = srsErrorAlert {
+			// to.do fetch time
+			message = String(format: srsErrorAlert.message, "n", error.description)
+		} else if case .timeSinceOnboardingUnverified = srsErrorAlert {
+			// to.do fetch time
+			message = String(format: srsErrorAlert.message, "n", "n", error.description)
+		} else {
+			message = String(format: srsErrorAlert.message, error.description)
+		}
+		
+		return message
 	}
 	
 	// MARK: - Private

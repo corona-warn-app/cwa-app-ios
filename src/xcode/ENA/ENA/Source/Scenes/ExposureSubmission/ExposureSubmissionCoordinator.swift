@@ -104,7 +104,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 	}
 
 	func showPositiveSelfTestFlow() {
-		model.checkIfSRSFlowPreconditionsAreSatisfied { [weak self] (result: Result<Void, SRSFlowAlert.PreconditionError>) in
+		model.checkLocalSRSPrerequisites { [weak self] (result: Result<Void, SRSFlowAlert.SRSPreconditionError>) in
 			switch result {
 			case .success:
 				self?.showSRSTestTypeSelectionScreen(isSelfTestTypePreselected: true)
@@ -115,7 +115,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 	}
 	
 	func showSelfReportSubmissionFlow() {
-		model.checkIfSRSFlowPreconditionsAreSatisfied { [weak self] (result: Result<Void, SRSFlowAlert.PreconditionError>) in
+		model.checkLocalSRSPrerequisites { [weak self] (result: Result<Void, SRSFlowAlert.SRSPreconditionError>) in
 			switch result {
 			case .success:
 				self?.showSRSTestTypeSelectionScreen(isSelfTestTypePreselected: false)
@@ -1580,6 +1580,8 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 			showSRSFlowAlert(for: srsFlowError)
 		case let .consent(srsFlowConsent):
 			showSRSFlowAlert(for: srsFlowConsent)
+		case let .error(error):
+			showSRSFlowAlert(for: error)
 		}
 	}
 	
@@ -1612,12 +1614,26 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		}
 	}
 	
-	private func showSRSFlowAlert(for error: SRSFlowAlert.PreconditionError) {
+	private func showSRSFlowAlert(for error: SRSFlowAlert.SRSPreconditionError) {
 		let alert = UIAlertController.errorAlert(
 			title: AppStrings.ExposureSubmissionDispatch.SRSWarnOthersPreconditionAlert.title,
 			message: error.message,
 			okTitle: AppStrings.ExposureSubmissionDispatch.SRSWarnOthersPreconditionAlert.faqButtonTitle,
 			secondaryActionTitle: AppStrings.ExposureSubmissionDispatch.SRSWarnOthersPreconditionAlert.okButtonTitle,
+			completion: {
+				LinkHelper.open(urlString: AppStrings.Links.warnWithoutTANFAQLink)
+			}
+		)
+		
+		navigationController?.present(alert, animated: true)
+	}
+	
+	private func showSRSFlowAlert<E: ErrorTextKeyProviding & ErrorCodeProviding>(for error: E) {
+		let alert = UIAlertController.errorAlert(
+			title: AppStrings.SRSErrorAlert.title,
+			message: model.message(from: error),
+			okTitle: AppStrings.SRSErrorAlert.faqButtonTitle,
+			secondaryActionTitle: AppStrings.SRSErrorAlert.okButtonTitle,
 			completion: {
 				LinkHelper.open(urlString: AppStrings.Links.warnWithoutTANFAQLink)
 			}
@@ -1938,15 +1954,16 @@ extension ExposureSubmissionCoordinator: UIAdaptivePresentationControllerDelegat
 extension ExposureSubmissionCoordinator {
 	
 	enum SRSFlowAlert {
-		case preconditionFailed(PreconditionError)
+		case preconditionFailed(SRSPreconditionError)
 		case consent(Consent)
+		case error(ErrorTextKeyProviding & ErrorCodeProviding)
 
 		enum Consent {
 			case cancelWarnOthers
 			case confirmWarnOthers
 		}
 
-		enum PreconditionError: Error {
+		enum SRSPreconditionError: Error {
 			
 			/// Precondition: the app was installed less than 48h
 			case insufficientAppUsageTime
@@ -1957,9 +1974,9 @@ extension ExposureSubmissionCoordinator {
 			var errorCode: String {
 				switch self {
 				case .insufficientAppUsageTime:
-					return "XYZ" // to.do
+					return "MIN_TIME_SINCE_ONBOARDING"
 				case .positiveTestResultWasAlreadySubmittedWithin90Days:
-					return "XYZ" // to.do
+					return "SUBMISSION_TOO_EARLY"
 				}
 			}
 			
