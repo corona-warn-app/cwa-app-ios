@@ -27,6 +27,16 @@ protocol OTPServiceProviding {
 	///   - success: the authorized and stored otp as String
 	///   - failure: an OTPError, for which the caller can build a dedicated error handling
 	func getOTPEls(ppacToken: PPACToken, completion: @escaping (Result<String, OTPError>) -> Void)
+	
+	/// Checks if there is a valid stored otp for SRS. If so, we check if we can reuse it because it was not already used, or if it was already used. If so, we return a failure.  If there is not a stored otp els token, or if the stored token's expiration date is reached, a new fresh otp token is generated and stored.
+	/// After these validation checks, the service tries to authorize the otp against the server.
+	/// - Parameters:
+	///   - ppacToken: a generated and valid PPACToken from the PPACService
+	///   - completion: The completion handler
+	/// - Returns:
+	///   - success: the authorized and stored otp as String
+	///   - failure: an OTPError, for which the caller can build a dedicated error handling
+	func getOTPSrs(ppacToken: PPACToken, completion: @escaping (Result<String, OTPError>) -> Void)
 	/// discards any stored otp edus.
 	func discardOTPEdus()
 	/// discards any stored otp els.
@@ -95,6 +105,7 @@ final class OTPService: OTPServiceProviding {
 		authorizeEls(otp, with: ppacToken, completion: completion)
 	}
 
+	func getOTPSrs(ppacToken: PPACToken, completion: @escaping (Result<String, OTPError>) -> Void) {
 	func discardOTPEdus() {
 		store.otpTokenEdus = nil
 		Log.info("OTP EDUS was discarded.", log: .otp)
