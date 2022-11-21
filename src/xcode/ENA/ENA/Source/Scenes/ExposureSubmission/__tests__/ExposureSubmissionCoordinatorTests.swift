@@ -181,7 +181,7 @@ class ExposureSubmissionCoordinatorTests: CWATestCase {
 		
 		coronaTestService.pcrTest.value = .mock(registrationToken: "asdf", testResult: .negative)
 		
-		coordinator.start(with: .pcr)
+		coordinator.start(with: .registeredTest(.pcr))
 		
 		// Get navigation controller and make sure to load view.
 		let navigationController = getNavigationController(from: coordinator)
@@ -200,7 +200,7 @@ class ExposureSubmissionCoordinatorTests: CWATestCase {
 		
 		coronaTestService.pcrTest.value = .mock(registrationToken: "asdf", testResult: .positive)
 		
-		coordinator.start(with: .pcr)
+		coordinator.start(with: .registeredTest(.pcr))
 		
 		// Get navigation controller and make sure to load view.
 		let navigationController = getNavigationController(from: coordinator)
@@ -238,7 +238,7 @@ class ExposureSubmissionCoordinatorTests: CWATestCase {
 		
 		coronaTestService.pcrTest.value = .mock(testResult: .positive, positiveTestResultWasShown: false)
 		
-		coordinator.start(with: .pcr)
+		coordinator.start(with: .registeredTest(.pcr))
 		
 		let unknown = coordinator.getInitialViewController()
 		XCTAssertTrue(unknown is TopBottomContainerViewController<TestResultAvailableViewController, FooterViewController>)

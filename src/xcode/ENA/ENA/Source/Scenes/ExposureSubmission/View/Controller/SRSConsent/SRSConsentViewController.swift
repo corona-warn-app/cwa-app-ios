@@ -41,13 +41,6 @@ class SRSConsentViewController: DynamicTableViewController, FooterViewHandling {
 		}
 	}
 
-	// MARK: - Internal
-
-	enum ReuseIdentifiers: String, TableViewCellReuseIdentifiers {
-		case legal = "DynamicLegalCell"
-		case legalExtended = "DynamicLegalExtendedCell"
-	}
-
 	// MARK: - Private
 
 	private let viewModel: SRSConsentViewModel

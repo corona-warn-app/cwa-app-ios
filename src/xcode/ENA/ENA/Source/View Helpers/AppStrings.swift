@@ -340,18 +340,17 @@ enum AppStrings {
 	}
 
 	enum SRSConsentScreen {
-		static let title = NSLocalizedString("ExposureSubmissionQRInfo_title", comment: "")
-		static let headerSection1 = NSLocalizedString("SRS_ConsentScreen_Title1", comment: "")
-		static let titleDescription1 = NSLocalizedString("SRSConsentScreen_title_description1", comment: "")
-		static let instruction1 = NSLocalizedString("SRSConsentScreen_instruction1", comment: "")
-		static let instruction2 = NSLocalizedString("SRSConsentScreen_instruction2", comment: "")
-		static let instruction3 = NSLocalizedString("SRSConsentScreen_instruction3", comment: "")
-		static let headerSection2 = NSLocalizedString("SRSConsentScreen_HelpOthers", comment: "")
-		static let titleDescription2 = NSLocalizedString("SRSConsentScreen_title_description2", comment: "")
+		static let title = NSLocalizedString("SRS_ConsentScreen_title", comment: "")
+		static let headerSection1 = NSLocalizedString("SRS_ConsentScreen_header_section1", comment: "")
+		static let titleDescription1 = NSLocalizedString("SRS_ConsentScreen_title_description1", comment: "")
+		static let instruction1 = NSLocalizedString("SRS_ConsentScreen_instruction1", comment: "")
+		static let instruction2 = NSLocalizedString("SRS_ConsentScreen_instruction2", comment: "")
+		static let instruction3 = NSLocalizedString("SRS_ConsentScreen_instruction3", comment: "")
+		static let headerSection2 = NSLocalizedString("SRS_ConsentScreen_header_section2", comment: "")
+		static let titleDescription2 = NSLocalizedString("SRS_ConsentScreen_title_description2", comment: "")
 		
-		static let legalHeadline = NSLocalizedString("SRS_Consent_Legal_Headline_1", tableName: "Localizable.legal", comment: "")
-
-		static let legalDescription = NSLocalizedString("SRS_Consent_Legal_Description_Text", tableName: "Localizable.legal", comment: "")
+		static let legalHeadline = NSLocalizedString("SRS_Consent_Legal_Headline", tableName: "Localizable.legal", comment: "")
+		static let legalDescription = NSLocalizedString("SRS_Consent_Legal_Description", tableName: "Localizable.legal", comment: "")
 		static let legalBulletPoint01 = NSLocalizedString("SRS_Consent_Legal_Text_1", tableName: "Localizable.legal", comment: "")
 		static let legalBulletPoint02 = NSLocalizedString("SRS_Consent_Legal_Text_2", tableName: "Localizable.legal", comment: "")
 		static let legalBulletPoint03 = NSLocalizedString("SRS_Consent_Legal_Text_3", tableName: "Localizable.legal", comment: "")
