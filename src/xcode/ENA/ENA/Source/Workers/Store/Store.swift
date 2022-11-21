@@ -95,6 +95,8 @@ protocol DeviceTimeCheckStoring: AnyObject {
 	var deviceTimeCheckResult: DeviceTimeCheck.TimeCheckResult { get set }
 	var deviceTimeLastStateChange: Date { get set }
 	var wasDeviceTimeErrorShown: Bool { get set }
+	var firstReliableTimeStamp: Date? { get set }
+
 }
 
 protocol AppFeaturesStoring: AnyObject {
@@ -130,6 +132,8 @@ protocol SRSProviding: AnyObject {
 	var previousPpacApiTokenSRS: TimestampedToken? { get set }
 	/// OTP for Self-Report Submission (SRS)
 	var otpTokenSRS: OTPToken? { get set }
+	/// Date of last otp authorization
+	var otpSrsAuthorizationDate: Date? { get set }
 }
 
 protocol PrivacyPreservingProviding: AnyObject {
