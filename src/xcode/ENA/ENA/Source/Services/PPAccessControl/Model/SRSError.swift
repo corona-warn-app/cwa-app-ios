@@ -5,12 +5,24 @@
 import Foundation
 
 enum SRSError: Error {
+	case ppacError(PPACError)
+    case otpError(OTPError)
+
 	case srsOTPClientError
 	case srsOTPNetworkError
 	case srsOTPServerError
 	case srsOTP400
 	case srsOTP401
 	case srsOTP403
+    
+    case otherServerError
+    case apiTokenAlreadyIssued
+    case apiTokenExpired
+    case apiTokenQuotaExceeded
+    case deviceTokenInvalid
+    case deviceTokenRedeemed
+    case deviceTokenSyntaxError
+    
 	case srsSUBClientError
 	case srsSUBNoNetwork
 	case srsSUBServerError
@@ -19,6 +31,8 @@ enum SRSError: Error {
 	
 	var description: String {
 		switch self {
+		case .ppacError(let ppacError):
+			return "ppacError: \(ppacError.description)"
 		case .srsOTPClientError:
 			return "SRS_OTP_CLIENT_ERROR"
 		case .srsOTPNetworkError:
@@ -31,6 +45,20 @@ enum SRSError: Error {
 			return "SRS_OTP_401"
 		case .srsOTP403:
 			return "SRS_OTP_403"
+        case .otherServerError:
+            return "otherServerError"
+        case .apiTokenAlreadyIssued:
+            return "apiTokenAlreadyIssued"
+        case .apiTokenExpired:
+            return "apiTokenExpired"
+        case .apiTokenQuotaExceeded:
+            return "apiTokenQuotaExceeded"
+        case .deviceTokenInvalid:
+            return "deviceTokenInvalid"
+        case .deviceTokenRedeemed:
+            return "deviceTokenRedeemed"
+        case .deviceTokenSyntaxError:
+            return "deviceTokenSyntaxError"
 		case .srsSUBClientError:
 			return "SRS_SUB_CLIENT_ERROR"
 		case .srsSUBNoNetwork:
