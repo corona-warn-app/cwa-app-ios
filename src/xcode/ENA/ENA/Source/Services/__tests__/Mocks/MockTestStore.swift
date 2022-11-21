@@ -52,7 +52,7 @@ final class MockTestStore: Store, PPAnalyticsData {
 	var journalWithExposureHistoryInfoScreenShown: Bool = false
 	var lastBoosterNotificationsExecutionDate: Date?
 	var mostRecentKeySubmissionDate: Date?
-
+	var firstReliableTimeStamp: Date?
 	func wipeAll(key: String?) {}
 	#if !RELEASE
 	// Settings from the debug menu.
@@ -88,6 +88,7 @@ final class MockTestStore: Store, PPAnalyticsData {
 	var ppacApiTokenSRS: TimestampedToken?
 	var previousPpacApiTokenSRS: TimestampedToken?
 	var otpTokenSRS: OTPToken?
+    var otpSrsAuthorizationDate: Date?
 
 	// MARK: - PrivacyPreservingProviding
 
