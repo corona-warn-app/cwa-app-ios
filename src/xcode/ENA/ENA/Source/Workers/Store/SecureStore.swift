@@ -438,6 +438,11 @@ extension SecureStore: DeviceTimeCheckStoring {
 		get { kvStore["wasDeviceTimeErrorShown"] as Bool? ?? false }
 		set { kvStore["wasDeviceTimeErrorShown"] = newValue }
 	}
+	
+	var firstReliableTimeStamp: Date? {
+		get { kvStore["firstReliableTimeStamp"] as Date? }
+		set { kvStore["firstReliableTimeStamp"] = newValue }
+	}
 }
 
 extension SecureStore: AppFeaturesStoring {
@@ -584,6 +589,11 @@ extension SecureStore: SRSProviding {
 		get { kvStore["otpTokenSRS"] as OTPToken? }
 		set { kvStore["otpTokenSRS"] = newValue }
 	}
+    
+    var otpSrsAuthorizationDate: Date? {
+        get { kvStore["otpSrsAuthorizationDate"] as Date? }
+        set { kvStore["otpSrsAuthorizationDate"] = newValue }
+    }
 }
 
 extension SecureStore: ErrorLogUploadHistoryProviding {
