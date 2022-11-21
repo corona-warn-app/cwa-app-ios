@@ -106,6 +106,19 @@ final class OTPService: OTPServiceProviding {
 	}
 
 	func getOTPSrs(ppacToken: PPACToken, completion: @escaping (Result<String, OTPError>) -> Void) {
+		if let otpToken = store.otpTokenSRS,
+		   let expirationDate = otpToken.expirationDate,
+		   expirationDate > Date(),
+		   store.otpElsAuthorizationDate == nil {
+			Log.info("Existing OTP ELS was not consumed before and can be used for submission.", log: .otp)
+			completion(.success(otpToken.token))
+			return
+		}
+		Log.info("No existing or valid OTP ELS was found. Generating new one.", log: .otp)
+		let otp = generateOTPToken()
+		authorizeSrs(otp, with: ppacToken, completion: completion)
+	}
+
 	func discardOTPEdus() {
 		store.otpTokenEdus = nil
 		Log.info("OTP EDUS was discarded.", log: .otp)
@@ -201,6 +214,42 @@ final class OTPService: OTPServiceProviding {
 			case .failure(let error):
 				Log.error("Authorization of a new OTP ELS failed with error: \(error)", log: .otp)
 				completion(.failure(.restServiceError(error)))
+			}
+		}
+	}
+	
+	private func authorizeSrs(_ otp: String, with ppacToken: PPACToken, completion: @escaping (Result<String, OTPError>) -> Void) {
+		Log.info("Authorization of a new OTP SRS started.", log: .otp)
+		// We authorize the otp with the ppac Token at our server.
+		let resource = OTPAuthorizationForSRSResource(otpSRS: otp, ppacToken: ppacToken)
+		restServiceProvider.load(resource) { [weak self] result in
+			guard let self = self else {
+				Log.error("could not create strong self", log: .otp)
+				completion(.failure(OTPError.generalError(underlyingError: nil)))
+				return
+			}
+
+			switch result {
+			case .success(let expirationDate):
+				// Success: We store the authorized otp with timestamp and return the token.
+				let verifiedToken = OTPToken(
+					token: otp,
+					timestamp: Date(),
+					expirationDate: expirationDate.expirationDate
+				)
+
+				self.store.otpTokenEls = verifiedToken
+
+				Log.info("A new OTP ELS was authorized and persisted.", log: .otp)
+
+				completion(.success(verifiedToken.token))
+			case .failure(let error):
+				Log.error("Authorization of a new OTP SRS failed with error: \(error)", log: .otp)
+                guard case let .srsRestServiceError(srsError) = otpError else {
+                    completion(.failure(.srsOTPClientError))
+                        return
+                }
+				completion(.failure(.srsRestServiceError(error)))
 			}
 		}
 	}
