@@ -68,3 +68,18 @@ enum OTPError: Error, Equatable, LocalizedError {
 		return lhs.description == rhs.description
 	}
 }
+
+extension OTPError: SRSErrorAlertProviding {
+	var srsErrorAlert: SRSErrorAlert? {
+		switch self {
+		case .apiTokenAlreadyIssued:
+			return .tryAgainNextMonth
+		case .apiTokenExpired, .deviceTokenInvalid, .deviceTokenSyntaxError:
+			return .tryAgainLater
+		case .apiTokenQuotaExceeded:
+			return .submissionTooEarly
+		default:
+			return nil
+		}
+	}
+}
