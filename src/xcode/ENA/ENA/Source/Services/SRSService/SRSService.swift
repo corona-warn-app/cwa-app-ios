@@ -2,18 +2,18 @@
 // 🦠 Corona-Warn-App
 //
 
+
 import Foundation
 import OpenCombine
 
-protocol SRSSSubmitting {
+protocol SRSServiceProviding {
 
 	typealias SRSAuthenticationResponse = (Result<String, SRSError>) -> Void
-	typealias SRSSubmissionResponse = (Result<String, ELSError>) -> Void
 
-	func submit(completion: @escaping SRSSubmissionResponse)
+	func authenticate(completion: @escaping SRSAuthenticationResponse)
 }
 
-final class SRSService: SRSSSubmitting {
+final class SRSService: SRSServiceProviding {
 	
 	// MARK: - Init
 	
@@ -31,16 +31,9 @@ final class SRSService: SRSSSubmitting {
 		self.configurationProvider = configurationProvider
 	}
 	
-	// MARK: - Private
+	// MARK: - Protocol SRSSSubmitting
 	
-	private let restServicerProvider: RestServiceProviding
-	private let store: SRSProviding
-	private let ppacService: PrivacyPreservingAccessControl
-	private let otpService: OTPServiceProviding
-	private let configurationProvider: AppConfigurationProviding
-	private var subscriptions = [AnyCancellable]()
-
-	private func authenticate(completion: @escaping SRSAuthenticationResponse) {
+	func authenticate(completion: @escaping SRSAuthenticationResponse) {
 		// first get ppac token for SRS
 		configurationProvider.appConfiguration().sink { appConfiguration in
 			let timeSinceOnboardingInHours = Int(appConfiguration.selfReportParameters.common.timeSinceOnboardingInHours)
@@ -54,34 +47,35 @@ final class SRSService: SRSSSubmitting {
 					case let .success(ppacToken):
 						Log.debug("Successfully retrieved for SRS a ppac token. Proceed for otp.")
 						// then get otp token for SRS (without restrictions for api token)
-						self.otpService.getOTPSrs(ppacToken: ppacToken, completion: { result in
+						self.otpService.getOTPEls(ppacToken: ppacToken) { result in
 							switch result {
 							case let .success(otpSRS):
-								Log.debug("Successfully retrieved for SRS an otp.")
+								Log.debug("Successfully authenticated ppac and SRS OTP: \(private: otpSRS, public: "--OTP Value--") for els. Proceed with uploading error log file.")
+
 								// now we can submit our log with valid otp.
 								completion(.success(otpSRS))
 							case let .failure(otpError):
-                                guard case let .srsRestServiceError(srsServiceError) = otpError else {
-                                    completion(.failure(.srsOTPClientError))
-                                        return
-                                }
-                                Log.error("Could not obtain otp for srs.", log: .srs, error: srsServiceError)
-								completion(.failure(srsServiceError))
+								Log.error("Could not obtain otp for srs.", log: .els, error: otpError)
+								completion(.failure(.otpError(otpError)))
 							}
-						})
+						}
 					case let .failure(ppacError):
 						Log.error("Could not obtain ppac token for srs.", log: .srs, error: ppacError)
 						completion(.failure(.ppacError(ppacError)))
 					}
-			 })
+				})
+			
 		}.store(in: &subscriptions)
 	}
+
+
+	// MARK: - Private
 	
-	// MARK: - Protocol SRSSSubmitting
-	
-	func submit(completion: @escaping SRSSubmissionResponse) {
-		
-	}
-	
+	private let restServicerProvider: RestServiceProviding
+	private let store: SRSProviding
+	private let ppacService: PrivacyPreservingAccessControl
+	private let otpService: OTPServiceProviding
+	private let configurationProvider: AppConfigurationProviding
+	private var subscriptions = [AnyCancellable]()
 	
 }

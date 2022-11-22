@@ -963,7 +963,6 @@
 		8F2FA2E5292B2D8400C6286A /* OTPAuthorizationForSRSResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F2FA2E4292B2D8400C6286A /* OTPAuthorizationForSRSResource.swift */; };
 		8F2FA2EB292B447100C6286A /* srs_otp.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F2FA2E9292B447000C6286A /* srs_otp.pb.swift */; };
 		8F2FA2EC292B447100C6286A /* srs_otp_request_ios.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F2FA2EA292B447000C6286A /* srs_otp_request_ios.pb.swift */; };
-		8F2FA2EE292B44A600C6286A /* ppdd_srs_parameters.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F2FA2ED292B44A600C6286A /* ppdd_srs_parameters.pb.swift */; };
 		8F3167E626A5D906008F35AA /* RegionStatisticsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3167E526A5D906008F35AA /* RegionStatisticsData.swift */; };
 		8F3167E826A5D929008F35AA /* RegionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3167E726A5D929008F35AA /* RegionType.swift */; };
 		8F3202442600C7BB00D6A224 /* TorchMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3202432600C7BB00D6A224 /* TorchMode.swift */; };
@@ -1009,7 +1008,6 @@
 		8F64BD91276796A400E48299 /* RoundedLabeledView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F64BD90276796A400E48299 /* RoundedLabeledView.swift */; };
 		8F6635F02713A7B500384B63 /* stats.bin in Resources */ = {isa = PBXBuildFile; fileRef = 8F6635EF2713A7B400384B63 /* stats.bin */; };
 		8F75219229266B1200F1B3DE /* SRSError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F75219129266B1200F1B3DE /* SRSError.swift */; };
-		8F75219429266D5700F1B3DE /* SRSService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F75219329266D5700F1B3DE /* SRSService.swift */; };
 		8F7AB89F25F106A50043A3C8 /* SendErrorLogsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F7AB89E25F106A50043A3C8 /* SendErrorLogsViewModel.swift */; };
 		8F7AB8CE25F257220043A3C8 /* TopErrorReportViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F7AB8CD25F257220043A3C8 /* TopErrorReportViewModel.swift */; };
 		8F7C3A1A261BB53700AEC979 /* CheckinQRScannerError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F7C3A19261BB53700AEC979 /* CheckinQRScannerError.swift */; };
@@ -1042,9 +1040,11 @@
 		8FB7C92D2750EF6E0071C98C /* TicketValidationDecoratorIdentityDocumentProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FB7C9272750EF6E0071C98C /* TicketValidationDecoratorIdentityDocumentProcessor.swift */; };
 		8FBF34AA28BD1C4F000A86D7 /* OTPAuthorizationForELSResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FBF34A928BD1C4F000A86D7 /* OTPAuthorizationForELSResource.swift */; };
 		8FBF34AE28BD1CD5000A86D7 /* OTPResponsePropertiesReceiveModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FBF34AD28BD1CD5000A86D7 /* OTPResponsePropertiesReceiveModel.swift */; };
+		8FD5BE21292BB95400B0315B /* SRSService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FD5BE20292BB95400B0315B /* SRSService.swift */; };
 		8FD7E2C927E9EABD00E08ABB /* CCLServiceInvalidationRulesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FD7E2C827E9EABD00E08ABB /* CCLServiceInvalidationRulesTests.swift */; };
 		8FDB9403261FBA3800BA8CB1 /* RapidTestQRCodeInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FDB9402261FBA3800BA8CB1 /* RapidTestQRCodeInformation.swift */; };
 		8FDB940B261FBAAA00BA8CB1 /* CoronaTestRegistrationInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FDB940A261FBAAA00BA8CB1 /* CoronaTestRegistrationInformation.swift */; };
+		8FDFEF63292C1E5400707FE2 /* SRSKeySubmissionResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FDFEF62292C1E5400707FE2 /* SRSKeySubmissionResource.swift */; };
 		8FE68F9328A146CC003E86E1 /* ELSSubmitResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FE68F9228A146CC003E86E1 /* ELSSubmitResource.swift */; };
 		8FE68F9728A15BAC003E86E1 /* ELSSubmitReceiveModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FE68F9628A15BAC003E86E1 /* ELSSubmitReceiveModel.swift */; };
 		8FEC12242754B6C000C5DADC /* Locator+AllowList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FEC12232754B6C000C5DADC /* Locator+AllowList.swift */; };
@@ -2858,7 +2858,6 @@
 		8F2FA2E4292B2D8400C6286A /* OTPAuthorizationForSRSResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPAuthorizationForSRSResource.swift; sourceTree = "<group>"; };
 		8F2FA2E9292B447000C6286A /* srs_otp.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = srs_otp.pb.swift; sourceTree = "<group>"; };
 		8F2FA2EA292B447000C6286A /* srs_otp_request_ios.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = srs_otp_request_ios.pb.swift; sourceTree = "<group>"; };
-		8F2FA2ED292B44A600C6286A /* ppdd_srs_parameters.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ppdd_srs_parameters.pb.swift; sourceTree = "<group>"; };
 		8F3167E526A5D906008F35AA /* RegionStatisticsData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegionStatisticsData.swift; sourceTree = "<group>"; };
 		8F3167E726A5D929008F35AA /* RegionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegionType.swift; sourceTree = "<group>"; };
 		8F3202432600C7BB00D6A224 /* TorchMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TorchMode.swift; sourceTree = "<group>"; };
@@ -2903,7 +2902,6 @@
 		8F64BD90276796A400E48299 /* RoundedLabeledView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedLabeledView.swift; sourceTree = "<group>"; };
 		8F6635EF2713A7B400384B63 /* stats.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = stats.bin; sourceTree = "<group>"; };
 		8F75219129266B1200F1B3DE /* SRSError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SRSError.swift; sourceTree = "<group>"; };
-		8F75219329266D5700F1B3DE /* SRSService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SRSService.swift; path = ENA/Source/Services/PPAccessControl/Model/SRSService.swift; sourceTree = SOURCE_ROOT; };
 		8F7AB89E25F106A50043A3C8 /* SendErrorLogsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendErrorLogsViewModel.swift; sourceTree = "<group>"; };
 		8F7AB8CD25F257220043A3C8 /* TopErrorReportViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopErrorReportViewModel.swift; sourceTree = "<group>"; };
 		8F7C39CB261B430700AEC979 /* CheckinQRCodeParserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinQRCodeParserTests.swift; sourceTree = "<group>"; };
@@ -2937,9 +2935,11 @@
 		8FB7C9272750EF6E0071C98C /* TicketValidationDecoratorIdentityDocumentProcessor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TicketValidationDecoratorIdentityDocumentProcessor.swift; sourceTree = "<group>"; };
 		8FBF34A928BD1C4F000A86D7 /* OTPAuthorizationForELSResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPAuthorizationForELSResource.swift; sourceTree = "<group>"; };
 		8FBF34AD28BD1CD5000A86D7 /* OTPResponsePropertiesReceiveModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPResponsePropertiesReceiveModel.swift; sourceTree = "<group>"; };
+		8FD5BE20292BB95400B0315B /* SRSService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SRSService.swift; sourceTree = "<group>"; };
 		8FD7E2C827E9EABD00E08ABB /* CCLServiceInvalidationRulesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CCLServiceInvalidationRulesTests.swift; sourceTree = "<group>"; };
 		8FDB9402261FBA3800BA8CB1 /* RapidTestQRCodeInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RapidTestQRCodeInformation.swift; sourceTree = "<group>"; };
 		8FDB940A261FBAAA00BA8CB1 /* CoronaTestRegistrationInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoronaTestRegistrationInformation.swift; sourceTree = "<group>"; };
+		8FDFEF62292C1E5400707FE2 /* SRSKeySubmissionResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SRSKeySubmissionResource.swift; sourceTree = "<group>"; };
 		8FE68F9228A146CC003E86E1 /* ELSSubmitResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ELSSubmitResource.swift; sourceTree = "<group>"; };
 		8FE68F9628A15BAC003E86E1 /* ELSSubmitReceiveModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ELSSubmitReceiveModel.swift; sourceTree = "<group>"; };
 		8FEC12232754B6C000C5DADC /* Locator+AllowList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Locator+AllowList.swift"; sourceTree = "<group>"; };
@@ -4091,7 +4091,6 @@
 				0138F54225ECD44300A9B075 /* key_download_parameters.pb.swift */,
 				0138F53D25ECD44300A9B075 /* ppdd_edus_parameters.pb.swift */,
 				0138F54325ECD44300A9B075 /* ppdd_els_parameters.pb.swift */,
-				8F2FA2ED292B44A600C6286A /* ppdd_srs_parameters.pb.swift */,
 				0138F54025ECD44300A9B075 /* ppdd_ppa_parameters.pb.swift */,
 				0138F53E25ECD44300A9B075 /* ppdd_ppac_parameters.pb.swift */,
 				EB513E0525FA35AD0020C0B9 /* presence_tracing_parameters.pb.swift */,
@@ -7290,7 +7289,7 @@
 		85D759802459A82D008175F0 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				8F75218C2925C23600F1B3DE /* SRSService */,
+				8FD5BE1F292BB68F00B0315B /* SRSService */,
 				B15382DC248270220010F007 /* __tests__ */,
 				ABB8DF5E2799BE9700DD99E4 /* CCLService */,
 				011216F22617360800320745 /* CoronaTestService */,
@@ -7478,14 +7477,6 @@
 			path = RoundedLabeledView;
 			sourceTree = "<group>";
 		};
-		8F75218C2925C23600F1B3DE /* SRSService */ = {
-			isa = PBXGroup;
-			children = (
-				8F75219329266D5700F1B3DE /* SRSService.swift */,
-			);
-			path = SRSService;
-			sourceTree = "<group>";
-		};
 		8F7AB8E425F2616C0043A3C8 /* MainErrorReportViewControllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -7555,6 +7546,14 @@
 				8FBF34AD28BD1CD5000A86D7 /* OTPResponsePropertiesReceiveModel.swift */,
 			);
 			path = OTPAuthorizationForELS;
+			sourceTree = "<group>";
+		};
+		8FD5BE1F292BB68F00B0315B /* SRSService */ = {
+			isa = PBXGroup;
+			children = (
+				8FD5BE20292BB95400B0315B /* SRSService.swift */,
+			);
+			path = SRSService;
 			sourceTree = "<group>";
 		};
 		8FDB9401261FBA0F00BA8CB1 /* Submisstion */ = {
@@ -8615,6 +8614,7 @@
 			children = (
 				ABFDBEFB281AD7A500A11FA8 /* __tests__ */,
 				ABFDBEF9281933A000A11FA8 /* KeySubmissionResource.swift */,
+				8FDFEF62292C1E5400707FE2 /* SRSKeySubmissionResource.swift */,
 			);
 			path = KeySubmission;
 			sourceTree = "<group>";
@@ -11359,6 +11359,7 @@
 				018FD47A2695EEDB000088F8 /* HealthCertificateValidationPassedViewModel.swift in Sources */,
 				01C6AC3A252B2A500052814D /* UIImage+Color.swift in Sources */,
 				BA01BA64264423CF00D906B6 /* HealthCertificateAttributedTextCell.swift in Sources */,
+				8FD5BE21292BB95400B0315B /* SRSService.swift in Sources */,
 				BA6C8AA6254D63A0008344F5 /* MinutesAtAttenuationFilter.swift in Sources */,
 				8FB776EF26EA3255005255BB /* DMBoosterRulesViewModel.swift in Sources */,
 				35B2FABA25B9D3F3009ABC8E /* ENATaskExecutionDelegate.swift in Sources */,
@@ -11452,7 +11453,6 @@
 				01F6702825FF80490069C4F9 /* CheckinsOverviewEmptyStateViewModel.swift in Sources */,
 				EBA9560A27F332C90085B647 /* DMCrashAppViewController.swift in Sources */,
 				509B1E4026D3F832007B97E0 /* HealthCertificatePDFVersionViewModel.swift in Sources */,
-				8F2FA2EE292B44A600C6286A /* ppdd_srs_parameters.pb.swift in Sources */,
 				2E190D96265D058A00AA95D5 /* TANInputCell.swift in Sources */,
 				BA94BBB5260DF507005CF38F /* CheckInDatePickerCell.swift in Sources */,
 				3523F8A82570F819004B0424 /* NSAttributedString+BulletPoint.swift in Sources */,
@@ -11491,6 +11491,7 @@
 				BAB8F2EF2695C4A500AF68A3 /* ValidationInformationViewController.swift in Sources */,
 				BADD36EB260B4FBA00DD282A /* EditCheckinDetailViewController.swift in Sources */,
 				019789342746920600AAC31C /* TicketValidationResultViewModel.swift in Sources */,
+				8FDFEF63292C1E5400707FE2 /* SRSKeySubmissionResource.swift in Sources */,
 				50BC903F279EECCA0000C930 /* Locator+TicketValidationResultToken.swift in Sources */,
 				01734B6E255D73E400E60A8B /* ENExposureConfiguration+Convenience.swift in Sources */,
 				018105D828115D1900C40268 /* DMRevocationListViewModel.swift in Sources */,
@@ -12420,7 +12421,6 @@
 				0160CC2B26B7EBD500AFB7DC /* HealthCertificateQRCodeView.swift in Sources */,
 				EB08F1792541CE3300D11FA9 /* attenuation_duration.pb.swift in Sources */,
 				AB190EE425FF5B0D00FBFF0D /* ContactDiaryMigration3To4.swift in Sources */,
-				8F75219429266D5700F1B3DE /* SRSService.swift in Sources */,
 				BA38183425CB104900C1DB6C /* ConfigureableCell.swift in Sources */,
 				0138F6F925F66E8D00A9B075 /* TraceLocationPrintVersionViewController.swift in Sources */,
 				AB190F2A25FFAF3C00FBFF0D /* ContactDiaryStoreSchemaV1.swift in Sources */,
