@@ -687,11 +687,11 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionSuccess_RAT_listItem3" = "Das Gesundheitsamt wird sich möglicherweise in den nächsten Tagen bei Ihnen melden.";
 
-"ExposureSubmissionSuccess_SRS_listItem0" = "Das Gesundheitsamt wird sich möglicherweise in den nächsten Tagen bei Ihnen melden.";
+"ExposureSubmissionSuccess_SRS_listItem0" = "Sie sind sehr wahrscheinlich ansteckend. Isolieren Sie sich von anderen Personen.";
 
-"ExposureSubmissionSuccess_SRS_listItem1" = "Das Gesundheitsamt wird sich möglicherweise in den nächsten Tagen bei Ihnen melden.";
+"ExposureSubmissionSuccess_SRS_listItem1" = "Ihre Warnung wird dem Kontakt-Tagebuch hinzugefügt.";
 
-"ExposureSubmissionSuccess_SRS_listItem2" = "Das Gesundheitsamt wird sich möglicherweise in den nächsten Tagen bei Ihnen melden.";
+"ExposureSubmissionSuccess_SRS_listItem2" = "Falls noch nicht geschehen, machen Sie einen PCR-Test, um dieses Testergebnis zu verifizieren.";
 
 "ExposureSubmissionSuccess_SRS_listItem3" = "Das Gesundheitsamt wird sich möglicherweise in den nächsten Tagen bei Ihnen melden.";
 
