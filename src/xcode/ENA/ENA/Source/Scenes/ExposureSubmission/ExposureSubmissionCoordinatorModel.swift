@@ -186,22 +186,42 @@ class ExposureSubmissionCoordinatorModel {
 		onSuccess: @escaping () -> Void,
 		onError: @escaping (ExposureSubmissionServiceError) -> Void
 	) {
-		/* to.do submit to the server
-		guard let srsSubmissionType = srsSubmissionType else {
-			// onError(.)
+		guard case let .srs(srsSubmissionType) = submissionTestType else {
 			return
 		}
-
 		isLoading(true)
+		srsService.authenticate(completion: { [weak self] result in
+			guard let self = self else { return }
+			switch result {
+			case .success(let srsOTP):
+				self.exposureSubmissionService.submitSRSExposure(
+					submissionType: srsSubmissionType,
+					srsOTP: srsOTP
+				) { error in
+			   isLoading(false)
 
-		exposureSubmissionService.submitSRSExposure(srsSubmissionType: srsSubmissionType) { error in
-			isLoading(false)
+			   switch error {
 
-			switch error {
+			   // We continue the regular flow even if there are no keys collected.
+			   case .none, .preconditionError(.noKeysCollected):
+				   onSuccess()
 
-			// cases
-		}
-		*/
+			   // We don't show an error if the submission consent was not given, because we assume that the submission already happened in the background.
+			   case .preconditionError(.noSubmissionConsent):
+				   Log.info("Consent Not Given", log: .ui)
+				   onSuccess()
+
+			   case .some(let error):
+				   Log.error("error: \(error.localizedDescription)", log: .api)
+				   onError(error)
+			   }
+		   }
+			case .failure(let srsError):
+				// TODO present srsError "APITOKEN or OTP auth failed"
+				Log.debug(srsError.description, log: .ppac)
+			}
+			
+		})
 	}
 
 	// swiftlint:disable cyclomatic_complexity
