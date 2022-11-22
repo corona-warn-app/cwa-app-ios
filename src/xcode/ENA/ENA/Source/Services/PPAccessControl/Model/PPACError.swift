@@ -2,15 +2,13 @@
 // 🦠 Corona-Warn-App
 //
 
-import Foundation
-
 enum PPACError: Error {
 	case generationFailed
 	case deviceNotSupported
 	case timeIncorrect
 	case timeUnverified
-	case minimumTimeSinceOnboarding
 	case submissionTooEarly
+	case minimumTimeSinceOnboarding
 }
 
 extension PPACError: ErrorCodeProviding {
@@ -24,29 +22,29 @@ extension PPACError: ErrorCodeProviding {
 			return "DEVICE_TIME_INCORRECT"
 		case .timeUnverified:
 			return "DEVICE_TIME_UNVERIFIED"
-		case .minimumTimeSinceOnboarding:
-			return "TIME_SINCE_ONBOARDING_UNVERIFIED"
 		case .submissionTooEarly:
 			return "SUBMISSION_TOO_EARLY"
+		case .minimumTimeSinceOnboarding:
+			return "TIME_SINCE_ONBOARDING_UNVERIFIED"
 		}
 	}
 }
 
-extension PPACError: ErrorTextKeyProviding {
-	var textKey: String {
+extension PPACError: SRSErrorAlertProviding {
+	var srsErrorAlert: SRSErrorAlert? {
 		switch self {
 		case .generationFailed:
-			return "TRY_AGAIN_LATER"
+			return .tryAgainLater
 		case .deviceNotSupported:
-			return "DEVICE_NOT_SUPPORTED"
+			return .deviceNotSupported
 		case .timeIncorrect:
-			return "CHANGE_DEVICE_TIME"
+			return .changeDeviceTime
 		case .timeUnverified:
-			return "TIME_SINCE_ONBOARDING_UNVERIFIED"
-		case .minimumTimeSinceOnboarding:
-			return "SUBMISSION_TOO_EARLY"
+			return .timeSinceOnboardingUnverified
 		case .submissionTooEarly:
-			return "TIME_SINCE_ONBOARDING_UNVERIFIED"
+			return .submissionTooEarly
+		case .minimumTimeSinceOnboarding:
+			return .timeSinceOnboardingUnverified
 		}
 	}
 }

@@ -36,7 +36,7 @@ enum SRSErrorAlert: String, CaseIterable {
 		}
 	}
 	
-	init(error: ErrorTextKeyProviding) {
-		self = Self.allCases.first(where: { error.textKey == $0.rawValue }) ?? .callHotline
+	init(error: SRSErrorAlertProviding) {
+		self = error.srsErrorAlert ?? .callHotline
 	}
 }

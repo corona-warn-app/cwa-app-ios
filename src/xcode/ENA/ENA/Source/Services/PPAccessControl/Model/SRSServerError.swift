@@ -4,9 +4,10 @@
 
 import Foundation
 
-protocol ErrorTextKeyProviding: Error {
-	/// The Text Key aims which error codes share the same error message.
-	var textKey: String { get }
+protocol SRSErrorAlertProviding: Error {
+	/// The SRS Error Alert type aims which error codes share error message.
+	/// The type is optional, because there are error cases of error enums, that hasn't a relationship to SRS
+	var srsErrorAlert: SRSErrorAlert? { get }
 }
 
 protocol ErrorCodeProviding: Error {
@@ -57,31 +58,31 @@ extension SRSServerError: ErrorCodeProviding {
 	}
 }
 
-extension SRSServerError: ErrorTextKeyProviding {
-	var textKey: String {
+extension SRSServerError: SRSErrorAlertProviding {
+	var srsErrorAlert: SRSErrorAlert? {
 		switch self {
 		case .srsOTPClientError:
-			return "CALL_HOTLINE"
+			return .callHotline
 		case .srsOTPNetworkError:
-			return "NO_NETWORK"
+			return .noNetwork
 		case .srsOTPServerError:
-			return "TRY_AGAIN_LATER"
+			return .tryAgainLater
 		case .srsOTP400:
-			return "CALL_HOTLINE"
+			return .callHotline
 		case .srsOTP401:
-			return "CALL_HOTLINE"
+			return .callHotline
 		case .srsOTP403:
-			return "CALL_HOTLINE"
+			return .callHotline
 		case .srsSUBClientError:
-			return "CALL_HOTLINE"
+			return .callHotline
 		case .srsSUBNoNetwork:
-			return "NO_NETWORK"
+			return .noNetwork
 		case .srsSUBServerError:
-			return "TRY_AGAIN_LATER"
+			return .tryAgainLater
 		case .srsSUB400:
-			return "CALL_HOTLINE"
+			return .callHotline
 		case .srsSUB403:
-			return "CALL_HOTLINE"
+			return .callHotline
 		}
 	}
 }

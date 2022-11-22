@@ -102,28 +102,6 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		// If a TAN was entered, we skip `showTestResultAvailableScreen(with:)`, so we notify (again) about the new state
 		QuickAction.exposureSubmissionFlowTestResult = model.coronaTest?.testResult
 	}
-
-	func showPositiveSelfTestFlow() {
-		model.checkLocalSRSPrerequisites { [weak self] (result: Result<Void, SRSFlowAlert.SRSPreconditionError>) in
-			switch result {
-			case .success:
-				self?.showSRSTestTypeSelectionScreen(isSelfTestTypePreselected: true)
-			case .failure(let error):
-				self?.showSRSFlowAlert(for: error)
-			}
-		}
-	}
-	
-	func showSelfReportSubmissionFlow() {
-		model.checkLocalSRSPrerequisites { [weak self] (result: Result<Void, SRSFlowAlert.SRSPreconditionError>) in
-			switch result {
-			case .success:
-				self?.showSRSTestTypeSelectionScreen(isSelfTestTypePreselected: false)
-			case .failure(let error):
-				self?.showSRSFlowAlert(for: error)
-			}
-		}
-	}
 	
 	func showTanScreen() {
 		let tanInputViewModel = TanInputViewModel(
@@ -510,9 +488,9 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 						switch srsFlowType {
 						case .srsPositive:
 							self.model.storeSelectedSRSSubmissionType(.srsSelfTest)
-							self.showSRSFlowNextScreen()
+							self.checkSRSPrerequisitesToContinueSRSFlow(isSelfTestTypePreselected: true, isLoading: isLoading)
 						case .positiveWithoutResultInTheApp:
-							self.showSRSTestTypeSelectionScreen()
+							self.checkSRSPrerequisitesToContinueSRSFlow(isSelfTestTypePreselected: false, isLoading: isLoading)
 						}
 						return
 					}
@@ -970,9 +948,29 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 
 	// MARK: - Test Type Selection
 	
-	/// Shows the Type of Tests screen
-	/// - Parameter isSelfTestTypePreselected: If the process was started via self-report with self-test on the Manage Your Tests View, the Self-test entry shall be pre-selected. Otherwise, no entry shall be selected.
-	private func showSRSTestTypeSelectionScreen(isSelfTestTypePreselected: Bool = false) {
+	/// Checks the SRS Flow prerequisites to continue with SRS Test Type Selection.
+	/// Shows a specific error alert, if at least on prerequisite has fault.
+	/// - Parameters:
+	/// 	- isSelfTestTypePreselected: Wether the self test type in SRS Test Type Selection should be preselected
+	/// 	- isLoading: The callback that should be execute while fetching the self service parameters from app configuration.
+	private func checkSRSPrerequisitesToContinueSRSFlow(
+		isSelfTestTypePreselected: Bool,
+		isLoading: @escaping CompletionBool
+	) {
+		model.checkSRSFlowPrerequisites(isLoading: isLoading) { [weak self] (result: Result<Void, SRSFlowAlert.SRSPreconditionError>) in
+			switch result {
+			case .success:
+				self?.showSRSTestTypeSelectionScreen(isSelfTestTypePreselected: isSelfTestTypePreselected)
+			case .failure(let error):
+				self?.showSRSPreconditionAlert(for: error)
+			}
+		}
+	}
+	
+	/// Shows the SRS Test Type Selection Screen
+	/// - Parameters:
+	/// 	- isSelfTestTypePreselected: Wether the self test type in SRS Test Type Selection should be preselected
+	private func showSRSTestTypeSelectionScreen(isSelfTestTypePreselected: Bool) {
 		let srsTestTypeSelectionViewController = SRSTestTypeSelectionViewController(
 			viewModel: SRSTestTypeSelectionViewModel(isSelfTestTypePreselected: isSelfTestTypePreselected),
 			onPrimaryButtonTap: { [weak self] submissionType in
@@ -1574,14 +1572,17 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		navigationController?.present(alert, animated: true)
 	}
 	
-	private func showSRSFlowAlert(for srsFlowAlert: SRSFlowAlert) {
+	private func showSRSFlowAlert(
+		for srsFlowAlert: SRSFlowAlert,
+		isLoading: @escaping CompletionBool
+	) {
 		switch srsFlowAlert {
 		case let .preconditionFailed(srsFlowError):
-			showSRSFlowAlert(for: srsFlowError)
+			showSRSPreconditionAlert(for: srsFlowError)
 		case let .consent(srsFlowConsent):
 			showSRSFlowAlert(for: srsFlowConsent)
 		case let .error(error):
-			showSRSFlowAlert(for: error)
+			showSRSFlowErrorAlert(for: error, isLoading: isLoading)
 		}
 	}
 	
@@ -1614,7 +1615,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		}
 	}
 	
-	private func showSRSFlowAlert(for error: SRSFlowAlert.SRSPreconditionError) {
+	private func showSRSPreconditionAlert(for error: SRSFlowAlert.SRSPreconditionError) {
 		let alert = UIAlertController.errorAlert(
 			title: AppStrings.ExposureSubmissionDispatch.SRSWarnOthersPreconditionAlert.title,
 			message: error.message,
@@ -1628,18 +1629,23 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		navigationController?.present(alert, animated: true)
 	}
 	
-	private func showSRSFlowAlert<E: ErrorTextKeyProviding & ErrorCodeProviding>(for error: E) {
-		let alert = UIAlertController.errorAlert(
-			title: AppStrings.SRSErrorAlert.title,
-			message: model.message(from: error),
-			okTitle: AppStrings.SRSErrorAlert.faqButtonTitle,
-			secondaryActionTitle: AppStrings.SRSErrorAlert.okButtonTitle,
-			completion: {
-				LinkHelper.open(urlString: AppStrings.Links.warnWithoutTANFAQLink)
-			}
-		)
-		
-		navigationController?.present(alert, animated: true)
+	private func showSRSFlowErrorAlert<E: SRSErrorAlertProviding & ErrorCodeProviding>(
+		for error: E,
+		isLoading: @escaping CompletionBool
+	) {
+		model.message(from: error, isLoading: isLoading) { [weak self] message in
+			let alert = UIAlertController.errorAlert(
+				title: AppStrings.SRSErrorAlert.title,
+				message: message,
+				okTitle: AppStrings.SRSErrorAlert.faqButtonTitle,
+				secondaryActionTitle: AppStrings.SRSErrorAlert.okButtonTitle,
+				completion: {
+					LinkHelper.open(urlString: AppStrings.Links.warnWithoutTANFAQLink)
+				}
+			)
+
+			self?.navigationController?.present(alert, animated: true)
+		}
 	}
 
 	// MARK: Test Result Helper
@@ -1955,8 +1961,8 @@ extension ExposureSubmissionCoordinator {
 	
 	enum SRSFlowAlert {
 		case preconditionFailed(SRSPreconditionError)
+		case error(SRSErrorAlertProviding & ErrorCodeProviding)
 		case consent(Consent)
-		case error(ErrorTextKeyProviding & ErrorCodeProviding)
 
 		enum Consent {
 			case cancelWarnOthers

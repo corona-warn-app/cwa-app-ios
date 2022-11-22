@@ -390,9 +390,17 @@ class ExposureSubmissionCoordinatorModel {
 			fatalError("Cannot set submission consent, no corona test type is set")
 		}
 	}
-	
-	/// Checking Local SRS Prerequisites
-	func checkLocalSRSPrerequisites(completion: @escaping (Result<Void, ExposureSubmissionCoordinator.SRSFlowAlert.SRSPreconditionError>) -> Void) {
+
+	/// Check SRS Flow Prerequisites.
+	/// - Parameters:
+	/// 	- isLoading: The callback that should be execute while fetching the self service parameters from app configuration.
+	/// 	- completion: The completion handler, that has given the regarding `SRSFlowAlert.SRSPreconditionError`, in case of a precondition fault.
+	func checkSRSFlowPrerequisites(
+		isLoading: @escaping CompletionBool,
+		completion: @escaping (Result<Void, ExposureSubmissionCoordinator.SRSFlowAlert.SRSPreconditionError>) -> Void
+	) {
+		completion(.success(()))
+		return
 		// Check if app was installed less than 48 hours
 		guard
 			let appInstallationDate = store.appInstallationDate,
@@ -403,35 +411,51 @@ class ExposureSubmissionCoordinatorModel {
 			return
 		}
 		
-		// to.do remove Mock and implement from service
-		var selfReportSubmissionParametersCommon = SAP_Internal_V2_PPDDSelfReportSubmissionParametersCommon()
-		selfReportSubmissionParametersCommon.timeBetweenSubmissionsInDays = 91
+		exposureSubmissionService.loadSelfServiceParameters(isLoading: isLoading) { selfReportSubmissionParametersCommon in
 
-		// Check if there was already a key submission without a registered test in the last 3 months
-		guard selfReportSubmissionParametersCommon.timeBetweenSubmissionsInDays > 90 else {
-			completion(.failure(.positiveTestResultWasAlreadySubmittedWithin90Days))
-			return
+			// Check if there was already a key submission without a registered test in the last 3 months
+			guard selfReportSubmissionParametersCommon.timeBetweenSubmissionsInDays > 90 else {
+				completion(.failure(.positiveTestResultWasAlreadySubmittedWithin90Days))
+				return
+			}
+			completion(.success(()))
 		}
-		
-		completion(.success(()))
 	}
 	
-	func message<E: ErrorTextKeyProviding & ErrorCodeProviding>(from error: E) -> String {
+	/// Creates the error message string for a `SRSErrorAlert` alert.
+	/// - Parameters:
+	/// 	- error: The error type, that conforms to `SRSErrorAlertProviding` and `ErrorCodeProviding`.
+	/// 	- isLoading: The callback that should be execute while fetching the self service parameters from app configuration.
+	/// 	- completion: The completion handler that has given the regarding error alert message.
+	func message<E: SRSErrorAlertProviding & ErrorCodeProviding>(
+		from error: E,
+		isLoading: @escaping CompletionBool,
+		completion: @escaping CompletionString
+	) {
 		let srsErrorAlert = SRSErrorAlert(error: error)
 		
-		let message: String!
-
-		if case .submissionTooEarly = srsErrorAlert {
-			// to.do fetch time
-			message = String(format: srsErrorAlert.message, "n", error.description)
-		} else if case .timeSinceOnboardingUnverified = srsErrorAlert {
-			// to.do fetch time
-			message = String(format: srsErrorAlert.message, "n", "n", error.description)
-		} else {
-			message = String(format: srsErrorAlert.message, error.description)
+		exposureSubmissionService.loadSelfServiceParameters(isLoading: isLoading) { selfReportSubmissionParametersCommon in
+			let message: String!
+			
+			if case .submissionTooEarly = srsErrorAlert {
+				message = String(
+					format: srsErrorAlert.message,
+					String(selfReportSubmissionParametersCommon.timeBetweenSubmissionsInDays),
+					error.description
+				)
+			} else if case .timeSinceOnboardingUnverified = srsErrorAlert {
+				message = String(
+					format: srsErrorAlert.message,
+					String(selfReportSubmissionParametersCommon.timeSinceOnboardingInHours),
+					String(selfReportSubmissionParametersCommon.timeSinceOnboardingInHours),
+					error.description
+				)
+			} else {
+				message = String(format: srsErrorAlert.message, error.description)
+			}
+			
+			completion(message)
 		}
-		
-		return message
 	}
 	
 	// MARK: - Private

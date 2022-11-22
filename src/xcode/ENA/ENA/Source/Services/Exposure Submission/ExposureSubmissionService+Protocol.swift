@@ -19,6 +19,7 @@ protocol ExposureSubmissionService: AnyObject {
 	var symptomsOnset: SymptomsOnset { get set }
 
 	func loadSupportedCountries(isLoading: @escaping (Bool) -> Void, onSuccess: @escaping ([Country]) -> Void)
+	func loadSelfServiceParameters(isLoading: @escaping CompletionBool, onSuccess: @escaping (SAP_Internal_V2_PPDDSelfReportSubmissionParametersCommon) -> Void)
 	func getTemporaryExposureKeys(completion: @escaping ExposureSubmissionHandler)
 	func submitExposure(coronaTestType: CoronaTestType, completion: @escaping (_ error: ExposureSubmissionServiceError?) -> Void)
 
