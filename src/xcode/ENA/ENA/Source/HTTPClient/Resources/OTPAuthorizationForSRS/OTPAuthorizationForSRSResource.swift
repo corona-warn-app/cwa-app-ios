@@ -37,6 +37,10 @@ struct OTPAuthorizationForSRSResource: Resource {
 	
 	// MARK: - Protocol Resource
 	
+	typealias Send = ProtobufSendResource<SAP_Internal_Ppdd_SRSOneTimePasswordRequestIOS>
+	typealias Receive = JSONReceiveResource<OTPResponsePropertiesReceiveModel>
+	typealias CustomError = OTPAuthorizationError
+	
 	let trustEvaluation: TrustEvaluating
 	
 	var locator: Locator
@@ -45,36 +49,36 @@ struct OTPAuthorizationForSRSResource: Resource {
 	var receiveResource: JSONReceiveResource<OTPResponsePropertiesReceiveModel>
 	
 	func customError(
-		for error: ServiceError<SRSError>,
+		for error: ServiceError<OTPAuthorizationError>,
 		responseBody: Data? = nil
-    ) -> SRSError? {
+    ) -> OTPAuthorizationError? {
         switch error {
         case .transportationError:
-            return .srsOTPNetworkError
+            return .noNetworkConnection
         case .unexpectedServerError(let statusCode):
             switch statusCode {
             case 400, 401, 403:
                 return otpAuthorizationFailureHandler(for: responseBody, statusCode: statusCode)
             case 500:
                 Log.error("Failed to get authorized OTP - 500 status code", log: .api)
-                return .srsOTPServerError
+                return .otherServerError
             default:
                 Log.error("Failed to authorize OTP - response error", log: .api)
                 Log.error(String(statusCode), log: .api)
-                return .srsOTPServerError
+                return .otherServerError
             }
         default:
-            return .srsOTPServerError
+            return .otherServerError
         }
     }
 	
 	// MARK: - Private
 	
-	private func otpAuthorizationFailureHandler(for response: Data?, statusCode: Int) -> SRSError? {
+	private func otpAuthorizationFailureHandler(for response: Data?, statusCode: Int) -> OTPAuthorizationError? {
 		guard let responseBody = response else {
 			Log.error("Failed to get authorized OTP - no 200 status code", log: .api)
 			Log.error(String(statusCode), log: .api)
-			return .srsOTPServerError
+			return .otherServerError
 		}
 
 		do {
@@ -86,7 +90,7 @@ struct OTPAuthorizationForSRSResource: Resource {
 			)
 			guard let errorCode = decodedResponse.errorCode else {
 				Log.error("Failed to get errorCode because it is nil", log: .api)
-				return .srsOTPServerError
+				return .otherServerError
 			}
 
 			switch errorCode {
