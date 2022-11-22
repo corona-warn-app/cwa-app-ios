@@ -17,7 +17,7 @@ enum SRSKeySubmissionResourceError: LocalizedError, Equatable {
 		case .invalidPayloadOrHeaders:
 			return "\(AppStrings.ExposureSubmissionError.errorPrefix) - Received an invalid payload or headers."
 		case .invalidOtp:
-			// TODO update text for invalid otp
+			// to.do update text for invalid otp
 			return SRSError.srsOTPServerError.description
 		case .requestCouldNotBeBuilt:
 			return "\(AppStrings.ExposureSubmissionError.errorPrefix) - The submission request could not be built correctly."

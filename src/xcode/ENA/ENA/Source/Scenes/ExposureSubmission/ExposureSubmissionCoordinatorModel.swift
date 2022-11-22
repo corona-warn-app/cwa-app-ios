@@ -198,26 +198,26 @@ class ExposureSubmissionCoordinatorModel {
 					submissionType: srsSubmissionType,
 					srsOTP: srsOTP
 				) { error in
-			   isLoading(false)
-
-			   switch error {
-
-			   // We continue the regular flow even if there are no keys collected.
-			   case .none, .preconditionError(.noKeysCollected):
-				   onSuccess()
-
-			   // We don't show an error if the submission consent was not given, because we assume that the submission already happened in the background.
-			   case .preconditionError(.noSubmissionConsent):
-				   Log.info("Consent Not Given", log: .ui)
-				   onSuccess()
-
-			   case .some(let error):
-				   Log.error("error: \(error.localizedDescription)", log: .api)
-				   onError(error)
-			   }
-		   }
+					isLoading(false)
+					
+					switch error {
+						
+						// We continue the regular flow even if there are no keys collected.
+					case .none, .preconditionError(.noKeysCollected):
+						onSuccess()
+						
+						// We don't show an error if the submission consent was not given, because we assume that the submission already happened in the background.
+					case .preconditionError(.noSubmissionConsent):
+						Log.info("Consent Not Given", log: .ui)
+						onSuccess()
+						
+					case .some(let error):
+						Log.error("error: \(error.localizedDescription)", log: .api)
+						onError(error)
+					}
+				}
 			case .failure(let srsError):
-				// TODO present srsError "APITOKEN or OTP auth failed"
+				// to.do present srsError "APITOKEN or OTP auth failed"
 				Log.debug(srsError.description, log: .ppac)
 			}
 			

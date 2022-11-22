@@ -1045,6 +1045,7 @@
 		8FDB9403261FBA3800BA8CB1 /* RapidTestQRCodeInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FDB9402261FBA3800BA8CB1 /* RapidTestQRCodeInformation.swift */; };
 		8FDB940B261FBAAA00BA8CB1 /* CoronaTestRegistrationInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FDB940A261FBAAA00BA8CB1 /* CoronaTestRegistrationInformation.swift */; };
 		8FDFEF63292C1E5400707FE2 /* SRSKeySubmissionResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FDFEF62292C1E5400707FE2 /* SRSKeySubmissionResource.swift */; };
+		8FDFEF65292CD91400707FE2 /* MockSrsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FDFEF64292CD91400707FE2 /* MockSrsService.swift */; };
 		8FE68F9328A146CC003E86E1 /* ELSSubmitResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FE68F9228A146CC003E86E1 /* ELSSubmitResource.swift */; };
 		8FE68F9728A15BAC003E86E1 /* ELSSubmitReceiveModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FE68F9628A15BAC003E86E1 /* ELSSubmitReceiveModel.swift */; };
 		8FEC12242754B6C000C5DADC /* Locator+AllowList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FEC12232754B6C000C5DADC /* Locator+AllowList.swift */; };
@@ -2940,6 +2941,7 @@
 		8FDB9402261FBA3800BA8CB1 /* RapidTestQRCodeInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RapidTestQRCodeInformation.swift; sourceTree = "<group>"; };
 		8FDB940A261FBAAA00BA8CB1 /* CoronaTestRegistrationInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoronaTestRegistrationInformation.swift; sourceTree = "<group>"; };
 		8FDFEF62292C1E5400707FE2 /* SRSKeySubmissionResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SRSKeySubmissionResource.swift; sourceTree = "<group>"; };
+		8FDFEF64292CD91400707FE2 /* MockSrsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSrsService.swift; sourceTree = "<group>"; };
 		8FE68F9228A146CC003E86E1 /* ELSSubmitResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ELSSubmitResource.swift; sourceTree = "<group>"; };
 		8FE68F9628A15BAC003E86E1 /* ELSSubmitReceiveModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ELSSubmitReceiveModel.swift; sourceTree = "<group>"; };
 		8FEC12232754B6C000C5DADC /* Locator+AllowList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Locator+AllowList.swift"; sourceTree = "<group>"; };
@@ -7552,6 +7554,7 @@
 			isa = PBXGroup;
 			children = (
 				8FD5BE20292BB95400B0315B /* SRSService.swift */,
+				8FDFEF64292CD91400707FE2 /* MockSrsService.swift */,
 			);
 			path = SRSService;
 			sourceTree = "<group>";
@@ -12161,6 +12164,7 @@
 				AB6993AF2608F39E00232AD7 /* TraceWarningMatching.swift in Sources */,
 				01909878257E64BD0065D050 /* DiaryEditEntriesViewModel.swift in Sources */,
 				BA06D5B325DC11C60039D1DB /* DiaryAddAndEditEntryModel.swift in Sources */,
+				8FDFEF65292CD91400707FE2 /* MockSrsService.swift in Sources */,
 				0104CBCD273EAC46009A543D /* TicketValidationError.swift in Sources */,
 				5013B18726EBA3FE00A2DD54 /* QRScannerViewController.swift in Sources */,
 				01653FA526CD373000E21FB7 /* OnBehalfCheckinSubmissionService.swift in Sources */,

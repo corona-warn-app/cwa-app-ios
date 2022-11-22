@@ -22,6 +22,7 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: MockExposureSubmissionService(),
 			coronaTestService: coronaTestService,
+			srsService: MockSRSService(),
 			familyMemberCoronaTestService: familyMemberCoronaTestService,
 			eventProvider: MockEventStore(),
 			recycleBin: RecycleBin(store: MockTestStore())
@@ -41,6 +42,7 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: MockExposureSubmissionService(),
 			coronaTestService: coronaTestService,
+			srsService: MockSRSService(),
 			familyMemberCoronaTestService: familyMemberCoronaTestService,
 			eventProvider: MockEventStore(),
 			recycleBin: RecycleBin(store: MockTestStore())
@@ -73,6 +75,7 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: MockExposureSubmissionService(),
 			coronaTestService: coronaTestService,
+			srsService: MockSRSService(),
 			familyMemberCoronaTestService: familyMemberCoronaTestService,
 			eventProvider: MockEventStore(),
 			recycleBin: RecycleBin(store: MockTestStore())
@@ -109,6 +112,7 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: MockExposureSubmissionService(),
 			coronaTestService: coronaTestService,
+			srsService: MockSRSService(),
 			familyMemberCoronaTestService: familyMemberCoronaTestService,
 			eventProvider: MockEventStore(),
 			recycleBin: RecycleBin(store: MockTestStore())
@@ -124,6 +128,7 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: MockExposureSubmissionService(),
 			coronaTestService: MockCoronaTestService(),
+			srsService: MockSRSService(),
 			familyMemberCoronaTestService: MockFamilyMemberCoronaTestService(),
 			eventProvider: MockEventStore(),
 			recycleBin: RecycleBin(store: MockTestStore())
@@ -136,6 +141,8 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: MockExposureSubmissionService(),
 			coronaTestService: MockCoronaTestService(),
+			srsService: MockSRSService(),
+			
 			familyMemberCoronaTestService: MockFamilyMemberCoronaTestService(),
 			eventProvider: MockEventStore(),
 			recycleBin: RecycleBin(store: MockTestStore())
@@ -159,6 +166,7 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: MockExposureSubmissionService(),
 			coronaTestService: MockCoronaTestService(),
+			srsService: MockSRSService(),
 			familyMemberCoronaTestService: MockFamilyMemberCoronaTestService(),
 			eventProvider: MockEventStore(),
 			recycleBin: RecycleBin(store: MockTestStore())
@@ -182,6 +190,7 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: MockExposureSubmissionService(),
 			coronaTestService: MockCoronaTestService(),
+			srsService: MockSRSService(),
 			familyMemberCoronaTestService: MockFamilyMemberCoronaTestService(),
 			eventProvider: MockEventStore(),
 			recycleBin: RecycleBin(store: MockTestStore())
@@ -205,6 +214,7 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: MockExposureSubmissionService(),
 			coronaTestService: MockCoronaTestService(),
+			srsService: MockSRSService(),
 			familyMemberCoronaTestService: MockFamilyMemberCoronaTestService(),
 			eventProvider: MockEventStore(),
 			recycleBin: RecycleBin(store: MockTestStore())
@@ -219,6 +229,7 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: MockExposureSubmissionService(),
 			coronaTestService: MockCoronaTestService(),
+			srsService: MockSRSService(),
 			familyMemberCoronaTestService: MockFamilyMemberCoronaTestService(),
 			eventProvider: MockEventStore(),
 			recycleBin: RecycleBin(store: MockTestStore())
@@ -240,6 +251,7 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: exposureSubmissionService,
 			coronaTestService: MockCoronaTestService(),
+			srsService: MockSRSService(),
 			familyMemberCoronaTestService: MockFamilyMemberCoronaTestService(),
 			eventProvider: MockEventStore(),
 			recycleBin: RecycleBin(store: MockTestStore())
@@ -268,6 +280,7 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: exposureSubmissionService,
 			coronaTestService: MockCoronaTestService(),
+			srsService: MockSRSService(),
 			familyMemberCoronaTestService: MockFamilyMemberCoronaTestService(),
 			eventProvider: MockEventStore(),
 			recycleBin: RecycleBin(store: MockTestStore())
@@ -298,6 +311,7 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: exposureSubmissionService,
 			coronaTestService: MockCoronaTestService(),
+			srsService: MockSRSService(),
 			familyMemberCoronaTestService: MockFamilyMemberCoronaTestService(),
 			eventProvider: MockEventStore(),
 			recycleBin: RecycleBin(store: MockTestStore())
@@ -328,6 +342,7 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: exposureSubmissionService,
 			coronaTestService: MockCoronaTestService(),
+			srsService: MockSRSService(),
 			familyMemberCoronaTestService: MockFamilyMemberCoronaTestService(),
 			eventProvider: MockEventStore(),
 			recycleBin: RecycleBin(store: MockTestStore())
@@ -355,6 +370,7 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: exposureSubmissionService,
 			coronaTestService: MockCoronaTestService(),
+			srsService: MockSRSService(),
 			familyMemberCoronaTestService: MockFamilyMemberCoronaTestService(),
 			eventProvider: MockEventStore(),
 			recycleBin: RecycleBin(store: MockTestStore())
@@ -383,6 +399,7 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: exposureSubmissionService,
 			coronaTestService: MockCoronaTestService(),
+			srsService: MockSRSService(),
 			familyMemberCoronaTestService: MockFamilyMemberCoronaTestService(),
 			eventProvider: MockEventStore(),
 			recycleBin: RecycleBin(store: MockTestStore())
@@ -410,6 +427,7 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: exposureSubmissionService,
 			coronaTestService: MockCoronaTestService(),
+			srsService: MockSRSService(),
 			familyMemberCoronaTestService: MockFamilyMemberCoronaTestService(),
 			eventProvider: MockEventStore(),
 			recycleBin: RecycleBin(store: MockTestStore())
@@ -446,6 +464,7 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: MockExposureSubmissionService(),
 			coronaTestService: MockCoronaTestService(),
+			srsService: MockSRSService(),
 			familyMemberCoronaTestService: MockFamilyMemberCoronaTestService(),
 			eventProvider: MockEventStore(),
 			recycleBin: RecycleBin(store: store)
@@ -469,6 +488,7 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: MockExposureSubmissionService(),
 			coronaTestService: MockCoronaTestService(),
+			srsService: MockSRSService(),
 			familyMemberCoronaTestService: MockFamilyMemberCoronaTestService(),
 			eventProvider: MockEventStore(),
 			recycleBin: RecycleBin(store: store)
@@ -497,6 +517,7 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: MockExposureSubmissionService(),
 			coronaTestService: MockCoronaTestService(),
+			srsService: MockSRSService(),
 			familyMemberCoronaTestService: MockFamilyMemberCoronaTestService(),
 			eventProvider: MockEventStore(),
 			recycleBin: RecycleBin(store: store)
@@ -520,6 +541,7 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: MockExposureSubmissionService(),
 			coronaTestService: MockCoronaTestService(),
+			srsService: MockSRSService(),
 			familyMemberCoronaTestService: MockFamilyMemberCoronaTestService(),
 			eventProvider: MockEventStore(),
 			recycleBin: RecycleBin(store: store)
@@ -541,6 +563,7 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: exposureSubmissionService,
 			coronaTestService: MockCoronaTestService(),
+			srsService: MockSRSService(),
 			familyMemberCoronaTestService: MockFamilyMemberCoronaTestService(),
 			eventProvider: MockEventStore(),
 			recycleBin: RecycleBin(store: MockTestStore())
@@ -581,6 +604,7 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: exposureSubmissionService,
 			coronaTestService: MockCoronaTestService(),
+			srsService: MockSRSService(),
 			familyMemberCoronaTestService: MockFamilyMemberCoronaTestService(),
 			eventProvider: MockEventStore(),
 			recycleBin: RecycleBin(store: MockTestStore())
@@ -621,6 +645,7 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: exposureSubmissionService,
 			coronaTestService: MockCoronaTestService(),
+			srsService: MockSRSService(),
 			familyMemberCoronaTestService: MockFamilyMemberCoronaTestService(),
 			eventProvider: MockEventStore(),
 			recycleBin: RecycleBin(store: MockTestStore())
@@ -661,6 +686,7 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: exposureSubmissionService,
 			coronaTestService: MockCoronaTestService(),
+			srsService: MockSRSService(),
 			familyMemberCoronaTestService: MockFamilyMemberCoronaTestService(),
 			eventProvider: MockEventStore(),
 			recycleBin: RecycleBin(store: MockTestStore())
@@ -701,6 +727,7 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: MockExposureSubmissionService(),
 			coronaTestService: coronaTestService,
+			srsService: MockSRSService(),
 			familyMemberCoronaTestService: MockFamilyMemberCoronaTestService(),
 			eventProvider: MockEventStore(),
 			recycleBin: RecycleBin(store: MockTestStore())
@@ -746,6 +773,7 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: MockExposureSubmissionService(),
 			coronaTestService: coronaTestService,
+			srsService: MockSRSService(),
 			familyMemberCoronaTestService: familyMemberCoronaTestService,
 			eventProvider: MockEventStore(),
 			recycleBin: RecycleBin(store: MockTestStore())
@@ -790,6 +818,7 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: MockExposureSubmissionService(),
 			coronaTestService: coronaTestService,
+			srsService: MockSRSService(),
 			familyMemberCoronaTestService: MockFamilyMemberCoronaTestService(),
 			eventProvider: MockEventStore(),
 			recycleBin: RecycleBin(store: MockTestStore())
@@ -835,6 +864,7 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: MockExposureSubmissionService(),
 			coronaTestService: coronaTestService,
+			srsService: MockSRSService(),
 			familyMemberCoronaTestService: familyMemberCoronaTestService,
 			eventProvider: MockEventStore(),
 			recycleBin: RecycleBin(store: MockTestStore())
@@ -879,6 +909,7 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: MockExposureSubmissionService(),
 			coronaTestService: coronaTestService,
+			srsService: MockSRSService(),
 			familyMemberCoronaTestService: MockFamilyMemberCoronaTestService(),
 			eventProvider: MockEventStore(),
 			recycleBin: RecycleBin(store: MockTestStore())
@@ -923,6 +954,7 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: MockExposureSubmissionService(),
 			coronaTestService: coronaTestService,
+			srsService: MockSRSService(),
 			familyMemberCoronaTestService: MockFamilyMemberCoronaTestService(),
 			eventProvider: MockEventStore(),
 			recycleBin: RecycleBin(store: MockTestStore())
@@ -967,6 +999,7 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: MockExposureSubmissionService(),
 			coronaTestService: coronaTestService,
+			srsService: MockSRSService(),
 			familyMemberCoronaTestService: MockFamilyMemberCoronaTestService(),
 			eventProvider: MockEventStore(),
 			recycleBin: RecycleBin(store: MockTestStore())
@@ -1012,6 +1045,7 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: MockExposureSubmissionService(),
 			coronaTestService: coronaTestService,
+			srsService: MockSRSService(),
 			familyMemberCoronaTestService: familyMemberCoronaTestService,
 			eventProvider: MockEventStore(),
 			recycleBin: RecycleBin(store: MockTestStore())
@@ -1056,6 +1090,7 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: MockExposureSubmissionService(),
 			coronaTestService: coronaTestService,
+			srsService: MockSRSService(),
 			familyMemberCoronaTestService: MockFamilyMemberCoronaTestService(),
 			eventProvider: MockEventStore(),
 			recycleBin: RecycleBin(store: MockTestStore())
@@ -1101,6 +1136,7 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: MockExposureSubmissionService(),
 			coronaTestService: coronaTestService,
+			srsService: MockSRSService(),
 			familyMemberCoronaTestService: familyMemberCoronaTestService,
 			eventProvider: MockEventStore(),
 			recycleBin: RecycleBin(store: MockTestStore())
@@ -1145,6 +1181,7 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: MockExposureSubmissionService(),
 			coronaTestService: coronaTestService,
+			srsService: MockSRSService(),
 			familyMemberCoronaTestService: MockFamilyMemberCoronaTestService(),
 			eventProvider: MockEventStore(),
 			recycleBin: RecycleBin(store: MockTestStore())
@@ -1190,6 +1227,7 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: MockExposureSubmissionService(),
 			coronaTestService: coronaTestService,
+			srsService: MockSRSService(),
 			familyMemberCoronaTestService: familyMemberCoronaTestService,
 			eventProvider: MockEventStore(),
 			recycleBin: RecycleBin(store: MockTestStore())
@@ -1234,6 +1272,7 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: MockExposureSubmissionService(),
 			coronaTestService: coronaTestService,
+			srsService: MockSRSService(),
 			familyMemberCoronaTestService: MockFamilyMemberCoronaTestService(),
 			eventProvider: MockEventStore(),
 			recycleBin: RecycleBin(store: MockTestStore())
@@ -1279,6 +1318,7 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: MockExposureSubmissionService(),
 			coronaTestService: coronaTestService,
+			srsService: MockSRSService(),
 			familyMemberCoronaTestService: familyMemberCoronaTestService,
 			eventProvider: MockEventStore(),
 			recycleBin: RecycleBin(store: MockTestStore())
