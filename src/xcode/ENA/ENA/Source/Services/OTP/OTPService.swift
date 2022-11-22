@@ -36,7 +36,7 @@ protocol OTPServiceProviding {
 	/// - Returns:
 	///   - success: the authorized and stored otp as String
 	///   - failure: an OTPError, for which the caller can build a dedicated error handling
-	func getOTPSrs(ppacToken: PPACToken, completion: @escaping (Result<String, OTPError>) -> Void)
+	func getOTPSRS(ppacToken: PPACToken, completion: @escaping (Result<String, OTPError>) -> Void)
 	/// discards any stored otp edus.
 	func discardOTPEdus()
 	/// discards any stored otp els.
@@ -105,7 +105,7 @@ final class OTPService: OTPServiceProviding {
 		authorizeEls(otp, with: ppacToken, completion: completion)
 	}
 
-	func getOTPSrs(ppacToken: PPACToken, completion: @escaping (Result<String, OTPError>) -> Void) {
+	func getOTPSRS(ppacToken: PPACToken, completion: @escaping (Result<String, OTPError>) -> Void) {
 		if let otpToken = store.otpTokenSRS,
 		   let expirationDate = otpToken.expirationDate,
 		   expirationDate > Date(),
@@ -244,12 +244,9 @@ final class OTPService: OTPServiceProviding {
 
 				completion(.success(verifiedToken.token))
 			case .failure(let error):
+                
 				Log.error("Authorization of a new OTP SRS failed with error: \(error)", log: .otp)
-                guard case let .srsRestServiceError(srsError) = otpError else {
-                    completion(.failure(.srsOTPClientError))
-                        return
-                }
-				completion(.failure(.srsRestServiceError(error)))
+				completion(.failure(.restServiceError(error)))
 			}
 		}
 	}
