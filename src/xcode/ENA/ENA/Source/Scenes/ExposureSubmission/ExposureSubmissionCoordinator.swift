@@ -971,13 +971,14 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 	/// - Parameters:
 	/// 	- isSelfTestTypePreselected: Wether the self test type in SRS Test Type Selection should be preselected
 	private func showSRSTestTypeSelectionScreen(isSelfTestTypePreselected: Bool) {
-		let srsTestTypeSelectionViewController = SRSTestTypeSelectionViewController(
+		var srsTestTypeSelectionViewController: SRSTestTypeSelectionViewController!
+		srsTestTypeSelectionViewController = SRSTestTypeSelectionViewController(
 			viewModel: SRSTestTypeSelectionViewModel(isSelfTestTypePreselected: isSelfTestTypePreselected),
 			onPrimaryButtonTap: { [weak self] submissionType in
 				self?.model.storeSelectedSRSSubmissionType(submissionType)
 				self?.showSRSFlowNextScreen()
 			}, onDismiss: { [weak self] in
-				self?.showSRSFlowConsentAlert(for: .cancelWarnOthers, isLoading: { _ in })
+				self?.showSRSFlowConsentAlert(for: .cancelWarnOthers(on: srsTestTypeSelectionViewController), isLoading: { _ in })
 			}
 		)
 		
@@ -1012,7 +1013,8 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 			Analytics.collect(.keySubmissionMetadata(.lastSubmissionFlowScreen(.submissionFlowScreenSymptoms, coronaTestType)))
 		}
 
-		let exposureSubmissionSymptomsViewController = ExposureSubmissionSymptomsViewController(
+		var exposureSubmissionSymptomsViewController: ExposureSubmissionSymptomsViewController!
+		exposureSubmissionSymptomsViewController = ExposureSubmissionSymptomsViewController(
 			onPrimaryButtonTap: { [weak self] selectedSymptomsOption, isLoading in
 				guard let self = self else { return }
 
@@ -1035,7 +1037,19 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 				}
 			},
 			onDismiss: { [weak self] isLoading in
-				self?.showSubmissionSymptomsCancelAlert(isLoading: isLoading)
+				guard let self = self else { return }
+
+				switch self.model.submissionTestType {
+				case .registeredTest:
+					self.showSubmissionSymptomsCancelAlert(isLoading: isLoading)
+				case .srs:
+					self.showSRSFlowAlert(
+						for: .consent(.cancelWarnOthers(on: exposureSubmissionSymptomsViewController)),
+						isLoading: isLoading
+					)
+				case .none:
+					break
+				}
 			}
 		)
 
@@ -1081,7 +1095,19 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 				}
 			},
 			onDismiss: { [weak self] isLoading in
-				self?.showSubmissionSymptomsCancelAlert(isLoading: isLoading)
+				guard let self = self else { return }
+
+				switch self.model.submissionTestType {
+				case .registeredTest:
+					self.showSubmissionSymptomsCancelAlert(isLoading: isLoading)
+				case .srs:
+					self.showSRSFlowAlert(
+						for: .consent(.cancelWarnOthers(on: exposureSubmissionSymptomsOnsetViewController)),
+						isLoading: isLoading
+					)
+				case .none:
+					break
+				}
 			}
 		)
 
@@ -1593,7 +1619,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 	) {
 		var alert: UIAlertController!
 		switch consent {
-		case .cancelWarnOthers:
+		case .cancelWarnOthers(let viewController):
 			alert = UIAlertController(
 				title: AppStrings.ExposureSubmission.SRSTestTypeSelection.warnProcessCancelAlertTitle,
 				message: AppStrings.ExposureSubmission.SRSTestTypeSelection.warnProcessCancelAlertMessage,
@@ -1613,7 +1639,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 				}
 			))
 			
-			navigationController?.presentedViewController?.present(alert, animated: true)
+			viewController.present(alert, animated: true)
 			
 		case .confirmWarnOthers(let viewController):
 			alert = UIAlertController(
@@ -1624,7 +1650,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 			
 			alert.addAction(UIAlertAction(
 				title: AppStrings.SRSConfirmWarnOthersAlert.actionConfirm,
-				style: .cancel,
+				style: .default,
 				handler: { [weak self] _ in
 					self?.submitSRSExposure(showSubmissionSuccess: true, isLoading: isLoading)
 				}
@@ -1632,7 +1658,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 			
 			alert.addAction(UIAlertAction(
 				title: AppStrings.SRSConfirmWarnOthersAlert.actionCancel,
-				style: .default,
+				style: .cancel,
 				handler: { [weak self] _ in
 					self?.navigationController?.dismissAllModalViewControllers(animated: true)
 				}
@@ -1992,7 +2018,7 @@ extension ExposureSubmissionCoordinator {
 		case consent(Consent)
 
 		enum Consent {
-			case cancelWarnOthers
+			case cancelWarnOthers(on: UIViewController)
 			case confirmWarnOthers(on: UIViewController)
 		}
 	}
