@@ -18,9 +18,8 @@ enum OTPError: Error, Equatable, LocalizedError {
 	case deviceTokenSyntaxError
 	case noNetworkConnection
 
-	case restServiceError(ServiceError<OTPAuthorizationForELSError>)
-    case srsRestServiceError(ServiceError<SRSError>)
-    
+	case restServiceError(ServiceError<OTPAuthorizationError>)
+
     var description: String {
         switch self {
         case .generalError(let error):
@@ -53,8 +52,6 @@ enum OTPError: Error, Equatable, LocalizedError {
             return "noNetworkConnection"
         case .restServiceError:
             return "restServiceError"
-        case .srsRestServiceError:
-            return "srsRestServiceError"
         }
     }
 	
