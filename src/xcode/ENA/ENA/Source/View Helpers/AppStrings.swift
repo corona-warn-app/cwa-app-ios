@@ -361,7 +361,13 @@ enum AppStrings {
 		static let tryAgainNextMonth = NSLocalizedString("ExposureSubmission_SRSError_message_TRY_AGAIN_NEXT_MONTH", comment: "")
 		static let faqButtonTitle = NSLocalizedString("ExposureSubmission_SRSError_faqButtonTitle", comment: "")
 		static let okButtonTitle = NSLocalizedString("ExposureSubmission_SRSError_okButtonTitle", comment: "")
-		
+	}
+	
+	enum SRSConfirmWarnOthersAlert {
+		static let title = NSLocalizedString("ExposureSubmission_SRSFlow_alert_confirmWarnOthers_Title", comment: "")
+		static let message = NSLocalizedString("ExposureSubmission_SRSFlow_alert_confirmWarnOthers_Message", comment: "")
+		static let actionConfirm = NSLocalizedString("ExposureSubmission_SRSFlow_alert_confirmWarnOthers_ActionConfirm", comment: "")
+		static let actionCancel = NSLocalizedString("ExposureSubmission_SRSFlow_alert_confirmWarnOthers_ActionCancel", comment: "")
 	}
 
 	enum SRSConsentScreen {

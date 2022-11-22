@@ -394,10 +394,10 @@ class ExposureSubmissionCoordinatorModel {
 	/// Check SRS Flow Prerequisites.
 	/// - Parameters:
 	/// 	- isLoading: The callback that should be execute while fetching the self service parameters from app configuration.
-	/// 	- completion: The completion handler, that has given the regarding `SRSFlowAlert.SRSPreconditionError`, in case of a precondition fault.
+	/// 	- completion: The completion handler, that has given the regarding `SRSPreconditionError`, in case of a precondition fault.
 	func checkSRSFlowPrerequisites(
 		isLoading: @escaping CompletionBool,
-		completion: @escaping (Result<Void, ExposureSubmissionCoordinator.SRSFlowAlert.SRSPreconditionError>) -> Void
+		completion: @escaping (Result<Void, SRSPreconditionError>) -> Void
 	) {
 		completion(.success(()))
 		return
@@ -410,10 +410,10 @@ class ExposureSubmissionCoordinatorModel {
 			completion(.failure(.insufficientAppUsageTime))
 			return
 		}
-		
+
+		// Check if there was already a key submission without a registered test in the last 3 months
 		exposureSubmissionService.loadSelfServiceParameters(isLoading: isLoading) { selfReportSubmissionParametersCommon in
 
-			// Check if there was already a key submission without a registered test in the last 3 months
 			guard selfReportSubmissionParametersCommon.timeBetweenSubmissionsInDays > 90 else {
 				completion(.failure(.positiveTestResultWasAlreadySubmittedWithin90Days))
 				return

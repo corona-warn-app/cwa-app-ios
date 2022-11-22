@@ -2,6 +2,7 @@
 // 🦠 Corona-Warn-App
 //
 
+/// The type of SRS error alert, depending on a regarding error
 enum SRSErrorAlert: String, CaseIterable {
 	case callHotline = "CALL_HOTLINE"
 	case changeDeviceTime = "CHANGE_DEVICE_TIME"

@@ -11,8 +11,9 @@ protocol SRSErrorAlertProviding: Error {
 }
 
 protocol ErrorCodeProviding: Error {
+	typealias ErrorCode = String
 	/// Error Code
-	var description: String { get }
+	var description: ErrorCode { get }
 }
 
 enum SRSServerError: Error {

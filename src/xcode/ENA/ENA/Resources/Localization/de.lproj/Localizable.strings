@@ -1014,6 +1014,14 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmission_SRSTestTypeSelection_primaryButtonTitle" = "Weiter";
 
+"ExposureSubmission_SRSFlow_alert_confirmWarnOthers_Title" = "Achtung";
+
+"ExposureSubmission_SRSFlow_alert_confirmWarnOthers_Message" = "Sind Sie sicher, dass Sie jetzt andere Personen, mit denen Sie in letzter Zeit Kontakt hatten, warnen wollen?";
+
+"ExposureSubmission_SRSFlow_alert_confirmWarnOthers_ActionConfirm" = "Andere Warnen";
+
+"ExposureSubmission_SRSFlow_alert_confirmWarnOthers_ActionCancel" = "Abbrechen";
+
 /* Exposure Submission Result */
 
 "ExposureSubmissionResult_RemoveAlert_Title" = "Wollen Sie Ihr Testergebnis löschen?";

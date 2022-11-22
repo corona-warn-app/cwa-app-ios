@@ -957,12 +957,12 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		isSelfTestTypePreselected: Bool,
 		isLoading: @escaping CompletionBool
 	) {
-		model.checkSRSFlowPrerequisites(isLoading: isLoading) { [weak self] (result: Result<Void, SRSFlowAlert.SRSPreconditionError>) in
+		model.checkSRSFlowPrerequisites(isLoading: isLoading) { [weak self] (result: Result<Void, SRSPreconditionError>) in
 			switch result {
 			case .success:
 				self?.showSRSTestTypeSelectionScreen(isSelfTestTypePreselected: isSelfTestTypePreselected)
 			case .failure(let error):
-				self?.showSRSPreconditionAlert(for: error)
+				self?.showSRSFlowPreconditionAlert(for: error)
 			}
 		}
 	}
@@ -977,7 +977,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 				self?.model.storeSelectedSRSSubmissionType(submissionType)
 				self?.showSRSFlowNextScreen()
 			}, onDismiss: { [weak self] in
-				self?.showSRSFlowAlert(for: .cancelWarnOthers)
+				self?.showSRSFlowConsentAlert(for: .cancelWarnOthers, isLoading: { _ in })
 			}
 		)
 		
@@ -1061,7 +1061,8 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 			Analytics.collect(.keySubmissionMetadata(.lastSubmissionFlowScreen(.submissionFlowScreenSymptomOnset, coronaTestType)))
 		}
 
-		let exposureSubmissionSymptomsOnsetViewController = ExposureSubmissionSymptomsOnsetViewController(
+		var exposureSubmissionSymptomsOnsetViewController: ExposureSubmissionSymptomsOnsetViewController!
+		exposureSubmissionSymptomsOnsetViewController = ExposureSubmissionSymptomsOnsetViewController(
 			onPrimaryButtonTap: { [weak self] selectedSymptomsOnsetOption, isLoading in
 				self?.model.symptomsOnsetOptionSelected(selectedSymptomsOnsetOption)
 
@@ -1074,7 +1075,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 					
 					self?.submitExposure(showSubmissionSuccess: true, isLoading: isLoading)
 				case .srs:
-					self?.submitSRSExposure(showSubmissionSuccess: true, isLoading: isLoading)
+					self?.showSRSFlowConsentAlert(for: .confirmWarnOthers(on: exposureSubmissionSymptomsOnsetViewController), isLoading: isLoading)
 				case .none:
 					break
 				}
@@ -1578,18 +1579,22 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 	) {
 		switch srsFlowAlert {
 		case let .preconditionFailed(srsFlowError):
-			showSRSPreconditionAlert(for: srsFlowError)
+			showSRSFlowPreconditionAlert(for: srsFlowError)
 		case let .consent(srsFlowConsent):
-			showSRSFlowAlert(for: srsFlowConsent)
+			showSRSFlowConsentAlert(for: srsFlowConsent, isLoading: isLoading)
 		case let .error(error):
 			showSRSFlowErrorAlert(for: error, isLoading: isLoading)
 		}
 	}
 	
-	private func showSRSFlowAlert(for consent: SRSFlowAlert.Consent) {
+	private func showSRSFlowConsentAlert(
+		for consent: SRSFlowAlert.Consent,
+		isLoading: @escaping CompletionBool
+	) {
+		var alert: UIAlertController!
 		switch consent {
 		case .cancelWarnOthers:
-			let alert = UIAlertController(
+			alert = UIAlertController(
 				title: AppStrings.ExposureSubmission.SRSTestTypeSelection.warnProcessCancelAlertTitle,
 				message: AppStrings.ExposureSubmission.SRSTestTypeSelection.warnProcessCancelAlertMessage,
 				preferredStyle: .alert
@@ -1609,13 +1614,35 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 			))
 			
 			navigationController?.presentedViewController?.present(alert, animated: true)
-		case .confirmWarnOthers:
-			// to.do show alert
-			break
+			
+		case .confirmWarnOthers(let viewController):
+			alert = UIAlertController(
+				title: AppStrings.SRSConfirmWarnOthersAlert.title,
+				message: AppStrings.SRSConfirmWarnOthersAlert.message,
+				preferredStyle: .alert
+			)
+			
+			alert.addAction(UIAlertAction(
+				title: AppStrings.SRSConfirmWarnOthersAlert.actionConfirm,
+				style: .cancel,
+				handler: { [weak self] _ in
+					self?.submitSRSExposure(showSubmissionSuccess: true, isLoading: isLoading)
+				}
+			))
+			
+			alert.addAction(UIAlertAction(
+				title: AppStrings.SRSConfirmWarnOthersAlert.actionCancel,
+				style: .default,
+				handler: { [weak self] _ in
+					self?.navigationController?.dismissAllModalViewControllers(animated: true)
+				}
+			))
+			
+			viewController.present(alert, animated: true)
 		}
 	}
 	
-	private func showSRSPreconditionAlert(for error: SRSFlowAlert.SRSPreconditionError) {
+	private func showSRSFlowPreconditionAlert(for error: SRSPreconditionError) {
 		let alert = UIAlertController.errorAlert(
 			title: AppStrings.ExposureSubmissionDispatch.SRSWarnOthersPreconditionAlert.title,
 			message: error.message,
@@ -1966,40 +1993,7 @@ extension ExposureSubmissionCoordinator {
 
 		enum Consent {
 			case cancelWarnOthers
-			case confirmWarnOthers
-		}
-
-		enum SRSPreconditionError: Error {
-			
-			/// Precondition: the app was installed less than 48h
-			case insufficientAppUsageTime
-			
-			/// Precondition: there was already a key submission without a registered test in the last 3 months
-			case positiveTestResultWasAlreadySubmittedWithin90Days
-			
-			var errorCode: String {
-				switch self {
-				case .insufficientAppUsageTime:
-					return "MIN_TIME_SINCE_ONBOARDING"
-				case .positiveTestResultWasAlreadySubmittedWithin90Days:
-					return "SUBMISSION_TOO_EARLY"
-				}
-			}
-			
-			var message: String {
-				switch self {
-				case .insufficientAppUsageTime:
-					return String(
-						format: AppStrings.ExposureSubmissionDispatch.SRSWarnOthersPreconditionAlert.insufficientAppUsageTime_message,
-						errorCode
-					)
-				case  .positiveTestResultWasAlreadySubmittedWithin90Days:
-					return String(
-						format: AppStrings.ExposureSubmissionDispatch.SRSWarnOthersPreconditionAlert.positiveTestResultWasAlreadySubmittedWithin90Days_message,
-						errorCode
-					)
-				}
-			}
+			case confirmWarnOthers(on: UIViewController)
 		}
 	}
 }
