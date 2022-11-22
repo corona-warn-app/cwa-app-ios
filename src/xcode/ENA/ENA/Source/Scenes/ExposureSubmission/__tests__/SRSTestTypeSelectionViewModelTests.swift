@@ -13,14 +13,11 @@ final class SRSTestTypeSelectionViewModelTests: XCTestCase {
 		let cells = sut.dynamicTableViewModel.section(0).cells
 		
 		// Then
-		XCTAssertEqual(cells.count, 2)
+		XCTAssertEqual(cells.count, 3)
 
-		[
-			DynamicCell.CellReuseIdentifier.dynamicTypeLabel.rawValue,
-			SRSTestTypeSelectionViewController.CustomCellReuseIdentifiers.optionGroupCell.rawValue
-		].enumerated().forEach { index, identifier in
-			XCTAssertEqual(cells[index].cellReuseIdentifier.rawValue, identifier)
-		}
+		XCTAssertEqual(cells[0].cellReuseIdentifier.rawValue, "labelCell")
+		XCTAssertEqual(cells[1].cellReuseIdentifier.rawValue, "labelCell")
+		XCTAssertEqual(cells[2].cellReuseIdentifier.rawValue, "optionGroupCell")
 	}
 	
 	func test_When_IsSelfTestTypePreselected_False_Then_selectedSubmissionTypeShouldBeNil() throws {
