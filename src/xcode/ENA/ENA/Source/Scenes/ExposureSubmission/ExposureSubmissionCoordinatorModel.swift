@@ -13,6 +13,7 @@ class ExposureSubmissionCoordinatorModel {
 	init(
 		exposureSubmissionService: ExposureSubmissionService,
 		coronaTestService: CoronaTestServiceProviding,
+		srsService: SRSServiceProviding,
 		familyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding,
 		eventProvider: EventProviding,
 		recycleBin: RecycleBin
@@ -22,7 +23,7 @@ class ExposureSubmissionCoordinatorModel {
 		self.coronaTestService = coronaTestService
 		self.eventProvider = eventProvider
 		self.recycleBin = recycleBin
-
+		self.srsService = srsService
 		// Try to load current country list initially to make it virtually impossible the user has to wait for it later.
 		exposureSubmissionService.loadSupportedCountries { _ in
 			// no op
@@ -38,6 +39,7 @@ class ExposureSubmissionCoordinatorModel {
 	let familyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding
 	let eventProvider: EventProviding
 	let recycleBin: RecycleBin
+	let srsService: SRSServiceProviding
 	
 	var submissionTestType: SubmissionTestType?
 	var markNewlyAddedCoronaTestAsUnseen: Bool = false

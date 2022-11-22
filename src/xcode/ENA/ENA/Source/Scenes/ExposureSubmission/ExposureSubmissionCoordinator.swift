@@ -18,6 +18,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		parentViewController: UIViewController,
 		exposureSubmissionService: ExposureSubmissionService,
 		coronaTestService: CoronaTestServiceProviding,
+		srsService: SRSServiceProviding,
 		familyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding,
 		healthCertificateService: HealthCertificateService,
 		healthCertificateValidationService: HealthCertificateValidationProviding,
@@ -41,6 +42,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: exposureSubmissionService,
 			coronaTestService: coronaTestService,
+			srsService: srsService,
 			familyMemberCoronaTestService: familyMemberCoronaTestService,
 			eventProvider: eventProvider,
 			recycleBin: recycleBin
