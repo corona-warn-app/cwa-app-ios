@@ -150,7 +150,80 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 			completion(nil)
 		}
 	}
+	/// This method submits the SRS exposure keys. Additionally, after successful completion,
+	/// the timestamp of the key submission is updated.
+	func submitSRSExposure(
+		submissionType: SRSSubmissionType,
+		srsOTP: String,
+		completion: @escaping (_ error: ExposureSubmissionServiceError?) -> Void
+	) {
+		Log.info("Started exposure submission...", log: .api)
 
+		guard let keys = temporaryExposureKeys else {
+			Log.info("Cancelled submission: No temporary exposure keys to submit.", log: .api)
+			completion(.preconditionError(.keysNotShared))
+			return
+		}
+
+		guard !keys.isEmpty || !checkins.isEmpty else {
+			Log.info("Cancelled submission: No temporary exposure keys or checkins to submit.", log: .api)
+			completion(.preconditionError(.noKeysCollected))
+
+			// We perform a cleanup in order to set the correct
+			// timestamps, despite not having communicated with the backend,
+			// in order to show the correct screens.
+			self.submitExposureCleanup(submissionTestType: .srs(submissionType))
+			return
+		}
+
+		// we need the app configuration first…
+		appConfigurationProvider
+			.appConfiguration()
+			.sink { [weak self] appConfig in
+				guard let self = self else {
+					Log.error("Failed to create string self")
+					return
+				}
+				// Fetch & process keys and checkins
+				let processedKeys = keys.processedForSubmission(
+					with: self.symptomsOnset
+				)
+				
+				let unencryptedCheckinsEnabled = self.appConfigurationProvider.featureProvider.boolValue(for: .unencryptedCheckinsEnabled)
+				
+				var unencryptedCheckins = [SAP_Internal_Pt_CheckIn]()
+				if unencryptedCheckinsEnabled {
+					unencryptedCheckins = self.checkins.preparedForSubmission(
+						appConfig: appConfig,
+						transmissionRiskLevelSource: .symptomsOnset(self.symptomsOnset)
+					)
+				}
+				
+				let checkinProtectedReports = self.checkins.preparedProtectedReportsForSubmission(
+					appConfig: appConfig,
+					transmissionRiskLevelSource: .symptomsOnset(self.symptomsOnset)
+				)
+				
+				// Request needs to be prepended by the fake request Playbook for srs.
+				
+				self._submitSRS(
+					processedKeys,
+					srsOtp: srsOTP,
+					submissionType: submissionType,
+					visitedCountries: self.supportedCountries,
+					checkins: unencryptedCheckins,
+					checkInProtectedReports: checkinProtectedReports,
+					completion: { error in
+						if let error = error {
+							completion(.keySubmissionError(error))
+						} else {
+							completion(nil)
+						}
+					}
+				)
+			}
+			.store(in: &subscriptions)
+	}
 	/// This method submits the exposure keys. Additionally, after successful completion,
 	/// the timestamp of the key submission is updated.
 	/// __Extension for plausible deniability__:
@@ -192,7 +265,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 			// We perform a cleanup in order to set the correct
 			// timestamps, despite not having communicated with the backend,
 			// in order to show the correct screens.
-			submitExposureCleanup(coronaTestType: coronaTest.type)
+			submitExposureCleanup(submissionTestType: .registeredTest(coronaTest.type))
 			return
 		}
 
@@ -291,7 +364,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 			case let .failure(error):
 				completion(.coronaTestServiceError(error))
 			case let .success(tan):
-				self._submit(
+				self._submitRegularSubmission(
 					keys,
 					coronaTest: coronaTest,
 					with: tan,
@@ -312,7 +385,44 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 	/// Helper method that handles only the submission of the keys. Use this only if you really just want to do the
 	/// part of the submission flow in which the keys are submitted.
 	/// For more information, please check _submitExposure().
-	private func _submit(
+	private func _submitSRS(
+		_ keys: [SAP_External_Exposurenotification_TemporaryExposureKey],
+		srsOtp: String,
+		submissionType: SRSSubmissionType,
+		visitedCountries: [Country],
+		checkins: [SAP_Internal_Pt_CheckIn],
+		checkInProtectedReports: [SAP_Internal_Pt_CheckInProtectedReport],
+		completion: @escaping (_ error: ServiceError<KeySubmissionResourceError>?) -> Void
+	) {
+		let payload = SubmissionPayload(
+			exposureKeys: keys,
+			visitedCountries: visitedCountries,
+			checkins: checkins,
+			checkinProtectedReports: checkInProtectedReports,
+			tan: nil,
+			submissionType: submissionType.protobufType
+		)
+				
+		let resource = SRSKeySubmissionResource(payload: payload, srsOtp: srsOtp)
+		restServiceProvider.load(resource) { result in
+			
+			switch result {
+			case .success:
+				self.submitExposureCleanup(submissionTestType: .srs(submissionType))
+
+				Log.info("Successfully completed SRS exposure submission.", log: .api)
+				completion(nil)
+			case .failure(let error):
+				Log.error("Error while submitting SRS diagnosis keys: \(error.localizedDescription)", log: .api)
+				
+				completion(error)
+			}
+		}
+	}
+	/// Helper method that handles only the submission of the keys. Use this only if you really just want to do the
+	/// part of the submission flow in which the keys are submitted.
+	/// For more information, please check _submitExposure().
+	private func _submitRegularSubmission(
 		_ keys: [SAP_External_Exposurenotification_TemporaryExposureKey],
 		coronaTest: UserCoronaTest,
 		with tan: String,
@@ -344,7 +454,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 					Analytics.collect(.keySubmissionMetadata(.submittedWithCheckins(true, coronaTest.type)))
 				}
 
-				self.submitExposureCleanup(coronaTestType: coronaTest.type)
+				self.submitExposureCleanup(submissionTestType: .registeredTest(coronaTest.type))
 
 				Log.info("Successfully completed exposure submission.", log: .api)
 				completion(nil)
@@ -357,18 +467,28 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 	}
 
 	/// This method removes all left over persisted objects part of the `submitExposure` flow.
-	private func submitExposureCleanup(coronaTestType: CoronaTestType) {
-		switch coronaTestType {
-		case .pcr:
-			coronaTestService.pcrTest.value?.keysSubmitted = true
-			coronaTestService.pcrTest.value?.submissionTAN = nil
-		case .antigen:
-			coronaTestService.antigenTest.value?.keysSubmitted = true
-			coronaTestService.antigenTest.value?.submissionTAN = nil
-		}
+	private func submitExposureCleanup(submissionTestType: SubmissionTestType) {
+		switch submissionTestType {
+		case .registeredTest(let coronaTestType):
+			guard let coronaTestType = coronaTestType else {
+				Log.error("Corona test type is nil, case should not be possible")
+				return
+			}
+			switch coronaTestType {
+			case .pcr:
+				coronaTestService.pcrTest.value?.keysSubmitted = true
+				coronaTestService.pcrTest.value?.submissionTAN = nil
+			case .antigen:
+				coronaTestService.antigenTest.value?.keysSubmitted = true
+				coronaTestService.antigenTest.value?.submissionTAN = nil
+			}
 
-		/// Deactivate deadman notification while submitted test is still present
-		deadmanNotificationManager.resetDeadmanNotification()
+			/// Deactivate deadman notification while submitted test is still present
+			deadmanNotificationManager.resetDeadmanNotification()
+
+		case .srs:
+			break
+		}
 
 		temporaryExposureKeys = nil
 		
