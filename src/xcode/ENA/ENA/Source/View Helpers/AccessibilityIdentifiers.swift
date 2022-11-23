@@ -113,6 +113,12 @@ enum AccessibilityIdentifiers {
 				static let thirdBulletPoint = "AccessibilityIdentifiers.Home.ratCell.Positive.Item2"
 				static let fourthBulletPoint = "AccessibilityIdentifiers.Home.ratCell.Positive.Item3"
 			}
+			enum SRS {
+				static let firstBulletPoint = "AccessibilityIdentifiers.Home.srsCell.Positive.Item0"
+				static let secondBulletPoint = "AccessibilityIdentifiers.Home.srsCell.Positive.Item1"
+				static let thirdBulletPoint = "AccessibilityIdentifiers.Home.srsCell.Positive.Item2"
+				static let fourthBulletPoint = "AccessibilityIdentifiers.Home.srsCell.Positive.Item3"
+			}
 			static let submittedPCRCell = "AccessibilityIdentifiers.Home.submittedPCRCell"
 			static let submittedAntigenCell = "AccessibilityIdentifiers.Home.submittedAntigenCell"
 			static let removeTestButton = "AppStrings.Home.TestResult.ShownPositive.removeTestButton"
@@ -347,6 +353,12 @@ enum AccessibilityIdentifiers {
 		static let primaryButton = "AppStrings.SRSConsentScreen.primaryButton"
 		static let accImageDescription = "AppStrings.SRSConsentScreen.accImageDescription"
 		static let headerSection1 = "AppStrings.SRSConsentScreen.headerSection1"
+		static let acknowledgementTitle = "AppStrings.SRSConsentScreen.acknowledgementTitle"
+		static let dataProcessingDetailInfoButton = "AppStrings.SRSConsentScreen.dataProcessingDetailInfoButton"
+	}
+	
+	enum SRSDataProcessingDetailInfo {
+		static let content = "AppStrings.SRSConsentScreen.dataProcessingDetailInfo"
 	}
 
 	enum ExposureSubmissionQRInfo {
@@ -580,6 +592,7 @@ enum AccessibilityIdentifiers {
 
 		enum SRSTestTypeSelection {
 			static let body = "AppStrings.ExposureSubmission.SRSTestTypeSelection.body"
+			static let description = "AppStrings.ExposureSubmission.SRSTestTypeSelection.description"
 			static let optionSRSSelfTest = "AppStrings.ExposureSubmission.SRSTestTypeSelection.submissionType.srsSelfTest"
 			static let optionSRSRegisteredRat = "AppStrings.ExposureSubmission.SRSTestTypeSelection.submissionType.srsRegisteredRat"
 			static let optionSRSRegisteredPcr = "AppStrings.ExposureSubmission.SRSTestTypeSelection.submissionType.srsRegisteredPcr"

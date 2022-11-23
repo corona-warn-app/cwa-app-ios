@@ -579,6 +579,8 @@
 		347FBB6A2610DDBD00672770 /* TraceLocationDetailsQRCodeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 347FBB692610DDBD00672770 /* TraceLocationDetailsQRCodeCell.swift */; };
 		347FBB752611C9F100672770 /* TraceLocationDetailsDateTimeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 347FBB742611C9EF00672770 /* TraceLocationDetailsDateTimeCell.swift */; };
 		3484AC7C26A060E900CB0500 /* LocalStatisticsState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3484AC7B26A060E900CB0500 /* LocalStatisticsState.swift */; };
+		3492C187292D172000C48133 /* SRSDataProcessingInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3492C186292D172000C48133 /* SRSDataProcessingInfoViewController.swift */; };
+		3492C189292D174400C48133 /* SRSDataProcessingInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3492C188292D174400C48133 /* SRSDataProcessingInfoViewModel.swift */; };
 		3494634C27EDF90800403F7A /* ExposureSubmissionTestResultModeling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3494634B27EDF90800403F7A /* ExposureSubmissionTestResultModeling.swift */; };
 		3494634E27F498D900403F7A /* ExposureSubmissionTestResultFamilyMemberViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3494634D27F498D900403F7A /* ExposureSubmissionTestResultFamilyMemberViewModelTests.swift */; };
 		3494635227FC937900403F7A /* AntigenTestProfileOverviewEmptyStateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3494635127FC937900403F7A /* AntigenTestProfileOverviewEmptyStateViewModel.swift */; };
@@ -2458,6 +2460,8 @@
 		347FBB692610DDBD00672770 /* TraceLocationDetailsQRCodeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceLocationDetailsQRCodeCell.swift; sourceTree = "<group>"; };
 		347FBB742611C9EF00672770 /* TraceLocationDetailsDateTimeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceLocationDetailsDateTimeCell.swift; sourceTree = "<group>"; };
 		3484AC7B26A060E900CB0500 /* LocalStatisticsState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalStatisticsState.swift; sourceTree = "<group>"; };
+		3492C186292D172000C48133 /* SRSDataProcessingInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SRSDataProcessingInfoViewController.swift; sourceTree = "<group>"; };
+		3492C188292D174400C48133 /* SRSDataProcessingInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SRSDataProcessingInfoViewModel.swift; sourceTree = "<group>"; };
 		3494634B27EDF90800403F7A /* ExposureSubmissionTestResultModeling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionTestResultModeling.swift; sourceTree = "<group>"; };
 		3494634D27F498D900403F7A /* ExposureSubmissionTestResultFamilyMemberViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionTestResultFamilyMemberViewModelTests.swift; sourceTree = "<group>"; };
 		3494635127FC937900403F7A /* AntigenTestProfileOverviewEmptyStateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AntigenTestProfileOverviewEmptyStateViewModel.swift; sourceTree = "<group>"; };
@@ -5575,6 +5579,15 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		3492C185292D16E900C48133 /* SRSDataProcessingInfo */ = {
+			isa = PBXGroup;
+			children = (
+				3492C186292D172000C48133 /* SRSDataProcessingInfoViewController.swift */,
+				3492C188292D174400C48133 /* SRSDataProcessingInfoViewModel.swift */,
+			);
+			path = SRSDataProcessingInfo;
+			sourceTree = "<group>";
+		};
 		3494635027FC91D100403F7A /* AntigenTestProfileOverview */ = {
 			isa = PBXGroup;
 			children = (
@@ -7731,6 +7744,7 @@
 			children = (
 				EB67B5E5262AD65900218EC7 /* ExposureSubmissionCheckins */,
 				8FA3E9C42913F2E8000512FC /* SRSConsent */,
+				3492C185292D16E900C48133 /* SRSDataProcessingInfo */,
 				2F80CFDA247EDDB3000F06AF /* ExposureSubmissionHotlineViewController.swift */,
 				503DB1A6255D822E00576E57 /* ExposureSubmissionIntroViewController.swift */,
 				503DB1AB255D826900576E57 /* ExposureSubmissionIntroViewModel.swift */,
@@ -11336,6 +11350,7 @@
 				BA6C8B05254D6B1F008344F5 /* RiskCalculation.swift in Sources */,
 				01F3323527146EF5005CE21E /* RecycleBinViewModel.swift in Sources */,
 				BA6D1640255ADD0500ED3492 /* DMSwitchCellViewModel.swift in Sources */,
+				3492C189292D174400C48133 /* SRSDataProcessingInfoViewModel.swift in Sources */,
 				AB182015275E1FE50054B873 /* HygieneRulesInfoViewController.swift in Sources */,
 				ABE5E0BA269363B900D50C2B /* CountrySelectionCell.swift in Sources */,
 				BA291AC3275A48CA003C42C2 /* DMTicketValidationViewModel.swift in Sources */,
@@ -12159,6 +12174,7 @@
 				01C6AC32252B29C00052814D /* QRScannerError.swift in Sources */,
 				345D1E6627BA90CE00F79EFD /* OverviewLabelTableViewCell.swift in Sources */,
 				8FB776FB26F28336005255BB /* HealthCertificateQRCodeParser.swift in Sources */,
+				3492C187292D172000C48133 /* SRSDataProcessingInfoViewController.swift in Sources */,
 				ABC506BB2747DC9600698A95 /* EncryptAndSignResult.swift in Sources */,
 				0196FE8527E4EFCC00B2729E /* UserCoronaTest.swift in Sources */,
 				AB6993AF2608F39E00232AD7 /* TraceWarningMatching.swift in Sources */,

@@ -182,10 +182,11 @@ enum AppStrings {
 
 			}
 		}
-
+		
 		enum SRSTestTypeSelection {
 			static let title = NSLocalizedString("ExposureSubmission_SRSTestTypeSelection_title", comment: "")
 			static let body = NSLocalizedString("ExposureSubmission_SRSTestTypeSelection_body", comment: "")
+			static let description = NSLocalizedString("ExposureSubmission_SRSTestTypeSelection_description", comment: "")
 			static let optionSRSSelfTestTitle = NSLocalizedString("ExposureSubmission_SRSTestTypeSelection_optionSRSSelfTest_title", comment: "")
 			static let optionSRSRegisteredRatTitle = NSLocalizedString("ExposureSubmission_SRSTestTypeSelection_optionSRSRegisteredRat_title", comment: "")
 			static let optionSRSRegisteredPcrTitle = NSLocalizedString("ExposureSubmission_SRSTestTypeSelection_optionSRSRegisteredPcr_title", comment: "")
@@ -345,9 +346,6 @@ enum AppStrings {
 		static let titleDescription1 = NSLocalizedString("SRS_ConsentScreen_title_description1", comment: "")
 		static let instruction1 = NSLocalizedString("SRS_ConsentScreen_instruction1", comment: "")
 		static let instruction2 = NSLocalizedString("SRS_ConsentScreen_instruction2", comment: "")
-		static let instruction3 = NSLocalizedString("SRS_ConsentScreen_instruction3", comment: "")
-		static let headerSection2 = NSLocalizedString("SRS_ConsentScreen_header_section2", comment: "")
-		static let titleDescription2 = NSLocalizedString("SRS_ConsentScreen_title_description2", comment: "")
 		
 		static let legalHeadline = NSLocalizedString("SRS_Consent_Legal_Headline", tableName: "Localizable.legal", comment: "")
 		static let legalDescription = NSLocalizedString("SRS_Consent_Legal_Description", tableName: "Localizable.legal", comment: "")
@@ -355,6 +353,18 @@ enum AppStrings {
 		static let legalBulletPoint02 = NSLocalizedString("SRS_Consent_Legal_Text_2", tableName: "Localizable.legal", comment: "")
 		static let legalBulletPoint03 = NSLocalizedString("SRS_Consent_Legal_Text_3", tableName: "Localizable.legal", comment: "")
 		static let primaryButtonTitle = NSLocalizedString("SRSConsentScreen_primaryButtonTitle", comment: "")
+		static let acknowledgement1 = NSLocalizedString("SRS_ConsentScreen_Acknowledgement_1", comment: "")
+		static let acknowledgement2 = NSLocalizedString("SRS_ConsentScreen_Acknowledgement_2", comment: "")
+		static let acknowledgement3 = NSLocalizedString("SRS_ConsentScreen_Acknowledgement_3", comment: "")
+		static let acknowledgement4 = NSLocalizedString("SRS_ConsentScreen_Acknowledgement_4", comment: "")
+		static let acknowledgement5 = NSLocalizedString("SRS_ConsentScreen_Acknowledgement_5", comment: "")
+		static let acknowledgement6 = NSLocalizedString("SRS_ConsentScreen_Acknowledgement_6", comment: "")
+		static let dataProcessingDetailInfo = NSLocalizedString("SRS_ConsentScreen_DataProcessingDetailInfo", comment: "")
+	}
+	
+	enum SRSDataProcessingInfo {
+		static let title = NSLocalizedString("SRS_DataProcessingInfo_title", comment: "")
+		static let description = NSLocalizedString("SRS_DataProcessingInfodescription", comment: "")
 	}
 	
 	enum ExposureSubmissionQRInfo {
@@ -513,7 +523,11 @@ enum AppStrings {
 		static let listItemRAT0 = NSLocalizedString("ExposureSubmissionSuccess_RAT_listItem0", comment: "")
 		static let listItemRAT1 = NSLocalizedString("ExposureSubmissionSuccess_RAT_listItem1", comment: "")
 		static let listItemRAT2 = NSLocalizedString("ExposureSubmissionSuccess_RAT_listItem2", comment: "")
-		static let listItemRAT3 = NSLocalizedString("ExposureSubmissionSuccess_RAT_listItem2", comment: "")
+		static let listItemRAT3 = NSLocalizedString("ExposureSubmissionSuccess_RAT_listItem3", comment: "")
+		static let listItemSRS0 = NSLocalizedString("ExposureSubmissionSuccess_SRS_listItem0", comment: "")
+		static let listItemSRS1 = NSLocalizedString("ExposureSubmissionSuccess_SRS_listItem1", comment: "")
+		static let listItemSRS2 = NSLocalizedString("ExposureSubmissionSuccess_SRS_listItem2", comment: "")
+		static let listItemSRS3 = NSLocalizedString("ExposureSubmissionSuccess_SRS_listItem3", comment: "")
 		static let subTitle = NSLocalizedString("ExposureSubmissionSuccess_subTitle", comment: "")
 		static let listItem2_1 = NSLocalizedString("ExposureSubmissionSuccess_listItem2_1", comment: "")
 		static let listItem2_2 = NSLocalizedString("ExposureSubmissionSuccess_listItem2_2", comment: "")

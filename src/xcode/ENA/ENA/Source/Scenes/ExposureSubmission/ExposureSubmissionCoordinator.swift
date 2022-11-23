@@ -1729,14 +1729,14 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 	}
 	
 	private func showExposureSubmissionSuccessViewController() {
-		guard let coronaTestType = model.coronaTestType else {
-			Log.error("No corona test type set to show the success view controller for, dismissing to be safe", log: .ui)
+		guard let submissionTestType = model.submissionTestType else {
+			Log.error("No submission test type set to show the success view controller for, dismissing to be safe", log: .ui)
 			dismiss()
 			return
 		}
 
 		let exposureSubmissionSuccessViewController = ExposureSubmissionSuccessViewController(
-			coronaTestType: coronaTestType,
+			submissionTestType: submissionTestType,
 			dismiss: { [weak self] in
 				self?.dismiss()
 			}
