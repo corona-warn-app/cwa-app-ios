@@ -338,6 +338,10 @@ enum AppStrings {
 		static let SRSButtonDescription = NSLocalizedString("ExposureSubmissionDispatch_SRSButtonDescription", comment: "")
 		static let findTestCentersButtonTitle = NSLocalizedString("ExposureSubmissionDispatch_FindTestCentersTitle", comment: "")
 		static let findTestCentersButtonDescription = NSLocalizedString("ExposureSubmissionDispatch_FindTestCentersDescription", comment: "")
+		
+		enum SRSSubmissionError {
+			static let srsSubmissionInvalidOTP = NSLocalizedString("SRS_submission_Invalid_OTP", comment: "")
+		}
 	}
 
 	enum SRSConsentScreen {

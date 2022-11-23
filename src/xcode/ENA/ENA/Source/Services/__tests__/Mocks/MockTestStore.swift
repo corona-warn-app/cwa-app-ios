@@ -86,7 +86,7 @@ final class MockTestStore: Store, PPAnalyticsData {
 	// MARK: - SRS Providing
 
 	var ppacApiTokenSRS: TimestampedToken?
-	var previousPpacApiTokenSRS: TimestampedToken?
+	var previousPPACApiTokenSrs: TimestampedToken?
 	var otpTokenSRS: OTPToken?
     var otpSrsAuthorizationDate: Date?
 
@@ -232,7 +232,5 @@ final class MockTestStore: Store, PPAnalyticsData {
 
 	// MARK: - KeyValueCacheStoring
 	var keyValueCacheVersion: Int = 0
-
 }
-
 #endif

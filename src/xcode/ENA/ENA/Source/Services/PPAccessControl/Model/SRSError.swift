@@ -4,7 +4,7 @@
 
 import Foundation
 
-enum SRSError: Error {
+enum SRSError: Error, Equatable {
 	case ppacError(PPACError)
     case otpError(OTPError)
 

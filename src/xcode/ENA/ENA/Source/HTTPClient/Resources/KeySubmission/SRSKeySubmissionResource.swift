@@ -5,7 +5,7 @@
 import Foundation
 
 enum SRSKeySubmissionResourceError: LocalizedError, Equatable {
-	case invalidPayloadOrHeaders
+	case invalidPayloadOrHeader
 	case invalidOtp
 	case requestCouldNotBeBuilt
 	case serverError(Int)
@@ -14,11 +14,10 @@ enum SRSKeySubmissionResourceError: LocalizedError, Equatable {
 		switch self {
 		case let .serverError(code):
 			return "\(AppStrings.ExposureSubmissionError.other)\(code) \(AppStrings.ExposureSubmissionError.otherend)"
-		case .invalidPayloadOrHeaders:
+		case .invalidPayloadOrHeader:
 			return "\(AppStrings.ExposureSubmissionError.errorPrefix) - Received an invalid payload or headers."
 		case .invalidOtp:
-			// to.do update text for invalid otp
-			return SRSError.srsOTPServerError.description
+			return "\(AppStrings.ExposureSubmissionDispatch.SRSSubmissionError.srsSubmissionInvalidOTP) - invalid OTP."
 		case .requestCouldNotBeBuilt:
 			return "\(AppStrings.ExposureSubmissionError.errorPrefix) - The submission request could not be built correctly."
 		}
@@ -31,7 +30,6 @@ struct SRSKeySubmissionResource: Resource {
 		payload: SubmissionPayload,
 		srsOtp: String,
 		isFake: Bool = false,
-		// submissionType: SRSSubmissionType,
 		trustEvaluation: TrustEvaluating = DefaultTrustEvaluation(
 			publicKeyHash: Environments().currentEnvironment().pinningKeyHashData
 		)

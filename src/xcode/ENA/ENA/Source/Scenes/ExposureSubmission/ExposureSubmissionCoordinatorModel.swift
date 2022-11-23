@@ -217,7 +217,7 @@ class ExposureSubmissionCoordinatorModel {
 					}
 				}
 			case .failure(let srsError):
-				// to.do present srsError "APITOKEN or OTP auth failed"
+				onError(.srsError(srsError))
 				Log.debug(srsError.description, log: .ppac)
 			}
 			

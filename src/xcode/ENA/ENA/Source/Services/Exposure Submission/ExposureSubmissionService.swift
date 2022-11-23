@@ -29,7 +29,8 @@ enum ExposureSubmissionServiceError: LocalizedError, Equatable {
 	case coronaTestServiceError(CoronaTestServiceError)
 	case keySubmissionError(ServiceError<KeySubmissionResourceError>)
 	case preconditionError(ExposureSubmissionServicePreconditionError)
-	
+	case srsError(SRSError)
+
 	var errorDescription: String? {
 		switch self {
 		case .coronaTestServiceError(let error):
@@ -38,6 +39,8 @@ enum ExposureSubmissionServiceError: LocalizedError, Equatable {
 			return error.errorDescription
 		case .preconditionError(let error):
 			return error.errorDescription
+		case .srsError(let error):
+			return error.description
 		}
 	}
 }
@@ -157,16 +160,16 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		srsOTP: String,
 		completion: @escaping (_ error: ExposureSubmissionServiceError?) -> Void
 	) {
-		Log.info("Started exposure submission...", log: .api)
+		Log.info("Started SRS exposure submission...", log: .api)
 
 		guard let keys = temporaryExposureKeys else {
-			Log.info("Cancelled submission: No temporary exposure keys to submit.", log: .api)
+			Log.info("Cancelled SRS exposure: No temporary exposure keys to submit.", log: .api)
 			completion(.preconditionError(.keysNotShared))
 			return
 		}
 
 		guard !keys.isEmpty || !checkins.isEmpty else {
-			Log.info("Cancelled submission: No temporary exposure keys or checkins to submit.", log: .api)
+			Log.info("Cancelled SRS exposure: No temporary exposure keys or checkins to submit.", log: .api)
 			completion(.preconditionError(.noKeysCollected))
 
 			// We perform a cleanup in order to set the correct
@@ -181,7 +184,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 			.appConfiguration()
 			.sink { [weak self] appConfig in
 				guard let self = self else {
-					Log.error("Failed to create string self")
+					Log.error("Failed to create strong self")
 					return
 				}
 				// Fetch & process keys and checkins
@@ -382,7 +385,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		}
 	}
 
-	/// Helper method that handles only the submission of the keys. Use this only if you really just want to do the
+	/// Helper method that handles only the submission of the keys for SRS. Use this only if you really just want to do the
 	/// part of the submission flow in which the keys are submitted.
 	/// For more information, please check _submitExposure().
 	private func _submitSRS(
@@ -419,6 +422,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 			}
 		}
 	}
+	
 	/// Helper method that handles only the submission of the keys. Use this only if you really just want to do the
 	/// part of the submission flow in which the keys are submitted.
 	/// For more information, please check _submitExposure().
@@ -487,6 +491,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 			deadmanNotificationManager.resetDeadmanNotification()
 
 		case .srs:
+			// No cleanup needed as we don't store SRS
 			break
 		}
 

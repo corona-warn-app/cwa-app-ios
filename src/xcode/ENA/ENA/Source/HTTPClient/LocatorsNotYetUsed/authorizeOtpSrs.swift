@@ -9,7 +9,7 @@ extension Locator {
     // send:	ProtoBuf SAP_Internal_Ppdd_SRSOneTimePasswordRequestIOS
     // receive:	JSON
     // type:	default
-    // comment:
+    // comment: the endpoint for otp authorization for SRS
     static func authorizeOtpSrs(
         isFake: Bool
     ) -> Locator {

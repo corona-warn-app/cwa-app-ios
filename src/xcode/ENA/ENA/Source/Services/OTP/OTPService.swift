@@ -116,7 +116,7 @@ final class OTPService: OTPServiceProviding {
 		}
 		Log.info("No existing or valid OTP ELS was found. Generating new one.", log: .otp)
 		let otp = generateOTPToken()
-		authorizeSrs(otp, with: ppacToken, completion: completion)
+		authorizeSRS(otp, with: ppacToken, completion: completion)
 	}
 
 	func discardOTPEdus() {
@@ -218,7 +218,7 @@ final class OTPService: OTPServiceProviding {
 		}
 	}
 	
-	private func authorizeSrs(_ otp: String, with ppacToken: PPACToken, completion: @escaping (Result<String, OTPError>) -> Void) {
+	private func authorizeSRS(_ otp: String, with ppacToken: PPACToken, completion: @escaping (Result<String, OTPError>) -> Void) {
 		Log.info("Authorization of a new OTP SRS started.", log: .otp)
 		// We authorize the otp with the ppac Token at our server.
 		let resource = OTPAuthorizationForSRSResource(otpSRS: otp, ppacToken: ppacToken)
