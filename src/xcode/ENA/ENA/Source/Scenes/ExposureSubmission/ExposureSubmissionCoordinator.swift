@@ -1626,10 +1626,11 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 				preferredStyle: .alert
 			)
 			
-			alert.addAction(UIAlertAction(
+			let continueAction = UIAlertAction(
 				title: AppStrings.ExposureSubmission.SRSTestTypeSelection.warnProcessCancelAlertActionContinue,
 				style: .default
-			))
+			)
+			alert.addAction(continueAction)
 			
 			alert.addAction(UIAlertAction(
 				title: AppStrings.ExposureSubmission.SRSTestTypeSelection.warnProcessCancelAlertActionCancel,
@@ -1638,6 +1639,8 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 					self?.navigationController?.dismissAllModalViewControllers(animated: true)
 				}
 			))
+			
+			alert.preferredAction = continueAction
 			
 			viewController.present(alert, animated: true)
 			
@@ -1648,13 +1651,14 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 				preferredStyle: .alert
 			)
 			
-			alert.addAction(UIAlertAction(
+			let confirmAction = UIAlertAction(
 				title: AppStrings.SRSConfirmWarnOthersAlert.actionConfirm,
 				style: .default,
 				handler: { [weak self] _ in
 					self?.submitSRSExposure(showSubmissionSuccess: true, isLoading: isLoading)
 				}
-			))
+			)
+			alert.addAction(confirmAction)
 			
 			alert.addAction(UIAlertAction(
 				title: AppStrings.SRSConfirmWarnOthersAlert.actionCancel,
@@ -1663,6 +1667,8 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 					self?.navigationController?.dismissAllModalViewControllers(animated: true)
 				}
 			))
+			
+			alert.preferredAction = confirmAction
 			
 			viewController.present(alert, animated: true)
 		}
