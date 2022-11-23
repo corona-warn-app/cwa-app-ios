@@ -129,7 +129,7 @@ protocol SRSProviding: AnyObject {
 	/// PPAC token for Self-Report Submission (SRS)
 	var ppacApiTokenSrs: TimestampedToken? { get set }
 	/// Previous PPAC token for Self-Report Submission (SRS)
-	var previousPPACApiTokenSrs: TimestampedToken? { get set }
+	var previousPpacApiTokenSrs: TimestampedToken? { get set }
 	/// OTP for Self-Report Submission (SRS)
 	var otpTokenSrs: OTPToken? { get set }
 	/// Date of last otp authorization

@@ -580,9 +580,9 @@ extension SecureStore: SRSProviding {
 		set { kvStore["ppacApiTokenSrs"] = newValue }
 	}
 	
-	var previousPPACApiTokenSrs: TimestampedToken? {
-		get { kvStore["previousPPACApiTokenSrs"] as TimestampedToken? }
-		set { kvStore["previousPPACApiTokenSrs"] = newValue }
+	var previousPpacApiTokenSrs: TimestampedToken? {
+		get { kvStore["previousPpacApiTokenSrs"] as TimestampedToken? }
+		set { kvStore["previousPpacApiTokenSrs"] = newValue }
 	}
 
 	var otpTokenSrs: OTPToken? {
