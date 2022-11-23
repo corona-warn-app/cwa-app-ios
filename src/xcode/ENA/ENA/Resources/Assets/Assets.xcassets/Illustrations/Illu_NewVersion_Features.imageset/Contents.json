@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "I_NeueFunktionen_light.pdf",
+      "filename" : "new_feature_light.pdf",
       "idiom" : "universal"
     },
     {
@@ -11,7 +11,7 @@
           "value" : "dark"
         }
       ],
-      "filename" : "I_NeueFunktionen_dark.pdf",
+      "filename" : "new_feature_dark.pdf",
       "idiom" : "universal"
     }
   ],
