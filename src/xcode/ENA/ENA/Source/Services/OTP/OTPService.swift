@@ -106,7 +106,7 @@ final class OTPService: OTPServiceProviding {
 	}
 
 	func getOTPSRS(ppacToken: PPACToken, completion: @escaping (Result<String, OTPError>) -> Void) {
-		if let otpToken = store.otpTokenSRS,
+		if let otpToken = store.otpTokenSrs,
 		   let expirationDate = otpToken.expirationDate,
 		   expirationDate > Date(),
 		   store.otpElsAuthorizationDate == nil {

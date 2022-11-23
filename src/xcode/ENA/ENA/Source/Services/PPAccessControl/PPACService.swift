@@ -162,7 +162,7 @@ class PPACService: PrivacyPreservingAccessControl {
 	}
 
 	private var apiTokenSRS: TimestampedToken {
-		guard let storedToken = store.ppacApiTokenSRS
+		guard let storedToken = store.ppacApiTokenSrs
 		else {
 			let newToken = generateAndStoreFreshAPIToken()
 			store.ppacApiTokenEls = newToken

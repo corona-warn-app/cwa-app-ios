@@ -575,9 +575,9 @@ extension SecureStore: ErrorLogProviding {
 
 extension SecureStore: SRSProviding {
 	
-	var ppacApiTokenSRS: TimestampedToken? {
-		get { kvStore["ppacApiTokenSRS"] as TimestampedToken? }
-		set { kvStore["ppacApiTokenSRS"] = newValue }
+	var ppacApiTokenSrs: TimestampedToken? {
+		get { kvStore["ppacApiTokenSrs"] as TimestampedToken? }
+		set { kvStore["ppacApiTokenSrs"] = newValue }
 	}
 	
 	var previousPPACApiTokenSrs: TimestampedToken? {
@@ -585,9 +585,9 @@ extension SecureStore: SRSProviding {
 		set { kvStore["previousPPACApiTokenSrs"] = newValue }
 	}
 
-	var otpTokenSRS: OTPToken? {
-		get { kvStore["otpTokenSRS"] as OTPToken? }
-		set { kvStore["otpTokenSRS"] = newValue }
+	var otpTokenSrs: OTPToken? {
+		get { kvStore["otpTokenSrs"] as OTPToken? }
+		set { kvStore["otpTokenSrs"] = newValue }
 	}
     
     var otpSrsAuthorizationDate: Date? {

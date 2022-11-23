@@ -127,11 +127,11 @@ protocol LocalStatisticsCaching: AnyObject {
 
 protocol SRSProviding: AnyObject {
 	/// PPAC token for Self-Report Submission (SRS)
-	var ppacApiTokenSRS: TimestampedToken? { get set }
+	var ppacApiTokenSrs: TimestampedToken? { get set }
 	/// Previous PPAC token for Self-Report Submission (SRS)
 	var previousPPACApiTokenSrs: TimestampedToken? { get set }
 	/// OTP for Self-Report Submission (SRS)
-	var otpTokenSRS: OTPToken? { get set }
+	var otpTokenSrs: OTPToken? { get set }
 	/// Date of last otp authorization
 	var otpSrsAuthorizationDate: Date? { get set }
 }
