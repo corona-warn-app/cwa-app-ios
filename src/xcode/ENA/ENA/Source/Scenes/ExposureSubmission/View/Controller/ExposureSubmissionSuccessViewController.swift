@@ -11,10 +11,10 @@ class ExposureSubmissionSuccessViewController: DynamicTableViewController, ENANa
 	// MARK: - Init
 	
 	init(
-		coronaTestType: CoronaTestType,
+		submissionTestType: SubmissionTestType,
 		dismiss: @escaping () -> Void
 	) {
-		self.coronaTestType = coronaTestType
+		self.submissionTestType = submissionTestType
 		self.dismiss = dismiss
 		
 		super.init(nibName: nil, bundle: nil)
@@ -60,13 +60,9 @@ class ExposureSubmissionSuccessViewController: DynamicTableViewController, ENANa
 		
 	}
 	
-	// MARK: - Public
-	
-	// MARK: - Internal
-	
 	// MARK: - Private
 
-	private let coronaTestType: CoronaTestType
+	private let submissionTestType: SubmissionTestType
 	private let dismiss: () -> Void
 	
 	private lazy var navigationFooterItem: ENANavigationFooterItem = {
@@ -80,11 +76,12 @@ class ExposureSubmissionSuccessViewController: DynamicTableViewController, ENANa
 		return item
 	}()
 	
+	// swiftlint:disable:next function_body_length
 	private func setupTableView() {
 		tableView.separatorStyle = .none
-
+		
 		tableView.register(ExposureSubmissionStepCell.self, forCellReuseIdentifier: CustomCellReuseIdentifiers.stepCell.rawValue)
-
+		
 		var cells: [DynamicCell] = [
 			.body(
 				text: AppStrings.ExposureSubmissionSuccess.description,
@@ -95,13 +92,95 @@ class ExposureSubmissionSuccessViewController: DynamicTableViewController, ENANa
 				accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionSuccess.listTitle
 			)
 		]
-
-		if coronaTestType == .pcr {
+		
+		switch submissionTestType {
+		case .registeredTest(let coronaTestType):
+			switch coronaTestType {
+			case .pcr:
+				cells.append(contentsOf: [
+					ExposureSubmissionDynamicCell.stepCell(
+						style: .body,
+						title: AppStrings.ExposureSubmissionSuccess.listItemPCR0,
+						accessibilityIdentifier: AccessibilityIdentifiers.Home.ShownPositiveTestResultCell.PCR.firstBulletPoint,
+						icon: UIImage(named: "Icons - Home"),
+						iconTint: .enaColor(for: .riskHigh),
+						hairline: .none,
+						bottomSpacing: .medium
+					),
+					ExposureSubmissionDynamicCell.stepCell(
+						style: .body,
+						title: AppStrings.ExposureSubmissionSuccess.listItemPCR1,
+						accessibilityIdentifier: AccessibilityIdentifiers.Home.ShownPositiveTestResultCell.PCR.secondBulletPoint,
+						icon: UIImage(named: "Icons - ContactJournal"),
+						hairline: .none,
+						bottomSpacing: .medium
+					),
+					ExposureSubmissionDynamicCell.stepCell(
+						style: .body,
+						title: AppStrings.ExposureSubmissionSuccess.listItemPCR2,
+						accessibilityIdentifier: AccessibilityIdentifiers.Home.ShownPositiveTestResultCell.PCR.thirdBulletPoint,
+						icon: UIImage(named: "Icons - Hotline"),
+						iconTint: .enaColor(for: .riskHigh),
+						hairline: .none,
+						bottomSpacing: .medium
+					),
+					ExposureSubmissionDynamicCell.stepCell(
+						style: .body,
+						title: AppStrings.ExposureSubmissionSuccess.listItemPCR3,
+						accessibilityIdentifier: AccessibilityIdentifiers.Home.ShownPositiveTestResultCell.PCR.fourthBulletPoint,
+						icon: UIImage(named: "Icons - Red Plus"),
+						hairline: .none,
+						bottomSpacing: .medium
+					)
+				])
+			case .antigen:
+				cells.append(contentsOf: [
+					ExposureSubmissionDynamicCell.stepCell(
+						style: .body,
+						title: AppStrings.ExposureSubmissionSuccess.listItemRAT0,
+						accessibilityIdentifier: AccessibilityIdentifiers.Home.ShownPositiveTestResultCell.RAT.firstBulletPoint,
+						icon: UIImage(named: "Icons - Home"),
+						iconTint: .enaColor(for: .riskHigh),
+						hairline: .none,
+						bottomSpacing: .medium
+					),
+					ExposureSubmissionDynamicCell.stepCell(
+						style: .body,
+						title: AppStrings.ExposureSubmissionSuccess.listItemRAT1,
+						accessibilityIdentifier: AccessibilityIdentifiers.Home.ShownPositiveTestResultCell.RAT.secondBulletPoint,
+						icon: UIImage(named: "Icons - ContactJournal"),
+						iconTint: .enaColor(for: .riskHigh),
+						hairline: .none,
+						bottomSpacing: .medium
+					),
+					ExposureSubmissionDynamicCell.stepCell(
+						style: .body,
+						title: AppStrings.ExposureSubmissionSuccess.listItemRAT2,
+						accessibilityIdentifier: AccessibilityIdentifiers.Home.ShownPositiveTestResultCell.RAT.thirdBulletPoint,
+						icon: UIImage(named: "Icons - Test Tube"),
+						iconTint: .enaColor(for: .riskHigh),
+						hairline: .none,
+						bottomSpacing: .medium
+					),
+					ExposureSubmissionDynamicCell.stepCell(
+						style: .body,
+						title: AppStrings.ExposureSubmissionSuccess.listItemRAT3,
+						accessibilityIdentifier: AccessibilityIdentifiers.Home.ShownPositiveTestResultCell.RAT.fourthBulletPoint,
+						icon: UIImage(named: "Icons - Hotline"),
+						iconTint: .enaColor(for: .riskHigh),
+						hairline: .none,
+						bottomSpacing: .medium
+					)
+				])
+			case .none:
+				break
+			}
+		case .srs:
 			cells.append(contentsOf: [
 				ExposureSubmissionDynamicCell.stepCell(
 					style: .body,
-					title: AppStrings.ExposureSubmissionSuccess.listItemPCR0,
-					accessibilityIdentifier: AccessibilityIdentifiers.Home.ShownPositiveTestResultCell.PCR.firstBulletPoint,
+					title: AppStrings.ExposureSubmissionSuccess.listItemSRS0,
+					accessibilityIdentifier: AccessibilityIdentifiers.Home.ShownPositiveTestResultCell.SRS.firstBulletPoint,
 					icon: UIImage(named: "Icons - Home"),
 					iconTint: .enaColor(for: .riskHigh),
 					hairline: .none,
@@ -109,45 +188,8 @@ class ExposureSubmissionSuccessViewController: DynamicTableViewController, ENANa
 				),
 				ExposureSubmissionDynamicCell.stepCell(
 					style: .body,
-					title: AppStrings.ExposureSubmissionSuccess.listItemPCR1,
-					accessibilityIdentifier: AccessibilityIdentifiers.Home.ShownPositiveTestResultCell.PCR.secondBulletPoint,
-					icon: UIImage(named: "Icons - ContactJournal"),
-					hairline: .none,
-					bottomSpacing: .medium
-				),
-				ExposureSubmissionDynamicCell.stepCell(
-					style: .body,
-					title: AppStrings.ExposureSubmissionSuccess.listItemPCR2,
-					accessibilityIdentifier: AccessibilityIdentifiers.Home.ShownPositiveTestResultCell.PCR.thirdBulletPoint,
-					icon: UIImage(named: "Icons - Hotline"),
-					iconTint: .enaColor(for: .riskHigh),
-					hairline: .none,
-					bottomSpacing: .medium
-				),
-				ExposureSubmissionDynamicCell.stepCell(
-					style: .body,
-					title: AppStrings.ExposureSubmissionSuccess.listItemPCR3,
-					accessibilityIdentifier: AccessibilityIdentifiers.Home.ShownPositiveTestResultCell.PCR.fourthBulletPoint,
-					icon: UIImage(named: "Icons - Red Plus"),
-					hairline: .none,
-					bottomSpacing: .medium
-				)
-			])
-		} else if coronaTestType == .antigen {
-			cells.append(contentsOf: [
-				ExposureSubmissionDynamicCell.stepCell(
-					style: .body,
-					title: AppStrings.ExposureSubmissionSuccess.listItemRAT0,
-					accessibilityIdentifier: AccessibilityIdentifiers.Home.ShownPositiveTestResultCell.RAT.firstBulletPoint,
-					icon: UIImage(named: "Icons - Home"),
-					iconTint: .enaColor(for: .riskHigh),
-					hairline: .none,
-					bottomSpacing: .medium
-				),
-				ExposureSubmissionDynamicCell.stepCell(
-					style: .body,
-					title: AppStrings.ExposureSubmissionSuccess.listItemRAT1,
-					accessibilityIdentifier: AccessibilityIdentifiers.Home.ShownPositiveTestResultCell.RAT.secondBulletPoint,
+					title: AppStrings.ExposureSubmissionSuccess.listItemSRS1,
+					accessibilityIdentifier: AccessibilityIdentifiers.Home.ShownPositiveTestResultCell.SRS.secondBulletPoint,
 					icon: UIImage(named: "Icons - ContactJournal"),
 					iconTint: .enaColor(for: .riskHigh),
 					hairline: .none,
@@ -155,8 +197,8 @@ class ExposureSubmissionSuccessViewController: DynamicTableViewController, ENANa
 				),
 				ExposureSubmissionDynamicCell.stepCell(
 					style: .body,
-					title: AppStrings.ExposureSubmissionSuccess.listItemRAT2,
-					accessibilityIdentifier: AccessibilityIdentifiers.Home.ShownPositiveTestResultCell.RAT.thirdBulletPoint,
+					title: AppStrings.ExposureSubmissionSuccess.listItemSRS2,
+					accessibilityIdentifier: AccessibilityIdentifiers.Home.ShownPositiveTestResultCell.SRS.thirdBulletPoint,
 					icon: UIImage(named: "Icons - Test Tube"),
 					iconTint: .enaColor(for: .riskHigh),
 					hairline: .none,
@@ -164,8 +206,8 @@ class ExposureSubmissionSuccessViewController: DynamicTableViewController, ENANa
 				),
 				ExposureSubmissionDynamicCell.stepCell(
 					style: .body,
-					title: AppStrings.ExposureSubmissionSuccess.listItemRAT3,
-					accessibilityIdentifier: AccessibilityIdentifiers.Home.ShownPositiveTestResultCell.RAT.fourthBulletPoint,
+					title: AppStrings.ExposureSubmissionSuccess.listItemSRS3,
+					accessibilityIdentifier: AccessibilityIdentifiers.Home.ShownPositiveTestResultCell.SRS.fourthBulletPoint,
 					icon: UIImage(named: "Icons - Hotline"),
 					iconTint: .enaColor(for: .riskHigh),
 					hairline: .none,
@@ -173,7 +215,7 @@ class ExposureSubmissionSuccessViewController: DynamicTableViewController, ENANa
 				)
 			])
 		}
-
+		
 		cells.append(contentsOf: [
 			.title2(
 				text: AppStrings.ExposureSubmissionSuccess.subTitle,

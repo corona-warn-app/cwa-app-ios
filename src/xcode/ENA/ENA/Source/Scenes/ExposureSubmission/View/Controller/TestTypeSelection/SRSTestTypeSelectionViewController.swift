@@ -47,6 +47,7 @@ class SRSTestTypeSelectionViewController: DynamicTableViewController {
 	private func setupNavigation() {
 		navigationItem.title = AppStrings.ExposureSubmission.SRSTestTypeSelection.title
 		navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton
+		navigationItem.setHidesBackButton(true, animated: true)
 	}
 	
 	private func setupView() {

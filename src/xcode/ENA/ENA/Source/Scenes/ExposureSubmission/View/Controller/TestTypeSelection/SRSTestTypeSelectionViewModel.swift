@@ -28,6 +28,11 @@ class SRSTestTypeSelectionViewModel {
 						text: AppStrings.ExposureSubmission.SRSTestTypeSelection.body,
 						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmission.SRSTestTypeSelection.body
 					),
+					.footnote(
+						text: AppStrings.ExposureSubmission.SRSTestTypeSelection.description,
+						color: .enaColor(for: .textPrimary2),
+						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmission.SRSTestTypeSelection.description
+					),
 					.custom(
 						withIdentifier: SRSTestTypeSelectionViewController.CustomCellReuseIdentifiers.optionGroupCell,
 						configure: { _, cell, _ in

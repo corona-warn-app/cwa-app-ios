@@ -44,6 +44,17 @@ class EventTableViewCell: UITableViewCell, ReuseIdentifierProviding {
 			containerView.backgroundColor = cellBackgroundColor
 		}
 	}
+	
+	override func setEditing(_ editing: Bool, animated: Bool) {
+		super.setEditing(editing, animated: animated)
+		if editing {
+			button.isEnabled = false
+			button.setTitleColor(.enaColor(for: .textPrimary2), for: .disabled)
+			button.layer.borderColor = .enaColor(for: .textPrimary2)
+		} else {
+			button.isEnabled = true
+		}
+	}
 
 	// MARK: - Internal
 
