@@ -31,11 +31,15 @@ final class DeviceTimeCheck: DeviceTimeChecking {
 
 	func updateDeviceTimeFlags(serverTime: Date, deviceTime: Date, configUpdateSuccessful: Bool) {
 		let oldState = store.deviceTimeCheckResult
-		store.deviceTimeCheckResult = isDeviceTimeCorrect(
+		let isDeviceTimeCorrect = isDeviceTimeCorrect(
 			serverTime: serverTime,
 			deviceTime: deviceTime,
 			configUpdateSuccessful: configUpdateSuccessful
 		)
+		if isDeviceTimeCorrect == .correct && store.firstReliableTimeStamp == nil {
+			store.firstReliableTimeStamp = Date()
+		}
+		store.deviceTimeCheckResult = isDeviceTimeCorrect
 		// store change date only if a state change was detected
 		if oldState != store.deviceTimeCheckResult {
 			store.deviceTimeLastStateChange = Date()

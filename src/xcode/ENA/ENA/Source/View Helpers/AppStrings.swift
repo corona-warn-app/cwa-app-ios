@@ -340,6 +340,10 @@ enum AppStrings {
 		static let findTestCentersButtonTitle = NSLocalizedString("ExposureSubmissionDispatch_FindTestCentersTitle", comment: "")
 		static let findTestCentersButtonDescription = NSLocalizedString("ExposureSubmissionDispatch_FindTestCentersDescription", comment: "")
 		
+		enum SRSSubmissionError {
+			static let srsSubmissionInvalidOTP = NSLocalizedString("SRS_submission_Invalid_OTP", comment: "")
+		}
+
 		enum SRSWarnOthersPreconditionAlert {
 			static let title = NSLocalizedString("ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_title", comment: "")
 			static let insufficientAppUsageTime_message = NSLocalizedString("ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_insufficientAppUsageTime_message", comment: "")
@@ -383,7 +387,7 @@ enum AppStrings {
 		static let legalBulletPoint01 = NSLocalizedString("SRS_Consent_Legal_Text_1", tableName: "Localizable.legal", comment: "")
 		static let legalBulletPoint02 = NSLocalizedString("SRS_Consent_Legal_Text_2", tableName: "Localizable.legal", comment: "")
 		static let legalBulletPoint03 = NSLocalizedString("SRS_Consent_Legal_Text_3", tableName: "Localizable.legal", comment: "")
-		
+
 		static let acknowledgement1 = NSLocalizedString("SRS_ConsentScreen_Acknowledgement_1", comment: "")
 		static let acknowledgement2 = NSLocalizedString("SRS_ConsentScreen_Acknowledgement_2", comment: "")
 		static let acknowledgement3 = NSLocalizedString("SRS_ConsentScreen_Acknowledgement_3", comment: "")

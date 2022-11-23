@@ -13,14 +13,16 @@ class ExposureSubmissionCoordinatorModel {
 	init(
 		exposureSubmissionService: ExposureSubmissionService,
 		coronaTestService: CoronaTestServiceProviding,
+		srsService: SRSServiceProviding,
 		familyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding,
 		eventProvider: EventProviding,
 		recycleBin: RecycleBin,
 		store: Store
 	) {
 		self.exposureSubmissionService = exposureSubmissionService
-		self.familyMemberCoronaTestService = familyMemberCoronaTestService
 		self.coronaTestService = coronaTestService
+		self.srsService = srsService
+		self.familyMemberCoronaTestService = familyMemberCoronaTestService
 		self.eventProvider = eventProvider
 		self.recycleBin = recycleBin
 		self.store = store
@@ -40,6 +42,7 @@ class ExposureSubmissionCoordinatorModel {
 	let familyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding
 	let eventProvider: EventProviding
 	let recycleBin: RecycleBin
+	let srsService: SRSServiceProviding
 	
 	var submissionTestType: SubmissionTestType?
 	var markNewlyAddedCoronaTestAsUnseen: Bool = false
@@ -186,22 +189,42 @@ class ExposureSubmissionCoordinatorModel {
 		onSuccess: @escaping () -> Void,
 		onError: @escaping (ExposureSubmissionServiceError) -> Void
 	) {
-		/* to.do submit to the server
-		guard let srsSubmissionType = srsSubmissionType else {
-			// onError(.)
+		guard case let .srs(srsSubmissionType) = submissionTestType else {
 			return
 		}
-
 		isLoading(true)
-
-		exposureSubmissionService.submitSRSExposure(srsSubmissionType: srsSubmissionType) { error in
+		srsService.authenticate(completion: { [weak self] (result: Result<String, SRSServerError>) in
+			guard let self = self else { return }
 			isLoading(false)
-
-			switch error {
-
-			// cases
-		}
-		*/
+			switch result {
+			case .success(let srsOTP):
+				self.exposureSubmissionService.submitSRSExposure(
+					submissionType: srsSubmissionType,
+					srsOTP: srsOTP
+				) { error in
+					
+					switch error {
+						
+						// We continue the regular flow even if there are no keys collected.
+					case .none, .preconditionError(.noKeysCollected):
+						onSuccess()
+						
+						// We don't show an error if the submission consent was not given, because we assume that the submission already happened in the background.
+					case .preconditionError(.noSubmissionConsent):
+						Log.info("Consent Not Given", log: .ui)
+						onSuccess()
+						
+					case .some(let error):
+						Log.error("error: \(error.localizedDescription)", log: .api)
+						onError(error)
+					}
+				}
+			case .failure(let srsError):
+				onError(.srsError(srsError))
+				Log.debug(srsError.description, log: .ppac)
+			}
+			
+		})
 	}
 
 	// swiftlint:disable cyclomatic_complexity

@@ -18,42 +18,42 @@ enum OTPError: Error, Equatable, LocalizedError {
 	case deviceTokenSyntaxError
 	case noNetworkConnection
 
-	case restServiceError(ServiceError<OTPAuthorizationForELSError>)
+	case restServiceError(ServiceError<OTPAuthorizationError>)
 
-	var description: String {
-		switch self {
-		case .generalError(let error):
-			if let e = error?.localizedDescription {
-				return "generalError with underlying: \(e)"
-			} else {
-				return "generalError"
-			}
-		case .invalidResponseError:
-			return "invalidResponseError"
-		case .internalServerError:
-			return "internalServerError"
-		case .otpAlreadyUsedThisMonth:
-			return "otpAlreadyUsedThisMonth"
-		case .otherServerError:
-			return "otherServerError"
-		case .apiTokenAlreadyIssued:
-			return "apiTokenAlreadyIssued"
-		case .apiTokenExpired:
-			return "apiTokenExpired"
-		case .apiTokenQuotaExceeded:
-			return "apiTokenQuotaExceeded"
-		case .deviceTokenInvalid:
-			return "deviceTokenInvalid"
-		case .deviceTokenRedeemed:
-			return "deviceTokenRedeemed"
-		case .deviceTokenSyntaxError:
-			return "deviceTokenSyntaxError"
-		case .noNetworkConnection:
-			return "noNetworkConnection"
-		case .restServiceError:
-			return "restServiceError"
-		}
-	}
+    var description: String {
+        switch self {
+        case .generalError(let error):
+            if let e = error?.localizedDescription {
+                return "generalError with underlying: \(e)"
+            } else {
+                return "generalError"
+            }
+        case .invalidResponseError:
+            return "invalidResponseError"
+        case .internalServerError:
+            return "internalServerError"
+        case .otpAlreadyUsedThisMonth:
+            return "otpAlreadyUsedThisMonth"
+        case .otherServerError:
+            return "otherServerError"
+        case .apiTokenAlreadyIssued:
+            return "apiTokenAlreadyIssued"
+        case .apiTokenExpired:
+            return "apiTokenExpired"
+        case .apiTokenQuotaExceeded:
+            return "apiTokenQuotaExceeded"
+        case .deviceTokenInvalid:
+            return "deviceTokenInvalid"
+        case .deviceTokenRedeemed:
+            return "deviceTokenRedeemed"
+        case .deviceTokenSyntaxError:
+            return "deviceTokenSyntaxError"
+        case .noNetworkConnection:
+            return "noNetworkConnection"
+        case .restServiceError:
+            return "restServiceError"
+        }
+    }
 	
 	var errorDescription: String? {
 		switch self {

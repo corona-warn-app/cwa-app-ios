@@ -4,66 +4,12 @@
 
 import Foundation
 
-enum OTPAuthorizationError: LocalizedError, Equatable {
-
-	case generalError(underlyingError: Error? = nil)
-	case invalidResponseError
-	case internalServerError
-	case otpAlreadyUsedThisMonth
-	case otherServerError
-	case apiTokenAlreadyIssued
-	case apiTokenExpired
-	case apiTokenQuotaExceeded
-	case deviceTokenInvalid
-	case deviceTokenRedeemed
-	case deviceTokenSyntaxError
-	case noNetworkConnection
-	
-	var description: String {
-		switch self {
-		case .generalError(let error):
-			if let e = error?.localizedDescription {
-				return "generalError with underlying: \(e)"
-			} else {
-				return "generalError"
-			}
-		case .invalidResponseError:
-			return "invalidResponseError"
-		case .internalServerError:
-			return "internalServerError"
-		case .otpAlreadyUsedThisMonth:
-			return "otpAlreadyUsedThisMonth"
-		case .otherServerError:
-			return "otherServerError"
-		case .apiTokenAlreadyIssued:
-			return "apiTokenAlreadyIssued"
-		case .apiTokenExpired:
-			return "apiTokenExpired"
-		case .apiTokenQuotaExceeded:
-			return "apiTokenQuotaExceeded"
-		case .deviceTokenInvalid:
-			return "deviceTokenInvalid"
-		case .deviceTokenRedeemed:
-			return "deviceTokenRedeemed"
-		case .deviceTokenSyntaxError:
-			return "deviceTokenSyntaxError"
-		case .noNetworkConnection:
-			return "noNetworkConnection"
-		}
-	}
-
-	static func == (lhs: OTPAuthorizationError, rhs: OTPAuthorizationError) -> Bool {
-		return lhs.description == rhs.description
-	}
-
-}
-
-struct OTPAuthorizationForELSResource: Resource {
+struct OTPAuthorizationForSRSResource: Resource {
 	
 	// MARK: - Init
-
+	
 	init(
-		otpEls: String,
+		otpSRS: String,
 		ppacToken: PPACToken,
 		trustEvaluation: TrustEvaluating = DefaultTrustEvaluation(
 			publicKeyHash: Environments().currentEnvironment().pinningKeyHashData
@@ -73,18 +19,17 @@ struct OTPAuthorizationForELSResource: Resource {
 			$0.apiToken = ppacToken.apiToken
 			$0.deviceToken = ppacToken.deviceToken
 		}
-
-		let payload = SAP_Internal_Ppdd_ELSOneTimePassword.with {
-			$0.otp = otpEls
+		let payload = SAP_Internal_Ppdd_SRSOneTimePassword.with {
+			$0.otp = otpSRS
 		}
 		self.sendResource = ProtobufSendResource(
-			SAP_Internal_Ppdd_ELSOneTimePasswordRequestIOS.with {
+			SAP_Internal_Ppdd_SRSOneTimePasswordRequestIOS.with {
 				$0.payload = payload
-			 $0.authentication = ppacIos
-		 }
+				$0.authentication = ppacIos
+			}
 		)
 		
-		self.locator = .authorizeOtpEls()
+		self.locator = .authorizeOtpSrs(isFake: false)
 		self.type = .default
 		self.receiveResource = JSONReceiveResource<OTPResponsePropertiesReceiveModel>()
 		self.trustEvaluation = trustEvaluation
@@ -92,15 +37,15 @@ struct OTPAuthorizationForELSResource: Resource {
 	
 	// MARK: - Protocol Resource
 	
-	typealias Send = ProtobufSendResource<SAP_Internal_Ppdd_ELSOneTimePasswordRequestIOS>
+	typealias Send = ProtobufSendResource<SAP_Internal_Ppdd_SRSOneTimePasswordRequestIOS>
 	typealias Receive = JSONReceiveResource<OTPResponsePropertiesReceiveModel>
 	typealias CustomError = OTPAuthorizationError
-
+	
 	let trustEvaluation: TrustEvaluating
 	
 	var locator: Locator
 	var type: ServiceType
-	var sendResource: ProtobufSendResource<SAP_Internal_Ppdd_ELSOneTimePasswordRequestIOS>
+	var sendResource: ProtobufSendResource<SAP_Internal_Ppdd_SRSOneTimePasswordRequestIOS>
 	var receiveResource: JSONReceiveResource<OTPResponsePropertiesReceiveModel>
 	
 	func customError(
@@ -113,17 +58,16 @@ struct OTPAuthorizationForELSResource: Resource {
 		case .unexpectedServerError(let statusCode):
 			switch statusCode {
 			case 400, 401, 403:
-				 return otpAuthorizationFailureHandler(for: responseBody, statusCode: statusCode)
+				return otpAuthorizationFailureHandler(for: responseBody, statusCode: statusCode)
 			case 500:
 				Log.error("Failed to get authorized OTP - 500 status code", log: .api)
-				return .internalServerError
+				return .otherServerError
 			default:
-				Log.error("Failed to authorize OTP - response error", log: .api)
-				Log.error(String(statusCode), log: .api)
-				return .internalServerError
+				Log.error("Failed to authorize OTP - response error: \(statusCode)", log: .api)
+				return .otherServerError
 			}
 		default:
-			return .invalidResponseError
+			return .otherServerError
 		}
 	}
 	
@@ -131,11 +75,10 @@ struct OTPAuthorizationForELSResource: Resource {
 	
 	private func otpAuthorizationFailureHandler(for response: Data?, statusCode: Int) -> OTPAuthorizationError? {
 		guard let responseBody = response else {
-			Log.error("Failed to get authorized OTP - no 200 status code", log: .api)
-			Log.error(String(statusCode), log: .api)
-			return .invalidResponseError
+			Log.error("Failed to get authorized OTP - no 200 status code: \(statusCode)", log: .api)
+			return .otherServerError
 		}
-
+		
 		do {
 			let decoder = JSONDecoder()
 			decoder.dateDecodingStrategy = .iso8601
@@ -145,9 +88,9 @@ struct OTPAuthorizationForELSResource: Resource {
 			)
 			guard let errorCode = decodedResponse.errorCode else {
 				Log.error("Failed to get errorCode because it is nil", log: .api)
-				return .invalidResponseError
+				return .otherServerError
 			}
-
+			
 			switch errorCode {
 			case .API_TOKEN_ALREADY_ISSUED:
 				return .apiTokenAlreadyIssued
@@ -166,7 +109,7 @@ struct OTPAuthorizationForELSResource: Resource {
 			}
 		} catch {
 			Log.error("Failed to get errorCode because json could not be decoded", log: .api, error: error)
-			return .invalidResponseError
+			return .otherServerError
 		}
 	}
 }

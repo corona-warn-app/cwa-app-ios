@@ -18,6 +18,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		parentViewController: UIViewController,
 		exposureSubmissionService: ExposureSubmissionService,
 		coronaTestService: CoronaTestServiceProviding,
+		srsService: SRSServiceProviding,
 		familyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding,
 		healthCertificateService: HealthCertificateService,
 		healthCertificateValidationService: HealthCertificateValidationProviding,
@@ -42,6 +43,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: exposureSubmissionService,
 			coronaTestService: coronaTestService,
+			srsService: srsService,
 			familyMemberCoronaTestService: familyMemberCoronaTestService,
 			eventProvider: eventProvider,
 			recycleBin: recycleBin,
@@ -520,7 +522,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 
 		return topBottomContainerViewController
 	}
-	
+
 	private func makeQRInfoScreen(supportedCountries: [Country], testRegistrationInformation: CoronaTestRegistrationInformation) -> UIViewController {
 		let exposureSubmissionQRInfoViewController = ExposureSubmissionQRInfoViewController(
 			supportedCountries: supportedCountries,
@@ -1843,6 +1845,8 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		self.model.submitExposure(
 			isLoading: isLoading,
 			onSuccess: { [weak self] in
+				self?.store.mostRecentKeySubmissionDate = Date()
+				
 				if showSubmissionSuccess {
 					self?.showExposureSubmissionSuccessViewController()
 				} else {
@@ -1868,8 +1872,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 			isLoading: isLoading,
 			onSuccess: { [weak self] in
 				if showSubmissionSuccess {
-					// to.do refactor thank you screen for SRS
-					// self?.showExposureSubmissionSuccessViewController()
+					self?.showExposureSubmissionSuccessViewController()
 				} else {
 					self?.dismiss()
 				}

@@ -33,6 +33,7 @@ class QRScannerCoordinator {
 		eventStore: EventStoringProviding,
 		appConfiguration: AppConfigurationProviding,
 		eventCheckoutService: EventCheckoutService,
+		srsService: SRSServiceProviding,
 		healthCertificateService: HealthCertificateService,
 		healthCertificateValidationService: HealthCertificateValidationProviding,
 		healthCertificateValidationOnboardedCountriesProvider: HealthCertificateValidationOnboardedCountriesProviding,
@@ -48,6 +49,7 @@ class QRScannerCoordinator {
 		self.eventStore = eventStore
 		self.appConfiguration = appConfiguration
 		self.eventCheckoutService = eventCheckoutService
+		self.srsService = srsService
 		self.healthCertificateService = healthCertificateService
 		self.healthCertificateValidationService = healthCertificateValidationService
 		self.healthCertificateValidationOnboardedCountriesProvider = healthCertificateValidationOnboardedCountriesProvider
@@ -87,6 +89,7 @@ class QRScannerCoordinator {
 	private let eventStore: EventStoringProviding
 	private let appConfiguration: AppConfigurationProviding
 	private let eventCheckoutService: EventCheckoutService
+	private let srsService: SRSServiceProviding
 	private let healthCertificateService: HealthCertificateService
 	private let healthCertificateValidationService: HealthCertificateValidationProviding
 	private let healthCertificateValidationOnboardedCountriesProvider: HealthCertificateValidationOnboardedCountriesProviding
@@ -765,6 +768,7 @@ class QRScannerCoordinator {
 			parentViewController: parentViewController,
 			exposureSubmissionService: exposureSubmissionService,
 			coronaTestService: coronaTestService,
+			srsService: srsService,
 			familyMemberCoronaTestService: familyMemberCoronaTestService,
 			healthCertificateService: healthCertificateService,
 			healthCertificateValidationService: healthCertificateValidationService,

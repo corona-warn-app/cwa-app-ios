@@ -16,13 +16,17 @@ protocol ErrorCodeProviding: Error {
 	var description: ErrorCode { get }
 }
 
-enum SRSServerError: Error {
+enum SRSServerError: Error, Equatable {
+	case ppacError(PPACError)
+	case otpError(OTPError)
+
 	case srsOTPClientError
 	case srsOTPNetworkError
 	case srsOTPServerError
 	case srsOTP400
 	case srsOTP401
 	case srsOTP403
+
 	case srsSUBClientError
 	case srsSUBNoNetwork
 	case srsSUBServerError
@@ -33,6 +37,10 @@ enum SRSServerError: Error {
 extension SRSServerError: ErrorCodeProviding {
 	var description: String {
 		switch self {
+		case .ppacError(let ppacError):
+			return "ppacError: \(ppacError.description)"
+		case .otpError(let otpError):
+			return "otpError: \(otpError.description)"
 		case .srsOTPClientError:
 			return "SRS_OTP_CLIENT_ERROR"
 		case .srsOTPNetworkError:
@@ -62,6 +70,10 @@ extension SRSServerError: ErrorCodeProviding {
 extension SRSServerError: SRSErrorAlertProviding {
 	var srsErrorAlert: SRSErrorAlert? {
 		switch self {
+		case .ppacError(let ppacError):
+			return ppacError.srsErrorAlert
+		case .otpError(let otpError):
+			return otpError.srsErrorAlert
 		case .srsOTPClientError:
 			return .callHotline
 		case .srsOTPNetworkError:

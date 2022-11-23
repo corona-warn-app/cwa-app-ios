@@ -71,6 +71,8 @@ protocol StoreProtocol: AnyObject {
 
 	var journalWithExposureHistoryInfoScreenShown: Bool { get set }
 
+	var mostRecentKeySubmissionDate: Date? { get set }
+
 	func wipeAll(key: String?)
 
 	#if !RELEASE
@@ -93,6 +95,8 @@ protocol DeviceTimeCheckStoring: AnyObject {
 	var deviceTimeCheckResult: DeviceTimeCheck.TimeCheckResult { get set }
 	var deviceTimeLastStateChange: Date { get set }
 	var wasDeviceTimeErrorShown: Bool { get set }
+	var firstReliableTimeStamp: Date? { get set }
+
 }
 
 protocol AppFeaturesStoring: AnyObject {
@@ -121,6 +125,17 @@ protocol LocalStatisticsCaching: AnyObject {
 	var selectedLocalStatisticsRegions: [LocalStatisticsRegion] { get set }
 }
 
+protocol SRSProviding: AnyObject {
+	/// PPAC token for Self-Report Submission (SRS)
+	var ppacApiTokenSrs: TimestampedToken? { get set }
+	/// Previous PPAC token for Self-Report Submission (SRS)
+	var previousPpacApiTokenSrs: TimestampedToken? { get set }
+	/// OTP for Self-Report Submission (SRS)
+	var otpTokenSrs: OTPToken? { get set }
+	/// Date of last otp authorization
+	var otpSrsAuthorizationDate: Date? { get set }
+}
+
 protocol PrivacyPreservingProviding: AnyObject {
 	/// A boolean storing if the user has already confirmed to collect and submit the data for PPA. By setting it, the existing anlytics data will be reset.
 	var isPrivacyPreservingAnalyticsConsentGiven: Bool { get set }
@@ -132,11 +147,15 @@ protocol PrivacyPreservingProviding: AnyObject {
 	var otpEdusAuthorizationDate: Date? { get set }
 	/// PPAC Edus token
 	var ppacApiTokenEdus: TimestampedToken? { get set }
+	/// PPAC Edus Previous token
+	var previousPpacApiTokenEdus: TimestampedToken? { get set }
 }
 
 protocol ErrorLogProviding: AnyObject {
 	/// PPAC token for error log support (Els)
 	var ppacApiTokenEls: TimestampedToken? { get set }
+	/// Previous PPAC token for error log support (Els)
+	var previousPpacApiTokenEls: TimestampedToken? { get set }
 	/// OTP for error log support (Els)
 	var otpTokenEls: OTPToken? { get set }
 	/// Date of last otp authorization
@@ -321,6 +340,7 @@ protocol Store:
 	RecycleBinStoring,
 	TicketValidationStoring,
 	HomeBadgeStoring,
-	KeyValueCacheStoring
+	KeyValueCacheStoring,
+	SRSProviding
 {}
 // swiftlint:enable all

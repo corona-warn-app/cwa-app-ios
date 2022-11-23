@@ -22,7 +22,11 @@ protocol ExposureSubmissionService: AnyObject {
 	func loadSelfServiceParameters(isLoading: @escaping CompletionBool, onSuccess: @escaping (SAP_Internal_V2_PPDDSelfReportSubmissionParametersCommon) -> Void)
 	func getTemporaryExposureKeys(completion: @escaping ExposureSubmissionHandler)
 	func submitExposure(coronaTestType: CoronaTestType, completion: @escaping (_ error: ExposureSubmissionServiceError?) -> Void)
-
+	func submitSRSExposure(
+		submissionType: SRSSubmissionType,
+		srsOTP: String,
+		completion: @escaping (_ error: ExposureSubmissionServiceError?) -> Void
+	)
 }
 
 struct ExposureSubmissionServiceDependencies {

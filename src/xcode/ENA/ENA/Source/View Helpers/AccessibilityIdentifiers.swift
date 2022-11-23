@@ -350,6 +350,7 @@ enum AccessibilityIdentifiers {
 	}
 
 	enum SRSConsentScreen {
+		static let primaryButton = "AppStrings.SRSConsentScreen.primaryButton"
 		static let accImageDescription = "AppStrings.SRSConsentScreen.accImageDescription"
 		static let headerSection1 = "AppStrings.SRSConsentScreen.headerSection1"
 		static let acknowledgementTitle = "AppStrings.SRSConsentScreen.acknowledgementTitle"
