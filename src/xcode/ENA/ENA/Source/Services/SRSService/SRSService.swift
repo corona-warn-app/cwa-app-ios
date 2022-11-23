@@ -39,8 +39,8 @@ final class SRSService: SRSServiceProviding {
 			let timeSinceOnboardingInHours = Int(appConfiguration.selfReportParameters.common.timeSinceOnboardingInHours)
 			let timeBetweenSubmissionsInDays = Int(appConfiguration.selfReportParameters.common.timeBetweenSubmissionsInDays)
 			self.ppacService.getPPACTokenSRS(
-				timeSinceOnboardingInHours: timeSinceOnboardingInHours,
-				timeBetweenSubmissionsInDays: timeBetweenSubmissionsInDays,
+				minTimeSinceOnboardingInHours: timeSinceOnboardingInHours,
+				minTimeBetweenSubmissionsInDays: timeBetweenSubmissionsInDays,
 				completion: { [weak self] result in
 					guard let self = self else { return }
 					switch result {
