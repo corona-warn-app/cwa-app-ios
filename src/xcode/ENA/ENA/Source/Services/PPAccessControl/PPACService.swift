@@ -8,8 +8,8 @@ protocol PrivacyPreservingAccessControl {
 	func getPPACTokenEDUS(_ completion: @escaping (Result<PPACToken, PPACError>) -> Void)
 	func getPPACTokenELS(_ completion: @escaping (Result<PPACToken, PPACError>) -> Void)
 	func getPPACTokenSRS(
-		timeSinceOnboardingInHours: Int,
-		timeBetweenSubmissionsInDays: Int,
+		minTimeSinceOnboardingInHours: Int,
+		minTimeBetweenSubmissionsInDays: Int,
 		completion: @escaping (Result<PPACToken, PPACError>) -> Void
 	)
 	#if !RELEASE
@@ -33,11 +33,10 @@ class PPACService: PrivacyPreservingAccessControl {
 	// MARK: - Protocol PrivacyPreservingAccessControl
 
 	func getPPACTokenSRS(
-		timeSinceOnboardingInHours: Int,
-		timeBetweenSubmissionsInDays: Int,
+		minTimeSinceOnboardingInHours: Int,
+		minTimeBetweenSubmissionsInDays: Int,
 		completion: @escaping (Result<PPACToken, PPACError>) -> Void
 	) {
-
 		// check if time isn't incorrect
 		if store.deviceTimeCheckResult == .incorrect {
 			Log.error("SRSError: device time is incorrect", log: .ppac)
@@ -52,32 +51,37 @@ class PPACService: PrivacyPreservingAccessControl {
 			return
 		}
 		
-		// Check FIRST_RELIABLE_TIMESTAMP
+		// we have two parameters from the appconfig for prechecks:
+		// 1- a minimum number of hours since onboarding until user can self submit result.
+		// 2- a minimum number of days since last submission user can self submit result again.
+		
+		// 1- Check FIRST_RELIABLE_TIMESTAMP
 		if let firstReliableTimeStamp = store.firstReliableTimeStamp,
 		   let difference = Calendar.current.dateComponents([.hour], from: firstReliableTimeStamp, to: Date()).hour {
-			let timeSinceOnboarding = timeSinceOnboardingInHours <= 0 ? 24 : timeSinceOnboardingInHours
-			Log.debug("actual time since onboarding \(timeSinceOnboardingInHours) hours.", log: .ppac)
-			
-			if difference < timeSinceOnboarding {
-				Log.error("SRSError:too short time since onboarding", log: .ppac)
+			let minTimeSinceOnboarding = minTimeSinceOnboardingInHours <= 0 ? 24 : minTimeSinceOnboardingInHours
+			Log.debug("actual time since onboarding \(minTimeSinceOnboardingInHours) hours.", log: .ppac)
+			Log.debug("Corrected default time since onboarding \(minTimeSinceOnboarding) hours.", log: .ppac)
+
+			if difference < minTimeSinceOnboarding {
+				Log.error("SRSError: too short time since onboarding", log: .ppac)
 				completion(.failure(PPACError.minimumTimeSinceOnboarding))
 				return
 			}
 		}
 		
-		// Check time since previous submission
+		// 2- Check time since previous submission
 		if let mostRecentKeySubmissionDate = store.mostRecentKeySubmissionDate,
 		   let difference = Calendar.current.dateComponents([.day], from: mostRecentKeySubmissionDate, to: Date()).day {
-			let timeBetweenSubmissions = timeBetweenSubmissionsInDays <= 0 ? 90 : timeBetweenSubmissionsInDays
-			Log.debug("timeBetweenSubmissionsInDays = \(timeSinceOnboardingInHours) days.", log: .ppac)
-			
-			if difference < timeBetweenSubmissions {
+			let minTimeBetweenSubmissions = minTimeBetweenSubmissionsInDays <= 0 ? 90 : minTimeBetweenSubmissionsInDays
+			Log.debug("minTimeBetweenSubmissionsInDays = \(minTimeBetweenSubmissionsInDays) days.", log: .ppac)
+			Log.debug("Corrected default minTimeBetweenSubmissionsInDays = \(minTimeBetweenSubmissions) days.", log: .ppac)
+
+			if difference < minTimeBetweenSubmissions {
 				Log.error("SRSError: submission too early", log: .ppac)
 				completion(.failure(PPACError.submissionTooEarly))
 				return
 			}
 		}
-		
 		deviceCheck.deviceToken(apiTokenSRS.token, completion: completion)
 	}
 
