@@ -343,17 +343,7 @@ class ENAUITests_04a_ExposureSubmission: CWATestCase {
 		
 		acceptInformationSharingIfNecessary()
 		
-		app.buttons[AccessibilityIdentifiers.ExposureSubmission.primaryButton].waitAndTap()
-		app.navigationBars[AccessibilityIdentifiers.General.exposureSubmissionNavigationControllerTitle].buttons.element(boundBy: 0).waitAndTap()
-		app.buttons[AccessibilityIdentifiers.ExposureSubmission.secondaryButton].waitAndTap()
-		// quick hack - can't easily use `addUIInterruptionMonitor` in this test
-		app.alerts.firstMatch.buttons.element(boundBy: 1).waitAndTap() // no
-		app.buttons[AccessibilityIdentifiers.ExposureSubmission.secondaryButton].waitAndTap()
-		// quick hack - can't easily use `addUIInterruptionMonitor` in this test
-		app.alerts.firstMatch.buttons.firstMatch.waitAndTap() // yes
-		
-		// Back to homescreen
-		app.cells[AccessibilityIdentifiers.Home.ShownPositiveTestResultCell.submittedPCRCell].waitAndTap()
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.ExposureSubmission.primaryButton].waitForExistence(timeout: .medium))
 	}
 
 	// Navigate to the Thank You screen with alert on Test Result Screen.
@@ -390,22 +380,8 @@ class ENAUITests_04a_ExposureSubmission: CWATestCase {
 
 		// quick hack - can't easily use `addUIInterruptionMonitor` in this test
 		app.alerts.firstMatch.buttons.element(boundBy: 1).waitAndTap() // warn
-		app.buttons[AccessibilityIdentifiers.ExposureSubmission.primaryButton].waitAndTap()
 		
-		app.navigationBars[AccessibilityIdentifiers.General.exposureSubmissionNavigationControllerTitle].buttons.element(boundBy: 0).waitAndTap()
-		
-		app.buttons[AccessibilityIdentifiers.ExposureSubmission.secondaryButton].waitAndTap()
-
-		// quick hack - can't easily use `addUIInterruptionMonitor` in this test
-		app.alerts.firstMatch.buttons.element(boundBy: 1).waitAndTap() // no
-		app.buttons[AccessibilityIdentifiers.ExposureSubmission.secondaryButton].waitAndTap()
-
-		// quick hack - can't easily use `addUIInterruptionMonitor` in this test
-		app.alerts.firstMatch.buttons.firstMatch.waitAndTap() // yes
-
-		// Back to homescreen
-		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Home.activateCardOnTitle].waitForExistence(timeout: .long))
-		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Home.activateCardOnTitle].isHittable)
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.ExposureSubmission.primaryButton].waitForExistence(timeout: .medium))
 	}
 	
 	func test_Tester_Centers_Opens_Website_In_Safari() {
