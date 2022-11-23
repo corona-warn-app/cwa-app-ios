@@ -16,7 +16,7 @@ protocol ErrorCodeProviding: Error {
 	var description: ErrorCode { get }
 }
 
-enum SRSServerError: Error, Equatable {
+enum SRSError: Error, Equatable {
 	case ppacError(PPACError)
 	case otpError(OTPError)
 
@@ -34,7 +34,7 @@ enum SRSServerError: Error, Equatable {
 	case srsSUB403
 }
 
-extension SRSServerError: ErrorCodeProviding {
+extension SRSError: ErrorCodeProviding {
 	var description: String {
 		switch self {
 		case .ppacError(let ppacError):
@@ -67,7 +67,7 @@ extension SRSServerError: ErrorCodeProviding {
 	}
 }
 
-extension SRSServerError: SRSErrorAlertProviding {
+extension SRSError: SRSErrorAlertProviding {
 	var srsErrorAlert: SRSErrorAlert? {
 		switch self {
 		case .ppacError(let ppacError):

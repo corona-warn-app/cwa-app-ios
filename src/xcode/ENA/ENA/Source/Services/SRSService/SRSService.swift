@@ -8,7 +8,7 @@ import OpenCombine
 
 protocol SRSServiceProviding {
 
-	typealias SRSAuthenticationResponse = (Result<String, SRSServerError>) -> Void
+	typealias SRSAuthenticationResponse = (Result<String, SRSError>) -> Void
 
 	func authenticate(completion: @escaping SRSAuthenticationResponse)
 }

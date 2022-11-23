@@ -6,6 +6,7 @@ import Foundation
 import OpenCombine
 import UIKit
 
+// swiftlint:disable:next type_body_length
 class ExposureSubmissionCoordinatorModel {
 
 	// MARK: - Init
@@ -193,7 +194,7 @@ class ExposureSubmissionCoordinatorModel {
 			return
 		}
 		isLoading(true)
-		srsService.authenticate(completion: { [weak self] (result: Result<String, SRSServerError>) in
+		srsService.authenticate(completion: { [weak self] (result: Result<String, SRSError>) in
 			guard let self = self else { return }
 			isLoading(false)
 			switch result {

@@ -29,7 +29,7 @@ enum ExposureSubmissionServiceError: LocalizedError, Equatable {
 	case coronaTestServiceError(CoronaTestServiceError)
 	case keySubmissionError(ServiceError<KeySubmissionResourceError>)
 	case preconditionError(ExposureSubmissionServicePreconditionError)
-	case srsError(SRSServerError)
+	case srsError(SRSError)
 
 	var errorDescription: String? {
 		switch self {
