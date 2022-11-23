@@ -499,7 +499,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "OnboardingInfo_alwaysStayInformedPage_title" = "Warnungen erhalten, Risiken erkennen";
 
-"OnboardingInfo_alwaysStayInformedPage_boldText" = "Die App kann Ihnen automatisch Mitteilungen senden und Sie unter anderem über Ihren Risikostatus oder die Gültigkeit Ihrer Zertifikate informieren. Passen Sie dafür die Mitteilungseinstellungen an.";
+"OnboardingInfo_alwaysStayInformedPage_boldText" = "Die App kann Ihnen automatisch Mitteilungen senden und Sie unter anderem über Ihren Risikostatus oder die Gültigkeit Ihrer Zertifikate informieren. Passen Sie dafür die Mitteilungseinstellungen an.";
 
 "OnboardingInfo_alwaysStayInformedPage_normalText" = "Auf diese Weise können Sie sich und Ihre Mitmenschen schützen und die Gültigkeit Ihrer Zertifikate im Blick behalten.";
 
@@ -687,14 +687,6 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionSuccess_RAT_listItem3" = "Das Gesundheitsamt wird sich möglicherweise in den nächsten Tagen bei Ihnen melden.";
 
-"ExposureSubmissionSuccess_SRS_listItem0" = "Sie sind sehr wahrscheinlich ansteckend. Isolieren Sie sich von anderen Personen.";
-
-"ExposureSubmissionSuccess_SRS_listItem1" = "Ihre Warnung wird dem Kontakt-Tagebuch hinzugefügt.";
-
-"ExposureSubmissionSuccess_SRS_listItem2" = "Falls noch nicht geschehen, machen Sie einen PCR-Test, um dieses Testergebnis zu verifizieren.";
-
-"ExposureSubmissionSuccess_SRS_listItem3" = "Das Gesundheitsamt wird sich möglicherweise in den nächsten Tagen bei Ihnen melden.";
-
 "ExposureSubmissionSuccess_listItem2_1" = "Bitte beobachten Sie genau, wie sich Ihre Symptome entwickeln.";
 
 "ExposureSubmissionSuccess_listItem2_2" = "Sie werden eventuell von Ihrem Gesundheitsamt gebeten, eine Liste Ihrer Kontaktpersonen zu erstellen. Erfassen Sie dabei alle Personen, zu denen Sie in den zwei Tagen vor Erkrankungsbeginn engen Kontakt (unter 2 Meter, direktes Gespräch) über insgesamt 10 Minuten hatten. Nutzen Sie hierfür Ihr Kontakt-Tagebuch. Sie können die Einträge einfach exportieren und ausdrucken oder als E-Mail verschicken.";
@@ -735,35 +727,17 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "SRS_ConsentScreen_header_section1" = "Andere warnen";
 
-"SRSConsentScreen_HelpOthers" = "Helfen Sie mit, indem Sie andere warnen, denen Sie begegnet sind!.";
-"SRSConsentScreen_title_description2" = "Wenn Ihr Corona-Test positiv ist, können Sie Nutzer über die App warnen. Es wird nur innerhalb Deutschlands gewarnt.
-Es werden auch Nutzer gewarnt, die zeitgleich mit Ihnen an denselben Events oder Orten eingecheckt waren.";
-"SRSConsentScreen_primaryButtonTitle" = "Einverstanden";
 "SRS_ConsentScreen_title_description1" = "Bevor Sie andere warnen können, ist Ihr Einverständnis erforderlich.";
 
-"SRS_ConsentScreen_instruction1" = "Wenn Sie positiv getestet wurden, können Sie Ihre Mitmenschen über die App warnen.\nDie Warnung nach einem positiven Selbsttest oder mit einem Testergebnis, das nicht in der App vorliegt, erfordert die Prüfung der Echtheit der App.";
+"SRS_ConsentScreen_instruction1" = "Sie bestätigen hiermit, dass Sie persönlich durch einen Selbsttest oder von einer Teststelle positiv getestet wurden. Sie können hier nicht in Vertretung von Familienmitgliedern warnen.";
 
-"SRS_ConsentScreen_instruction2" = "So kann zugleich sichergestellt werden, dass eine solche Warnung nur nach Ablauf von %@ Tagen erneut möglich ist.";
+"SRS_ConsentScreen_instruction2" = "Sie können andere nur ein Mal innerhalb von 3 Monaten warnen, es sei denn, Sie haben Ihr Testergebnis in der App erhalten. Dies dient der Vermeidung von Missbrauch.";
 
-"SRS_ConsentScreen_Acknowledgement_1" = "Die Warnung anderer ist freiwillig. Wenn Sie Ihr Testergebnis teilen, helfen Sie jedoch mit, Ihre Mitmenschen vor Ansteckungen zu schützen.";
+"SRS_ConsentScreen_instruction3" = "Sie können für einen Selbsttest kein offizielles COVID-Testzertifikat erhalten.";
 
-"SRS_ConsentScreen_Acknowledgement_2" = "Ihre Identität bleibt geheim. Andere Nutzer erfahren nicht, wer sein Testergebnis geteilt hat.";
+"SRS_ConsentScreen_header_section2" = "Helfen Sie mit, indem Sie andere warnen, denen Sie begegnet sind!";
 
-"SRS_ConsentScreen_Acknowledgement_3" = "Unter „Meine Check-ins“ können Sie Ihre Events und Orte einsehen, deren eingecheckte Gäste gewarnt werden. Sie können einzelne Check-Ins auch entfernen und so von der Warnung ausschließen.";
-
-"SRS_ConsentScreen_Acknowledgement_4" = "Sie können Ihr Einverständnis abgeben, wenn Sie mindestens 16 Jahre alt sind.";
-
-"SRS_ConsentScreen_Acknowledgement_5" = "Sie können andere auch ohne Echtheitsprüfung warnen. Hierfür müssen Sie einen PCR- oder Schnelltest in der App registrieren und das Ergebnis in der App abrufen.";
-
-"SRS_ConsentScreen_Acknowledgement_6" = "Erteilen Sie im nächsten Schritt Ihre Erlaubnis zum Zugriff auf die Zufalls-IDs.";
-
-"SRS_ConsentScreen_DataProcessingDetailInfo" = "Ausführliche Informationen zur Echtheitsprüfung und den Datenschutzrisiken in den USA und anderen Drittländern";
-
-/* SRSDataProcessingInfo */
-
-"SRS_DataProcessingInfo_title" = "Prüfung der Echtheit und Drittlandsübermittlung";
-
-"SRS_DataProcessingInfodescription" = "Um die Echtheit Ihrer App zu bestätigen, erzeugt Ihr Smartphone eine eindeutige Kennung, die Informationen über die Version Ihres Smartphones und der App enthält. Das ist erforderlich, um sicherzustellen, dass nur Nutzer eine Warnung nach einem positiven Selbsttest oder mit einem Testergebnis, das nicht in der App vorliegt, auslösen, die tatsächlich die Corona-Warn-App nutzen und nicht manipulierte Warnungen bereitstellen. Das Verfahren dient außerdem dazu, sicherzustellen, dass Warnungen nach einem positiven Selbsttest oder mit einem Testergebnis, das nicht in der App vorliegt, nur alle drei Monate möglich sind.\n\nDie bei der Echtheitsprüfung erzeugte eindeutige Kennung wird beim Auslösen der Warnung einmalig an Apple übermittelt. Dabei kann es auch zu einer Datenübermittlung in die USA oder andere Drittländer kommen. Dort besteht möglicherweise kein dem europäischen Recht entsprechendes Datenschutzniveau und Ihre europäischen Datenschutzrechte können eventuell nicht durchgesetzt werden. Insbesondere besteht die Möglichkeit, dass Sicherheitsbehörden im Drittland, auch ohne einen konkreten Verdacht, auf die übermittelten Daten bei Apple zugreifen und diese auswerten, beispielsweise indem sie Daten mit anderen Informationen verknüpfen. Dies betrifft nur die an Apple übermittelte Kennung. Möglicherweise kann Apple jedoch anhand der Kennung auf Ihre Identität schließen und nachvollziehen, dass die Echtheitsprüfung Ihres Smartphones im Rahmen einer Warnung anderer stattgefunden hat.\n\nWenn Sie mit der Drittlandsübermittlung nicht einverstanden sind, tippen Sie bitte nicht „Einverstanden“ an. Sie können die App weiterhin nutzen, eine Warnung anderer nach einem positiven Selbsttest oder mit einem Testergebnis, das nicht in der App vorliegt, ist dann jedoch nicht möglich.";
+"SRS_ConsentScreen_title_description2" = "Wenn Ihr Corona-Test positiv ist, können Sie Nutzer über die App warnen. Es wird nur innerhalb Deutschlands gewarnt.\nEs werden auch Nutzer gewarnt, die zeitgleich mit Ihnen an denselben Events oder Orten eingecheckt waren.";
 
 /* Exposure Submission Result */
 "ExposureSubmissionResult_Title" = "Ihr Testergebnis";
@@ -980,8 +954,6 @@ Es werden auch Nutzer gewarnt, die zeitgleich mit Ihnen an denselben Events oder
 
 "ExposureSubmission_SRSTestTypeSelection_body" = "Bitte wählen Sie die Art des Tests aus, auf dessen Grundlage Sie warnen.";
 
-"ExposureSubmission_SRSTestTypeSelection_description" = "Die Angabe der Art des Tests dient nur der statistischen Auswertung. Die Angabe ist freiwillig. Sie wird nicht mit der Warnung oder Ihrer Identität verbunden. Wenn Sie keine Angabe machen wollen, wählen Sie „Keine Angabe“.";
-
 "ExposureSubmission_SRSTestTypeSelection_optionSRSSelfTest_title" = "Antigen-Schnelltest nicht in der App registriert";
 
 "ExposureSubmission_SRSTestTypeSelection_optionSRSRegisteredRat_title" = "Antigen-Schnelltest in der App registriert, aber kein Ergebnis erhalten";
@@ -992,7 +964,7 @@ Es werden auch Nutzer gewarnt, die zeitgleich mit Ihnen an denselben Events oder
 
 "ExposureSubmission_SRSTestTypeSelection_optionSRSRapidPcr_title" = "PCR-Schnelltest (PoC-NAT-Test)";
 
-"ExposureSubmission_SRSTestTypeSelection_optionSRSOther_title" = "Keine Angabe";
+"ExposureSubmission_SRSTestTypeSelection_optionSRSOther_title" = "Sonstige / keine Angabe";
 
 "ExposureSubmission_SRSTestTypeSelection_warnProcessCancelAlert_Title" = "Warn-Vorgang abbrechen?";
 
