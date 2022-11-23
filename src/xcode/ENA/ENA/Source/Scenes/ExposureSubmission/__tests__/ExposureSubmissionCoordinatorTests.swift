@@ -98,6 +98,7 @@ class ExposureSubmissionCoordinatorTests: CWATestCase {
 				eventStore: eventStore,
 				contactDiaryStore: diaryStore
 			),
+			srsService: MockSRSService(),
 			healthCertificateService: healthCertificateService,
 			healthCertificateValidationService: healthCertificateValidationService,
 			healthCertificateValidationOnboardedCountriesProvider: healthCertificateValidationOnboardedCountriesProvider,
@@ -120,6 +121,7 @@ class ExposureSubmissionCoordinatorTests: CWATestCase {
 			parentViewController: parentNavigationController,
 			exposureSubmissionService: exposureSubmissionService,
 			coronaTestService: coronaTestService,
+			srsService: MockSRSService(),
 			familyMemberCoronaTestService: familyMemberCoronaTestService,
 			healthCertificateService: healthCertificateService,
 			healthCertificateValidationService: healthCertificateValidationService,

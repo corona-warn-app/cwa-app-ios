@@ -18,6 +18,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		parentViewController: UIViewController,
 		exposureSubmissionService: ExposureSubmissionService,
 		coronaTestService: CoronaTestServiceProviding,
+		srsService: SRSServiceProviding,
 		familyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding,
 		healthCertificateService: HealthCertificateService,
 		healthCertificateValidationService: HealthCertificateValidationProviding,
@@ -41,6 +42,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: exposureSubmissionService,
 			coronaTestService: coronaTestService,
+			srsService: srsService,
 			familyMemberCoronaTestService: familyMemberCoronaTestService,
 			eventProvider: eventProvider,
 			recycleBin: recycleBin
@@ -473,52 +475,52 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		push(exposureSubmissionHotlineViewController)
 	}
 	
-	private func makeSRSConsentScreen(srsFlowType: SRSFlowType) -> UIViewController {
-		let srsConsentViewController = SRSConsentViewController(
-			onPrimaryButtonTap: { [weak self] isLoading in
-				guard let self = self else { return }
-				
-				isLoading(true)
-				self.model.exposureSubmissionService.getTemporaryExposureKeys { error in
-					isLoading(false)
-					
-					guard let error = error else {
-						switch srsFlowType {
-						case .srsPositive:
-							self.model.storeSelectedSRSSubmissionType(.srsSelfTest)
-							self.showSRSFlowNextScreen()
-						case .positiveWithoutResultInTheApp:
-							self.showSRSTestTypeSelectionScreen()
-						}
-						return
-					}
-					
-					// User selected "Don't Share" / "Nicht teilen"
-					if error == .notAuthorized {
-						Log.info("OS submission authorization was declined.")
-					} else {
-						self.showErrorAlert(for: error)
-					}
-				}
-			},
-			dismiss: { [weak self] in self?.dismiss() }
-		)
-		
-		let footerViewModel = FooterViewModel(
-			primaryButtonName: AppStrings.ExposureSubmissionTestResultAvailable.primaryButtonTitle,
-			primaryIdentifier: AccessibilityIdentifiers.ExposureSubmissionTestResultAvailable.primaryButton,
-			isSecondaryButtonEnabled: false,
-			isSecondaryButtonHidden: true
-		)
-
-		let topBottomContainerViewController = TopBottomContainerViewController(
-			topController: srsConsentViewController,
-			bottomController: FooterViewController(footerViewModel)
-		)
-
-		return topBottomContainerViewController
-	}
-	
+    private func makeSRSConsentScreen(srsFlowType: SRSFlowType) -> UIViewController {
+        let srsConsentViewController = SRSConsentViewController(
+            onPrimaryButtonTap: { [weak self] isLoading in
+                guard let self = self else { return }
+                
+                isLoading(true)
+                self.model.exposureSubmissionService.getTemporaryExposureKeys { error in
+                    isLoading(false)
+                    
+                    guard let error = error else {
+                        switch srsFlowType {
+                        case .srsPositive:
+                            self.model.storeSelectedSRSSubmissionType(.srsSelfTest)
+                            self.showSRSFlowNextScreen()
+                        case .positiveWithoutResultInTheApp:
+                            self.showSRSTestTypeSelectionScreen()
+                        }
+                        return
+                    }
+                    
+                    // User selected "Don't Share" / "Nicht teilen"
+                    if error == .notAuthorized {
+                        Log.info("OS submission authorization was declined.")
+                    } else {
+                        self.showErrorAlert(for: error)
+                    }
+                }
+            },
+            dismiss: { [weak self] in self?.dismiss() }
+        )
+        
+        let footerViewModel = FooterViewModel(
+            primaryButtonName: AppStrings.ExposureSubmissionTestResultAvailable.primaryButtonTitle,
+            primaryIdentifier: AccessibilityIdentifiers.ExposureSubmissionTestResultAvailable.primaryButton,
+            isSecondaryButtonEnabled: false,
+            isSecondaryButtonHidden: true
+        )
+        
+        let topBottomContainerViewController = TopBottomContainerViewController(
+            topController: srsConsentViewController,
+            bottomController: FooterViewController(footerViewModel)
+        )
+        
+        return topBottomContainerViewController
+    }
+    
 	private func makeQRInfoScreen(supportedCountries: [Country], testRegistrationInformation: CoronaTestRegistrationInformation) -> UIViewController {
 		let exposureSubmissionQRInfoViewController = ExposureSubmissionQRInfoViewController(
 			supportedCountries: supportedCountries,
@@ -1685,6 +1687,8 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		self.model.submitExposure(
 			isLoading: isLoading,
 			onSuccess: { [weak self] in
+				self?.store.mostRecentKeySubmissionDate = Date()
+				
 				if showSubmissionSuccess {
 					self?.showExposureSubmissionSuccessViewController()
 				} else {
@@ -1710,8 +1714,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 			isLoading: isLoading,
 			onSuccess: { [weak self] in
 				if showSubmissionSuccess {
-					// to.do refactor thank you screen for SRS
-					// self?.showExposureSubmissionSuccessViewController()
+					self?.showExposureSubmissionSuccessViewController()
 				} else {
 					self?.dismiss()
 				}

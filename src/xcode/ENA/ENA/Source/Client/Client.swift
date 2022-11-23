@@ -83,7 +83,7 @@ struct SubmissionPayload {
 	let checkinProtectedReports: [SAP_Internal_Pt_CheckInProtectedReport]
 
 	/// a transaction number
-	let tan: String
+	let tan: String?
 
 	let submissionType: SAP_Internal_SubmissionPayload.SubmissionType
 }

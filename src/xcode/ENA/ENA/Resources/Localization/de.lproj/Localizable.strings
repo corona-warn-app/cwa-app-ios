@@ -499,8 +499,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "OnboardingInfo_alwaysStayInformedPage_title" = "Warnungen erhalten, Risiken erkennen";
 
-"OnboardingInfo_alwaysStayInformedPage_boldText" = "Die App kann Ihnen automatisch Mitteilungen senden und Sie unter anderem über Ihren Risikostatus oder die Gültigkeit Ihrer Zertifikate informieren. Passen Sie dafür die Mitteilungseinstellungen an.";
-
+"OnboardingInfo_alwaysStayInformedPage_boldText" = "Die App kann Ihnen automatisch Mitteilungen senden und Sie unter anderem über Ihren Risikostatus oder die Gültigkeit Ihrer Zertifikate informieren. Passen Sie dafür die Mitteilungseinstellungen an.";
 "OnboardingInfo_alwaysStayInformedPage_normalText" = "Auf diese Weise können Sie sich und Ihre Mitmenschen schützen und die Gültigkeit Ihrer Zertifikate im Blick behalten.";
 
 /* Onboarding EU Keys */
@@ -581,6 +580,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 "ExposureSubmissionDispatch_FindTestCentersTitle" = "Testmöglichkeit finden";
 
 "ExposureSubmissionDispatch_FindTestCentersDescription" = "Finden Sie Teststellen in Ihrer Nähe und falls Probleme auftreten, können Sie diese melden. \nSie werden auf eine externe Website des RKI weitergeleitet.";
+"SRS_submission_Invalid_OTP" = "Ein Fehler ist aufgetreten. Bitte versuchen Sie die Warnung erneut zu senden.";
 
 /* Exposure Submission Hotline */
 

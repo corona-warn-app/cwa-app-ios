@@ -22,7 +22,7 @@ extension Locator {
 			method: .post,
 			defaultHeaders: [
 				"Content-Type": "application/x-protobuf",
-				"cwa-authorization": payload.tan,
+				"cwa-authorization": payload.tan ?? "",
 				"cwa-fake": fake,
 				"cwa-header-padding": fakePadding
 			]

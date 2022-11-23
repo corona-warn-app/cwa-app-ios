@@ -34,6 +34,7 @@ class RootCoordinator: NSObject, RequiresAppDependencies, UITabBarControllerDele
 		eventCheckoutService: EventCheckoutService,
 		otpService: OTPServiceProviding,
 		ppacService: PrivacyPreservingAccessControl,
+		srsService: SRSServiceProviding,
 		cclService: CCLServable,
 		healthCertificateService: HealthCertificateService,
 		healthCertificateRequestService: HealthCertificateRequestService,
@@ -54,6 +55,7 @@ class RootCoordinator: NSObject, RequiresAppDependencies, UITabBarControllerDele
 		self.eventCheckoutService = eventCheckoutService
 		self.otpService = otpService
 		self.ppacService = ppacService
+		self.srsService = srsService
 		self.cclService = cclService
 		self.healthCertificateService = healthCertificateService
 		self.healthCertificateRequestService = healthCertificateRequestService
@@ -152,6 +154,7 @@ class RootCoordinator: NSObject, RequiresAppDependencies, UITabBarControllerDele
 			eventStore: eventStore,
 			appConfiguration: appConfigurationProvider,
 			eventCheckoutService: eventCheckoutService,
+			srsService: srsService,
 			healthCertificateService: healthCertificateService,
 			healthCertificateValidationService: healthCertificateValidationService,
 			healthCertificateValidationOnboardedCountriesProvider: healthCertificateValidationOnboardedCountriesProvider,
@@ -182,6 +185,7 @@ class RootCoordinator: NSObject, RequiresAppDependencies, UITabBarControllerDele
 			healthCertificateService: healthCertificateService,
 			healthCertificateValidationService: healthCertificateValidationService,
 			elsService: elsService,
+			srsService: srsService,
 			exposureSubmissionService: exposureSubmissionService,
 			qrScannerCoordinator: qrScannerCoordinator,
 			recycleBin: recycleBin,
@@ -400,6 +404,7 @@ class RootCoordinator: NSObject, RequiresAppDependencies, UITabBarControllerDele
 	private let otpService: OTPServiceProviding
 	private let ppacService: PrivacyPreservingAccessControl
 	private let elsService: ErrorLogSubmissionProviding
+	private let srsService: SRSServiceProviding
 	private let cclService: CCLServable
 	private let healthCertificateService: HealthCertificateService
 	private let healthCertificateRequestService: HealthCertificateRequestService

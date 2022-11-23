@@ -213,6 +213,11 @@ final class SecureStore: SecureKeyValueStoring, Store {
 		set { kvStore["journalWithExposureHistoryInfoScreenShown"] = newValue }
 	}
 	
+	var mostRecentKeySubmissionDate: Date? {
+		get { kvStore["mostRecentKeySubmissionDate"] as Date? }
+		set { kvStore["mostRecentKeySubmissionDate"] = newValue }
+	}
+	
 	var lastBoosterNotificationsExecutionDate: Date? {
 		get { kvStore["lastBoosterNotificationsExecutionDate"] as Date? }
 		set { kvStore["lastBoosterNotificationsExecutionDate"] = newValue }
@@ -433,6 +438,11 @@ extension SecureStore: DeviceTimeCheckStoring {
 		get { kvStore["wasDeviceTimeErrorShown"] as Bool? ?? false }
 		set { kvStore["wasDeviceTimeErrorShown"] = newValue }
 	}
+	
+	var firstReliableTimeStamp: Date? {
+		get { kvStore["firstReliableTimeStamp"] as Date? }
+		set { kvStore["firstReliableTimeStamp"] = newValue }
+	}
 }
 
 extension SecureStore: AppFeaturesStoring {
@@ -516,6 +526,11 @@ extension SecureStore: PrivacyPreservingProviding {
 		get { kvStore["ppacApiToken"] as TimestampedToken? }
 		set { kvStore["ppacApiToken"] = newValue }
 	}
+	
+	var previousPpacApiTokenEdus: TimestampedToken? {
+		get { kvStore["previousPpacApiTokenEdus"] as TimestampedToken? }
+		set { kvStore["previousPpacApiTokenEdus"] = newValue }
+	}
 }
 
 extension SecureStore: ErrorLogProviding {
@@ -535,6 +550,11 @@ extension SecureStore: ErrorLogProviding {
 		set { kvStore["ppacApiTokenEls"] = newValue }
 	}
 	
+	var previousPpacApiTokenEls: TimestampedToken? {
+		get { kvStore["previousPpacApiTokenEls"] as TimestampedToken? }
+		set { kvStore["previousPpacApiTokenEls"] = newValue }
+	}
+
 	var otpTokenEls: OTPToken? {
 		get { kvStore["otpTokenEls"] as OTPToken? }
 		set { kvStore["otpTokenEls"] = newValue }
@@ -551,6 +571,29 @@ extension SecureStore: ErrorLogProviding {
 		set { kvStore["elsLoggingActiveAtStartup"] = newValue }
 	}
 	#endif
+}
+
+extension SecureStore: SRSProviding {
+	
+	var ppacApiTokenSrs: TimestampedToken? {
+		get { kvStore["ppacApiTokenSrs"] as TimestampedToken? }
+		set { kvStore["ppacApiTokenSrs"] = newValue }
+	}
+	
+	var previousPPACApiTokenSrs: TimestampedToken? {
+		get { kvStore["previousPPACApiTokenSrs"] as TimestampedToken? }
+		set { kvStore["previousPPACApiTokenSrs"] = newValue }
+	}
+
+	var otpTokenSrs: OTPToken? {
+		get { kvStore["otpTokenSrs"] as OTPToken? }
+		set { kvStore["otpTokenSrs"] = newValue }
+	}
+    
+    var otpSrsAuthorizationDate: Date? {
+        get { kvStore["otpSrsAuthorizationDate"] as Date? }
+        set { kvStore["otpSrsAuthorizationDate"] = newValue }
+    }
 }
 
 extension SecureStore: ErrorLogUploadHistoryProviding {

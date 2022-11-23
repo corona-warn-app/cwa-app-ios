@@ -7,6 +7,11 @@ import Foundation
 protocol PrivacyPreservingAccessControl {
 	func getPPACTokenEDUS(_ completion: @escaping (Result<PPACToken, PPACError>) -> Void)
 	func getPPACTokenELS(_ completion: @escaping (Result<PPACToken, PPACError>) -> Void)
+	func getPPACTokenSRS(
+		minTimeSinceOnboardingInHours: Int,
+		minTimeBetweenSubmissionsInDays: Int,
+		completion: @escaping (Result<PPACToken, PPACError>) -> Void
+	)
 	#if !RELEASE
 	func generateNewAPIEdusToken() -> TimestampedToken
 	func generateNewAPIElsToken() -> TimestampedToken
@@ -26,6 +31,59 @@ class PPACService: PrivacyPreservingAccessControl {
 	}
 
 	// MARK: - Protocol PrivacyPreservingAccessControl
+
+	func getPPACTokenSRS(
+		minTimeSinceOnboardingInHours: Int,
+		minTimeBetweenSubmissionsInDays: Int,
+		completion: @escaping (Result<PPACToken, PPACError>) -> Void
+	) {
+		// check if time isn't incorrect
+		if store.deviceTimeCheckResult == .incorrect {
+			Log.error("SRSError: device time is incorrect", log: .ppac)
+			completion(.failure(PPACError.timeIncorrect))
+			return
+		}
+
+		// check if time isn't unknown
+		if store.deviceTimeCheckResult == .assumedCorrect {
+			Log.error("SRSError:device time is unverified", log: .ppac)
+			completion(.failure(PPACError.timeUnverified))
+			return
+		}
+		
+		// we have two parameters from the appconfig for prechecks:
+		// 1- a minimum number of hours since onboarding until user can self submit result.
+		// 2- a minimum number of days since last submission user can self submit result again.
+		
+		// 1- Check FIRST_RELIABLE_TIMESTAMP
+		if let firstReliableTimeStamp = store.firstReliableTimeStamp,
+		   let difference = Calendar.current.dateComponents([.hour], from: firstReliableTimeStamp, to: Date()).hour {
+			let minTimeSinceOnboarding = minTimeSinceOnboardingInHours <= 0 ? 24 : minTimeSinceOnboardingInHours
+			Log.debug("actual time since onboarding \(minTimeSinceOnboardingInHours) hours.", log: .ppac)
+			Log.debug("Corrected default time since onboarding \(minTimeSinceOnboarding) hours.", log: .ppac)
+
+			if difference < minTimeSinceOnboarding {
+				Log.error("SRSError: too short time since onboarding", log: .ppac)
+				completion(.failure(PPACError.minimumTimeSinceOnboarding))
+				return
+			}
+		}
+		
+		// 2- Check time since previous submission
+		if let mostRecentKeySubmissionDate = store.mostRecentKeySubmissionDate,
+		   let difference = Calendar.current.dateComponents([.day], from: mostRecentKeySubmissionDate, to: Date()).day {
+			let minTimeBetweenSubmissions = minTimeBetweenSubmissionsInDays <= 0 ? 90 : minTimeBetweenSubmissionsInDays
+			Log.debug("minTimeBetweenSubmissionsInDays = \(minTimeBetweenSubmissionsInDays) days.", log: .ppac)
+			Log.debug("Corrected default minTimeBetweenSubmissionsInDays = \(minTimeBetweenSubmissions) days.", log: .ppac)
+
+			if difference < minTimeBetweenSubmissions {
+				Log.error("SRSError: submission too early", log: .ppac)
+				completion(.failure(PPACError.submissionTooEarly))
+				return
+			}
+		}
+		deviceCheck.deviceToken(apiTokenSRS.token, completion: completion)
+	}
 
 	func getPPACTokenEDUS(_ completion: @escaping (Result<PPACToken, PPACError>) -> Void) {
 
@@ -54,7 +112,7 @@ class PPACService: PrivacyPreservingAccessControl {
 	}
 	
 	func getPPACTokenELS(_ completion: @escaping (Result<PPACToken, PPACError>) -> Void) {
-		// no divide time checks for ELS
+		// no device time checks for ELS
 		deviceCheck.deviceToken(apiTokenELS.token, completion: completion)
 	}
 
@@ -95,6 +153,16 @@ class PPACService: PrivacyPreservingAccessControl {
 	
 	private var apiTokenELS: TimestampedToken {
 		guard let storedToken = store.ppacApiTokenEls
+		else {
+			let newToken = generateAndStoreFreshAPIToken()
+			store.ppacApiTokenEls = newToken
+			return newToken
+		}
+		return storedToken
+	}
+
+	private var apiTokenSRS: TimestampedToken {
+		guard let storedToken = store.ppacApiTokenSrs
 		else {
 			let newToken = generateAndStoreFreshAPIToken()
 			store.ppacApiTokenEls = newToken
