@@ -526,8 +526,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		ppacService: ppacService,
 		otpService: otpService
 	)
-	
-	/// SRS Service singleton
+
 	private lazy var srsService: SRSServiceProviding = SRSService(
 		restServicerProvider: restServiceProvider,
 		store: store,
@@ -535,7 +534,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		otpService: otpService,
 		configurationProvider: appConfigurationProvider
 	)
-
 
 	private let recycleBin: RecycleBin
 
