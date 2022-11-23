@@ -192,13 +192,13 @@ class ExposureSubmissionCoordinatorModel {
 		isLoading(true)
 		srsService.authenticate(completion: { [weak self] result in
 			guard let self = self else { return }
+			isLoading(false)
 			switch result {
 			case .success(let srsOTP):
 				self.exposureSubmissionService.submitSRSExposure(
 					submissionType: srsSubmissionType,
 					srsOTP: srsOTP
 				) { error in
-					isLoading(false)
 					
 					switch error {
 						
