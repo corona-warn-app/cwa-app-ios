@@ -1878,8 +1878,13 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 				}
 			},
 			onError: { [weak self] error in
-				self?.showServiceErrorAlert(for: error) {
-					self?.dismiss()
+				switch error {
+				case .srsError(let srsError):
+					self?.showSRSFlowAlert(for: .error(srsError), isLoading: isLoading)
+				default:
+					self?.showServiceErrorAlert(for: error) {
+						self?.dismiss()
+					}
 				}
 			}
 		)
