@@ -20,6 +20,12 @@ final class HomeTestRegistrationTableViewCell: UITableViewCell {
 
 		setup()
 	}
+	
+	override func layoutSubviews() {
+		super.layoutSubviews()
+		
+		gradientView.roundCorners(corners: [.topLeft, .topRight], radius: 16)
+	}
 
 	override func setHighlighted(_ highlighted: Bool, animated: Bool) {
 		super.setHighlighted(highlighted, animated: animated)
@@ -36,12 +42,14 @@ final class HomeTestRegistrationTableViewCell: UITableViewCell {
 	// MARK: - Internal
 
 	func configure(with cellModel: HomeTestRegistrationCellModel, onPrimaryAction: @escaping () -> Void) {
+		gradientView.type = cellModel.gradientViewType
 		titleLabel.text = cellModel.title
+		subtitleLabel.text = cellModel.subtitle
 		descriptionLabel.text = cellModel.description
 		illustrationView.image = cellModel.image
 
 		button.setTitle(cellModel.buttonTitle, for: .normal)
-		button.accessibilityIdentifier = cellModel.accessibilityIdentifier
+		button.accessibilityIdentifier = cellModel.buttonAccessibilityIdentifier
 
 		self.tintColor = tintColor
 
@@ -50,7 +58,9 @@ final class HomeTestRegistrationTableViewCell: UITableViewCell {
 
 	// MARK: - Private
 
+	@IBOutlet private var gradientView: GradientView!
 	@IBOutlet private var titleLabel: ENALabel!
+	@IBOutlet private var subtitleLabel: ENALabel!
 	@IBOutlet private var descriptionLabel: ENALabel!
 	@IBOutlet private var illustrationView: UIImageView!
 	@IBOutlet private var button: ENAButton!
@@ -67,9 +77,9 @@ final class HomeTestRegistrationTableViewCell: UITableViewCell {
 
 	private func updateIllustration(for traitCollection: UITraitCollection) {
 		if traitCollection.preferredContentSizeCategory >= .accessibilityLarge {
-			illustrationView.superview?.isHidden = true
+			illustrationView.isHidden = true
 		} else {
-			illustrationView.superview?.isHidden = false
+			illustrationView.isHidden = false
 		}
 	}
 

@@ -27,10 +27,25 @@ protocol OTPServiceProviding {
 	///   - success: the authorized and stored otp as String
 	///   - failure: an OTPError, for which the caller can build a dedicated error handling
 	func getOTPEls(ppacToken: PPACToken, completion: @escaping (Result<String, OTPError>) -> Void)
+	
+	/// Checks if there is a valid stored otp for SRS. If so, we check if we can reuse it because it was not already used, or if it was already used. If so, we return a failure.  If there is not a stored otp els token, or if the stored token's expiration date is reached, a new fresh otp token is generated and stored.
+	/// After these validation checks, the service tries to authorize the otp against the server.
+	/// - Parameters:
+	///   - ppacToken: a generated and valid PPACToken from the PPACService
+	///   - completion: The completion handler
+	/// - Returns:
+	///   - success: the authorized and stored otp as String
+	///   - failure: an OTPError, for which the caller can build a dedicated error handling
+	func getOTPSrs(ppacToken: PPACToken, completion: @escaping (Result<String, OTPError>) -> Void)
+	
 	/// discards any stored otp edus.
 	func discardOTPEdus()
+	
 	/// discards any stored otp els.
 	func discardOTPEls()
+	
+	/// discards any stored otp srs.
+	func discardOTPSrs()
 }
 
 final class OTPService: OTPServiceProviding {
@@ -95,6 +110,20 @@ final class OTPService: OTPServiceProviding {
 		authorizeEls(otp, with: ppacToken, completion: completion)
 	}
 
+	func getOTPSrs(ppacToken: PPACToken, completion: @escaping (Result<String, OTPError>) -> Void) {
+		if let otpToken = store.otpTokenSrs,
+		   let expirationDate = otpToken.expirationDate,
+		   expirationDate > Date(),
+		   store.otpElsAuthorizationDate == nil {
+			Log.info("Existing OTP ELS was not consumed before and can be used for submission.", log: .otp)
+			completion(.success(otpToken.token))
+			return
+		}
+		Log.info("No existing or valid OTP ELS was found. Generating new one.", log: .otp)
+		let otp = generateOTPToken()
+		authorizeSRS(otp, with: ppacToken, completion: completion)
+	}
+
 	func discardOTPEdus() {
 		store.otpTokenEdus = nil
 		Log.info("OTP EDUS was discarded.", log: .otp)
@@ -103,6 +132,11 @@ final class OTPService: OTPServiceProviding {
 	func discardOTPEls() {
 		store.otpTokenEls = nil
 		Log.info("OTP ELS was discarded.", log: .otp)
+	}
+	
+	func discardOTPSrs() {
+		store.otpTokenSrs = nil
+		Log.info("OTP SRS was discarded.", log: .otp)
 	}
 
 	// MARK: - Private
@@ -189,6 +223,39 @@ final class OTPService: OTPServiceProviding {
 				completion(.success(verifiedToken.token))
 			case .failure(let error):
 				Log.error("Authorization of a new OTP ELS failed with error: \(error)", log: .otp)
+				completion(.failure(.restServiceError(error)))
+			}
+		}
+	}
+	
+	private func authorizeSRS(_ otp: String, with ppacToken: PPACToken, completion: @escaping (Result<String, OTPError>) -> Void) {
+		Log.info("Authorization of a new OTP SRS started.", log: .otp)
+		// We authorize the otp with the ppac Token at our server.
+		let resource = OTPAuthorizationForSRSResource(otpSRS: otp, ppacToken: ppacToken)
+		restServiceProvider.load(resource) { [weak self] result in
+			guard let self = self else {
+				Log.error("could not create strong self", log: .otp)
+				completion(.failure(OTPError.generalError(underlyingError: nil)))
+				return
+			}
+
+			switch result {
+			case .success(let expirationDate):
+				// Success: We store the authorized otp with timestamp and return the token.
+				let verifiedToken = OTPToken(
+					token: otp,
+					timestamp: Date(),
+					expirationDate: expirationDate.expirationDate
+				)
+
+				self.store.otpTokenEls = verifiedToken
+
+				Log.info("A new OTP ELS was authorized and persisted.", log: .otp)
+
+				completion(.success(verifiedToken.token))
+			case .failure(let error):
+                
+				Log.error("Authorization of a new OTP SRS failed with error: \(error)", log: .otp)
 				completion(.failure(.restServiceError(error)))
 			}
 		}

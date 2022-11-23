@@ -149,6 +149,15 @@ struct SAP_Internal_V2_ApplicationConfigurationIOS {
   /// Clears the value of `dgcParameters`. Subsequent reads from it will return its default value.
   mutating func clearDgcParameters() {_uniqueStorage()._dgcParameters = nil}
 
+  var selfReportParameters: SAP_Internal_V2_PPDDSelfReportSubmissionParametersIOS {
+    get {return _storage._selfReportParameters ?? SAP_Internal_V2_PPDDSelfReportSubmissionParametersIOS()}
+    set {_uniqueStorage()._selfReportParameters = newValue}
+  }
+  /// Returns true if `selfReportParameters` has been explicitly set.
+  var hasSelfReportParameters: Bool {return _storage._selfReportParameters != nil}
+  /// Clears the value of `selfReportParameters`. Subsequent reads from it will return its default value.
+  mutating func clearSelfReportParameters() {_uniqueStorage()._selfReportParameters = nil}
+
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
   init() {}
@@ -220,6 +229,7 @@ extension SAP_Internal_V2_ApplicationConfigurationIOS: SwiftProtobuf.Message, Sw
     12: .same(proto: "presenceTracingParameters"),
     13: .same(proto: "coronaTestParameters"),
     14: .same(proto: "dgcParameters"),
+    15: .same(proto: "selfReportParameters"),
   ]
 
   fileprivate class _StorageClass {
@@ -237,6 +247,7 @@ extension SAP_Internal_V2_ApplicationConfigurationIOS: SwiftProtobuf.Message, Sw
     var _presenceTracingParameters: SAP_Internal_V2_PresenceTracingParameters? = nil
     var _coronaTestParameters: SAP_Internal_V2_CoronaTestParameters? = nil
     var _dgcParameters: SAP_Internal_V2_DGCParameters? = nil
+    var _selfReportParameters: SAP_Internal_V2_PPDDSelfReportSubmissionParametersIOS? = nil
 
     static let defaultInstance = _StorageClass()
 
@@ -257,6 +268,7 @@ extension SAP_Internal_V2_ApplicationConfigurationIOS: SwiftProtobuf.Message, Sw
       _presenceTracingParameters = source._presenceTracingParameters
       _coronaTestParameters = source._coronaTestParameters
       _dgcParameters = source._dgcParameters
+      _selfReportParameters = source._selfReportParameters
     }
   }
 
@@ -289,6 +301,7 @@ extension SAP_Internal_V2_ApplicationConfigurationIOS: SwiftProtobuf.Message, Sw
         case 12: try { try decoder.decodeSingularMessageField(value: &_storage._presenceTracingParameters) }()
         case 13: try { try decoder.decodeSingularMessageField(value: &_storage._coronaTestParameters) }()
         case 14: try { try decoder.decodeSingularMessageField(value: &_storage._dgcParameters) }()
+        case 15: try { try decoder.decodeSingularMessageField(value: &_storage._selfReportParameters) }()
         default: break
         }
       }
@@ -343,6 +356,9 @@ extension SAP_Internal_V2_ApplicationConfigurationIOS: SwiftProtobuf.Message, Sw
       try { if let v = _storage._dgcParameters {
         try visitor.visitSingularMessageField(value: v, fieldNumber: 14)
       } }()
+      try { if let v = _storage._selfReportParameters {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 15)
+      } }()
     }
     try unknownFields.traverse(visitor: &visitor)
   }
@@ -366,6 +382,7 @@ extension SAP_Internal_V2_ApplicationConfigurationIOS: SwiftProtobuf.Message, Sw
         if _storage._presenceTracingParameters != rhs_storage._presenceTracingParameters {return false}
         if _storage._coronaTestParameters != rhs_storage._coronaTestParameters {return false}
         if _storage._dgcParameters != rhs_storage._dgcParameters {return false}
+        if _storage._selfReportParameters != rhs_storage._selfReportParameters {return false}
         return true
       }
       if !storagesAreEqual {return false}

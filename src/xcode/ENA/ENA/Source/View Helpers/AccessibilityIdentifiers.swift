@@ -104,13 +104,20 @@ enum AccessibilityIdentifiers {
 				static let firstBulletPoint = "AccessibilityIdentifiers.Home.pcrCell.Positive.Item0"
 				static let secondBulletPoint = "AccessibilityIdentifiers.Home.pcrCell.Positive.Item1"
 				static let thirdBulletPoint = "AccessibilityIdentifiers.Home.pcrCell.Positive.Item2"
-
+				static let fourthBulletPoint = "AccessibilityIdentifiers.Home.pcrCell.Positive.Item3"
 			}
 			enum RAT {
 				static let antigenCell = "AccessibilityIdentifiers.Home.antigenCell"
 				static let firstBulletPoint = "AccessibilityIdentifiers.Home.ratCell.Positive.Item0"
 				static let secondBulletPoint = "AccessibilityIdentifiers.Home.ratCell.Positive.Item1"
 				static let thirdBulletPoint = "AccessibilityIdentifiers.Home.ratCell.Positive.Item2"
+				static let fourthBulletPoint = "AccessibilityIdentifiers.Home.ratCell.Positive.Item3"
+			}
+			enum SRS {
+				static let firstBulletPoint = "AccessibilityIdentifiers.Home.srsCell.Positive.Item0"
+				static let secondBulletPoint = "AccessibilityIdentifiers.Home.srsCell.Positive.Item1"
+				static let thirdBulletPoint = "AccessibilityIdentifiers.Home.srsCell.Positive.Item2"
+				static let fourthBulletPoint = "AccessibilityIdentifiers.Home.srsCell.Positive.Item3"
 			}
 			static let submittedPCRCell = "AccessibilityIdentifiers.Home.submittedPCRCell"
 			static let submittedAntigenCell = "AccessibilityIdentifiers.Home.submittedAntigenCell"
@@ -341,7 +348,19 @@ enum AccessibilityIdentifiers {
 		static let photo = "FileScanner_Sheet_Photo_Button"
 		static let file = "FileScanner_Sheet_File_Button"
 	}
+
+	enum SRSConsentScreen {
+		static let primaryButton = "AppStrings.SRSConsentScreen.primaryButton"
+		static let accImageDescription = "AppStrings.SRSConsentScreen.accImageDescription"
+		static let headerSection1 = "AppStrings.SRSConsentScreen.headerSection1"
+		static let acknowledgementTitle = "AppStrings.SRSConsentScreen.acknowledgementTitle"
+		static let dataProcessingDetailInfoButton = "AppStrings.SRSConsentScreen.dataProcessingDetailInfoButton"
+	}
 	
+	enum SRSDataProcessingDetailInfo {
+		static let content = "AppStrings.SRSConsentScreen.dataProcessingDetailInfo"
+	}
+
 	enum ExposureSubmissionQRInfo {
 		static let headerSection1 = "AppStrings.ExposureSubmissionQRInfo.headerSection1"
 		static let headerSection2 = "AppStrings.ExposureSubmissionQRInfo.headerSection2"
@@ -355,9 +374,9 @@ enum AccessibilityIdentifiers {
 		static let sectionHeadline = "AppStrings.ExposureSubmission_DispatchSectionHeadline"
 		static let sectionHeadline2 = "AppStrings.ExposureSubmission_DispatchSectionHeadline2"
 		static let qrCodeButtonDescription = "AppStrings.ExposureSubmissionDispatch.qrCodeButtonDescription"
-		static let tanButtonDescription = "AppStrings.ExposureSubmissionDispatch.tanButtonDescription"
+		static let positiveSelfTestButtonDescription = "AppStrings.ExposureSubmissionDispatch.positiveSelfTestButtonDescription"
 		static let tanInputView = "AppStrings.ExposureSubmissionDispatch.TaninputView"
-		static let hotlineButtonDescription = "AppStrings.ExposureSubmissionDispatch.hotlineButtonDescription"
+		static let SRSButtonDescription = "AppStrings.ExposureSubmissionDispatch.SRSButtonDescription"
 		static let findTestCentersButtonDescription = "AppStrings.ExposureSubmissionDispatch.findTestCentersButtonDescription"
 	}
 	
@@ -571,6 +590,16 @@ enum AccessibilityIdentifiers {
 
 		}
 
+		enum SRSTestTypeSelection {
+			static let body = "AppStrings.ExposureSubmission.SRSTestTypeSelection.body"
+			static let description = "AppStrings.ExposureSubmission.SRSTestTypeSelection.description"
+			static let optionSRSSelfTest = "AppStrings.ExposureSubmission.SRSTestTypeSelection.submissionType.srsSelfTest"
+			static let optionSRSRegisteredRat = "AppStrings.ExposureSubmission.SRSTestTypeSelection.submissionType.srsRegisteredRat"
+			static let optionSRSRegisteredPcr = "AppStrings.ExposureSubmission.SRSTestTypeSelection.submissionType.srsRegisteredPcr"
+			static let optionSRSUnregisteredPcr = "AppStrings.ExposureSubmission.SRSTestTypeSelection.submissionType.srsUnregisteredPcr"
+			static let optionSRSRapidPcr = "AppStrings.ExposureSubmission.SRSTestTypeSelection.submissionType.srsRapidPcr"
+			static let optionSRSOther = "AppStrings.ExposureSubmission.SRSTestTypeSelection.submissionType.srsOther"
+		}
 	}
 	
 	enum ExposureSubmissionTestResultConsent {

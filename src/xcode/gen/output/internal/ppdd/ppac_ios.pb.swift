@@ -31,6 +31,8 @@ struct SAP_Internal_Ppdd_PPACIOS {
 
   var apiToken: String = String()
 
+  var previousApiToken: String = String()
+
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
   init() {}
@@ -49,6 +51,7 @@ extension SAP_Internal_Ppdd_PPACIOS: SwiftProtobuf.Message, SwiftProtobuf._Messa
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "deviceToken"),
     2: .same(proto: "apiToken"),
+    3: .same(proto: "previousApiToken"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -59,6 +62,7 @@ extension SAP_Internal_Ppdd_PPACIOS: SwiftProtobuf.Message, SwiftProtobuf._Messa
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularStringField(value: &self.deviceToken) }()
       case 2: try { try decoder.decodeSingularStringField(value: &self.apiToken) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.previousApiToken) }()
       default: break
       }
     }
@@ -71,12 +75,16 @@ extension SAP_Internal_Ppdd_PPACIOS: SwiftProtobuf.Message, SwiftProtobuf._Messa
     if !self.apiToken.isEmpty {
       try visitor.visitSingularStringField(value: self.apiToken, fieldNumber: 2)
     }
+    if !self.previousApiToken.isEmpty {
+      try visitor.visitSingularStringField(value: self.previousApiToken, fieldNumber: 3)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   static func ==(lhs: SAP_Internal_Ppdd_PPACIOS, rhs: SAP_Internal_Ppdd_PPACIOS) -> Bool {
     if lhs.deviceToken != rhs.deviceToken {return false}
     if lhs.apiToken != rhs.apiToken {return false}
+    if lhs.previousApiToken != rhs.previousApiToken {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

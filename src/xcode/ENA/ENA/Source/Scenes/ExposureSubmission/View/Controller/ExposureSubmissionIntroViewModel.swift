@@ -12,17 +12,17 @@ class ExposureSubmissionIntroViewModel {
 	// MARK: - Init
 	
 	init(
+		onPositiveSelfTestButtonTap: @escaping () -> Void,
+		onSelfReportSubmissionButtonTap: @escaping () -> Void,
 		onQRCodeButtonTap: @escaping (@escaping (Bool) -> Void) -> Void,
 		onFindTestCentersTap: @escaping () -> Void,
-		onTANButtonTap: @escaping () -> Void,
-		onHotlineButtonTap: @escaping () -> Void,
 		onRapidTestProfileTap: @escaping () -> Void,
 		antigenTestProfileStore: AntigenTestProfileStoring
 	) {
+		self.onPositiveSelfTestButtonTap = onPositiveSelfTestButtonTap
+		self.onSelfReportSubmissionButtonTap = onSelfReportSubmissionButtonTap
 		self.onQRCodeButtonTap = onQRCodeButtonTap
 		self.onFindTestCentersTap = onFindTestCentersTap
-		self.onTANButtonTap = onTANButtonTap
-		self.onHotlineButtonTap = onHotlineButtonTap
 		self.onRapidTestProfileTap = onRapidTestProfileTap
 		self.antigenTestProfileStore = antigenTestProfileStore
 	}
@@ -31,8 +31,8 @@ class ExposureSubmissionIntroViewModel {
 	
 	let onQRCodeButtonTap: (@escaping (Bool) -> Void) -> Void
 	let onFindTestCentersTap: () -> Void
-	let onTANButtonTap: () -> Void
-	let onHotlineButtonTap: () -> Void
+	let onPositiveSelfTestButtonTap: () -> Void
+	let onSelfReportSubmissionButtonTap: () -> Void
 	let onRapidTestProfileTap: () -> Void
 	let antigenTestProfileStore: AntigenTestProfileStoring
 
@@ -70,6 +70,24 @@ class ExposureSubmissionIntroViewModel {
 			))
 			$0.add(.section(cells: [
 				.imageCard(
+					title: AppStrings.ExposureSubmissionDispatch.positiveSelfTestButtonTitle,
+					description: AppStrings.ExposureSubmissionDispatch.postiveSelfTestButtonDescription,
+					image: UIImage(named: "Illu_Submission_PositiveSelfTest"),
+					action: .execute { [weak self] _, _ in self?.onPositiveSelfTestButtonTap() },
+					accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionDispatch.positiveSelfTestButtonDescription
+				),
+				.imageCard(
+					title: AppStrings.ExposureSubmissionDispatch.SRSButtonTitle,
+					description: AppStrings.ExposureSubmissionDispatch.SRSButtonDescription,
+					image: UIImage(named: "Illu_Submission_SRS"),
+					action: .execute { [weak self] _, _ in self?.onSelfReportSubmissionButtonTap() },
+					accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionDispatch.SRSButtonDescription
+				),
+				.title2(
+					text: AppStrings.ExposureSubmissionDispatch.sectionHeadline2,
+					accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionDispatch.sectionHeadline2
+				),
+				.imageCard(
 					title: AppStrings.ExposureSubmissionDispatch.qrCodeButtonTitle,
 					description: AppStrings.ExposureSubmissionDispatch.qrCodeButtonDescription,
 					image: UIImage(named: "Illu_Submission_QRCode"),
@@ -88,25 +106,7 @@ class ExposureSubmissionIntroViewModel {
 					action: .execute { [weak self] _, _ in self?.onFindTestCentersTap() },
 					accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionDispatch.findTestCentersButtonDescription
 				),
-				profileCell,
-				.title2(
-					text: AppStrings.ExposureSubmissionDispatch.sectionHeadline2,
-					accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionDispatch.sectionHeadline2
-				),
-				.imageCard(
-					title: AppStrings.ExposureSubmissionDispatch.tanButtonTitle,
-					description: AppStrings.ExposureSubmissionDispatch.tanButtonDescription,
-					image: UIImage(named: "Illu_Submission_TAN"),
-					action: .execute { [weak self] _, _ in self?.onTANButtonTap() },
-					accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionDispatch.tanButtonDescription
-				),
-				.imageCard(
-					title: AppStrings.ExposureSubmissionDispatch.hotlineButtonTitle,
-					description: AppStrings.ExposureSubmissionDispatch.hotlineButtonDescription,
-					image: UIImage(named: "Illu_Submission_Anruf"),
-					action: .execute { [weak self] _, _ in self?.onHotlineButtonTap() },
-					accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionDispatch.hotlineButtonDescription
-				)
+				profileCell
 			]))
 		}
 	}

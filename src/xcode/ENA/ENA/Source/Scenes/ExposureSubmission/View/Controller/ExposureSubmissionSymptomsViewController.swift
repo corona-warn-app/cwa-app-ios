@@ -112,6 +112,7 @@ final class ExposureSubmissionSymptomsViewController: DynamicTableViewController
 
 		navigationItem.title = AppStrings.ExposureSubmissionSymptoms.title
 		navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton
+		navigationItem.setHidesBackButton(true, animated: true)
 		
 		view.backgroundColor = .enaColor(for: .background)
 

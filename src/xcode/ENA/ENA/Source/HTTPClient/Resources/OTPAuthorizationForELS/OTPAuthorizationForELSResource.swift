@@ -4,7 +4,7 @@
 
 import Foundation
 
-enum OTPAuthorizationForELSError: LocalizedError, Equatable {
+enum OTPAuthorizationError: LocalizedError, Equatable {
 
 	case generalError(underlyingError: Error? = nil)
 	case invalidResponseError
@@ -52,7 +52,7 @@ enum OTPAuthorizationForELSError: LocalizedError, Equatable {
 		}
 	}
 
-	static func == (lhs: OTPAuthorizationForELSError, rhs: OTPAuthorizationForELSError) -> Bool {
+	static func == (lhs: OTPAuthorizationError, rhs: OTPAuthorizationError) -> Bool {
 		return lhs.description == rhs.description
 	}
 
@@ -92,6 +92,10 @@ struct OTPAuthorizationForELSResource: Resource {
 	
 	// MARK: - Protocol Resource
 	
+	typealias Send = ProtobufSendResource<SAP_Internal_Ppdd_ELSOneTimePasswordRequestIOS>
+	typealias Receive = JSONReceiveResource<OTPResponsePropertiesReceiveModel>
+	typealias CustomError = OTPAuthorizationError
+
 	let trustEvaluation: TrustEvaluating
 	
 	var locator: Locator
@@ -100,9 +104,9 @@ struct OTPAuthorizationForELSResource: Resource {
 	var receiveResource: JSONReceiveResource<OTPResponsePropertiesReceiveModel>
 	
 	func customError(
-		for error: ServiceError<OTPAuthorizationForELSError>,
+		for error: ServiceError<OTPAuthorizationError>,
 		responseBody: Data? = nil
-	) -> OTPAuthorizationForELSError? {
+	) -> OTPAuthorizationError? {
 		switch error {
 		case .transportationError:
 			return .noNetworkConnection
@@ -125,7 +129,7 @@ struct OTPAuthorizationForELSResource: Resource {
 	
 	// MARK: - Private
 	
-	private func otpAuthorizationFailureHandler(for response: Data?, statusCode: Int) -> OTPAuthorizationForELSError? {
+	private func otpAuthorizationFailureHandler(for response: Data?, statusCode: Int) -> OTPAuthorizationError? {
 		guard let responseBody = response else {
 			Log.error("Failed to get authorized OTP - no 200 status code", log: .api)
 			Log.error(String(statusCode), log: .api)

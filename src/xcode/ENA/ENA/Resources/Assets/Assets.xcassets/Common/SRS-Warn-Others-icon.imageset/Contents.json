@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "Illu_Submission_TAN.pdf",
+      "filename" : "SRS-Warn-Others-icon.pdf",
       "idiom" : "universal"
     },
     {
@@ -11,16 +11,12 @@
           "value" : "dark"
         }
       ],
-      "filename" : "Illu_Submission_TAN-Dark.pdf",
+      "filename" : "SRS-Warn-Others-icon-dark.pdf",
       "idiom" : "universal"
     }
   ],
   "info" : {
     "author" : "xcode",
     "version" : 1
-  },
-  "properties" : {
-    "preserves-vector-representation" : true,
-    "template-rendering-intent" : "original"
   }
 }

@@ -39,7 +39,9 @@ final class HomeRiskTableViewCell: UITableViewCell {
 
 			return accessibilityElements
 		}
-		set { }
+		set {
+			_ = newValue
+		}
 	}
 
 	// Ignore touches on the button when it's disabled

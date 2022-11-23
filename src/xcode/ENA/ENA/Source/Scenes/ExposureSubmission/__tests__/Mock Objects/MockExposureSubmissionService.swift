@@ -38,5 +38,9 @@ class MockExposureSubmissionService: ExposureSubmissionService {
 		submitExposureCallback?(completion)
 	}
 
+	func submitSRSExposure(submissionType: SRSSubmissionType, srsOTP: String, completion: @escaping (ExposureSubmissionServiceError?) -> Void) {
+		submitExposureCallback?(completion)
+	}
+
 }
 #endif

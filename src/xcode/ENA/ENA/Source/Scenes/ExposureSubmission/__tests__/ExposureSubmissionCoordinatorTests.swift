@@ -98,6 +98,7 @@ class ExposureSubmissionCoordinatorTests: CWATestCase {
 				eventStore: eventStore,
 				contactDiaryStore: diaryStore
 			),
+			srsService: MockSRSService(),
 			healthCertificateService: healthCertificateService,
 			healthCertificateValidationService: healthCertificateValidationService,
 			healthCertificateValidationOnboardedCountriesProvider: healthCertificateValidationOnboardedCountriesProvider,
@@ -120,6 +121,7 @@ class ExposureSubmissionCoordinatorTests: CWATestCase {
 			parentViewController: parentNavigationController,
 			exposureSubmissionService: exposureSubmissionService,
 			coronaTestService: coronaTestService,
+			srsService: MockSRSService(),
 			familyMemberCoronaTestService: familyMemberCoronaTestService,
 			healthCertificateService: healthCertificateService,
 			healthCertificateValidationService: healthCertificateValidationService,
@@ -181,7 +183,7 @@ class ExposureSubmissionCoordinatorTests: CWATestCase {
 		
 		coronaTestService.pcrTest.value = .mock(registrationToken: "asdf", testResult: .negative)
 		
-		coordinator.start(with: .pcr)
+		coordinator.start(with: .registeredTest(.pcr))
 		
 		// Get navigation controller and make sure to load view.
 		let navigationController = getNavigationController(from: coordinator)
@@ -200,7 +202,7 @@ class ExposureSubmissionCoordinatorTests: CWATestCase {
 		
 		coronaTestService.pcrTest.value = .mock(registrationToken: "asdf", testResult: .positive)
 		
-		coordinator.start(with: .pcr)
+		coordinator.start(with: .registeredTest(.pcr))
 		
 		// Get navigation controller and make sure to load view.
 		let navigationController = getNavigationController(from: coordinator)
@@ -238,7 +240,7 @@ class ExposureSubmissionCoordinatorTests: CWATestCase {
 		
 		coronaTestService.pcrTest.value = .mock(testResult: .positive, positiveTestResultWasShown: false)
 		
-		coordinator.start(with: .pcr)
+		coordinator.start(with: .registeredTest(.pcr))
 		
 		let unknown = coordinator.getInitialViewController()
 		XCTAssertTrue(unknown is TopBottomContainerViewController<TestResultAvailableViewController, FooterViewController>)

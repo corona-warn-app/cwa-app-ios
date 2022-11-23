@@ -20,6 +20,7 @@ class HomeCoordinator: RequiresAppDependencies {
 		healthCertificateService: HealthCertificateService,
 		healthCertificateValidationService: HealthCertificateValidationProviding,
 		elsService: ErrorLogSubmissionProviding,
+		srsService: SRSServiceProviding,
 		exposureSubmissionService: ExposureSubmissionService,
 		qrScannerCoordinator: QRScannerCoordinator,
 		recycleBin: RecycleBin,
@@ -38,6 +39,7 @@ class HomeCoordinator: RequiresAppDependencies {
 		self.healthCertificateService = healthCertificateService
 		self.healthCertificateValidationService = healthCertificateValidationService
 		self.elsService = elsService
+		self.srsService = srsService
 		self.exposureSubmissionService = exposureSubmissionService
 		self.qrScannerCoordinator = qrScannerCoordinator
 		self.recycleBin = recycleBin
@@ -202,6 +204,7 @@ class HomeCoordinator: RequiresAppDependencies {
 	private let healthCertificateService: HealthCertificateService
 	private let healthCertificateValidationService: HealthCertificateValidationProviding
 	private let exposureSubmissionService: ExposureSubmissionService
+	private let srsService: SRSServiceProviding
 	private let qrScannerCoordinator: QRScannerCoordinator
 	private let recycleBin: RecycleBin
 	private let restServiceProvider: RestServiceProviding
@@ -315,6 +318,7 @@ class HomeCoordinator: RequiresAppDependencies {
 			parentViewController: rootViewController,
 			exposureSubmissionService: exposureSubmissionService,
 			coronaTestService: coronaTestService,
+			srsService: srsService,
 			familyMemberCoronaTestService: familyMemberCoronaTestService,
 			healthCertificateService: healthCertificateService,
 			healthCertificateValidationService: healthCertificateValidationService,
@@ -329,7 +333,7 @@ class HomeCoordinator: RequiresAppDependencies {
 		if let testInformationResult = testInformationResult {
 			coordinator.start(with: testInformationResult)
 		} else {
-			coordinator.start(with: testType)
+			coordinator.start(with: .registeredTest(testType))
 		}
 	}
 

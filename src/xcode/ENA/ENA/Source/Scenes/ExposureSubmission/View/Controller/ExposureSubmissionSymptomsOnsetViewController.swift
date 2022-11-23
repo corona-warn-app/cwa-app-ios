@@ -104,7 +104,8 @@ class ExposureSubmissionSymptomsOnsetViewController: DynamicTableViewController,
 		
 		navigationItem.title = AppStrings.ExposureSubmissionSymptomsOnset.title
 		navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton
-		
+		navigationItem.setHidesBackButton(true, animated: true)
+
 		setupTableView()
 
 		symptomsOnsetButtonStateSubscription = $selectedSymptomsOnsetOption.receive(on: RunLoop.main.ocombine).sink { [weak self] in

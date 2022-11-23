@@ -250,6 +250,7 @@ class ENAUITests_04a_ExposureSubmission: CWATestCase {
 
 	}
 
+	/* Commented out in favour of SRS story
 	func test_SubmitTAN_CancelOnTestResultScreen() {
 		app.setLaunchArgument(LaunchArguments.common.ENStatus, to: ENStatus.active.stringValue)
 		launch()
@@ -320,7 +321,8 @@ class ENAUITests_04a_ExposureSubmission: CWATestCase {
 		// Click secondary button to skip symptoms screen.
 		app.buttons[AccessibilityIdentifiers.ExposureSubmission.secondaryButton].waitAndTap()
 	}
-	
+	*/
+
 	// Navigate to the Thank You screen after getting the positive test result.
 	func test_ThankYouScreen_withWarnOthers() {
 		app.setLaunchArgument(LaunchArguments.exposureSubmission.isFetchingSubmissionTan, to: true)
@@ -341,17 +343,7 @@ class ENAUITests_04a_ExposureSubmission: CWATestCase {
 		
 		acceptInformationSharingIfNecessary()
 		
-		app.buttons[AccessibilityIdentifiers.ExposureSubmission.primaryButton].waitAndTap()
-		app.navigationBars[AccessibilityIdentifiers.General.exposureSubmissionNavigationControllerTitle].buttons.element(boundBy: 0).waitAndTap()
-		app.buttons[AccessibilityIdentifiers.ExposureSubmission.secondaryButton].waitAndTap()
-		// quick hack - can't easily use `addUIInterruptionMonitor` in this test
-		app.alerts.firstMatch.buttons.element(boundBy: 1).waitAndTap() // no
-		app.buttons[AccessibilityIdentifiers.ExposureSubmission.secondaryButton].waitAndTap()
-		// quick hack - can't easily use `addUIInterruptionMonitor` in this test
-		app.alerts.firstMatch.buttons.firstMatch.waitAndTap() // yes
-		
-		// Back to homescreen
-		app.cells[AccessibilityIdentifiers.Home.ShownPositiveTestResultCell.submittedPCRCell].waitAndTap()
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.ExposureSubmission.primaryButton].waitForExistence(timeout: .medium))
 	}
 
 	// Navigate to the Thank You screen with alert on Test Result Screen.
@@ -388,22 +380,8 @@ class ENAUITests_04a_ExposureSubmission: CWATestCase {
 
 		// quick hack - can't easily use `addUIInterruptionMonitor` in this test
 		app.alerts.firstMatch.buttons.element(boundBy: 1).waitAndTap() // warn
-		app.buttons[AccessibilityIdentifiers.ExposureSubmission.primaryButton].waitAndTap()
 		
-		app.navigationBars[AccessibilityIdentifiers.General.exposureSubmissionNavigationControllerTitle].buttons.element(boundBy: 0).waitAndTap()
-		
-		app.buttons[AccessibilityIdentifiers.ExposureSubmission.secondaryButton].waitAndTap()
-
-		// quick hack - can't easily use `addUIInterruptionMonitor` in this test
-		app.alerts.firstMatch.buttons.element(boundBy: 1).waitAndTap() // no
-		app.buttons[AccessibilityIdentifiers.ExposureSubmission.secondaryButton].waitAndTap()
-
-		// quick hack - can't easily use `addUIInterruptionMonitor` in this test
-		app.alerts.firstMatch.buttons.firstMatch.waitAndTap() // yes
-
-		// Back to homescreen
-		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Home.activateCardOnTitle].waitForExistence(timeout: .long))
-		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Home.activateCardOnTitle].isHittable)
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.ExposureSubmission.primaryButton].waitForExistence(timeout: .medium))
 	}
 	
 	func test_Tester_Centers_Opens_Website_In_Safari() {
@@ -424,6 +402,7 @@ class ENAUITests_04a_ExposureSubmission: CWATestCase {
 
 	}
 	
+	/* Commented out in favour of SRS story
 	func test_SubmissionNotPossible() throws {
 		try XCTSkipIf(Locale.current.identifier == "bg_BG") // temporary hack!
 
@@ -450,6 +429,7 @@ class ENAUITests_04a_ExposureSubmission: CWATestCase {
 		// expect an error dialogue due to disabled exposure notification
 		XCTAssertTrue(app.alerts.firstMatch.waitForExistence(timeout: .short))
 	}
+	*/
 	
 	func test_test_result_negative() {
 		app.setLaunchArgument(LaunchArguments.common.ENStatus, to: ENStatus.active.stringValue)
@@ -646,6 +626,7 @@ class ENAUITests_04a_ExposureSubmission: CWATestCase {
 		snapshot("tan_submissionflow_symptoms_selection\(String(format: "%04d", (screenshotCounter.inc() )))")
 	}
 
+	/* Commented out in favour of SRS story
 	func test_screenshot_SubmitTAN() {
 		var screenshotCounter = 0
 
@@ -675,6 +656,7 @@ class ENAUITests_04a_ExposureSubmission: CWATestCase {
 		// Click secondary button to skip symptoms.
 		app.buttons[AccessibilityIdentifiers.ExposureSubmission.secondaryButton].waitAndTap()
 	}
+	*/
 
 	func test_screenshot_SubmitQR() throws {
 		var screenshotCounter = 0
@@ -792,7 +774,6 @@ class ENAUITests_04a_ExposureSubmission: CWATestCase {
 
 		snapshot("submissionflow_screenshot_symptoms_onset_date_option")
 	}
-	
 }
 
 // MARK: - Helpers.
@@ -851,7 +832,6 @@ extension ENAUITests_04a_ExposureSubmission {
 		// Thank You screen.
 		XCTAssertTrue(app.navigationBars[AccessibilityIdentifiers.General.exposureSubmissionNavigationControllerTitle].waitForExistence(timeout: .medium))
         app.buttons[AccessibilityIdentifiers.ExposureSubmission.primaryButton].waitAndTap()
-		
 	}
 
 	func launchAndNavigateToSymptomsOnsetScreen() {

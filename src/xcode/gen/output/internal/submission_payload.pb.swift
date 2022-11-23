@@ -78,6 +78,13 @@ struct SAP_Internal_SubmissionPayload {
     case pcrTest // = 0
     case rapidTest // = 1
     case hostWarning // = 2
+    case srsSelfTest // = 3
+    case srsRegisteredRat // = 4
+    case srsUnregisteredRat // = 5
+    case srsRegisteredPcr // = 6
+    case srsUnregisteredPcr // = 7
+    case srsRapidPcr // = 8
+    case srsOther // = 9
 
     init() {
       self = .pcrTest
@@ -88,6 +95,13 @@ struct SAP_Internal_SubmissionPayload {
       case 0: self = .pcrTest
       case 1: self = .rapidTest
       case 2: self = .hostWarning
+      case 3: self = .srsSelfTest
+      case 4: self = .srsRegisteredRat
+      case 5: self = .srsUnregisteredRat
+      case 6: self = .srsRegisteredPcr
+      case 7: self = .srsUnregisteredPcr
+      case 8: self = .srsRapidPcr
+      case 9: self = .srsOther
       default: return nil
       }
     }
@@ -97,6 +111,13 @@ struct SAP_Internal_SubmissionPayload {
       case .pcrTest: return 0
       case .rapidTest: return 1
       case .hostWarning: return 2
+      case .srsSelfTest: return 3
+      case .srsRegisteredRat: return 4
+      case .srsUnregisteredRat: return 5
+      case .srsRegisteredPcr: return 6
+      case .srsUnregisteredPcr: return 7
+      case .srsRapidPcr: return 8
+      case .srsOther: return 9
       }
     }
 
@@ -210,5 +231,12 @@ extension SAP_Internal_SubmissionPayload.SubmissionType: SwiftProtobuf._ProtoNam
     0: .same(proto: "SUBMISSION_TYPE_PCR_TEST"),
     1: .same(proto: "SUBMISSION_TYPE_RAPID_TEST"),
     2: .same(proto: "SUBMISSION_TYPE_HOST_WARNING"),
+    3: .same(proto: "SUBMISSION_TYPE_SRS_SELF_TEST"),
+    4: .same(proto: "SUBMISSION_TYPE_SRS_REGISTERED_RAT"),
+    5: .same(proto: "SUBMISSION_TYPE_SRS_UNREGISTERED_RAT"),
+    6: .same(proto: "SUBMISSION_TYPE_SRS_REGISTERED_PCR"),
+    7: .same(proto: "SUBMISSION_TYPE_SRS_UNREGISTERED_PCR"),
+    8: .same(proto: "SUBMISSION_TYPE_SRS_RAPID_PCR"),
+    9: .same(proto: "SUBMISSION_TYPE_SRS_OTHER"),
   ]
 }

@@ -100,7 +100,10 @@ class HomeStatisticsCardView: UIView {
 
 			return accessibilityElements
 		}
-		set { }
+
+		set {
+			_ = newValue
+		}
 	}
 
 	// MARK: - Internal
