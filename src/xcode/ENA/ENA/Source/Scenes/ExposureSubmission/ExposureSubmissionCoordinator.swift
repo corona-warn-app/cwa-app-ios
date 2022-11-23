@@ -1008,6 +1008,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 
 	// MARK: Symptoms
 
+	// swiftlint:disable:next cyclomatic_complexity
 	private func showSymptomsScreen() {
 		if let coronaTestType = model.coronaTestType {
 			Analytics.collect(.keySubmissionMetadata(.lastSubmissionFlowScreen(.submissionFlowScreenSymptoms, coronaTestType)))
