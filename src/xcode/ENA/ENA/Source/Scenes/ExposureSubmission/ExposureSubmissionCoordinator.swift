@@ -969,7 +969,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 	
 	/// Shows the SRS Test Type Selection Screen
 	/// - Parameters:
-	/// 	- isSelfTestTypePreselected: Wether the self test type in SRS Test Type Selection should be preselected
+	/// 	- isSelfTestTypePreselected: Whether the self test type in SRS Test Type Selection should be preselected
 	private func showSRSTestTypeSelectionScreen(isSelfTestTypePreselected: Bool) {
 		var srsTestTypeSelectionViewController: SRSTestTypeSelectionViewController!
 		srsTestTypeSelectionViewController = SRSTestTypeSelectionViewController(
