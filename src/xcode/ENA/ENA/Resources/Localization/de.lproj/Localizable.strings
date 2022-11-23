@@ -1707,11 +1707,19 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "NewVersionFeatures_Info_about_abb_information" = "Änderungen zum Release finden Sie in den App-Informationen unter dem Menüpunkt „Neue Funktionen”.";
 
-/* Version 2.28 */
+/* Version 3.0 */
 
- "NewVersionFeature_228_pandemic_radar_title" = "Pandemieradar";
+"NewVersionFeature_30_selftest_warn_others_title" = "Warnung mit Selbsttests";
 
- "NewVersionFeature_228_pandemic_radar_description" = "Der Corona-Warn-App wurde die Kachel „Pandemieradar“ hinzugefügt, von der Sie direkt auf eine Webseite des Robert Koch-Instituts abspringen können. Der Pandemieradar enthält diverse Statistiken zur Corona-Pandemie, die arbeitstäglich aktualisiert werden. Bitte beachten Sie, dass die beim Öffnen der Webseite anfallenden Daten auf Ihr Datenvolumen angerechnet werden und die Webseite nicht barrierefrei ist.";
+"NewVersionFeature_30_selftest_warn_others_description" = "Sie können jetzt mit positiven Ergebnissen von alleine durchgeführten Selbsttests eine Warnung an andere Nutzer der Corona-Warn-App schicken.";
+
+"NewVersionFeature_30_warning_unregistered_tests_title" = "Warnung mit unregistrierten Tests";
+
+"NewVersionFeature_30_warning_unregistered_tests_description" = "Sollten Sie bei einer Teststelle mit einem nicht in der Corona-Warn-App registrierten Schnell- oder PCR-Test positiv getestet worden sein, können Sie jetzt auch mit diesen Testergebnissen andere Nutzer der App warnen.";
+
+"NewVersionFeature_30_tan_hotline_removal_title" = "TAN Hotline entfällt";
+
+"NewVersionFeature_30_tan_hotline_removal_description" = "Die Möglichkeit, eine TAN über die TAN-Hotline zu erhalten, entfällt in einigen Wochen. Sie können nun ohne TAN andere Nutzer der Corona-Warn-App warnen.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Länderübergreifende Risiko-Ermittlung";
