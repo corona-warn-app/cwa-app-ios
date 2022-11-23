@@ -951,7 +951,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 	/// Checks the SRS Flow prerequisites to continue with SRS Test Type Selection.
 	/// Shows a specific error alert, if at least on prerequisite has fault.
 	/// - Parameters:
-	/// 	- isSelfTestTypePreselected: Wether the self test type in SRS Test Type Selection should be preselected
+	/// 	- isSelfTestTypePreselected: Whether the self test type in SRS Test Type Selection should be preselected
 	/// 	- isLoading: The callback that should be execute while fetching the self service parameters from app configuration.
 	private func checkSRSPrerequisitesToContinueSRSFlow(
 		isSelfTestTypePreselected: Bool,
