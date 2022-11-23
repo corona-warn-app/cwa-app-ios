@@ -352,7 +352,7 @@ enum AppStrings {
 		static let legalBulletPoint01 = NSLocalizedString("SRS_Consent_Legal_Text_1", tableName: "Localizable.legal", comment: "")
 		static let legalBulletPoint02 = NSLocalizedString("SRS_Consent_Legal_Text_2", tableName: "Localizable.legal", comment: "")
 		static let legalBulletPoint03 = NSLocalizedString("SRS_Consent_Legal_Text_3", tableName: "Localizable.legal", comment: "")
-		static let primaryButtonTitle = NSLocalizedString("SRSConsentScreen_primaryButtonTitle", comment: "")
+
 		static let acknowledgement1 = NSLocalizedString("SRS_ConsentScreen_Acknowledgement_1", comment: "")
 		static let acknowledgement2 = NSLocalizedString("SRS_ConsentScreen_Acknowledgement_2", comment: "")
 		static let acknowledgement3 = NSLocalizedString("SRS_ConsentScreen_Acknowledgement_3", comment: "")
