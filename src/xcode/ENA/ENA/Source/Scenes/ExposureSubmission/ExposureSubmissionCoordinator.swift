@@ -1714,8 +1714,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 			isLoading: isLoading,
 			onSuccess: { [weak self] in
 				if showSubmissionSuccess {
-					// to.do refactor thank you screen for SRS
-					// self?.showExposureSubmissionSuccessViewController()
+					self?.showExposureSubmissionSuccessViewController()
 				} else {
 					self?.dismiss()
 				}
