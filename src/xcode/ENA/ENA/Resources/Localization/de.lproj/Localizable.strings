@@ -771,7 +771,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionResult_CardSubTitle_Antigen" = "Ihr Schnelltest-Befund";
 
-"ExposureSubmissionReqqqqqqsult_CardTitle" = "SARS-CoV-2";
+"ExposureSubmissionResult_CardTitle" = "SARS-CoV-2";
 
 "ExposureSubmissionResult_CardPositive" = "positiv";
 
