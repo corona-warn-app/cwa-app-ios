@@ -153,6 +153,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 			completion(nil)
 		}
 	}
+
 	/// This method submits the SRS exposure keys. Additionally, after successful completion,
 	/// the timestamp of the key submission is updated.
 	func submitSRSExposure(
@@ -227,6 +228,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 			}
 			.store(in: &subscriptions)
 	}
+
 	/// This method submits the exposure keys. Additionally, after successful completion,
 	/// the timestamp of the key submission is updated.
 	/// __Extension for plausible deniability__:

@@ -26,6 +26,8 @@ enum SRSKeySubmissionResourceError: LocalizedError, Equatable {
 
 struct SRSKeySubmissionResource: Resource {
 
+	// MARK: - Init
+
 	init(
 		payload: SubmissionPayload,
 		srsOtp: String,

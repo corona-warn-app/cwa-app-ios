@@ -36,11 +36,16 @@ protocol OTPServiceProviding {
 	/// - Returns:
 	///   - success: the authorized and stored otp as String
 	///   - failure: an OTPError, for which the caller can build a dedicated error handling
-	func getOTPSRS(ppacToken: PPACToken, completion: @escaping (Result<String, OTPError>) -> Void)
+	func getOTPSrs(ppacToken: PPACToken, completion: @escaping (Result<String, OTPError>) -> Void)
+	
 	/// discards any stored otp edus.
 	func discardOTPEdus()
+	
 	/// discards any stored otp els.
 	func discardOTPEls()
+	
+	/// discards any stored otp srs.
+	func discardOTPSrs()
 }
 
 final class OTPService: OTPServiceProviding {
@@ -105,7 +110,7 @@ final class OTPService: OTPServiceProviding {
 		authorizeEls(otp, with: ppacToken, completion: completion)
 	}
 
-	func getOTPSRS(ppacToken: PPACToken, completion: @escaping (Result<String, OTPError>) -> Void) {
+	func getOTPSrs(ppacToken: PPACToken, completion: @escaping (Result<String, OTPError>) -> Void) {
 		if let otpToken = store.otpTokenSrs,
 		   let expirationDate = otpToken.expirationDate,
 		   expirationDate > Date(),
@@ -127,6 +132,11 @@ final class OTPService: OTPServiceProviding {
 	func discardOTPEls() {
 		store.otpTokenEls = nil
 		Log.info("OTP ELS was discarded.", log: .otp)
+	}
+	
+	func discardOTPSrs() {
+		store.otpTokenSrs = nil
+		Log.info("OTP SRS was discarded.", log: .otp)
 	}
 
 	// MARK: - Private
