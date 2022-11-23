@@ -13,12 +13,22 @@ struct DeltaOnboardingNewVersionFeaturesViewModel {
 		
 		// ADD NEW FEATURES HERE
 		
-		self.featureVersion = "2.28"
+		self.featureVersion = "3.0"
 		self.finishedDeltaOnboarding = finishedDeltaOnboardings
 		
+		// Self test warn others
 		self.newVersionFeatures.append(
-			// Pandemic Radar
-			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature228PandemicRadarTitle, description: AppStrings.NewVersionFeatures.feature228PandemicRadarDescription)
+			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature30SelfTestWarnOthersTitle, description: AppStrings.NewVersionFeatures.feature30SelfTestWarnOthersDescription)
+		)
+		
+		// Warning for unregistered tests
+		self.newVersionFeatures.append(
+			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature30WarningUnregisteredTestsTitle, description: AppStrings.NewVersionFeatures.feature30WarningUnregisteredTestsDescription)
+		)
+		
+		// TAN hotline removal
+		self.newVersionFeatures.append(
+			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature30TANHotlineRemovalTitle, description: AppStrings.NewVersionFeatures.feature30TANHotlineRemovalDescription)
 		)
 	}
 
