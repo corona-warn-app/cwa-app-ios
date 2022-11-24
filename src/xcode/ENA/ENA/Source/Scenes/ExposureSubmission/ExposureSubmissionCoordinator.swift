@@ -854,7 +854,8 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 			backgroundColor: .enaColor(for: .background)
 		)
 
-		let checkinsVC = ExposureSubmissionCheckinsViewController(
+		var checkinsVC: ExposureSubmissionCheckinsViewController!
+		checkinsVC = ExposureSubmissionCheckinsViewController(
 			checkins: model.eventProvider.checkinsPublisher.value,
 			onCompletion: { [weak self] selectedCheckins in
 				self?.model.exposureSubmissionService.checkins = selectedCheckins
@@ -873,11 +874,18 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 			onDismiss: { [weak self] in
 				if self?.model.coronaTest?.positiveTestResultWasShown == true {
 					self?.showSkipCheckinsAlert(dontShareHandler: {
-						if let coronaTestType = self?.model.coronaTestType {
-							Analytics.collect(.keySubmissionMetadata(.submittedAfterCancel(true, coronaTestType)))
-							self?.submitExposure(showSubmissionSuccess: false) { isLoading in
-								footerViewModel.setLoadingIndicator(isLoading, disable: isLoading, button: .secondary)
-								footerViewModel.setLoadingIndicator(false, disable: isLoading, button: .primary)
+						if isSRSFlow {
+							self?.showSRSFlowAlert(
+								for: .consent(.cancelWarnOthers(on: checkinsVC)),
+								isLoading: { _ in }
+							)
+						} else {
+							if let coronaTestType = self?.model.coronaTestType {
+								Analytics.collect(.keySubmissionMetadata(.submittedAfterCancel(true, coronaTestType)))
+								self?.submitExposure(showSubmissionSuccess: false) { isLoading in
+									footerViewModel.setLoadingIndicator(isLoading, disable: isLoading, button: .secondary)
+									footerViewModel.setLoadingIndicator(false, disable: isLoading, button: .primary)
+								}
 							}
 						}
 					})
