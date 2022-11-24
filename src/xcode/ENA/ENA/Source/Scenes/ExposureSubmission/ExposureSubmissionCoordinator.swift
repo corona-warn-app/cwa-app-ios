@@ -210,12 +210,6 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		navigationController?.pushViewController(viewController, animated: true)
 	}
 
-	private func present(_ viewController: UIViewController, withNavigation: Bool = true) {
-		let navigationControllerWithLargeTitle = NavigationControllerWithLargeTitle(rootViewController: viewController)
-		navigationController?.topViewController?.view.endEditing(true)
-		navigationController?.present(navigationControllerWithLargeTitle, animated: true)
-	}
-
 	private func popViewController() {
 		self.navigationController?.popViewController(animated: true)
 	}
@@ -819,7 +813,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 			)
 		)
 
-		push(exposureSubmissionTestResultConsentViewController )
+		push(exposureSubmissionTestResultConsentViewController)
 	}
 	
 	private func showCheckinsScreen(isSRSFlow: Bool = false) {
@@ -865,12 +859,10 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 			onDismiss: { [weak self] in
 				if self?.model.coronaTest?.positiveTestResultWasShown == true {
 					self?.showSkipCheckinsAlert(dontShareHandler: {
-						if let coronaTestType = self?.model.coronaTestType {
-							Analytics.collect(.keySubmissionMetadata(.submittedAfterCancel(true, coronaTestType)))
-							self?.submitExposure(showSubmissionSuccess: false) { isLoading in
-								footerViewModel.setLoadingIndicator(isLoading, disable: isLoading, button: .secondary)
-								footerViewModel.setLoadingIndicator(false, disable: isLoading, button: .primary)
-							}
+						if isSRSFlow {
+							
+						} else {
+							
 						}
 					})
 				} else {
@@ -1713,6 +1705,8 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		self.model.submitSRSExposure(
 			isLoading: isLoading,
 			onSuccess: { [weak self] in
+				self?.store.mostRecentKeySubmissionDate = Date()
+
 				if showSubmissionSuccess {
 					self?.showExposureSubmissionSuccessViewController()
 				} else {

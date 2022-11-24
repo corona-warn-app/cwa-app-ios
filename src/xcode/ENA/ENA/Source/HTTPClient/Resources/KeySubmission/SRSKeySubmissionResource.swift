@@ -64,16 +64,16 @@ struct SRSKeySubmissionResource: Resource {
 	var sendResource: ProtobufSendResource<SAP_Internal_SubmissionPayload>
 	var receiveResource: EmptyReceiveResource
 
-	func customError(for error: ServiceError<KeySubmissionResourceError>, responseBody: Data?) -> KeySubmissionResourceError? {
+	func customError(for error: ServiceError<SRSKeySubmissionResourceError>, responseBody: Data?) -> SRSKeySubmissionResourceError? {
 		switch error {
 		case .invalidRequestError:
 			return .requestCouldNotBeBuilt
 		case .unexpectedServerError(let statusCode):
 			switch statusCode {
 			case 400:
-				return .invalidPayloadOrHeaders
+				return .invalidPayloadOrHeader
 			case 403:
-				return .invalidTan
+				return .invalidOtp
 			default:
 				return .serverError(statusCode)
 			}
