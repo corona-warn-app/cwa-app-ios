@@ -210,12 +210,6 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		navigationController?.pushViewController(viewController, animated: true)
 	}
 
-	private func present(_ viewController: UIViewController, withNavigation: Bool = true) {
-		let navigationControllerWithLargeTitle = NavigationControllerWithLargeTitle(rootViewController: viewController)
-		navigationController?.topViewController?.view.endEditing(true)
-		navigationController?.present(navigationControllerWithLargeTitle, animated: true)
-	}
-
 	private func popViewController() {
 		self.navigationController?.popViewController(animated: true)
 	}
@@ -819,7 +813,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 			)
 		)
 
-		push(exposureSubmissionTestResultConsentViewController )
+		push(exposureSubmissionTestResultConsentViewController)
 	}
 	
 	private func showCheckinsScreen(isSRSFlow: Bool = false) {
@@ -1007,9 +1001,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 					
 					self.model.shouldShowSymptomsOnsetScreen ? self.showSymptomsOnsetScreen() : self.submitExposure(showSubmissionSuccess: true, isLoading: isLoading)
 				case .srs:
-					if self.model.shouldShowSymptomsOnsetScreen {
-						self.showSymptomsOnsetScreen()
-					}
+					self.model.shouldShowSymptomsOnsetScreen ? self.showSymptomsOnsetScreen() : self.submitSRSExposure(showSubmissionSuccess: true, isLoading: isLoading)
 				case .none:
 					break
 				}
@@ -1713,6 +1705,8 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		self.model.submitSRSExposure(
 			isLoading: isLoading,
 			onSuccess: { [weak self] in
+				self?.store.mostRecentKeySubmissionDate = Date()
+
 				if showSubmissionSuccess {
 					self?.showExposureSubmissionSuccessViewController()
 				} else {
