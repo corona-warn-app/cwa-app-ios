@@ -28,6 +28,7 @@ enum ExposureSubmissionServicePreconditionError: LocalizedError, Equatable {
 enum ExposureSubmissionServiceError: LocalizedError, Equatable {
 	case coronaTestServiceError(CoronaTestServiceError)
 	case keySubmissionError(ServiceError<KeySubmissionResourceError>)
+	case srsKeySubmissionError(ServiceError<SRSKeySubmissionResourceError>)
 	case preconditionError(ExposureSubmissionServicePreconditionError)
 	case srsError(SRSError)
 
@@ -36,6 +37,8 @@ enum ExposureSubmissionServiceError: LocalizedError, Equatable {
 		case .coronaTestServiceError(let error):
 			return error.errorDescription
 		case .keySubmissionError(let error):
+			return error.errorDescription
+		case .srsKeySubmissionError(let error):
 			return error.errorDescription
 		case .preconditionError(let error):
 			return error.errorDescription
@@ -219,7 +222,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 					checkInProtectedReports: checkinProtectedReports,
 					completion: { error in
 						if let error = error {
-							completion(.keySubmissionError(error))
+							completion(.srsKeySubmissionError(error))
 						} else {
 							completion(nil)
 						}
@@ -409,7 +412,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		visitedCountries: [Country],
 		checkins: [SAP_Internal_Pt_CheckIn],
 		checkInProtectedReports: [SAP_Internal_Pt_CheckInProtectedReport],
-		completion: @escaping (_ error: ServiceError<KeySubmissionResourceError>?) -> Void
+		completion: @escaping (_ error: ServiceError<SRSKeySubmissionResourceError>?) -> Void
 	) {
 		let payload = SubmissionPayload(
 			exposureKeys: keys,
