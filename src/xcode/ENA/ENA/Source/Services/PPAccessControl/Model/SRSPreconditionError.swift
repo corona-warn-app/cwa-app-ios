@@ -4,7 +4,7 @@
 
 enum SRSPreconditionError: Error {
 
-	/// Precondition: the app was installed less than 48h
+	/// Precondition: The device time check is correct
 	case deviceCheckError(PPACError)
 
 	/// Precondition: the app was installed less than 48h
