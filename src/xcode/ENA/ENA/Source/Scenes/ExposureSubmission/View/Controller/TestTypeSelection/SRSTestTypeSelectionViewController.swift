@@ -10,7 +10,7 @@ class SRSTestTypeSelectionViewController: DynamicTableViewController {
 	// MARK: - Init
 	
 	init(
-		viewModel: SRSTestTypeSelectionViewModel,
+		viewModel: SRSTestTypeSelectionViewModel = .init(),
 		onPrimaryButtonTap: @escaping (SRSSubmissionType) -> Void,
 		onDismiss: @escaping CompletionVoid
 	) {

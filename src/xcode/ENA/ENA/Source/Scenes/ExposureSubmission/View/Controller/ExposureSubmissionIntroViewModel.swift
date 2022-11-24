@@ -12,8 +12,8 @@ class ExposureSubmissionIntroViewModel {
 	// MARK: - Init
 	
 	init(
-		onPositiveSelfTestButtonTap: @escaping () -> Void,
-		onSelfReportSubmissionButtonTap: @escaping () -> Void,
+		onPositiveSelfTestButtonTap: @escaping (@escaping (Bool) -> Void) -> Void,
+		onSelfReportSubmissionButtonTap: @escaping (@escaping (Bool) -> Void) -> Void,
 		onQRCodeButtonTap: @escaping (@escaping (Bool) -> Void) -> Void,
 		onFindTestCentersTap: @escaping () -> Void,
 		onRapidTestProfileTap: @escaping () -> Void,
@@ -31,8 +31,8 @@ class ExposureSubmissionIntroViewModel {
 	
 	let onQRCodeButtonTap: (@escaping (Bool) -> Void) -> Void
 	let onFindTestCentersTap: () -> Void
-	let onPositiveSelfTestButtonTap: () -> Void
-	let onSelfReportSubmissionButtonTap: () -> Void
+	let onPositiveSelfTestButtonTap: (@escaping (Bool) -> Void) -> Void
+	let onSelfReportSubmissionButtonTap: (@escaping (Bool) -> Void) -> Void
 	let onRapidTestProfileTap: () -> Void
 	let antigenTestProfileStore: AntigenTestProfileStoring
 
@@ -73,14 +73,22 @@ class ExposureSubmissionIntroViewModel {
 					title: AppStrings.ExposureSubmissionDispatch.positiveSelfTestButtonTitle,
 					description: AppStrings.ExposureSubmissionDispatch.postiveSelfTestButtonDescription,
 					image: UIImage(named: "Illu_Submission_PositiveSelfTest"),
-					action: .execute { [weak self] _, _ in self?.onPositiveSelfTestButtonTap() },
+					action: .execute { [weak self] _, cell in
+						self?.onPositiveSelfTestButtonTap() { isLoading in
+							cell?.isUserInteractionEnabled = !isLoading
+						}
+					},
 					accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionDispatch.positiveSelfTestButtonDescription
 				),
 				.imageCard(
 					title: AppStrings.ExposureSubmissionDispatch.SRSButtonTitle,
 					description: AppStrings.ExposureSubmissionDispatch.SRSButtonDescription,
 					image: UIImage(named: "Illu_Submission_SRS"),
-					action: .execute { [weak self] _, _ in self?.onSelfReportSubmissionButtonTap() },
+					action: .execute { [weak self] _, cell in
+						self?.onSelfReportSubmissionButtonTap() { isLoading in
+							cell?.isUserInteractionEnabled = !isLoading
+						}
+					},
 					accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionDispatch.SRSButtonDescription
 				),
 				.title2(

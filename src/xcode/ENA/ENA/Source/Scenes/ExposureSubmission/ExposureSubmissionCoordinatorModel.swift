@@ -423,6 +423,8 @@ class ExposureSubmissionCoordinatorModel {
 		isLoading: @escaping CompletionBool,
 		completion: @escaping (Result<Void, SRSPreconditionError>) -> Void
 	) {
+		completion(.success(()))
+		return
 		// Check if app was installed less than 48 hours
 		guard
 			let appInstallationDate = store.appInstallationDate,
