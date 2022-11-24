@@ -158,11 +158,17 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 
 		// By default, we show the intro view.
 		let viewModel = ExposureSubmissionIntroViewModel(
-			onPositiveSelfTestButtonTap: { [weak self] in
-				self?.showSRSConsentScreen(srsFlowType: .srsPositive)
+			onPositiveSelfTestButtonTap: { [weak self] isLoading in
+				self?.checkSRSPrerequisitesToContinueSRSFlow(
+					srsFlowType: .srsPositive,
+					isLoading: isLoading
+				)
 			},
-			onSelfReportSubmissionButtonTap: { [weak self] in
-				self?.showSRSConsentScreen(srsFlowType: .positiveWithoutResultInTheApp)
+			onSelfReportSubmissionButtonTap: { [weak self] isLoading in
+				self?.checkSRSPrerequisitesToContinueSRSFlow(
+					srsFlowType: .positiveWithoutResultInTheApp,
+					isLoading: isLoading
+				)
 			},
 			onQRCodeButtonTap: { [weak self] isLoading in
 				self?.showQRScreen(testRegistrationInformation: nil, isLoading: isLoading)
@@ -490,9 +496,9 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 						switch srsFlowType {
 						case .srsPositive:
 							self.model.storeSelectedSRSSubmissionType(.srsSelfTest)
-							self.checkSRSPrerequisitesToContinueSRSFlow(isSelfTestTypePreselected: true, isLoading: isLoading)
+							self.showSRSFlowNextScreen()
 						case .positiveWithoutResultInTheApp:
-							self.checkSRSPrerequisitesToContinueSRSFlow(isSelfTestTypePreselected: false, isLoading: isLoading)
+							self.showSRSTestTypeSelectionScreen()
 						}
 						return
 					}
@@ -953,16 +959,16 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 	/// Checks the SRS Flow prerequisites to continue with SRS Test Type Selection.
 	/// Shows a specific error alert, if at least on prerequisite has fault.
 	/// - Parameters:
-	/// 	- isSelfTestTypePreselected: Whether the self test type in SRS Test Type Selection should be preselected
+	/// 	- srsFlowType: The SRS Flow Type the user has selected
 	/// 	- isLoading: The callback that should be execute while fetching the self service parameters from app configuration.
 	private func checkSRSPrerequisitesToContinueSRSFlow(
-		isSelfTestTypePreselected: Bool,
+		srsFlowType: SRSFlowType,
 		isLoading: @escaping CompletionBool
 	) {
 		model.checkSRSFlowPrerequisites(isLoading: isLoading) { [weak self] (result: Result<Void, SRSPreconditionError>) in
 			switch result {
 			case .success:
-				self?.showSRSTestTypeSelectionScreen(isSelfTestTypePreselected: isSelfTestTypePreselected)
+				self?.showSRSConsentScreen(srsFlowType: srsFlowType)
 			case .failure(let error):
 				self?.showSRSFlowPreconditionAlert(for: error)
 			}
@@ -970,12 +976,9 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 	}
 	
 	/// Shows the SRS Test Type Selection Screen
-	/// - Parameters:
-	/// 	- isSelfTestTypePreselected: Whether the self test type in SRS Test Type Selection should be preselected
-	private func showSRSTestTypeSelectionScreen(isSelfTestTypePreselected: Bool) {
+	private func showSRSTestTypeSelectionScreen() {
 		var srsTestTypeSelectionViewController: SRSTestTypeSelectionViewController!
 		srsTestTypeSelectionViewController = SRSTestTypeSelectionViewController(
-			viewModel: SRSTestTypeSelectionViewModel(isSelfTestTypePreselected: isSelfTestTypePreselected),
 			onPrimaryButtonTap: { [weak self] submissionType in
 				self?.model.storeSelectedSRSSubmissionType(submissionType)
 				self?.showSRSFlowNextScreen()

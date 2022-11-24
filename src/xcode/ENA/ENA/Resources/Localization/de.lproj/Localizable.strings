@@ -599,23 +599,23 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmission_SRSError_title" = "Andere warnen nicht möglich";
 
-"ExposureSubmission_SRSError_message_CALL_HOTLINE" = "Ein Fehler ist aufgetreten. Bitte versuchen Sie die Warnung später erneut zu senden oder kontaktieren Sie die technische Hotline über App-Informationen -> Technische Hotline. (Fehlercode %@)";
+"ExposureSubmission_SRSError_Message_CallHotline" = "Ein Fehler ist aufgetreten. Bitte versuchen Sie die Warnung später erneut zu senden oder kontaktieren Sie die technische Hotline über App-Informationen -> Technische Hotline. (Fehlercode %@)";
 
-"ExposureSubmission_SRSError_message_CHANGE_DEVICE_TIME" = "Die Uhrzeit Ihres Smartphones stimmt nicht mit der aktuellen Zeit überein. Bitte korrigieren Sie die Uhrzeit in den Einstellungen Ihres Smartphones. Nach der Korrektur kann es einige Minuten dauern, bis die App die Uhrzeit erneut überprüft. Danach können Sie erneut versuchen zu warnen. (Fehlercode %@)";
+"ExposureSubmission_SRSError_Message_ChangeDeviceTime" = "Die Uhrzeit Ihres Smartphones stimmt nicht mit der aktuellen Zeit überein. Bitte korrigieren Sie die Uhrzeit in den Einstellungen Ihres Smartphones. Nach der Korrektur kann es einige Minuten dauern, bis die App die Uhrzeit erneut überprüft. Danach können Sie erneut versuchen zu warnen. (Fehlercode %@)";
 
-"ExposureSubmission_SRSError_message_DEVICE_NOT_SUPPORTED" = "Ihr Smartphone unterstützt diese Art von Warnung leider nicht. Einen offiziellen Test können Sie jederzeit in der App registrieren und andere damit warnen. (Fehlercode %@)";
+"ExposureSubmission_SRSError_Message_DeviceNotSupported" = "Ihr Smartphone unterstützt diese Art von Warnung leider nicht. Einen offiziellen Test können Sie jederzeit in der App registrieren und andere damit warnen. (Fehlercode %@)";
 
-"ExposureSubmission_SRSError_message_DEVICE_NOT_TRUSTED" = "Ihr Gerät erfüllt nicht die notwendigen Sicherheitsanforderungen für diese Art von Warnung. Einen offiziellen Test können Sie jederzeit in der App registrieren und andere damit warnen. (Fehlercode %@)";
+"ExposureSubmission_SRSError_Message_DeviceNotTrusted" = "Ihr Gerät erfüllt nicht die notwendigen Sicherheitsanforderungen für diese Art von Warnung. Einen offiziellen Test können Sie jederzeit in der App registrieren und andere damit warnen. (Fehlercode %@)";
 
-"ExposureSubmission_SRSError_message_NO_NETWORK" = "Möglicherweise wurde Ihre Internet-Verbindung unterbrochen. Bitte prüfen Sie die Verbindung und versuchen Sie es erneut. (Fehlercode %@)";
+"ExposureSubmission_SRSError_Message_NoNetwork" = "Möglicherweise wurde Ihre Internet-Verbindung unterbrochen. Bitte prüfen Sie die Verbindung und versuchen Sie es erneut. (Fehlercode %@)";
 
-"ExposureSubmission_SRSError_message_SUBMISSION_TOO_EARLY" = "Sie können momentan andere nicht warnen, da Sie innerhalb der vergangenen %@ Tage bereits ein positives Testergebnis gemeldet haben. Dies dient der Vermeidung von Missbrauch. Einen offiziellen Test können Sie jederzeit in der App registrieren und andere damit warnen. (Fehlercode %@)";
+"ExposureSubmission_SRSError_Message_SubmissionTooEarly" = "Sie können momentan andere nicht warnen, da Sie innerhalb der vergangenen %@ Tage bereits ein positives Testergebnis gemeldet haben. Dies dient der Vermeidung von Missbrauch. Einen offiziellen Test können Sie jederzeit in der App registrieren und andere damit warnen. (Fehlercode %@)";
 
-"ExposureSubmission_SRSError_message_TIME_SINCE_ONBOARDING_UNVERIFIED" = "Aus Sicherheitsgründen können Sie erst %@ Stunden, nachdem Sie die App installiert oder aktualisiert haben, diese Art von Warnung senden. Bitte versuchen Sie es in %@ Stunden erneut. (Fehlercode %@)";
+"ExposureSubmission_SRSError_Message_TimeSinceOnboardingUnverified" = "Aus Sicherheitsgründen können Sie erst %@ Stunden, nachdem Sie die App installiert oder aktualisiert haben, diese Art von Warnung senden. Bitte versuchen Sie es in %@ Stunden erneut. (Fehlercode %@)";
 
-"ExposureSubmission_SRSError_message_TRY_AGAIN_LATER" = "Ein Fehler ist aufgetreten. Bitte versuchen Sie die Warnung erneut zu senden. (Fehlercode %@)";
+"ExposureSubmission_SRSError_Message_TryAgainLater" = "Ein Fehler ist aufgetreten. Bitte versuchen Sie die Warnung erneut zu senden. (Fehlercode %@)";
 
-"ExposureSubmission_SRSError_message_TRY_AGAIN_NEXT_MONTH" = "Die Warnung kann aus Sicherheitsgründen in diesem Kalendermonat nicht gesendet werden. Bitte warten Sie bis zum nächsten Kalendermonat oder warnen Sie jederzeit mit einem in der App registrierten offiziellen Test. (Fehlercode %@)";
+"ExposureSubmission_SRSError_Message_TryAgainNextMonth" = "Die Warnung kann aus Sicherheitsgründen in diesem Kalendermonat nicht gesendet werden. Bitte warten Sie bis zum nächsten Kalendermonat oder warnen Sie jederzeit mit einem in der App registrierten offiziellen Test. (Fehlercode %@)";
 
 "ExposureSubmission_SRSError_faqButtonTitle" = "FAQ";
 
