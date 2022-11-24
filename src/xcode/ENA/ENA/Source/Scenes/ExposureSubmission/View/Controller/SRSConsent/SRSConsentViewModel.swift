@@ -111,7 +111,7 @@ struct SRSConsentViewModel {
 		ack1.addAttributes(attributes, range: NSRange(location: 0, length: AppStrings.SRSConsentScreen.legalBulletPoint01.count))
 
 		let ack2 = NSMutableAttributedString(string: "\(AppStrings.SRSConsentScreen.legalBulletPoint02)")
-		ack2.addAttributes(attributes, range: NSRange(location: 52, length: 36))
+		ack2.addAttributes(attributes, range: NSRange(location: AppStrings.SRSConsentScreen.legalBulletPoint02prefix.count, length: AppStrings.SRSConsentScreen.legalBulletPoint02highlighted.count))
 
 		let ack3 = NSMutableAttributedString(string: "\(AppStrings.SRSConsentScreen.legalBulletPoint03)")
 		ack3.addAttributes(attributes, range: NSRange(location: 0, length: AppStrings.SRSConsentScreen.legalBulletPoint03.count))

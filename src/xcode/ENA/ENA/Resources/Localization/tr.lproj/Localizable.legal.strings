@@ -153,6 +153,22 @@
 
 "Checkin_Information_Legal_SubHeadline_2" = "“Giriş denetimlerim” altındaki bir giriş denetimini istediğiniz zaman silebilirsiniz.  Bu durumda akıllı telefonunuz yalnızca, bir riskli karşılaşmada testi pozitif çıkan bir kullanıcının rastgele kimlik numaralarını alırsa uyarılırsınız.";
 
+/* SRS Consent Screen */
+
+"SRS_Consent_Legal_Headline" = "Ihr Einverständnis";
+
+"SRS_Consent_Legal_Description" = "Durch Antippen von Einverstanden willigen Sie in die folgenden Schritte ein:";
+
+"SRS_Consent_Legal_Text_1" = "Die App teilt Ihr positives Testergebnis, um andere Nutzer der Corona-Warn-App zu warnen, denen Sie begegnet sind oder die zeitgleich am selben Event oder Ort wie Sie eingecheckt waren.";
+
+"SRS_Consent_Legal_Text_2" = "Bevor das Testergebnis geteilt werden kann, wird die Echtheit Ihrer App einmalig geprüft. Dazu wird durch Ihr Smartphone eine eindeutige Kennung erzeugt und an Apple  in die USA oder andere Drittländer übermittelt, damit Apple die Echtheit Ihrer App gegenüber dem RKI bestätigen kann. Die Kennung enthält Informationen über die Version Ihres Smartphones und der App. Apple kann damit möglicherweise auf Ihre Identität schließen und nachvollziehen, dass die Echtheitsprüfung Ihres Smartphones stattgefunden hat. Weitere Angaben aus der App erhält Apple hierbei nicht.";
+
+"SRS_Consent_Legal_Text_2_prefix" = "Bevor das Testergebnis geteilt werden kann, wird die ";
+
+"SRS_Consent_Legal_Text_2_highlighted" = "Echtheit Ihrer App einmalig geprüft";
+
+"SRS_Consent_Legal_Text_3" = "Wenn Sie zusätzlich Angaben zum Beginn Ihrer Symptome machen, werden auch diese geteilt.";
+
 /* TraceLocation */
 
 "TraceLocation_Information_Legal_Headline_1" = "Veri gizliliği ve veri güvenliği";
