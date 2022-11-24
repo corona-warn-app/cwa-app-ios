@@ -3,7 +3,9 @@
 //
 
 enum SRSPreconditionError: Error {
-	
+	/// Precondition: the app was installed less than 48h
+	case deviceCheckError(PPACError)
+
 	/// Precondition: the app was installed less than 48h
 	case insufficientAppUsageTime
 	
@@ -14,6 +16,11 @@ enum SRSPreconditionError: Error {
 	
 	var message: String {
 		switch self {
+		case  .deviceCheckError:
+			return String(
+				format: AppStrings.ExposureSubmissionDispatch.SRSWarnOthersPreconditionAlert.deviceCheckError,
+				errorCode
+			)
 		case .insufficientAppUsageTime:
 			return String(
 				format: AppStrings.ExposureSubmissionDispatch.SRSWarnOthersPreconditionAlert.insufficientAppUsageTime_message,
@@ -31,10 +38,21 @@ enum SRSPreconditionError: Error {
 extension SRSPreconditionError: ErrorCodeProviding {
 	var description: ErrorCodeProviding.ErrorCode {
 		switch self {
+		case .deviceCheckError(let ppacError):
+			switch ppacError {
+			case .timeIncorrect:
+				return "DEVICE_TIME_INCORRECT"
+			case .timeUnverified:
+				return "DEVICE_TIME_UNVERIFIED"
+			default:
+				// this case is not reachable
+				return "DEVICE_TIME_INCORRECT"
+			}
 		case .insufficientAppUsageTime:
 			return "MIN_TIME_SINCE_ONBOARDING"
 		case .positiveTestResultWasAlreadySubmittedWithin90Days:
 			return "SUBMISSION_TOO_EARLY"
+			
 		}
 	}
 }

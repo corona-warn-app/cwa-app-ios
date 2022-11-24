@@ -348,6 +348,8 @@ enum AppStrings {
 			static let title = NSLocalizedString("ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_title", comment: "")
 			static let insufficientAppUsageTime_message = NSLocalizedString("ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_insufficientAppUsageTime_message", comment: "")
 			static let positiveTestResultWasAlreadySubmittedWithin90Days_message = NSLocalizedString("ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_positiveTestResultWasAlreadySubmittedWithin90Days_message", comment: "")
+			static let deviceCheckError = NSLocalizedString("ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_deviceCheckError_message", comment: "")
+
 			static let faqButtonTitle = NSLocalizedString("ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_faqButtonTitle", comment: "")
 			static let okButtonTitle = NSLocalizedString("ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_okButtonTitle", comment: "")
 		}

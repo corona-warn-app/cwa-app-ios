@@ -589,6 +589,8 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_positiveTestResultWasAlreadySubmittedWithin90Days_message" = "Sie können momentan andere nicht warnen, da Sie innerhalb der vergangenen 90 Tage bereits ein positives Testergebnis gemeldet haben. Dies dient der Vermeidung von Missbrauch.\nEinen offiziellen Test können Sie jederzeit registrieren und andere damit warnen. (Fehlercode %@)";
 
+"ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_deviceCheckError_message" = "Die Uhrzeit Ihres Smartphones stimmt nicht mit der aktuellen Zeit überein. Bitte korrigieren Sie die Uhrzeit in den Einstellungen Ihres Smartphones. Nach der Korrektur kann es einige Minuten dauern, bis die App die Uhrzeit erneut überprüft. Danach können Sie erneut versuchen zu warnen.";
+
 "ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_faqButtonTitle" = "FAQ";
 
 "ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_okButtonTitle" = "OK";

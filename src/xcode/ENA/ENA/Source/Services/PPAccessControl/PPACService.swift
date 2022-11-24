@@ -7,10 +7,11 @@ import Foundation
 protocol PrivacyPreservingAccessControl {
 	func getPPACTokenEDUS(_ completion: @escaping (Result<PPACToken, PPACError>) -> Void)
 	func getPPACTokenELS(_ completion: @escaping (Result<PPACToken, PPACError>) -> Void)
-	func getPPACTokenSRS(
+	func getPPACTokenSRS(_ completion: @escaping (Result<PPACToken, PPACError>) -> Void)
+	func checkSRSFlowPrerequisites(
 		minTimeSinceOnboardingInHours: Int,
 		minTimeBetweenSubmissionsInDays: Int,
-		completion: @escaping (Result<PPACToken, PPACError>) -> Void
+		completion: @escaping (Result<Void, SRSPreconditionError>) -> Void
 	)
 	#if !RELEASE
 	func generateNewAPIEdusToken() -> TimestampedToken
@@ -32,22 +33,22 @@ class PPACService: PrivacyPreservingAccessControl {
 
 	// MARK: - Protocol PrivacyPreservingAccessControl
 
-	func getPPACTokenSRS(
+	func checkSRSFlowPrerequisites(
 		minTimeSinceOnboardingInHours: Int,
 		minTimeBetweenSubmissionsInDays: Int,
-		completion: @escaping (Result<PPACToken, PPACError>) -> Void
+		completion: @escaping (Result<Void, SRSPreconditionError>) -> Void
 	) {
 		// check if time isn't incorrect
 		if store.deviceTimeCheckResult == .incorrect {
 			Log.error("SRSError: device time is incorrect", log: .ppac)
-			completion(.failure(PPACError.timeIncorrect))
+			completion(.failure(.deviceCheckError(.timeIncorrect)))
 			return
 		}
-
+		
 		// check if time isn't unknown
 		if store.deviceTimeCheckResult == .assumedCorrect {
 			Log.error("SRSError:device time is unverified", log: .ppac)
-			completion(.failure(PPACError.timeUnverified))
+			completion(.failure(.deviceCheckError(.timeUnverified)))
 			return
 		}
 		
@@ -61,10 +62,10 @@ class PPACService: PrivacyPreservingAccessControl {
 			let minTimeSinceOnboarding = minTimeSinceOnboardingInHours <= 0 ? 24 : minTimeSinceOnboardingInHours
 			Log.debug("actual time since onboarding \(minTimeSinceOnboardingInHours) hours.", log: .ppac)
 			Log.debug("Corrected default time since onboarding \(minTimeSinceOnboarding) hours.", log: .ppac)
-
+			
 			if difference < minTimeSinceOnboarding {
 				Log.error("SRSError: too short time since onboarding", log: .ppac)
-				completion(.failure(PPACError.minimumTimeSinceOnboarding))
+				completion(.failure(.insufficientAppUsageTime))
 				return
 			}
 		}
@@ -75,13 +76,17 @@ class PPACService: PrivacyPreservingAccessControl {
 			let minTimeBetweenSubmissions = minTimeBetweenSubmissionsInDays <= 0 ? 90 : minTimeBetweenSubmissionsInDays
 			Log.debug("minTimeBetweenSubmissionsInDays = \(minTimeBetweenSubmissionsInDays) days.", log: .ppac)
 			Log.debug("Corrected default minTimeBetweenSubmissionsInDays = \(minTimeBetweenSubmissions) days.", log: .ppac)
-
+			
 			if difference < minTimeBetweenSubmissions {
 				Log.error("SRSError: submission too early", log: .ppac)
-				completion(.failure(PPACError.submissionTooEarly))
+				completion(.failure(.positiveTestResultWasAlreadySubmittedWithin90Days))
 				return
 			}
 		}
+		
+	}
+	
+	func getPPACTokenSRS(_ completion: @escaping (Result<PPACToken, PPACError>) -> Void) {
 		deviceCheck.deviceToken(apiTokenSRS.token, completion: completion)
 	}
 

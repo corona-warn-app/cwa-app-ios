@@ -423,24 +423,13 @@ class ExposureSubmissionCoordinatorModel {
 		isLoading: @escaping CompletionBool,
 		completion: @escaping (Result<Void, SRSPreconditionError>) -> Void
 	) {
-		// Check if app was installed less than 48 hours
-		guard
-			let appInstallationDate = store.appInstallationDate,
-			let numberOfHoursSinceAppInstallation = Calendar.current.dateComponents([.hour], from: appInstallationDate, to: Date()).hour,
-			numberOfHoursSinceAppInstallation > 48 else {
-
-			completion(.failure(.insufficientAppUsageTime))
-			return
-		}
-
-		// Check if there was already a key submission without a registered test in the last 3 months
-		exposureSubmissionService.loadSelfServiceParameters(isLoading: isLoading) { selfReportSubmissionParametersCommon in
-
-			guard selfReportSubmissionParametersCommon.timeBetweenSubmissionsInDays > 90 else {
-				completion(.failure(.positiveTestResultWasAlreadySubmittedWithin90Days))
-				return
+		srsService.checkSRSFlowPrerequisites { result in
+			switch result {
+			case .success:
+				completion(.success(()))
+			case.failure(let preConditionError):
+				completion(.failure(preConditionError))
 			}
-			completion(.success(()))
 		}
 	}
 	
