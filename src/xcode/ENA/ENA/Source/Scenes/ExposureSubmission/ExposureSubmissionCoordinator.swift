@@ -859,10 +859,12 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 			onDismiss: { [weak self] in
 				if self?.model.coronaTest?.positiveTestResultWasShown == true {
 					self?.showSkipCheckinsAlert(dontShareHandler: {
-						if isSRSFlow {
-							
-						} else {
-							
+						if let coronaTestType = self?.model.coronaTestType {
+							Analytics.collect(.keySubmissionMetadata(.submittedAfterCancel(true, coronaTestType)))
+							self?.submitExposure(showSubmissionSuccess: false) { isLoading in
+								footerViewModel.setLoadingIndicator(isLoading, disable: isLoading, button: .secondary)
+								footerViewModel.setLoadingIndicator(false, disable: isLoading, button: .primary)
+							}
 						}
 					})
 				} else {
