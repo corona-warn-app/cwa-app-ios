@@ -1702,7 +1702,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		navigationController?.present(alert, animated: true)
 	}
 	
-	private func showSRSFlowErrorAlert<E: SRSErrorAlertProviding & ErrorCodeProviding>(
+	private func showSRSFlowErrorAlert<E: ErrorCodeProviding & SRSErrorAlertProviding>(
 		for error: E,
 		isLoading: @escaping CompletionBool
 	) {
