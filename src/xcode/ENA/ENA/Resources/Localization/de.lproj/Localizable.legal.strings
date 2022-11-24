@@ -164,6 +164,10 @@
 
 "SRS_Consent_Legal_Text_2" = "Bevor das Testergebnis geteilt werden kann, wird die Echtheit Ihrer App einmalig geprüft. Dazu wird durch Ihr Smartphone eine eindeutige Kennung erzeugt und an Apple  in die USA oder andere Drittländer übermittelt, damit Apple die Echtheit Ihrer App gegenüber dem RKI bestätigen kann. Die Kennung enthält Informationen über die Version Ihres Smartphones und der App. Apple kann damit möglicherweise auf Ihre Identität schließen und nachvollziehen, dass die Echtheitsprüfung Ihres Smartphones stattgefunden hat. Weitere Angaben aus der App erhält Apple hierbei nicht.";
 
+"SRS_Consent_Legal_Text_2_prefix" = "Bevor das Testergebnis geteilt werden kann, wird die ";
+
+"SRS_Consent_Legal_Text_2_highlighted" = "Echtheit Ihrer App einmalig geprüft";
+
 "SRS_Consent_Legal_Text_3" = "Wenn Sie zusätzlich Angaben zum Beginn Ihrer Symptome machen, werden auch diese geteilt.";
 
 /* TraceLocation */
