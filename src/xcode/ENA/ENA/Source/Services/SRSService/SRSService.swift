@@ -39,27 +39,27 @@ final class SRSService: SRSServiceProviding {
 		// first get ppac token for SRS
 		self.ppacService.getPPACTokenSRS { [weak self] result in
 			guard let self = self else { return }
-			   switch result {
-			   case let .success(ppacToken):
-				   Log.debug("Successfully retrieved for SRS a ppac token. Proceed for otp.")
-				   // then get otp token for SRS (without restrictions for api token)
-				   self.otpService.getOTPEls(ppacToken: ppacToken) { result in
-					   switch result {
-					   case let .success(otpSRS):
-						   Log.debug("Successfully authenticated ppac and SRS OTP: \(private: otpSRS, public: "--OTP Value--") for els. Proceed with uploading error log file.")
-
-						   // now we can submit our log with valid otp.
-						   completion(.success(otpSRS))
-					   case let .failure(otpError):
-						   Log.error("Could not obtain otp for srs.", log: .els, error: otpError)
-						   completion(.failure(.otpError(otpError)))
-					   }
-				   }
-			   case let .failure(ppacError):
-				   Log.error("Could not obtain ppac token for srs.", log: .srs, error: ppacError)
-				   completion(.failure(.ppacError(ppacError)))
-			   }
-		   }
+			switch result {
+			case let .success(ppacToken):
+				Log.debug("Successfully retrieved for SRS a ppac token. Proceed for otp.")
+				// then get otp token for SRS (without restrictions for api token)
+				self.otpService.getOTPEls(ppacToken: ppacToken) { result in
+					switch result {
+					case let .success(otpSRS):
+						Log.debug("Successfully authenticated ppac and SRS OTP: \(private: otpSRS, public: "--OTP Value--") for els. Proceed with uploading error log file.")
+						
+						// now we can submit our log with valid otp.
+						completion(.success(otpSRS))
+					case let .failure(otpError):
+						Log.error("Could not obtain otp for srs.", log: .els, error: otpError)
+						completion(.failure(.otpError(otpError)))
+					}
+				}
+			case let .failure(ppacError):
+				Log.error("Could not obtain ppac token for srs.", log: .srs, error: ppacError)
+				completion(.failure(.ppacError(ppacError)))
+			}
+		}
 	}
 
 	func checkSRSFlowPrerequisites(completion: @escaping SRSPerquisiteChecksResponse) {
