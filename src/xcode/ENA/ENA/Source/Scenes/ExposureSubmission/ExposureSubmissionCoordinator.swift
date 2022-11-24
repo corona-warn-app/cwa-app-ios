@@ -1001,9 +1001,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 					
 					self.model.shouldShowSymptomsOnsetScreen ? self.showSymptomsOnsetScreen() : self.submitExposure(showSubmissionSuccess: true, isLoading: isLoading)
 				case .srs:
-					if self.model.shouldShowSymptomsOnsetScreen {
-						self.showSymptomsOnsetScreen()
-					}
+					self.model.shouldShowSymptomsOnsetScreen ? self.showSymptomsOnsetScreen() : self.submitSRSExposure(showSubmissionSuccess: true, isLoading: isLoading)
 				case .none:
 					break
 				}
