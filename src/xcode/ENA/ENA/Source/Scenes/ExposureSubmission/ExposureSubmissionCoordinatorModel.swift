@@ -417,8 +417,8 @@ class ExposureSubmissionCoordinatorModel {
 
 	/// Check SRS Flow Prerequisites.
 	/// - Parameters:
-	/// 	- isLoading: The callback that should be execute while fetching the self service parameters from app configuration.
-	/// 	- completion: The completion handler, that has given the regarding `SRSPreconditionError`, in case of a precondition fault.
+	/// 	- isLoading: The callback that should be executed while fetching the self service parameters from app configuration.
+	/// 	- completion: The completion handler, that provides the corresponding `SRSPreconditionError` in case of a precondition fault.
 	func checkSRSFlowPrerequisites(
 		isLoading: @escaping CompletionBool,
 		completion: @escaping (Result<Void, SRSPreconditionError>) -> Void
@@ -433,7 +433,7 @@ class ExposureSubmissionCoordinatorModel {
 			return
 		}
 
-		// Check if there was already a key submission without a registered test in the last 3 months
+		// Check if there was already a key submission without a registered test in the last 90 days.
 		exposureSubmissionService.loadSelfServiceParameters(isLoading: isLoading) { selfReportSubmissionParametersCommon in
 
 			guard selfReportSubmissionParametersCommon.timeBetweenSubmissionsInDays > 90 else {
@@ -447,8 +447,8 @@ class ExposureSubmissionCoordinatorModel {
 	/// Creates the error message string for a `SRSErrorAlert` alert.
 	/// - Parameters:
 	/// 	- error: The error type, that conforms to `SRSErrorAlertProviding` and `ErrorCodeProviding`.
-	/// 	- isLoading: The callback that should be execute while fetching the self service parameters from app configuration.
-	/// 	- completion: The completion handler that has given the regarding error alert message.
+	/// 	- isLoading: The callback that should be executed while fetching the self service parameters from app configuration.
+	/// 	- completion: The completion handler that provides the corresponding error alert message.
 	func message<E: SRSErrorAlertProviding & ErrorCodeProviding>(
 		from error: E,
 		isLoading: @escaping CompletionBool,

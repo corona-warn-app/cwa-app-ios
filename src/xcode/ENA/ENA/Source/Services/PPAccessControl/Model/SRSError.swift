@@ -5,7 +5,7 @@
 import Foundation
 
 protocol SRSErrorAlertProviding: Error {
-	/// The SRS Error Alert type aims which error codes share error message.
+	/// The SRS Error Alert type aims to share error message based on error codes.
 	/// The type is optional, because there are error cases of error enums, that hasn't a relationship to SRS
 	var srsErrorAlert: SRSErrorAlert? { get }
 }
@@ -74,28 +74,12 @@ extension SRSError: SRSErrorAlertProviding {
 			return ppacError.srsErrorAlert
 		case .otpError(let otpError):
 			return otpError.srsErrorAlert
-		case .srsOTPClientError:
+		case .srsOTPClientError, .srsOTP400, .srsOTP401, .srsOTP403, .srsSUBClientError, .srsSUB400, .srsSUB403:
 			return .callHotline
-		case .srsOTPNetworkError:
+		case .srsOTPNetworkError, .srsSUBNoNetwork:
 			return .noNetwork
-		case .srsOTPServerError:
+		case .srsOTPServerError, .srsSUBServerError:
 			return .tryAgainLater
-		case .srsOTP400:
-			return .callHotline
-		case .srsOTP401:
-			return .callHotline
-		case .srsOTP403:
-			return .callHotline
-		case .srsSUBClientError:
-			return .callHotline
-		case .srsSUBNoNetwork:
-			return .noNetwork
-		case .srsSUBServerError:
-			return .tryAgainLater
-		case .srsSUB400:
-			return .callHotline
-		case .srsSUB403:
-			return .callHotline
 		}
 	}
 }

@@ -2,7 +2,7 @@
 // 🦠 Corona-Warn-App
 //
 
-/// The type of SRS error alert, depending on a regarding error
+/// The type of SRS error alert, depending on a corresponding error
 enum SRSErrorAlert: String, CaseIterable {
 	case callHotline = "CALL_HOTLINE"
 	case changeDeviceTime = "CHANGE_DEVICE_TIME"
@@ -14,6 +14,14 @@ enum SRSErrorAlert: String, CaseIterable {
 	case tryAgainLater = "TRY_AGAIN_LATER"
 	case tryAgainNextMonth = "TRY_AGAIN_NEXT_MONTH"
 	
+	// MARK: - Init
+	
+	init(error: SRSErrorAlertProviding) {
+		self = error.srsErrorAlert ?? .callHotline
+	}
+	
+	// MARK: - Internal
+
 	var message: String {
 		switch self {
 		case .callHotline:
@@ -35,9 +43,5 @@ enum SRSErrorAlert: String, CaseIterable {
 		case .tryAgainNextMonth:
 			return AppStrings.SRSErrorAlert.tryAgainNextMonth
 		}
-	}
-	
-	init(error: SRSErrorAlertProviding) {
-		self = error.srsErrorAlert ?? .callHotline
 	}
 }

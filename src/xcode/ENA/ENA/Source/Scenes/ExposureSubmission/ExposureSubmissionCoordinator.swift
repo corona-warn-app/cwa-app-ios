@@ -159,13 +159,13 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		// By default, we show the intro view.
 		let viewModel = ExposureSubmissionIntroViewModel(
 			onPositiveSelfTestButtonTap: { [weak self] isLoading in
-				self?.checkSRSPrerequisitesToContinueSRSFlow(
+				self?.checkSRSPrerequisitesToSRSFlow(
 					srsFlowType: .srsPositive,
 					isLoading: isLoading
 				)
 			},
 			onSelfReportSubmissionButtonTap: { [weak self] isLoading in
-				self?.checkSRSPrerequisitesToContinueSRSFlow(
+				self?.checkSRSPrerequisitesToSRSFlow(
 					srsFlowType: .positiveWithoutResultInTheApp,
 					isLoading: isLoading
 				)
@@ -960,8 +960,8 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 	/// Shows a specific error alert, if at least on prerequisite has fault.
 	/// - Parameters:
 	/// 	- srsFlowType: The SRS Flow Type the user has selected
-	/// 	- isLoading: The callback that should be execute while fetching the self service parameters from app configuration.
-	private func checkSRSPrerequisitesToContinueSRSFlow(
+	/// 	- isLoading: The callback that should be executed while fetching the self service parameters from app configuration.
+	private func checkSRSPrerequisitesToSRSFlow(
 		srsFlowType: SRSFlowType,
 		isLoading: @escaping CompletionBool
 	) {
