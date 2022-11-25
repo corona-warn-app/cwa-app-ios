@@ -248,9 +248,9 @@ final class OTPService: OTPServiceProviding {
 					expirationDate: expirationDate.expirationDate
 				)
 
-				self.store.otpTokenEls = verifiedToken
+				self.store.otpTokenSrs = verifiedToken
 
-				Log.info("A new OTP ELS was authorized and persisted.", log: .otp)
+				Log.info("A new OTP SRS was authorized and persisted.", log: .otp)
 
 				completion(.success(verifiedToken.token))
 			case .failure(let error):

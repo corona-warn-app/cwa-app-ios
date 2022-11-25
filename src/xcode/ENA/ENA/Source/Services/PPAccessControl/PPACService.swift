@@ -170,7 +170,7 @@ class PPACService: PrivacyPreservingAccessControl {
 		guard let storedToken = store.ppacApiTokenSrs
 		else {
 			let newToken = generateAndStoreFreshAPIToken()
-			store.ppacApiTokenEls = newToken
+			store.ppacApiTokenSrs = newToken
 			return newToken
 		}
 		return storedToken
