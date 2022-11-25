@@ -438,8 +438,8 @@ class ExposureSubmissionCoordinatorModel {
 	/// 	- error: The error type, that conforms to `SRSErrorAlertProviding` and `ErrorCodeProviding`.
 	/// 	- isLoading: The callback that should be executed while fetching the self service parameters from app configuration.
 	/// 	- completion: The completion handler that provides the corresponding error alert message.
-	func message<E: SRSErrorAlertProviding & ErrorCodeProviding>(
-		from error: E,
+	func message(
+		from error: SRSErrorAlertProviding & ErrorCodeProviding,
 		isLoading: @escaping CompletionBool,
 		completion: @escaping CompletionString
 	) {

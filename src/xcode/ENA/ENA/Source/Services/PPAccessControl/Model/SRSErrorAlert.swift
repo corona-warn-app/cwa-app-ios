@@ -16,7 +16,7 @@ enum SRSErrorAlert: String, CaseIterable {
 	
 	// MARK: - Init
 	
-	init<E: ErrorCodeProviding & SRSErrorAlertProviding>(error: E) {
+	init(error: SRSErrorAlertProviding) {
 		self = error.srsErrorAlert ?? .callHotline
 	}
 	

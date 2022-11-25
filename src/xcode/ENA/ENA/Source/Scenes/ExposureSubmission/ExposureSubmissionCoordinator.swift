@@ -1702,8 +1702,8 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		navigationController?.present(alert, animated: true)
 	}
 	
-	private func showSRSFlowErrorAlert<E: ErrorCodeProviding & SRSErrorAlertProviding>(
-		for error: E,
+	private func showSRSFlowErrorAlert(
+		for error: SRSErrorAlertProviding & ErrorCodeProviding,
 		isLoading: @escaping CompletionBool
 	) {
 		model.message(from: error, isLoading: isLoading) { [weak self] message in
