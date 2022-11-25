@@ -32,8 +32,7 @@ class SRSDataProcessingInfoViewController: DynamicTableViewController {
 	private let viewModel: SRSDataProcessingInfoViewModel
 	
 	private func setupView() {
-		navigationController?.navigationBar.prefersLargeTitles = true
-		navigationItem.title = AppStrings.SRSConsentScreen.dataProcessingDetailInfo
+		navigationController?.navigationBar.prefersLargeTitles = false
 		
 		if traitCollection.userInterfaceStyle == .dark {
 			navigationController?.navigationBar.tintColor = .enaColor(for: .textContrast)

@@ -10,7 +10,11 @@ struct SRSDataProcessingInfoViewModel {
 	
 	var dynamicTableViewModel: DynamicTableViewModel {
 		var model = DynamicTableViewModel([])
-		
+		model.add(
+			.section(cells: [
+				.title1(text: AppStrings.SRSConsentScreen.dataProcessingDetailInfo)
+			])
+		)
 		model.add(
 			.section(cells: [
 				.legalExtendedDataDonation(
