@@ -1020,6 +1020,8 @@
 		8F80802E2731242900F8FA3F /* RegistrationTokenReceiveModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F80802D2731242900F8FA3F /* RegistrationTokenReceiveModel.swift */; };
 		8F87214E274DBCAE00A263D5 /* Locator+ServiceIdentityDocumentValidationDecorator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F87214D274DBCAE00A263D5 /* Locator+ServiceIdentityDocumentValidationDecorator.swift */; };
 		8F872150274DBD7B00A263D5 /* ServiceIdentityDocumentValidationDecoratorResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F87214F274DBD7B00A263D5 /* ServiceIdentityDocumentValidationDecoratorResource.swift */; };
+		8F8B4A332934CD18007ED94E /* DMSrsPrechecksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F8B4A322934CD18007ED94E /* DMSrsPrechecksViewController.swift */; };
+		8F8B4A352934CD30007ED94E /* DMSrsPrechecksViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F8B4A342934CD30007ED94E /* DMSrsPrechecksViewModel.swift */; };
 		8F95A1B225EFC5BE00506CF2 /* SendErrorLogsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F95A1B125EFC5BE00506CF2 /* SendErrorLogsViewController.swift */; };
 		8FA3E9C62913F334000512FC /* SRSConsentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FA3E9C52913F334000512FC /* SRSConsentViewController.swift */; };
 		8FA3E9C82913F34A000512FC /* SRSConsentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FA3E9C72913F34A000512FC /* SRSConsentViewModel.swift */; };
@@ -2921,6 +2923,9 @@
 		8F80802D2731242900F8FA3F /* RegistrationTokenReceiveModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationTokenReceiveModel.swift; sourceTree = "<group>"; };
 		8F87214D274DBCAE00A263D5 /* Locator+ServiceIdentityDocumentValidationDecorator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Locator+ServiceIdentityDocumentValidationDecorator.swift"; sourceTree = "<group>"; };
 		8F87214F274DBD7B00A263D5 /* ServiceIdentityDocumentValidationDecoratorResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceIdentityDocumentValidationDecoratorResource.swift; sourceTree = "<group>"; };
+		8F8B4A322934CD18007ED94E /* DMSrsPrechecksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMSrsPrechecksViewController.swift; sourceTree = "<group>"; };
+		8F8B4A342934CD30007ED94E /* DMSrsPrechecksViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMSrsPrechecksViewModel.swift; sourceTree = "<group>"; };
+		8F8B4A362934DA10007ED94E /* ENATest.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ENATest.entitlements; sourceTree = "<group>"; };
 		8F95A1B125EFC5BE00506CF2 /* SendErrorLogsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendErrorLogsViewController.swift; sourceTree = "<group>"; };
 		8FA3E9C52913F334000512FC /* SRSConsentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SRSConsentViewController.swift; sourceTree = "<group>"; };
 		8FA3E9C72913F34A000512FC /* SRSConsentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SRSConsentViewModel.swift; sourceTree = "<group>"; };
@@ -3634,7 +3639,6 @@
 		CD678F6A246C43E200B6A0F8 /* MockExposureManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockExposureManager.swift; sourceTree = "<group>"; };
 		CD678F6C246C43EE00B6A0F8 /* ClientMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientMock.swift; sourceTree = "<group>"; };
 		CD678F6E246C43FC00B6A0F8 /* MockURLSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockURLSession.swift; sourceTree = "<group>"; };
-		CD7F5C732466F6D400D3D03C /* ENATest.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ENATest.entitlements; sourceTree = "<group>"; };
 		CD8638522477EBD400A5A07C /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		CD99A3A8245C272400BF12AF /* ExposureSubmissionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionService.swift; sourceTree = "<group>"; };
 		CD99A3C92461A47C00BF12AF /* AppStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStrings.swift; sourceTree = "<group>"; };
@@ -7278,7 +7282,7 @@
 				AB628A1D251CDAA700CF61D2 /* Environment */,
 				014891B224F90D0B002A6F77 /* ENA.plist */,
 				011E4B002483A35A002E6412 /* ENACommunity.entitlements */,
-				CD7F5C732466F6D400D3D03C /* ENATest.entitlements */,
+				8F8B4A362934DA10007ED94E /* ENATest.entitlements */,
 				85790F2E245C6B72003D47E1 /* ENA.entitlements */,
 				EE70C239245B09E900AC9B2F /* Localization */,
 				85D7594F24570491008175F0 /* Info.plist */,
@@ -7518,6 +7522,15 @@
 				8F7FD71325E3F65E006CDE01 /* HTMLViewController.xib */,
 			);
 			path = HTMLViewController;
+			sourceTree = "<group>";
+		};
+		8F8B4A312934CCC7007ED94E /* DMSrsPrechecks */ = {
+			isa = PBXGroup;
+			children = (
+				8F8B4A322934CD18007ED94E /* DMSrsPrechecksViewController.swift */,
+				8F8B4A342934CD30007ED94E /* DMSrsPrechecksViewModel.swift */,
+			);
+			path = DMSrsPrechecks;
 			sourceTree = "<group>";
 		};
 		8FA3E9C42913F2E8000512FC /* SRSConsent */ = {
@@ -8858,6 +8871,7 @@
 			isa = PBXGroup;
 			children = (
 				B16457BC24DC3E0E002879EB /* Features */,
+				8F8B4A312934CCC7007ED94E /* DMSrsPrechecks */,
 				B1FC2D1E24D9C8CB00083C81 /* Helper */,
 				2FC951FA24DC2366008D39F4 /* Cells */,
 				B1741B432461C257006275D9 /* DMDeveloperMenu.swift */,
@@ -11528,6 +11542,7 @@
 				01B7232924F812DF0064C0EB /* OptionView.swift in Sources */,
 				BAC7419F26414D4A00955311 /* SimpleTextCellViewModel.swift in Sources */,
 				01E10278266BC4B1009ED803 /* TestCertificateRequestCellModel.swift in Sources */,
+				8F8B4A332934CD18007ED94E /* DMSrsPrechecksViewController.swift in Sources */,
 				01909874257E64BD0065D050 /* DiaryDayViewController.swift in Sources */,
 				8FA3E9C82913F34A000512FC /* SRSConsentViewModel.swift in Sources */,
 				BADD36ED260B4FBA00DD282A /* GradientBackgroundView.swift in Sources */,
@@ -12229,6 +12244,7 @@
 				AB190EC125FB761500FBFF0D /* SecureSQLStore.swift in Sources */,
 				0138F5F425EFDBC300A9B075 /* HomeTraceLocationsCellModel.swift in Sources */,
 				BA7F7346271F124D00E3CE14 /* _RestServiceProviding.swift in Sources */,
+				8F8B4A352934CD30007ED94E /* DMSrsPrechecksViewModel.swift in Sources */,
 				50BD1420260B73CC0013983A /* Verification.swift in Sources */,
 				BA7DCA1A2747DA96009E4557 /* JSONWebKeyTrustEvaluation.swift in Sources */,
 				3484AC7C26A060E900CB0500 /* LocalStatisticsState.swift in Sources */,
@@ -13327,9 +13343,11 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "${PROJECT}/Resources/ENA.entitlements";
 				CODE_SIGN_IDENTITY = $IPHONE_APP_CODE_SIGN_IDENTITY;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = 523TP53AQF;
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 523TP53AQF;
 				GCC_PREPROCESSOR_DEFINITIONS = "SQLITE_HAS_CODEC=1";
 				INFOPLIST_FILE = ENA/Resources/Info_Testflight.plist;
 				IPHONE_APP_CODE_SIGN_IDENTITY = "Apple Distribution";
@@ -13349,6 +13367,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "de.rki.coronawarnapp-dev";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = $IPHONE_APP_DIST_PROF_SPECIFIER;
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "CWA Development distribution";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = USE_DEV_PK_FOR_SIG_VERIFICATION;
 				SWIFT_OBJC_BRIDGING_HEADER = "ENA-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;

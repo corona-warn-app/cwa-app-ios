@@ -38,6 +38,14 @@ class PPACService: PrivacyPreservingAccessControl {
 		minTimeBetweenSubmissionsInDays: Int,
 		completion: @escaping (Result<Void, SRSPreconditionError>) -> Void
 	) {
+		#if !RELEASE
+		if !store.isSRSPrechecksEnabled {
+			Log.warning("SRS Prechecks disabled!.")
+			completion(.success(()))
+			return
+		}
+		#endif
+
 		// check if time isn't incorrect
 		if store.deviceTimeCheckResult == .incorrect {
 			Log.error("SRSError: device time is incorrect", log: .ppac)
@@ -83,6 +91,7 @@ class PPACService: PrivacyPreservingAccessControl {
 				return
 			}
 		}
+		completion(.success(()))
 		
 	}
 	
