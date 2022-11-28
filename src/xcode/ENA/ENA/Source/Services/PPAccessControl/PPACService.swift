@@ -41,14 +41,14 @@ class PPACService: PrivacyPreservingAccessControl {
 		// check if time isn't incorrect
 		if store.deviceTimeCheckResult == .incorrect {
 			Log.error("SRSError: device time is incorrect", log: .ppac)
-			completion(.failure(.deviceCheckError(.timeIncorrect)))
+			completion(.failure(.deviceTimeError(.timeIncorrect)))
 			return
 		}
 		
 		// check if time isn't unknown
 		if store.deviceTimeCheckResult == .assumedCorrect {
 			Log.error("SRSError:device time is unverified", log: .ppac)
-			completion(.failure(.deviceCheckError(.timeUnverified)))
+			completion(.failure(.deviceTimeError(.timeUnverified)))
 			return
 		}
 		
@@ -57,9 +57,12 @@ class PPACService: PrivacyPreservingAccessControl {
 		// 2- a minimum number of days since last submission user can self submit result again.
 		
 		// 1- Check FIRST_RELIABLE_TIMESTAMP
-		if let firstReliableTimeStamp = store.firstReliableTimeStamp,
-		   let difference = Calendar.current.dateComponents([.hour], from: firstReliableTimeStamp, to: Date()).hour {
+		if let appInstallationDate = store.appInstallationDate,
+		   let difference = Calendar.current.dateComponents([.hour], from: appInstallationDate, to: Date()).hour {
 			let minTimeSinceOnboarding = minTimeSinceOnboardingInHours <= 0 ? 24 : minTimeSinceOnboardingInHours
+			Log.debug("device time last state change: \(store.deviceTimeLastStateChange)")
+			Log.debug("first reliable time stamp: \(String(describing: store.firstReliableTimeStamp))")
+			Log.debug("app installation date: \(appInstallationDate)")
 			Log.debug("actual time since onboarding \(minTimeSinceOnboardingInHours) hours.", log: .ppac)
 			Log.debug("Corrected default time since onboarding \(minTimeSinceOnboarding) hours.", log: .ppac)
 			
@@ -84,6 +87,7 @@ class PPACService: PrivacyPreservingAccessControl {
 			}
 		}
 		
+		completion(.success(()))
 	}
 	
 	func getPPACTokenSRS(_ completion: @escaping (Result<PPACToken, PPACError>) -> Void) {

@@ -5,7 +5,7 @@
 enum SRSPreconditionError: Error {
 
 	/// Precondition: The device time check is correct
-	case deviceCheckError(PPACError)
+	case deviceTimeError(PPACError)
 
 	/// Precondition: the app was installed less than 48h
 	case insufficientAppUsageTime
@@ -17,7 +17,7 @@ enum SRSPreconditionError: Error {
 	
 	var message: String {
 		switch self {
-		case  .deviceCheckError:
+		case  .deviceTimeError:
 			return String(
 				format: AppStrings.ExposureSubmissionDispatch.SRSWarnOthersPreconditionAlert.deviceCheckError,
 				errorCode
@@ -39,7 +39,7 @@ enum SRSPreconditionError: Error {
 extension SRSPreconditionError: ErrorCodeProviding {
 	var description: ErrorCodeProviding.ErrorCode {
 		switch self {
-		case .deviceCheckError(let ppacError):
+		case .deviceTimeError(let ppacError):
 			switch ppacError {
 			case .timeIncorrect:
 				return "DEVICE_TIME_INCORRECT"
