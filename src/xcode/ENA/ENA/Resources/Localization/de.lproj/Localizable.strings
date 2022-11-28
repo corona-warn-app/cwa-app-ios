@@ -2086,6 +2086,9 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 /* AddEditEntry */
 "ContactDiary_AddEditEntry_PrimaryButton_Title" = "Speichern";
 
+/* WarnOthers */
+"ContactDiary_WarnOthers_Title" = "Andere gewarnt";
+
 /* - Location */
 "ContactDiary_AddEditEntry_LocationTitle" = "Ort";
 

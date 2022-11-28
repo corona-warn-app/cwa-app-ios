@@ -21,6 +21,8 @@ class DiaryOverviewDayTableViewCell: UITableViewCell {
 		// should not be clickable with white background
 		configureTests(cellViewModel)
 		// should not be clickable with white background
+		configureWarnOthers(cellViewModel)
+		// should not be clickable with white background
 		configureCheckinWithRisks(cellViewModel)
 		// should be clickable with grey background
 		configureEncounters(cellViewModel)
@@ -51,7 +53,9 @@ class DiaryOverviewDayTableViewCell: UITableViewCell {
 	@IBOutlet private weak var exposureHistoryDetailLabel: ENALabel!
 	// PCR & Antigen Tests
 	@IBOutlet private weak var testsStackView: UIStackView!
-	// Check-Ins with risk
+	// Warn Others
+    @IBOutlet private weak var warnOthersStackView: UIStackView!
+    // Check-Ins with risk
 	@IBOutlet private weak var checkinHistoryContainerStackView: UIStackView!
 	@IBOutlet private weak var checkinHistoryNoticeImageView: UIImageView!
 	@IBOutlet private weak var checkinHistoryTitleLabel: ENALabel!
@@ -152,6 +156,48 @@ class DiaryOverviewDayTableViewCell: UITableViewCell {
 			testsStackView.addArrangedSubview(containerView)
 		}
 		testsStackView.isHidden = cellViewModel.diaryDayTests.isEmpty
+	}
+	
+	private func configureWarnOthers(_ cellViewModel: DiaryOverviewDayCellModel) {
+		warnOthersStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
+		if #available(iOS 14.0, *) {
+			warnOthersStackView.backgroundColor = .enaColor(for: .darkBackground)
+		} else {
+			warnOthersStackView.add(backgroundColor: .enaColor(for: .darkBackground))
+		}
+		// Because we set the background color, the border of the underying view disappears. For this we need some new borders at the left and right and here for the top, too.
+		drawBorders(to: [.left, .right], on: warnOthersStackView)
+		
+			let containerView = UIView()
+			containerView.translatesAutoresizingMaskIntoConstraints = false
+			
+			let imageView = UIImageView()
+			imageView.translatesAutoresizingMaskIntoConstraints = false
+			imageView.contentMode = .center
+			imageView.image = UIImage(imageLiteralResourceName: "Icons_Diary_WarnOther")
+			
+			let titleLabel = ENALabel()
+			titleLabel.style = .body
+			titleLabel.text = AppStrings.ContactDiary.Day.WarnOthers.warnOthersTitle
+
+			let horizontalStackView = UIStackView(arrangedSubviews: [imageView, titleLabel])
+			horizontalStackView.translatesAutoresizingMaskIntoConstraints = false
+			horizontalStackView.alignment = .center
+			horizontalStackView.spacing = 15.0
+			containerView.addSubview(horizontalStackView)
+			
+			NSLayoutConstraint.activate(
+				[
+					imageView.widthAnchor.constraint(equalToConstant: 32),
+					horizontalStackView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 18.0),
+					horizontalStackView.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 16.0),
+					horizontalStackView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -8.0),
+					horizontalStackView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -8.0)
+				]
+			)
+		
+		drawBorders(to: [.top], on: containerView)
+		warnOthersStackView.addArrangedSubview(containerView)
 	}
 
 	private func configureCheckinWithRisks(_ cellViewModel: DiaryOverviewDayCellModel) {

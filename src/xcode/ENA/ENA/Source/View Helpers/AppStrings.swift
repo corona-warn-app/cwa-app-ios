@@ -1378,6 +1378,10 @@ enum AppStrings {
 				static let duration = NSLocalizedString("ContactDiary_Day_Visit_Duration", comment: "")
 				static let notesPlaceholder = NSLocalizedString("ContactDiary_Day_Visit_Notes_Placeholder", comment: "")
 			}
+			
+			enum WarnOthers {
+				static let warnOthersTitle = NSLocalizedString("ContactDiary_WarnOthers_Title", comment: "")
+			}
 		}
 
 		enum EditEntries {
