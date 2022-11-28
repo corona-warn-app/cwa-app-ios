@@ -10,8 +10,8 @@ enum SRSPreconditionError: Error {
 	/// Precondition: the app was installed less than 48h
 	case insufficientAppUsageTime
 	
-	/// Precondition: there was already a key submission without a registered test in the last 3 months
-	case positiveTestResultWasAlreadySubmittedWithin90Days
+	/// Precondition: there was already a key submission without a registered test, depending from configuration (for e.g. in the last 3 months)
+	case positiveTestResultWasAlreadySubmittedWithinTreshold
 	
 	var errorCode: String { self.description }
 	
@@ -27,7 +27,7 @@ enum SRSPreconditionError: Error {
 				format: AppStrings.ExposureSubmissionDispatch.SRSWarnOthersPreconditionAlert.insufficientAppUsageTimeMessage,
 				errorCode
 			)
-		case  .positiveTestResultWasAlreadySubmittedWithin90Days:
+		case  .positiveTestResultWasAlreadySubmittedWithinTreshold:
 			return String(
 				format: AppStrings.ExposureSubmissionDispatch.SRSWarnOthersPreconditionAlert.positiveTestResultWasAlreadySubmittedWithin90DaysMessage,
 				errorCode
@@ -51,7 +51,7 @@ extension SRSPreconditionError: ErrorCodeProviding {
 			}
 		case .insufficientAppUsageTime:
 			return "MIN_TIME_SINCE_ONBOARDING"
-		case .positiveTestResultWasAlreadySubmittedWithin90Days:
+		case .positiveTestResultWasAlreadySubmittedWithinTreshold:
 			return "SUBMISSION_TOO_EARLY"
 			
 		}
