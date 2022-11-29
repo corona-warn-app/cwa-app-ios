@@ -10,6 +10,7 @@ struct OTPAuthorizationForSRSResource: Resource {
 	
 	init(
 		otpSRS: String,
+		isFake: Bool = false,
 		ppacToken: PPACToken,
 		trustEvaluation: TrustEvaluating = DefaultTrustEvaluation(
 			publicKeyHash: Environments().currentEnvironment().pinningKeyHashData

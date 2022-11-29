@@ -72,6 +72,19 @@ class FakeRequestService {
 		}
 	}
 
+	/// This method represents the fake Request for SRS OTP
+	func fakeSRSOTPServerRequest(completion: (() -> Void)? = nil) {
+		let resource = OTPAuthorizationForSRSResource(
+			otpSRS: <#T##String#>,
+			isFake: true,
+			ppacToken: <#T##PPACToken#>
+		}
+
+		restServiceProvider.load(resource) { _ in
+			completion?()
+		}
+	})
+		
 	/// This method is convenience for sending a V + S request pattern.
 	func fakeVerificationAndSubmissionServerRequest(completion: (() -> Void)? = nil) {
 		fakeVerificationServerRequest { [weak self] in
