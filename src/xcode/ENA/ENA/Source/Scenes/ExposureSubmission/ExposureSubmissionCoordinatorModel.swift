@@ -6,6 +6,7 @@ import Foundation
 import OpenCombine
 import UIKit
 
+// swiftlint:disable:next type_body_length
 class ExposureSubmissionCoordinatorModel {
 
 	// MARK: - Init
@@ -16,14 +17,17 @@ class ExposureSubmissionCoordinatorModel {
 		srsService: SRSServiceProviding,
 		familyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding,
 		eventProvider: EventProviding,
-		recycleBin: RecycleBin
+		recycleBin: RecycleBin,
+		store: Store
 	) {
 		self.exposureSubmissionService = exposureSubmissionService
-		self.familyMemberCoronaTestService = familyMemberCoronaTestService
 		self.coronaTestService = coronaTestService
+		self.srsService = srsService
+		self.familyMemberCoronaTestService = familyMemberCoronaTestService
 		self.eventProvider = eventProvider
 		self.recycleBin = recycleBin
-		self.srsService = srsService
+		self.store = store
+
 		// Try to load current country list initially to make it virtually impossible the user has to wait for it later.
 		exposureSubmissionService.loadSupportedCountries { _ in
 			// no op
@@ -190,7 +194,7 @@ class ExposureSubmissionCoordinatorModel {
 			return
 		}
 		isLoading(true)
-		srsService.authenticate(completion: { [weak self] result in
+		srsService.authenticate(completion: { [weak self] (result: Result<String, SRSError>) in
 			guard let self = self else { return }
 			isLoading(false)
 			switch result {
@@ -410,4 +414,64 @@ class ExposureSubmissionCoordinatorModel {
 			fatalError("Cannot set submission consent, no corona test type is set")
 		}
 	}
+
+	/// Check SRS Flow Prerequisites.
+	/// - Parameters:
+	/// 	- isLoading: The callback that should be executed while fetching the self service parameters from app configuration.
+	/// 	- completion: The completion handler, that provides the corresponding `SRSPreconditionError` in case of a precondition fault.
+	func checkSRSFlowPrerequisites(
+		isLoading: @escaping CompletionBool,
+		completion: @escaping (Result<Void, SRSPreconditionError>) -> Void
+	) {
+		srsService.checkSRSFlowPrerequisites { result in
+			switch result {
+			case .success:
+				completion(.success(()))
+			case.failure(let preConditionError):
+				completion(.failure(preConditionError))
+			}
+		}
+	}
+	
+	/// Creates the error message string for a `SRSErrorAlert` alert.
+	/// - Parameters:
+	/// 	- error: The error type, that conforms to `SRSErrorAlertProviding` and `ErrorCodeProviding`.
+	/// 	- isLoading: The callback that should be executed while fetching the self service parameters from app configuration.
+	/// 	- completion: The completion handler that provides the corresponding error alert message.
+	func message(
+		from error: SRSErrorAlertProviding & ErrorCodeProviding,
+		isLoading: @escaping CompletionBool,
+		completion: @escaping CompletionString
+	) {
+		let srsErrorAlert = SRSErrorAlert(error: error)
+		
+		exposureSubmissionService.loadSelfServiceParameters(isLoading: isLoading) { srsParametersCommon in
+			let message: String!
+			
+			if case .submissionTooEarly = srsErrorAlert {
+				let timeBetweenSubmissionsInDays = srsParametersCommon.timeBetweenSubmissionsInDays <= 0 ? 90 : srsParametersCommon.timeBetweenSubmissionsInDays
+			message = String(
+					format: srsErrorAlert.message,
+					String(timeBetweenSubmissionsInDays),
+					error.description
+				)
+			} else if case .timeSinceOnboardingUnverified = srsErrorAlert {
+				let timeSinceOnboardingInHours = srsParametersCommon.timeSinceOnboardingInHours <= 0 ? 24 : srsParametersCommon.timeSinceOnboardingInHours
+								message = String(
+					format: srsErrorAlert.message,
+					String(timeSinceOnboardingInHours),
+					String(timeSinceOnboardingInHours),
+					error.description
+				)
+			} else {
+				message = String(format: srsErrorAlert.message, error.description)
+			}
+			
+			completion(message)
+		}
+	}
+	
+	// MARK: - Private
+	
+	private let store: Store
 }

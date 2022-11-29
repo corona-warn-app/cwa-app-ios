@@ -27,7 +27,8 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		vaccinationValueSetsProvider: VaccinationValueSetsProviding,
 		healthCertificateValidationOnboardedCountriesProvider: HealthCertificateValidationOnboardedCountriesProviding,
 		qrScannerCoordinator: QRScannerCoordinator,
-		recycleBin: RecycleBin
+		recycleBin: RecycleBin,
+		store: Store
 	) {
 		self.parentViewController = parentViewController
 		self.healthCertificateService = healthCertificateService
@@ -45,7 +46,8 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 			srsService: srsService,
 			familyMemberCoronaTestService: familyMemberCoronaTestService,
 			eventProvider: eventProvider,
-			recycleBin: recycleBin
+			recycleBin: recycleBin,
+			store: store
 		)
 	}
 
@@ -156,11 +158,17 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 
 		// By default, we show the intro view.
 		let viewModel = ExposureSubmissionIntroViewModel(
-			onPositiveSelfTestButtonTap: { [weak self] in
-				self?.showSRSConsentScreen(srsFlowType: .srsPositive)
+			onPositiveSelfTestButtonTap: { [weak self] isLoading in
+				self?.checkSRSPrerequisitesToSRSFlow(
+					srsFlowType: .srsPositive,
+					isLoading: isLoading
+				)
 			},
-			onSelfReportSubmissionButtonTap: { [weak self] in
-				self?.showSRSConsentScreen(srsFlowType: .positiveWithoutResultInTheApp)
+			onSelfReportSubmissionButtonTap: { [weak self] isLoading in
+				self?.checkSRSPrerequisitesToSRSFlow(
+					srsFlowType: .positiveWithoutResultInTheApp,
+					isLoading: isLoading
+				)
 			},
 			onQRCodeButtonTap: { [weak self] isLoading in
 				self?.showQRScreen(testRegistrationInformation: nil, isLoading: isLoading)
@@ -469,52 +477,52 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		push(exposureSubmissionHotlineViewController)
 	}
 	
-    private func makeSRSConsentScreen(srsFlowType: SRSFlowType) -> UIViewController {
-        let srsConsentViewController = SRSConsentViewController(
-            onPrimaryButtonTap: { [weak self] isLoading in
-                guard let self = self else { return }
-                
-                isLoading(true)
-                self.model.exposureSubmissionService.getTemporaryExposureKeys { error in
-                    isLoading(false)
-                    
-                    guard let error = error else {
-                        switch srsFlowType {
-                        case .srsPositive:
-                            self.model.storeSelectedSRSSubmissionType(.srsSelfTest)
-                            self.showSRSFlowNextScreen()
-                        case .positiveWithoutResultInTheApp:
-                            self.showSRSTestTypeSelectionScreen()
-                        }
-                        return
-                    }
-                    
-                    // User selected "Don't Share" / "Nicht teilen"
-                    if error == .notAuthorized {
-                        Log.info("OS submission authorization was declined.")
-                    } else {
-                        self.showErrorAlert(for: error)
-                    }
-                }
-            },
-            dismiss: { [weak self] in self?.dismiss() }
-        )
-        
-        let footerViewModel = FooterViewModel(
-            primaryButtonName: AppStrings.ExposureSubmissionTestResultAvailable.primaryButtonTitle,
-            primaryIdentifier: AccessibilityIdentifiers.ExposureSubmissionTestResultAvailable.primaryButton,
-            isSecondaryButtonEnabled: false,
-            isSecondaryButtonHidden: true
-        )
-        
-        let topBottomContainerViewController = TopBottomContainerViewController(
-            topController: srsConsentViewController,
-            bottomController: FooterViewController(footerViewModel)
-        )
-        
-        return topBottomContainerViewController
-    }
-    
+	private func makeSRSConsentScreen(srsFlowType: SRSFlowType) -> UIViewController {
+		let srsConsentViewController = SRSConsentViewController(
+			onPrimaryButtonTap: { [weak self] isLoading in
+				guard let self = self else { return }
+				
+				isLoading(true)
+				self.model.exposureSubmissionService.getTemporaryExposureKeys { error in
+					isLoading(false)
+					
+					guard let error = error else {
+						switch srsFlowType {
+						case .srsPositive:
+							self.model.storeSelectedSRSSubmissionType(.srsSelfTest)
+							self.showSRSFlowNextScreen()
+						case .positiveWithoutResultInTheApp:
+							self.showSRSTestTypeSelectionScreen()
+						}
+						return
+					}
+					
+					// User selected "Don't Share" / "Nicht teilen"
+					if error == .notAuthorized {
+						Log.info("OS submission authorization was declined.")
+					} else {
+						self.showErrorAlert(for: error)
+					}
+				}
+			},
+			dismiss: { [weak self] in self?.dismiss() }
+		)
+		
+		let footerViewModel = FooterViewModel(
+			primaryButtonName: AppStrings.ExposureSubmissionTestResultAvailable.primaryButtonTitle,
+			primaryIdentifier: AccessibilityIdentifiers.ExposureSubmissionTestResultAvailable.primaryButton,
+			isSecondaryButtonEnabled: false,
+			isSecondaryButtonHidden: true
+		)
+
+		let topBottomContainerViewController = TopBottomContainerViewController(
+			topController: srsConsentViewController,
+			bottomController: FooterViewController(footerViewModel)
+		)
+
+		return topBottomContainerViewController
+	}
+
 	private func makeQRInfoScreen(supportedCountries: [Country], testRegistrationInformation: CoronaTestRegistrationInformation) -> UIViewController {
 		let exposureSubmissionQRInfoViewController = ExposureSubmissionQRInfoViewController(
 			supportedCountries: supportedCountries,
@@ -840,7 +848,8 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 			backgroundColor: .enaColor(for: .background)
 		)
 
-		let checkinsVC = ExposureSubmissionCheckinsViewController(
+		var checkinsVC: ExposureSubmissionCheckinsViewController!
+		checkinsVC = ExposureSubmissionCheckinsViewController(
 			checkins: model.eventProvider.checkinsPublisher.value,
 			onCompletion: { [weak self] selectedCheckins in
 				self?.model.exposureSubmissionService.checkins = selectedCheckins
@@ -859,8 +868,15 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 			onDismiss: { [weak self] in
 				if self?.model.coronaTest?.positiveTestResultWasShown == true {
 					self?.showSkipCheckinsAlert(dontShareHandler: {
-						if let coronaTestType = self?.model.coronaTestType {
-							Analytics.collect(.keySubmissionMetadata(.submittedAfterCancel(true, coronaTestType)))
+						if isSRSFlow {
+							self?.showSRSFlowAlert(
+								for: .consent(.cancelWarnOthers(on: checkinsVC)),
+								isLoading: { _ in }
+							)
+						} else {
+							if let coronaTestType = self?.model.coronaTestType {
+								Analytics.collect(.keySubmissionMetadata(.submittedAfterCancel(true, coronaTestType)))
+							}
 							self?.submitExposure(showSubmissionSuccess: false) { isLoading in
 								footerViewModel.setLoadingIndicator(isLoading, disable: isLoading, button: .secondary)
 								footerViewModel.setLoadingIndicator(false, disable: isLoading, button: .primary)
@@ -942,16 +958,34 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 
 	// MARK: - Test Type Selection
 	
-	/// Shows the Type of Tests screen
-	/// - Parameter isSelfTestTypePreselected: If the process was started via self-report with self-test on the Manage Your Tests View, the Self-test entry shall be pre-selected. Otherwise, no entry shall be selected.
-	private func showSRSTestTypeSelectionScreen(isSelfTestTypePreselected: Bool = false) {
-		let srsTestTypeSelectionViewController = SRSTestTypeSelectionViewController(
-			viewModel: SRSTestTypeSelectionViewModel(isSelfTestTypePreselected: isSelfTestTypePreselected),
+	/// Checks the SRS Flow prerequisites to continue with SRS Test Type Selection.
+	/// Shows a specific error alert, if at least on prerequisite has fault.
+	/// - Parameters:
+	/// 	- srsFlowType: The SRS Flow Type the user has selected
+	/// 	- isLoading: The callback that should be executed while fetching the self service parameters from app configuration.
+	private func checkSRSPrerequisitesToSRSFlow(
+		srsFlowType: SRSFlowType,
+		isLoading: @escaping CompletionBool
+	) {
+		model.checkSRSFlowPrerequisites(isLoading: isLoading) { [weak self] (result: Result<Void, SRSPreconditionError>) in
+			switch result {
+			case .success:
+				self?.showSRSConsentScreen(srsFlowType: srsFlowType)
+			case .failure(let error):
+				self?.showSRSFlowPreconditionAlert(for: error)
+			}
+		}
+	}
+	
+	/// Shows the SRS Test Type Selection Screen
+	private func showSRSTestTypeSelectionScreen() {
+		var srsTestTypeSelectionViewController: SRSTestTypeSelectionViewController!
+		srsTestTypeSelectionViewController = SRSTestTypeSelectionViewController(
 			onPrimaryButtonTap: { [weak self] submissionType in
 				self?.model.storeSelectedSRSSubmissionType(submissionType)
 				self?.showSRSFlowNextScreen()
 			}, onDismiss: { [weak self] in
-				self?.parentViewController?.dismiss(animated: true)
+				self?.showSRSFlowConsentAlert(for: .cancelWarnOthers(on: srsTestTypeSelectionViewController), isLoading: { _ in })
 			}
 		)
 		
@@ -986,7 +1020,8 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 			Analytics.collect(.keySubmissionMetadata(.lastSubmissionFlowScreen(.submissionFlowScreenSymptoms, coronaTestType)))
 		}
 
-		let exposureSubmissionSymptomsViewController = ExposureSubmissionSymptomsViewController(
+		var exposureSubmissionSymptomsViewController: ExposureSubmissionSymptomsViewController!
+		exposureSubmissionSymptomsViewController = ExposureSubmissionSymptomsViewController(
 			onPrimaryButtonTap: { [weak self] selectedSymptomsOption, isLoading in
 				guard let self = self else { return }
 
@@ -1007,7 +1042,19 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 				}
 			},
 			onDismiss: { [weak self] isLoading in
-				self?.showSubmissionSymptomsCancelAlert(isLoading: isLoading)
+				guard let self = self else { return }
+
+				switch self.model.submissionTestType {
+				case .registeredTest:
+					self.showSubmissionSymptomsCancelAlert(isLoading: isLoading)
+				case .srs:
+					self.showSRSFlowAlert(
+						for: .consent(.cancelWarnOthers(on: exposureSubmissionSymptomsViewController)),
+						isLoading: isLoading
+					)
+				case .none:
+					break
+				}
 			}
 		)
 
@@ -1033,7 +1080,8 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 			Analytics.collect(.keySubmissionMetadata(.lastSubmissionFlowScreen(.submissionFlowScreenSymptomOnset, coronaTestType)))
 		}
 
-		let exposureSubmissionSymptomsOnsetViewController = ExposureSubmissionSymptomsOnsetViewController(
+		var exposureSubmissionSymptomsOnsetViewController: ExposureSubmissionSymptomsOnsetViewController!
+		exposureSubmissionSymptomsOnsetViewController = ExposureSubmissionSymptomsOnsetViewController(
 			onPrimaryButtonTap: { [weak self] selectedSymptomsOnsetOption, isLoading in
 				self?.model.symptomsOnsetOptionSelected(selectedSymptomsOnsetOption)
 
@@ -1046,13 +1094,25 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 					
 					self?.submitExposure(showSubmissionSuccess: true, isLoading: isLoading)
 				case .srs:
-					self?.submitSRSExposure(showSubmissionSuccess: true, isLoading: isLoading)
+					self?.showSRSFlowConsentAlert(for: .confirmWarnOthers(on: exposureSubmissionSymptomsOnsetViewController), isLoading: isLoading)
 				case .none:
 					break
 				}
 			},
 			onDismiss: { [weak self] isLoading in
-				self?.showSubmissionSymptomsCancelAlert(isLoading: isLoading)
+				guard let self = self else { return }
+
+				switch self.model.submissionTestType {
+				case .registeredTest:
+					self.showSubmissionSymptomsCancelAlert(isLoading: isLoading)
+				case .srs:
+					self.showSRSFlowAlert(
+						for: .consent(.cancelWarnOthers(on: exposureSubmissionSymptomsOnsetViewController)),
+						isLoading: isLoading
+					)
+				case .none:
+					break
+				}
 			}
 		)
 
@@ -1543,6 +1603,114 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 
 		navigationController?.present(alert, animated: true)
 	}
+	
+	private func showSRSFlowAlert(
+		for srsFlowAlert: SRSFlowAlert,
+		isLoading: @escaping CompletionBool
+	) {
+		switch srsFlowAlert {
+		case let .preconditionFailed(srsFlowError):
+			showSRSFlowPreconditionAlert(for: srsFlowError)
+		case let .consent(srsFlowConsent):
+			showSRSFlowConsentAlert(for: srsFlowConsent, isLoading: isLoading)
+		case let .error(error):
+			showSRSFlowErrorAlert(for: error, isLoading: isLoading)
+		}
+	}
+	
+	private func showSRSFlowConsentAlert(
+		for consent: SRSFlowAlert.Consent,
+		isLoading: @escaping CompletionBool
+	) {
+		var alert: UIAlertController!
+		switch consent {
+		case .cancelWarnOthers(let viewController):
+			alert = UIAlertController(
+				title: AppStrings.ExposureSubmission.SRSTestTypeSelection.warnProcessCancelAlertTitle,
+				message: AppStrings.ExposureSubmission.SRSTestTypeSelection.warnProcessCancelAlertMessage,
+				preferredStyle: .alert
+			)
+			
+			let continueAction = UIAlertAction(
+				title: AppStrings.ExposureSubmission.SRSTestTypeSelection.warnProcessCancelAlertActionContinue,
+				style: .default
+			)
+			alert.addAction(continueAction)
+			
+			alert.addAction(UIAlertAction(
+				title: AppStrings.ExposureSubmission.SRSTestTypeSelection.warnProcessCancelAlertActionCancel,
+				style: .cancel,
+				handler: { [weak self] _ in
+					self?.dismiss()
+				}
+			))
+			
+			alert.preferredAction = continueAction
+			
+			viewController.present(alert, animated: true)
+			
+		case .confirmWarnOthers(let viewController):
+			alert = UIAlertController(
+				title: AppStrings.SRSConfirmWarnOthersAlert.title,
+				message: AppStrings.SRSConfirmWarnOthersAlert.message,
+				preferredStyle: .alert
+			)
+			
+			let confirmAction = UIAlertAction(
+				title: AppStrings.SRSConfirmWarnOthersAlert.actionConfirm,
+				style: .default,
+				handler: { [weak self] _ in
+					self?.submitSRSExposure(showSubmissionSuccess: true, isLoading: isLoading)
+				}
+			)
+			alert.addAction(confirmAction)
+			
+			alert.addAction(UIAlertAction(
+				title: AppStrings.SRSConfirmWarnOthersAlert.actionCancel,
+				style: .cancel,
+				handler: { [weak self] _ in
+					self?.dismiss()
+				}
+			))
+			
+			alert.preferredAction = confirmAction
+			
+			viewController.present(alert, animated: true)
+		}
+	}
+	
+	private func showSRSFlowPreconditionAlert(for error: SRSPreconditionError) {
+		let alert = UIAlertController.errorAlert(
+			title: AppStrings.ExposureSubmissionDispatch.SRSWarnOthersPreconditionAlert.title,
+			message: error.message,
+			okTitle: AppStrings.ExposureSubmissionDispatch.SRSWarnOthersPreconditionAlert.faqButtonTitle,
+			secondaryActionTitle: AppStrings.ExposureSubmissionDispatch.SRSWarnOthersPreconditionAlert.okButtonTitle,
+			completion: {
+				LinkHelper.open(urlString: AppStrings.Links.warnWithoutTANFAQLink)
+			}
+		)
+		
+		navigationController?.present(alert, animated: true)
+	}
+	
+	private func showSRSFlowErrorAlert(
+		for error: SRSErrorAlertProviding & ErrorCodeProviding,
+		isLoading: @escaping CompletionBool
+	) {
+		model.message(from: error, isLoading: isLoading) { [weak self] message in
+			let alert = UIAlertController.errorAlert(
+				title: AppStrings.SRSErrorAlert.title,
+				message: message,
+				okTitle: AppStrings.SRSErrorAlert.faqButtonTitle,
+				secondaryActionTitle: AppStrings.SRSErrorAlert.okButtonTitle,
+				completion: {
+					LinkHelper.open(urlString: AppStrings.Links.warnWithoutTANFAQLink)
+				}
+			)
+
+			self?.navigationController?.present(alert, animated: true)
+		}
+	}
 
 	// MARK: Test Result Helper
 
@@ -1714,8 +1882,13 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 				}
 			},
 			onError: { [weak self] error in
-				self?.showServiceErrorAlert(for: error) {
-					self?.dismiss()
+				switch error {
+				case .srsError(let srsError):
+					self?.showSRSFlowAlert(for: .error(srsError), isLoading: isLoading)
+				default:
+					self?.showServiceErrorAlert(for: error) {
+						self?.dismiss()
+					}
 				}
 			}
 		)
@@ -1853,5 +2026,19 @@ extension ExposureSubmissionCoordinator: UIAdaptivePresentationControllerDelegat
 
 	func presentationControllerDidAttemptToDismiss(_ presentationController: UIPresentationController) {
 		dismiss()
+	}
+}
+
+extension ExposureSubmissionCoordinator {
+	
+	enum SRSFlowAlert {
+		case preconditionFailed(SRSPreconditionError)
+		case error(SRSErrorAlertProviding & ErrorCodeProviding)
+		case consent(Consent)
+
+		enum Consent {
+			case cancelWarnOthers(on: UIViewController)
+			case confirmWarnOthers(on: UIViewController)
+		}
 	}
 }

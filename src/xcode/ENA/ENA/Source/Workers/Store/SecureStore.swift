@@ -594,6 +594,13 @@ extension SecureStore: SRSProviding {
         get { kvStore["otpSrsAuthorizationDate"] as Date? }
         set { kvStore["otpSrsAuthorizationDate"] = newValue }
     }
+	
+	#if !RELEASE
+	var isSrsPrechecksEnabled: Bool {
+		get { kvStore["isSrsPrechecksEnabled"] as Bool? ?? true }
+		set { kvStore["isSrsPrechecksEnabled"] = newValue }
+	}
+	#endif
 }
 
 extension SecureStore: ErrorLogUploadHistoryProviding {
