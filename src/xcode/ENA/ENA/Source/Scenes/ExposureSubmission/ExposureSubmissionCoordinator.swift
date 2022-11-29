@@ -1641,7 +1641,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 				title: AppStrings.ExposureSubmission.SRSTestTypeSelection.warnProcessCancelAlertActionCancel,
 				style: .cancel,
 				handler: { [weak self] _ in
-					self?.navigationController?.dismissAllModalViewControllers(animated: true)
+					self?.dismiss()
 				}
 			))
 			
@@ -1669,7 +1669,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 				title: AppStrings.SRSConfirmWarnOthersAlert.actionCancel,
 				style: .cancel,
 				handler: { [weak self] _ in
-					self?.navigationController?.dismissAllModalViewControllers(animated: true)
+					self?.dismiss()
 				}
 			))
 			
