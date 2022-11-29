@@ -49,7 +49,7 @@ class PPACService: PrivacyPreservingAccessControl {
 		// check if time isn't incorrect
 		if store.deviceTimeCheckResult == .incorrect {
 			Log.error("SRSError: device time is incorrect", log: .ppac)
-			completion(.failure(.deviceCheckError(.timeIncorrect)))
+			completion(.failure(.deviceTimeError(.timeIncorrect)))
 			return
 		}
 		
@@ -65,11 +65,14 @@ class PPACService: PrivacyPreservingAccessControl {
 		// 2- a minimum number of days since last submission user can self submit result again.
 		
 		// 1- Check FIRST_RELIABLE_TIMESTAMP
-		if let firstReliableTimeStamp = store.firstReliableTimeStamp,
-		   let difference = Calendar.current.dateComponents([.hour], from: firstReliableTimeStamp, to: Date()).hour {
+		if let appInstallationDate = store.appInstallationDate,
+		   let difference = Calendar.current.dateComponents([.hour], from: appInstallationDate, to: Date()).hour {
 			let minTimeSinceOnboarding = minTimeSinceOnboardingInHours <= 0 ? 24 : minTimeSinceOnboardingInHours
-			Log.debug("Actual time since onboarding \(minTimeSinceOnboardingInHours) hours.", log: .ppac)
-			Log.debug("Corrected default time since onboarding \(minTimeSinceOnboarding) hours.", log: .ppac)
+			Log.debug("Device time last state change: \(store.deviceTimeLastStateChange)")
+			Log.debug("First reliable time stamp: \(String(describing: store.firstReliableTimeStamp))")
+			Log.debug("App installation date: \(appInstallationDate)")
+			Log.debug("Actual time since onboarding: \(minTimeSinceOnboardingInHours) hours.", log: .ppac)
+			Log.debug("Corrected default time since onboarding: \(minTimeSinceOnboarding) hours.", log: .ppac)
 			
 			if difference < minTimeSinceOnboarding {
 				Log.error("SRSError: too short time since onboarding", log: .ppac)
@@ -87,12 +90,13 @@ class PPACService: PrivacyPreservingAccessControl {
 			
 			if difference < minTimeBetweenSubmissions {
 				Log.error("SRSError: submission too early", log: .ppac)
-				completion(.failure(.positiveTestResultWasAlreadySubmittedWithin90Days))
+				completion(.failure(.positiveTestResultWasAlreadySubmittedWithinThreshold))
 				return
 			}
 		}
 		completion(.success(()))
 		
+		completion(.success(()))
 	}
 	
 	func getPPACTokenSRS(_ completion: @escaping (Result<PPACToken, PPACError>) -> Void) {

@@ -445,20 +445,22 @@ class ExposureSubmissionCoordinatorModel {
 	) {
 		let srsErrorAlert = SRSErrorAlert(error: error)
 		
-		exposureSubmissionService.loadSelfServiceParameters(isLoading: isLoading) { selfReportSubmissionParametersCommon in
+		exposureSubmissionService.loadSelfServiceParameters(isLoading: isLoading) { srsParametersCommon in
 			let message: String!
 			
 			if case .submissionTooEarly = srsErrorAlert {
-				message = String(
+				let timeBetweenSubmissionsInDays = srsParametersCommon.timeBetweenSubmissionsInDays <= 0 ? 90 : srsParametersCommon.timeBetweenSubmissionsInDays
+			message = String(
 					format: srsErrorAlert.message,
-					String(selfReportSubmissionParametersCommon.timeBetweenSubmissionsInDays),
+					String(timeBetweenSubmissionsInDays),
 					error.description
 				)
 			} else if case .timeSinceOnboardingUnverified = srsErrorAlert {
-				message = String(
+				let timeSinceOnboardingInHours = srsParametersCommon.timeSinceOnboardingInHours <= 0 ? 24 : srsParametersCommon.timeSinceOnboardingInHours
+								message = String(
 					format: srsErrorAlert.message,
-					String(selfReportSubmissionParametersCommon.timeSinceOnboardingInHours),
-					String(selfReportSubmissionParametersCommon.timeSinceOnboardingInHours),
+					String(timeSinceOnboardingInHours),
+					String(timeSinceOnboardingInHours),
 					error.description
 				)
 			} else {

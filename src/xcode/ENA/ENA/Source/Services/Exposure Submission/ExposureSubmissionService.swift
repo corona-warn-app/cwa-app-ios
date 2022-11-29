@@ -328,10 +328,13 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 	) {
 		isLoading(true)
 
-		appConfigurationProvider.appConfiguration().sink { config in
-			isLoading(false)
-			onSuccess(config.selfReportParameters.common)
-		}.store(in: &subscriptions)
+		appConfigurationProvider
+			.appConfiguration()
+			.sink { config in
+				isLoading(false)
+				onSuccess(config.selfReportParameters.common)
+			}
+			.store(in: &subscriptions)
 	}
 
 	var exposureManagerState: ExposureManagerState {

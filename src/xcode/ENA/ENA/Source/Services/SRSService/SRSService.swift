@@ -43,7 +43,7 @@ final class SRSService: SRSServiceProviding {
 			case let .success(ppacToken):
 				Log.debug("Successfully retrieved for SRS a ppac token. Proceed for otp.")
 				// then get otp token for SRS (without restrictions for api token)
-				self.otpService.getOTPEls(ppacToken: ppacToken) { result in
+				self.otpService.getOTPSrs(ppacToken: ppacToken) { result in
 					switch result {
 					case let .success(otpSRS):
 						Log.debug("Successfully authenticated ppac and SRS OTP: \(private: otpSRS, public: "--OTP Value--") for els. Proceed with uploading error log file.")
