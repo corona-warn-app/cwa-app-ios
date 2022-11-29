@@ -876,10 +876,10 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 						} else {
 							if let coronaTestType = self?.model.coronaTestType {
 								Analytics.collect(.keySubmissionMetadata(.submittedAfterCancel(true, coronaTestType)))
-								self?.submitExposure(showSubmissionSuccess: false) { isLoading in
-									footerViewModel.setLoadingIndicator(isLoading, disable: isLoading, button: .secondary)
-									footerViewModel.setLoadingIndicator(false, disable: isLoading, button: .primary)
-								}
+							}
+							self?.submitExposure(showSubmissionSuccess: false) { isLoading in
+								footerViewModel.setLoadingIndicator(isLoading, disable: isLoading, button: .secondary)
+								footerViewModel.setLoadingIndicator(false, disable: isLoading, button: .primary)
 							}
 						}
 					})
