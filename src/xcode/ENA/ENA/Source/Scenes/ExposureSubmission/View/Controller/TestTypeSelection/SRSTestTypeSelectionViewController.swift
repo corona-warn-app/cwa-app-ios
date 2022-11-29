@@ -10,7 +10,7 @@ class SRSTestTypeSelectionViewController: DynamicTableViewController {
 	// MARK: - Init
 	
 	init(
-		viewModel: SRSTestTypeSelectionViewModel,
+		viewModel: SRSTestTypeSelectionViewModel = .init(),
 		onPrimaryButtonTap: @escaping (SRSSubmissionType) -> Void,
 		onDismiss: @escaping CompletionVoid
 	) {
@@ -72,30 +72,6 @@ class SRSTestTypeSelectionViewController: DynamicTableViewController {
 			}
 			.store(in: &subscriptions)
 	}
-	
-	// to.do move alert handling to coordinator
-	private func showWarnProcessCancelAlert() {
-		let alert = UIAlertController(
-			title: AppStrings.ExposureSubmission.SRSTestTypeSelection.warnProcessCancelAlertTitle,
-			message: AppStrings.ExposureSubmission.SRSTestTypeSelection.warnProcessCancelAlertMessage,
-			preferredStyle: .alert
-		)
-		
-		alert.addAction(UIAlertAction(
-			title: AppStrings.ExposureSubmission.SRSTestTypeSelection.warnProcessCancelAlertActionContinue,
-			style: .default
-		))
-		
-		alert.addAction(UIAlertAction(
-			title: AppStrings.ExposureSubmission.SRSTestTypeSelection.warnProcessCancelAlertActionCancel,
-			style: .cancel,
-			handler: { [weak self] _ in
-				self?.onDismiss()
-			}
-		))
-		
-		navigationController?.topViewController?.present(alert, animated: true)
-	}
 }
 
 // MARK: - FooterViewHandling
@@ -117,7 +93,7 @@ extension SRSTestTypeSelectionViewController: FooterViewHandling {
 extension SRSTestTypeSelectionViewController: DismissHandling {
 	
 	func wasAttemptedToBeDismissed() {
-		showWarnProcessCancelAlert()
+		onDismiss()
 	}
 }
 

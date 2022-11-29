@@ -7,10 +7,11 @@ import Foundation
 protocol PrivacyPreservingAccessControl {
 	func getPPACTokenEDUS(_ completion: @escaping (Result<PPACToken, PPACError>) -> Void)
 	func getPPACTokenELS(_ completion: @escaping (Result<PPACToken, PPACError>) -> Void)
-	func getPPACTokenSRS(
+	func getPPACTokenSRS(_ completion: @escaping (Result<PPACToken, PPACError>) -> Void)
+	func checkSRSFlowPrerequisites(
 		minTimeSinceOnboardingInHours: Int,
 		minTimeBetweenSubmissionsInDays: Int,
-		completion: @escaping (Result<PPACToken, PPACError>) -> Void
+		completion: @escaping (Result<Void, SRSPreconditionError>) -> Void
 	)
 	#if !RELEASE
 	func generateNewAPIEdusToken() -> TimestampedToken
@@ -32,39 +33,50 @@ class PPACService: PrivacyPreservingAccessControl {
 
 	// MARK: - Protocol PrivacyPreservingAccessControl
 
-	func getPPACTokenSRS(
+	func checkSRSFlowPrerequisites(
 		minTimeSinceOnboardingInHours: Int,
 		minTimeBetweenSubmissionsInDays: Int,
-		completion: @escaping (Result<PPACToken, PPACError>) -> Void
+		completion: @escaping (Result<Void, SRSPreconditionError>) -> Void
 	) {
+		#if !RELEASE
+		if !store.isSrsPrechecksEnabled {
+			Log.warning("SRS pre-checks disabled!")
+			completion(.success(()))
+			return
+		}
+		#endif
+
 		// check if time isn't incorrect
 		if store.deviceTimeCheckResult == .incorrect {
 			Log.error("SRSError: device time is incorrect", log: .ppac)
-			completion(.failure(PPACError.timeIncorrect))
-			return
-		}
-
-		// check if time isn't unknown
-		if store.deviceTimeCheckResult == .assumedCorrect {
-			Log.error("SRSError:device time is unverified", log: .ppac)
-			completion(.failure(PPACError.timeUnverified))
+			completion(.failure(.deviceTimeError(.timeIncorrect)))
 			return
 		}
 		
-		// we have two parameters from the appconfig for prechecks:
+		// check if time isn't unknown
+		if store.deviceTimeCheckResult == .assumedCorrect {
+			Log.error("SRSError: device time is unverified", log: .ppac)
+			completion(.failure(.deviceTimeError(.timeUnverified)))
+			return
+		}
+		
+		// we have two parameters from the appconfig for pre-checks:
 		// 1- a minimum number of hours since onboarding until user can self submit result.
 		// 2- a minimum number of days since last submission user can self submit result again.
 		
 		// 1- Check FIRST_RELIABLE_TIMESTAMP
-		if let firstReliableTimeStamp = store.firstReliableTimeStamp,
-		   let difference = Calendar.current.dateComponents([.hour], from: firstReliableTimeStamp, to: Date()).hour {
+		if let appInstallationDate = store.appInstallationDate,
+		   let difference = Calendar.current.dateComponents([.hour], from: appInstallationDate, to: Date()).hour {
 			let minTimeSinceOnboarding = minTimeSinceOnboardingInHours <= 0 ? 24 : minTimeSinceOnboardingInHours
-			Log.debug("actual time since onboarding \(minTimeSinceOnboardingInHours) hours.", log: .ppac)
-			Log.debug("Corrected default time since onboarding \(minTimeSinceOnboarding) hours.", log: .ppac)
-
+			Log.debug("Device time last state change: \(store.deviceTimeLastStateChange)")
+			Log.debug("First reliable time stamp: \(String(describing: store.firstReliableTimeStamp))")
+			Log.debug("App installation date: \(appInstallationDate)")
+			Log.debug("Actual time since onboarding: \(minTimeSinceOnboardingInHours) hours.", log: .ppac)
+			Log.debug("Corrected default time since onboarding: \(minTimeSinceOnboarding) hours.", log: .ppac)
+			
 			if difference < minTimeSinceOnboarding {
 				Log.error("SRSError: too short time since onboarding", log: .ppac)
-				completion(.failure(PPACError.minimumTimeSinceOnboarding))
+				completion(.failure(.insufficientAppUsageTime))
 				return
 			}
 		}
@@ -75,13 +87,19 @@ class PPACService: PrivacyPreservingAccessControl {
 			let minTimeBetweenSubmissions = minTimeBetweenSubmissionsInDays <= 0 ? 90 : minTimeBetweenSubmissionsInDays
 			Log.debug("minTimeBetweenSubmissionsInDays = \(minTimeBetweenSubmissionsInDays) days.", log: .ppac)
 			Log.debug("Corrected default minTimeBetweenSubmissionsInDays = \(minTimeBetweenSubmissions) days.", log: .ppac)
-
+			
 			if difference < minTimeBetweenSubmissions {
 				Log.error("SRSError: submission too early", log: .ppac)
-				completion(.failure(PPACError.submissionTooEarly))
+				completion(.failure(.positiveTestResultWasAlreadySubmittedWithinThreshold))
 				return
 			}
 		}
+		completion(.success(()))
+		
+		completion(.success(()))
+	}
+	
+	func getPPACTokenSRS(_ completion: @escaping (Result<PPACToken, PPACError>) -> Void) {
 		deviceCheck.deviceToken(apiTokenSRS.token, completion: completion)
 	}
 

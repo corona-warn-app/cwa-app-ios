@@ -581,6 +581,46 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionDispatch_FindTestCentersDescription" = "Finden Sie Teststellen in Ihrer Nähe und falls Probleme auftreten, können Sie diese melden. \nSie werden auf eine externe Website des RKI weitergeleitet.";
 
+/* SRS Warn Others Precondition Error Alert */
+
+"ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_title" = "Andere warnen nicht möglich";
+
+"ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_insufficientAppUsageTime_message" = "Leider können Sie momentan andere noch nicht warnen, da Sie die App noch nicht lange genug installiert haben. Dies dient der Vermeidung von Missbrauch.\nEinen offiziellen Test können Sie jederzeit registrieren und andere damit warnen. (Fehlercode %@)";
+
+"ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_positiveTestResultWasAlreadySubmittedWithin90Days_message" = "Sie können momentan andere nicht warnen, da Sie innerhalb der vergangenen 90 Tage bereits ein positives Testergebnis gemeldet haben. Dies dient der Vermeidung von Missbrauch.\nEinen offiziellen Test können Sie jederzeit registrieren und andere damit warnen. (Fehlercode %@)";
+
+"ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_deviceCheckError_message" = "Die Uhrzeit Ihres Smartphones stimmt nicht mit der aktuellen Zeit überein. Bitte korrigieren Sie die Uhrzeit in den Einstellungen Ihres Smartphones. Nach der Korrektur kann es einige Minuten dauern, bis die App die Uhrzeit erneut überprüft. Danach können Sie erneut versuchen zu warnen.";
+
+"ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_faqButtonTitle" = "FAQ";
+
+"ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_okButtonTitle" = "OK";
+
+/* SRS Warn Others Error Message */
+
+"ExposureSubmission_SRSError_title" = "Andere warnen nicht möglich";
+
+"ExposureSubmission_SRSError_Message_CallHotline" = "Ein Fehler ist aufgetreten. Bitte versuchen Sie die Warnung später erneut zu senden oder kontaktieren Sie die technische Hotline über App-Informationen -> Technische Hotline. (Fehlercode %@)";
+
+"ExposureSubmission_SRSError_Message_ChangeDeviceTime" = "Die Uhrzeit Ihres Smartphones stimmt nicht mit der aktuellen Zeit überein. Bitte korrigieren Sie die Uhrzeit in den Einstellungen Ihres Smartphones. Nach der Korrektur kann es einige Minuten dauern, bis die App die Uhrzeit erneut überprüft. Danach können Sie erneut versuchen zu warnen. (Fehlercode %@)";
+
+"ExposureSubmission_SRSError_Message_DeviceNotSupported" = "Ihr Smartphone unterstützt diese Art von Warnung leider nicht. Einen offiziellen Test können Sie jederzeit in der App registrieren und andere damit warnen. (Fehlercode %@)";
+
+"ExposureSubmission_SRSError_Message_DeviceNotTrusted" = "Ihr Gerät erfüllt nicht die notwendigen Sicherheitsanforderungen für diese Art von Warnung. Einen offiziellen Test können Sie jederzeit in der App registrieren und andere damit warnen. (Fehlercode %@)";
+
+"ExposureSubmission_SRSError_Message_NoNetwork" = "Möglicherweise wurde Ihre Internet-Verbindung unterbrochen. Bitte prüfen Sie die Verbindung und versuchen Sie es erneut. (Fehlercode %@)";
+
+"ExposureSubmission_SRSError_Message_SubmissionTooEarly" = "Sie können momentan andere nicht warnen, da Sie innerhalb der vergangenen %@ Tage bereits ein positives Testergebnis gemeldet haben. Dies dient der Vermeidung von Missbrauch. Einen offiziellen Test können Sie jederzeit in der App registrieren und andere damit warnen. (Fehlercode %@)";
+
+"ExposureSubmission_SRSError_Message_TimeSinceOnboardingUnverified" = "Aus Sicherheitsgründen können Sie erst %@ Stunden, nachdem Sie die App installiert oder aktualisiert haben, diese Art von Warnung senden. Bitte versuchen Sie es in %@ Stunden erneut. (Fehlercode %@)";
+
+"ExposureSubmission_SRSError_Message_TryAgainLater" = "Ein Fehler ist aufgetreten. Bitte versuchen Sie die Warnung erneut zu senden. (Fehlercode %@)";
+
+"ExposureSubmission_SRSError_Message_TryAgainNextMonth" = "Die Warnung kann aus Sicherheitsgründen in diesem Kalendermonat nicht gesendet werden. Bitte warten Sie bis zum nächsten Kalendermonat oder warnen Sie jederzeit mit einem in der App registrierten offiziellen Test. (Fehlercode %@)";
+
+"ExposureSubmission_SRSError_faqButtonTitle" = "FAQ";
+
+"ExposureSubmission_SRSError_okButtonTitle" = "OK";
+
 "SRS_submission_Invalid_OTP" = "Ein Fehler ist aufgetreten. Bitte versuchen Sie die Warnung erneut zu senden.";
 
 /* Exposure Submission Hotline */
@@ -1000,6 +1040,14 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 "ExposureSubmission_SRSTestTypeSelection_warnProcessCancelAlert_ActionCancel" = "Nicht warnen";
 
 "ExposureSubmission_SRSTestTypeSelection_primaryButtonTitle" = "Weiter";
+
+"ExposureSubmission_SRSFlow_alert_confirmWarnOthers_Title" = "Achtung";
+
+"ExposureSubmission_SRSFlow_alert_confirmWarnOthers_Message" = "Sind Sie sicher, dass Sie jetzt andere Personen, mit denen Sie in letzter Zeit Kontakt hatten, warnen wollen?";
+
+"ExposureSubmission_SRSFlow_alert_confirmWarnOthers_ActionConfirm" = "Andere Warnen";
+
+"ExposureSubmission_SRSFlow_alert_confirmWarnOthers_ActionCancel" = "Abbrechen";
 
 /* Exposure Submission Result */
 

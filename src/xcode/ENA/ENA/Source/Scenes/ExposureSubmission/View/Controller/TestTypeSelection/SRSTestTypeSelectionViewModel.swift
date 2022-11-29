@@ -9,8 +9,8 @@ class SRSTestTypeSelectionViewModel {
 	
 	// MARK: - Init
 	
-	init(isSelfTestTypePreselected: Bool) {
-		isSelfTestTypePreSelected = isSelfTestTypePreselected
+	init(submissionTypeToPreselect: SRSSubmissionType? = nil) {
+		self.submissionTypeToPreselect = submissionTypeToPreselect
 	}
 	
 	// MARK: - Internal
@@ -87,10 +87,10 @@ class SRSTestTypeSelectionViewModel {
 	
 	private var optionGroupSelectionSubscription: AnyCancellable?
 	
-	private let isSelfTestTypePreSelected: Bool
+	private let submissionTypeToPreselect: SRSSubmissionType?
 	
 	private var initialSelection: OptionGroupViewModel.Selection? {
-		if isSelfTestTypePreSelected, let index = submissionTypes.firstIndex(of: .srsSelfTest) {
+		if let submissionTypeToPreselect = submissionTypeToPreselect, let index = submissionTypes.firstIndex(of: submissionTypeToPreselect) {
 			return .option(index: index)
 		} else {
 			return nil

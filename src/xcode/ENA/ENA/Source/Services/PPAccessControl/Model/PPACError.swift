@@ -2,16 +2,16 @@
 // 🦠 Corona-Warn-App
 //
 
-import Foundation
-
 enum PPACError: Error {
 	case generationFailed
 	case deviceNotSupported
 	case timeIncorrect
 	case timeUnverified
-	case minimumTimeSinceOnboarding
 	case submissionTooEarly
-	
+	case minimumTimeSinceOnboarding
+}
+
+extension PPACError: ErrorCodeProviding {
 	var description: String {
 		switch self {
 		case .generationFailed:
@@ -22,11 +22,29 @@ enum PPACError: Error {
 			return "DEVICE_TIME_INCORRECT"
 		case .timeUnverified:
 			return "DEVICE_TIME_UNVERIFIED"
-		case .minimumTimeSinceOnboarding:
-			return "TIME_SINCE_ONBOARDING_UNVERIFIED"
 		case .submissionTooEarly:
 			return "SUBMISSION_TOO_EARLY"
+		case .minimumTimeSinceOnboarding:
+			return "TIME_SINCE_ONBOARDING_UNVERIFIED"
+		}
+	}
+}
 
+extension PPACError: SRSErrorAlertProviding {
+	var srsErrorAlert: SRSErrorAlert? {
+		switch self {
+		case .generationFailed:
+			return .tryAgainLater
+		case .deviceNotSupported:
+			return .deviceNotSupported
+		case .timeIncorrect:
+			return .changeDeviceTime
+		case .timeUnverified:
+			return .timeSinceOnboardingUnverified
+		case .submissionTooEarly:
+			return .submissionTooEarly
+		case .minimumTimeSinceOnboarding:
+			return .timeSinceOnboardingUnverified
 		}
 	}
 }

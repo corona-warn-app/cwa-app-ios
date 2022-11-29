@@ -322,6 +322,21 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 			.store(in: &subscriptions)
 	}
 
+	func loadSelfServiceParameters(
+		isLoading: @escaping CompletionBool,
+		onSuccess: @escaping (SAP_Internal_V2_PPDDSelfReportSubmissionParametersCommon) -> Void
+	) {
+		isLoading(true)
+
+		appConfigurationProvider
+			.appConfiguration()
+			.sink { config in
+				isLoading(false)
+				onSuccess(config.selfReportParameters.common)
+			}
+			.store(in: &subscriptions)
+	}
+
 	var exposureManagerState: ExposureManagerState {
 		diagnosisKeysRetrieval.exposureManagerState
 	}

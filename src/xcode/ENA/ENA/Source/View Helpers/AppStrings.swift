@@ -58,6 +58,7 @@ enum AppStrings {
 		static let selfQuarantineFAQ = NSLocalizedString("Risk_Voluntary_Self_Quarantine_FAQ_URL", tableName: "Localizable.links", comment: "")
 		static let coronaWarnAppStoreLink = NSLocalizedString("TicketValidation_CoronaWarnAppLink", tableName: "Localizable.links", comment: "")
 		static let stikoVaccinationRecommendations = NSLocalizedString("Stiko_VaccinationRecommendations", tableName: "Localizable.links", comment: "")
+		static let warnWithoutTANFAQLink = NSLocalizedString("ExposureSubmission_WarnWithoutTAN_FAQLink", tableName: "Localizable.links", comment: "")
 	}
 
 	enum QuickActions {
@@ -342,6 +343,37 @@ enum AppStrings {
 		enum SRSSubmissionError {
 			static let srsSubmissionInvalidOTP = NSLocalizedString("SRS_submission_Invalid_OTP", comment: "")
 		}
+
+		enum SRSWarnOthersPreconditionAlert {
+			static let title = NSLocalizedString("ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_title", comment: "")
+			static let insufficientAppUsageTimeMessage = NSLocalizedString("ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_insufficientAppUsageTime_message", comment: "")
+			static let positiveTestResultWasAlreadySubmittedWithin90DaysMessage = NSLocalizedString("ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_positiveTestResultWasAlreadySubmittedWithin90Days_message", comment: "")
+			static let deviceCheckError = NSLocalizedString("ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_deviceCheckError_message", comment: "")
+			static let faqButtonTitle = NSLocalizedString("ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_faqButtonTitle", comment: "")
+			static let okButtonTitle = NSLocalizedString("ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_okButtonTitle", comment: "")
+		}
+	}
+	
+	enum SRSErrorAlert {
+		static let title = NSLocalizedString("ExposureSubmission_SRSError_title", comment: "")
+		static let callHotline = NSLocalizedString("ExposureSubmission_SRSError_Message_CallHotline", comment: "")
+		static let changeDeviceTime = NSLocalizedString("ExposureSubmission_SRSError_Message_ChangeDeviceTime", comment: "")
+		static let deviceNotSupported = NSLocalizedString("ExposureSubmission_SRSError_Message_DeviceNotSupported", comment: "")
+		static let deviceNotTrusted = NSLocalizedString("ExposureSubmission_SRSError_Message_DeviceNotTrusted", comment: "")
+		static let noNetwork = NSLocalizedString("ExposureSubmission_SRSError_Message_NoNetwork", comment: "")
+		static let submissionTooEarly = NSLocalizedString("ExposureSubmission_SRSError_Message_SubmissionTooEarly", comment: "")
+		static let timeSinceOnboardingUnverified = NSLocalizedString("ExposureSubmission_SRSError_Message_TimeSinceOnboardingUnverified", comment: "")
+		static let tryAgainLater = NSLocalizedString("ExposureSubmission_SRSError_Message_TryAgainLater", comment: "")
+		static let tryAgainNextMonth = NSLocalizedString("ExposureSubmission_SRSError_Message_TryAgainNextMonth", comment: "")
+		static let faqButtonTitle = NSLocalizedString("ExposureSubmission_SRSError_faqButtonTitle", comment: "")
+		static let okButtonTitle = NSLocalizedString("ExposureSubmission_SRSError_okButtonTitle", comment: "")
+	}
+	
+	enum SRSConfirmWarnOthersAlert {
+		static let title = NSLocalizedString("ExposureSubmission_SRSFlow_alert_confirmWarnOthers_Title", comment: "")
+		static let message = NSLocalizedString("ExposureSubmission_SRSFlow_alert_confirmWarnOthers_Message", comment: "")
+		static let actionConfirm = NSLocalizedString("ExposureSubmission_SRSFlow_alert_confirmWarnOthers_ActionConfirm", comment: "")
+		static let actionCancel = NSLocalizedString("ExposureSubmission_SRSFlow_alert_confirmWarnOthers_ActionCancel", comment: "")
 	}
 
 	enum SRSConsentScreen {

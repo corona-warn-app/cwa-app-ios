@@ -9,7 +9,7 @@ final class SRSTestTypeSelectionViewModelTests: XCTestCase {
 
 	func test_When_DynamicTableViewModel_Then_NumberOfCellsAndTypeIsCorrect() throws {
 		// Given
-		let sut = SRSTestTypeSelectionViewModel(isSelfTestTypePreselected: false)
+		let sut = SRSTestTypeSelectionViewModel()
 		let cells = sut.dynamicTableViewModel.section(0).cells
 		
 		// Then
@@ -22,7 +22,7 @@ final class SRSTestTypeSelectionViewModelTests: XCTestCase {
 	
 	func test_When_IsSelfTestTypePreselected_False_Then_selectedSubmissionTypeShouldBeNil() throws {
 		// Given
-		let sut = SRSTestTypeSelectionViewModel(isSelfTestTypePreselected: false)
+		let sut = SRSTestTypeSelectionViewModel()
 		
 		// Then
 		XCTAssertNil(sut.selectedSubmissionType)
@@ -31,7 +31,7 @@ final class SRSTestTypeSelectionViewModelTests: XCTestCase {
 	func test_When_IsSelfTestTypePreselected_True_Then_selectedSubmissionTypeShouldBeSRSSelfTest() throws {
 		DispatchQueue.global(qos: .background).asyncAfter(deadline: .now() + 0.1) {
 			// Given
-			let sut = SRSTestTypeSelectionViewModel(isSelfTestTypePreselected: true)
+			let sut = SRSTestTypeSelectionViewModel()
 	
 			// Then
 			XCTAssertEqual(sut.selectedSubmissionType, .srsSelfTest)

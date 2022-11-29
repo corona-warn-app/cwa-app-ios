@@ -22,8 +22,8 @@ class ExposureSubmissionIntroViewModelTests: CWATestCase {
 		store.antigenTestProfiles = [antigenTestProfile]
 
 		let viewModel = ExposureSubmissionIntroViewModel(
-			onPositiveSelfTestButtonTap: { },
-			onSelfReportSubmissionButtonTap: { },
+			onPositiveSelfTestButtonTap: { _ in },
+			onSelfReportSubmissionButtonTap: { _ in },
 			onQRCodeButtonTap: { _ in },
 			onFindTestCentersTap: { },
 			onRapidTestProfileTap: { },
@@ -39,8 +39,8 @@ class ExposureSubmissionIntroViewModelTests: CWATestCase {
 		let store = MockTestStore()
 
 		let viewModel = ExposureSubmissionIntroViewModel(
-			onPositiveSelfTestButtonTap: { },
-			onSelfReportSubmissionButtonTap: { },
+			onPositiveSelfTestButtonTap: { _ in },
+			onSelfReportSubmissionButtonTap: { _ in },
 			onQRCodeButtonTap: { _ in },
 			onFindTestCentersTap: { },
 			onRapidTestProfileTap: { },

@@ -130,7 +130,8 @@ class ExposureSubmissionCoordinatorTests: CWATestCase {
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
 			healthCertificateValidationOnboardedCountriesProvider: healthCertificateValidationOnboardedCountriesProvider,
 			qrScannerCoordinator: qrScannerCoordinator,
-			recycleBin: RecycleBin(store: store)
+			recycleBin: RecycleBin(store: store),
+			store: MockTestStore()
 		)
 	}
 	
