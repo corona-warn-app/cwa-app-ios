@@ -95,8 +95,6 @@ class PPACService: PrivacyPreservingAccessControl {
 			}
 		}
 		completion(.success(()))
-		
-		completion(.success(()))
 	}
 	
 	func getPPACTokenSRS(_ completion: @escaping (Result<PPACToken, PPACError>) -> Void) {
