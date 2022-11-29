@@ -56,7 +56,7 @@ class PPACService: PrivacyPreservingAccessControl {
 		// check if time isn't unknown
 		if store.deviceTimeCheckResult == .assumedCorrect {
 			Log.error("SRSError: device time is unverified", log: .ppac)
-			completion(.failure(.deviceCheckError(.timeUnverified)))
+			completion(.failure(.deviceTimeError(.timeUnverified)))
 			return
 		}
 		
