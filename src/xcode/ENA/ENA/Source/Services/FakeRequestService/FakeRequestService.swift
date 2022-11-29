@@ -75,9 +75,9 @@ class FakeRequestService {
 	/// This method represents the fake Request for SRS OTP
 	func fakeSRSOTPServerRequest(completion: (() -> Void)? = nil) {
 		let resource = OTPAuthorizationForSRSResource(
-			otpSRS: <#T##String#>,
+			otpSRS: String,
 			isFake: true,
-			ppacToken: <#T##PPACToken#>
+			ppacToken: PPACToken
 		}
 
 		restServiceProvider.load(resource) { _ in

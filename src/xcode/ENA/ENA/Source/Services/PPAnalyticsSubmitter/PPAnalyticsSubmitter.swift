@@ -456,6 +456,8 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 				self?.store.lastSubmissionAnalytics = Date()
 				self?.submissionState = .readyForSubmission
 				Log.info("Analytics submission successfully post-processed \(String(describing: self?.applicationState)))", log: .ppa)
+				
+				// to.do fake submission
 				completion?(.success(()))
 			case let .failure(error):
 				Log.error("Analytics data were not submitted \(String(describing: self?.applicationState))). Error: \(error)", log: .ppa, error: error)
