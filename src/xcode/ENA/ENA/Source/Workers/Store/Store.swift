@@ -134,6 +134,11 @@ protocol SRSProviding: AnyObject {
 	var otpTokenSrs: OTPToken? { get set }
 	/// Date of last otp authorization
 	var otpSrsAuthorizationDate: Date? { get set }
+	
+#if !RELEASE
+/// For Developer Menu - Indicates if the SRS should have pre-checks
+	var isSrsPrechecksEnabled: Bool { get set }
+#endif
 }
 
 protocol PrivacyPreservingProviding: AnyObject {
