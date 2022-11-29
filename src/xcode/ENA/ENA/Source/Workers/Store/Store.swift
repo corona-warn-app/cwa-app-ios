@@ -136,8 +136,8 @@ protocol SRSProviding: AnyObject {
 	var otpSrsAuthorizationDate: Date? { get set }
 	
 #if !RELEASE
-/// For DeveloperMenu - Indicates if the SRS shall have pre checks
-	var isSRSPrechecksEnabled: Bool { get set }
+/// For Developer Menu - Indicates if the SRS should have pre-checks
+	var isSrsPrechecksEnabled: Bool { get set }
 #endif
 }
 

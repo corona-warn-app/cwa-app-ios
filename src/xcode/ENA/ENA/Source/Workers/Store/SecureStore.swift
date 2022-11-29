@@ -596,9 +596,9 @@ extension SecureStore: SRSProviding {
     }
 	
 	#if !RELEASE
-	var isSRSPrechecksEnabled: Bool {
-		get { kvStore["isSRSPrechecksEnabled"] as Bool? ?? true }
-		set { kvStore["isSRSPrechecksEnabled"] = newValue }
+	var isSrsPrechecksEnabled: Bool {
+		get { kvStore["isSrsPrechecksEnabled"] as Bool? ?? true }
+		set { kvStore["isSrsPrechecksEnabled"] = newValue }
 	}
 	#endif
 }

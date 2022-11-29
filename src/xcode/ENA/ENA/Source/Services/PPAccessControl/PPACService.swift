@@ -39,8 +39,8 @@ class PPACService: PrivacyPreservingAccessControl {
 		completion: @escaping (Result<Void, SRSPreconditionError>) -> Void
 	) {
 		#if !RELEASE
-		if !store.isSRSPrechecksEnabled {
-			Log.warning("SRS Prechecks disabled!.")
+		if !store.isSrsPrechecksEnabled {
+			Log.warning("SRS pre-checks disabled!")
 			completion(.success(()))
 			return
 		}
@@ -55,12 +55,12 @@ class PPACService: PrivacyPreservingAccessControl {
 		
 		// check if time isn't unknown
 		if store.deviceTimeCheckResult == .assumedCorrect {
-			Log.error("SRSError:device time is unverified", log: .ppac)
+			Log.error("SRSError: device time is unverified", log: .ppac)
 			completion(.failure(.deviceCheckError(.timeUnverified)))
 			return
 		}
 		
-		// we have two parameters from the appconfig for prechecks:
+		// we have two parameters from the appconfig for pre-checks:
 		// 1- a minimum number of hours since onboarding until user can self submit result.
 		// 2- a minimum number of days since last submission user can self submit result again.
 		
@@ -68,7 +68,7 @@ class PPACService: PrivacyPreservingAccessControl {
 		if let firstReliableTimeStamp = store.firstReliableTimeStamp,
 		   let difference = Calendar.current.dateComponents([.hour], from: firstReliableTimeStamp, to: Date()).hour {
 			let minTimeSinceOnboarding = minTimeSinceOnboardingInHours <= 0 ? 24 : minTimeSinceOnboardingInHours
-			Log.debug("actual time since onboarding \(minTimeSinceOnboardingInHours) hours.", log: .ppac)
+			Log.debug("Actual time since onboarding \(minTimeSinceOnboardingInHours) hours.", log: .ppac)
 			Log.debug("Corrected default time since onboarding \(minTimeSinceOnboarding) hours.", log: .ppac)
 			
 			if difference < minTimeSinceOnboarding {

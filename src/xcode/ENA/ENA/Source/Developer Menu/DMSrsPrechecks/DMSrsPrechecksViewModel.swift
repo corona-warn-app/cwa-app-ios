@@ -6,7 +6,7 @@
 
 import Foundation
 
-final class DMSRSPrechecksSViewModel {
+final class DMSRSPrechecksViewModel {
 	
 	// MARK: - Init
 	
@@ -40,12 +40,12 @@ final class DMSRSPrechecksSViewModel {
 		switch section {
 		case .preChecks:
 			return DMSwitchCellViewModel(
-				labelText: "enable prechecks for SRS",
+				labelText: "Enable pre-checks for SRS",
 				isOn: { [store] in
-					return store.isSRSPrechecksEnabled
+					return store.isSrsPrechecksEnabled
 				},
 				toggle: { [store] in
-					store.isSRSPrechecksEnabled.toggle()
+					store.isSrsPrechecksEnabled.toggle()
 				})
 		}
 	}

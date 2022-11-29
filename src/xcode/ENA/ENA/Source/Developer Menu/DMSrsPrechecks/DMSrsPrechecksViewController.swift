@@ -5,14 +5,14 @@
 
 import UIKit
 
-class DMSrsPrechecksViewController: UITableViewController {
+class DMSRSPrechecksViewController: UITableViewController {
 
 	// MARK: - Init
 
 	init(
 		store: Store
 	) {
-		self.viewModel = DMSRSPrechecksSViewModel(store: store)
+		self.viewModel = DMSRSPrechecksViewModel(store: store)
 
 		if #available(iOS 13.0, *) {
 			super.init(style: .insetGrouped)
@@ -59,7 +59,7 @@ class DMSrsPrechecksViewController: UITableViewController {
 
 	// MARK: - Private
 
-	private let viewModel: DMSRSPrechecksSViewModel
+	private let viewModel: DMSRSPrechecksViewModel
 
 	private func setupTableView() {
 		tableView.estimatedRowHeight = 45.0
