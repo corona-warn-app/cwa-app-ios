@@ -556,17 +556,57 @@
 
 "ExposureSubmissionDispatch_QRCodeButtonDescription" = "Odbierz wynik swojego testu oraz testów członków swojej rodziny i poproś o certyfikat testu na COVID.";
 
-"ExposureSubmissionDispatch_TANButtonTitle" = "Wpisz TAN do testu PCR";
+"ExposureSubmissionDispatch_PositiveSelfTestButtonTitle" = "Samodzielnie wykonany test ma wynik pozytywny?";
 
-"ExposureSubmissionDispatch_TANButtonDescription" = "Czy masz numer TAN do swojego testu PCR? Naciśnij tutaj, aby go wprowadzić i dzięki temu ostrzegać innych.";
+"ExposureSubmissionDispatch_PositiveSelfTestButtonDescription" = "Ostrzeż innych, jeśli wynik Twojego samodzielnie wykonanego testu jest pozytywny.";
 
-"ExposureSubmissionDispatch_HotlineButtonTitle" = "Poproś o TAN do testu PCR";
+"ExposureSubmissionDispatch_SRSButtonTitle" = "Pozytywny wynik testu i brak wyniku w aplikacji?";
 
-"ExposureSubmissionDispatch_HotlineButtonDescription" = "Zadzwoń i odbierz numer TAN do testu PCR.";
+"ExposureSubmissionDispatch_SRSButtonDescription" = "Ostrzeż innych o swoim pozytywnym wyniku szybkiego testu lub testu PCR, nawet jeśli Twój test nie był zarejestrowany lub wynik testu nie został zarejestrowany w aplikacji.";
 
 "ExposureSubmissionDispatch_FindTestCentersTitle" = "Znajdź ośrodek testujący";
 
 "ExposureSubmissionDispatch_FindTestCentersDescription" = "Znajdź ośrodki testujące w pobliżu. Jeśli wystąpią jakiekolwiek problemy, możesz je zgłosić.\nZostaniesz przekierowany(-a) na zewnętrzną stronę internetową RKI.";
+
+/* SRS Warn Others Precondition Error Alert */
+"ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_title" = "Nie możesz ostrzec innych";
+
+"ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_insufficientAppUsageTime_message" = "Przepraszamy, ale w tej chwili nie możesz ostrzec innych, ponieważ aplikacja została przez Ciebie zainstalowana niedawno. Ma to na celu zabezpieczenie przed niewłaściwym użyciem funkcji ostrzegania.\nMożesz zarejestrować oficjalny test i użyć go do ostrzegania innych w dowolnym czasie (kod błędu %@).";
+
+"ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_positiveTestResultWasAlreadySubmittedWithin90Days_message" = "W tej chwili nie możesz ostrzec innych, ponieważ w ciągu ostatnich 90 dni został już zgłoszony przez Ciebie pozytywny wynik testu. Ma to na celu zabezpieczenie przed niewłaściwym użyciem funkcji ostrzegania.\nMożesz zarejestrować oficjalny test i użyć go do ostrzegania innych w dowolnym czasie (kod błędu %@).";
+
+"ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_deviceCheckError_message" = "Czas na Twoim smartfonie jest niezgodny z bieżącym czasem. Popraw czas w ustawieniach swojego smartfona. Po tej korekcie może upłynąć kilka minut, zanim aplikacja ponownie sprawdzi czas. Kiedy to nastąpi, możesz spróbować znowu ostrzec innych.";
+
+"ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_faqButtonTitle" = "Często zadawane pytania";
+
+"ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_okButtonTitle" = "OK";
+
+/* SRS Warn Others Error Message */
+"ExposureSubmission_SRSError_title" = "Nie możesz ostrzec innych";
+
+"ExposureSubmission_SRSError_Message_CallHotline" = "Wystąpił błąd. Spróbuj ponownie później wysłać ostrzeżenie lub skontaktuj się z infolinią techniczną, korzystając z opcji: Informacje o aplikacji -> Infolinia techniczna. (%@)";
+
+"ExposureSubmission_SRSError_Message_ChangeDeviceTime" = "Czas na Twoim smartfonie jest niezgodny z bieżącym czasem. Popraw czas w ustawieniach swojego smartfona. Po tej korekcie może upłynąć kilka minut, zanim aplikacja ponownie sprawdzi czas. Kiedy to nastąpi, możesz spróbować znowu ostrzec innych (kod błędu %@).";
+
+"ExposureSubmission_SRSError_Message_DeviceNotSupported" = "Przepraszamy, Twój smartfon nie obsługuje tego typu ostrzeżenia. Możesz zarejestrować oficjalny test i użyć go do ostrzegania innych w dowolnym czasie (kod błędu %@).";
+
+"ExposureSubmission_SRSError_Message_DeviceNotTrusted" = "Twoje urządzenie nie spełnia wymogów bezpieczeństwa dla tego typu ostrzeżenia. Możesz zarejestrować oficjalny test i użyć go do ostrzegania innych w dowolnym czasie (kod błędu %@).";
+
+"ExposureSubmission_SRSError_Message_NoNetwork" = "Połączenie internetowe mogło zostać utracone. Sprawdź połączenie i spróbuj ponownie (kod błędu %@).";
+
+"ExposureSubmission_SRSError_Message_SubmissionTooEarly" = "W tej chwili nie możesz ostrzec innych, ponieważ w ciągu ostatnich %@ dni został już zgłoszony przez Ciebie pozytywny wynik testu. Ma to na celu zabezpieczenie przed niewłaściwym użyciem funkcji ostrzegania.\nMożesz zarejestrować oficjalny test w aplikacji i użyć go do ostrzegania innych w dowolnym czasie (kod błędu %@).";
+
+"ExposureSubmission_SRSError_Message_TimeSinceOnboardingUnverified" = "Ze względów bezpieczeństwa nie możesz wysłać tego typu ostrzeżenia do %@ po instalacji lub aktualizacji aplikacji. Spróbuj ponownie za %@ godz. (kod błędu %@).";
+
+"ExposureSubmission_SRSError_Message_TryAgainLater" = "Wystąpił błąd. Spróbuj wysłać ostrzeżenie ponownie (kod błędu %@).";
+
+"ExposureSubmission_SRSError_Message_TryAgainNextMonth" = "Ze względów bezpieczeństwa ostrzeżenia nie można wysłać w tym miesiącu kalendarzowym. Poczekaj do następnego miesiąca kalendarzowego lub zarejestruj oficjalny test w aplikacji, aby wysłać ostrzeżenie w dowolnym czasie (kod błędu %@).";
+
+"ExposureSubmission_SRSError_faqButtonTitle" = "Często zadawane pytania";
+
+"ExposureSubmission_SRSError_okButtonTitle" = "OK";
+
+"SRS_submission_Invalid_OTP" = "Wystąpił błąd. Spróbuj wysłać ostrzeżenie ponownie.";
 
 /* Exposure Submission Hotline */
 "ExposureSubmissionHotline_Title" = "Poproś o TAN do testu PCR";
@@ -658,15 +698,27 @@
 
 "ExposureSubmissionSuccess_PCR_listItem0" = "Istnieje duże prawdopodobieństwo, że możesz zakażać. Odizoluj się od innych ludzi.";
 
-"ExposureSubmissionSuccess_PCR_listItem1" = "Organ ds. zdrowia publicznego może skontaktować się z Tobą w ciągu kilku najbliższych dni.";
+"ExposureSubmissionSuccess_PCR_listItem1" = "Twoje ostrzeżenie zostanie dodane do dziennika kontaktów.";
 
-"ExposureSubmissionSuccess_PCR_listItem2" = "Jeśli masz podwyższone ryzyko wystąpienia ciężkiej choroby spowodowanej COVID-19, zasięgnij porady lekarza. Znane czynniki ryzyka obejmują wiek powyżej 60 lat, immunosupresję, cukrzycę i otyłość.";
+"ExposureSubmissionSuccess_PCR_listItem2" = "Organ ds. zdrowia publicznego może skontaktować się z Tobą w ciągu kilku najbliższych dni.";
+
+"ExposureSubmissionSuccess_PCR_listItem3" = "Jeśli masz podwyższone ryzyko wystąpienia ciężkiej choroby spowodowanej COVID-19, zasięgnij porady lekarza. Znane czynniki ryzyka obejmują wiek powyżej 60 lat, immunosupresję, cukrzycę i otyłość.";
 
 "ExposureSubmissionSuccess_RAT_listItem0" = "Istnieje duże prawdopodobieństwo, że możesz zakażać. Odizoluj się od innych ludzi.";
 
-"ExposureSubmissionSuccess_RAT_listItem1" = "Wykonaj test PCR, aby zweryfikować wynik tego testu.";
+"ExposureSubmissionSuccess_RAT_listItem1" = "Twoje ostrzeżenie zostanie dodane do dziennika kontaktów.";
 
-"ExposureSubmissionSuccess_RAT_listItem2" = "Organ ds. zdrowia publicznego może skontaktować się z Tobą w ciągu kilku najbliższych dni.";
+"ExposureSubmissionSuccess_RAT_listItem2" = "Wykonaj test PCR, aby zweryfikować wynik tego testu.";
+
+"ExposureSubmissionSuccess_RAT_listItem3" = "Organ ds. zdrowia publicznego może skontaktować się z Tobą w ciągu kilku najbliższych dni.";
+
+"ExposureSubmissionSuccess_SRS_listItem0" = "Istnieje duże prawdopodobieństwo, że możesz zakażać. Odizoluj się od innych ludzi.";
+
+"ExposureSubmissionSuccess_SRS_listItem1" = "Twoje ostrzeżenie zostanie dodane do dziennika kontaktów.";
+
+"ExposureSubmissionSuccess_SRS_listItem2" = "Jeśli jeszcze tego nie zrobiłeś(-aś), wykonaj test PCR, aby sprawdzić wynik tego testu.";
+
+"ExposureSubmissionSuccess_SRS_listItem3" = "Organ ds. zdrowia publicznego może skontaktować się z Tobą w ciągu kilku najbliższych dni.";
 
 "ExposureSubmissionSuccess_listItem2_1" = "Obserwuj swoje objawy i monitoruj ich rozwój.";
 
@@ -700,6 +752,36 @@
 "ExposureSubmissionTestresultAvailable_CloseAlertButtonCancel" = "Anuluj";
 
 "ExposureSubmissionTestresultAvailable_CloseAlertButtonContinue" = "Wyświetl wynik";
+
+/* SRS Consent Screen */
+"SRS_ConsentScreen_title" = "Twoja zgoda";
+
+"SRS_ConsentScreen_header_section1" = "Ostrzegaj innych";
+
+"SRS_ConsentScreen_title_description1" = "Do ostrzegania innych potrzebna jest Twoja zgoda.";
+
+"SRS_ConsentScreen_instruction1" = "Jeśli Twój wynik testu na obecność koronawirusa był pozytywny, możesz ostrzec innych poprzez aplikację.\nW celu wysłania ostrzeżenia po pozytywnym wyniku samodzielnie wykonanego testu lub z wynikiem testu nieobecnym w aplikacji niezbędna jest weryfikacja autentyczności aplikacji.";
+
+"SRS_ConsentScreen_instruction2" = "Weryfikacja zapewnia również, że powtórne wysyłanie ostrzeżeń jest możliwe dopiero po upływie %@ dni.";
+
+"SRS_ConsentScreen_Acknowledgement_1" = "Ostrzeganie innych jest opcjonalne, jednak jeśli udostępnisz wyniki swojego testu innym, pomożesz im uniknąć zarażenia się.";
+
+"SRS_ConsentScreen_Acknowledgement_2" = "Twoja tożsamość nie zostanie ujawniona. Inni użytkownicy nie dowiedzą się, kto udostępnił swoje wyniki testów.";
+
+"SRS_ConsentScreen_Acknowledgement_3" = "W sekcji „Moje zameldowania” znajdują się wydarzenia i miejsca, których zameldowani goście zostaną ostrzeżeni. Możesz usunąć pojedyncze zameldowania z listy, aby wykluczyć je z procesu ostrzegania.";
+
+"SRS_ConsentScreen_Acknowledgement_4" = "Aby wyrazić zgodę, musisz mieć ukończone 16 lat.";
+
+"SRS_ConsentScreen_Acknowledgement_5" = "Możesz także ostrzec innych bez weryfikacji autentyczności. W tym celu zarejestruj test PCR lub szybki test w aplikacji i pobierz wynik w aplikacji.";
+
+"SRS_ConsentScreen_Acknowledgement_6" = "W kolejnym kroku wyraź zgodę na dostęp do losowych identyfikatorów.";
+
+"SRS_ConsentScreen_DataProcessingDetailInfo" = "Szczegółowe informacje o ryzyku związanym z kontrolą autentyczności i przetwarzaniem i ochroną danych w USA i innych krajach trzecich";
+
+/* SRSDataProcessingInfo */
+"SRS_DataProcessingInfo_title" = "Weryfikacja autentyczności i przekazywanie danych do krajów trzecich";
+
+"SRS_DataProcessingInfodescription" = "Aby potwierdzić autentyczność aplikacji, smartfon generuje unikalny identyfikator zawierający informacje o wersji smartfona i aplikacji. Jest to konieczne w celu zapewnienia, by tylko osoby, które faktycznie używają aplikacji Corona-Warn-App mogły wysyłać ostrzeżenie po uzyskaniu pozytywnego wyniku samodzielne wykonanego testu lub z wynikiem testu niedostępnym w aplikacji i wykluczenia zmanipulowanych raportów o błędach. Ta procedura zapewnia też, że wysyłanie ostrzeżeń po uzyskaniu pozytywnego wyniku samodzielne wykonanego testu lub z wynikiem testu niedostępnym w aplikacji jest możliwe co trzy miesiące.\n\nUnikalny identyfikator wygenerowany podczas kontroli autentyczności jest wysyłany do Apple. W tym procesie dane mogą być przekazywane do Stanów Zjednoczonych lub innych krajów trzecich, gdzie poziom prywatności danych może nie odpowiadać prawu europejskiemu i możesz nie być w stanie wyegzekwować swoich europejskich praw do prywatności danych. W szczególności organy ds. bezpieczeństwa w kraju trzecim mogłyby uzyskać dostęp do danych i analizować je przy pomocy Apple, nawet jeśli nie ma podstaw do podejrzeń, i na przykład łączyć te dane z innymi informacjami. Dotyczy to tylko identyfikatora wysyłanego do Apple. Apple może jednak określić Twoją tożsamość na podstawie identyfikatora i poprzez prześledzenie danych ustalić, że sprawdzanie autentyczności zostało przeprowadzone na Twoim smartfonie podczas procesu ostrzegania.\n\nJeśli nie wyrażasz zgody na przekazanie swoich danych do kraju trzeciego, nie klikaj opcji „Akceptuj”. Nadal będziesz mieć możliwość korzystania z aplikacji, ale ostrzeganie innych po uzyskaniu pozytywnego wyniku samodzielnie wykonanego testu lub z wynikiem testu niedostępnym w aplikacji będzie niemożliwe.";
 
 /* Exposure Submission Result */
 "ExposureSubmissionResult_Title" = "Wynik Twojego testu";
@@ -770,7 +852,7 @@
 
 "ExposureSubmissionResult_familyMember_testPending" = "Wynik testu nie jest jeszcze dostępny";
 
-"ExposureSubmissionResult_testPendingDesc" = "Wynik testu zostanie wyświetlony w aplikacji, jak tylko będzie dostępny.\n\nWynik testu otrzymasz również poza aplikacją. Organ ds. zdrowia publicznego powiadomi Cię, jeśli wynik testu będzie pozytywny.\n\nJeśli otrzymasz powiadomienie o pozytywnym wyniku testu poza aplikacją, usuń test aktualnie zarejestrowany w aplikacji. Zadzwoń na numer podany w sekcji „Poproś o TAN”, aby otrzymać numer TAN. Będziesz mieć wówczas możliwość zarejestrowania swojego wyniku w aplikacji za pomocą tego numeru, aby ostrzegać innych.";
+"ExposureSubmissionResult_testPendingDesc" = "Wynik testu zostanie wyświetlony w aplikacji, jak tylko będzie dostępny.\n\nWynik testu otrzymasz również poza aplikacją. Organ ds. zdrowia publicznego powiadomi Cię, jeśli wynik testu będzie pozytywny.\n\nJeśli otrzymasz powiadomienie o pozytywnym wyniku testu poza aplikacją, usuń test aktualnie zarejestrowany w aplikacji.";
 
 "ExposureSubmissionResult_familyMember_testPendingDesc" = "Wynik testu zostanie wyświetlony w aplikacji, jak tylko będzie dostępny.\nWynik testu otrzymasz również poza aplikacją. Organ ds. zdrowia publicznego powiadomi Cię, jeśli wynik testu będzie pozytywny.";
 
@@ -907,6 +989,43 @@
 "ExposureSubmissionWarnOthers_consent_bullet5" = "Aby wyrazić zgodę, musisz mieć ukończone 16 lat.";
 
 "ExposureSubmissionWarnOthers_continueButton" = "Akceptuj";
+
+/* Exposure Submission Warn Others Test Type Selection */
+"ExposureSubmission_SRSTestTypeSelection_title" = "Rodzaj testu";
+
+"ExposureSubmission_SRSTestTypeSelection_body" = "Wybierz typ testu, który jest podstawą dla ostrzeżenia.";
+
+"ExposureSubmission_SRSTestTypeSelection_description" = "Wartość dla typu testu jest używana tylko do analizy statystycznej. Nie jest powiązywana z ostrzeżeniem ani z Twoją tożsamością. Jeśli nie chcesz określać wartości, wybierz \"Brak odpowiedzi\".";
+
+"ExposureSubmission_SRSTestTypeSelection_optionSRSSelfTest_title" = "Szybki test antygenowy niezarejestrowany w aplikacji";
+
+"ExposureSubmission_SRSTestTypeSelection_optionSRSRegisteredRat_title" = "Szybki test antygenowy zarejestrowany w aplikacji, ale nie otrzymano wyniku";
+
+"ExposureSubmission_SRSTestTypeSelection_optionSRSRegisteredPcr_title" = "Test PCR zarejestrowany w aplikacji, ale nie otrzymano wyniku";
+
+"ExposureSubmission_SRSTestTypeSelection_optionSRSUnregisteredPcr_title" = "Test PCR niezarejestrowany w aplikacji";
+
+"ExposureSubmission_SRSTestTypeSelection_optionSRSRapidPcr_title" = "Szybki test PCR (test PoC NAT)";
+
+"ExposureSubmission_SRSTestTypeSelection_optionSRSOther_title" = "Brak odpowiedzi";
+
+"ExposureSubmission_SRSTestTypeSelection_warnProcessCancelAlert_Title" = "Anulować proces ostrzegania?";
+
+"ExposureSubmission_SRSTestTypeSelection_warnProcessCancelAlert_Message" = "Czy na pewno chcesz anulować proces ostrzegania?\n\nW przypadku zdiagnozowania u Ciebie koronawirusa będziesz mieć możliwość powiadomienia innych i przerwania łańcucha zakażeń.";
+
+"ExposureSubmission_SRSTestTypeSelection_warnProcessCancelAlert_ActionContinue" = "Kontynuuj ostrzeganie";
+
+"ExposureSubmission_SRSTestTypeSelection_warnProcessCancelAlert_ActionCancel" = "Nie ostrzegaj innych";
+
+"ExposureSubmission_SRSTestTypeSelection_primaryButtonTitle" = "Kontynuuj";
+
+"ExposureSubmission_SRSFlow_alert_confirmWarnOthers_Title" = "Ważny";
+
+"ExposureSubmission_SRSFlow_alert_confirmWarnOthers_Message" = "Czy na pewno chcesz ostrzegać inne osoby, z którymi miałeś(-aś) kontakt ostatnio?";
+
+"ExposureSubmission_SRSFlow_alert_confirmWarnOthers_ActionConfirm" = "Ostrzegaj innych";
+
+"ExposureSubmission_SRSFlow_alert_confirmWarnOthers_ActionCancel" = "Anuluj";
 
 /* Exposure Submission Result */
 "ExposureSubmissionResult_RemoveAlert_Title" = "Usunąć wynik testu?";
@@ -1354,7 +1473,9 @@
 "Home_Finding_Positive_Card_Button_Remove_Test" = "Usuń test";
 
 /* Home Test Registration Card */
-"Home_TestRegistration_Title" = "Zarządzaj testami";
+"Home_TestRegistration_Title" = "Zarządzaj swoimi testami i ostrzegaj innych";
+
+"Home_TestRegistration_Subtitle" = "Samodzielnie wykonywany test, test PCR i szybki test";
 
 "Home_TestRegistration_Body" = "Znajdź ośrodki testujące w pobliżu i zarejestruj test, aby móc szybciej ostrzegać innych, lub poproś o wydanie cyfrowego certyfikatu testu na COVID.";
 
@@ -1656,10 +1777,18 @@
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Dane o zmianach w tej wersji można znaleźć w informacjach o aplikacji w sekcji „Nowe funkcje”.";
 
-/* Version 2.28 */
-"NewVersionFeature_228_pandemic_radar_title" = "Radar pandemiczny";
+/* Version 3.0 */
+"NewVersionFeature_30_selftest_warn_others_title" = "Ostrzeżenie z samodzielnie wykonanymi testami";
 
-"NewVersionFeature_228_pandemic_radar_description" = "Aplikacja Corona-Warn-App zawiera teraz kafelek „Radar pandemiczny”, który po dotknięciu prowadzi bezpośrednio do strony internetowej Instytutu Roberta Kocha (w języku niemieckim). Radar pandemiczny zawiera różnorodne statystyki dotyczące pandemii koronawirusa, które są aktualizowane w każdym dniu roboczym. Zwróć uwagę, że wszelkie dane użyte podczas otwierania strony zostaną odjęte od Twojego planu danych oraz że strona nie została zaprojektowana jako pozbawiona barier.";
+"NewVersionFeature_30_selftest_warn_others_description" = "Możesz teraz wysłać ostrzeżenie do innych użytkowników aplikacji Corona-Warn-App, jeśli samodzielnie wykonany test wskazuje na zakażenie koronawirusem.";
+
+"NewVersionFeature_30_warning_unregistered_tests_title" = "Ostrzeżenie z niezarejestrowanymi testami";
+
+"NewVersionFeature_30_warning_unregistered_tests_description" = "Jeśli szybki test lub test PCR z punktu testowania wskazuje na zarażenie koronawirusem, ale ten test nie jest zarejestrowany w aplikacji Corona-Warn-App, nadal możesz ostrzegać innych użytkowników aplikacji.";
+
+"NewVersionFeature_30_tan_hotline_removal_title" = "Infolinia TAN zostanie wycofana";
+
+"NewVersionFeature_30_tan_hotline_removal_description" = "Opcja uzyskania numeru TAN z infolinii TAN zostanie wycofana w ciągu kilku następnych tygodni. Dlatego nie potrzebujesz już numeru TAN do ostrzegania innych użytkowników aplikacji Corona-Warn-App.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Rejestrowanie narażenia w różnych krajach";
