@@ -31,7 +31,7 @@ struct OTPAuthorizationForSRSResource: Resource {
 			}
 		)
 		
-		self.locator = .authorizeOtpSrs(isFake: false)
+		self.locator = .authorizeOtpSrs(isFake: isFake)
 		self.type = .default
 		self.receiveResource = JSONReceiveResource<OTPResponsePropertiesReceiveModel>()
 		self.trustEvaluation = trustEvaluation

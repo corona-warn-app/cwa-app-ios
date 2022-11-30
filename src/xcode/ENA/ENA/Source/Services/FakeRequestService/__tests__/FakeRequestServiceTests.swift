@@ -142,6 +142,8 @@ class FakeRequestServiceTests: CWATestCase {
 		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "SomeToken")
 		let ppacService = PPACService(store: MockTestStore(), deviceCheck: deviceCheck)
 		
+		// Initialize.
+		
 		let restServiceProvider = RestServiceProviderStub(
 			loadResources: [
 				// Key submission result.
@@ -168,6 +170,39 @@ class FakeRequestServiceTests: CWATestCase {
 		waitForExpectations(timeout: .short)
 	}
 
+	func testFakeSRSOTPServerRequest() {
+		let expectation = self.expectation(description: "Execute fake SRS OTP request.")
+
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "SomeToken")
+		let ppacService = PPACService(store: MockTestStore(), deviceCheck: deviceCheck)
+		
+		// Initialize.
+		
+		let restServiceProvider = RestServiceProviderStub(
+			loadResources: [
+				LoadResource(
+					result: .success(()),
+					willLoadResource: { resource in
+						guard let otpAuthorizationForSRSResource = resource as? OTPAuthorizationForSRSResource else {
+							XCTFail("OTPAuthorizationForSRSResource expected.")
+							return
+						}
+						XCTAssertTrue(otpAuthorizationForSRSResource.locator.isFake)
+						expectation.fulfill()
+					}
+				)
+			],
+			isFakeResourceLoadingActive: true
+		)
+	
+		let fakeRequestService = FakeRequestService(restServiceProvider: restServiceProvider, ppacService: ppacService)
+
+		// Run test.
+
+		fakeRequestService.fakeSRSOTPServerRequest()
+		waitForExpectations(timeout: .short)
+	}
+	
 	func testFakeVerificationAndSubmissionServerRequest() {
 		// Counter to track the execution order.
 		var count = 0
