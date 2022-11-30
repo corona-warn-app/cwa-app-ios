@@ -186,10 +186,6 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 			)
 		}
 	}
-	
-	// MARK: - Public
-	
-	// MARK: - Internal
 		
 	// MARK: - Private
 	
@@ -213,7 +209,7 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 
 	@objc
 	private func sendFakeRequest() {
-		FakeRequestService(restServiceProvider: restServiceProvider).fakeRequest {
+		FakeRequestService(restServiceProvider: restServiceProvider, ppacService: ppacService).fakeRequest {
 			let alert = self.setupErrorAlert(title: "Info", message: "Fake request was sent.")
 			self.present(alert, animated: true) {}
 		}

@@ -308,6 +308,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			appConfiguration: appConfigurationProvider,
 			healthCertificateService: healthCertificateService,
 			healthCertificateRequestService: healthCertificateRequestService,
+			ppacService: ppacService,
 			recycleBin: recycleBin,
 			badgeWrapper: badgeWrapper
 		)
@@ -321,6 +322,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			appConfiguration: appConfigurationProvider,
 			healthCertificateService: healthCertificateService,
 			healthCertificateRequestService: healthCertificateRequestService,
+			ppacService: ppacService,
 			recycleBin: recycleBin
 		)
 	}()
@@ -342,7 +344,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			client: self.client,
 			restServiceProvider: self.restServiceProvider,
 			store: self.store,
-			coronaTestService: coronaTestService
+			coronaTestService: coronaTestService,
+			ppacService: ppacService
 		)
 	}()
 
@@ -565,7 +568,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			restServiceProvider: self.restServiceProvider,
 			store: self.store,
 			eventStore: self.eventStore,
-			coronaTestService: coronaTestService)
+			coronaTestService: coronaTestService,
+			ppacService: ppacService
+		)
 	}
 
 	func requestUpdatedExposureState() {
@@ -583,6 +588,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			restServiceProvider: restServiceProvider,
 			exposureManager: exposureManager,
 			plausibleDeniabilityService: self.plausibleDeniabilityService,
+			ppacService: ppacService,
 			contactDiaryStore: self.contactDiaryStore,
 			eventStore: self.eventStore,
 			eventCheckoutService: self.eventCheckoutService,

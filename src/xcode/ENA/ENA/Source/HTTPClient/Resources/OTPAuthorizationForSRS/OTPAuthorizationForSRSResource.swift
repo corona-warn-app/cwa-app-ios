@@ -25,6 +25,7 @@ struct OTPAuthorizationForSRSResource: Resource {
 		}
 		self.sendResource = ProtobufSendResource(
 			SAP_Internal_Ppdd_SRSOneTimePasswordRequestIOS.with {
+				// to.do padding
 				$0.payload = payload
 				$0.authentication = ppacIos
 			}
