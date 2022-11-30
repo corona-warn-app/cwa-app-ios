@@ -4,7 +4,6 @@
 
 import Foundation
 
-
 extension Locator {
 
 	// send:	ProtoBuf SAP_Internal_SubmissionPayload

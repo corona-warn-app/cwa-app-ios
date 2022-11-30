@@ -116,6 +116,7 @@ final class OTPService: OTPServiceProviding {
 		   expirationDate > Date(),
 		   store.otpElsAuthorizationDate == nil {
 			Log.info("Existing OTP ELS was not consumed before and can be used for submission.", log: .otp)
+			
 			// to.do fake srs otp request
 			completion(.success(otpToken.token))
 			return

@@ -214,6 +214,7 @@ class FakeRequestServiceTests: CWATestCase {
 		let ppacService = PPACService(store: MockTestStore(), deviceCheck: deviceCheck)
 		
 		// Initialize.
+
 		let restServiceProvider = RestServiceProviderStub(
 			loadResources: [
 				LoadResource(
