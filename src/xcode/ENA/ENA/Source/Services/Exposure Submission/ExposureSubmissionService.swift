@@ -54,6 +54,7 @@ enum ExposureSubmissionServiceError: LocalizedError, Equatable {
 /// state. It wraps around the `SecureStore` binding.
 /// The consent value is published using the `isSubmissionConsentGivenPublisher` and the rest of the application can simply subscribe to
 /// it to stay in sync.
+// swiftlint:disable:next type_body_length
 class ENAExposureSubmissionService: ExposureSubmissionService {
 
 	// MARK: - Init
@@ -65,7 +66,8 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		store: Store,
 		eventStore: EventStoringProviding,
 		deadmanNotificationManager: DeadmanNotificationManageable? = nil,
-		coronaTestService: CoronaTestServiceProviding
+		coronaTestService: CoronaTestServiceProviding,
+		ppacService: PrivacyPreservingAccessControl
 	) {
 		
 		#if DEBUG
@@ -77,8 +79,9 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 			self.eventStore = eventStore
 			self.deadmanNotificationManager = deadmanNotificationManager ?? DeadmanNotificationManager()
 			self.coronaTestService = coronaTestService
+			self.ppacService = ppacService
 			
-			fakeRequestService = FakeRequestService(restServiceProvider: restServiceProvider)
+			fakeRequestService = FakeRequestService(restServiceProvider: restServiceProvider, ppacService: ppacService)
 			return
 		}
 		#endif
@@ -90,8 +93,9 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		self.eventStore = eventStore
 		self.deadmanNotificationManager = deadmanNotificationManager ?? DeadmanNotificationManager()
 		self.coronaTestService = coronaTestService
-		
-		fakeRequestService = FakeRequestService(restServiceProvider: restServiceProvider)
+		self.ppacService = ppacService
+
+		fakeRequestService = FakeRequestService(restServiceProvider: restServiceProvider, ppacService: ppacService)
 	}
 
 	convenience init(dependencies: ExposureSubmissionServiceDependencies) {
@@ -101,7 +105,8 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 			restServiceProvider: dependencies.restServiceProvider,
 			store: dependencies.store,
 			eventStore: dependencies.eventStore,
-			coronaTestService: dependencies.coronaTestService
+			coronaTestService: dependencies.coronaTestService,
+			ppacService: dependencies.ppacService
 		)
 	}
 
@@ -357,7 +362,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 	private let eventStore: EventStoringProviding
 	private let deadmanNotificationManager: DeadmanNotificationManageable
 	private let coronaTestService: CoronaTestServiceProviding
-
+	private let ppacService: PrivacyPreservingAccessControl
 	private let fakeRequestService: FakeRequestService
 
 	private var temporaryExposureKeys: [SAP_External_Exposurenotification_TemporaryExposureKey]? {

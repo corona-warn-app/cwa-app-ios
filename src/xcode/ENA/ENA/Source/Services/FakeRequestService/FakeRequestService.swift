@@ -10,9 +10,11 @@ class FakeRequestService {
 	// MARK: - Init
 
 	init(
-		restServiceProvider: RestServiceProviding
+		restServiceProvider: RestServiceProviding,
+		ppacService: PrivacyPreservingAccessControl
 	) {
 		self.restServiceProvider = restServiceProvider
+		self.ppacService = ppacService
 	}
 
 	// MARK: - Internal
@@ -74,16 +76,30 @@ class FakeRequestService {
 
 	/// This method represents the fake Request for SRS OTP
 	func fakeSRSOTPServerRequest(completion: (() -> Void)? = nil) {
-		let resource = OTPAuthorizationForSRSResource(
-			otpSRS: String,
-			isFake: true,
-			ppacToken: PPACToken
+		self.ppacService.getPPACTokenSRS { [weak self] result in
+			guard let self = self else {
+				Log.warning("[FakeRequestService] Could not get self, skipping fakeSRSOTPServerRequest call")
+				completion?()
+				return
+			}
+			
+			switch result {
+			case let .success(ppacToken):
+				let resource = OTPAuthorizationForSRSResource(
+					// no need to inject otpService as it can be generated easily
+					otpSRS: UUID().uuidString,
+					isFake: true,
+					ppacToken: ppacToken
+				)
+				self.restServiceProvider.load(resource) { _ in
+					completion?()
+				}
+			case .failure:
+				Log.warning("[FakeRequestService] Could not get PPAC token for SRS, skipping fakeSRSOTPServerRequest call")
+				completion?()
+			}
 		}
-
-		restServiceProvider.load(resource) { _ in
-			completion?()
-		}
-	})
+	}
 		
 	/// This method is convenience for sending a V + S request pattern.
 	func fakeVerificationAndSubmissionServerRequest(completion: (() -> Void)? = nil) {
@@ -103,4 +119,5 @@ class FakeRequestService {
 	// MARK: - Private
 
 	private let restServiceProvider: RestServiceProviding
+	private let ppacService: PrivacyPreservingAccessControl
 }

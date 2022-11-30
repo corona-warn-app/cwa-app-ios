@@ -19,6 +19,7 @@ class CoronaTestService: CoronaTestServiceProviding {
 		appConfiguration: AppConfigurationProviding,
 		healthCertificateService: HealthCertificateService,
 		healthCertificateRequestService: HealthCertificateRequestService,
+		ppacService: PrivacyPreservingAccessControl,
 		notificationCenter: UserNotificationCenter = UNUserNotificationCenter.current(),
 		recycleBin: RecycleBin,
 		badgeWrapper: HomeBadgeWrapper
@@ -37,11 +38,12 @@ class CoronaTestService: CoronaTestServiceProviding {
 
 			self.healthCertificateService = healthCertificateService
 			self.healthCertificateRequestService = healthCertificateRequestService
+			self.ppacService = ppacService
 			self.notificationCenter = notificationCenter
 			self.recycleBin = recycleBin
 			self.badgeWrapper = badgeWrapper
 
-			self.fakeRequestService = FakeRequestService(restServiceProvider: restServiceProvider)
+			self.fakeRequestService = FakeRequestService(restServiceProvider: restServiceProvider, ppacService: ppacService)
 			self.warnOthersReminder = WarnOthersReminder(store: store)
 
 			setup()
@@ -60,11 +62,12 @@ class CoronaTestService: CoronaTestServiceProviding {
 		self.appConfiguration = appConfiguration
 		self.healthCertificateService = healthCertificateService
 		self.healthCertificateRequestService = healthCertificateRequestService
+		self.ppacService = ppacService
 		self.notificationCenter = notificationCenter
 		self.recycleBin = recycleBin
 		self.badgeWrapper = badgeWrapper
 
-		self.fakeRequestService = FakeRequestService(restServiceProvider: restServiceProvider)
+		self.fakeRequestService = FakeRequestService(restServiceProvider: restServiceProvider, ppacService: ppacService)
 		self.warnOthersReminder = WarnOthersReminder(store: store, userNotificationCenter: notificationCenter)
 
 		healthCertificateRequestService.didRegisterTestCertificate
@@ -85,6 +88,7 @@ class CoronaTestService: CoronaTestServiceProviding {
 		appConfiguration: AppConfigurationProviding,
 		healthCertificateService: HealthCertificateService,
 		healthCertificateRequestService: HealthCertificateRequestService,
+		ppacService: PrivacyPreservingAccessControl,
 		notificationCenter: UserNotificationCenter = UNUserNotificationCenter.current(),
 		recycleBin: RecycleBin,
 		badgeWrapper: HomeBadgeWrapper
@@ -97,6 +101,7 @@ class CoronaTestService: CoronaTestServiceProviding {
 			appConfiguration: appConfiguration,
 			healthCertificateService: healthCertificateService,
 			healthCertificateRequestService: healthCertificateRequestService,
+			ppacService: ppacService,
 			notificationCenter: notificationCenter,
 			recycleBin: recycleBin,
 			badgeWrapper: badgeWrapper
@@ -706,6 +711,7 @@ class CoronaTestService: CoronaTestServiceProviding {
 	private let appConfiguration: AppConfigurationProviding
 	private let healthCertificateService: HealthCertificateService
 	private let healthCertificateRequestService: HealthCertificateRequestService
+	private let ppacService: PrivacyPreservingAccessControl
 	private let notificationCenter: UserNotificationCenter
 	private let recycleBin: RecycleBin
 	private let badgeWrapper: HomeBadgeWrapper
