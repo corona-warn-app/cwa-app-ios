@@ -74,11 +74,11 @@ class PPACService: PrivacyPreservingAccessControl {
 			Log.debug("Actual time since onboarding: \(minTimeSinceOnboardingInHours) hours.", log: .ppac)
 			Log.debug("Corrected default time since onboarding: \(minTimeSinceOnboarding) hours.", log: .ppac)
 			
-			if difference < minTimeSinceOnboarding {
-				Log.error("SRSError: too short time since onboarding", log: .ppac)
-				completion(.failure(.insufficientAppUsageTime))
-				return
-			}
+//			if difference < minTimeSinceOnboarding {
+//				Log.error("SRSError: too short time since onboarding", log: .ppac)
+//				completion(.failure(.insufficientAppUsageTime))
+//				return
+//			}
 		}
 		
 		// 2- Check time since previous submission
