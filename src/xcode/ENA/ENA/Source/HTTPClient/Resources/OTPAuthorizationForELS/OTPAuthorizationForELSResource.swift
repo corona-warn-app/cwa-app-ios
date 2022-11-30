@@ -86,14 +86,14 @@ struct OTPAuthorizationForELSResource: Resource {
 		
 		self.locator = .authorizeOtpEls()
 		self.type = .default
-		self.receiveResource = JSONReceiveResource<OTPResponsePropertiesReceiveModel>()
+		self.receiveResource = JSONReceiveResource<OTPForELSResponsePropertiesReceiveModel>()
 		self.trustEvaluation = trustEvaluation
 	}
 	
 	// MARK: - Protocol Resource
 	
 	typealias Send = ProtobufSendResource<SAP_Internal_Ppdd_ELSOneTimePasswordRequestIOS>
-	typealias Receive = JSONReceiveResource<OTPResponsePropertiesReceiveModel>
+	typealias Receive = JSONReceiveResource<OTPForELSResponsePropertiesReceiveModel>
 	typealias CustomError = OTPAuthorizationError
 
 	let trustEvaluation: TrustEvaluating
@@ -101,7 +101,7 @@ struct OTPAuthorizationForELSResource: Resource {
 	var locator: Locator
 	var type: ServiceType
 	var sendResource: ProtobufSendResource<SAP_Internal_Ppdd_ELSOneTimePasswordRequestIOS>
-	var receiveResource: JSONReceiveResource<OTPResponsePropertiesReceiveModel>
+	var receiveResource: JSONReceiveResource<OTPForELSResponsePropertiesReceiveModel>
 	
 	func customError(
 		for error: ServiceError<OTPAuthorizationError>,
