@@ -556,17 +556,57 @@
 
 "ExposureSubmissionDispatch_QRCodeButtonDescription" = "Receive your test result and results for your family members and request your COVID test certificate.";
 
-"ExposureSubmissionDispatch_TANButtonTitle" = "Enter TAN for PCR Test";
+"ExposureSubmissionDispatch_PositiveSelfTestButtonTitle" = "Positive self-test?";
 
-"ExposureSubmissionDispatch_TANButtonDescription" = "Do you have a TAN for your PCR test? Tap here to enter your TAN so you can warn others.";
+"ExposureSubmissionDispatch_PositiveSelfTestButtonDescription" = "Warn others if you have a positive self-test.";
 
-"ExposureSubmissionDispatch_HotlineButtonTitle" = "Request TAN for PCR Test";
+"ExposureSubmissionDispatch_SRSButtonTitle" = "Positive test and no result in the app?";
 
-"ExposureSubmissionDispatch_HotlineButtonDescription" = "Call us and get a TAN for your PCR test.";
+"ExposureSubmissionDispatch_SRSButtonDescription" = "Warn others with your own positive rapid test or PCR test even if your test was not registered or your test result was not delivered in the app.";
 
 "ExposureSubmissionDispatch_FindTestCentersTitle" = "Find Testing Center";
 
 "ExposureSubmissionDispatch_FindTestCentersDescription" = "Find testing centers near you. If any problems occur, you can report them.\nYou will be forwarded to an external RKI website.";
+
+/* SRS Warn Others Precondition Error Alert */
+"ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_title" = "You Cannot Warn Others";
+
+"ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_insufficientAppUsageTime_message" = "Sorry, but you cannot warn others right now, because you only recently installed the app. This is intended to prevent misuse of the warn feature.\nYou can register an official test and use it to warn others at any time (error code %@).";
+
+"ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_positiveTestResultWasAlreadySubmittedWithin90Days_message" = "You cannot warn others right now because you already reported a positive test result within the last 90 days. This is intended to prevent misuse of the warn feature.\nYou can register an official test and use it to warn others at any time (error code %@).";
+
+"ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_deviceCheckError_message" = "The time on your smartphone does not match the current time. Please correct the time in your smartphone settings. After this correction, it may take a few minutes until the app checks the time again. Once it does, you can try to warn others again.";
+
+"ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_faqButtonTitle" = "FAQ";
+
+"ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_okButtonTitle" = "OK";
+
+/* SRS Warn Others Error Message */
+"ExposureSubmission_SRSError_title" = "You Cannot Warn Others";
+
+"ExposureSubmission_SRSError_Message_CallHotline" = "An error occurred. Please try to send the warning again later or contact the technical hotline via App Information -> Technical Hotline. (%@)";
+
+"ExposureSubmission_SRSError_Message_ChangeDeviceTime" = "The time on your smartphone does not match the current time. Please correct the time in your smartphone settings. After this correction, it may take a few minutes until the app checks the time again. Once it does, you can try to warn others again (error code %@).";
+
+"ExposureSubmission_SRSError_Message_DeviceNotSupported" = "Sorry, your smartphone does not support this type of warning. You can register an official test and use it to warn others at any time (error code %@).";
+
+"ExposureSubmission_SRSError_Message_DeviceNotTrusted" = "Your device does not meet the security requirements for this type of warning. You can register an official test and use it to warn others at any time (error code %@).";
+
+"ExposureSubmission_SRSError_Message_NoNetwork" = "Your Internet connection may have been lost. Please check the connection and try again (error code %@).";
+
+"ExposureSubmission_SRSError_Message_SubmissionTooEarly" = "You cannot warn others right now because you already reported a positive test result within the last %@ days. This is intended to prevent misuse of the warn feature.\nYou can register an official test in the app and use it to warn others at any time (error code %@).";
+
+"ExposureSubmission_SRSError_Message_TimeSinceOnboardingUnverified" = "For security reasons, you cannot send this type of warning until %@ after you install or update the app. Please try again in %@ hours (error code %@).";
+
+"ExposureSubmission_SRSError_Message_TryAgainLater" = "An error occurred. Please try to send the warning again (error code %@).";
+
+"ExposureSubmission_SRSError_Message_TryAgainNextMonth" = "For security reasons, the warning cannot be sent in this calendar month. Please wait until the next calendar month or register an official test in the app to send a warning at any time (error code %@).";
+
+"ExposureSubmission_SRSError_faqButtonTitle" = "FAQ";
+
+"ExposureSubmission_SRSError_okButtonTitle" = "OK";
+
+"SRS_submission_Invalid_OTP" = "An error occurred. Please try to send the warning again.";
 
 /* Exposure Submission Hotline */
 "ExposureSubmissionHotline_Title" = "Request TAN for PCR Test";
@@ -658,15 +698,27 @@
 
 "ExposureSubmissionSuccess_PCR_listItem0" = "There is a high probability that you are infectious. Isolate yourself from other people.";
 
-"ExposureSubmissionSuccess_PCR_listItem1" = "The public health authority may contact you within the next few days.";
+"ExposureSubmissionSuccess_PCR_listItem1" = "Your warning will be added to your contact journal.";
 
-"ExposureSubmissionSuccess_PCR_listItem2" = "If you have an increased risk for severe illness from COVID-19, obtain medical advice. Known risk factors include being over 60 years of age, immunosuppression, diabetes, and obesity.";
+"ExposureSubmissionSuccess_PCR_listItem2" = "The public health authority may contact you within the next few days.";
+
+"ExposureSubmissionSuccess_PCR_listItem3" = "If you have an increased risk for severe illness from COVID-19, obtain medical advice. Known risk factors include being over 60 years of age, immunosuppression, diabetes, and obesity.";
 
 "ExposureSubmissionSuccess_RAT_listItem0" = "There is a high probability that you are infectious. Isolate yourself from other people.";
 
-"ExposureSubmissionSuccess_RAT_listItem1" = "Take a PCR test to verify this test result.";
+"ExposureSubmissionSuccess_RAT_listItem1" = "Your warning will be added to your contact journal.";
 
-"ExposureSubmissionSuccess_RAT_listItem2" = "The public health authority may contact you within the next few days.";
+"ExposureSubmissionSuccess_RAT_listItem2" = "Take a PCR test to verify this test result.";
+
+"ExposureSubmissionSuccess_RAT_listItem3" = "The public health authority may contact you within the next few days.";
+
+"ExposureSubmissionSuccess_SRS_listItem0" = "There is a high probability that you are infectious. Isolate yourself from other people.";
+
+"ExposureSubmissionSuccess_SRS_listItem1" = "Your warning will be added to your contact journal.";
+
+"ExposureSubmissionSuccess_SRS_listItem2" = "If you have not already done so, take a PCR test to verify this test result.";
+
+"ExposureSubmissionSuccess_SRS_listItem3" = "The public health authority may contact you within the next few days.";
 
 "ExposureSubmissionSuccess_listItem2_1" = "Please monitor how your symptoms develop closely.";
 
@@ -700,6 +752,36 @@
 "ExposureSubmissionTestresultAvailable_CloseAlertButtonCancel" = "Cancel";
 
 "ExposureSubmissionTestresultAvailable_CloseAlertButtonContinue" = "Display Result";
+
+/* SRS Consent Screen */
+"SRS_ConsentScreen_title" = "Your Consent";
+
+"SRS_ConsentScreen_header_section1" = "Warn Others";
+
+"SRS_ConsentScreen_title_description1" = "Your consent is required before you can warn others.";
+
+"SRS_ConsentScreen_instruction1" = "If you test positive for coronavirus, you can warn others through the app.\nTo send a warning after a positive self-test or with a test result that is not in the app, the authenticity of the app must be verified.";
+
+"SRS_ConsentScreen_instruction2" = "This also ensures that repeated warnings are only possible after %@ days have passed.";
+
+"SRS_ConsentScreen_Acknowledgement_1" = "Warning others is optional, however, if you share your test results with others, you will help prevent them from being infected.";
+
+"SRS_ConsentScreen_Acknowledgement_2" = "Your identity will remain secret. Other users will not find out who has shared a test result.";
+
+"SRS_ConsentScreen_Acknowledgement_3" = "Under “My Check-Ins”, you can see the events and places whose checked-in guests will be warned. You can remove individual check-ins from the list to exclude them from the warning process.";
+
+"SRS_ConsentScreen_Acknowledgement_4" = "You must be at least 16 years old to grant your consent.";
+
+"SRS_ConsentScreen_Acknowledgement_5" = "You can also warn others without the verification of authenticity. To do so, register a PCR test or rapid test in the app and retrieve the result in the app.";
+
+"SRS_ConsentScreen_Acknowledgement_6" = "In the next step, grant your consent to access the random IDs.";
+
+"SRS_ConsentScreen_DataProcessingDetailInfo" = "Detailed Information about the Authenticity Check and Data Protection Risks in the U.S. and Other Third Countries";
+
+/* SRSDataProcessingInfo */
+"SRS_DataProcessingInfo_title" = "Verification of Authenticity and Data Transfer to Third Countries";
+
+"SRS_DataProcessingInfodescription" = "To confirm the authenticity of your app, your smartphone generates a unique identifier that contains information about the version of your smartphone and the app. This is necessary to ensure that only people who actually use the Corona-Warn-App can send a warning after a positive self-test or with a test result that is not available in the app and rule out manipulated error reports. This procedure also ensures that warnings after a positive self-test or with a test result that is not available in the app are only possible every three months.\n\nThe unique identifier generated during the authenticity check is sent to Apple. In this process, data may be transferred to the U.S. or other third countries, where the level of data privacy may not correspond to European law and you may not be able to enforce your European rights to data privacy. In particular, security services in the third country could access and analyze the data with Apple, even if there is no grounds for suspicion, and link this data with other information, for example. This only involves the identifier that is sent to Apple, however, Apple may be able to determine your identity based on the identifier and track that the authenticity check was performed on your smartphone during the warning process.\n\nIf you do not consent to this transfer of your data to a third country, please do not tap on “Agree”. You will still be able to use the app, but you cannot warn others after a positive self-test or with a test result that is not available in the app.";
 
 /* Exposure Submission Result */
 "ExposureSubmissionResult_Title" = "Your Test Result";
@@ -770,7 +852,7 @@
 
 "ExposureSubmissionResult_familyMember_testPending" = "The Test Result Is Not Available Yet";
 
-"ExposureSubmissionResult_testPendingDesc" = "As soon as your test result becomes available, it will be displayed in the app.\n\nYou will also receive your test result outside of the app. The public health authorities will notify you, should your test be positive.\n\nIf you are notified of a positive test result outside the app, please delete the test currently registered in the app. Call the number shown under “Request TAN” to get a TAN. You can then use this TAN to register your result in the app and warn others.";
+"ExposureSubmissionResult_testPendingDesc" = "As soon as your test result becomes available, it will be displayed in the app.\n\nYou will also receive your test result outside of the app. The public health authorities will notify you, should your test be positive.\n\nIf you are notified of a positive test result outside the app, please delete the test currently registered in the app.";
 
 "ExposureSubmissionResult_familyMember_testPendingDesc" = "As soon as the test result becomes available, it will be displayed in the app.\nYou will also receive the test result outside of the app. The public health authorities will notify you, should the test be positive.";
 
@@ -907,6 +989,43 @@
 "ExposureSubmissionWarnOthers_consent_bullet5" = "You must be at least 16 years old to grant your consent.";
 
 "ExposureSubmissionWarnOthers_continueButton" = "Accept";
+
+/* Exposure Submission Warn Others Test Type Selection */
+"ExposureSubmission_SRSTestTypeSelection_title" = "Test Type";
+
+"ExposureSubmission_SRSTestTypeSelection_body" = "Please select the type of the test that is the basis for the warning.";
+
+"ExposureSubmission_SRSTestTypeSelection_description" = "The value for the test type is used solely for statistical analysis. It is not linked with the warning or with your identity. If you do not want to specify a value, just select “No answer”.";
+
+"ExposureSubmission_SRSTestTypeSelection_optionSRSSelfTest_title" = "Rapid antigen test not registered in the app";
+
+"ExposureSubmission_SRSTestTypeSelection_optionSRSRegisteredRat_title" = "Rapid antigen test registered in the app, but no result received";
+
+"ExposureSubmission_SRSTestTypeSelection_optionSRSRegisteredPcr_title" = "PCR lab test registered in the app, but no result received";
+
+"ExposureSubmission_SRSTestTypeSelection_optionSRSUnregisteredPcr_title" = "PCR lab test not registered in the app";
+
+"ExposureSubmission_SRSTestTypeSelection_optionSRSRapidPcr_title" = "Rapid PCR test (PoC NAT test)";
+
+"ExposureSubmission_SRSTestTypeSelection_optionSRSOther_title" = "No answer";
+
+"ExposureSubmission_SRSTestTypeSelection_warnProcessCancelAlert_Title" = "Cancel warning process?";
+
+"ExposureSubmission_SRSTestTypeSelection_warnProcessCancelAlert_Message" = "Are you sure that you want to cancel the warning process?\n\nIf you have been diagnosed with coronavirus, you can notify others and break the chain of infection.";
+
+"ExposureSubmission_SRSTestTypeSelection_warnProcessCancelAlert_ActionContinue" = "Continue warning";
+
+"ExposureSubmission_SRSTestTypeSelection_warnProcessCancelAlert_ActionCancel" = "Do not warn others";
+
+"ExposureSubmission_SRSTestTypeSelection_primaryButtonTitle" = "Continue";
+
+"ExposureSubmission_SRSFlow_alert_confirmWarnOthers_Title" = "Important";
+
+"ExposureSubmission_SRSFlow_alert_confirmWarnOthers_Message" = "Are you sure that you want to warn others whom you have had contact with recently?";
+
+"ExposureSubmission_SRSFlow_alert_confirmWarnOthers_ActionConfirm" = "Warn Others";
+
+"ExposureSubmission_SRSFlow_alert_confirmWarnOthers_ActionCancel" = "Cancel";
 
 /* Exposure Submission Result */
 "ExposureSubmissionResult_RemoveAlert_Title" = "Delete the test result?";
@@ -1354,7 +1473,9 @@
 "Home_Finding_Positive_Card_Button_Remove_Test" = "Delete Test";
 
 /* Home Test Registration Card */
-"Home_TestRegistration_Title" = "Manage Your Tests";
+"Home_TestRegistration_Title" = "Manage Your Tests and Warn Others";
+
+"Home_TestRegistration_Subtitle" = "Self-test, PCR test, and rapid test";
 
 "Home_TestRegistration_Body" = "Find testing centers near you and register a test, so you can warn others more quickly, or to request your digital COVID test certificate.";
 
@@ -1656,10 +1777,18 @@
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Changes in this release can be found in the app information, under “New Features”.";
 
-/* Version 2.28 */
-"NewVersionFeature_228_pandemic_radar_title" = "Pandemic Radar";
+/* Version 3.0 */
+"NewVersionFeature_30_selftest_warn_others_title" = "Warning with Self-Tests";
 
-"NewVersionFeature_228_pandemic_radar_description" = "The Corona-Warn-App now contains a “Pandemic Radar” tile, which takes you directly to a Robert Koch Institute website (in German) when tapped. The Pandemic Radar contains a variety of statistics on the coronavirus pandemic, which are updated every working day. Please note that any data used when opening the website will be deducted from your data plan and that the website is not designed to be barrier-free.";
+"NewVersionFeature_30_selftest_warn_others_description" = "You can now send a warning to other users of the Corona-Warn-App if a self-test indicates that you have a coronavirus infection.";
+
+"NewVersionFeature_30_warning_unregistered_tests_title" = "Warning with Unregistered Tests";
+
+"NewVersionFeature_30_warning_unregistered_tests_description" = "If a rapid test or PCR test from a testing point indicates you have a coronavirus infection, but this test is not registered in the Corona-Warn-App, you can now still warn other app users.";
+
+"NewVersionFeature_30_tan_hotline_removal_title" = "TAN Hotline to Be Discontinued";
+
+"NewVersionFeature_30_tan_hotline_removal_description" = "The option of getting a TAN from the TAN hotline will be discontinued within the next few weeks. Therefore, you no longer need a TAN to warn other users of the Corona-Warn-App.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Transnational Exposure Logging";
@@ -2173,29 +2302,29 @@
 
 "Statistics_Info_Infections_Title" = "Confirmed New Infections";
 
-"Statistics_Info_Infections_Text" = "Number of persons who have been diagnosed with coronavirus and reported to the RKI. Numbers below a threshold of 1% of the 7-Day average are not displayed; also see the explanation under Legend > Time Period.";
+"Statistics_Info_Infections_Text" = "Number of persons who have been diagnosed with coronavirus and reported to the RKI. Numbers below a threshold of 1% of the 7-day average are not displayed; also see the explanation under Legend > Time Period.";
 
 "Statistics_Info_KeySubmissions_Title" = "Warnings by App Users";
 
 "Statistics_Info_KeySubmissions_Text" = "Number of app users who have been diagnosed with coronavirus and have warned others through the app";
 
-"Statistics_Info_ReproductionNumber_Title" = "7-Day R value";
+"Statistics_Info_ReproductionNumber_Title" = "7-Day R Value";
 
 "Statistics_Info_ReproductionNumber_Text" = "The reproduction figure, R, indicates how many people an average infected person has infected further. The current value takes data up to the last 5 days into account.";
 
-"Statistics_Info_AtLeastOnce_Title" = "People who have received at least one vaccine dose";
+"Statistics_Info_AtLeastOnce_Title" = "People Who Have Received at Least One Vaccine Dose";
 
 "Statistics_Info_AtLeastOnce_Text" = "Number of persons reported to the RKI who have received the first dose of the vaccine.";
 
-"Statistics_Info_FullyVaccinated_Title" = "People who have basic immunization";
+"Statistics_Info_FullyVaccinated_Title" = "People Who Have Basic Immunization";
 
 "Statistics_Info_FullyVaccinated_Text" = "Number of persons reported to the RKI who have received all the vaccine doses necessary for basic immunization.";
 
-"Statistics_Info_BoosterVaccination_Title" = "People who have received a Booster Vaccination";
+"Statistics_Info_BoosterVaccination_Title" = "People Who Have Received a Booster Vaccination";
 
 "Statistics_Info_BoosterVaccination_Text" = "Number of persons reported to the RKI who have received a booster vaccination.";
 
-"Statistics_Info_DosesAdministered_Title" = "Vaccine doses administered";
+"Statistics_Info_DosesAdministered_Title" = "Vaccine Doses Administered";
 
 "Statistics_Info_DosesAdministered_Text" = "Number of vaccine doses that have been administered nationwide to date.";
 
