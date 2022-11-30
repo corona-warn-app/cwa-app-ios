@@ -241,7 +241,9 @@ final class OTPService: OTPServiceProviding {
 
 			switch result {
 			case .success(let otpForSRSResponsePropertiesReceiveModel):
-				guard let expirationDate = otpForSRSResponsePropertiesReceiveModel.expirationDate else {
+				guard let expirationDateString = otpForSRSResponsePropertiesReceiveModel.expirationDate,
+					  let expirationDate = ISO8601DateFormatter.justUTCDateFormatter.date(from: expirationDateString)
+				else {
 					completion(.failure(.restServiceError(.receivedResourceError(.invalidResponseError))))
 					return
 				}
@@ -250,7 +252,7 @@ final class OTPService: OTPServiceProviding {
 				let verifiedToken = OTPToken(
 					token: otp,
 					timestamp: Date(),
-					expirationDate: ISO8601DateFormatter.justUTCDateFormatter.date(from: expirationDate)
+					expirationDate: expirationDate
 				)
 
 				self.store.otpTokenSrs = verifiedToken
