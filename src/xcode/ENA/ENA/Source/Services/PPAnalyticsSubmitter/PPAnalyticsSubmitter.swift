@@ -50,6 +50,8 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 		self.configurationProvider = appConfig
 		self.coronaTestService = coronaTestService
 		self.ppacService = ppacService
+        
+        self.fakeRequestService = FakeRequestService(restServiceProvider: restServiceProvider, ppacService: ppacService)
 	}
 	
 	// MARK: - Protocol PPAnalyticsSubmitting
@@ -176,6 +178,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 	private let configurationProvider: AppConfigurationProviding
 	private let coronaTestService: CoronaTestServiceProviding
 	private let ppacService: PrivacyPreservingAccessControl
+    private let fakeRequestService: FakeRequestService
 	
 	private var submissionState: PPASubmissionState
 	private var subscriptions: Set<AnyCancellable> = []
@@ -457,7 +460,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 				self?.submissionState = .readyForSubmission
 				Log.info("Analytics submission successfully post-processed \(String(describing: self?.applicationState)))", log: .ppa)
 				
-				// to.do fake submission
+				self?.executeFakeSubmissionRequest()
 				completion?(.success(()))
 			case let .failure(error):
 				Log.error("Analytics data were not submitted \(String(describing: self?.applicationState))). Error: \(error)", log: .ppa, error: error)
@@ -741,5 +744,12 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 			return -1
 		}
 		return Int64(date.timeIntervalSince1970)
+	}
+	
+	private func executeFakeSubmissionRequest() {
+		let probabilityOfFakeKeySubmission = self.configurationProvider.currentAppConfig.value.privacyPreservingAnalyticsParameters.common.plausibleDeniabilityParameters.probabilityOfFakeKeySubmission
+		if Double.random(in: 0.0.nextUp...1) <= probabilityOfFakeKeySubmission {
+			self.fakeRequestService.fakeSubmissionServerRequest()
+		}
 	}
 }

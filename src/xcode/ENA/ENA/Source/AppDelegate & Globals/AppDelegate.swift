@@ -454,7 +454,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		store: store,
 		client: client,
 		restServiceProvider: restServiceProvider,
-		riskProvider: riskProvider
+		riskProvider: riskProvider,
+		ppacService: ppacService
 	)
 	
 	private lazy var ppacService: PrivacyPreservingAccessControl = PPACService(
