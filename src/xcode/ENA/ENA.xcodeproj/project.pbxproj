@@ -1043,7 +1043,7 @@
 		8FB7C92B2750EF6E0071C98C /* TicketValidationServiceIdentityDocumentValidationDecorator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FB7C9252750EF6E0071C98C /* TicketValidationServiceIdentityDocumentValidationDecorator.swift */; };
 		8FB7C92D2750EF6E0071C98C /* TicketValidationDecoratorIdentityDocumentProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FB7C9272750EF6E0071C98C /* TicketValidationDecoratorIdentityDocumentProcessor.swift */; };
 		8FBF34AA28BD1C4F000A86D7 /* OTPAuthorizationForELSResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FBF34A928BD1C4F000A86D7 /* OTPAuthorizationForELSResource.swift */; };
-		8FBF34AE28BD1CD5000A86D7 /* OTPResponsePropertiesReceiveModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FBF34AD28BD1CD5000A86D7 /* OTPResponsePropertiesReceiveModel.swift */; };
+		8FBF34AE28BD1CD5000A86D7 /* OTPForELSResponsePropertiesReceiveModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FBF34AD28BD1CD5000A86D7 /* OTPForELSResponsePropertiesReceiveModel.swift */; };
 		8FD5BE21292BB95400B0315B /* SRSService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FD5BE20292BB95400B0315B /* SRSService.swift */; };
 		8FD7E2C927E9EABD00E08ABB /* CCLServiceInvalidationRulesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FD7E2C827E9EABD00E08ABB /* CCLServiceInvalidationRulesTests.swift */; };
 		8FDB9403261FBA3800BA8CB1 /* RapidTestQRCodeInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FDB9402261FBA3800BA8CB1 /* RapidTestQRCodeInformation.swift */; };
@@ -1752,6 +1752,7 @@
 		DC03798C28F4483C00E1EE20 /* HomeLinkCardViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC03798B28F4483B00E1EE20 /* HomeLinkCardViewModelTests.swift */; };
 		DC03798E28F449D000E1EE20 /* HomeLinkCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC03798D28F449D000E1EE20 /* HomeLinkCard.swift */; };
 		DC28F7C828FEC94100EFFA34 /* UIImage+SFSymbols.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC28F7C728FEC94100EFFA34 /* UIImage+SFSymbols.swift */; };
+		DC29CBAA29376D6800BEAA79 /* OTPForSRSResponsePropertiesReceiveModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC29CBA929376D6800BEAA79 /* OTPForSRSResponsePropertiesReceiveModel.swift */; };
 		DC3B278F28F5936700A55769 /* NSAttributedString+Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC3B278E28F5936700A55769 /* NSAttributedString+Image.swift */; };
 		DC4618C429155B2F0035CAA7 /* SRSTestTypeSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC4618C329155B2F0035CAA7 /* SRSTestTypeSelectionViewController.swift */; };
 		DC4618C629155E560035CAA7 /* SRSTestTypeSelectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC4618C529155E560035CAA7 /* SRSTestTypeSelectionViewModel.swift */; };
@@ -2949,7 +2950,7 @@
 		8FB7C9252750EF6E0071C98C /* TicketValidationServiceIdentityDocumentValidationDecorator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TicketValidationServiceIdentityDocumentValidationDecorator.swift; sourceTree = "<group>"; };
 		8FB7C9272750EF6E0071C98C /* TicketValidationDecoratorIdentityDocumentProcessor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TicketValidationDecoratorIdentityDocumentProcessor.swift; sourceTree = "<group>"; };
 		8FBF34A928BD1C4F000A86D7 /* OTPAuthorizationForELSResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPAuthorizationForELSResource.swift; sourceTree = "<group>"; };
-		8FBF34AD28BD1CD5000A86D7 /* OTPResponsePropertiesReceiveModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPResponsePropertiesReceiveModel.swift; sourceTree = "<group>"; };
+		8FBF34AD28BD1CD5000A86D7 /* OTPForELSResponsePropertiesReceiveModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPForELSResponsePropertiesReceiveModel.swift; sourceTree = "<group>"; };
 		8FD5BE20292BB95400B0315B /* SRSService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SRSService.swift; sourceTree = "<group>"; };
 		8FD7E2C827E9EABD00E08ABB /* CCLServiceInvalidationRulesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CCLServiceInvalidationRulesTests.swift; sourceTree = "<group>"; };
 		8FDB9402261FBA3800BA8CB1 /* RapidTestQRCodeInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RapidTestQRCodeInformation.swift; sourceTree = "<group>"; };
@@ -3656,6 +3657,7 @@
 		DC03798B28F4483B00E1EE20 /* HomeLinkCardViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeLinkCardViewModelTests.swift; sourceTree = "<group>"; };
 		DC03798D28F449D000E1EE20 /* HomeLinkCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeLinkCard.swift; sourceTree = "<group>"; };
 		DC28F7C728FEC94100EFFA34 /* UIImage+SFSymbols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+SFSymbols.swift"; sourceTree = "<group>"; };
+		DC29CBA929376D6800BEAA79 /* OTPForSRSResponsePropertiesReceiveModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPForSRSResponsePropertiesReceiveModel.swift; sourceTree = "<group>"; };
 		DC3B278C28F55B6D00A55769 /* SAP_Internal_Stats_LinkCard+Mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SAP_Internal_Stats_LinkCard+Mock.swift"; sourceTree = "<group>"; };
 		DC3B278E28F5936700A55769 /* NSAttributedString+Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSAttributedString+Image.swift"; sourceTree = "<group>"; };
 		DC4618C329155B2F0035CAA7 /* SRSTestTypeSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SRSTestTypeSelectionViewController.swift; sourceTree = "<group>"; };
@@ -7371,6 +7373,7 @@
 			isa = PBXGroup;
 			children = (
 				8F2FA2E4292B2D8400C6286A /* OTPAuthorizationForSRSResource.swift */,
+				DC29CBA929376D6800BEAA79 /* OTPForSRSResponsePropertiesReceiveModel.swift */,
 			);
 			path = OTPAuthorizationForSRS;
 			sourceTree = "<group>";
@@ -7582,7 +7585,7 @@
 			children = (
 				5001DE8B26E20C4B004242FA /* AuthorizeOtpEls.swift */,
 				8FBF34A928BD1C4F000A86D7 /* OTPAuthorizationForELSResource.swift */,
-				8FBF34AD28BD1CD5000A86D7 /* OTPResponsePropertiesReceiveModel.swift */,
+				8FBF34AD28BD1CD5000A86D7 /* OTPForELSResponsePropertiesReceiveModel.swift */,
 			);
 			path = OTPAuthorizationForELS;
 			sourceTree = "<group>";
@@ -11631,6 +11634,7 @@
 				BAF0A3E326A6EBCB0043CA84 /* DSCListProviding.swift in Sources */,
 				B1D431CB246C84A400E728AD /* DownloadedPackagesStoreV1.swift in Sources */,
 				714194EA247A65C60072A090 /* DynamicTableViewHeaderSeparatorView.swift in Sources */,
+				DC29CBAA29376D6800BEAA79 /* OTPForSRSResponsePropertiesReceiveModel.swift in Sources */,
 				50FA072B26023784003C1E46 /* TraceWarningPackageDownload.swift in Sources */,
 				BA16BBF327B2BFD700C21B87 /* SerialSecureCacheMigrator.swift in Sources */,
 				BA258CB0281AB7A3002C56D4 /* Locator+AvailableHours.swift in Sources */,
@@ -11883,7 +11887,7 @@
 				B1B381432472EF8B0056BEEE /* HTTPClient+Configuration.swift in Sources */,
 				0138F70825F679AC00A9B075 /* TraceLocationConfigurationViewController.swift in Sources */,
 				ABD4310127FC83800063666C /* HealthCertificateRevocationEntries.swift in Sources */,
-				8FBF34AE28BD1CD5000A86D7 /* OTPResponsePropertiesReceiveModel.swift in Sources */,
+				8FBF34AE28BD1CD5000A86D7 /* OTPForELSResponsePropertiesReceiveModel.swift in Sources */,
 				017AD14625A4546400FA2B3F /* UITableViewController+Enum.swift in Sources */,
 				EBB92C72259E10ED00013B41 /* UpdateOSViewController.swift in Sources */,
 				DC7002D9284F6B7900B164AC /* HealthCertificateExportCertificatesInfoViewModel.swift in Sources */,
@@ -13197,7 +13201,7 @@
 				CODE_SIGN_ENTITLEMENTS = "${PROJECT}/Resources/ENACommunity.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = $IPHONE_APP_DEV_TEAM;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -13351,11 +13355,9 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "${PROJECT}/Resources/ENA.entitlements";
 				CODE_SIGN_IDENTITY = $IPHONE_APP_CODE_SIGN_IDENTITY;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = 523TP53AQF;
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 523TP53AQF;
 				GCC_PREPROCESSOR_DEFINITIONS = "SQLITE_HAS_CODEC=1";
 				INFOPLIST_FILE = ENA/Resources/Info_Testflight.plist;
 				IPHONE_APP_CODE_SIGN_IDENTITY = "Apple Distribution";
@@ -13375,7 +13377,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "de.rki.coronawarnapp-dev";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = $IPHONE_APP_DIST_PROF_SPECIFIER;
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "CWA Development distribution";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = USE_DEV_PK_FOR_SIG_VERIFICATION;
 				SWIFT_OBJC_BRIDGING_HEADER = "ENA-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
@@ -13534,7 +13535,7 @@
 				CODE_SIGN_ENTITLEMENTS = "${PROJECT}/Resources/ENA.entitlements";
 				CODE_SIGN_IDENTITY = $IPHONE_APP_CODE_SIGN_IDENTITY;
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = 523TP53AQF;
 				GCC_PREPROCESSOR_DEFINITIONS = "SQLITE_HAS_CODEC=1";
 				INFOPLIST_FILE = ENA/Resources/Info_Testflight.plist;
@@ -13776,9 +13777,8 @@
 				CODE_SIGN_ENTITLEMENTS = "${PROJECT}/Resources/ENATest.entitlements";
 				CODE_SIGN_IDENTITY = $IPHONE_APP_CODE_SIGN_IDENTITY;
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = 523TP53AQF;
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 523TP53AQF;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -13802,7 +13802,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "de.rki.coronawarnapp-dev";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = $IPHONE_APP_DIST_PROF_SPECIFIER;
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Corona-Warn-App-Dev1";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) USE_DEV_PK_FOR_SIG_VERIFICATION DISABLE_CERTIFICATE_PINNING";
 				SWIFT_OBJC_BRIDGING_HEADER = "ENA-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
@@ -13818,7 +13817,7 @@
 				CODE_SIGN_ENTITLEMENTS = "${PROJECT}/Resources/ENA.entitlements";
 				CODE_SIGN_IDENTITY = $IPHONE_APP_CODE_SIGN_IDENTITY;
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 4;
 				GCC_PREPROCESSOR_DEFINITIONS = "SQLITE_HAS_CODEC=1";
 				INFOPLIST_FILE = ENA/Resources/Info.plist;
 				IPHONE_APP_CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -13961,7 +13960,7 @@
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 4;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -14005,7 +14004,7 @@
 				CODE_SIGNING_ALLOWED = NO;
 				CODE_SIGNING_REQUIRED = NO;
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 4;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -14048,7 +14047,7 @@
 				CODE_SIGNING_ALLOWED = NO;
 				CODE_SIGNING_REQUIRED = NO;
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 4;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;

@@ -31,14 +31,14 @@ struct OTPAuthorizationForSRSResource: Resource {
 		
 		self.locator = .authorizeOtpSrs(isFake: false)
 		self.type = .default
-		self.receiveResource = JSONReceiveResource<OTPResponsePropertiesReceiveModel>()
+		self.receiveResource = JSONReceiveResource<OTPForSRSResponsePropertiesReceiveModel>()
 		self.trustEvaluation = trustEvaluation
 	}
 	
 	// MARK: - Protocol Resource
 	
 	typealias Send = ProtobufSendResource<SAP_Internal_Ppdd_SRSOneTimePasswordRequestIOS>
-	typealias Receive = JSONReceiveResource<OTPResponsePropertiesReceiveModel>
+	typealias Receive = JSONReceiveResource<OTPForSRSResponsePropertiesReceiveModel>
 	typealias CustomError = OTPAuthorizationError
 	
 	let trustEvaluation: TrustEvaluating
@@ -46,7 +46,7 @@ struct OTPAuthorizationForSRSResource: Resource {
 	var locator: Locator
 	var type: ServiceType
 	var sendResource: ProtobufSendResource<SAP_Internal_Ppdd_SRSOneTimePasswordRequestIOS>
-	var receiveResource: JSONReceiveResource<OTPResponsePropertiesReceiveModel>
+	var receiveResource: JSONReceiveResource<OTPForSRSResponsePropertiesReceiveModel>
 	
 	func customError(
 		for error: ServiceError<OTPAuthorizationError>,

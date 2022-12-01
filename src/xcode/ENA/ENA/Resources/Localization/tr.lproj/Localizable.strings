@@ -556,17 +556,57 @@
 
 "ExposureSubmissionDispatch_QRCodeButtonDescription" = "Test sonucunuzu ve aile üyelerinizin test sonuçlarını alın ve COVID test sertifikanızı talep edin.";
 
-"ExposureSubmissionDispatch_TANButtonTitle" = "PCR Testi için TAN girin";
+"ExposureSubmissionDispatch_PositiveSelfTestButtonTitle" = "Kendi kendine test pozitif mi çıktı?";
 
-"ExposureSubmissionDispatch_TANButtonDescription" = "PCR testiniz için bir TAN'niz var mı? Diğer kullanıcıları uyarabilmek için TAN'nizi girmek üzere buraya dokunun.";
+"ExposureSubmissionDispatch_PositiveSelfTestButtonDescription" = "Kendi kendine testiniz pozitif çıktıysa diğer kullanıcıları uyarın.";
 
-"ExposureSubmissionDispatch_HotlineButtonTitle" = "PCR Testi için TAN talebinde bulunun";
+"ExposureSubmissionDispatch_SRSButtonTitle" = "Testiniz pozitif çıktı ve uygulamada sonuç yok mu?";
 
-"ExposureSubmissionDispatch_HotlineButtonDescription" = "Bizi arayın ve PCR testiniz için bir TAN alın.";
+"ExposureSubmissionDispatch_SRSButtonDescription" = "Testinizin kayıtlı olmadığı veya test sonucunuzun uygulamada sunulmadığı durumda bile pozitif kendi kendine veya PCR testinizle diğer kullanıcıları uyarın.";
 
 "ExposureSubmissionDispatch_FindTestCentersTitle" = "Test Merkezi Bul";
 
 "ExposureSubmissionDispatch_FindTestCentersDescription" = "Yakınınızdaki test merkezlerini bulun. Herhangi bir sorun olursa bunu bildirebilirsiniz.\nBir harici RKI web sitesine yönlendirileceksiniz.";
+
+/* SRS Warn Others Precondition Error Alert */
+"ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_title" = "Diğer Kullanıcıları Uyaramazsınız";
+
+"ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_insufficientAppUsageTime_message" = "Üzgünüz; uygulamayı yakın zamanda yüklediğiniz için şu anda diğer kullanıcıları uyaramazsınız. Bunun amacı, uyarı özelliğinin kötüye kullanımını önlemektir.\nResmi bir test kaydedip bu testi, dilediğiniz zaman diğer kullanıcıları uyarmak için kullanabilirsiniz (hata kodu %@).";
+
+"ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_positiveTestResultWasAlreadySubmittedWithin90Days_message" = "Geçmiş 90 gün içinde zaten pozitif bir test sonucu bildirdiğiniz için şu anda diğer kullanıcıları uyaramazsınız. Bunun amacı, uyarı özelliğinin kötüye kullanımını önlemektir.\nResmi bir test kaydedip bu testi, dilediğiniz zaman diğer kullanıcıları uyarmak için kullanabilirsiniz (hata kodu %@).";
+
+"ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_deviceCheckError_message" = "Akıllı telefonunuzun saati, geçerli saat ile eşleşmiyor. Lütfen akıllı telefonunuzun ayarlarında saati düzeltin. Bu düzeltmeden sonra uygulamanın yeniden saati kontrol etmesi birkaç dakika sürebilir. Uygulama saati yeniden kontrol ettikten sonra yeniden diğer kullanıcıları uyarmayı deneyebilirsiniz.";
+
+"ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_faqButtonTitle" = "SSS";
+
+"ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_okButtonTitle" = "Tamam";
+
+/* SRS Warn Others Error Message */
+"ExposureSubmission_SRSError_title" = "Diğer Kullanıcıları Uyaramazsınız";
+
+"ExposureSubmission_SRSError_Message_CallHotline" = "Bir hata oluştu. Lütfen daha sonra tekrar uyarı göndermeyi deneyin veya Uygulama Bilgileri -> Teknik Yardım Hattı üzerinden teknik yardım hattı ile iletişime geçin. (%@)";
+
+"ExposureSubmission_SRSError_Message_ChangeDeviceTime" = "Akıllı telefonunuzun saati, geçerli saat ile eşleşmiyor. Lütfen akıllı telefonunuzun ayarlarında saati düzeltin. Bu düzeltmeden sonra uygulamanın yeniden saati kontrol etmesi birkaç dakika sürebilir. Uygulama saati yeniden kontrol ettikten sonra yeniden diğer kullanıcıları uyarmayı deneyebilirsiniz (hata kodu %@).";
+
+"ExposureSubmission_SRSError_Message_DeviceNotSupported" = "Üzgünüz; akıllı telefonunuz bu uyarı türünü desteklemiyor. Resmi bir test kaydedip bu testi, dilediğiniz zaman diğer kullanıcıları uyarmak için kullanabilirsiniz (hata kodu %@).";
+
+"ExposureSubmission_SRSError_Message_DeviceNotTrusted" = "Cihazınız, bu türde uyarı için güvenlik gerekliliklerini karşılamıyor. Resmi bir test kaydedip bu testi, dilediğiniz zaman diğer kullanıcıları uyarmak için kullanabilirsiniz (hata kodu %@).";
+
+"ExposureSubmission_SRSError_Message_NoNetwork" = "İnternet bağlantınız kesilmiş olabilir. Lütfen bağlantıyı kontrol edin ve tekrar deneyin (hata kodu %@).";
+
+"ExposureSubmission_SRSError_Message_SubmissionTooEarly" = "Geçmiş %@ gün içinde zaten pozitif bir test sonucu bildirdiğiniz için şu anda diğer kullanıcıları uyaramazsınız. Bunun amacı, uyarı özelliğinin kötüye kullanımını önlemektir.\nUygulamada resmi bir test kaydedip bu testi, dilediğiniz zaman diğer kullanıcıları uyarmak için kullanabilirsiniz (hata kodu %@).";
+
+"ExposureSubmission_SRSError_Message_TimeSinceOnboardingUnverified" = "Güvenlik nedenleriyle uygulamayı yüklemenizin üzerinden %@ geçene kadar bu türde uyarı gönderemezsiniz. Lütfen %@ saat içinde yeniden deneyin (hata kodu %@).";
+
+"ExposureSubmission_SRSError_Message_TryAgainLater" = "Bir hata oluştu. Lütfen yeniden uyarı göndermeyi deneyin (hata kodu %@).";
+
+"ExposureSubmission_SRSError_Message_TryAgainNextMonth" = "Güvenlik nedenleriyle uyarı, bu takvim ayı içinde gönderilemez. Lütfen sonraki takvim ayına kadar bekleyin veya dilediğiniz zaman uyarı göndermek için uygulamada resmi bir test kaydedin (hata kodu %@).";
+
+"ExposureSubmission_SRSError_faqButtonTitle" = "SSS";
+
+"ExposureSubmission_SRSError_okButtonTitle" = "Tamam";
+
+"SRS_submission_Invalid_OTP" = "Bir hata oluştu. Lütfen yeniden uyarı göndermeyi deneyin.";
 
 /* Exposure Submission Hotline */
 "ExposureSubmissionHotline_Title" = "PCR Testi için TAN talebinde bulunun";
@@ -658,15 +698,27 @@
 
 "ExposureSubmissionSuccess_PCR_listItem0" = "Yüksek bir olasılıkla enfekte oldunuz. Kendinizi diğer insanlardan izole edin.";
 
-"ExposureSubmissionSuccess_PCR_listItem1" = "Kamu sağlığı yetkiliniz önümüzdeki birkaç gün içinde size ulaşabilir.";
+"ExposureSubmissionSuccess_PCR_listItem1" = "Uyarınız temas güncenize eklenecektir.";
 
-"ExposureSubmissionSuccess_PCR_listItem2" = "COVID-19 kaynaklı daha yüksek ciddi hastalık riskiniz varsa doktora başvurun. Bilinen risk faktörleri arasında 60 yaşın üzerinde olmak, immünsupresyon, diyabet ve obezite bulunmaktadır.";
+"ExposureSubmissionSuccess_PCR_listItem2" = "Kamu sağlığı yetkiliniz önümüzdeki birkaç gün içinde size ulaşabilir.";
+
+"ExposureSubmissionSuccess_PCR_listItem3" = "COVID-19 kaynaklı daha yüksek ciddi hastalık riskiniz varsa doktora başvurun. Bilinen risk faktörleri arasında 60 yaşın üzerinde olmak, immünsupresyon, diyabet ve obezite bulunmaktadır.";
 
 "ExposureSubmissionSuccess_RAT_listItem0" = "Yüksek bir olasılıkla enfekte oldunuz. Kendinizi diğer insanlardan izole edin.";
 
-"ExposureSubmissionSuccess_RAT_listItem1" = "Bu test sonucunu doğrulamak için PCR testi yapın.";
+"ExposureSubmissionSuccess_RAT_listItem1" = "Uyarınız temas güncenize eklenecektir.";
 
-"ExposureSubmissionSuccess_RAT_listItem2" = "Kamu sağlığı yetkiliniz önümüzdeki birkaç gün içinde size ulaşabilir.";
+"ExposureSubmissionSuccess_RAT_listItem2" = "Bu test sonucunu doğrulamak için PCR testi yapın.";
+
+"ExposureSubmissionSuccess_RAT_listItem3" = "Kamu sağlığı yetkiliniz önümüzdeki birkaç gün içinde size ulaşabilir.";
+
+"ExposureSubmissionSuccess_SRS_listItem0" = "Yüksek bir olasılıkla enfekte oldunuz. Kendinizi diğer insanlardan izole edin.";
+
+"ExposureSubmissionSuccess_SRS_listItem1" = "Uyarınız temas güncenize eklenecektir.";
+
+"ExposureSubmissionSuccess_SRS_listItem2" = "Henüz yapmadıysanız bu test sonucunu doğrulamak için PCR testi yapın.";
+
+"ExposureSubmissionSuccess_SRS_listItem3" = "Kamu sağlığı yetkiliniz önümüzdeki birkaç gün içinde size ulaşabilir.";
 
 "ExposureSubmissionSuccess_listItem2_1" = "Lütfen belirtilerinizin nasıl geliştiğini yakından izleyin.";
 
@@ -700,6 +752,36 @@
 "ExposureSubmissionTestresultAvailable_CloseAlertButtonCancel" = "İptal";
 
 "ExposureSubmissionTestresultAvailable_CloseAlertButtonContinue" = "Sonucu Görüntüle";
+
+/* SRS Consent Screen */
+"SRS_ConsentScreen_title" = "İzniniz";
+
+"SRS_ConsentScreen_header_section1" = "Diğer Kullanıcıları Uyarın";
+
+"SRS_ConsentScreen_title_description1" = "Diğer kullanıcıları uyarabilmeniz için izniniz gereklidir.";
+
+"SRS_ConsentScreen_instruction1" = "Koronavirüs testiniz pozitif çıkarsa uygulama üzerinden diğer kullanıcıları uyarabilirsiniz.\nKendi kendine test pozitif çıktıktan sonra veya uygulamada sunulmayan bir test sonucuyla uyarı göndermek için uygulamanın orijinalliği doğrulanmalıdır.";
+
+"SRS_ConsentScreen_instruction2" = "Bu, yinelenen uyarıların yalnızca %@ gün geçtikten sonra gönderilebilmesini de sağlar.";
+
+"SRS_ConsentScreen_Acknowledgement_1" = "Diğer kullanıcıları uyarma işlemi isteğe bağlıdır. Ancak test sonucunuzu diğer kullanıcılarla paylaşarak diğer kullanıcıların enfeksiyon kapmasını önlemeye yardımcı olabilirsiniz.";
+
+"SRS_ConsentScreen_Acknowledgement_2" = "Kimliğiniz gizli tutulacaktır. Diğer kullanıcılar, kimin test sonucunu paylaştığını öğrenmeyecektir.";
+
+"SRS_ConsentScreen_Acknowledgement_3" = "“Check-In’lerim” bölümünde check-in yapan konuklarına uyarı gönderilecek etkinlikleri ve yerleri görebilirsiniz. Uyarı işlemlerinin dışında tutmak için listeden ayrı ayrı check-in’leri kaldırabilirsiniz.";
+
+"SRS_ConsentScreen_Acknowledgement_4" = "Onay vermek için 16 yaşın üzerinde olmanız gerekir.";
+
+"SRS_ConsentScreen_Acknowledgement_5" = "Orijinalliği doğrulamadan da diğer kullanıcıları uyarabilirsiniz. Bunu yapmak için, uygulamaya bir PCR testi veya hızlı test kaydedin ve sonuçları uygulamada alın.";
+
+"SRS_ConsentScreen_Acknowledgement_6" = "Sonraki adımda, rastgele kimliklerinize erişim onayı verin.";
+
+"SRS_ConsentScreen_DataProcessingDetailInfo" = "ABD’de ve Diğer Üçüncü Ülkelerde Orijinallik Kontrolü ve Veri Koruma Riskleri Hakkında Ayrıntılı Bilgiler";
+
+/* SRSDataProcessingInfo */
+"SRS_DataProcessingInfo_title" = "Orijinallik Doğrulaması ve Üçüncü Ülkelere Veri Aktarımı";
+
+"SRS_DataProcessingInfodescription" = "Akıllı telefonunuz, uygulamanızın orijinalliğini teyit etmek için akıllı telefonunuzun ve uygulamanızın sürümüne ilişkin bilgileri içeren bir benzersiz tanıtıcı oluşturur. Bu, pozitif bir kendi kendine testten veya uygulamada bulunmayan bir test sonucundan sonra yalnızca Corona-Warn-App’i gerçekten kullanan kişilerin uyarı gönderebilmesini ve üzerinde oynanmış hata raporlarının ortadan kaldırılabilmesini sağlamak için gereklidir. Bu prosedür ayrıca, pozitif bir kendi kendine testten veya uygulamada bulunmayan bir test sonucundan sonra uyarı gönderilme işleminin yalnızca üç ayda bir yapılabilmesini sağlar.\n\nOrijinallik kontrolü sırasında üretilen benzersiz tanıtıcı Apple'a gönderilir. Bu işlem kapsamında veriler, ABD’ye veya veri gizliliği düzeyinin Avrupa kanunlarına uygun olmadığı ve veri gizliliği konusunda Avrupa’daki haklarınızı kullanamayabileceğiniz başka üçüncü ülkelere aktarılabilir. Özellikle, üçüncü ülkedeki güvenlik servisleri herhangi bir şüphe sebebi olmasa bile verilere erişebilir, Apple ile verileri analiz edebilir ve bu verileri örneğin başka bilgilerle bağlantılandırabilir. Buna yalnızca Apple’a gönderilen tanıtıcı dahildir ancak Apple, tanıtıcıya göre kimliğinizi belirleyebilir ve uyarı gönderme işlemi sırasında akıllı telefonunuzda orijinallik kontrolünün yapıldığını takip edebilir.\n\nVerilerinizin üçüncü ülkeye aktarılmasına onay vermiyorsanız lütfen “Kabul Et” seçeneğine dokunmayın. Böyle bir durumda uygulamayı kullanmaya devam edebilirsiniz pozitif bir kendi kendine test sonucundan ya da uygulamada mevcut olmayan bir test sonucundan sonra diğer kullanıcıları uyaramazsınız.";
 
 /* Exposure Submission Result */
 "ExposureSubmissionResult_Title" = "Test Sonucunuz";
@@ -770,7 +852,7 @@
 
 "ExposureSubmissionResult_familyMember_testPending" = "Test Sonucu Henüz Çıkmadı";
 
-"ExposureSubmissionResult_testPendingDesc" = "Test sonucunuz çıkar çıkmaz uygulamada görüntülenecektir.\n\nTest sonucunuz uygulama dışından da tarafınıza iletilecektir. Testinizin pozitif sonuç vermesi halinde kamu sağlığı yetkilileri sizi bilgilendirecektir.\n\nUygulama dışından bir pozitif test sonucu aldıysanız lütfen uygulamaya kayıtlı testi silin. TAN almak için \"TAN Talebi\" başlığının altında gösterilen numarayı arayın. Ardından bu TAN'yi kullanarak sonucunuzu uygulamaya kaydedin ve diğer kullanıcıları uyarın.";
+"ExposureSubmissionResult_testPendingDesc" = "Test sonucunuz çıkar çıkmaz uygulamada görüntülenecektir.\n\nTest sonucunuz uygulama dışından da tarafınıza iletilecektir. Testinizin pozitif sonuç vermesi halinde kamu sağlığı yetkilileri sizi bilgilendirecektir.\n\nUygulama dışından bir pozitif test sonucu aldıysanız lütfen uygulamaya kayıtlı testi silin.";
 
 "ExposureSubmissionResult_familyMember_testPendingDesc" = "Test sonucu çıkar çıkmaz uygulamada görüntülenecektir.\nTest sonucu uygulama dışından da tarafınıza iletilecektir. Testin pozitif sonuç vermesi halinde kamu sağlığı yetkilileri sizi bilgilendirecektir.";
 
@@ -907,6 +989,43 @@
 "ExposureSubmissionWarnOthers_consent_bullet5" = "Onay vermek için 16 yaşın üzerinde olmanız gerekir.";
 
 "ExposureSubmissionWarnOthers_continueButton" = "Kabul Et";
+
+/* Exposure Submission Warn Others Test Type Selection */
+"ExposureSubmission_SRSTestTypeSelection_title" = "Test Türü";
+
+"ExposureSubmission_SRSTestTypeSelection_body" = "Lütfen uyarının temeli olan test türünü seçin.";
+
+"ExposureSubmission_SRSTestTypeSelection_description" = "Test türü değeri yalnızca istatistiksel analiz amaçları doğrultusunda kullanılır. Uyarıyla veya kimliğinizde ilişkilendirilmez. Değer belirtmen istemiyorsanız \"Bilgi yok\" seçeneğini belirlemeniz yeterlidir.";
+
+"ExposureSubmission_SRSTestTypeSelection_optionSRSSelfTest_title" = "Uygulamada kaydedilmeyen hızlı antijen testi";
+
+"ExposureSubmission_SRSTestTypeSelection_optionSRSRegisteredRat_title" = "Uygulamada kaydedilen ancak sonuç alınmayan hızlı antijen testi";
+
+"ExposureSubmission_SRSTestTypeSelection_optionSRSRegisteredPcr_title" = "Uygulamada kaydedilen ancak sonuç alınmayan PCR laboratuvar testi";
+
+"ExposureSubmission_SRSTestTypeSelection_optionSRSUnregisteredPcr_title" = "Uygulamada kaydedilmeyen PCR laboratuvar testi";
+
+"ExposureSubmission_SRSTestTypeSelection_optionSRSRapidPcr_title" = "Hızlı PCR testi (PoC NAT testi)";
+
+"ExposureSubmission_SRSTestTypeSelection_optionSRSOther_title" = "Bilgi yok";
+
+"ExposureSubmission_SRSTestTypeSelection_warnProcessCancelAlert_Title" = "Uyarı işlemi iptal edilsin mi?";
+
+"ExposureSubmission_SRSTestTypeSelection_warnProcessCancelAlert_Message" = "Uyarı işlemini iptal etmek istediğinizden emin misiniz?\n\nKoronavirüs tanısı aldıysanız diğer kullanıcıları bilgilendirebilir ve enfeksiyon zincirini kırabilirsiniz.";
+
+"ExposureSubmission_SRSTestTypeSelection_warnProcessCancelAlert_ActionContinue" = "Uyarı işlemine devam et";
+
+"ExposureSubmission_SRSTestTypeSelection_warnProcessCancelAlert_ActionCancel" = "Diğer kullanıcıları uyarma";
+
+"ExposureSubmission_SRSTestTypeSelection_primaryButtonTitle" = "Devam Et";
+
+"ExposureSubmission_SRSFlow_alert_confirmWarnOthers_Title" = "Önemli";
+
+"ExposureSubmission_SRSFlow_alert_confirmWarnOthers_Message" = "Yakın zamanda temasta bulunduğunuz diğer kullanıcıları uyarmak istediğinizden emin misiniz?";
+
+"ExposureSubmission_SRSFlow_alert_confirmWarnOthers_ActionConfirm" = "Diğer Kullanıcıları Uyarın";
+
+"ExposureSubmission_SRSFlow_alert_confirmWarnOthers_ActionCancel" = "İptal";
 
 /* Exposure Submission Result */
 "ExposureSubmissionResult_RemoveAlert_Title" = "Test sonucu silinsin mi?";
@@ -1354,7 +1473,9 @@
 "Home_Finding_Positive_Card_Button_Remove_Test" = "Testi Sil";
 
 /* Home Test Registration Card */
-"Home_TestRegistration_Title" = "Testlerinizi Yönetin";
+"Home_TestRegistration_Title" = "Testlerinizi Yönetin ve Diğer Kullanıcıları Uyarın";
+
+"Home_TestRegistration_Subtitle" = "Kendi kendine test, PCR testleri ve hızlı testler";
 
 "Home_TestRegistration_Body" = "Diğer kullanıcıları daha hızlı uyarmak veya dijital COVID test sertifikanızı talep etmek için yakınınızdaki test merkezlerini bulun ve bir testi kaydedin.";
 
@@ -1656,10 +1777,18 @@
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Bu sürümdeki değişiklikleri uygulama bilgilerinde “Yeni Özellikler” bölümünde bulabilirsiniz.";
 
-/* Version 2.28 */
-"NewVersionFeature_228_pandemic_radar_title" = "Pandemi Radarı";
+/* Version 3.0 */
+"NewVersionFeature_30_selftest_warn_others_title" = "Kendi Kendine Testler ile Uyarı";
 
-"NewVersionFeature_228_pandemic_radar_description" = "Corona-Warn-App artık bir “Pandemi Radarı” kutucuğu içermektedir. Bu kutucuğa dokunulduğunda, doğrudan bir Robert Koch Institute web sitesine (Almanca) yönlendirilirsiniz. Pandemi Radarı, her iş günü güncellenen çeşitli koronavirüs pandemisi istatiklerini içermektedir. Web sitesini açarken kullanılan tüm verilerin, veri planınızdan düşüleceğini ve web sitesinin engellilere uygun şekilde tasarlanmadığını unutmayın.";
+"NewVersionFeature_30_selftest_warn_others_description" = "Artık kendi kendine yapılan bir test koronavirüs enfeksiyonu kaptığınızı belirtirse Corona-Warn-App uygulamasının diğer kullanıcılarına uyarı gönderebilirsiniz.";
+
+"NewVersionFeature_30_warning_unregistered_tests_title" = "Kayıtlı Olmayan Testler ile Uyarı";
+
+"NewVersionFeature_30_warning_unregistered_tests_description" = "Bir test noktasında yapılan hızlı test veya PCR testi koronavirüs enfeksiyonu kaptığınızı belirtir ancak bu test Corona-Warn-App uygulamasında kayıtlı değilse artık yine de diğer uygulama kullanıcılarını uyarabilirsiniz.";
+
+"NewVersionFeature_30_tan_hotline_removal_title" = "TAN Yardım Hattı Durdurulacak";
+
+"NewVersionFeature_30_tan_hotline_removal_description" = "Gelecek birkaç hafta içinde, TAN yardım hattından TAN alma seçeneği durdurulacak. Bu nedenle artık diğer Corona-Warn-App kullanıcılarını uyarmak için TAN'a ihtiyacınız yok.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Uluslararası Maruz Kalma Günlüğü";
@@ -2179,23 +2308,23 @@
 
 "Statistics_Info_KeySubmissions_Text" = "Koronavirüs tanısı koyulan ve uygulama üzerinden diğer kullanıcıları uyaran uygulama kullanıcılarının sayısı";
 
-"Statistics_Info_ReproductionNumber_Title" = "7 günlük R değeri";
+"Statistics_Info_ReproductionNumber_Title" = "7 Günlük R Değeri";
 
 "Statistics_Info_ReproductionNumber_Text" = "Reprodüksiyon değeri R, enfekte olan bir kişinin ortalama olarak kaç kişiyi enfekte ettiğini belirtir. Geçerli değerde, en fazla son 5 günün verileri dikkate alınır.";
 
-"Statistics_Info_AtLeastOnce_Title" = "En az bir doz aşı olan kişiler";
+"Statistics_Info_AtLeastOnce_Title" = "En Az Bir Doz Aşı Olan Kişiler";
 
 "Statistics_Info_AtLeastOnce_Text" = "RKI'ye aşının ilk dozunu aldıkları bildirilen kişilerin sayısı.";
 
-"Statistics_Info_FullyVaccinated_Title" = "Temel bağışıklığı olan kişiler";
+"Statistics_Info_FullyVaccinated_Title" = "Temel Bağışıklığı Olan Kişiler";
 
 "Statistics_Info_FullyVaccinated_Text" = "RKI'ye temel bağışıklık için gereken tüm aşı dozlarını aldıkları bildirilen kişilerin sayısı.";
 
-"Statistics_Info_BoosterVaccination_Title" = "Hatırlatma aşısı olan kişiler";
+"Statistics_Info_BoosterVaccination_Title" = "Hatırlatma Aşısı Olan Kişiler";
 
 "Statistics_Info_BoosterVaccination_Text" = "RKI'ye hatırlatma aşısı oldukları bildirilen kişilerin sayısı.";
 
-"Statistics_Info_DosesAdministered_Title" = "Uygulanan aşı dozları";
+"Statistics_Info_DosesAdministered_Title" = "Uygulanan Aşı Dozları";
 
 "Statistics_Info_DosesAdministered_Text" = "Bugüne dek ülke genelinde uygulanan aşı dozlarının sayısı.";
 

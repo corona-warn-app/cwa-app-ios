@@ -556,17 +556,57 @@
 
 "ExposureSubmissionDispatch_QRCodeButtonDescription" = "Получете резултатите от Вашия тест и тези на членовете от Вашето семейство и заявете своя сертификат за тест за COVID.";
 
-"ExposureSubmissionDispatch_TANButtonTitle" = "Въведете ТАН код за PCR тест";
+"ExposureSubmissionDispatch_PositiveSelfTestButtonTitle" = "Имате положителен резултат от самотестуване?";
 
-"ExposureSubmissionDispatch_TANButtonDescription" = "Имате TAN код за вашия PCR тест? Въведете го тук, за да предупредите останалите.";
+"ExposureSubmissionDispatch_PositiveSelfTestButtonDescription" = "Предупредете другите ако имате положителен резултат от самотестуване.";
 
-"ExposureSubmissionDispatch_HotlineButtonTitle" = "Заявете ТАН код за PCR тест";
+"ExposureSubmissionDispatch_SRSButtonTitle" = "Имате положителен резултат от тест и в приложението няма резултат?";
 
-"ExposureSubmissionDispatch_HotlineButtonDescription" = "Позвънете ни, за да получите TAN код за PCR тест.";
+"ExposureSubmissionDispatch_SRSButtonDescription" = "Предупредете другите с Вашия положителен резултат от бърз тест или PCR тест, дори и Вашият тест да не е регистриран или резултатът да не е изпратен към приложението.";
 
 "ExposureSubmissionDispatch_FindTestCentersTitle" = "Търсене на център за тестване";
 
 "ExposureSubmissionDispatch_FindTestCentersDescription" = "Намерете центровете за тестване в близост до вас. Ако възникнат проблеми, можете да докладвате за тях.\nЩе бъдете препратени към външен уеб сайт на RKI.";
+
+/* SRS Warn Others Precondition Error Alert */
+"ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_title" = "Не може да предупреждавате другите";
+
+"ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_insufficientAppUsageTime_message" = "Съжаляваме, но в момента не може да предупредите другите потребители, защото сте инсталирали приложението наскоро. Това е с цел да се предотврати злоупотреба с тази функция. \nМоже да регистрирате официален тест и да го използвате, за да предупредите другите потребители по всяко време (код на грешка %@).";
+
+"ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_positiveTestResultWasAlreadySubmittedWithin90Days_message" = "В момента не може да предупредите другите потребители, защото вече сте регистрирали положителен резултат от тест в приложението  през последните 90 дни. Това е с цел да се предотврати злоупотреба с тази функция. \nМоже да регистрирате официален тест и да го използвате, за да предупредите другите потребители по всяко време (код на грешка %@).";
+
+"ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_deviceCheckError_message" = "Часът на Вашия смартфон не съвпада с текущия час. Моля, коригирайте го в настройките на Вашия смартфон. След това може да отнеме няколко минути докато приложението провери часа отново. Когато това стане може да опитате отново да изпратите предупреждението на другите потребители.";
+
+"ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_faqButtonTitle" = "ЧЗВ";
+
+"ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_okButtonTitle" = "ОК";
+
+/* SRS Warn Others Error Message */
+"ExposureSubmission_SRSError_title" = "Не може да предупреждавате другите";
+
+"ExposureSubmission_SRSError_Message_CallHotline" = "Възникна грешка. Моля, опитайте да изпратите предупреждението по-късно или се свържете с горещата линия за технически проблеми, посочена в „Информация за приложението“ -> „Технически въпроси“. (%@)";
+
+"ExposureSubmission_SRSError_Message_ChangeDeviceTime" = "Часът на Вашия смартфон не съвпада с текущия час. Моля, коригирайте го в настройките на Вашия смартфон. След това може да отнеме няколко минути докато приложението провери часа отново. Когато това стане може да опитате отново да изпратите предупреждението на другите потребители (код на грешка %@).";
+
+"ExposureSubmission_SRSError_Message_DeviceNotSupported" = "Съжаляваме, Вашият смартфон не поддържа този вид предупреждение. Може да регистрирате официален тест и да го използвате, за да предупредите другите потребители по всяко време (код на грешка %@).";
+
+"ExposureSubmission_SRSError_Message_DeviceNotTrusted" = "Вашето устройство не отговаря на изискванията за сигурност за този вид предупреждение. Може да регистрирате официален тест и да го използвате, за да предупредите другите потребители по всяко време (код на грешка %@).";
+
+"ExposureSubmission_SRSError_Message_NoNetwork" = "Възможно е да няма връзка с интернет. Моля, проверете я и опитайте отново (код на грешка %@).";
+
+"ExposureSubmission_SRSError_Message_SubmissionTooEarly" = "В момента не може да предупредите другите потребители, защото вече сте регистрирали положителен резултат от тест в приложението  през последните %@ дни. Това е с цел да се предотврати злоупотреба с тази функция. \nМоже да регистрирате официален тест в приложението и да го използвате, за да предупредите другите потребители по всяко време (код на грешка %@).";
+
+"ExposureSubmission_SRSError_Message_TimeSinceOnboardingUnverified" = "От съображения за сигурност не може да изпращате този вид предупреждение до %@ след като сте инсталирали или актуализирали приложението. Моля, опитайте пак след %@ часа (код на грешка %@).";
+
+"ExposureSubmission_SRSError_Message_TryAgainLater" = "Възникна грешка. Моля, опитайте да изпратите предупреждението отново (код на грешка %@).";
+
+"ExposureSubmission_SRSError_Message_TryAgainNextMonth" = "От съображения за сигурност предупреждението не може да се изпрати през този календарен месец. Моля, изчакайте до следващия или регистрирайте официален тест в приложението, за да изпратите предупреждение по всяко време (код на грешка %@).";
+
+"ExposureSubmission_SRSError_faqButtonTitle" = "ЧЗВ";
+
+"ExposureSubmission_SRSError_okButtonTitle" = "ОК";
+
+"SRS_submission_Invalid_OTP" = "Възникна грешка. Моля, опитайте да изпратите предупреждението отново.";
 
 /* Exposure Submission Hotline */
 "ExposureSubmissionHotline_Title" = "Заявете ТАН код за PCR тест";
@@ -658,15 +698,27 @@
 
 "ExposureSubmissionSuccess_PCR_listItem0" = "Има голяма вероятност да сте носител на заразата. Изолирайте се от другите хора.";
 
-"ExposureSubmissionSuccess_PCR_listItem1" = "От службата за обществено здравеопазване (Gesundheitsamt) може да се свържат с Вас през следващите няколко дни.";
+"ExposureSubmissionSuccess_PCR_listItem1" = "Вашето предупреждение ще бъде добавено и във Вашия дневник на контактите.";
 
-"ExposureSubmissionSuccess_PCR_listItem2" = "Ако имате повишен риск от тежко боледуване от COVID-19 потърсете лекарски съвет. Фактори за повишен риск са възраст над 60 години, потисната имунна система, диабет и затлъстяване.";
+"ExposureSubmissionSuccess_PCR_listItem2" = "От службата за обществено здравеопазване (Gesundheitsamt) може да се свържат с Вас през следващите няколко дни.";
+
+"ExposureSubmissionSuccess_PCR_listItem3" = "Ако имате повишен риск от тежко боледуване от COVID-19 потърсете лекарски съвет. Фактори за повишен риск са възраст над 60 години, потисната имунна система, диабет и затлъстяване.";
 
 "ExposureSubmissionSuccess_RAT_listItem0" = "Има голяма вероятност да сте носител на заразата. Изолирайте се от другите хора.";
 
-"ExposureSubmissionSuccess_RAT_listItem1" = "Направете PCR тест, за да потвърдите този резултат от тест.";
+"ExposureSubmissionSuccess_RAT_listItem1" = "Вашето предупреждение ще бъде добавено и във Вашия дневник на контактите.";
 
-"ExposureSubmissionSuccess_RAT_listItem2" = "От службата за обществено здравеопазване (Gesundheitsamt) може да се свържат с Вас през следващите няколко дни.";
+"ExposureSubmissionSuccess_RAT_listItem2" = "Направете PCR тест, за да потвърдите този резултат от тест.";
+
+"ExposureSubmissionSuccess_RAT_listItem3" = "От службата за обществено здравеопазване (Gesundheitsamt) може да се свържат с Вас през следващите няколко дни.";
+
+"ExposureSubmissionSuccess_SRS_listItem0" = "Има голяма вероятност да сте носител на заразата. Изолирайте се от другите хора.";
+
+"ExposureSubmissionSuccess_SRS_listItem1" = "Вашето предупреждение ще бъде добавено и във Вашия дневник на контактите.";
+
+"ExposureSubmissionSuccess_SRS_listItem2" = "Ако все още не сте, направете си PCR тест, за да потвърдите този резултат от тест.";
+
+"ExposureSubmissionSuccess_SRS_listItem3" = "От службата за обществено здравеопазване (Gesundheitsamt) може да се свържат с Вас през следващите няколко дни.";
 
 "ExposureSubmissionSuccess_listItem2_1" = "Наблюдавайте внимателно развитието на Вашите симптоми.";
 
@@ -700,6 +752,36 @@
 "ExposureSubmissionTestresultAvailable_CloseAlertButtonCancel" = "Отказ";
 
 "ExposureSubmissionTestresultAvailable_CloseAlertButtonContinue" = "Показване на резултат";
+
+/* SRS Consent Screen */
+"SRS_ConsentScreen_title" = "Вашето съгласие";
+
+"SRS_ConsentScreen_header_section1" = "Предупредете другите";
+
+"SRS_ConsentScreen_title_description1" = "Вашето съгласие е необходимо преди да може да изпратите предупреждение на другите.";
+
+"SRS_ConsentScreen_instruction1" = "Ако имате положителен резултат от тест за коронавирус може да изпратите предупреждение на другите потребители чрез приложението.\nЗа да изпратите предупреждение след положителен резултат от самотестуване или нерегистриран тест трябва да се провери автентичността на приложението.";
+
+"SRS_ConsentScreen_instruction2" = "Това подсигурява, че повторно предупреждение е възможно само след като са минали %@ дни.";
+
+"SRS_ConsentScreen_Acknowledgement_1" = "Не е задължително да предупреждавате другите, но ако споделите резултатите си с други потребители ще помогнете да предотвратите заразяването на други хора.";
+
+"SRS_ConsentScreen_Acknowledgement_2" = "Вашата самоличност няма да бъде разкрита. Другите потребители няма да узнаят кой е споделил резултата от теста си.";
+
+"SRS_ConsentScreen_Acknowledgement_3" = "В раздела „Моите регистрации“ виждате събитията и местата, чиито регистрирани гости ще бъдат предупредени. Можете да изтриете отделни регистрации от списъка, за да ги изключите от процеса на предупреждаване.";
+
+"SRS_ConsentScreen_Acknowledgement_4" = "За да дадете съгласието си, трябва да имате навършени 16 години.";
+
+"SRS_ConsentScreen_Acknowledgement_5" = "Също така може да предупреждавате другите без проверка на автентичността. За да го направите регистрирайте бърз тест или PCR тест в приложението и извлечете резултата от него.";
+
+"SRS_ConsentScreen_Acknowledgement_6" = "В следващата стъпка давате съгласие за достъп до случайно генерирани ИД кодове.";
+
+"SRS_ConsentScreen_DataProcessingDetailInfo" = "Подробна информация относно проверката на автентичността и рисковете относно защитата на данните в САЩ и други държави.";
+
+/* SRSDataProcessingInfo */
+"SRS_DataProcessingInfo_title" = "Удостоверяване на автентичността и пренос на данни в други държави";
+
+"SRS_DataProcessingInfodescription" = "За да бъде потвърдена автентичността на приложението Ви, Вашият смартфон генерира уникален идентификатор с информация за версията на устройството и приложението. Това гарантира, че само лицата, които действително използват приложението Corona-Warn-App, могат да изпращат предупреждение на другите потребители след положителен резултат от самотестуване или с тест, който не е наличен в приложението и изключва възможността за манипулиране на отчетите. Тази процедура съо гарантира, че може да изпращате такива предупреждения само веднъж на три месеца.\nЗа тази цел идентификаторът се изпраща до Apple. При този процес е възможно да бъдат изпратени данни до САЩ или други държави, чието ниво на защита на данните може да не съответства на европейското. По тази причина е възможно да не можете да упражните своите права относно защитата на данните, предвидени в европейското законодателство. По конкретно, службите за сигурност в съответната държава биха могли да осъществят достъп до данните и да ги анализират, независимо от липсата на основание за това, както и да свържат тези данни с друга информация. Това касае само идентификатора, който се изпраща до Apple. Възможно е Apple да определи Вашата самоличност на база на идентификатора и чрез проследяване да установи, че проверката за автентичност е извършена на Вашето устройство.\n\nАко не сте съгласни данните Ви да бъдат пренасяни в други държави, моля не докосвайте бутона “Даване на съгласие”. В този случай ще можете да използвате приложението, но не и да изпращате предупреждения към други потребители след положителен резултат от самотестуване или с нерегистриран в приложението тест.";
 
 /* Exposure Submission Result */
 "ExposureSubmissionResult_Title" = "Резултатът от Вашия тест";
@@ -770,7 +852,7 @@
 
 "ExposureSubmissionResult_familyMember_testPending" = "Все още няма резултат от теста";
 
-"ExposureSubmissionResult_testPendingDesc" = "Резултатът от Вашия тест ще се покаже в приложението веднага щом бъде готов.\n\nТой ще Ви бъде изпратен също и извън приложението. Службата за обществено здравеопазване ще Ви уведоми, ако е положителен.\n\nАко получите такова уведомление, моля изтрийте теста, който в момента е регистриран в приложението. Позвънете на номера, показан под „Заявка за ТАН код“, за да получите ТАН. Използвайте кода, за да регистрирате своя резултат в приложението и да предупредите останалите потребители.";
+"ExposureSubmissionResult_testPendingDesc" = "Веднага щом резултатът от теста Ви е наличен, той ще се покаже в приложението.\n\nЩе получите резултата от теста и извън приложението. Службата за обществено здравеопазване ще се свърже с Вас, ако тестът Ви е положителен.\n\nАко получите такова уведомление, моля изтрийте теста, който в момента е регистриран в приложението. ";
 
 "ExposureSubmissionResult_familyMember_testPendingDesc" = "Веднага щом резултатът от теста е наличен, той ще се покаже в приложението.\nЩе получите резултата от теста и извън приложението. Службата за обществено здравеопазване ще се свърже с Вас, ако тестът е положителен.";
 
@@ -907,6 +989,43 @@
 "ExposureSubmissionWarnOthers_consent_bullet5" = "За да дадете съгласието си, трябва да имате навършени 16 години.";
 
 "ExposureSubmissionWarnOthers_continueButton" = "Приемам";
+
+/* Exposure Submission Warn Others Test Type Selection */
+"ExposureSubmission_SRSTestTypeSelection_title" = "Вид тест";
+
+"ExposureSubmission_SRSTestTypeSelection_body" = "Моля, изберете вид на теста, на който се базира предупреждението.";
+
+"ExposureSubmission_SRSTestTypeSelection_description" = "Стойността на този вид тест се използва само за статистически анализ. Не е свързан с предупреждение или с Вашата самоличност. Ако не желаете да посочвате стойност, просто изберете „Без отговор“.";
+
+"ExposureSubmission_SRSTestTypeSelection_optionSRSSelfTest_title" = "Бързият антигенен тест не е регистриран в приложението";
+
+"ExposureSubmission_SRSTestTypeSelection_optionSRSRegisteredRat_title" = "Бързият антигенен тест е регистриран в приложението, но не е получен резултат";
+
+"ExposureSubmission_SRSTestTypeSelection_optionSRSRegisteredPcr_title" = "PCR тест, направен в лаборатория е регистриран в приложението, но не е получен резултат";
+
+"ExposureSubmission_SRSTestTypeSelection_optionSRSUnregisteredPcr_title" = "PCR тест, направен в лаборатория не е регистриран в приложението";
+
+"ExposureSubmission_SRSTestTypeSelection_optionSRSRapidPcr_title" = "Бърз PCR тест (PoC NAT тест)";
+
+"ExposureSubmission_SRSTestTypeSelection_optionSRSOther_title" = "Без отговор";
+
+"ExposureSubmission_SRSTestTypeSelection_warnProcessCancelAlert_Title" = "Отмяна на процес по предупреждение?";
+
+"ExposureSubmission_SRSTestTypeSelection_warnProcessCancelAlert_Message" = "Сигурни ли сте, че желаете да отмените процеса по предупреждение?\n\nАко сте диагностицирани с коронавирус, можете да уведомите останалите потребители, за да прекъснете веригата на заразяване.";
+
+"ExposureSubmission_SRSTestTypeSelection_warnProcessCancelAlert_ActionContinue" = "Продължете да предупреждавате";
+
+"ExposureSubmission_SRSTestTypeSelection_warnProcessCancelAlert_ActionCancel" = "Не предупреждавай другите";
+
+"ExposureSubmission_SRSTestTypeSelection_primaryButtonTitle" = "Напред";
+
+"ExposureSubmission_SRSFlow_alert_confirmWarnOthers_Title" = "Важно";
+
+"ExposureSubmission_SRSFlow_alert_confirmWarnOthers_Message" = "Сигурни ли сте, че желаете да изпратите предупреждение на другите потребители, с които сте имали контакт наскоро?";
+
+"ExposureSubmission_SRSFlow_alert_confirmWarnOthers_ActionConfirm" = "Предупредете другите";
+
+"ExposureSubmission_SRSFlow_alert_confirmWarnOthers_ActionCancel" = "Отказ";
 
 /* Exposure Submission Result */
 "ExposureSubmissionResult_RemoveAlert_Title" = "Изтриване на резултата от теста?";
@@ -1354,7 +1473,9 @@
 "Home_Finding_Positive_Card_Button_Remove_Test" = "Изтриване на тест";
 
 /* Home Test Registration Card */
-"Home_TestRegistration_Title" = "Управлявайте тестовете си";
+"Home_TestRegistration_Title" = "Управлявайте тестовете си и предупреждавайте другите";
+
+"Home_TestRegistration_Subtitle" = "Самотестуване, PCR тестове и бързи тестове";
 
 "Home_TestRegistration_Body" = "Намерете центровете за тестване в близост до вас и регистрирайте теста си, за да можете да предупредите останалите по-бързо или за да заявите своя цифров сертификат за тест за COVID.";
 
@@ -1656,10 +1777,18 @@
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Може да видите промените в тази версия в подраздела „Нови функции“ на информацията за приложението.";
 
-/* Version 2.28 */
-"NewVersionFeature_228_pandemic_radar_title" = "Радар на пандемия";
+/* Version 3.0 */
+"NewVersionFeature_30_selftest_warn_others_title" = "Предупреждение със самостоятелни тествания";
 
-"NewVersionFeature_228_pandemic_radar_description" = "Приложението Corona-Warn-App вече има плочка „Радар на пандемията“, която при натискане Ви отвежда директно до уебсайта на института „Роберт Кох“(на немски език). Този Радар на пандемията съдържа различни статистики относно пандемията с коронавируса SARS-CoV-2, които се актуализират всеки работен ден. Моля, обърнете внимание, че всички мобилни данни използвани при отварянето на уебсайта на института ще бъдат приспаднати от Вашия мобилен план и, че уебсайтът не е проектиран да бъде с улеснена достъпност.";
+"NewVersionFeature_30_selftest_warn_others_description" = "Вече може да изпращате предупреждения на други потребители на приложението Corona-Warn-App, ако самотестуване покаже, че имате коронавирусна инфекция.";
+
+"NewVersionFeature_30_warning_unregistered_tests_title" = "Предупреждения с нерегистрирани тестове";
+
+"NewVersionFeature_30_warning_unregistered_tests_description" = "Ако бърз тест или PCR тест от пункт за тестване покаже, че имате коронавирусна инфекция, но този тест не е регистриран в приложението Corona-Warn-App, Вие вече може да изпращане предупреждения на другите потребители.";
+
+"NewVersionFeature_30_tan_hotline_removal_title" = "Гореща лияния с TAN кодове ще бъде прекратена";
+
+"NewVersionFeature_30_tan_hotline_removal_description" = "Опцията да получите TAN код от горещата линия с TAN кодове ще бъде прекратена в следващите няколко седмици. Следователно, вече няма да Ви трябва TAN код, за да предупреждавате другите потребители на приложението Corona-Warn-App.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Международно регистриране на излаганията";
@@ -2191,7 +2320,7 @@
 
 "Statistics_Info_FullyVaccinated_Text" = "Брой на лицата, за които има предадени данни в института „Роберт Кох“, че са получили всички необходими дози ваксини за основна имунизация.";
 
-"Statistics_Info_BoosterVaccination_Title" = "Хора, получили бустернa дози";
+"Statistics_Info_BoosterVaccination_Title" = "Хора, получили бустерни дози";
 
 "Statistics_Info_BoosterVaccination_Text" = "Брой на лицата, за които има предадени данни в института „Роберт Кох“, че са получили бустерни дози ваксини.";
 

@@ -778,7 +778,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "SRS_ConsentScreen_title_description1" = "Bevor Sie andere warnen können, ist Ihr Einverständnis erforderlich.";
 
-"SRS_ConsentScreen_instruction1" = "Wenn Sie positiv getestet wurden, können Sie Ihre Mitmenschen über die App warnen.\nDie Warnung nach einem positiven Selbsttest oder mit einem Testergebnis, das nicht in der App vorliegt, erfordert die Prüfung der Echtheit der App.";
+"SRS_ConsentScreen_instruction1" = "Wenn Sie positiv getestet wurden, können Sie Ihre Mitmenschen über die App warnen.\nDie Warnung nach einem positiven Selbsttest oder mit einem Testergebnis, das nicht in der App vorliegt, erfordert die automatische Prüfung der Echtheit der App.";
 
 "SRS_ConsentScreen_instruction2" = "So kann zugleich sichergestellt werden, dass eine solche Warnung nur nach Ablauf von %@ Tagen erneut möglich ist.";
 

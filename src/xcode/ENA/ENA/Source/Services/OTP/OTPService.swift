@@ -240,12 +240,19 @@ final class OTPService: OTPServiceProviding {
 			}
 
 			switch result {
-			case .success(let expirationDate):
+			case .success(let otpForSRSResponsePropertiesReceiveModel):
+				guard let expirationDateString = otpForSRSResponsePropertiesReceiveModel.expirationDate,
+					  let expirationDate = ISO8601DateFormatter.justUTCDateFormatter.date(from: expirationDateString)
+				else {
+					completion(.failure(.restServiceError(.receivedResourceError(.invalidResponseError))))
+					return
+				}
+				
 				// Success: We store the authorized otp with timestamp and return the token.
 				let verifiedToken = OTPToken(
 					token: otp,
 					timestamp: Date(),
-					expirationDate: expirationDate.expirationDate
+					expirationDate: expirationDate
 				)
 
 				self.store.otpTokenSrs = verifiedToken
