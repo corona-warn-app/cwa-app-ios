@@ -1847,7 +1847,8 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		self.model.submitExposure(
 			isLoading: isLoading,
 			onSuccess: { [weak self] in
-				self?.store.mostRecentKeySubmissionDate = Date()
+				let mostRecentKeySubmissionDate = Date()
+				self?.store.mostRecentKeySubmissionDate = mostRecentKeySubmissionDate
 				
 				if showSubmissionSuccess {
 					self?.showExposureSubmissionSuccessViewController()

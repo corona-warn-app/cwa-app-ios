@@ -102,7 +102,7 @@ extension DMMenuItem {
 		case .notifications: return "Trigger Notifications"
 		case .boosterRules: return "Download Booster rules"
 		case .crashApp: return "Crash App"
-		case .srs: return "SRS Pre-checks"
+		case .srs: return "SRS Options"
 		}
 	}
 	var subtitle: String {
@@ -146,7 +146,7 @@ extension DMMenuItem {
 		case .notifications: return "Trigger Certificate notifications only"
 		case .boosterRules: return "Download Booster rules and trigger the notification"
 		case .crashApp: return "Crash the App to test crash reporting."
-		case .srs: return "Disable some of SRS pre-checks."
+		case .srs: return "Configure some SRS Behavior"
 		}
 	}
 }

@@ -258,6 +258,11 @@ final class OTPService: OTPServiceProviding {
 				self.store.otpTokenSrs = verifiedToken
 
 				Log.info("A new OTP SRS was authorized and persisted.", log: .otp)
+				
+				#if !RELEASE
+				DMSRSState.srsOTP = otp
+				DMSRSState.srsOTPExpirationDate = expirationDate
+				#endif
 
 				completion(.success(verifiedToken.token))
 			case .failure(let error):

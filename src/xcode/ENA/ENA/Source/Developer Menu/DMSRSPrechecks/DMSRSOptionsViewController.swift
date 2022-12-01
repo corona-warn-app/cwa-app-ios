@@ -5,14 +5,14 @@
 
 import UIKit
 
-class DMSRSPrechecksViewController: UITableViewController {
+class DMSRSOptionsViewController: UITableViewController {
 
 	// MARK: - Init
 
 	init(
 		store: Store
 	) {
-		self.viewModel = DMSRSPrechecksViewModel(store: store)
+		self.viewModel = DMSRSOptionsViewModel(store: store)
 
 		if #available(iOS 13.0, *) {
 			super.init(style: .insetGrouped)
@@ -38,12 +38,25 @@ class DMSRSPrechecksViewController: UITableViewController {
 
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let cellViewModel = viewModel.cellViewModel(by: indexPath)
+
 		if cellViewModel is DMSwitchCellViewModel {
 			guard let cell = tableView.dequeueReusableCell(withIdentifier: DMSwitchTableViewCell.reuseIdentifier) as? DMSwitchTableViewCell else {
 				fatalError("unsupported cellViewModel - can't find a matching cell")
 			}
+			
 			cell.configure(cellViewModel: cellViewModel)
 			return cell
+
+		} else if cellViewModel is DMStaticTextCellViewModel {
+			let cell = tableView.dequeueReusableCell(cellType: DMStaticTextTableViewCell.self, for: indexPath)
+			cell.configure(cellViewModel: cellViewModel)
+			return cell
+
+		} else if cellViewModel is DMButtonCellViewModel {
+			let cell = tableView.dequeueReusableCell(cellType: DMButtonTableViewCell.self, for: indexPath)
+			cell.configure(cellViewModel: cellViewModel)
+			return cell
+
 		} else {
 			fatalError("unsupported cellViewModel - can't find a matching cell")
 		}
@@ -56,15 +69,21 @@ class DMSRSPrechecksViewController: UITableViewController {
 	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		viewModel.numberOfRows(in: section)
 	}
+	
+	override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+		DMSRSOptionsViewModel.TableViewSections(rawValue: section)?.sectionTitle
+	}
 
 	// MARK: - Private
 
-	private let viewModel: DMSRSPrechecksViewModel
+	private let viewModel: DMSRSOptionsViewModel
 
 	private func setupTableView() {
 		tableView.estimatedRowHeight = 45.0
 
 		tableView.register(UINib(nibName: "DMSwitchTableViewCell", bundle: nil), forCellReuseIdentifier: DMSwitchTableViewCell.reuseIdentifier)
+		tableView.register(DMStaticTextTableViewCell.self, forCellReuseIdentifier: DMStaticTextTableViewCell.reuseIdentifier)
+		tableView.register(DMButtonTableViewCell.self, forCellReuseIdentifier: DMButtonTableViewCell.reuseIdentifier)
 
 		// wire up tableview with the viewModel
 		viewModel.refreshTableView = { indexSet in
@@ -75,7 +94,7 @@ class DMSRSPrechecksViewController: UITableViewController {
 	}
 
 	private func setupNavigationBar() {
-		title = "SRS Prechecks Options"
+		title = "SRS Options"
 	}
 }
 #endif
