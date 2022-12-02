@@ -24,7 +24,7 @@ class ExposureDetectionViewModelTests: CWATestCase {
 		
 		self.store = MockTestStore()
 		self.client = ClientMock()
-		self.otpService = OTPService(store: store, client: client, restServiceProvider: RestServiceProviderStub(), riskProvider: MockRiskProvider(), ppacService: ppacService)
+		self.otpService = OTPService(store: store, client: client, restServiceProvider: RestServiceProviderStub(), riskProvider: MockRiskProvider(), ppacService: ppacService, appConfiguration: CachedAppConfigurationMock())
 		self.ppacToken = PPACToken(apiToken: "apiTokenFake", deviceToken: "deviceTokenFake")
 	}
 	

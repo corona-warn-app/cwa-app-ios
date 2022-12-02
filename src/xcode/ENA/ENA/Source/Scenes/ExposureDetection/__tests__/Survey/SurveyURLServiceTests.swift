@@ -19,7 +19,8 @@ class SurveyURLServiceTests: CWATestCase {
 			client: client,
 			restServiceProvider: RestServiceProviderStub(),
 			riskProvider: MockRiskProvider(),
-			ppacService: ppacService
+			ppacService: ppacService,
+			appConfiguration: CachedAppConfigurationMock()
 		)
 
 		let surveyURLService = SurveyURLProvider(

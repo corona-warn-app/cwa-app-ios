@@ -77,7 +77,7 @@ class FakeRequestServiceTests: CWATestCase {
 			isFakeResourceLoadingActive: true
 		)
 
-		let fakeRequestService = FakeRequestService(restServiceProvider: restServiceProvider, ppacService: ppacService)
+		let fakeRequestService = FakeRequestService(restServiceProvider: restServiceProvider, ppacService: ppacService, appConfiguration: CachedAppConfigurationMock())
 
 		// Run test.
 
@@ -127,7 +127,7 @@ class FakeRequestServiceTests: CWATestCase {
 			isFakeResourceLoadingActive: true
 		)
 
-		let fakeRequestService = FakeRequestService(restServiceProvider: restServiceProvider, ppacService: ppacService)
+		let fakeRequestService = FakeRequestService(restServiceProvider: restServiceProvider, ppacService: ppacService, appConfiguration: CachedAppConfigurationMock())
 
 		// Run test.
 
@@ -162,7 +162,7 @@ class FakeRequestServiceTests: CWATestCase {
 			isFakeResourceLoadingActive: true
 		)
 	
-		let fakeRequestService = FakeRequestService(restServiceProvider: restServiceProvider, ppacService: ppacService)
+		let fakeRequestService = FakeRequestService(restServiceProvider: restServiceProvider, ppacService: ppacService, appConfiguration: CachedAppConfigurationMock())
 
 		// Run test.
 
@@ -195,7 +195,7 @@ class FakeRequestServiceTests: CWATestCase {
 			isFakeResourceLoadingActive: true
 		)
 	
-		let fakeRequestService = FakeRequestService(restServiceProvider: restServiceProvider, ppacService: ppacService)
+		let fakeRequestService = FakeRequestService(restServiceProvider: restServiceProvider, ppacService: ppacService, appConfiguration: CachedAppConfigurationMock())
 
 		// Run test.
 
@@ -250,7 +250,7 @@ class FakeRequestServiceTests: CWATestCase {
 			isFakeResourceLoadingActive: true
 		)
 
-		let fakeRequestService = FakeRequestService(restServiceProvider: restServiceProvider, ppacService: ppacService)
+		let fakeRequestService = FakeRequestService(restServiceProvider: restServiceProvider, ppacService: ppacService, appConfiguration: CachedAppConfigurationMock())
 
 		// Run test.
 
