@@ -20,7 +20,7 @@ class ExposureDetectionViewModelTests: CWATestCase {
 		super.setUp()
 		
 		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "SomeToken")
-		let ppacService = PPACService(store: store, deviceCheck: deviceCheck)
+		let ppacService = PPACService(store: MockTestStore(), deviceCheck: deviceCheck)
 		
 		self.store = MockTestStore()
 		self.client = ClientMock()
