@@ -57,13 +57,14 @@ final class OTPService: OTPServiceProviding {
 		client: Client,
 		restServiceProvider: RestServiceProviding,
 		riskProvider: RiskProviding,
-		ppacService: PrivacyPreservingAccessControl
+		ppacService: PrivacyPreservingAccessControl,
+		appConfiguration: AppConfigurationProviding
 	) {
 		self.store = store
 		self.client = client
 		self.restServiceProvider = restServiceProvider
 		self.ppacService = ppacService
-		self.fakeRequestService = FakeRequestService(restServiceProvider: restServiceProvider, ppacService: ppacService)
+		self.fakeRequestService = FakeRequestService(restServiceProvider: restServiceProvider, ppacService: ppacService, appConfiguration: appConfiguration)
 		
 		self.riskConsumer = RiskConsumer()
 		self.riskConsumer.didCalculateRisk = { [weak self] risk in

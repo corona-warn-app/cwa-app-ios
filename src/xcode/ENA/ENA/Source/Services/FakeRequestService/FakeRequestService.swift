@@ -11,10 +11,12 @@ class FakeRequestService {
 
 	init(
 		restServiceProvider: RestServiceProviding,
-		ppacService: PrivacyPreservingAccessControl
+		ppacService: PrivacyPreservingAccessControl,
+		appConfiguration: AppConfigurationProviding
 	) {
 		self.restServiceProvider = restServiceProvider
 		self.ppacService = ppacService
+		self.appConfiguration = appConfiguration
 	}
 
 	// MARK: - Internal
@@ -88,6 +90,7 @@ class FakeRequestService {
 				let resource = OTPAuthorizationForSRSResource(
 					// no need to inject otpService as it can be generated easily
 					otpSRS: UUID().uuidString,
+					requestPadding: self.requestPadding,
 					isFake: true,
 					ppacToken: ppacToken
 				)
@@ -120,4 +123,24 @@ class FakeRequestService {
 
 	private let restServiceProvider: RestServiceProviding
 	private let ppacService: PrivacyPreservingAccessControl
+	private let appConfiguration: AppConfigurationProviding
+	
+	// The requestPadding property shall be set to a n random bytes with n being determined
+	// as a random number between the value of configuration parameter
+	// minRequestPaddingBytes and maxRequestPaddingBytes
+	private var requestPadding: Data? {
+		let plausibleDeniabilityParameters = appConfiguration.currentAppConfig.value.selfReportParameters.common.plausibleDeniabilityParameters
+		
+		let randomNumber = Int.random(in: Int(plausibleDeniabilityParameters.minRequestPaddingBytes)...Int(plausibleDeniabilityParameters.maxRequestPaddingBytes))
+		
+		var bytes = Data(count: randomNumber)
+		let result = SecRandomCopyBytes(kSecRandomDefault, bytes.count, &bytes)
+
+		guard result == errSecSuccess else {
+			Log.warning("[FakeRequestService] issue generating random bytes")
+			return nil
+		}
+
+		return bytes
+	}
 }

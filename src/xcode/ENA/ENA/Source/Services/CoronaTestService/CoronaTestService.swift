@@ -43,7 +43,7 @@ class CoronaTestService: CoronaTestServiceProviding {
 			self.recycleBin = recycleBin
 			self.badgeWrapper = badgeWrapper
 
-			self.fakeRequestService = FakeRequestService(restServiceProvider: restServiceProvider, ppacService: ppacService)
+			self.fakeRequestService = FakeRequestService(restServiceProvider: restServiceProvider, ppacService: ppacService, appConfiguration: appConfiguration)
 			self.warnOthersReminder = WarnOthersReminder(store: store)
 
 			setup()
@@ -67,7 +67,7 @@ class CoronaTestService: CoronaTestServiceProviding {
 		self.recycleBin = recycleBin
 		self.badgeWrapper = badgeWrapper
 
-		self.fakeRequestService = FakeRequestService(restServiceProvider: restServiceProvider, ppacService: ppacService)
+		self.fakeRequestService = FakeRequestService(restServiceProvider: restServiceProvider, ppacService: ppacService, appConfiguration: appConfiguration)
 		self.warnOthersReminder = WarnOthersReminder(store: store, userNotificationCenter: notificationCenter)
 
 		healthCertificateRequestService.didRegisterTestCertificate

@@ -51,7 +51,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 		self.coronaTestService = coronaTestService
 		self.ppacService = ppacService
         
-        self.fakeRequestService = FakeRequestService(restServiceProvider: restServiceProvider, ppacService: ppacService)
+        self.fakeRequestService = FakeRequestService(restServiceProvider: restServiceProvider, ppacService: ppacService, appConfiguration: appConfig)
 	}
 	
 	// MARK: - Protocol PPAnalyticsSubmitting
@@ -747,6 +747,9 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 	}
 	
 	private func executeFakeSubmissionRequest() {
+		// Fake request shall be triggered with a certain probability.
+		// For that purpose, a randomNumber between 0 and 1 shall be generated.
+		// If the randomNumber is <= than the value of configuration parameter probabilityOfFakeKeySubmission, fakeRequest is executed
 		let probabilityOfFakeKeySubmission = self.configurationProvider.currentAppConfig.value.privacyPreservingAnalyticsParameters.common.plausibleDeniabilityParameters.probabilityOfFakeKeySubmission
 		if Double.random(in: 0.0.nextUp...1) <= probabilityOfFakeKeySubmission {
 			self.fakeRequestService.fakeSubmissionServerRequest()

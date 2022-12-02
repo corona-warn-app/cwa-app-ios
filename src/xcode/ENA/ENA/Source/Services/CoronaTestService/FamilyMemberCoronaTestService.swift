@@ -39,7 +39,7 @@ class FamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding {
 			self.notificationCenter = notificationCenter
 			self.recycleBin = recycleBin
 
-			self.fakeRequestService = FakeRequestService(restServiceProvider: restServiceProvider, ppacService: ppacService)
+			self.fakeRequestService = FakeRequestService(restServiceProvider: restServiceProvider, ppacService: ppacService, appConfiguration: appConfiguration)
 			setup()
 
 			if LaunchArguments.familyMemberTest.fakeOverview.boolValue {
@@ -61,7 +61,7 @@ class FamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding {
 		self.notificationCenter = notificationCenter
 		self.recycleBin = recycleBin
 
-		self.fakeRequestService = FakeRequestService(restServiceProvider: restServiceProvider, ppacService: ppacService)
+		self.fakeRequestService = FakeRequestService(restServiceProvider: restServiceProvider, ppacService: ppacService, appConfiguration: appConfiguration)
 
 		healthCertificateRequestService.didRegisterTestCertificate
 			.sink { [weak self] certificateIdentifier, testCertificateRequest in

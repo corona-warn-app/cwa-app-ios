@@ -80,8 +80,8 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 			self.deadmanNotificationManager = deadmanNotificationManager ?? DeadmanNotificationManager()
 			self.coronaTestService = coronaTestService
 			self.ppacService = ppacService
-			
-			fakeRequestService = FakeRequestService(restServiceProvider: restServiceProvider, ppacService: ppacService)
+
+			fakeRequestService = FakeRequestService(restServiceProvider: restServiceProvider, ppacService: ppacService, appConfiguration: appConfigurationProvider)
 			return
 		}
 		#endif
@@ -95,7 +95,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		self.coronaTestService = coronaTestService
 		self.ppacService = ppacService
 
-		fakeRequestService = FakeRequestService(restServiceProvider: restServiceProvider, ppacService: ppacService)
+		fakeRequestService = FakeRequestService(restServiceProvider: restServiceProvider, ppacService: ppacService, appConfiguration: appConfigurationProvider)
 	}
 
 	convenience init(dependencies: ExposureSubmissionServiceDependencies) {
