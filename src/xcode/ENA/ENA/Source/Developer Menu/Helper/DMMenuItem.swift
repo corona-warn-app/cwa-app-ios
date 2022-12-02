@@ -146,7 +146,7 @@ extension DMMenuItem {
 		case .notifications: return "Trigger Certificate notifications only"
 		case .boosterRules: return "Download Booster rules and trigger the notification"
 		case .crashApp: return "Crash the App to test crash reporting."
-		case .srs: return "Configure some SRS Behavior"
+		case .srs: return "Configure SRS Behavior"
 		}
 	}
 }
