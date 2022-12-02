@@ -38,6 +38,14 @@ class PPACService: PrivacyPreservingAccessControl {
 		minTimeBetweenSubmissionsInDays: Int,
 		completion: @escaping (Result<Void, SRSPreconditionError>) -> Void
 	) {
+		#if !RELEASE
+		if !store.isSrsPrechecksEnabled {
+			Log.warning("SRS pre-checks disabled!")
+			completion(.success(()))
+			return
+		}
+		#endif
+
 		// check if time isn't incorrect
 		if store.deviceTimeCheckResult == .incorrect {
 			Log.error("SRSError: device time is incorrect", log: .ppac)
@@ -47,12 +55,12 @@ class PPACService: PrivacyPreservingAccessControl {
 		
 		// check if time isn't unknown
 		if store.deviceTimeCheckResult == .assumedCorrect {
-			Log.error("SRSError:device time is unverified", log: .ppac)
+			Log.error("SRSError: device time is unverified", log: .ppac)
 			completion(.failure(.deviceTimeError(.timeUnverified)))
 			return
 		}
 		
-		// we have two parameters from the appconfig for prechecks:
+		// we have two parameters from the appconfig for pre-checks:
 		// 1- a minimum number of hours since onboarding until user can self submit result.
 		// 2- a minimum number of days since last submission user can self submit result again.
 		
@@ -60,11 +68,11 @@ class PPACService: PrivacyPreservingAccessControl {
 		if let appInstallationDate = store.appInstallationDate,
 		   let difference = Calendar.current.dateComponents([.hour], from: appInstallationDate, to: Date()).hour {
 			let minTimeSinceOnboarding = minTimeSinceOnboardingInHours <= 0 ? 24 : minTimeSinceOnboardingInHours
-			Log.debug("device time last state change: \(store.deviceTimeLastStateChange)")
-			Log.debug("first reliable time stamp: \(String(describing: store.firstReliableTimeStamp))")
-			Log.debug("app installation date: \(appInstallationDate)")
-			Log.debug("actual time since onboarding \(minTimeSinceOnboardingInHours) hours.", log: .ppac)
-			Log.debug("Corrected default time since onboarding \(minTimeSinceOnboarding) hours.", log: .ppac)
+			Log.debug("Device time last state change: \(store.deviceTimeLastStateChange)")
+			Log.debug("First reliable time stamp: \(String(describing: store.firstReliableTimeStamp))")
+			Log.debug("App installation date: \(appInstallationDate)")
+			Log.debug("Actual time since onboarding: \(minTimeSinceOnboardingInHours) hours.", log: .ppac)
+			Log.debug("Corrected default time since onboarding: \(minTimeSinceOnboarding) hours.", log: .ppac)
 			
 			if difference < minTimeSinceOnboarding {
 				Log.error("SRSError: too short time since onboarding", log: .ppac)
@@ -86,7 +94,6 @@ class PPACService: PrivacyPreservingAccessControl {
 				return
 			}
 		}
-		
 		completion(.success(()))
 	}
 	

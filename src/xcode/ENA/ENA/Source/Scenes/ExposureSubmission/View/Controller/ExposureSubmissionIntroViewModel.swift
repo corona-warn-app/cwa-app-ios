@@ -74,7 +74,7 @@ class ExposureSubmissionIntroViewModel {
 					description: AppStrings.ExposureSubmissionDispatch.postiveSelfTestButtonDescription,
 					image: UIImage(named: "Illu_Submission_PositiveSelfTest"),
 					action: .execute { [weak self] _, cell in
-						self?.onPositiveSelfTestButtonTap() { isLoading in
+						self?.onPositiveSelfTestButtonTap { isLoading in
 							cell?.isUserInteractionEnabled = !isLoading
 						}
 					},
@@ -85,7 +85,7 @@ class ExposureSubmissionIntroViewModel {
 					description: AppStrings.ExposureSubmissionDispatch.SRSButtonDescription,
 					image: UIImage(named: "Illu_Submission_SRS"),
 					action: .execute { [weak self] _, cell in
-						self?.onSelfReportSubmissionButtonTap() { isLoading in
+						self?.onSelfReportSubmissionButtonTap { isLoading in
 							cell?.isUserInteractionEnabled = !isLoading
 						}
 					},

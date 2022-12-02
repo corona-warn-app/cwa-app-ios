@@ -4,7 +4,7 @@
 
 import Foundation
 
-struct OTPResponsePropertiesReceiveModel: Codable {
-	let expirationDate: Date?
+struct OTPForSRSResponsePropertiesReceiveModel: Codable {
+	let expirationDate: String?
 	let errorCode: PPAServerErrorCode?
 }

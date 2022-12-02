@@ -202,7 +202,7 @@ class ELSServiceTests: CWATestCase {
 		let riskProvider = MockRiskProvider()
 		let loadResource = LoadResource(
 			result: .success(
-				OTPResponsePropertiesReceiveModel(
+				OTPForELSResponsePropertiesReceiveModel(
 					expirationDate: Date(),
 					errorCode: nil)
 			),

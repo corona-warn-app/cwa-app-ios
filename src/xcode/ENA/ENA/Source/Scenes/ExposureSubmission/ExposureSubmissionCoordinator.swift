@@ -876,10 +876,10 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 						} else {
 							if let coronaTestType = self?.model.coronaTestType {
 								Analytics.collect(.keySubmissionMetadata(.submittedAfterCancel(true, coronaTestType)))
-								self?.submitExposure(showSubmissionSuccess: false) { isLoading in
-									footerViewModel.setLoadingIndicator(isLoading, disable: isLoading, button: .secondary)
-									footerViewModel.setLoadingIndicator(false, disable: isLoading, button: .primary)
-								}
+							}
+							self?.submitExposure(showSubmissionSuccess: false) { isLoading in
+								footerViewModel.setLoadingIndicator(isLoading, disable: isLoading, button: .secondary)
+								footerViewModel.setLoadingIndicator(false, disable: isLoading, button: .primary)
 							}
 						}
 					})
@@ -1641,7 +1641,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 				title: AppStrings.ExposureSubmission.SRSTestTypeSelection.warnProcessCancelAlertActionCancel,
 				style: .cancel,
 				handler: { [weak self] _ in
-					self?.navigationController?.dismissAllModalViewControllers(animated: true)
+					self?.dismiss()
 				}
 			))
 			
@@ -1669,7 +1669,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 				title: AppStrings.SRSConfirmWarnOthersAlert.actionCancel,
 				style: .cancel,
 				handler: { [weak self] _ in
-					self?.navigationController?.dismissAllModalViewControllers(animated: true)
+					self?.dismiss()
 				}
 			))
 			

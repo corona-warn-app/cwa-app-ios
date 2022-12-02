@@ -344,7 +344,7 @@ class OTPServiceTests: CWATestCase {
 		let riskProvider = MockRiskProvider()
 		let loadResource = LoadResource(
 			result: .success(
-				OTPResponsePropertiesReceiveModel(
+				OTPForELSResponsePropertiesReceiveModel(
 					expirationDate: Date(),
 					errorCode: nil)
 			),
@@ -391,7 +391,7 @@ class OTPServiceTests: CWATestCase {
 		let riskProvider = MockRiskProvider()
 		let loadResource = LoadResource(
 			result: .success(
-				OTPResponsePropertiesReceiveModel(
+				OTPForELSResponsePropertiesReceiveModel(
 					expirationDate: Date(),
 					errorCode: nil)
 			),
@@ -441,7 +441,7 @@ class OTPServiceTests: CWATestCase {
 		let riskProvider = MockRiskProvider()
 		let loadResource = LoadResource(
 			result: .success(
-				OTPResponsePropertiesReceiveModel(
+				OTPForELSResponsePropertiesReceiveModel(
 					expirationDate: Date(),
 					errorCode: nil)
 			),
@@ -492,7 +492,7 @@ class OTPServiceTests: CWATestCase {
 		let riskProvider = MockRiskProvider()
 		let loadResource = LoadResource(
 			result: .success(
-				OTPResponsePropertiesReceiveModel(
+				OTPForELSResponsePropertiesReceiveModel(
 					expirationDate: Date(),
 					errorCode: nil)
 			),
@@ -543,7 +543,7 @@ class OTPServiceTests: CWATestCase {
 		let riskProvider = MockRiskProvider()
 		let loadResource = LoadResource(
 			result: .success(
-				OTPResponsePropertiesReceiveModel(
+				OTPForELSResponsePropertiesReceiveModel(
 					expirationDate: Date(),
 					errorCode: nil)
 			),
@@ -594,7 +594,7 @@ class OTPServiceTests: CWATestCase {
 		let riskProvider = MockRiskProvider()
 		let loadResource = LoadResource(
 			result: .success(
-				OTPResponsePropertiesReceiveModel(
+				OTPForELSResponsePropertiesReceiveModel(
 					expirationDate: Date(),
 					errorCode: nil)
 			),
@@ -646,7 +646,7 @@ class OTPServiceTests: CWATestCase {
 		let riskProvider = MockRiskProvider()
 		let loadResource = LoadResource(
 			result: .success(
-				OTPResponsePropertiesReceiveModel(
+				OTPForELSResponsePropertiesReceiveModel(
 					expirationDate: Date(),
 					errorCode: nil)
 			),
@@ -699,7 +699,7 @@ class OTPServiceTests: CWATestCase {
 		let riskProvider = MockRiskProvider()
 		let loadResource = LoadResource(
 			result: .success(
-				OTPResponsePropertiesReceiveModel(
+				OTPForELSResponsePropertiesReceiveModel(
 					expirationDate: Date(),
 					errorCode: nil)
 			),
