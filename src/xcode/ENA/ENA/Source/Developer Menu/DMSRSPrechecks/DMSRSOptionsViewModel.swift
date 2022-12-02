@@ -57,7 +57,7 @@ final class DMSRSOptionsViewModel {
 		case .mostRecentKeySubmission:
 			return DMButtonCellViewModel(
 				text: "Reset",
-				textColor: .enaColor(for: .textPrimary1),
+				textColor: .white,
 				backgroundColor: .enaColor(for: .buttonDestructive),
 				action: { [store] in
 					store.mostRecentKeySubmissionDate = nil
