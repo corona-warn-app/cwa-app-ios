@@ -54,6 +54,13 @@ final class DMSRSOptionsViewModel {
 				textColor: .enaColor(for: .textPrimary1),
 				alignment: .left
 			)
+		case .apiToken:
+			return DMStaticTextCellViewModel(
+				staticText: apiTokenStaticText(),
+				font: .enaFont(for: .footnote),
+				textColor: .enaColor(for: .textPrimary1),
+				alignment: .left
+			)
 		case .mostRecentKeySubmission:
 			return DMButtonCellViewModel(
 				text: "Reset",
@@ -71,37 +78,46 @@ final class DMSRSOptionsViewModel {
 	private let store: Store
 	
 	private func srsStateValueStaticText() -> String {
-	  """
+		"""
 
-	  MOST_RECENT_KEY_SUBMISSION
-	  \(mostRecentKeySubmissionDateString(from: store.mostRecentKeySubmissionDate))
+		MOST_RECENT_KEY_SUBMISSION
+		\(createDateString(from: store.mostRecentKeySubmissionDate))
 
-	  SRS_OTP
-	  \(srsOTPString())
+		SRS_OTP
+		\(store.otpTokenSrs?.token ?? "No OTP Token set yet")
 
-	  SRS_OTP_EXPIRATION_DATE
-	  \(srsOTPExpirationDateString())
+		SRS_OTP_EXPIRATION_DATE
+		\(createDateString(from: store.otpTokenSrs?.expirationDate))
 
-	  """
+		"""
 	}
 	
-	private func mostRecentKeySubmissionDateString(from: Date?) -> String {
-		if let date = store.mostRecentKeySubmissionDate {
+	private func apiTokenStaticText() -> String {
+	   """
+	   
+	   PPAC API Token SRS
+	   \(store.ppacApiTokenSrs?.token ?? "No API Token generated yet")
+	   
+	   PPAC API Token SRS Creation Date
+	   \(createDateString(from: store.ppacApiTokenSrs?.timestamp))
+	   
+	   Previous PPAC API Token SRS
+	   \(store.previousPpacApiTokenSrs?.token ?? "No API Token generated yet")
+	   
+	   Previous PPAC API Token SRS Creation Date
+	   \(createDateString(from: store.previousPpacApiTokenSrs?.timestamp))
+	   
+	   """
+	}
+	
+	private func createDateString(
+		from date: Date?,
+		fallback: String = "No Date set yet"
+	) -> String {
+		if let date = date {
 			return ISO8601DateFormatter.justLocalDateFormatter.string(from: date)
 		} else {
-			return "No Date set yet"
-		}
-	}
-	
-	private func srsOTPString() -> String {
-		store.otpTokenSrs?.token ?? "No OTP Token set yet"
-	}
-	
-	private func srsOTPExpirationDateString() -> String {
-		if let date = store.otpTokenSrs?.expirationDate {
-			return ISO8601DateFormatter.justLocalDateFormatter.string(from: date)
-		} else {
-			return "No Date set yet"
+			return fallback
 		}
 	}
 }
@@ -110,6 +126,7 @@ extension DMSRSOptionsViewModel {
 	enum TableViewSections: Int, CaseIterable {
 		case preChecks
 		case srsStateValues
+		case apiToken
 		case mostRecentKeySubmission
 		
 		var sectionTitle: String {
@@ -118,6 +135,8 @@ extension DMSRSOptionsViewModel {
 				return "SRS Prerequisites"
 			case .srsStateValues:
 				return "SRS State Values"
+			case .apiToken:
+				return "API Token"
 			case .mostRecentKeySubmission:
 				return "Most Recent Key Submission Date"
 			}
