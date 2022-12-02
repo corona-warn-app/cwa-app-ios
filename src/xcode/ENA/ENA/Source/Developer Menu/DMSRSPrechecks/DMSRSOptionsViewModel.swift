@@ -42,10 +42,10 @@ final class DMSRSOptionsViewModel {
 			return DMSwitchCellViewModel(
 				labelText: "Enable pre-checks for SRS",
 				isOn: { [store] in
-					return store.isSrsPrechecksEnabled
+					return store.dmIsSRSPreChecksEnabled
 				},
 				toggle: { [store] in
-					store.isSrsPrechecksEnabled.toggle()
+					store.dmIsSRSPreChecksEnabled.toggle()
 				})
 		case .srsStateValues:
 			return DMStaticTextCellViewModel(
@@ -94,12 +94,12 @@ final class DMSRSOptionsViewModel {
 	}
 	
 	private func srsOTPString() -> String {
-		DMSRSState.srsOTP ?? "No OTP set yet"
+		store.otpTokenSrs?.token ?? "No OTP Token set yet"
 	}
 	
 	private func srsOTPExpirationDateString() -> String {
-		if let value = DMSRSState.srsOTPExpirationDate {
-			return ISO8601DateFormatter.justLocalDateFormatter.string(from: value)
+		if let date = store.otpTokenSrs?.expirationDate {
+			return ISO8601DateFormatter.justLocalDateFormatter.string(from: date)
 		} else {
 			return "No Date set yet"
 		}

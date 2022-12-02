@@ -1765,7 +1765,6 @@
 		DC7002E12851EC7F00B164AC /* TooltipViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC7002E02851EC7F00B164AC /* TooltipViewModelTests.swift */; };
 		DC7003042858947F00B164AC /* AppInformationViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC7003032858947F00B164AC /* AppInformationViewControllerTests.swift */; };
 		DC7003092858A83800B164AC /* ErrorLogSubmissionProvidingMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC7003082858A83800B164AC /* ErrorLogSubmissionProvidingMock.swift */; };
-		DC79710B2938E9EB00E67236 /* DMSRSState.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC79710A2938E9EB00E67236 /* DMSRSState.swift */; };
 		DC8795AC2923ED8D00F478D5 /* UIViewController+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC8795AB2923ED8D00F478D5 /* UIViewController+Helpers.swift */; };
 		DC95881428BCF9FE00F4D03E /* MaskStateTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC95881328BCF9FE00F4D03E /* MaskStateTableViewCell.swift */; };
 		DC95881628BE3D5500F4D03E /* MaskStateCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC95881528BE3D5500F4D03E /* MaskStateCellModel.swift */; };
@@ -3672,7 +3671,6 @@
 		DC7002E02851EC7F00B164AC /* TooltipViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TooltipViewModelTests.swift; sourceTree = "<group>"; };
 		DC7003032858947F00B164AC /* AppInformationViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInformationViewControllerTests.swift; sourceTree = "<group>"; };
 		DC7003082858A83800B164AC /* ErrorLogSubmissionProvidingMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorLogSubmissionProvidingMock.swift; sourceTree = "<group>"; };
-		DC79710A2938E9EB00E67236 /* DMSRSState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMSRSState.swift; sourceTree = "<group>"; };
 		DC8795AB2923ED8D00F478D5 /* UIViewController+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Helpers.swift"; sourceTree = "<group>"; };
 		DC95881328BCF9FE00F4D03E /* MaskStateTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaskStateTableViewCell.swift; sourceTree = "<group>"; };
 		DC95881528BE3D5500F4D03E /* MaskStateCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaskStateCellModel.swift; sourceTree = "<group>"; };
@@ -8923,7 +8921,6 @@
 		B16457BC24DC3E0E002879EB /* Features */ = {
 			isa = PBXGroup;
 			children = (
-				DC7971092938E9C200E67236 /* DMSRS */,
 				018105D428115BF500C40268 /* DMRevocationList */,
 				50DED23527CE31E70035267C /* DMHealthCertificateMigration */,
 				50AF182527A4222500BAA9DB /* DMCCLConfiguration */,
@@ -10655,14 +10652,6 @@
 			name = Mocks;
 			sourceTree = "<group>";
 		};
-		DC7971092938E9C200E67236 /* DMSRS */ = {
-			isa = PBXGroup;
-			children = (
-				DC79710A2938E9EB00E67236 /* DMSRSState.swift */,
-			);
-			path = DMSRS;
-			sourceTree = "<group>";
-		};
 		DC95881228BCF6C100F4D03E /* MaskState */ = {
 			isa = PBXGroup;
 			children = (
@@ -12326,7 +12315,6 @@
 				8F7FD70F25E3EFAC006CDE01 /* HTMLViewController.swift in Sources */,
 				AB1BA92D25C30406002EA97F /* SurveyConsentViewController.swift in Sources */,
 				017AD17F25A5A30500FA2B3F /* DynamicHeader+ExposureDetection.swift in Sources */,
-				DC79710B2938E9EB00E67236 /* DMSRSState.swift in Sources */,
 				AB6887E025D672DC00907465 /* ContactDiaryStore.swift in Sources */,
 				B1C7EEB024941A6B00F1F284 /* RiskConsumer.swift in Sources */,
 				01DB708525068167008F7244 /* Calendar+GregorianLocale.swift in Sources */,

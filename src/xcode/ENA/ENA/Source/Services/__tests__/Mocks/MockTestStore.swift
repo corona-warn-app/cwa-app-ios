@@ -61,7 +61,7 @@ final class MockTestStore: Store, PPAnalyticsData {
 	var mostRecentRiskCalculationConfiguration: RiskCalculationConfiguration?
 	var forceAPITokenAuthorization = false
 	var recentTraceLocationCheckedInto: DMRecentTraceLocationCheckedInto?
-	var isSrsPrechecksEnabled = false
+	var dmIsSRSPreChecksEnabled = false
 	#endif
 
 	// MARK: - AppConfigCaching
