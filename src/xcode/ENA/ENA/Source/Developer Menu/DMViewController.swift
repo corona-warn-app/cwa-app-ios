@@ -21,6 +21,7 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 		eventStore: EventStoringProviding,
 		qrCodePosterTemplateProvider: QRCodePosterTemplateProviding,
 		ppacService: PrivacyPreservingAccessControl,
+		appConfiguration: AppConfigurationProviding,
 		healthCertificateService: HealthCertificateService,
 		cache: KeyValueCaching
 	) {
@@ -33,6 +34,7 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 		self.qrCodePosterTemplateProvider = qrCodePosterTemplateProvider
 		self.ppacService = ppacService
 		self.healthCertificateService = healthCertificateService
+		self.appConfiguration = appConfiguration
 		self.cache = cache
 		super.init(style: .plain)
 		title = "👩🏾‍💻 Developer Menu 🧑‍💻"
@@ -199,6 +201,7 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 	private let qrCodePosterTemplateProvider: QRCodePosterTemplateProviding
 	private let ppacService: PrivacyPreservingAccessControl
 	private let healthCertificateService: HealthCertificateService
+	private let appConfiguration: AppConfigurationProviding
 	private let cache: KeyValueCaching
 
 	private var keys = [SAP_External_Exposurenotification_TemporaryExposureKey]() {
@@ -209,7 +212,7 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 
 	@objc
 	private func sendFakeRequest() {
-		FakeRequestService(restServiceProvider: restServiceProvider, ppacService: ppacService).fakeRequest {
+		FakeRequestService(restServiceProvider: restServiceProvider, ppacService: ppacService, appConfiguration: appConfiguration).fakeRequest {
 			let alert = self.setupErrorAlert(title: "Info", message: "Fake request was sent.")
 			self.present(alert, animated: true) {}
 		}

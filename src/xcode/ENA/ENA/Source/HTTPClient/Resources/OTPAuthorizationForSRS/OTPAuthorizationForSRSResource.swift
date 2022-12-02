@@ -10,6 +10,7 @@ struct OTPAuthorizationForSRSResource: Resource {
 	
 	init(
 		otpSRS: String,
+		requestPadding: Data? = nil,
 		isFake: Bool = false,
 		ppacToken: PPACToken,
 		trustEvaluation: TrustEvaluating = DefaultTrustEvaluation(
@@ -23,10 +24,15 @@ struct OTPAuthorizationForSRSResource: Resource {
 		let payload = SAP_Internal_Ppdd_SRSOneTimePassword.with {
 			$0.otp = otpSRS
 		}
+		
 		self.sendResource = ProtobufSendResource(
 			SAP_Internal_Ppdd_SRSOneTimePasswordRequestIOS.with {
-				// to.do padding
-				$0.payload = payload
+				if isFake {
+					// we set the requestPadding only in case of fakeService
+					$0.requestPadding = requestPadding ?? Data()
+				} else {
+					$0.payload = payload
+				}
 				$0.authentication = ppacIos
 			}
 		)
