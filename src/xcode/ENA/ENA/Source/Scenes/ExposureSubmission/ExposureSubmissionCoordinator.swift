@@ -1036,7 +1036,11 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 					
 					self.model.shouldShowSymptomsOnsetScreen ? self.showSymptomsOnsetScreen() : self.submitExposure(showSubmissionSuccess: true, isLoading: isLoading)
 				case .srs:
-					self.model.shouldShowSymptomsOnsetScreen ? self.showSymptomsOnsetScreen() : self.submitSRSExposure(showSubmissionSuccess: true, isLoading: isLoading)
+					self.model.shouldShowSymptomsOnsetScreen ? self.showSymptomsOnsetScreen() : self.submitSRSExposure(
+						showSubmissionSuccess: true,
+						viewControllerToPresentingAlert: exposureSubmissionSymptomsViewController,
+						isLoading: isLoading
+					)
 				case .none:
 					break
 				}
@@ -1660,7 +1664,11 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 				title: AppStrings.SRSConfirmWarnOthersAlert.actionConfirm,
 				style: .default,
 				handler: { [weak self] _ in
-					self?.submitSRSExposure(showSubmissionSuccess: true, isLoading: isLoading)
+					self?.submitSRSExposure(
+						showSubmissionSuccess: true,
+						viewControllerToPresentingAlert: viewController,
+						isLoading: isLoading
+					)
 				}
 			)
 			alert.addAction(confirmAction)
@@ -1676,6 +1684,25 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 			alert.preferredAction = confirmAction
 			
 			viewController.present(alert, animated: true)
+		case .increasedVolumeOfWarnings(let model):
+			alert = UIAlertController(
+				title: AppStrings.SRSIncreasedVolumeOfWarningsAlert.title,
+				message: String(
+					format: AppStrings.SRSIncreasedVolumeOfWarningsAlert.message,
+					model.cwaKeysTruncated
+				),
+				preferredStyle: .alert
+			)
+			
+			alert.addAction(UIAlertAction(
+				title: AppStrings.SRSIncreasedVolumeOfWarningsAlert.actionOkay,
+				style: .default,
+				handler: { _ in
+					model.okayHandler()
+				}
+			))
+			
+			model.viewControllerToPresentingAlert.present(alert, animated: true)
 		}
 	}
 	
@@ -1869,16 +1896,37 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		)
 	}
 	
-	private func submitSRSExposure(showSubmissionSuccess: Bool = false, isLoading: @escaping (Bool) -> Void) {
+	private func submitSRSExposure(
+		showSubmissionSuccess: Bool = false,
+		viewControllerToPresentingAlert: UIViewController,
+		isLoading: @escaping (Bool) -> Void
+	) {
 		self.model.submitSRSExposure(
 			isLoading: isLoading,
-			onSuccess: { [weak self] in
+			onSuccess: { [weak self] cwaKeyTruncated in
 				self?.store.mostRecentKeySubmissionDate = Date()
 
-				if showSubmissionSuccess {
-					self?.showExposureSubmissionSuccessViewController()
+				let continueHandler = { [weak self] in
+					if showSubmissionSuccess {
+						self?.showExposureSubmissionSuccessViewController()
+					} else {
+						self?.dismiss()
+					}
+				}
+				
+				if let cwaKeyTruncated = cwaKeyTruncated {
+					let increasedVolumeOfWarningsModel = SRSFlowAlert.Consent.IncreasedVolumeOfWarningsModel(
+						viewControllerToPresentingAlert: viewControllerToPresentingAlert,
+						cwaKeysTruncated: cwaKeyTruncated,
+						okayHandler: continueHandler
+					)
+					
+					self?.showSRSFlowAlert(
+						for: .consent(.increasedVolumeOfWarnings(increasedVolumeOfWarningsModel)),
+						isLoading: isLoading
+					)
 				} else {
-					self?.dismiss()
+					continueHandler()
 				}
 			},
 			onError: { [weak self] error in
@@ -2039,6 +2087,13 @@ extension ExposureSubmissionCoordinator {
 		enum Consent {
 			case cancelWarnOthers(on: UIViewController)
 			case confirmWarnOthers(on: UIViewController)
+			case increasedVolumeOfWarnings(IncreasedVolumeOfWarningsModel)
+
+			struct IncreasedVolumeOfWarningsModel {
+				let viewControllerToPresentingAlert: UIViewController
+				let cwaKeysTruncated: Int
+				let okayHandler: CompletionVoid
+			}
 		}
 	}
 }

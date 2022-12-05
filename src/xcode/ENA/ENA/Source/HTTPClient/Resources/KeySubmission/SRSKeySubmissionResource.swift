@@ -7,6 +7,7 @@ import Foundation
 enum SRSKeySubmissionResourceError: LocalizedError, Equatable {
 	case invalidPayloadOrHeader
 	case invalidOtp
+	case tooManyRequestsKeyPerDay
 	case requestCouldNotBeBuilt
 	case serverError(Int)
 	
@@ -18,6 +19,8 @@ enum SRSKeySubmissionResourceError: LocalizedError, Equatable {
 			return "\(AppStrings.ExposureSubmissionError.errorPrefix) - Received an invalid payload or headers."
 		case .invalidOtp:
 			return "\(AppStrings.ExposureSubmissionDispatch.SRSSubmissionError.srsSubmissionInvalidOTP) - invalid OTP."
+		case .tooManyRequestsKeyPerDay:
+			return "\(AppStrings.ExposureSubmissionError.errorPrefix) - The threshold of max SRS per day has reached."
 		case .requestCouldNotBeBuilt:
 			return "\(AppStrings.ExposureSubmissionError.errorPrefix) - The submission request could not be built correctly."
 		}
@@ -38,7 +41,7 @@ struct SRSKeySubmissionResource: Resource {
 	) {
 		self.locator = .keySubmission(srsOtp: srsOtp, isFake: isFake)
 		self.type = .default
-		self.receiveResource = EmptyReceiveResource()
+		self.receiveResource = SRSSuccessReceiveResource()
 		self.trustEvaluation = trustEvaluation
 		
 		self.sendResource = ProtobufSendResource(
@@ -62,7 +65,7 @@ struct SRSKeySubmissionResource: Resource {
 	var locator: Locator
 	var type: ServiceType
 	var sendResource: ProtobufSendResource<SAP_Internal_SubmissionPayload>
-	var receiveResource: EmptyReceiveResource
+	var receiveResource: SRSSuccessReceiveResource
 
 	func customError(for error: ServiceError<SRSKeySubmissionResourceError>, responseBody: Data?) -> SRSKeySubmissionResourceError? {
 		switch error {
@@ -74,6 +77,8 @@ struct SRSKeySubmissionResource: Resource {
 				return .invalidPayloadOrHeader
 			case 403:
 				return .invalidOtp
+			case 429:
+				return .tooManyRequestsKeyPerDay
 			default:
 				return .serverError(statusCode)
 			}
