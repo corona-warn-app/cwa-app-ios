@@ -835,7 +835,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionResult_familyMember_antigenTestAdded" = "Der Schnelltest wurde hinzugefügt";
 
-"ExposureSubmissionResult_antigenTestAddedDesc" = "Das Test-Ergebnis wird 48 Stunden hier angezeigt.";
+"ExposureSubmissionResult_antigenTestAddedDesc" = "Das Test-Ergebnis wird 48 Stunden hier angezeigt. Zusätzlich legt die App einen Eintrag in Ihrem Kontakt-Tagebuch an.";
 
 "ExposureSubmissionResult_warnOthers" = "Andere warnen";
 
@@ -1231,7 +1231,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmission_TestCertificate_Information_BirthdayText" = "Zur Sicherheit wird Ihr Testzertifikat mit Ihrem Geburtsdatum geschützt. Das Testzertifikat kann nur bei korrekt angegebenem Geburtsdatum zugestellt werden.";
 
-"ExposureSubmission_TestCertificate_Information_Dataprivacy_Title" = "Ausführliche Informationen zur Datenverarbeitung und Ihrem Einverständnis.";
+"ExposureSubmission_TestCertificate_Information_Dataprivacy_Title" = "Ausführliche Hinweise zur Datenverarbeitung finden Sie in der Datenschutzerklärung";
 
 "ExposureSubmission_TestCertificate_Information_Alert_Title" = "Registrierung abbrechen";
 
