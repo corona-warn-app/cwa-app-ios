@@ -2,7 +2,7 @@
 
 "ExposureSubmissionWarnOthers_acknowledgementTitle" = "Ihr Einverständnis";
 
-"ExposureSubmissionWarnOthers_acknowledgementBody" = "Durch Antippen von „Einverstanden“ willigen Sie in folgende Schritte ein:";
+"ExposureSubmissionWarnOthers_acknowledgementBody" = "Durch Antippen von „Einverstanden“ willigen Sie wie folgt ein:";
 
 "ExposureSubmissionWarnOthers_acknowledgement_1_1" = "Die App teilt Ihr Testergebnis, um Nutzer, denen Sie begegnet sind, zu warnen. Dies betrifft Nutzer von Corona-Apps der oben genannten Länder und Nutzer, die zeitgleich am selben Event oder Ort wie Sie eingecheckt waren. Im Falle von Schnelltests werden nur Nutzer der Corona-Warn-App gewarnt. Wenn Sie zusätzlich Angaben zum Beginn Ihrer Symptome machen, werden auch diese Daten geteilt.";
 
