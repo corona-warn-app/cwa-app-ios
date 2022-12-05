@@ -7,7 +7,6 @@ import Foundation
 import XCTest
 import ENASecurity
 
-// swiftlint:disable:next type_body_length
 final class DCCReissuanceResourceTests: CWATestCase {
 
 	// MARK: - Success
