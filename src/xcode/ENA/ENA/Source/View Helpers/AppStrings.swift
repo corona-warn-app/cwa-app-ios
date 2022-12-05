@@ -1802,6 +1802,10 @@ enum AppStrings {
 		static let statusProgress = NSLocalizedString("ErrorReport_Progress_Description", comment: "")
 		static let startButtonTitle = NSLocalizedString("ErrorReport_StartButtonTitle", comment: "")
 		static let stopAndDeleteButtonTitle = NSLocalizedString("ErrorReport_StopAndDeleteButtonTitle", comment: "")
+		static let stopAndDeleteButtonAlertTitle = NSLocalizedString("ErrorReport_StopAndDeleteButton_Alert_Title", comment: "")
+		static let stopAndDeleteButtonAlertMessage = NSLocalizedString("ErrorReport_StopAndDeleteButton_Alert_Message", comment: "")
+		static let stopAndDeleteButtonStopAnalyse = NSLocalizedString("ErrorReport_StopAndDeleteButton_Alert_StopAnalyse", comment: "")
+		static let stopAndDeleteButtonContinueAnalyse = NSLocalizedString("ErrorReport_StopAndDeleteButton_Alert_ContinueAnalyse", comment: "")
 		static let saveButtonTitle = NSLocalizedString("ErrorReport_SaveButtonTitle", comment: "")
 		static let sendButtontitle = NSLocalizedString("ErrorReport_SendButtonTitle", comment: "")
 
