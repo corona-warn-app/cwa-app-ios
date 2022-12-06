@@ -61,15 +61,27 @@ final class DMSRSOptionsViewModel {
 				textColor: .enaColor(for: .textPrimary1),
 				alignment: .left
 			)
-		case .mostRecentKeySubmission:
+		case .resetMostRecentKeySubmission:
 			return DMButtonCellViewModel(
-				text: "Reset",
+				text: "Most Recent Key Submission Date",
 				textColor: .white,
 				backgroundColor: .enaColor(for: .buttonDestructive),
 				action: { [store] in
 					store.mostRecentKeySubmissionDate = nil
 					self.refreshTableView([TableViewSections.srsStateValues.rawValue])
-				})
+				}
+			)
+		case .resetSRSStateValues:
+			return DMButtonCellViewModel(
+				text: "SRS State Values",
+				textColor: .white,
+				backgroundColor: .enaColor(for: .buttonDestructive),
+				action: { [store] in
+					store.mostRecentKeySubmissionDate = nil
+					store.otpTokenSrs = nil
+					self.refreshTableView([TableViewSections.srsStateValues.rawValue])
+				}
+			)
 		}
 	}
 
@@ -127,7 +139,8 @@ extension DMSRSOptionsViewModel {
 		case preChecks
 		case srsStateValues
 		case apiToken
-		case mostRecentKeySubmission
+		case resetMostRecentKeySubmission
+		case resetSRSStateValues
 		
 		var sectionTitle: String {
 			switch self {
@@ -137,8 +150,10 @@ extension DMSRSOptionsViewModel {
 				return "SRS State Values"
 			case .apiToken:
 				return "API Token"
-			case .mostRecentKeySubmission:
-				return "Most Recent Key Submission Date"
+			case .resetMostRecentKeySubmission:
+				return "Reset Most Recent Key Submission"
+			case .resetSRSStateValues:
+				return "Reset all SRS State Values"
 			}
 		}
 	}
