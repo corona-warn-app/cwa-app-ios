@@ -5,13 +5,6 @@
 import UIKit
 import OpenCombine
 
-enum pandemicRadarType {
-	// < 3.0.0
-	case rkiPandemicRadar
-	// >= 3.0.0
-	case bmgPandemicRadar
-}
-
 class HomeLinkCardViewModel {
 	
 	// MARK: - Init
@@ -57,6 +50,13 @@ class HomeLinkCardViewModel {
 	}
 	
 	// MARK: - Private
+	
+	private enum pandemicRadarType {
+		// < 3.0.0
+		case rkiPandemicRadar
+		// >= 3.0.0
+		case bmgPandemicRadar
+	}
 	
 	private var buttonTitleAttributedString: NSAttributedString {
 		let textAttachment = NSTextAttachment()
