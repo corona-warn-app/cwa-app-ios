@@ -149,19 +149,18 @@ class BottomErrorReportViewController: UIViewController {
 		)
 		let stopAction = UIAlertAction(
 			title: AppStrings.ErrorReport.stopAndDeleteButtonStopAnalyse,
-			style: .destructive) { [weak self] _ in
-				guard let self = self else { return }
-				self.didTapStopAndDeleteButton()
-				self.configure(status: .inactive)
-		}
-		stopAction.accessibilityIdentifier = AccessibilityIdentifiers.ErrorReport.stopAnalyseButton
-		
-		let continueAction = UIAlertAction(
-			title: AppStrings.ErrorReport.stopAndDeleteButtonContinueAnalyse,
-			style: .cancel
+			style: .destructive,
+			handler: { [weak self] _ in
+				self?.didTapStopAndDeleteButton()
+				self?.configure(status: .inactive)
+			}
 		)
 		stopAlert.addAction(stopAction)
+		stopAction.accessibilityIdentifier = AccessibilityIdentifiers.ErrorReport.stopAnalyseButton
+		
+		let continueAction = UIAlertAction(title: AppStrings.ErrorReport.stopAndDeleteButtonContinueAnalyse, style: .cancel)
 		stopAlert.addAction(continueAction)
+		
 		present(stopAlert, animated: true)
 	}
 }
