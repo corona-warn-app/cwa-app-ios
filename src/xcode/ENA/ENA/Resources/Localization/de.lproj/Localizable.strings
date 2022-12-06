@@ -1682,6 +1682,14 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ErrorReport_StopAndDeleteButtonTitle" = "Stoppen und löschen";
 
+"ErrorReport_StopAndDeleteButton_Alert_Title" = "Wollen Sie die Fehleranalyse wirklich stoppen?";
+
+"ErrorReport_StopAndDeleteButton_Alert_Message" = "Hierbei werden alle bereits aufgezeichneten Daten gelöscht. Wenn Sie eine lokale Kopie des Fehlerberichts gespeichert haben, wird diese nicht gelöscht.";
+
+"ErrorReport_StopAndDeleteButton_Alert_StopAnalyse" = "Analyse stoppen";
+
+"ErrorReport_StopAndDeleteButton_Alert_ContinueAnalyse" = "Analyse fortführen";
+
 "ErrorReport_SaveButtonTitle" = "Teilen und fortsetzen";
 
 "ErrorReport_SendButtonTitle" = "Fehlerbericht senden";
