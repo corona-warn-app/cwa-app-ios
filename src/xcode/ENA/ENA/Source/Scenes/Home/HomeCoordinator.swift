@@ -567,6 +567,7 @@ class HomeCoordinator: RequiresAppDependencies {
 			qrCodePosterTemplateProvider: qrCodePosterTemplateProvider,
 			ppacService: ppacService,
 			healthCertificateService: healthCertificateService,
+			appConfiguration: appConfigurationProvider,
 			cache: cache
 		)
 		developerMenu?.enableIfAllowed()
