@@ -8,7 +8,9 @@ import XCTest
 class SRSConsentViewModelTests: XCTestCase {
 	
 	func testDynamicTableViewModel() {
-		let viewModel = SRSConsentViewModel()
+		let viewModel = SRSConsentViewModel(
+			appConfiguration: CachedAppConfigurationMock()
+		)
 		
 		let dynamicTableViewModel = viewModel.dynamicTableViewModel
 		

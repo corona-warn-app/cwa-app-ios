@@ -9,7 +9,7 @@ class SRSConsentViewController: DynamicTableViewController, FooterViewHandling {
 	// MARK: - Init
 	
 	init(
-		viewModel: SRSConsentViewModel = .init(),
+		viewModel: SRSConsentViewModel,
 		onPrimaryButtonTap: @escaping (@escaping (Bool) -> Void) -> Void,
 		dismiss: @escaping () -> Void
 	) {
@@ -29,6 +29,15 @@ class SRSConsentViewController: DynamicTableViewController, FooterViewHandling {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		setupView()
+		
+		viewModel.refreshTableView = { [weak self] in
+			guard let self = self else { return }
+			self.dynamicTableViewModel = self.viewModel.dynamicTableViewModel
+
+			DispatchQueue.main.async { [weak self] in
+				self?.tableView.reloadData()
+			}
+		}
 	}
 
 	// MARK: - Protocol FooterViewHandling

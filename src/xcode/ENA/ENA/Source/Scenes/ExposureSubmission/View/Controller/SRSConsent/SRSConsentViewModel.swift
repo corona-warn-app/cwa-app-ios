@@ -2,11 +2,26 @@
 // 🦠 Corona-Warn-App
 //
 
+import OpenCombine
 import UIKit
 
-struct SRSConsentViewModel {
+class SRSConsentViewModel {
+	
+	// MARK: - Init
+	
+	init(appConfiguration: AppConfigurationProviding) {
+		self.appConfiguration = appConfiguration
+		
+		appConfiguration.appConfiguration()
+			.sink { [weak self] config in
+				self?.timeBetweenSubmissionsInDays = Int(config.selfReportParameters.common.timeBetweenSubmissionsInDays)
+			}
+			.store(in: &subscriptions)
+	}
 	
 	// MARK: - Internal
+
+	var refreshTableView: CompletionVoid?
 
 	var dynamicTableViewModel: DynamicTableViewModel {
 		var model = DynamicTableViewModel([])
@@ -41,7 +56,7 @@ struct SRSConsentViewModel {
 					UIImage(imageLiteralResourceName: "SRS-Warn-Others-icon"),
 					text: .string(String(
 						format: AppStrings.SRSConsentScreen.instruction2,
-						"90" // to.do fetch the number from app config
+						String(timeBetweenSubmissionsInDays)
 			        )),
 					alignment: .top
 				)
@@ -122,4 +137,14 @@ struct SRSConsentViewModel {
 
 		return points
 	}
+	
+	private let appConfiguration: AppConfigurationProviding
+	
+	private var timeBetweenSubmissionsInDays: Int = 90 {
+		didSet {
+			refreshTableView?()
+		}
+	}
+	
+	private var subscriptions = Set<AnyCancellable>()
 }

@@ -1020,8 +1020,8 @@
 		8F80802E2731242900F8FA3F /* RegistrationTokenReceiveModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F80802D2731242900F8FA3F /* RegistrationTokenReceiveModel.swift */; };
 		8F87214E274DBCAE00A263D5 /* Locator+ServiceIdentityDocumentValidationDecorator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F87214D274DBCAE00A263D5 /* Locator+ServiceIdentityDocumentValidationDecorator.swift */; };
 		8F872150274DBD7B00A263D5 /* ServiceIdentityDocumentValidationDecoratorResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F87214F274DBD7B00A263D5 /* ServiceIdentityDocumentValidationDecoratorResource.swift */; };
-		8F8B4A332934CD18007ED94E /* DMSRSPrechecksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F8B4A322934CD18007ED94E /* DMSRSPrechecksViewController.swift */; };
-		8F8B4A352934CD30007ED94E /* DMSRSPrechecksViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F8B4A342934CD30007ED94E /* DMSRSPrechecksViewModel.swift */; };
+		8F8B4A332934CD18007ED94E /* DMSRSOptionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F8B4A322934CD18007ED94E /* DMSRSOptionsViewController.swift */; };
+		8F8B4A352934CD30007ED94E /* DMSRSOptionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F8B4A342934CD30007ED94E /* DMSRSOptionsViewModel.swift */; };
 		8F95A1B225EFC5BE00506CF2 /* SendErrorLogsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F95A1B125EFC5BE00506CF2 /* SendErrorLogsViewController.swift */; };
 		8FA3E9C62913F334000512FC /* SRSConsentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FA3E9C52913F334000512FC /* SRSConsentViewController.swift */; };
 		8FA3E9C82913F34A000512FC /* SRSConsentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FA3E9C72913F34A000512FC /* SRSConsentViewModel.swift */; };
@@ -2926,8 +2926,8 @@
 		8F80802D2731242900F8FA3F /* RegistrationTokenReceiveModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationTokenReceiveModel.swift; sourceTree = "<group>"; };
 		8F87214D274DBCAE00A263D5 /* Locator+ServiceIdentityDocumentValidationDecorator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Locator+ServiceIdentityDocumentValidationDecorator.swift"; sourceTree = "<group>"; };
 		8F87214F274DBD7B00A263D5 /* ServiceIdentityDocumentValidationDecoratorResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceIdentityDocumentValidationDecoratorResource.swift; sourceTree = "<group>"; };
-		8F8B4A322934CD18007ED94E /* DMSRSPrechecksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMSRSPrechecksViewController.swift; sourceTree = "<group>"; };
-		8F8B4A342934CD30007ED94E /* DMSRSPrechecksViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMSRSPrechecksViewModel.swift; sourceTree = "<group>"; };
+		8F8B4A322934CD18007ED94E /* DMSRSOptionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMSRSOptionsViewController.swift; sourceTree = "<group>"; };
+		8F8B4A342934CD30007ED94E /* DMSRSOptionsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMSRSOptionsViewModel.swift; sourceTree = "<group>"; };
 		8F8B4A362934DA10007ED94E /* ENATest.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ENATest.entitlements; sourceTree = "<group>"; };
 		8F95A1B125EFC5BE00506CF2 /* SendErrorLogsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendErrorLogsViewController.swift; sourceTree = "<group>"; };
 		8FA3E9C52913F334000512FC /* SRSConsentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SRSConsentViewController.swift; sourceTree = "<group>"; };
@@ -7534,8 +7534,8 @@
 		8F8B4A312934CCC7007ED94E /* DMSRSPrechecks */ = {
 			isa = PBXGroup;
 			children = (
-				8F8B4A322934CD18007ED94E /* DMSRSPrechecksViewController.swift */,
-				8F8B4A342934CD30007ED94E /* DMSRSPrechecksViewModel.swift */,
+				8F8B4A322934CD18007ED94E /* DMSRSOptionsViewController.swift */,
+				8F8B4A342934CD30007ED94E /* DMSRSOptionsViewModel.swift */,
 			);
 			path = DMSRSPrechecks;
 			sourceTree = "<group>";
@@ -11551,7 +11551,7 @@
 				01B7232924F812DF0064C0EB /* OptionView.swift in Sources */,
 				BAC7419F26414D4A00955311 /* SimpleTextCellViewModel.swift in Sources */,
 				01E10278266BC4B1009ED803 /* TestCertificateRequestCellModel.swift in Sources */,
-				8F8B4A332934CD18007ED94E /* DMSRSPrechecksViewController.swift in Sources */,
+				8F8B4A332934CD18007ED94E /* DMSRSOptionsViewController.swift in Sources */,
 				01909874257E64BD0065D050 /* DiaryDayViewController.swift in Sources */,
 				8FA3E9C82913F34A000512FC /* SRSConsentViewModel.swift in Sources */,
 				BADD36ED260B4FBA00DD282A /* GradientBackgroundView.swift in Sources */,
@@ -12255,7 +12255,7 @@
 				AB190EC125FB761500FBFF0D /* SecureSQLStore.swift in Sources */,
 				0138F5F425EFDBC300A9B075 /* HomeTraceLocationsCellModel.swift in Sources */,
 				BA7F7346271F124D00E3CE14 /* _RestServiceProviding.swift in Sources */,
-				8F8B4A352934CD30007ED94E /* DMSRSPrechecksViewModel.swift in Sources */,
+				8F8B4A352934CD30007ED94E /* DMSRSOptionsViewModel.swift in Sources */,
 				50BD1420260B73CC0013983A /* Verification.swift in Sources */,
 				BA7DCA1A2747DA96009E4557 /* JSONWebKeyTrustEvaluation.swift in Sources */,
 				3484AC7C26A060E900CB0500 /* LocalStatisticsState.swift in Sources */,
