@@ -5,5 +5,6 @@
 import Foundation
 
 enum HomeLinkCard: Int32, CaseIterable {
-	case pandemicRadar = 12
+	case rkiPandemicRadar = 12
+	case bmgPandemicRadar = 13
 }

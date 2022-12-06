@@ -5,14 +5,23 @@
 import UIKit
 import OpenCombine
 
+enum pandemicRadarType {
+	// < 3.0.0
+	case rkiPandemicRadar
+	// >= 3.0.0
+	case bmgPandemicRadar
+}
+
 class HomeLinkCardViewModel {
 	
 	// MARK: - Init
 
 	init(for linkCard: SAP_Internal_Stats_LinkCard) {
 		switch HomeLinkCard(rawValue: linkCard.header.cardID) {
-		case .pandemicRadar:
-			setupPandemicRadar(for: linkCard)
+		case .rkiPandemicRadar:
+			setupPandemicRadar(for: linkCard, type: .rkiPandemicRadar)
+		case .bmgPandemicRadar:
+			setupPandemicRadar(for: linkCard, type: .bmgPandemicRadar)
 		case .none:
 			Log.info("Link card ID \(linkCard.header.cardID) is not supported", log: .ui)
 		}
@@ -75,13 +84,22 @@ class HomeLinkCardViewModel {
 		return textString
 	}
 	
-	private func setupPandemicRadar(for linkCard: SAP_Internal_Stats_LinkCard) {
+	private func setupPandemicRadar(for linkCard: SAP_Internal_Stats_LinkCard, type: pandemicRadarType) {
 		title = AppStrings.Statistics.Card.PandemicRadar.title
 		subtitle = AppStrings.Statistics.Card.PandemicRadar.subtitle
 		description = AppStrings.Statistics.Card.PandemicRadar.description
 		image = UIImage(named: "Illu_Radar")
 		buttonTitle = buttonTitleAttributedString
-		buttonURL = URL(string: linkCard.url)
+		
+		switch type {
+		case .rkiPandemicRadar:
+			buttonURL = URL(string: linkCard.url)
+		case .bmgPandemicRadar:
+			if let locale = (Locale.current.languageCode == "de" || Locale.current.languageCode == "tr") ? Locale.current.languageCode : "en" {
+				let urlString = linkCard.url.replacingOccurrences(of: ":lang", with: locale)
+				buttonURL = URL(string: urlString)
+			}
+		}
 		
 		titleAccessibilityIdentifier = AccessibilityIdentifiers.LinkCard.PandemicRadar.titleLabel
 		subtitleAccessibilityIdentifier = AccessibilityIdentifiers.LinkCard.PandemicRadar.subtitleLabel
