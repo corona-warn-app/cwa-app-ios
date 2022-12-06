@@ -772,6 +772,7 @@ enum AccessibilityIdentifiers {
 		static let sendReportButton = "AppStrings.ErrorReport.sendButtontitle"
 		static let saveLocallyButton = "AppStrings.ErrorReport.saveButtonTitle"
 		static let stopAndDeleteButton = "AppStrings.ErrorReport.stopAndDeleteButtonTitle"
+		static let stopAnalyseButton = "AppStrings.ErrorReport.stopAndDeleteButtonStopAnalyse"
 
 		static let legalSendReports = "AppStrings.ErrorReport.Legal.sendReports_Headline"
 		static let sendReportsDetails = "AccessibilityIdentifiers.ErrorReport.sendReportsDetails"

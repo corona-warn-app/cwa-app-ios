@@ -152,6 +152,10 @@ class ENAUITests_02_AppInformation: CWATestCase {
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.ErrorReport.sendReportButton].exists)
 		
 		app.buttons[AccessibilityIdentifiers.ErrorReport.stopAndDeleteButton].waitAndTap()
+		
+		XCTAssertTrue(app.alerts.firstMatch.waitForExistence(timeout: .short))
+
+		app.alerts.buttons[AccessibilityIdentifiers.ErrorReport.stopAnalyseButton].waitAndTap()
 
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.ErrorReport.startButton].exists)
 		XCTAssertFalse(app.buttons[AccessibilityIdentifiers.ErrorReport.saveLocallyButton].exists)
