@@ -1745,6 +1745,7 @@
 		CDA262F824AB808800612E15 /* HomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDA262F724AB808800612E15 /* HomeCoordinator.swift */; };
 		CDCE11D6247D644100F30825 /* NotificationSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDCE11D5247D644100F30825 /* NotificationSettingsViewModel.swift */; };
 		CDD87C56247556DE007CE6CA /* MainSettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDD87C54247556DE007CE6CA /* MainSettingsCell.swift */; };
+		DC000929293E25E900643BB7 /* SRSSuccessReceiveResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC000928293E25E900643BB7 /* SRSSuccessReceiveResource.swift */; };
 		DC03798228EDA34E00E1EE20 /* HomeLinkCardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = DC03798128EDA34E00E1EE20 /* HomeLinkCardView.xib */; };
 		DC03798428EDA39800E1EE20 /* HomeLinkCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC03798328EDA39800E1EE20 /* HomeLinkCardView.swift */; };
 		DC03798628EDC21D00E1EE20 /* HomeLinkCardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC03798528EDC21D00E1EE20 /* HomeLinkCardViewModel.swift */; };
@@ -3650,6 +3651,7 @@
 		CDD87C54247556DE007CE6CA /* MainSettingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainSettingsCell.swift; sourceTree = "<group>"; };
 		CDD87C5C247559E3007CE6CA /* SettingsLabelCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsLabelCell.swift; sourceTree = "<group>"; };
 		CDF27BD2246ADBA70044D32B /* ExposureSubmissionServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionServiceTests.swift; sourceTree = "<group>"; };
+		DC000928293E25E900643BB7 /* SRSSuccessReceiveResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SRSSuccessReceiveResource.swift; sourceTree = "<group>"; };
 		DC03798128EDA34E00E1EE20 /* HomeLinkCardView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeLinkCardView.xib; sourceTree = "<group>"; };
 		DC03798328EDA39800E1EE20 /* HomeLinkCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeLinkCardView.swift; sourceTree = "<group>"; };
 		DC03798528EDC21D00E1EE20 /* HomeLinkCardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeLinkCardViewModel.swift; sourceTree = "<group>"; };
@@ -9484,6 +9486,7 @@
 				BA8D5725282001E0008209C8 /* PackageDownloadReceiveResource.swift */,
 				BA52A69B26EA1A4F00AA0732 /* ProtobufReceiveResource.swift */,
 				010A476B27551596000AA80E /* StringReceiveResource.swift */,
+				DC000928293E25E900643BB7 /* SRSSuccessReceiveResource.swift */,
 			);
 			path = ReceiveResources;
 			sourceTree = "<group>";
@@ -12086,6 +12089,7 @@
 				BA7F734A271F130200E3CE14 /* _SendResource.swift in Sources */,
 				5008F60325DC0237008B516F /* PPAnalyticsCollector.swift in Sources */,
 				0138F70425F679A400A9B075 /* TraceLocationConfigurationViewModel.swift in Sources */,
+				DC000929293E25E900643BB7 /* SRSSuccessReceiveResource.swift in Sources */,
 				50E861F92705D7E1001E29B2 /* DynamicTableViewDoubleLabelViewCell.swift in Sources */,
 				019C9F1E25894CDD00B26392 /* DiaryOverviewViewModel.swift in Sources */,
 				ABD430EB27FB15950063666C /* Locator+KIDTypeIndex.swift in Sources */,

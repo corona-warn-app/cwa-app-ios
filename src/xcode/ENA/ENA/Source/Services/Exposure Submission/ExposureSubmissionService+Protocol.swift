@@ -25,7 +25,7 @@ protocol ExposureSubmissionService: AnyObject {
 	func submitSRSExposure(
 		submissionType: SRSSubmissionType,
 		srsOTP: String,
-		completion: @escaping (_ error: ExposureSubmissionServiceError?) -> Void
+		completion: @escaping (Result<Int?, ExposureSubmissionServiceError>) -> Void
 	)
 }
 

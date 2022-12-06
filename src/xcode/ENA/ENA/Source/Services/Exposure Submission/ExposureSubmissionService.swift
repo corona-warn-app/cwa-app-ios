@@ -162,19 +162,19 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 	func submitSRSExposure(
 		submissionType: SRSSubmissionType,
 		srsOTP: String,
-		completion: @escaping (_ error: ExposureSubmissionServiceError?) -> Void
+		completion: @escaping (Result<Int?, ExposureSubmissionServiceError>) -> Void
 	) {
 		Log.info("Started SRS exposure submission...", log: .api)
 
 		guard let keys = temporaryExposureKeys else {
 			Log.info("Cancelled SRS exposure: No temporary exposure keys to submit.", log: .api)
-			completion(.preconditionError(.keysNotShared))
+			completion(.failure(.preconditionError(.keysNotShared)))
 			return
 		}
 
 		guard !keys.isEmpty || !checkins.isEmpty else {
 			Log.info("Cancelled SRS exposure: No temporary exposure keys or checkins to submit.", log: .api)
-			completion(.preconditionError(.noKeysCollected))
+			completion(.failure(.preconditionError(.noKeysCollected)))
 
 			// We perform a cleanup in order to set the correct
 			// timestamps, despite not having communicated with the backend,
@@ -220,11 +220,12 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 					visitedCountries: self.supportedCountries,
 					checkins: unencryptedCheckins,
 					checkInProtectedReports: checkinProtectedReports,
-					completion: { error in
-						if let error = error {
-							completion(.srsKeySubmissionError(error))
-						} else {
-							completion(nil)
+					completion: { result in
+						switch result {
+						case .success(let cwaKeyTruncated):
+							completion(.success(cwaKeyTruncated))
+						case .failure(let error):
+							completion(.failure(.srsKeySubmissionError(error)))
 						}
 					}
 				)
@@ -415,7 +416,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		visitedCountries: [Country],
 		checkins: [SAP_Internal_Pt_CheckIn],
 		checkInProtectedReports: [SAP_Internal_Pt_CheckInProtectedReport],
-		completion: @escaping (_ error: ServiceError<SRSKeySubmissionResourceError>?) -> Void
+		completion: @escaping (Result<Int?, ServiceError<SRSKeySubmissionResourceError>>) -> Void
 	) {
 		let payload = SubmissionPayload(
 			exposureKeys: keys,
@@ -430,15 +431,15 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		restServiceProvider.load(resource) { result in
 			
 			switch result {
-			case .success:
+			case .success(let cwaKeysTruncated):
 				self.submitExposureCleanup(submissionTestType: .srs(submissionType))
 
 				Log.info("Successfully completed SRS exposure submission.", log: .api)
-				completion(nil)
+				completion(.success(cwaKeysTruncated))
 			case .failure(let error):
 				Log.error("Error while submitting SRS diagnosis keys: \(error.localizedDescription)", log: .api)
 				
-				completion(error)
+				completion(.failure(error))
 			}
 		}
 	}
