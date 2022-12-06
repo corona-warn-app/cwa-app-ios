@@ -376,7 +376,7 @@ enum AppStrings {
 		static let actionCancel = NSLocalizedString("ExposureSubmission_SRSFlow_alert_confirmWarnOthers_ActionCancel", comment: "")
 	}
 	
-	enum SRSIncreasedVolumeOfWarningsAlert {
+	enum SRSIncreasedWarningsVolumeAlert {
 		static let title = NSLocalizedString("ExposureSubmission_SRSFlow_alert_increasedVolumeOfWarnings_Title", comment: "")
 		static let message = NSLocalizedString("ExposureSubmission_SRSFlow_alert_increasedVolumeOfWarnings_Message", comment: "")
 		static let actionOkay = NSLocalizedString("ExposureSubmission_SRSFlow_alert_increasedVolumeOfWarnings_ActionOkay", comment: "")

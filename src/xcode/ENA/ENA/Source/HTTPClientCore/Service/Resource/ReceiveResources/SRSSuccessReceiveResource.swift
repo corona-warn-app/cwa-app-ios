@@ -4,6 +4,8 @@
 
 struct SRSSuccessReceiveResource: ReceiveResource {
 	
+	// MARK: - Protocol ReceiveResource
+	
 	typealias ReceiveModel = Int?
 
 	func decode(_ data: Data?, headers: [AnyHashable: Any]) -> Result<ReceiveModel, ResourceError> {

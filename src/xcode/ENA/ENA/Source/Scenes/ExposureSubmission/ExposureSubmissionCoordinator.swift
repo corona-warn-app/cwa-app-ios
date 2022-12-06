@@ -1684,25 +1684,25 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 			alert.preferredAction = confirmAction
 			
 			viewController.present(alert, animated: true)
-		case .increasedVolumeOfWarnings(let model):
+		case .increasedWarningsVolume(let model):
 			alert = UIAlertController(
-				title: AppStrings.SRSIncreasedVolumeOfWarningsAlert.title,
+				title: AppStrings.SRSIncreasedWarningsVolumeAlert.title,
 				message: String(
-					format: AppStrings.SRSIncreasedVolumeOfWarningsAlert.message,
+					format: AppStrings.SRSIncreasedWarningsVolumeAlert.message,
 					model.cwaKeysTruncated
 				),
 				preferredStyle: .alert
 			)
 			
 			alert.addAction(UIAlertAction(
-				title: AppStrings.SRSIncreasedVolumeOfWarningsAlert.actionOkay,
+				title: AppStrings.SRSIncreasedWarningsVolumeAlert.actionOkay,
 				style: .default,
 				handler: { _ in
 					model.okayHandler()
 				}
 			))
 			
-			model.viewControllerToPresentingAlert.present(alert, animated: true)
+			model.presentingViewController.present(alert, animated: true)
 		}
 	}
 	
@@ -1906,7 +1906,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 			onSuccess: { [weak self] cwaKeyTruncated in
 				self?.store.mostRecentKeySubmissionDate = Date()
 
-				let continueHandler = { [weak self] in
+				let nextAction = { [weak self] in
 					if showSubmissionSuccess {
 						self?.showExposureSubmissionSuccessViewController()
 					} else {
@@ -1915,18 +1915,18 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 				}
 				
 				if let cwaKeyTruncated = cwaKeyTruncated {
-					let increasedVolumeOfWarningsModel = SRSFlowAlert.Consent.IncreasedVolumeOfWarningsModel(
-						viewControllerToPresentingAlert: viewControllerToPresentingAlert,
+					let increasedVolumeOfWarningsModel = SRSFlowAlert.Consent.IncreasedWarningsVolumeModel(
+						presentingViewController: viewControllerToPresentingAlert,
 						cwaKeysTruncated: cwaKeyTruncated,
-						okayHandler: continueHandler
+						okayHandler: nextAction
 					)
 					
 					self?.showSRSFlowAlert(
-						for: .consent(.increasedVolumeOfWarnings(increasedVolumeOfWarningsModel)),
+						for: .consent(.increasedWarningsVolume(increasedVolumeOfWarningsModel)),
 						isLoading: isLoading
 					)
 				} else {
-					continueHandler()
+					nextAction()
 				}
 			},
 			onError: { [weak self] error in
@@ -2087,10 +2087,10 @@ extension ExposureSubmissionCoordinator {
 		enum Consent {
 			case cancelWarnOthers(on: UIViewController)
 			case confirmWarnOthers(on: UIViewController)
-			case increasedVolumeOfWarnings(IncreasedVolumeOfWarningsModel)
+			case increasedWarningsVolume(IncreasedWarningsVolumeModel)
 
-			struct IncreasedVolumeOfWarningsModel {
-				let viewControllerToPresentingAlert: UIViewController
+			struct IncreasedWarningsVolumeModel {
+				let presentingViewController: UIViewController
 				let cwaKeysTruncated: Int
 				let okayHandler: CompletionVoid
 			}

@@ -7,7 +7,7 @@ import Foundation
 enum SRSKeySubmissionResourceError: LocalizedError, Equatable {
 	case invalidPayloadOrHeader
 	case invalidOtp
-	case tooManyRequestsKeyPerDay
+	case tooManyKeyRequestsPerDay
 	case requestCouldNotBeBuilt
 	case serverError(Int)
 	
@@ -19,7 +19,7 @@ enum SRSKeySubmissionResourceError: LocalizedError, Equatable {
 			return "\(AppStrings.ExposureSubmissionError.errorPrefix) - Received an invalid payload or headers."
 		case .invalidOtp:
 			return "\(AppStrings.ExposureSubmissionDispatch.SRSSubmissionError.srsSubmissionInvalidOTP) - invalid OTP."
-		case .tooManyRequestsKeyPerDay:
+		case .tooManyKeyRequestsPerDay:
 			return "\(AppStrings.ExposureSubmissionError.errorPrefix) - The threshold of max SRS per day has reached."
 		case .requestCouldNotBeBuilt:
 			return "\(AppStrings.ExposureSubmissionError.errorPrefix) - The submission request could not be built correctly."
@@ -78,7 +78,7 @@ struct SRSKeySubmissionResource: Resource {
 			case 403:
 				return .invalidOtp
 			case 429:
-				return .tooManyRequestsKeyPerDay
+				return .tooManyKeyRequestsPerDay
 			default:
 				return .serverError(statusCode)
 			}
