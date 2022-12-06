@@ -34,6 +34,9 @@ class ExposureSubmissionServiceTests: CWATestCase {
 			isSubmissionConsentGiven: true
 		)
 		
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "SomeToken")
+		let ppacService = PPACService(store: store, deviceCheck: deviceCheck)
+		
 		let appConfigurationProvider = CachedAppConfigurationMock()
 		
 		var deadmanNotificationManager = MockDeadmanNotificationManager()
@@ -50,7 +53,8 @@ class ExposureSubmissionServiceTests: CWATestCase {
 			store: store,
 			eventStore: MockEventStore(),
 			deadmanNotificationManager: deadmanNotificationManager,
-			coronaTestService: coronaTestService
+			coronaTestService: coronaTestService,
+			ppacService: ppacService
 		)
 		service.symptomsOnset = .lastSevenDays
 		
@@ -99,6 +103,9 @@ class ExposureSubmissionServiceTests: CWATestCase {
 			isSubmissionConsentGiven: true
 		)
 		
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "SomeToken")
+		let ppacService = PPACService(store: store, deviceCheck: deviceCheck)
+		
 		store.submissionKeys = [SAP_External_Exposurenotification_TemporaryExposureKey()]
 		store.submissionCheckins = [eventStore.checkinsPublisher.value[0]]
 		
@@ -108,7 +115,8 @@ class ExposureSubmissionServiceTests: CWATestCase {
 			restServiceProvider: restServiceProvider,
 			store: store,
 			eventStore: eventStore,
-			coronaTestService: coronaTestService
+			coronaTestService: coronaTestService,
+			ppacService: ppacService
 		)
 		
 		let completionExpectation = expectation(description: "Completion should be called.")
@@ -138,13 +146,17 @@ class ExposureSubmissionServiceTests: CWATestCase {
 			isSubmissionConsentGiven: false
 		)
 		
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "SomeToken")
+		let ppacService = PPACService(store: store, deviceCheck: deviceCheck)
+		
 		let service = ENAExposureSubmissionService(
 			diagnosisKeysRetrieval: keyRetrieval,
 			appConfigurationProvider: CachedAppConfigurationMock(),
 			restServiceProvider: restServiceProvider,
 			store: store,
 			eventStore: MockEventStore(),
-			coronaTestService: coronaTestService
+			coronaTestService: coronaTestService,
+			ppacService: ppacService
 		)
 		
 		let expectation = self.expectation(description: "NoSubmissionConsent")
@@ -187,13 +199,17 @@ class ExposureSubmissionServiceTests: CWATestCase {
 			isSubmissionConsentGiven: true
 		)
 		
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "SomeToken")
+		let ppacService = PPACService(store: MockTestStore(), deviceCheck: deviceCheck)
+		
 		let service = ENAExposureSubmissionService(
 			diagnosisKeysRetrieval: keyRetrieval,
 			appConfigurationProvider: CachedAppConfigurationMock(),
 			restServiceProvider: restServiceProvider,
 			store: MockTestStore(),
 			eventStore: MockEventStore(),
-			coronaTestService: coronaTestService
+			coronaTestService: coronaTestService,
+			ppacService: ppacService
 		)
 		
 		let expectation = self.expectation(description: "KeysNotShared")
@@ -221,13 +237,17 @@ class ExposureSubmissionServiceTests: CWATestCase {
 			isSubmissionConsentGiven: true
 		)
 		
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "SomeToken")
+		let ppacService = PPACService(store: MockTestStore(), deviceCheck: deviceCheck)
+		
 		let service = ENAExposureSubmissionService(
 			diagnosisKeysRetrieval: keyRetrieval,
 			appConfigurationProvider: CachedAppConfigurationMock(),
 			restServiceProvider: .fake(),
 			store: MockTestStore(),
 			eventStore: MockEventStore(),
-			coronaTestService: coronaTestService
+			coronaTestService: coronaTestService,
+			ppacService: ppacService
 		)
 		
 		let expectation = self.expectation(description: "PositiveTestResultNotShown")
@@ -254,13 +274,17 @@ class ExposureSubmissionServiceTests: CWATestCase {
 			isSubmissionConsentGiven: true
 		)
 		
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "SomeToken")
+		let ppacService = PPACService(store: MockTestStore(), deviceCheck: deviceCheck)
+		
 		let service = ENAExposureSubmissionService(
 			diagnosisKeysRetrieval: keyRetrieval,
 			appConfigurationProvider: CachedAppConfigurationMock(),
 			restServiceProvider: .fake(),
 			store: MockTestStore(),
 			eventStore: MockEventStore(),
-			coronaTestService: coronaTestService
+			coronaTestService: coronaTestService,
+			ppacService: ppacService
 		)
 		
 		let expectation = self.expectation(description: "KeysNotShared")
@@ -291,13 +315,17 @@ class ExposureSubmissionServiceTests: CWATestCase {
 			isSubmissionConsentGiven: true
 		)
 		
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "SomeToken")
+		let ppacService = PPACService(store: MockTestStore(), deviceCheck: deviceCheck)
+		
 		let service = ENAExposureSubmissionService(
 			diagnosisKeysRetrieval: keyRetrieval,
 			appConfigurationProvider: CachedAppConfigurationMock(),
 			restServiceProvider: .fake(),
 			store: MockTestStore(),
 			eventStore: MockEventStore(),
-			coronaTestService: coronaTestService
+			coronaTestService: coronaTestService,
+			ppacService: ppacService
 		)
 		
 		let expectation = self.expectation(description: "NoKeys")
@@ -325,13 +353,17 @@ class ExposureSubmissionServiceTests: CWATestCase {
 			isSubmissionConsentGiven: true
 		)
 		
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "SomeToken")
+		let ppacService = PPACService(store: MockTestStore(), deviceCheck: deviceCheck)
+		
 		let service = ENAExposureSubmissionService(
 			diagnosisKeysRetrieval: keyRetrieval,
 			appConfigurationProvider: CachedAppConfigurationMock(),
 			restServiceProvider: .fake(),
 			store: MockTestStore(),
 			eventStore: MockEventStore(),
-			coronaTestService: coronaTestService
+			coronaTestService: coronaTestService,
+			ppacService: ppacService
 		)
 		
 		let expectation = self.expectation(description: "EmptyKeys")
@@ -365,13 +397,17 @@ class ExposureSubmissionServiceTests: CWATestCase {
 			isSubmissionConsentGiven: true
 		)
 		
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "SomeToken")
+		let ppacService = PPACService(store: MockTestStore(), deviceCheck: deviceCheck)
+		
 		let service = ENAExposureSubmissionService(
 			diagnosisKeysRetrieval: keyRetrieval,
 			appConfigurationProvider: CachedAppConfigurationMock(),
 			restServiceProvider: restServiceProvider,
 			store: MockTestStore(),
 			eventStore: MockEventStore(),
-			coronaTestService: coronaTestService
+			coronaTestService: coronaTestService,
+			ppacService: ppacService
 		)
 		
 		let expectation = self.expectation(description: "invalidPayloadOrHeaders Error")
@@ -406,13 +442,17 @@ class ExposureSubmissionServiceTests: CWATestCase {
 		)
 		coronaTestService.getSubmissionTANResult = .failure(.noRegistrationToken)
 		
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "SomeToken")
+		let ppacService = PPACService(store: MockTestStore(), deviceCheck: deviceCheck)
+		
 		let service = ENAExposureSubmissionService(
 			diagnosisKeysRetrieval: keyRetrieval,
 			appConfigurationProvider: CachedAppConfigurationMock(),
 			restServiceProvider: restServiceProvider,
 			store: MockTestStore(),
 			eventStore: MockEventStore(),
-			coronaTestService: coronaTestService
+			coronaTestService: coronaTestService,
+			ppacService: ppacService
 		)
 		
 		let expectation = self.expectation(description: "InvalidRegToken")
@@ -443,6 +483,9 @@ class ExposureSubmissionServiceTests: CWATestCase {
 			isSubmissionConsentGiven: true
 		)
 		
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "SomeToken")
+		let ppacService = PPACService(store: MockTestStore(), deviceCheck: deviceCheck)
+		
 		let expectation = self.expectation(description: "Correct error description received.")
 		let service = ENAExposureSubmissionService(
 			diagnosisKeysRetrieval: keyRetrieval,
@@ -450,7 +493,8 @@ class ExposureSubmissionServiceTests: CWATestCase {
 			restServiceProvider: restServiceProvider,
 			store: MockTestStore(),
 			eventStore: MockEventStore(),
-			coronaTestService: coronaTestService
+			coronaTestService: coronaTestService,
+			ppacService: ppacService
 		)
 		
 		let controlTest = "\(AppStrings.ExposureSubmissionError.errorPrefix) - The submission request could not be built correctly."
@@ -482,6 +526,9 @@ class ExposureSubmissionServiceTests: CWATestCase {
 			isSubmissionConsentGiven: true
 		)
 		
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "SomeToken")
+		let ppacService = PPACService(store: MockTestStore(), deviceCheck: deviceCheck)
+		
 		let expectation = self.expectation(description: "Correct error description received.")
 		let service = ENAExposureSubmissionService(
 			diagnosisKeysRetrieval: keyRetrieval,
@@ -489,7 +536,8 @@ class ExposureSubmissionServiceTests: CWATestCase {
 			restServiceProvider: restServiceProvider,
 			store: MockTestStore(),
 			eventStore: MockEventStore(),
-			coronaTestService: coronaTestService
+			coronaTestService: coronaTestService,
+			ppacService: ppacService
 		)
 		// Execute test.
 		let controlTest = "\(AppStrings.ExposureSubmissionError.errorPrefix) - Received an invalid payload or headers."
@@ -527,13 +575,17 @@ class ExposureSubmissionServiceTests: CWATestCase {
 			isSubmissionConsentGiven: true
 		)
 		
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "SomeToken")
+		let ppacService = PPACService(store: MockTestStore(), deviceCheck: deviceCheck)
+		
 		let service = ENAExposureSubmissionService(
 			diagnosisKeysRetrieval: keyRetrieval,
 			appConfigurationProvider: CachedAppConfigurationMock(),
 			restServiceProvider: restServiceProvider,
 			store: MockTestStore(),
 			eventStore: MockEventStore(),
-			coronaTestService: coronaTestService
+			coronaTestService: coronaTestService,
+			ppacService: ppacService
 		)
 		
 		let expectation = self.expectation(description: "all callbacks called")
@@ -564,13 +616,17 @@ class ExposureSubmissionServiceTests: CWATestCase {
 		config.supportedCountries = ["DE", "IT", "ES"]
 		let appConfiguration = CachedAppConfigurationMock(with: config)
 
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "SomeToken")
+		let ppacService = PPACService(store: MockTestStore(), deviceCheck: deviceCheck)
+		
 		let service = ENAExposureSubmissionService(
 			diagnosisKeysRetrieval: MockDiagnosisKeysRetrieval(diagnosisKeysResult: ([], nil)),
 			appConfigurationProvider: appConfiguration,
 			restServiceProvider: .fake(),
 			store: MockTestStore(),
 			eventStore: MockEventStore(),
-			coronaTestService: MockCoronaTestService()
+			coronaTestService: MockCoronaTestService(),
+			ppacService: ppacService
 		)
 		
 		let expectedIsLoadingValues = [true, false]
@@ -601,13 +657,17 @@ class ExposureSubmissionServiceTests: CWATestCase {
 		config.supportedCountries = []
 		let appConfiguration = CachedAppConfigurationMock(with: config)
 
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "SomeToken")
+		let ppacService = PPACService(store: MockTestStore(), deviceCheck: deviceCheck)
+		
 		let service = ENAExposureSubmissionService(
 			diagnosisKeysRetrieval: MockDiagnosisKeysRetrieval(diagnosisKeysResult: ([], nil)),
 			appConfigurationProvider: appConfiguration,
 			restServiceProvider: .fake(),
 			store: MockTestStore(),
 			eventStore: MockEventStore(),
-			coronaTestService: MockCoronaTestService()
+			coronaTestService: MockCoronaTestService(),
+			ppacService: ppacService
 		)
 		
 		let expectedIsLoadingValues = [true, false]
@@ -638,6 +698,9 @@ class ExposureSubmissionServiceTests: CWATestCase {
 	func testExposureManagerState() {
 		let exposureManagerState = ExposureManagerState(authorized: false, enabled: true, status: .unknown)
 
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "SomeToken")
+		let ppacService = PPACService(store: MockTestStore(), deviceCheck: deviceCheck)
+		
 		let service = ENAExposureSubmissionService(
 			diagnosisKeysRetrieval: MockDiagnosisKeysRetrieval(
 				diagnosisKeysResult: ([], nil),
@@ -647,7 +710,8 @@ class ExposureSubmissionServiceTests: CWATestCase {
 			restServiceProvider: .fake(),
 			store: MockTestStore(),
 			eventStore: MockEventStore(),
-			coronaTestService: MockCoronaTestService()
+			coronaTestService: MockCoronaTestService(),
+			ppacService: ppacService
 		)
 		
 		XCTAssertEqual(service.exposureManagerState, exposureManagerState)
@@ -667,6 +731,8 @@ class ExposureSubmissionServiceTests: CWATestCase {
 		let keyRetrieval = MockDiagnosisKeysRetrieval(diagnosisKeysResult: (keys, nil))
 		let appConfigurationProvider = CachedAppConfigurationMock()
 		let store = MockTestStore()
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "SomeToken")
+		let ppacService = PPACService(store: store, deviceCheck: deviceCheck)
 		
 		let restServiceProvider = RestServiceProviderStub(
 			loadResources: [
@@ -742,6 +808,7 @@ class ExposureSubmissionServiceTests: CWATestCase {
 				appConfiguration: appConfigurationProvider,
 				healthCertificateService: healthCertificateService
 			),
+			ppacService: ppacService,
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
@@ -759,7 +826,8 @@ class ExposureSubmissionServiceTests: CWATestCase {
 			restServiceProvider: restServiceProvider,
 			store: MockTestStore(),
 			eventStore: MockEventStore(),
-			coronaTestService: coronaTestService
+			coronaTestService: coronaTestService,
+			ppacService: ppacService
 		)
 		
 		service.getTemporaryExposureKeys { _ in

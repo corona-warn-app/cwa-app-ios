@@ -33,7 +33,7 @@ final class SRSService: SRSServiceProviding {
 		self.configurationProvider = configurationProvider
 	}
 	
-	// MARK: - Protocol SRSSSubmitting
+	// MARK: - Protocol SRSSubmitting
 	
 	func authenticate(completion: @escaping SRSAuthenticationResponse) {
 		// first get ppac token for SRS
