@@ -178,7 +178,7 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 		case .crashApp:
 			vc = DMCrashAppViewController()
 		case .srs:
-			vc = DMSRSPrechecksViewController(store: store)
+			vc = DMSRSOptionsViewController(store: store)
 		}
 
 		if let vc = vc {
