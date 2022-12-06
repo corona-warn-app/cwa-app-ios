@@ -23,6 +23,16 @@ struct AntigenTestProfileInformationViewModel {
 	var dynamicTableViewModel: DynamicTableViewModel {
 		DynamicTableViewModel([
 
+			// Add separator padding before the header image
+			.section(
+				header:
+					.separator(
+						color: .enaColor(for: .hairline)
+					),
+				cells: [
+					.space(height: 15)
+				]
+			),
 			// Illustration with information text and bullet icons with text
 			.section(
 				header:
