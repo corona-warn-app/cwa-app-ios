@@ -142,7 +142,25 @@ class BottomErrorReportViewController: UIViewController {
 	}
 	
 	@IBAction private func stopAndDeleteLoggingReport(_ sender: Any) {
-		didTapStopAndDeleteButton()
-		configure(status: .inactive)
+		let stopAlert = UIAlertController(
+			title: AppStrings.ErrorReport.stopAndDeleteButtonAlertTitle,
+			message: AppStrings.ErrorReport.stopAndDeleteButtonAlertMessage,
+			preferredStyle: .alert
+		)
+		
+		let stopAction = UIAlertAction(
+			title: AppStrings.ErrorReport.stopAndDeleteButtonStopAnalyse,
+			style: .destructive,
+			handler: { [weak self] _ in
+				self?.didTapStopAndDeleteButton()
+				self?.configure(status: .inactive)
+			}
+		)
+		stopAlert.addAction(stopAction)
+		
+		let continueAction = UIAlertAction(title: AppStrings.ErrorReport.stopAndDeleteButtonContinueAnalyse, style: .cancel)
+		stopAlert.addAction(continueAction)
+		
+		present(stopAlert, animated: true)
 	}
 }
