@@ -36,4 +36,5 @@ struct ExposureSubmissionServiceDependencies {
 	let store: Store
 	let eventStore: EventStoringProviding
 	let coronaTestService: CoronaTestServiceProviding
+	let ppacService: PrivacyPreservingAccessControl
 }

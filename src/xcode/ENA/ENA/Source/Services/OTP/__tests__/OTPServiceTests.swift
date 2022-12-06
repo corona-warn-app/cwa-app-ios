@@ -15,12 +15,16 @@ class OTPServiceTests: CWATestCase {
 		// GIVEN
 		let store = MockTestStore()
 		let client = ClientMock()
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "SomeToken")
+		let ppacService = PPACService(store: store, deviceCheck: deviceCheck)
 		let riskProvider = MockRiskProvider()
 		let otpService = OTPService(
 			store: store,
 			client: client,
 			restServiceProvider: RestServiceProviderStub(),
-			riskProvider: riskProvider
+			riskProvider: riskProvider,
+			ppacService: ppacService,
+			appConfiguration: CachedAppConfigurationMock()
 		)
 		let ppacToken = PPACToken(apiToken: "apiTokenFake", deviceToken: "deviceTokenFake")
 
@@ -50,8 +54,17 @@ class OTPServiceTests: CWATestCase {
 		// GIVEN
 		let store = MockTestStore()
 		let client = ClientMock()
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "SomeToken")
+		let ppacService = PPACService(store: store, deviceCheck: deviceCheck)
 		let riskProvider = MockRiskProvider()
-		let otpService = OTPService(store: store, client: client, restServiceProvider: RestServiceProviderStub(), riskProvider: riskProvider)
+		let otpService = OTPService(
+			store: store,
+			client: client,
+			restServiceProvider: RestServiceProviderStub(),
+			riskProvider: riskProvider,
+			ppacService: ppacService,
+			appConfiguration: CachedAppConfigurationMock()
+		)
 		let ppacToken = PPACToken(apiToken: "apiTokenFake", deviceToken: "deviceTokenFake")
 
 		let expectation = self.expectation(description: "completion handler is called without an error")
@@ -85,8 +98,17 @@ class OTPServiceTests: CWATestCase {
 	func testGIVEN_OTPService_WHEN_OtpEdusIsNotAvailable_AND_AuthorizedLastMonth_THEN_NewOTPEdusIsReturned() throws {
 		let store = MockTestStore()
 		let client = ClientMock()
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "SomeToken")
+		let ppacService = PPACService(store: store, deviceCheck: deviceCheck)
 		let riskProvider = MockRiskProvider()
-		let otpService = OTPService(store: store, client: client, restServiceProvider: RestServiceProviderStub(), riskProvider: riskProvider)
+		let otpService = OTPService(
+			store: store,
+			client: client,
+			restServiceProvider: RestServiceProviderStub(),
+			riskProvider: riskProvider,
+			ppacService: ppacService,
+			appConfiguration: CachedAppConfigurationMock()
+		)
 		let ppacToken = PPACToken(apiToken: "apiTokenFake", deviceToken: "deviceTokenFake")
 
 		let expectation = self.expectation(description: "completion handler is called without an error")
@@ -112,8 +134,17 @@ class OTPServiceTests: CWATestCase {
 	func testGIVEN_OTPService_WHEN_OtpEdusIsNotAvailable_AND_AuthorizedThisMonth_THEN_ErrorIsReturned() throws {
 		let store = MockTestStore()
 		let client = ClientMock()
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "SomeToken")
+		let ppacService = PPACService(store: store, deviceCheck: deviceCheck)
 		let riskProvider = MockRiskProvider()
-		let otpService = OTPService(store: store, client: client, restServiceProvider: RestServiceProviderStub(), riskProvider: riskProvider)
+		let otpService = OTPService(
+			store: store,
+			client: client,
+			restServiceProvider: RestServiceProviderStub(),
+			riskProvider: riskProvider,
+			ppacService: ppacService,
+			appConfiguration: CachedAppConfigurationMock()
+		)
 		let ppacToken = PPACToken(apiToken: "apiTokenFake", deviceToken: "deviceTokenFake")
 
 		let expectation = self.expectation(description: "completion handler is called with an error")
@@ -140,8 +171,17 @@ class OTPServiceTests: CWATestCase {
 		// GIVEN
 		let store = MockTestStore()
 		let client = ClientMock()
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "SomeToken")
+		let ppacService = PPACService(store: store, deviceCheck: deviceCheck)
 		let riskProvider = MockRiskProvider()
-		let otpService = OTPService(store: store, client: client, restServiceProvider: RestServiceProviderStub(), riskProvider: riskProvider)
+		let otpService = OTPService(
+			store: store,
+			client: client,
+			restServiceProvider: RestServiceProviderStub(),
+			riskProvider: riskProvider,
+			ppacService: ppacService,
+			appConfiguration: CachedAppConfigurationMock()
+		)
 
 		let otpToken = OTPToken(token: "otpTokenFake", timestamp: Date(), expirationDate: nil)
 		store.otpTokenEdus = otpToken
@@ -166,8 +206,17 @@ class OTPServiceTests: CWATestCase {
 		// GIVEN
 		let store = MockTestStore()
 		let client = ClientMock()
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "SomeToken")
+		let ppacService = PPACService(store: store, deviceCheck: deviceCheck)
 		let riskProvider = MockRiskProvider()
-		let otpService = OTPService(store: store, client: client, restServiceProvider: RestServiceProviderStub(), riskProvider: riskProvider)
+		let otpService = OTPService(
+			store: store,
+			client: client,
+			restServiceProvider: RestServiceProviderStub(),
+			riskProvider: riskProvider,
+			ppacService: ppacService,
+			appConfiguration: CachedAppConfigurationMock()
+		)
 		let ppacToken = PPACToken(apiToken: "apiTokenFake", deviceToken: "deviceTokenFake")
 
 		let expectation = self.expectation(description: "completion handler is called without an error")
@@ -199,8 +248,17 @@ class OTPServiceTests: CWATestCase {
 		// GIVEN
 		let store = MockTestStore()
 		let client = ClientMock()
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "SomeToken")
+		let ppacService = PPACService(store: store, deviceCheck: deviceCheck)
 		let riskProvider = MockRiskProvider()
-		let otpService = OTPService(store: store, client: client, restServiceProvider: RestServiceProviderStub(), riskProvider: riskProvider)
+		let otpService = OTPService(
+			store: store,
+			client: client,
+			restServiceProvider: RestServiceProviderStub(),
+			riskProvider: riskProvider,
+			ppacService: ppacService,
+			appConfiguration: CachedAppConfigurationMock()
+		)
 		XCTAssertNil(store.otpTokenEdus)
 
 		// WHEN
@@ -216,8 +274,17 @@ class OTPServiceTests: CWATestCase {
 		// GIVEN
 		let store = MockTestStore()
 		let client = ClientMock()
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "SomeToken")
+		let ppacService = PPACService(store: store, deviceCheck: deviceCheck)
 		let riskProvider = MockRiskProvider()
-		let otpService = OTPService(store: store, client: client, restServiceProvider: RestServiceProviderStub(), riskProvider: riskProvider)
+		let otpService = OTPService(
+			store: store,
+			client: client,
+			restServiceProvider: RestServiceProviderStub(),
+			riskProvider: riskProvider,
+			ppacService: ppacService,
+			appConfiguration: CachedAppConfigurationMock()
+		)
 		let ppacToken = PPACToken(apiToken: "apiTokenFake", deviceToken: "deviceTokenFake")
 
 		let expectation = self.expectation(description: "completion handler is called without an error")
@@ -247,8 +314,17 @@ class OTPServiceTests: CWATestCase {
 		// GIVEN
 		let store = MockTestStore()
 		let client = ClientMock()
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "SomeToken")
+		let ppacService = PPACService(store: store, deviceCheck: deviceCheck)
 		let riskProvider = MockRiskProvider()
-		let otpService = OTPService(store: store, client: client, restServiceProvider: RestServiceProviderStub(), riskProvider: riskProvider)
+		let otpService = OTPService(
+			store: store,
+			client: client,
+			restServiceProvider: RestServiceProviderStub(),
+			riskProvider: riskProvider,
+			ppacService: ppacService,
+			appConfiguration: CachedAppConfigurationMock()
+		)
 		
 		// WHEN
 		let isAuthorized = otpService.isOTPEdusAvailable
@@ -263,6 +339,8 @@ class OTPServiceTests: CWATestCase {
 		// GIVEN
 		let store = MockTestStore()
 		let client = ClientMock()
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "SomeToken")
+		let ppacService = PPACService(store: store, deviceCheck: deviceCheck)
 		let riskProvider = MockRiskProvider()
 		let loadResource = LoadResource(
 			result: .success(
@@ -276,7 +354,9 @@ class OTPServiceTests: CWATestCase {
 			store: store,
 			client: client,
 			restServiceProvider: RestServiceProviderStub(loadResources: [loadResource]),
-			riskProvider: riskProvider
+			riskProvider: riskProvider,
+			ppacService: ppacService,
+			appConfiguration: CachedAppConfigurationMock()
 		)
 		let ppacToken = PPACToken(apiToken: "apiTokenFake", deviceToken: "deviceTokenFake")
 
@@ -306,6 +386,8 @@ class OTPServiceTests: CWATestCase {
 		// GIVEN
 		let store = MockTestStore()
 		let client = ClientMock()
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "SomeToken")
+		let ppacService = PPACService(store: store, deviceCheck: deviceCheck)
 		let riskProvider = MockRiskProvider()
 		let loadResource = LoadResource(
 			result: .success(
@@ -319,7 +401,9 @@ class OTPServiceTests: CWATestCase {
 			store: store,
 			client: client,
 			restServiceProvider: RestServiceProviderStub(loadResources: [loadResource]),
-			riskProvider: riskProvider
+			riskProvider: riskProvider,
+			ppacService: ppacService,
+			appConfiguration: CachedAppConfigurationMock()
 		)
 		let ppacToken = PPACToken(apiToken: "apiTokenFake", deviceToken: "deviceTokenFake")
 
@@ -352,6 +436,8 @@ class OTPServiceTests: CWATestCase {
 		// GIVEN
 		let store = MockTestStore()
 		let client = ClientMock()
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "SomeToken")
+		let ppacService = PPACService(store: store, deviceCheck: deviceCheck)
 		let riskProvider = MockRiskProvider()
 		let loadResource = LoadResource(
 			result: .success(
@@ -365,7 +451,9 @@ class OTPServiceTests: CWATestCase {
 			store: store,
 			client: client,
 			restServiceProvider: RestServiceProviderStub(loadResources: [loadResource]),
-			riskProvider: riskProvider
+			riskProvider: riskProvider,
+			ppacService: ppacService,
+			appConfiguration: CachedAppConfigurationMock()
 		)
 		let ppacToken = PPACToken(apiToken: "apiTokenFake", deviceToken: "deviceTokenFake")
 
@@ -399,6 +487,8 @@ class OTPServiceTests: CWATestCase {
 		// GIVEN
 		let store = MockTestStore()
 		let client = ClientMock()
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "SomeToken")
+		let ppacService = PPACService(store: store, deviceCheck: deviceCheck)
 		let riskProvider = MockRiskProvider()
 		let loadResource = LoadResource(
 			result: .success(
@@ -412,7 +502,9 @@ class OTPServiceTests: CWATestCase {
 			store: store,
 			client: client,
 			restServiceProvider: RestServiceProviderStub(loadResources: [loadResource]),
-			riskProvider: riskProvider
+			riskProvider: riskProvider,
+			ppacService: ppacService,
+			appConfiguration: CachedAppConfigurationMock()
 		)
 		let ppacToken = PPACToken(apiToken: "apiTokenFake", deviceToken: "deviceTokenFake")
 
@@ -446,6 +538,8 @@ class OTPServiceTests: CWATestCase {
 		// GIVEN
 		let store = MockTestStore()
 		let client = ClientMock()
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "SomeToken")
+		let ppacService = PPACService(store: store, deviceCheck: deviceCheck)
 		let riskProvider = MockRiskProvider()
 		let loadResource = LoadResource(
 			result: .success(
@@ -459,7 +553,9 @@ class OTPServiceTests: CWATestCase {
 			store: store,
 			client: client,
 			restServiceProvider: RestServiceProviderStub(loadResources: [loadResource]),
-			riskProvider: riskProvider
+			riskProvider: riskProvider,
+			ppacService: ppacService,
+			appConfiguration: CachedAppConfigurationMock()
 		)
 		let ppacToken = PPACToken(apiToken: "apiTokenFake", deviceToken: "deviceTokenFake")
 
@@ -493,6 +589,8 @@ class OTPServiceTests: CWATestCase {
 		// GIVEN
 		let store = MockTestStore()
 		let client = ClientMock()
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "SomeToken")
+		let ppacService = PPACService(store: store, deviceCheck: deviceCheck)
 		let riskProvider = MockRiskProvider()
 		let loadResource = LoadResource(
 			result: .success(
@@ -506,7 +604,9 @@ class OTPServiceTests: CWATestCase {
 			store: store,
 			client: client,
 			restServiceProvider: RestServiceProviderStub(loadResources: [loadResource]),
-			riskProvider: riskProvider
+			riskProvider: riskProvider,
+			ppacService: ppacService,
+			appConfiguration: CachedAppConfigurationMock()
 		)
 		let ppacToken = PPACToken(apiToken: "apiTokenFake", deviceToken: "deviceTokenFake")
 
@@ -541,6 +641,8 @@ class OTPServiceTests: CWATestCase {
 	func testGIVEN_OTPService_WHEN_AuthorizedThisMonth_THEN_SameOTPElsIsReturned() throws {
 		let store = MockTestStore()
 		let client = ClientMock()
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "SomeToken")
+		let ppacService = PPACService(store: store, deviceCheck: deviceCheck)
 		let riskProvider = MockRiskProvider()
 		let loadResource = LoadResource(
 			result: .success(
@@ -554,7 +656,9 @@ class OTPServiceTests: CWATestCase {
 			store: store,
 			client: client,
 			restServiceProvider: RestServiceProviderStub(loadResources: [loadResource]),
-			riskProvider: riskProvider
+			riskProvider: riskProvider,
+			ppacService: ppacService,
+			appConfiguration: CachedAppConfigurationMock()
 		)
 		let ppacToken = PPACToken(apiToken: "apiTokenFake", deviceToken: "deviceTokenFake")
 
@@ -590,6 +694,8 @@ class OTPServiceTests: CWATestCase {
 		// GIVEN
 		let store = MockTestStore()
 		let client = ClientMock()
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "SomeToken")
+		let ppacService = PPACService(store: store, deviceCheck: deviceCheck)
 		let riskProvider = MockRiskProvider()
 		let loadResource = LoadResource(
 			result: .success(
@@ -603,7 +709,9 @@ class OTPServiceTests: CWATestCase {
 			store: store,
 			client: client,
 			restServiceProvider: RestServiceProviderStub(loadResources: [loadResource]),
-			riskProvider: riskProvider
+			riskProvider: riskProvider,
+			ppacService: ppacService,
+			appConfiguration: CachedAppConfigurationMock()
 		)
 		let ppacToken = PPACToken(apiToken: "apiTokenFake", deviceToken: "deviceTokenFake")
 
@@ -636,8 +744,17 @@ class OTPServiceTests: CWATestCase {
 		// GIVEN
 		let store = MockTestStore()
 		let client = ClientMock()
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "SomeToken")
+		let ppacService = PPACService(store: store, deviceCheck: deviceCheck)
 		let riskProvider = MockRiskProvider()
-		let otpService = OTPService(store: store, client: client, restServiceProvider: RestServiceProviderStub(), riskProvider: riskProvider)
+		let otpService = OTPService(
+			store: store,
+			client: client,
+			restServiceProvider: RestServiceProviderStub(),
+			riskProvider: riskProvider,
+			ppacService: ppacService,
+			appConfiguration: CachedAppConfigurationMock()
+		)
 		XCTAssertNil(store.otpTokenEls)
 
 		// WHEN
