@@ -18,13 +18,17 @@ struct PlausibleDeniabilityService: PlausibleDeniability {
 		client: Client,
 		restServiceProvider: RestServiceProviding,
 		store: Store,
-		coronaTestService: CoronaTestServiceProviding
+		coronaTestService: CoronaTestServiceProviding,
+		ppacService: PrivacyPreservingAccessControl,
+		appConfiguration: AppConfigurationProviding
 	) {
 		self.client = client
 		self.store = store
 		self.coronaTestService = coronaTestService
+		self.ppacService = ppacService
+		self.appConfiguration = appConfiguration
 
-		fakeRequestService = FakeRequestService(restServiceProvider: restServiceProvider)
+		fakeRequestService = FakeRequestService(restServiceProvider: restServiceProvider, ppacService: ppacService, appConfiguration: appConfiguration)
 	}
 
 	// MARK: - Internal
@@ -91,7 +95,9 @@ struct PlausibleDeniabilityService: PlausibleDeniability {
 	private let client: Client
 	private let store: Store
 	private let coronaTestService: CoronaTestServiceProviding
+	private let ppacService: PrivacyPreservingAccessControl
 	private let fakeRequestService: FakeRequestService
+	private let appConfiguration: AppConfigurationProviding
 
 	private var isAllowedToPerformBackgroundFakeRequests: Bool {
 		return coronaTestService.pcrTest.value != nil || coronaTestService.antigenTest.value != nil
