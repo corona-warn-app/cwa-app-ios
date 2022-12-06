@@ -3,19 +3,19 @@
 //
 
 extension SAP_Internal_Stats_LinkCard {
-	static let rkiPandemicRadarURLMock: String = "https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/Situationsberichte/COVID-19-Trends/COVID-19-Trends.html?__blob=publicationFile#/home"
+	static let bmgPandemicRadarURLMock: String = "https://corona-pandemieradar.de/de"
 	
 	/**
 	 Returns a mocked `SAP_Internal_Stats_LinkCard`
 	 - Parameters:
 		- cardID: ID of the Link Card. Part of `SAP_Internal_Stats_CardHeader`.
 		- updatedAt: Part of `SAP_Internal_Stats_CardHeader`
-		- url: The url the should be open. Default value: RKI pandamic radar url.
+		- url: The url the should be open. Default value: BMG pandamic radar url.
 	 */
 	static func mock(
 		cardID: Int32 = 0,
 		updatedAt: Int64 = 0,
-		url: String = Self.rkiPandemicRadarURLMock
+		url: String = Self.bmgPandemicRadarURLMock
 	) -> SAP_Internal_Stats_LinkCard {
 		var cardHeader = SAP_Internal_Stats_CardHeader()
 		cardHeader.cardID = cardID
