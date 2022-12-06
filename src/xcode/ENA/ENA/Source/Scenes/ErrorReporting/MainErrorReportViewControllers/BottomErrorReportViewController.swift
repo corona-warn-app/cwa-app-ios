@@ -147,6 +147,7 @@ class BottomErrorReportViewController: UIViewController {
 			message: AppStrings.ErrorReport.stopAndDeleteButtonAlertMessage,
 			preferredStyle: .alert
 		)
+		
 		let stopAction = UIAlertAction(
 			title: AppStrings.ErrorReport.stopAndDeleteButtonStopAnalyse,
 			style: .destructive,
@@ -156,7 +157,6 @@ class BottomErrorReportViewController: UIViewController {
 			}
 		)
 		stopAlert.addAction(stopAction)
-		stopAction.accessibilityIdentifier = AccessibilityIdentifiers.ErrorReport.stopAnalyseButton
 		
 		let continueAction = UIAlertAction(title: AppStrings.ErrorReport.stopAndDeleteButtonContinueAnalyse, style: .cancel)
 		stopAlert.addAction(continueAction)
