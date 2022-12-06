@@ -42,10 +42,10 @@ final class DMSRSOptionsViewModel {
 			return DMSwitchCellViewModel(
 				labelText: "Enable pre-checks for SRS",
 				isOn: { [store] in
-					return store.dmIsSRSPreChecksEnabled
+					return store.isSrsPrechecksEnabled
 				},
 				toggle: { [store] in
-					store.dmIsSRSPreChecksEnabled.toggle()
+					store.isSrsPrechecksEnabled.toggle()
 				})
 		case .srsStateValues:
 			return DMStaticTextCellViewModel(

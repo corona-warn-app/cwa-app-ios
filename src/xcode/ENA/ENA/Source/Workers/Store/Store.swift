@@ -137,7 +137,7 @@ protocol SRSProviding: AnyObject {
 	
 	#if !RELEASE
 	/// For Developer Menu - Indicates if the SRS should have pre-checks
-	var dmIsSRSPreChecksEnabled: Bool { get set }
+	var isSrsPrechecksEnabled: Bool { get set }
 	#endif
 }
 

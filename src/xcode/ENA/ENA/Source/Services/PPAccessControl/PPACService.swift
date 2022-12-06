@@ -39,7 +39,7 @@ class PPACService: PrivacyPreservingAccessControl {
 		completion: @escaping (Result<Void, SRSPreconditionError>) -> Void
 	) {
 		#if !RELEASE
-		if !store.dmIsSRSPreChecksEnabled {
+		if !store.isSrsPrechecksEnabled {
 			Log.warning("SRS pre-checks disabled!")
 			completion(.success(()))
 			return
