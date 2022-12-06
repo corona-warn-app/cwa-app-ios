@@ -118,14 +118,14 @@ final class OTPService: OTPServiceProviding {
 		if let otpToken = store.otpTokenSrs,
 		   let expirationDate = otpToken.expirationDate,
 		   expirationDate > Date(),
-		   store.otpElsAuthorizationDate == nil {
-			Log.info("Existing OTP ELS was not consumed before and can be used for submission.", log: .otp)
+		   store.otpSrsAuthorizationDate == nil {
+			Log.info("Existing OTP SRS was not consumed before and can be used for submission.", log: .otp)
 			
 			fakeRequestService.fakeSRSOTPServerRequest()
 			completion(.success(otpToken.token))
 			return
 		}
-		Log.info("No existing or valid OTP ELS was found. Generating new one.", log: .otp)
+		Log.info("No existing or valid OTP SRS was found. Generating new one.", log: .otp)
 		let otp = generateOTPToken()
 		authorizeSRS(otp, with: ppacToken, completion: completion)
 	}
