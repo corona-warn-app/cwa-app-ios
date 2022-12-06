@@ -14,6 +14,7 @@ class MockExposureSubmissionService: ExposureSubmissionService {
 	var loadSelfServiceParametersCallback: ((@escaping CompletionBool, @escaping (SAP_Internal_V2_PPDDSelfReportSubmissionParametersCommon) -> Void) -> Void)?
 	var getTemporaryExposureKeysCallback: ((@escaping ExposureSubmissionHandler) -> Void)?
 	var submitExposureCallback: ((@escaping (ExposureSubmissionServiceError?) -> Void) -> Void)?
+	var submitSRSExposureCallback: ((@escaping (Result<Int?, ExposureSubmissionServiceError>) -> Void) -> Void)?
 
 	// MARK: - ExposureSubmissionService properties.
 
@@ -43,8 +44,8 @@ class MockExposureSubmissionService: ExposureSubmissionService {
 		submitExposureCallback?(completion)
 	}
 
-	func submitSRSExposure(submissionType: SRSSubmissionType, srsOTP: String, completion: @escaping (ExposureSubmissionServiceError?) -> Void) {
-		submitExposureCallback?(completion)
+	func submitSRSExposure(submissionType: SRSSubmissionType, srsOTP: String, completion: @escaping (Result<Int?, ExposureSubmissionServiceError>) -> Void) {
+		submitSRSExposureCallback?(completion)
 	}
 
 }

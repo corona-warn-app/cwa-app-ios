@@ -187,45 +187,60 @@ class ExposureSubmissionCoordinatorModel {
 
 	func submitSRSExposure(
 		isLoading: @escaping (Bool) -> Void,
-		onSuccess: @escaping () -> Void,
+		onSuccess: @escaping (Int?) -> Void,
 		onError: @escaping (ExposureSubmissionServiceError) -> Void
 	) {
 		guard case let .srs(srsSubmissionType) = submissionTestType else {
 			return
 		}
 		isLoading(true)
-		srsService.authenticate(completion: { [weak self] (result: Result<String, SRSError>) in
+		
+		// AUTHENTICATE
+		srsService.authenticate { [weak self] (authenticateResult: Result<String, SRSError>) in
+
 			guard let self = self else { return }
 			isLoading(false)
-			switch result {
+			
+			switch authenticateResult {
+
 			case .success(let srsOTP):
+				
+				// SUBMIT SRS EXPOSURE
 				self.exposureSubmissionService.submitSRSExposure(
 					submissionType: srsSubmissionType,
 					srsOTP: srsOTP
-				) { error in
+				) { (submitSRSExposureResult: Result<Int?, ExposureSubmissionServiceError>) in
 					
-					switch error {
+					switch submitSRSExposureResult {
+
+					case .success(let cwaKeyTruncated):
+						onSuccess(cwaKeyTruncated)
+
+					case .failure(let exposureSubmissionServiceError):
 						
+						switch exposureSubmissionServiceError {
+							
 						// We continue the regular flow even if there are no keys collected.
-					case .none, .preconditionError(.noKeysCollected):
-						onSuccess()
-						
+						case .preconditionError(.noKeysCollected):
+							onSuccess(nil)
+							
 						// We don't show an error if the submission consent was not given, because we assume that the submission already happened in the background.
-					case .preconditionError(.noSubmissionConsent):
-						Log.info("Consent Not Given", log: .ui)
-						onSuccess()
-						
-					case .some(let error):
-						Log.error("error: \(error.localizedDescription)", log: .api)
-						onError(error)
+						case .preconditionError(.noSubmissionConsent):
+							Log.info("Consent Not Given", log: .ui)
+							onSuccess(nil)
+
+						default:
+							Log.error("error: \(exposureSubmissionServiceError.localizedDescription)", log: .api)
+							onError(exposureSubmissionServiceError)
+						}
 					}
 				}
+				
 			case .failure(let srsError):
 				onError(.srsError(srsError))
 				Log.debug(srsError.description, log: .ppac)
 			}
-			
-		})
+		}
 	}
 
 	// swiftlint:disable cyclomatic_complexity
