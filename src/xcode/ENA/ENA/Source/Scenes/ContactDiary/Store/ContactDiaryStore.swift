@@ -221,12 +221,20 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding, SecureSQLStore {
 				DELETE FROM CoronaTest
 				WHERE date < date('\(todayDateString)','-\(dataRetentionPeriodInDays - 1) days')
 			"""
+			
+			let sqlCoronaSubmissions = """
+				DELETE FROM Submission
+				WHERE date < date('\(todayDateString)','-\(dataRetentionPeriodInDays - 1) days')
+			"""
 
 			do {
 				try database.executeUpdate(sqlContactPersonEncounter, values: nil)
 				try database.executeUpdate(sqlLocationVisit, values: nil)
 				if database.userVersion >= 5 {
 					try database.executeUpdate(sqlCoronaTests, values: nil)
+				}
+				if database.userVersion >= 6 {
+					try database.executeUpdate(sqlCoronaSubmissions, values: nil)
 				}
 			} catch {
 				logLastErrorCode(from: database)
@@ -933,6 +941,10 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding, SecureSQLStore {
 	func removeAllCoronaTests() -> Result<Void, SecureSQLStoreError> {
 		return removeAllEntries(from: "CoronaTest")
 	}
+	
+	func removeAllSubmissions() -> Result<Void, SecureSQLStoreError> {
+		return removeAllEntries(from: "Submission")
+	}
 
 	@discardableResult
 	func reset() -> SecureSQLStore.VoidResult {
@@ -1240,9 +1252,23 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding, SecureSQLStore {
 			case .failure(let error):
 				return .failure(error)
 			}
+			
+			let diaryExposureSubmissions = fetchSubmissions(for: dateString, in: database)
+			var diaryDaySubmissions: [DiaryDaySubmission]
+			switch diaryExposureSubmissions {
+			case .success(let submissions):
+				diaryDaySubmissions = submissions
+			case .failure(let error):
+				return .failure(error)
+			}
 
 			let diaryEntries = personDiaryEntries + locationDiaryEntries
-			let diaryDay = DiaryDay(dateString: dateString, entries: diaryEntries, tests: diaryDayTests)
+			let diaryDay = DiaryDay(
+				dateString: dateString,
+				entries: diaryEntries,
+				tests: diaryDayTests,
+				submissions: diaryDaySubmissions
+			)
 			diaryDays.append(diaryDay)
 		}
 
