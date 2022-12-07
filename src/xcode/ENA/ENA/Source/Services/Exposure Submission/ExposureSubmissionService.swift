@@ -442,6 +442,11 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 			
 			switch result {
 			case .success(let cwaKeysTruncated):
+				self.diaryStore.addSubmission(
+					date: ISO8601DateFormatter.justLocalDateFormatter.string(
+					from: Date()
+				   )
+				)
 				self.submitExposureCleanup(submissionTestType: .srs(submissionType))
 
 				Log.info("Successfully completed SRS exposure submission.", log: .api)
@@ -488,7 +493,12 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 				if !checkins.isEmpty {
 					Analytics.collect(.keySubmissionMetadata(.submittedWithCheckins(true, coronaTest.type)))
 				}
-
+				
+				self.diaryStore.addSubmission(
+					date: ISO8601DateFormatter.justLocalDateFormatter.string(
+					from: Date()
+				   )
+				)
 				self.submitExposureCleanup(submissionTestType: .registeredTest(coronaTest.type))
 
 				Log.info("Successfully completed exposure submission.", log: .api)
