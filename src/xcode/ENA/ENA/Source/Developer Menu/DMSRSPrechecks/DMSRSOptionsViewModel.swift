@@ -61,7 +61,7 @@ final class DMSRSOptionsViewModel {
 				textColor: .enaColor(for: .textPrimary1),
 				alignment: .left
 			)
-		case .mostRecentKeySubmission:
+		case .resetMostRecentKeySubmission:
 			return DMButtonCellViewModel(
 				text: "Reset",
 				textColor: .white,
@@ -69,7 +69,19 @@ final class DMSRSOptionsViewModel {
 				action: { [store] in
 					store.mostRecentKeySubmissionDate = nil
 					self.refreshTableView([TableViewSections.srsStateValues.rawValue])
-				})
+				}
+			)
+		case .resetSRSStateValues:
+			return DMButtonCellViewModel(
+				text: "Reset",
+				textColor: .white,
+				backgroundColor: .enaColor(for: .buttonDestructive),
+				action: { [store] in
+					store.mostRecentKeySubmissionDate = nil
+					store.otpTokenSrs = nil
+					self.refreshTableView([TableViewSections.srsStateValues.rawValue])
+				}
+			)
 		}
 	}
 
@@ -80,13 +92,13 @@ final class DMSRSOptionsViewModel {
 	private func srsStateValueStaticText() -> String {
 		"""
 
-		MOST_RECENT_KEY_SUBMISSION
+		Most Recent Key Submission  Date
 		\(createDateString(from: store.mostRecentKeySubmissionDate))
 
-		SRS_OTP
+		SRS OTP Token
 		\(store.otpTokenSrs?.token ?? "No OTP Token set yet")
 
-		SRS_OTP_EXPIRATION_DATE
+		SRS OTP Token Expiration Date
 		\(createDateString(from: store.otpTokenSrs?.expirationDate))
 
 		"""
@@ -102,10 +114,10 @@ final class DMSRSOptionsViewModel {
 	   \(createDateString(from: store.ppacApiTokenSrs?.timestamp))
 	   
 	   Previous PPAC API Token SRS
-	   \(store.previousPpacApiTokenSrs?.token ?? "No API Token generated yet")
+	   \(store.previousPpacApiTokenSrs?.token ?? "No API Token available")
 	   
 	   Previous PPAC API Token SRS Creation Date
-	   \(createDateString(from: store.previousPpacApiTokenSrs?.timestamp))
+	   \(createDateString(from: store.previousPpacApiTokenSrs?.timestamp, fallback: "No Date available"))
 	   
 	   """
 	}
@@ -127,7 +139,8 @@ extension DMSRSOptionsViewModel {
 		case preChecks
 		case srsStateValues
 		case apiToken
-		case mostRecentKeySubmission
+		case resetMostRecentKeySubmission
+		case resetSRSStateValues
 		
 		var sectionTitle: String {
 			switch self {
@@ -137,8 +150,10 @@ extension DMSRSOptionsViewModel {
 				return "SRS State Values"
 			case .apiToken:
 				return "API Token"
-			case .mostRecentKeySubmission:
-				return "Most Recent Key Submission Date"
+			case .resetMostRecentKeySubmission:
+				return "Most Recent Key Submission"
+			case .resetSRSStateValues:
+				return "All SRS State Values"
 			}
 		}
 	}
