@@ -79,7 +79,7 @@ class HomeStatisticsCellModel {
 	
 	#if DEBUG
 	private func setupMockLinkCards() {
-			let mockedPandemicLinkCardModel: SAP_Internal_Stats_LinkCard = .mock(cardID: HomeLinkCard.pandemicRadar.rawValue)
+			let mockedPandemicLinkCardModel: SAP_Internal_Stats_LinkCard = .mock(cardID: HomeLinkCard.bmgPandemicRadar.rawValue)
 			linkCards.append(mockedPandemicLinkCardModel)
 	}
 
