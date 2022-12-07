@@ -760,7 +760,7 @@
 
 "SRS_ConsentScreen_title_description1" = "Do ostrzegania innych potrzebna jest Twoja zgoda.";
 
-"SRS_ConsentScreen_instruction1" = "Jeśli Twój wynik testu na obecność koronawirusa był pozytywny, możesz ostrzec innych poprzez aplikację.\nW celu wysłania ostrzeżenia po pozytywnym wyniku samodzielnie wykonanego testu lub z wynikiem testu nieobecnym w aplikacji niezbędna jest weryfikacja autentyczności aplikacji.";
+"SRS_ConsentScreen_instruction1" = "Jeśli Twój wynik testu na obecność koronawirusa był pozytywny, możesz ostrzec innych poprzez aplikację.\nW celu wysłania ostrzeżenia po pozytywnym wyniku samodzielnie wykonanego testu lub w przypadku wyniku testu nieobecnego w aplikacji niezbędna jest automatyczna weryfikacja autentyczności aplikacji.";
 
 "SRS_ConsentScreen_instruction2" = "Weryfikacja zapewnia również, że powtórne wysyłanie ostrzeżeń jest możliwe dopiero po upływie %@ dni.";
 
@@ -816,7 +816,7 @@
 
 "ExposureSubmissionResult_familyMember_antigenTestAdded" = "Szybki test został dodany";
 
-"ExposureSubmissionResult_antigenTestAddedDesc" = "Wynik testu jest wyświetlany tutaj przez 48 godzin.";
+"ExposureSubmissionResult_antigenTestAddedDesc" = "Wynik testu jest wyświetlany tutaj przez 48 godzin. Aplikacja tworzy również wpis w Twoim dzienniku kontaktów.";
 
 "ExposureSubmissionResult_warnOthers" = "Ostrzegaj innych";
 
@@ -1027,6 +1027,12 @@
 
 "ExposureSubmission_SRSFlow_alert_confirmWarnOthers_ActionCancel" = "Anuluj";
 
+"ExposureSubmission_SRSFlow_alert_increasedVolumeOfWarnings_Title" = "Uwaga";
+
+"ExposureSubmission_SRSFlow_alert_increasedVolumeOfWarnings_Message" = "Ze względu na dużą liczbę ostrzeżeń wysyłanych obecnie za pośrednictwem aplikacji, ostrzeżono tylko osoby, z którymi miałeś(-aś) kontakt w ciągu ostatnich %@ dni.";
+
+"ExposureSubmission_SRSFlow_alert_increasedVolumeOfWarnings_ActionOkay" = "OK";
+
 /* Exposure Submission Result */
 "ExposureSubmissionResult_RemoveAlert_Title" = "Usunąć wynik testu?";
 
@@ -1134,7 +1140,7 @@
 
 "ExposureSubmission_Antigen_Profile_Overview_EmptyTitle" = "Nie utworzono jeszcze profili szybkich testów";
 
-"ExposureSubmission_Antigen_Profile_Overview_EmptyDescription" = "Możesz utworzyć profil szybkiego testu ze swoimi danymi osobowymi, który będziesz przesyłać za pomocą kodu QR do każdego uczestniczącego punktu testowania.";
+"ExposureSubmission_Antigen_Profile_Overview_EmptyDescription" = "Możesz utworzyć profil szybkiego testu ze swoimi danymi osobowymi, który będziesz przekazywać za pomocą kodu QR do każdego uczestniczącego punktu testowania.";
 
 "ExposureSubmission_Antigen_Profile_Overview_EmptyImageDescription" = "Pieczęć certyfikatu z cyfrowym certyfikatem w tle";
 
@@ -1160,7 +1166,7 @@
 
 "ExposureSubmission_Profile_ProfileTile_Title" = "Profile szybkich testów";
 
-"ExposureSubmission_Profile_ProfileTile_Description" = "Profil szybkiego testu z Twoimi danymi osobowymi, który możesz przesłać do dowolnego uczestniczącego punktu testowania za pomocą kodu QR.";
+"ExposureSubmission_Profile_ProfileTile_Description" = "Profil szybkiego testu z Twoimi danymi osobowymi, który możesz przedłożyć w dowolnym uczestniczącym punkcie testowania za pomocą kodu QR.";
 
 /* ExposureSubmission TestOwnerSelection */
 "ExposureSubmission_TestOwnerSelection_Title" = "Zarejestruj test";
@@ -1194,7 +1200,7 @@
 
 "ExposureSubmission_TestCertificate_Information_BirthdayText" = "Ze względów bezpieczeństwa certyfikat testu jest zabezpieczony za pomocą daty urodzenia. Certyfikat testu może zostać wydany tylko po podaniu prawidłowej daty urodzenia.";
 
-"ExposureSubmission_TestCertificate_Information_Dataprivacy_Title" = "Szczegółowe informacje na temat przetwarzania danych i Twojej zgodzie";
+"ExposureSubmission_TestCertificate_Information_Dataprivacy_Title" = "Więcej informacji na temat przetwarzania danych znajduje się w oświadczeniu o ochronie prywatności.";
 
 "ExposureSubmission_TestCertificate_Information_Alert_Title" = "Anuluj rejestrację";
 
@@ -1621,6 +1627,14 @@
 "ErrorReport_StartButtonTitle" = "Uruchom";
 
 "ErrorReport_StopAndDeleteButtonTitle" = "Zatrzymaj i usuń";
+
+"ErrorReport_StopAndDeleteButton_Alert_Title" = "Zatrzymać analizę błędu?";
+
+"ErrorReport_StopAndDeleteButton_Alert_Message" = "Jeśli to zrobisz, wszystkie zapisane dane zostaną usunięte. Jeśli zapisano lokalną kopię raportu o błędzie, nie zostanie ona usunięta.";
+
+"ErrorReport_StopAndDeleteButton_Alert_StopAnalyse" = "Zatrzymaj analizę";
+
+"ErrorReport_StopAndDeleteButton_Alert_ContinueAnalyse" = "Kontynuuj analizę";
 
 "ErrorReport_SaveButtonTitle" = "Udostępnij i kontynuuj";
 
@@ -2130,7 +2144,7 @@
 /* - Pandemic Radar */
 "Statistics_Card_PandemicRadar_title" = "Radar pandemiczny";
 
-"Statistics_Card_PandemicRadar_subtitle" = "z Instytutu Roberta Kocha";
+"Statistics_Card_PandemicRadar_subtitle" = "Z niemieckiego Federalnego Ministerstwa Zdrowia";
 
 "Statistics_Card_PandemicRadar_description" = "Poznaj dodatkowe statystyki związane z pandemią.";
 
@@ -2280,7 +2294,7 @@
 
 "Statistics_Info_PandemicRadar_Title" = "Radar pandemiczny";
 
-"Statistics_Info_PandemicRadar_Text" = "Różnorodne statystyki dotyczące pandemii koronawirusa, które znajdują się na stronie Instytutu Roberta Kocha.\nZwróć uwagę, że wszelkie dane użyte podczas otwierania strony zostaną odjęte od Twojego planu danych oraz że strona nie została zaprojektowana jako pozbawiona barier i jest dostępna tylko w języku niemieckim.";
+"Statistics_Info_PandemicRadar_Text" = "Niemieckie Federalne Ministerstwo Zdrowia zapewnia różnorodne statystyki dotyczące pandemii koronawirusa. Zwróć uwagę, że wszelkie dane użyte podczas otwierania strony zostaną odjęte od Twojego planu danych oraz że strona nie została zaprojektowana jako wolna od barier i jest dostępna tylko w języku angielskim, niemieckim, tureckim i rosyjskim.";
 
 "Statistics_Info_Incidence_Title" = "7-dniowa zapadalność";
 
