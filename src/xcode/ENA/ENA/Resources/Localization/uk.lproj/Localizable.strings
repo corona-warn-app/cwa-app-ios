@@ -760,7 +760,7 @@
 
 "SRS_ConsentScreen_title_description1" = "Щоб попередити інших, потрібна ваша згода.";
 
-"SRS_ConsentScreen_instruction1" = "Якщо у вас позитивний тест на коронавірус, ви можете попередити інших через застосунок.\nЩоб надіслати попередження після отримання позитивного результату під час самостійного тестування або отримання результату тесту, якого немає в застосунку, автентичність застосунку має бути перевірено.";
+"SRS_ConsentScreen_instruction1" = "Якщо у вас позитивний тест на коронавірус, ви можете попередити інших через застосунок.\nЩоб надіслати попередження після отримання позитивного результату під час самостійного тестування або отримання результату тесту, якого немає в застосунку, автентичність застосунку має бути перевірено автоматично.";
 
 "SRS_ConsentScreen_instruction2" = "Це також гарантуватиме надсилання повторних попереджень лише після того, як мине кілька днів.";
 
@@ -816,7 +816,7 @@
 
 "ExposureSubmissionResult_familyMember_antigenTestAdded" = "Експрес-тест було додано";
 
-"ExposureSubmissionResult_antigenTestAddedDesc" = "Результат тесту відображається тут протягом 48 годин.";
+"ExposureSubmissionResult_antigenTestAddedDesc" = "Результат тесту відображається тут протягом 48 годин. Застосунок також створює запис у вашому журналі контактів.";
 
 "ExposureSubmissionResult_warnOthers" = "Попереджайте інших";
 
@@ -1027,6 +1027,12 @@
 
 "ExposureSubmission_SRSFlow_alert_confirmWarnOthers_ActionCancel" = "Скасувати";
 
+"ExposureSubmission_SRSFlow_alert_increasedVolumeOfWarnings_Title" = "Нотатка";
+
+"ExposureSubmission_SRSFlow_alert_increasedVolumeOfWarnings_Message" = "Через велику кількість попереджень, які зараз надсилаються через застосунок, попереджено буде лише ваші контакти за останні %@ дн.";
+
+"ExposureSubmission_SRSFlow_alert_increasedVolumeOfWarnings_ActionOkay" = "OK";
+
 /* Exposure Submission Result */
 "ExposureSubmissionResult_RemoveAlert_Title" = "Видалити результат тесту?";
 
@@ -1134,7 +1140,7 @@
 
 "ExposureSubmission_Antigen_Profile_Overview_EmptyTitle" = "Профілі експрес-тестів ще не створені";
 
-"ExposureSubmission_Antigen_Profile_Overview_EmptyDescription" = "Ви можете створити профіль експрес-тесту зі своїми особистими даними, які ви можете надіслати за допомогою QR-коду до кожного залученого пункту тестування.";
+"ExposureSubmission_Antigen_Profile_Overview_EmptyDescription" = "Ви можете створити профіль експрес-тесту зі своїми особистими даними, які ви можете надати за допомогою QR-коду кожному залученому пункту тестування.";
 
 "ExposureSubmission_Antigen_Profile_Overview_EmptyImageDescription" = "Печатка сертифіката з цифровим сертифікатом на фоні";
 
@@ -1160,7 +1166,7 @@
 
 "ExposureSubmission_Profile_ProfileTile_Title" = "Профілі експрес-тестів";
 
-"ExposureSubmission_Profile_ProfileTile_Description" = "Профіль експрес-тесту з вашими особистими даними, які ви можете надіслати до будь-якого пункту тестування, що приймає участь, за допомогою QR-коду.";
+"ExposureSubmission_Profile_ProfileTile_Description" = "Профіль експрес-тесту з вашими особистими даними, які ви можете надати будь-якому пункту тестування, що приймає участь, за допомогою QR-коду.";
 
 /* ExposureSubmission TestOwnerSelection */
 "ExposureSubmission_TestOwnerSelection_Title" = "Зареєструвати тест";
@@ -1194,7 +1200,7 @@
 
 "ExposureSubmission_TestCertificate_Information_BirthdayText" = "З міркувань безпеки ваш сертифікат тесту захищений датою вашого народження. Сертифікат тесту може бути виданий тільки за умови правильної дати народження.";
 
-"ExposureSubmission_TestCertificate_Information_Dataprivacy_Title" = "Докладна інформація про обробку даних та вашу згоду";
+"ExposureSubmission_TestCertificate_Information_Dataprivacy_Title" = "Щоб отримати докладнішу інформацію про обробку даних, див. сповіщення про конфіденційність.";
 
 "ExposureSubmission_TestCertificate_Information_Alert_Title" = "Скасувати реєстрацію";
 
@@ -1621,6 +1627,14 @@
 "ErrorReport_StartButtonTitle" = "Розпочати";
 
 "ErrorReport_StopAndDeleteButtonTitle" = "Зупинити та видалити";
+
+"ErrorReport_StopAndDeleteButton_Alert_Title" = "Зупинити аналіз помилок?";
+
+"ErrorReport_StopAndDeleteButton_Alert_Message" = "Якщо ви це зробите, усі записані дані будуть видалені. Якщо ви зберегли локальну копію звіту про помилку, вона не буде видалена.";
+
+"ErrorReport_StopAndDeleteButton_Alert_StopAnalyse" = "Зупинити аналіз";
+
+"ErrorReport_StopAndDeleteButton_Alert_ContinueAnalyse" = "Продовжити аналіз";
 
 "ErrorReport_SaveButtonTitle" = "Надати та продовжити";
 
@@ -2130,7 +2144,7 @@
 /* - Pandemic Radar */
 "Statistics_Card_PandemicRadar_title" = "Пандемічний радар";
 
-"Statistics_Card_PandemicRadar_subtitle" = "з Інституту Роберта Коха";
+"Statistics_Card_PandemicRadar_subtitle" = "З Федерального міністерства охорони здоров’я Німеччини";
 
 "Statistics_Card_PandemicRadar_description" = "Перегляньте додаткову статистику щодо пандемії.";
 
@@ -2280,7 +2294,7 @@
 
 "Statistics_Info_PandemicRadar_Title" = "Пандемічний радар";
 
-"Statistics_Info_PandemicRadar_Text" = "Різноманітна статистика щодо пандемії коронавірусу, яка представлена на сайті Інституту Роберта Коха. Зауважте, що плату за будь-які дані, використовувані під час відкриття веб-сайту, буде вираховано відповідно до вашого тарифного плану та що веб-сайт не є безбар’єрним і доступний лише німецькою мовою.";
+"Statistics_Info_PandemicRadar_Text" = "Федеральне міністерство охорони здоров’я Німеччини надає різноманітну статистику щодо пандемії коронавірусу. Зауважте, що плату за будь-які дані, використовувані під час відкриття вебсайту, буде вираховано відповідно до вашого тарифного плану та що вебсайт не є безбар’єрним. Ця сторінка доступна англійською, німецькою, турецькою та російською мовами.";
 
 "Statistics_Info_Incidence_Title" = "7-денна захворюваність";
 
