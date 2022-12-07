@@ -986,6 +986,9 @@
 		8F3D71AA25A86AD300D52CCD /* HomeExposureLoggingCellModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3D71A925A86AD300D52CCD /* HomeExposureLoggingCellModelTests.swift */; };
 		8F43A3CB25D55A3E008FD630 /* ppa_data.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F43A3C925D55A3D008FD630 /* ppa_data.pb.swift */; };
 		8F43A3CC25D55A3E008FD630 /* ppa_data_request_ios.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F43A3CA25D55A3E008FD630 /* ppa_data_request_ios.pb.swift */; };
+		8F47CB67293E35C5008D91E5 /* ContactDiaryStoreSchemaV6.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F47CB66293E35C5008D91E5 /* ContactDiaryStoreSchemaV6.swift */; };
+		8F47CB69293E376A008D91E5 /* ContactDiaryMigration5To6.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F47CB68293E376A008D91E5 /* ContactDiaryMigration5To6.swift */; };
+		8F47CB6B293E4170008D91E5 /* DiaryDaySubmission.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F47CB6A293E4170008D91E5 /* DiaryDaySubmission.swift */; };
 		8F48192527C68DD1003C06EC /* CCLScenariosHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F48192427C68DD1003C06EC /* CCLScenariosHelper.swift */; };
 		8F499B03267CDE420047C1A6 /* ManageStatisticsCardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F499B02267CDE420047C1A6 /* ManageStatisticsCardView.xib */; };
 		8F499B05267CDE530047C1A6 /* ManageStatisticsCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F499B04267CDE530047C1A6 /* ManageStatisticsCardView.swift */; };
@@ -2892,6 +2895,9 @@
 		8F3D71A925A86AD300D52CCD /* HomeExposureLoggingCellModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeExposureLoggingCellModelTests.swift; sourceTree = "<group>"; };
 		8F43A3C925D55A3D008FD630 /* ppa_data.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ppa_data.pb.swift; sourceTree = "<group>"; };
 		8F43A3CA25D55A3E008FD630 /* ppa_data_request_ios.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ppa_data_request_ios.pb.swift; sourceTree = "<group>"; };
+		8F47CB66293E35C5008D91E5 /* ContactDiaryStoreSchemaV6.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDiaryStoreSchemaV6.swift; sourceTree = "<group>"; };
+		8F47CB68293E376A008D91E5 /* ContactDiaryMigration5To6.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDiaryMigration5To6.swift; sourceTree = "<group>"; };
+		8F47CB6A293E4170008D91E5 /* DiaryDaySubmission.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryDaySubmission.swift; sourceTree = "<group>"; };
 		8F48192427C68DD1003C06EC /* CCLScenariosHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CCLScenariosHelper.swift; sourceTree = "<group>"; };
 		8F499B02267CDE420047C1A6 /* ManageStatisticsCardView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ManageStatisticsCardView.xib; sourceTree = "<group>"; };
 		8F499B04267CDE530047C1A6 /* ManageStatisticsCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageStatisticsCardView.swift; sourceTree = "<group>"; };
@@ -4598,6 +4604,7 @@
 				019C9F38258951BC00B26392 /* DiaryEntryType.swift */,
 				01909881257E675D0065D050 /* DiaryContactPerson.swift */,
 				BAEFB35D2656BD4700497F79 /* DiaryDayTest.swift */,
+				8F47CB6A293E4170008D91E5 /* DiaryDaySubmission.swift */,
 				019C9F2C258951B700B26392 /* ContactPersonEncounter.swift */,
 				019C9F3F258951C000B26392 /* DiaryLocation.swift */,
 				019C9F31258951B900B26392 /* LocationVisit.swift */,
@@ -7448,6 +7455,15 @@
 			path = __tests__;
 			sourceTree = "<group>";
 		};
+		8F47CB65293E35A2008D91E5 /* StoreV6 */ = {
+			isa = PBXGroup;
+			children = (
+				8F47CB68293E376A008D91E5 /* ContactDiaryMigration5To6.swift */,
+				8F47CB66293E35C5008D91E5 /* ContactDiaryStoreSchemaV6.swift */,
+			);
+			path = StoreV6;
+			sourceTree = "<group>";
+		};
 		8F4B8C5326F8A5CB007620D0 /* _tests_ */ = {
 			isa = PBXGroup;
 			children = (
@@ -8307,6 +8323,7 @@
 				AB6887E725D6754C00907465 /* StoreV3 */,
 				AB190EE125FF5AC500FBFF0D /* StoreV4 */,
 				BAEFB3532656A73400497F79 /* StoreV5 */,
+				8F47CB65293E35A2008D91E5 /* StoreV6 */,
 			);
 			path = Store;
 			sourceTree = "<group>";
@@ -11473,6 +11490,7 @@
 				3494D927261DD49100EC532C /* DMPosterGenerationViewModel.swift in Sources */,
 				3494635227FC937900403F7A /* AntigenTestProfileOverviewEmptyStateViewModel.swift in Sources */,
 				BA5B7FD526458EF400502087 /* HealthCertificateSimpleTextCell.swift in Sources */,
+				8F47CB69293E376A008D91E5 /* ContactDiaryMigration5To6.swift in Sources */,
 				8F5B5C172648CD3800456381 /* HealthCertifiedPersonCellModel.swift in Sources */,
 				354642F8262E07840004618A /* AccessibleStackView.swift in Sources */,
 				341320562742B951003E3906 /* TicketValidationCertificateSelectionViewModel.swift in Sources */,
@@ -12117,6 +12135,7 @@
 				0138F54D25ECD44300A9B075 /* app_config_ios.pb.swift in Sources */,
 				5001DE7526E20118004242FA /* VaccinationValueSets.swift in Sources */,
 				0138F56125ECDC7700A9B075 /* TransmissionRiskValueMapping.swift in Sources */,
+				8F47CB6B293E4170008D91E5 /* DiaryDaySubmission.swift in Sources */,
 				8FB7C9282750EF6E0071C98C /* ServiceIdentityDocumentValidationDecoratorError.swift in Sources */,
 				94EAF87125B6CA9D00BE1F40 /* DeltaOnboardingNewVersionFeatures.swift in Sources */,
 				2FA9E39324D2F2920030561C /* TestResult.swift in Sources */,
@@ -12455,6 +12474,7 @@
 				01F6701225FF79830069C4F9 /* EventCellModel.swift in Sources */,
 				BA2C88E727FDC61500CE7E1E /* RevocationProvider.swift in Sources */,
 				BA9BCF6225B0875100DD7974 /* DiaryOverviewDayCellModel.swift in Sources */,
+				8F47CB67293E35C5008D91E5 /* ContactDiaryStoreSchemaV6.swift in Sources */,
 				8FEC12242754B6C000C5DADC /* Locator+AllowList.swift in Sources */,
 				BA0887A6269F43930007B3F3 /* NSMutableAttributedString+Link.swift in Sources */,
 				DC03798A28EDD51C00E1EE20 /* link_card.pb.swift in Sources */,
