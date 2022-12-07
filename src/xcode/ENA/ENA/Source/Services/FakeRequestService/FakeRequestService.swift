@@ -133,7 +133,7 @@ class FakeRequestService {
 		
 		let randomNumber = Int.random(in: Int(plausibleDeniabilityParameters.minRequestPaddingBytes)...Int(plausibleDeniabilityParameters.maxRequestPaddingBytes))
 		
-		var bytes = Data(count: randomNumber)
+		var bytes = [UInt8](repeating: 0, count: randomNumber)
 		let result = SecRandomCopyBytes(kSecRandomDefault, bytes.count, &bytes)
 
 		guard result == errSecSuccess else {
@@ -141,6 +141,6 @@ class FakeRequestService {
 			return nil
 		}
 
-		return bytes
+		return Data(bytes)
 	}
 }
