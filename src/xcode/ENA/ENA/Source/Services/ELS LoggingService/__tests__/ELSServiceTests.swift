@@ -212,7 +212,9 @@ class ELSServiceTests: CWATestCase {
 			store: store,
 			client: ClientMock(),
 			restServiceProvider: RestServiceProviderStub(loadResources: [loadResource]),
-			riskProvider: riskProvider
+			riskProvider: riskProvider,
+			ppacService: ppacService,
+			appConfiguration: CachedAppConfigurationMock()
 		)
 		let elsService = ErrorLogSubmissionService(
 			restServicerProvider: restService,

@@ -1126,6 +1126,9 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 		
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "SomeToken")
+		let ppacService = PPACService(store: store, deviceCheck: deviceCheck)
+		
 		let coronaTestService = CoronaTestService(
 			restServiceProvider: restServiceProvider,
 			store: store,
@@ -1139,6 +1142,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
+			ppacService: ppacService,
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
