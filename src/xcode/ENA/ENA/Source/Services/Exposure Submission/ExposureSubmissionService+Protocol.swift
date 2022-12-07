@@ -34,6 +34,7 @@ struct ExposureSubmissionServiceDependencies {
 	let appConfigurationProvider: AppConfigurationProviding
 	let restServiceProvider: RestServiceProviding
 	let store: Store
+	let diaryStore: DiaryStoring
 	let eventStore: EventStoringProviding
 	let coronaTestService: CoronaTestServiceProviding
 	let ppacService: PrivacyPreservingAccessControl
