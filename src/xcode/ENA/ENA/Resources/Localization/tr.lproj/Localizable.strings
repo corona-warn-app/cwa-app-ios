@@ -760,7 +760,7 @@
 
 "SRS_ConsentScreen_title_description1" = "Diğer kullanıcıları uyarabilmeniz için izniniz gereklidir.";
 
-"SRS_ConsentScreen_instruction1" = "Koronavirüs testiniz pozitif çıkarsa uygulama üzerinden diğer kullanıcıları uyarabilirsiniz.\nKendi kendine test pozitif çıktıktan sonra veya uygulamada sunulmayan bir test sonucuyla uyarı göndermek için uygulamanın orijinalliği doğrulanmalıdır.";
+"SRS_ConsentScreen_instruction1" = "Koronavirüs testiniz pozitif çıkarsa uygulama üzerinden diğer kullanıcıları uyarabilirsiniz.\nKendi kendine test pozitif çıktıktan sonra veya uygulamada sunulmayan bir test sonucuyla uyarı göndermek için uygulamanın orijinalliği otomatik olarak doğrulanmalıdır.";
 
 "SRS_ConsentScreen_instruction2" = "Bu, yinelenen uyarıların yalnızca %@ gün geçtikten sonra gönderilebilmesini de sağlar.";
 
@@ -816,7 +816,7 @@
 
 "ExposureSubmissionResult_familyMember_antigenTestAdded" = "Hızlı test eklendi";
 
-"ExposureSubmissionResult_antigenTestAddedDesc" = "Test sonucu 48 saat süreyle burada görüntülenir.";
+"ExposureSubmissionResult_antigenTestAddedDesc" = "Test sonucu 48 saat süreyle burada görüntülenir. Uygulama ayrıca temas güncenizde bir giriş oluşturur.";
 
 "ExposureSubmissionResult_warnOthers" = "Diğer Kullanıcıları Uyarın";
 
@@ -1027,6 +1027,12 @@
 
 "ExposureSubmission_SRSFlow_alert_confirmWarnOthers_ActionCancel" = "İptal";
 
+"ExposureSubmission_SRSFlow_alert_increasedVolumeOfWarnings_Title" = "Not";
+
+"ExposureSubmission_SRSFlow_alert_increasedVolumeOfWarnings_Message" = "Şu anda uygulama üzerinden gönderilmekte olan yüksek uyarı sayısı nedeniyle yalnızca son %@ gün içinde temasa geçtiğiniz kişiler uyarıldı.";
+
+"ExposureSubmission_SRSFlow_alert_increasedVolumeOfWarnings_ActionOkay" = "Tamam";
+
 /* Exposure Submission Result */
 "ExposureSubmissionResult_RemoveAlert_Title" = "Test sonucu silinsin mi?";
 
@@ -1134,7 +1140,7 @@
 
 "ExposureSubmission_Antigen_Profile_Overview_EmptyTitle" = "Henüz hiçbir hızlı test profili oluşturulmadı";
 
-"ExposureSubmission_Antigen_Profile_Overview_EmptyDescription" = "Kişisel verilerinizle bir hızlı test profili oluşturabilir ve her katılan test noktasına QR kod aracılığıyla gönderebilirsiniz.";
+"ExposureSubmission_Antigen_Profile_Overview_EmptyDescription" = "Kişisel verilerinizle bir hızlı test profili oluşturabilir ve her katılan test noktasına QR kod aracılığıyla sunabilirsiniz.";
 
 "ExposureSubmission_Antigen_Profile_Overview_EmptyImageDescription" = "Arka planda dijital sertifika ve sertifika mührü";
 
@@ -1160,7 +1166,7 @@
 
 "ExposureSubmission_Profile_ProfileTile_Title" = "Hızlı Test Profilleri";
 
-"ExposureSubmission_Profile_ProfileTile_Description" = "QR kod ile dilediğiniz katılımcı test noktasına gönderebileceğiniz, kişisel verilerinizi içeren hızlı test profili.";
+"ExposureSubmission_Profile_ProfileTile_Description" = "QR kod ile dilediğiniz katılımcı test noktasına sunabileceğiniz, kişisel verilerinizi içeren hızlı test profili.";
 
 /* ExposureSubmission TestOwnerSelection */
 "ExposureSubmission_TestOwnerSelection_Title" = "Testi Kaydet";
@@ -1194,7 +1200,7 @@
 
 "ExposureSubmission_TestCertificate_Information_BirthdayText" = "Güvenlik amaçları nedeniyle test sertifikanız doğum tarihinizle korunmaktadır. Test sertifikası yalnızca doğru doğum tarihini belirtirseniz düzenlenebilir.";
 
-"ExposureSubmission_TestCertificate_Information_Dataprivacy_Title" = "Veri İşleme ve Onayınız Hakkında Ayrıntılı Bilgiler";
+"ExposureSubmission_TestCertificate_Information_Dataprivacy_Title" = "Veri işleme hakkında daha ayrıntılı bilgi için lütfen gizlilik bildirimine başvurun.";
 
 "ExposureSubmission_TestCertificate_Information_Alert_Title" = "Kaydı İptal Et";
 
@@ -1621,6 +1627,14 @@
 "ErrorReport_StartButtonTitle" = "Başlat";
 
 "ErrorReport_StopAndDeleteButtonTitle" = "Durdur ve Sil";
+
+"ErrorReport_StopAndDeleteButton_Alert_Title" = "Hata analizi durdurulsun mu?";
+
+"ErrorReport_StopAndDeleteButton_Alert_Message" = "Bunu seçerseniz kaydedilen tüm veriler silinir. Hata raporunun yerel bir kopyasını kaydettiyseniz bu kopya silinmez.";
+
+"ErrorReport_StopAndDeleteButton_Alert_StopAnalyse" = "Analizi Durdur";
+
+"ErrorReport_StopAndDeleteButton_Alert_ContinueAnalyse" = "Analizi Devam Ettir";
 
 "ErrorReport_SaveButtonTitle" = "Paylaş ve Devam Et";
 
@@ -2130,7 +2144,7 @@
 /* - Pandemic Radar */
 "Statistics_Card_PandemicRadar_title" = "Pandemi Radarı";
 
-"Statistics_Card_PandemicRadar_subtitle" = "Robert Koch Institute tarafından sunulur";
+"Statistics_Card_PandemicRadar_subtitle" = "Almanya Federal Sağlık Bakanlığı tarafından sunulur";
 
 "Statistics_Card_PandemicRadar_description" = "Pandemi ile ilgili ilave istatistikleri keşfedin.";
 
@@ -2280,7 +2294,7 @@
 
 "Statistics_Info_PandemicRadar_Title" = "Pandemi Radarı";
 
-"Statistics_Info_PandemicRadar_Text" = "Robert Koch Institute web sitesinde sunulan çeşitli koronavirüs pandemisi istatistikleri. Web sitesini açarken kullanılan tüm verilerin veri planınızdan düşüleceğini, web sitesinin engellilere uygun şekilde tasarlanmadığını ve yalnızca Almanca dilinde kullanılabildiğini unutmayın.";
+"Statistics_Info_PandemicRadar_Text" = "Almanya Federal Sağlık Bakanlığı, koronavirüs pandemisine ilişkin çeşitli istatistikler sağlar. Web sitesini açarken kullanılan tüm verilerin veri planınızdan düşüleceğini ve web sitesinin engellilere uygun şekilde tasarlanmadığını unutmayın. Bu sayfa İngilizce, Almanca, Türkçe ve Rusça dilinde kullanılabilir.";
 
 "Statistics_Info_Incidence_Title" = "7 Günlük Olay";
 
