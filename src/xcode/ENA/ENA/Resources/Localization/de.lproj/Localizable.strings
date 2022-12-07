@@ -2210,12 +2210,11 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Statistics_Card_PandemicRadar_title" = "Pandemieradar";
 
-"Statistics_Card_PandemicRadar_subtitle" = "des Robert Koch-Instituts";
+"Statistics_Card_PandemicRadar_subtitle" = "des Bundesministeriums für Gesundheit";
 
 "Statistics_Card_PandemicRadar_description" = "Entdecken Sie weitere Statistiken zur Pandemie.";
 
 "Statistics_Card_PandemicRadar_buttonTitle" = "Externen Link öffnen";
-
 
 /* - 7 Days Incedence */
 
@@ -2373,7 +2372,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Statistics_Info_PandemicRadar_Title" = "Pandemieradar";
 
-"Statistics_Info_PandemicRadar_Text" = "Diverse Statistiken zur Corona-Pandemie, die auf einer Webseite des Robert Koch-Instituts bereitgestellt werden. Bitte beachten Sie, dass die anfallenden Daten auf Ihr Datenvolumen angerechnet werden, die Webseite nicht barrierefrei und nur in deutscher Sprache verfügbar ist.";
+"Statistics_Info_PandemicRadar_Text" = "Das Bundesministerium für Gesundheit stellt verschiedene Statistiken zur Corona-Pandemie bereit. Bitte beachten Sie, dass die anfallenden Daten auf Ihr Datenvolumen angerechnet werden und die Website nicht barrierefrei ist. Die Seite ist verfügbar in deutscher, englischer, türkischer und russischer Sprache.";
 
 "Statistics_Info_Incidence_Title" = "7-Tage-Inzidenz";
 
