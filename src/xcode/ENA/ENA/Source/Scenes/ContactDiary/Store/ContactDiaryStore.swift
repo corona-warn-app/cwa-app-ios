@@ -1157,7 +1157,43 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding, SecureSQLStore {
 
 		return .success(diaryDayTests)
 	}
+	
+	private func fetchSubmissions(for date: String, in database: FMDatabase) -> Result<[DiaryDaySubmission], SecureSQLStoreError> {
+		// database schema v6 is required here, if not available return success with empty data
+		guard database.userVersion >= 6 else {
+			return .success([])
+		}
 
+		var diaryDaySubmissions = [DiaryDaySubmission]()
+
+		let sql = """
+				SELECT id,
+					   date
+				FROM Submission
+				WHERE date = ?
+				ORDER BY id ASC
+			"""
+
+		do {
+			let queryResult = try database.executeQuery(sql, values: [date])
+			defer {
+				queryResult.close()
+			}
+
+			while queryResult.next() {
+				let submissionID = Int(queryResult.int(forColumn: "id"))
+				let submissionDate = queryResult.string(forColumn: "date") ?? ""
+				
+				let diaryDaySubmission = DiaryDaySubmission(id: submissionID, date: submissionDate)
+				diaryDaySubmissions.append(diaryDaySubmission)
+			}
+		} catch {
+			logLastErrorCode(from: database)
+			return .failure(dbError(from: database))
+		}
+
+		return .success(diaryDaySubmissions)
+	}
 	// MARK: - update
 
 	@discardableResult
