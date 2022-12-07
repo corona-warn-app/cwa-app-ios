@@ -760,7 +760,7 @@
 
 "SRS_ConsentScreen_title_description1" = "Your consent is required before you can warn others.";
 
-"SRS_ConsentScreen_instruction1" = "If you test positive for coronavirus, you can warn others through the app.\nTo send a warning after a positive self-test or with a test result that is not in the app, the authenticity of the app must be verified.";
+"SRS_ConsentScreen_instruction1" = "If you test positive for coronavirus, you can warn others through the app.\nTo send a warning after a positive self-test or with a test result that is not in the app, the authenticity of the app must be verified automatically.";
 
 "SRS_ConsentScreen_instruction2" = "This also ensures that repeated warnings are only possible after %@ days have passed.";
 
@@ -816,7 +816,7 @@
 
 "ExposureSubmissionResult_familyMember_antigenTestAdded" = "The rapid test was added";
 
-"ExposureSubmissionResult_antigenTestAddedDesc" = "The test result is displayed here for 48 hours.";
+"ExposureSubmissionResult_antigenTestAddedDesc" = "The test result is displayed here for 48 hours. The app also creates an entry in your contact journal.";
 
 "ExposureSubmissionResult_warnOthers" = "Warn Others";
 
@@ -1027,6 +1027,12 @@
 
 "ExposureSubmission_SRSFlow_alert_confirmWarnOthers_ActionCancel" = "Cancel";
 
+"ExposureSubmission_SRSFlow_alert_increasedVolumeOfWarnings_Title" = "Note";
+
+"ExposureSubmission_SRSFlow_alert_increasedVolumeOfWarnings_Message" = "Due to the high number of warnings currently being sent via the app, only your contacts from the last %@ days have been warned.";
+
+"ExposureSubmission_SRSFlow_alert_increasedVolumeOfWarnings_ActionOkay" = "OK";
+
 /* Exposure Submission Result */
 "ExposureSubmissionResult_RemoveAlert_Title" = "Delete the test result?";
 
@@ -1134,7 +1140,7 @@
 
 "ExposureSubmission_Antigen_Profile_Overview_EmptyTitle" = "No rapid test profiles created yet";
 
-"ExposureSubmission_Antigen_Profile_Overview_EmptyDescription" = "You can create a rapid test profile with your personal data, which you can submit via QR code to every participating testing point.";
+"ExposureSubmission_Antigen_Profile_Overview_EmptyDescription" = "You can create a rapid test profile with your personal data, which you can present via QR code to every participating testing point.";
 
 "ExposureSubmission_Antigen_Profile_Overview_EmptyImageDescription" = "Certificate seal with digital certificate in the background";
 
@@ -1160,7 +1166,7 @@
 
 "ExposureSubmission_Profile_ProfileTile_Title" = "Rapid Test Profiles";
 
-"ExposureSubmission_Profile_ProfileTile_Description" = "Rapid test profile with your personal data, which you can submit to any participating testing point via the QR code.";
+"ExposureSubmission_Profile_ProfileTile_Description" = "Rapid test profile with your personal data, which you can present to any participating testing point via the QR code.";
 
 /* ExposureSubmission TestOwnerSelection */
 "ExposureSubmission_TestOwnerSelection_Title" = "Register Test";
@@ -1194,7 +1200,7 @@
 
 "ExposureSubmission_TestCertificate_Information_BirthdayText" = "For security purposes, your test certificate is protected with your date of birth. The test certificate can only be issued if you specify the correct date of birth.";
 
-"ExposureSubmission_TestCertificate_Information_Dataprivacy_Title" = "Detailed Information on Data Processing and Your Consent";
+"ExposureSubmission_TestCertificate_Information_Dataprivacy_Title" = "For more detailed information about data processing, please refer to the privacy notice.";
 
 "ExposureSubmission_TestCertificate_Information_Alert_Title" = "Cancel Registration";
 
@@ -1621,6 +1627,14 @@
 "ErrorReport_StartButtonTitle" = "Start";
 
 "ErrorReport_StopAndDeleteButtonTitle" = "Stop and Delete";
+
+"ErrorReport_StopAndDeleteButton_Alert_Title" = "Stop the error analysis?";
+
+"ErrorReport_StopAndDeleteButton_Alert_Message" = "If you do so, all recorded data will be deleted. If you have saved a local copy of the error report, it will not be deleted.";
+
+"ErrorReport_StopAndDeleteButton_Alert_StopAnalyse" = "Stop Analysis";
+
+"ErrorReport_StopAndDeleteButton_Alert_ContinueAnalyse" = "Continue Analysis";
 
 "ErrorReport_SaveButtonTitle" = "Share and Continue";
 
@@ -2130,7 +2144,7 @@
 /* - Pandemic Radar */
 "Statistics_Card_PandemicRadar_title" = "Pandemic Radar";
 
-"Statistics_Card_PandemicRadar_subtitle" = "from the Robert Koch Institute";
+"Statistics_Card_PandemicRadar_subtitle" = "From the German Federal Ministry of Health";
 
 "Statistics_Card_PandemicRadar_description" = "Explore additional pandemic-related statistics.";
 
@@ -2280,7 +2294,7 @@
 
 "Statistics_Info_PandemicRadar_Title" = "Pandemic Radar";
 
-"Statistics_Info_PandemicRadar_Text" = "A variety of statistics on the coronavirus pandemic, which is provided on a Robert Koch Institute website. Please note that any data used when opening the website will be deducted from your data plan and that the website is not designed to be barrier-free and is only available in German.";
+"Statistics_Info_PandemicRadar_Text" = "The German Federal Ministry of Health provides a variety of statistics on the coronavirus pandemic. Please note that any data used when opening the website will be deducted from your data plan and that the website is not designed to be barrier-free. This page is available in English, German, Turkish, and Russian.";
 
 "Statistics_Info_Incidence_Title" = "7-Day Incidence";
 
