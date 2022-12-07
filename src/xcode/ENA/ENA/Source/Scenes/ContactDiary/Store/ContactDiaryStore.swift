@@ -549,6 +549,44 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding, SecureSQLStore {
 
 		return _result
 	}
+	
+	func addSubmission(date: String) -> SecureSQLStore.IdResult {
+		var result: SecureSQLStore.IdResult?
+
+		databaseQueue.inDatabase { database in
+			Log.info("[ContactDiaryStore] Add Submission.", log: .localData)
+
+			let sql = """
+				INSERT INTO Submission (
+					date
+				)
+				VALUES (
+					:date
+				);
+			"""
+			let parameters: [String: Any] = ["date": date]
+			guard database.executeUpdate(sql, withParameterDictionary: parameters) else {
+				logLastErrorCode(from: database)
+				result = .failure(dbError(from: database))
+				return
+			}
+
+			let updateDiaryDaysResult = updateDiaryDays(with: database)
+			guard case .success = updateDiaryDaysResult else {
+				logLastErrorCode(from: database)
+				result = .failure(dbError(from: database))
+				return
+			}
+
+			result = .success(Int(database.lastInsertRowId))
+		}
+
+		guard let _result = result else {
+			fatalError("[ContactDiaryStore] Result should not be nil.")
+		}
+
+		return _result
+	}
 
 	func updateContactPerson(
 		id: Int,
