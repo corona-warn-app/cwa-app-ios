@@ -1970,7 +1970,6 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 "TestResultPositive_KeysSubmitted_PrimaryButton" = "Test löschen";
 
 /* Contact Diary*/
-
 /* Error */
 
 "ContactDiary_Overview_Error_Title" = "Fehler";
@@ -2038,6 +2037,10 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 "ContactDiaray_Overview_Checkin_High_Risk_In_Brackets" = "(erhöhtes Risiko)";
 
 "ContactDiaray_Overview_Checkin_Low_Risk_In_Brackets" = "(niedriges Risiko)";
+
+/* Submission */
+
+"ContactDiary_Overview_Submission" = "Andere gewarnt";
 
 /* Day */
 "ContactDiary_Day_ContactPersonsSegment" = "Personen";
