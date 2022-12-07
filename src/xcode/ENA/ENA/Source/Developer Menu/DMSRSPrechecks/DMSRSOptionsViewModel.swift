@@ -63,7 +63,7 @@ final class DMSRSOptionsViewModel {
 			)
 		case .resetMostRecentKeySubmission:
 			return DMButtonCellViewModel(
-				text: "Most Recent Key Submission Date",
+				text: "Reset",
 				textColor: .white,
 				backgroundColor: .enaColor(for: .buttonDestructive),
 				action: { [store] in
@@ -73,7 +73,7 @@ final class DMSRSOptionsViewModel {
 			)
 		case .resetSRSStateValues:
 			return DMButtonCellViewModel(
-				text: "SRS State Values",
+				text: "Reset",
 				textColor: .white,
 				backgroundColor: .enaColor(for: .buttonDestructive),
 				action: { [store] in
@@ -114,10 +114,10 @@ final class DMSRSOptionsViewModel {
 	   \(createDateString(from: store.ppacApiTokenSrs?.timestamp))
 	   
 	   Previous PPAC API Token SRS
-	   \(store.previousPpacApiTokenSrs?.token ?? "No API Token generated yet")
+	   \(store.previousPpacApiTokenSrs?.token ?? "No API Token available")
 	   
 	   Previous PPAC API Token SRS Creation Date
-	   \(createDateString(from: store.previousPpacApiTokenSrs?.timestamp))
+	   \(createDateString(from: store.previousPpacApiTokenSrs?.timestamp, fallback: "No Date available"))
 	   
 	   """
 	}
@@ -151,9 +151,9 @@ extension DMSRSOptionsViewModel {
 			case .apiToken:
 				return "API Token"
 			case .resetMostRecentKeySubmission:
-				return "Reset Most Recent Key Submission"
+				return "Most Recent Key Submission"
 			case .resetSRSStateValues:
-				return "Reset all SRS State Values"
+				return "All SRS State Values"
 			}
 		}
 	}
