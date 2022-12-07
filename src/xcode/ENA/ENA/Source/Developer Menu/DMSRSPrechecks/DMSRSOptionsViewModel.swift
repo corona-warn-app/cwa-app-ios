@@ -92,13 +92,13 @@ final class DMSRSOptionsViewModel {
 	private func srsStateValueStaticText() -> String {
 		"""
 
-		MOST_RECENT_KEY_SUBMISSION
+		Most Recent Key Submission  Date
 		\(createDateString(from: store.mostRecentKeySubmissionDate))
 
-		SRS_OTP
+		SRS OTP Token
 		\(store.otpTokenSrs?.token ?? "No OTP Token set yet")
 
-		SRS_OTP_EXPIRATION_DATE
+		SRS OTP Token Expiration Date
 		\(createDateString(from: store.otpTokenSrs?.expirationDate))
 
 		"""
