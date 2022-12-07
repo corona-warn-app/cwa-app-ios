@@ -8,7 +8,7 @@ import XCTest
 
 
 class HomeLinkCardViewModelTests: XCTestCase {
-	private let pandemicRadarLinkCard: SAP_Internal_Stats_LinkCard = .mock(cardID: HomeLinkCard.pandemicRadar.rawValue)
+	private let pandemicRadarLinkCard: SAP_Internal_Stats_LinkCard = .mock(cardID: HomeLinkCard.bmgPandemicRadar.rawValue)
 
 	func testTitle_pandemicRadar() {
 		// Given

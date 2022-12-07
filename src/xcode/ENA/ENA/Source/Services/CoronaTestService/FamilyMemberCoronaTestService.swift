@@ -18,6 +18,7 @@ class FamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding {
 		appConfiguration: AppConfigurationProviding,
 		healthCertificateService: HealthCertificateService,
 		healthCertificateRequestService: HealthCertificateRequestService,
+		ppacService: PrivacyPreservingAccessControl,
 		notificationCenter: UserNotificationCenter = UNUserNotificationCenter.current(),
 		recycleBin: RecycleBin
 	) {
@@ -34,10 +35,11 @@ class FamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding {
 
 			self.healthCertificateService = healthCertificateService
 			self.healthCertificateRequestService = healthCertificateRequestService
+			self.ppacService = ppacService
 			self.notificationCenter = notificationCenter
 			self.recycleBin = recycleBin
 
-			self.fakeRequestService = FakeRequestService(restServiceProvider: restServiceProvider)
+			self.fakeRequestService = FakeRequestService(restServiceProvider: restServiceProvider, ppacService: ppacService, appConfiguration: appConfiguration)
 			setup()
 
 			if LaunchArguments.familyMemberTest.fakeOverview.boolValue {
@@ -55,10 +57,11 @@ class FamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding {
 		self.appConfiguration = appConfiguration
 		self.healthCertificateService = healthCertificateService
 		self.healthCertificateRequestService = healthCertificateRequestService
+		self.ppacService = ppacService
 		self.notificationCenter = notificationCenter
 		self.recycleBin = recycleBin
 
-		self.fakeRequestService = FakeRequestService(restServiceProvider: restServiceProvider)
+		self.fakeRequestService = FakeRequestService(restServiceProvider: restServiceProvider, ppacService: ppacService, appConfiguration: appConfiguration)
 
 		healthCertificateRequestService.didRegisterTestCertificate
 			.sink { [weak self] certificateIdentifier, testCertificateRequest in
@@ -77,6 +80,7 @@ class FamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding {
 		appConfiguration: AppConfigurationProviding,
 		healthCertificateService: HealthCertificateService,
 		healthCertificateRequestService: HealthCertificateRequestService,
+		ppacService: PrivacyPreservingAccessControl,
 		notificationCenter: UserNotificationCenter = UNUserNotificationCenter.current(),
 		recycleBin: RecycleBin
 	) {
@@ -87,6 +91,7 @@ class FamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding {
 			appConfiguration: appConfiguration,
 			healthCertificateService: healthCertificateService,
 			healthCertificateRequestService: healthCertificateRequestService,
+			ppacService: ppacService,
 			notificationCenter: notificationCenter,
 			recycleBin: recycleBin
 		)
@@ -455,6 +460,7 @@ class FamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding {
 	private let recycleBin: RecycleBin
 	private let serialQueue = AsyncOperation.serialQueue(named: "FamilyMemberCoronaTestService.serialQueue")
 
+	private let ppacService: PrivacyPreservingAccessControl
 	private let fakeRequestService: FakeRequestService
 
 	private var outdatedStateTimer: Timer?

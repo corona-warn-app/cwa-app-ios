@@ -26,6 +26,9 @@ class CoronaTestServiceTests: CWATestCase {
 			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "SomeToken")
+		let ppacService = PPACService(store: store, deviceCheck: deviceCheck)
+		
 		let service = CoronaTestService(
 			store: store,
 			eventStore: MockEventStore(),
@@ -38,6 +41,7 @@ class CoronaTestServiceTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
+			ppacService: ppacService,
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
@@ -70,6 +74,9 @@ class CoronaTestServiceTests: CWATestCase {
 			recycleBin: .fake(),
 			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
+		
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "SomeToken")
+		let ppacService = PPACService(store: store, deviceCheck: deviceCheck)
 
 		let service = CoronaTestService(
 			store: store,
@@ -83,6 +90,7 @@ class CoronaTestServiceTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
+			ppacService: ppacService,
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
@@ -129,6 +137,9 @@ class CoronaTestServiceTests: CWATestCase {
 			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "SomeToken")
+		let ppacService = PPACService(store: store, deviceCheck: deviceCheck)
+		
 		let service = CoronaTestService(
 			store: store,
 			eventStore: MockEventStore(),
@@ -141,6 +152,7 @@ class CoronaTestServiceTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
+			ppacService: ppacService,
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
@@ -189,6 +201,9 @@ class CoronaTestServiceTests: CWATestCase {
 			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "SomeToken")
+		let ppacService = PPACService(store: store, deviceCheck: deviceCheck)
+		
 		let service = CoronaTestService(
 			store: store,
 			eventStore: MockEventStore(),
@@ -201,6 +216,7 @@ class CoronaTestServiceTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
+			ppacService: ppacService,
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
@@ -247,6 +263,9 @@ class CoronaTestServiceTests: CWATestCase {
 			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "SomeToken")
+		let ppacService = PPACService(store: store, deviceCheck: deviceCheck)
+		
 		let service = CoronaTestService(
 			store: store,
 			eventStore: MockEventStore(),
@@ -259,6 +278,7 @@ class CoronaTestServiceTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
+			ppacService: ppacService,
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
@@ -309,6 +329,9 @@ class CoronaTestServiceTests: CWATestCase {
 			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "SomeToken")
+		let ppacService = PPACService(store: store, deviceCheck: deviceCheck)
+		
 		let service = CoronaTestService(
 			store: store,
 			eventStore: MockEventStore(),
@@ -321,6 +344,7 @@ class CoronaTestServiceTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
+			ppacService: ppacService,
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
@@ -376,6 +400,9 @@ class CoronaTestServiceTests: CWATestCase {
 			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "SomeToken")
+		let ppacService = PPACService(store: store, deviceCheck: deviceCheck)
+		
 		let service = CoronaTestService(
 			store: store,
 			eventStore: MockEventStore(),
@@ -388,6 +415,7 @@ class CoronaTestServiceTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
+			ppacService: ppacService,
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
@@ -445,6 +473,9 @@ class CoronaTestServiceTests: CWATestCase {
 				revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 			)
 
+			let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "SomeToken")
+			let ppacService = PPACService(store: store, deviceCheck: deviceCheck)
+			
 			let service = CoronaTestService(
 				store: store,
 				eventStore: MockEventStore(),
@@ -457,6 +488,7 @@ class CoronaTestServiceTests: CWATestCase {
 					appConfiguration: appConfiguration,
 					healthCertificateService: healthCertificateService
 				),
+				ppacService: ppacService,
 				recycleBin: .fake(),
 				badgeWrapper: .fake()
 			)
@@ -500,6 +532,9 @@ class CoronaTestServiceTests: CWATestCase {
 			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "SomeToken")
+		let ppacService = PPACService(store: store, deviceCheck: deviceCheck)
+		
 		let service = CoronaTestService(
 			store: store,
 			eventStore: MockEventStore(),
@@ -512,6 +547,7 @@ class CoronaTestServiceTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
+			ppacService: ppacService,
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
@@ -556,6 +592,9 @@ class CoronaTestServiceTests: CWATestCase {
 			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "SomeToken")
+		let ppacService = PPACService(store: store, deviceCheck: deviceCheck)
+		
 		let service = CoronaTestService(
 			restServiceProvider: restServiceProvider,
 			store: store,
@@ -569,6 +608,7 @@ class CoronaTestServiceTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
+			ppacService: ppacService,
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
@@ -662,6 +702,9 @@ class CoronaTestServiceTests: CWATestCase {
 			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "SomeToken")
+		let ppacService = PPACService(store: store, deviceCheck: deviceCheck)
+		
 		let service = CoronaTestService(
 			restServiceProvider: restServiceProvider,
 			store: store,
@@ -675,6 +718,7 @@ class CoronaTestServiceTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
+			ppacService: ppacService,
 			recycleBin: .fake(),
 			badgeWrapper: badgeWrapper
 		)
@@ -788,6 +832,9 @@ class CoronaTestServiceTests: CWATestCase {
 			recycleBin: .fake(),
 			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
+		
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "SomeToken")
+		let ppacService = PPACService(store: store, deviceCheck: deviceCheck)
 
 		let service = CoronaTestService(
 			restServiceProvider: restServiceProvider,
@@ -802,6 +849,7 @@ class CoronaTestServiceTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
+			ppacService: ppacService,
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
@@ -889,6 +937,9 @@ class CoronaTestServiceTests: CWATestCase {
 			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "SomeToken")
+		let ppacService = PPACService(store: store, deviceCheck: deviceCheck)
+		
 		let service = CoronaTestService(
 			restServiceProvider: restServiceProvider,
 			store: store,
@@ -902,6 +953,7 @@ class CoronaTestServiceTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
+			ppacService: ppacService,
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
@@ -962,6 +1014,9 @@ class CoronaTestServiceTests: CWATestCase {
 			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "SomeToken")
+		let ppacService = PPACService(store: store, deviceCheck: deviceCheck)
+		
 		let service = CoronaTestService(
 			restServiceProvider: restServiceProvider,
 			store: store,
@@ -975,6 +1030,7 @@ class CoronaTestServiceTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
+			ppacService: ppacService,
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
@@ -1034,6 +1090,9 @@ class CoronaTestServiceTests: CWATestCase {
 			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "SomeToken")
+		let ppacService = PPACService(store: store, deviceCheck: deviceCheck)
+		
 		let service = CoronaTestService(
 			restServiceProvider: restServiceProvider,
 			store: store,
@@ -1047,6 +1106,7 @@ class CoronaTestServiceTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
+			ppacService: ppacService,
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
@@ -1127,6 +1187,9 @@ class CoronaTestServiceTests: CWATestCase {
 			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "SomeToken")
+		let ppacService = PPACService(store: store, deviceCheck: deviceCheck)
+		
 		let service = CoronaTestService(
 			restServiceProvider: restServiceProvider,
 			store: store,
@@ -1140,6 +1203,7 @@ class CoronaTestServiceTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
+			ppacService: ppacService,
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
@@ -1222,6 +1286,9 @@ class CoronaTestServiceTests: CWATestCase {
 			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "SomeToken")
+		let ppacService = PPACService(store: store, deviceCheck: deviceCheck)
+		
 		let service = CoronaTestService(
 			restServiceProvider: restServiceProvider,
 			store: store,
@@ -1235,6 +1302,7 @@ class CoronaTestServiceTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
+			ppacService: ppacService,
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
@@ -1307,6 +1375,9 @@ class CoronaTestServiceTests: CWATestCase {
 			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "SomeToken")
+		let ppacService = PPACService(store: store, deviceCheck: deviceCheck)
+		
 		let service = CoronaTestService(
 			restServiceProvider: restServiceProvider,
 			store: store,
@@ -1320,6 +1391,7 @@ class CoronaTestServiceTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
+			ppacService: ppacService,
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
@@ -1382,6 +1454,9 @@ class CoronaTestServiceTests: CWATestCase {
 			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "SomeToken")
+		let ppacService = PPACService(store: store, deviceCheck: deviceCheck)
+		
 		let service = CoronaTestService(
 			restServiceProvider: restServiceProvider,
 			store: store,
@@ -1395,6 +1470,7 @@ class CoronaTestServiceTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
+			ppacService: ppacService,
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
@@ -1473,6 +1549,9 @@ class CoronaTestServiceTests: CWATestCase {
 			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "SomeToken")
+		let ppacService = PPACService(store: store, deviceCheck: deviceCheck)
+		
 		let service = CoronaTestService(
 			restServiceProvider: restServiceProvider,
 			store: store,
@@ -1486,6 +1565,7 @@ class CoronaTestServiceTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
+			ppacService: ppacService,
 			recycleBin: .fake(),
 			badgeWrapper: badgeWrapper
 		)
@@ -1595,6 +1675,9 @@ class CoronaTestServiceTests: CWATestCase {
 			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "SomeToken")
+		let ppacService = PPACService(store: store, deviceCheck: deviceCheck)
+		
 		let service = CoronaTestService(
 			restServiceProvider: restServiceProvider,
 			store: store,
@@ -1608,6 +1691,7 @@ class CoronaTestServiceTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
+			ppacService: ppacService,
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
@@ -1682,6 +1766,9 @@ class CoronaTestServiceTests: CWATestCase {
 			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "SomeToken")
+		let ppacService = PPACService(store: store, deviceCheck: deviceCheck)
+		
 		let service = CoronaTestService(
 			restServiceProvider: restServiceProvider,
 			store: store,
@@ -1695,6 +1782,7 @@ class CoronaTestServiceTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
+			ppacService: ppacService,
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
@@ -1750,6 +1838,9 @@ class CoronaTestServiceTests: CWATestCase {
 			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "SomeToken")
+		let ppacService = PPACService(store: store, deviceCheck: deviceCheck)
+		
 		let service = CoronaTestService(
 			restServiceProvider: restServiceProvider,
 			store: store,
@@ -1763,6 +1854,7 @@ class CoronaTestServiceTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
+			ppacService: ppacService,
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
@@ -1852,6 +1944,9 @@ class CoronaTestServiceTests: CWATestCase {
 			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "SomeToken")
+		let ppacService = PPACService(store: store, deviceCheck: deviceCheck)
+		
 		let service = CoronaTestService(
 			restServiceProvider: restServiceProvider,
 			store: store,
@@ -1865,6 +1960,7 @@ class CoronaTestServiceTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
+			ppacService: ppacService,
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
@@ -1951,6 +2047,9 @@ class CoronaTestServiceTests: CWATestCase {
 			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "SomeToken")
+		let ppacService = PPACService(store: store, deviceCheck: deviceCheck)
+		
 		let service = CoronaTestService(
 			restServiceProvider: restServiceProvider,
 			store: store,
@@ -1964,6 +2063,7 @@ class CoronaTestServiceTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
+			ppacService: ppacService,
 			recycleBin: .fake(),
 			badgeWrapper: badgeWrapper
 		)
@@ -2078,6 +2178,9 @@ class CoronaTestServiceTests: CWATestCase {
 			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "SomeToken")
+		let ppacService = PPACService(store: store, deviceCheck: deviceCheck)
+		
 		let service = CoronaTestService(
 			restServiceProvider: restServiceProvider,
 			store: store,
@@ -2091,6 +2194,7 @@ class CoronaTestServiceTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
+			ppacService: ppacService,
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
@@ -2164,6 +2268,9 @@ class CoronaTestServiceTests: CWATestCase {
 			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "SomeToken")
+		let ppacService = PPACService(store: store, deviceCheck: deviceCheck)
+		
 		let service = CoronaTestService(
 			restServiceProvider: restServiceProvider,
 			store: store,
@@ -2177,6 +2284,7 @@ class CoronaTestServiceTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
+			ppacService: ppacService,
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
@@ -2236,6 +2344,9 @@ class CoronaTestServiceTests: CWATestCase {
 			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "SomeToken")
+		let ppacService = PPACService(store: store, deviceCheck: deviceCheck)
+		
 		let service = CoronaTestService(
 			restServiceProvider: restServiceProvider,
 			store: store,
@@ -2249,6 +2360,7 @@ class CoronaTestServiceTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
+			ppacService: ppacService,
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
@@ -2327,6 +2439,9 @@ class CoronaTestServiceTests: CWATestCase {
 			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "SomeToken")
+		let ppacService = PPACService(store: store, deviceCheck: deviceCheck)
+		
 		let service = CoronaTestService(
 			restServiceProvider: restServiceProvider,
 			store: store,
@@ -2340,6 +2455,7 @@ class CoronaTestServiceTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
+			ppacService: ppacService,
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
@@ -2391,6 +2507,9 @@ class CoronaTestServiceTests: CWATestCase {
 			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "SomeToken")
+		let ppacService = PPACService(store: store, deviceCheck: deviceCheck)
+		
 		let service = CoronaTestService(
 			restServiceProvider: restServiceProvider,
 			store: store,
@@ -2404,6 +2523,7 @@ class CoronaTestServiceTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
+			ppacService: ppacService,
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
@@ -2450,6 +2570,9 @@ class CoronaTestServiceTests: CWATestCase {
 			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "SomeToken")
+		let ppacService = PPACService(store: store, deviceCheck: deviceCheck)
+		
 		let service = CoronaTestService(
 			store: store,
 			eventStore: MockEventStore(),
@@ -2462,6 +2585,7 @@ class CoronaTestServiceTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
+			ppacService: ppacService,
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
@@ -2496,6 +2620,9 @@ class CoronaTestServiceTests: CWATestCase {
 			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "SomeToken")
+		let ppacService = PPACService(store: store, deviceCheck: deviceCheck)
+		
 		let service = CoronaTestService(
 			store: store,
 			eventStore: MockEventStore(),
@@ -2508,6 +2635,7 @@ class CoronaTestServiceTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
+			ppacService: ppacService,
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
@@ -2542,6 +2670,9 @@ class CoronaTestServiceTests: CWATestCase {
 			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "SomeToken")
+		let ppacService = PPACService(store: store, deviceCheck: deviceCheck)
+		
 		let service = CoronaTestService(
 			store: store,
 			eventStore: MockEventStore(),
@@ -2554,6 +2685,7 @@ class CoronaTestServiceTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
+			ppacService: ppacService,
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
@@ -2596,6 +2728,9 @@ class CoronaTestServiceTests: CWATestCase {
 			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "SomeToken")
+		let ppacService = PPACService(store: store, deviceCheck: deviceCheck)
+		
 		let service = CoronaTestService(
 			store: store,
 			eventStore: MockEventStore(),
@@ -2608,6 +2743,7 @@ class CoronaTestServiceTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
+			ppacService: ppacService,
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
@@ -2663,6 +2799,9 @@ class CoronaTestServiceTests: CWATestCase {
 			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "SomeToken")
+		let ppacService = PPACService(store: store, deviceCheck: deviceCheck)
+		
 		let testService = CoronaTestService(
 			restServiceProvider: restServiceProvider,
 			store: store,
@@ -2676,6 +2815,7 @@ class CoronaTestServiceTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
+			ppacService: ppacService,
 			notificationCenter: mockNotificationCenter,
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
@@ -2724,6 +2864,9 @@ class CoronaTestServiceTests: CWATestCase {
 			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "SomeToken")
+		let ppacService = PPACService(store: store, deviceCheck: deviceCheck)
+		
 		let testService = CoronaTestService(
 			restServiceProvider: restServiceProvider,
 			store: store,
@@ -2737,6 +2880,7 @@ class CoronaTestServiceTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
+			ppacService: ppacService,
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
@@ -2772,6 +2916,9 @@ class CoronaTestServiceTests: CWATestCase {
 			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "SomeToken")
+		let ppacService = PPACService(store: store, deviceCheck: deviceCheck)
+		
 		let testService = CoronaTestService(
 			restServiceProvider: restServiceProvider,
 			store: store,
@@ -2785,6 +2932,7 @@ class CoronaTestServiceTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
+			ppacService: ppacService,
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
@@ -2822,6 +2970,9 @@ class CoronaTestServiceTests: CWATestCase {
 			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "SomeToken")
+		let ppacService = PPACService(store: store, deviceCheck: deviceCheck)
+		
 		let testService = CoronaTestService(
 			restServiceProvider: restServiceProvider,
 			store: store,
@@ -2835,6 +2986,7 @@ class CoronaTestServiceTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
+			ppacService: ppacService,
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
@@ -2913,6 +3065,9 @@ class CoronaTestServiceTests: CWATestCase {
 			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "SomeToken")
+		let ppacService = PPACService(store: store, deviceCheck: deviceCheck)
+		
 		return CoronaTestService(
 			restServiceProvider: restServiceProvider,
 			store: store,
@@ -2926,6 +3081,7 @@ class CoronaTestServiceTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
+			ppacService: ppacService,
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
@@ -2987,6 +3143,9 @@ class CoronaTestServiceTests: CWATestCase {
 			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "SomeToken")
+		let ppacService = PPACService(store: store, deviceCheck: deviceCheck)
+		
 		let testService = CoronaTestService(
 			restServiceProvider: restServiceProvider,
 			store: store,
@@ -3000,6 +3159,7 @@ class CoronaTestServiceTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
+			ppacService: ppacService,
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
@@ -3087,6 +3247,9 @@ class CoronaTestServiceTests: CWATestCase {
 			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "SomeToken")
+		let ppacService = PPACService(store: store, deviceCheck: deviceCheck)
+		
 		let testService = CoronaTestService(
 			restServiceProvider: restServiceProvider,
 			store: store,
@@ -3100,6 +3263,7 @@ class CoronaTestServiceTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
+			ppacService: ppacService,
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
@@ -3143,6 +3307,9 @@ class CoronaTestServiceTests: CWATestCase {
 			recycleBin: .fake(),
 			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
+		
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "SomeToken")
+		let ppacService = PPACService(store: store, deviceCheck: deviceCheck)
 
 		let testService = CoronaTestService(
 			restServiceProvider: restServiceProvider,
@@ -3157,6 +3324,7 @@ class CoronaTestServiceTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
+			ppacService: ppacService,
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
@@ -3208,6 +3376,9 @@ class CoronaTestServiceTests: CWATestCase {
 			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "SomeToken")
+		let ppacService = PPACService(store: store, deviceCheck: deviceCheck)
+		
 		let testService = CoronaTestService(
 			restServiceProvider: restServiceProvider,
 			store: store,
@@ -3221,6 +3392,7 @@ class CoronaTestServiceTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
+			ppacService: ppacService,
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
@@ -3274,6 +3446,9 @@ class CoronaTestServiceTests: CWATestCase {
 			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "SomeToken")
+		let ppacService = PPACService(store: store, deviceCheck: deviceCheck)
+		
 		let testService = CoronaTestService(
 			restServiceProvider: restServiceProvider,
 			store: store,
@@ -3287,6 +3462,7 @@ class CoronaTestServiceTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
+			ppacService: ppacService,
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
@@ -3334,6 +3510,9 @@ class CoronaTestServiceTests: CWATestCase {
 			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "SomeToken")
+		let ppacService = PPACService(store: store, deviceCheck: deviceCheck)
+		
 		let testService = CoronaTestService(
 			restServiceProvider: restServiceProvider,
 			store: store,
@@ -3347,6 +3526,7 @@ class CoronaTestServiceTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
+			ppacService: ppacService,
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
@@ -3399,6 +3579,9 @@ class CoronaTestServiceTests: CWATestCase {
 			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "SomeToken")
+		let ppacService = PPACService(store: store, deviceCheck: deviceCheck)
+		
 		let testService = CoronaTestService(
 			restServiceProvider: restServiceProvider,
 			store: store,
@@ -3412,6 +3595,7 @@ class CoronaTestServiceTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
+			ppacService: ppacService,
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
@@ -3460,6 +3644,9 @@ class CoronaTestServiceTests: CWATestCase {
 			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "SomeToken")
+		let ppacService = PPACService(store: store, deviceCheck: deviceCheck)
+		
 		let testService = CoronaTestService(
 			restServiceProvider: restServiceProvider,
 			store: store,
@@ -3473,6 +3660,7 @@ class CoronaTestServiceTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
+			ppacService: ppacService,
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
@@ -3509,6 +3697,9 @@ class CoronaTestServiceTests: CWATestCase {
 			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "SomeToken")
+		let ppacService = PPACService(store: store, deviceCheck: deviceCheck)
+		
 		let testService = CoronaTestService(
 			restServiceProvider: restServiceProvider,
 			store: store,
@@ -3522,6 +3713,7 @@ class CoronaTestServiceTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
+			ppacService: ppacService,
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
@@ -3563,6 +3755,9 @@ class CoronaTestServiceTests: CWATestCase {
 			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "SomeToken")
+		let ppacService = PPACService(store: store, deviceCheck: deviceCheck)
+		
 		let testService = CoronaTestService(
 			restServiceProvider: restServiceProvider,
 			store: store,
@@ -3576,6 +3771,7 @@ class CoronaTestServiceTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
+			ppacService: ppacService,
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
@@ -3620,6 +3816,9 @@ class CoronaTestServiceTests: CWATestCase {
 			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "SomeToken")
+		let ppacService = PPACService(store: store, deviceCheck: deviceCheck)
+		
 		let testService = CoronaTestService(
 			restServiceProvider: restServiceProvider,
 			store: store,
@@ -3633,6 +3832,7 @@ class CoronaTestServiceTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
+			ppacService: ppacService,
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
@@ -3677,6 +3877,9 @@ class CoronaTestServiceTests: CWATestCase {
 			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "SomeToken")
+		let ppacService = PPACService(store: store, deviceCheck: deviceCheck)
+		
 		let testService = CoronaTestService(
 			restServiceProvider: restServiceProvider,
 			store: store,
@@ -3690,6 +3893,7 @@ class CoronaTestServiceTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
+			ppacService: ppacService,
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
@@ -3734,6 +3938,9 @@ class CoronaTestServiceTests: CWATestCase {
 			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "SomeToken")
+		let ppacService = PPACService(store: store, deviceCheck: deviceCheck)
+		
 		let testService = CoronaTestService(
 			restServiceProvider: restServiceProvider,
 			store: store,
@@ -3747,6 +3954,7 @@ class CoronaTestServiceTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
+			ppacService: ppacService,
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
@@ -3791,6 +3999,9 @@ class CoronaTestServiceTests: CWATestCase {
 			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "SomeToken")
+		let ppacService = PPACService(store: store, deviceCheck: deviceCheck)
+		
 		let testService = CoronaTestService(
 			restServiceProvider: restServiceProvider,
 			store: store,
@@ -3804,6 +4015,7 @@ class CoronaTestServiceTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
+			ppacService: ppacService,
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
@@ -3842,6 +4054,9 @@ class CoronaTestServiceTests: CWATestCase {
 			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "SomeToken")
+		let ppacService = PPACService(store: store, deviceCheck: deviceCheck)
+		
 		let service = CoronaTestService(
 			store: store,
 			eventStore: MockEventStore(),
@@ -3854,6 +4069,7 @@ class CoronaTestServiceTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
+			ppacService: ppacService,
 			recycleBin: recycleBin,
 			badgeWrapper: .fake()
 		)
@@ -3907,6 +4123,9 @@ class CoronaTestServiceTests: CWATestCase {
 			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "SomeToken")
+		let ppacService = PPACService(store: store, deviceCheck: deviceCheck)
+		
 		let service = CoronaTestService(
 			store: store,
 			eventStore: MockEventStore(),
@@ -3919,6 +4138,7 @@ class CoronaTestServiceTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
+			ppacService: ppacService,
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
@@ -3968,6 +4188,9 @@ class CoronaTestServiceTests: CWATestCase {
 			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "SomeToken")
+		let ppacService = PPACService(store: store, deviceCheck: deviceCheck)
+		
 		let service = CoronaTestService(
 			store: store,
 			eventStore: MockEventStore(),
@@ -3980,6 +4203,7 @@ class CoronaTestServiceTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
+			ppacService: ppacService,
 			notificationCenter: mockNotificationCenter,
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
@@ -4030,6 +4254,9 @@ class CoronaTestServiceTests: CWATestCase {
 				revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 			)
 
+			let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "SomeToken")
+			let ppacService = PPACService(store: store, deviceCheck: deviceCheck)
+			
 			let service = CoronaTestService(
 				store: store,
 				eventStore: MockEventStore(),
@@ -4042,6 +4269,7 @@ class CoronaTestServiceTests: CWATestCase {
 					appConfiguration: appConfiguration,
 					healthCertificateService: healthCertificateService
 				),
+				ppacService: ppacService,
 				notificationCenter: mockNotificationCenter,
 				recycleBin: .fake(),
 				badgeWrapper: .fake()
@@ -4081,6 +4309,9 @@ class CoronaTestServiceTests: CWATestCase {
 			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "SomeToken")
+		let ppacService = PPACService(store: store, deviceCheck: deviceCheck)
+		
 		let service = CoronaTestService(
 			store: store,
 			eventStore: MockEventStore(),
@@ -4093,6 +4324,7 @@ class CoronaTestServiceTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
+			ppacService: ppacService,
 			notificationCenter: mockNotificationCenter,
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
@@ -4143,6 +4375,9 @@ class CoronaTestServiceTests: CWATestCase {
 				revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 			)
 
+			let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "SomeToken")
+			let ppacService = PPACService(store: store, deviceCheck: deviceCheck)
+			
 			let service = CoronaTestService(
 				store: store,
 				eventStore: MockEventStore(),
@@ -4155,6 +4390,7 @@ class CoronaTestServiceTests: CWATestCase {
 					appConfiguration: appConfiguration,
 					healthCertificateService: healthCertificateService
 				),
+				ppacService: ppacService,
 				notificationCenter: mockNotificationCenter,
 				recycleBin: .fake(),
 				badgeWrapper: .fake()
@@ -4195,6 +4431,9 @@ class CoronaTestServiceTests: CWATestCase {
 			recycleBin: .fake(),
 			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
+		
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "SomeToken")
+		let ppacService = PPACService(store: store, deviceCheck: deviceCheck)
 
 		let service = CoronaTestService(
 			store: store,
@@ -4208,6 +4447,7 @@ class CoronaTestServiceTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
+			ppacService: ppacService,
 			notificationCenter: mockNotificationCenter,
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
@@ -4257,6 +4497,9 @@ class CoronaTestServiceTests: CWATestCase {
 				revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 			)
 
+			let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "SomeToken")
+			let ppacService = PPACService(store: store, deviceCheck: deviceCheck)
+			
 			let service = CoronaTestService(
 				store: store,
 				eventStore: MockEventStore(),
@@ -4269,6 +4512,7 @@ class CoronaTestServiceTests: CWATestCase {
 					appConfiguration: appConfiguration,
 					healthCertificateService: healthCertificateService
 				),
+				ppacService: ppacService,
 				notificationCenter: mockNotificationCenter,
 				recycleBin: .fake(),
 				badgeWrapper: .fake()
@@ -4306,6 +4550,9 @@ class CoronaTestServiceTests: CWATestCase {
 			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "SomeToken")
+		let ppacService = PPACService(store: store, deviceCheck: deviceCheck)
+		
 		let service = CoronaTestService(
 			store: store,
 			eventStore: MockEventStore(),
@@ -4318,6 +4565,7 @@ class CoronaTestServiceTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
+			ppacService: ppacService,
 			notificationCenter: mockNotificationCenter,
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
@@ -4367,6 +4615,9 @@ class CoronaTestServiceTests: CWATestCase {
 				revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 			)
 
+			let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "SomeToken")
+			let ppacService = PPACService(store: store, deviceCheck: deviceCheck)
+			
 			let service = CoronaTestService(
 				store: store,
 				eventStore: MockEventStore(),
@@ -4379,6 +4630,7 @@ class CoronaTestServiceTests: CWATestCase {
 					appConfiguration: appConfiguration,
 					healthCertificateService: healthCertificateService
 				),
+				ppacService: ppacService,
 				notificationCenter: mockNotificationCenter,
 				recycleBin: .fake(),
 				badgeWrapper: .fake()
@@ -4472,6 +4724,9 @@ class CoronaTestServiceTests: CWATestCase {
 			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "SomeToken")
+		let ppacService = PPACService(store: store, deviceCheck: deviceCheck)
+		
 		let service = CoronaTestService(
 			restServiceProvider: restServiceProvider,
 			store: store,
@@ -4485,6 +4740,7 @@ class CoronaTestServiceTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
+			ppacService: ppacService,
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
@@ -4603,6 +4859,9 @@ class CoronaTestServiceTests: CWATestCase {
 			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "SomeToken")
+		let ppacService = PPACService(store: store, deviceCheck: deviceCheck)
+		
 		let service = CoronaTestService(
 			restServiceProvider: restServiceProvider,
 			store: store,
@@ -4616,6 +4875,7 @@ class CoronaTestServiceTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
+			ppacService: ppacService,
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)

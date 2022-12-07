@@ -438,7 +438,8 @@ class RootCoordinator: NSObject, RequiresAppDependencies, UITabBarControllerDele
 				restServiceProvider: restServiceProvider,
 				store: store,
 				eventStore: eventStore,
-				coronaTestService: coronaTestService
+				coronaTestService: coronaTestService,
+				ppacService: ppacService
 			)
 		}
 		#endif
@@ -449,7 +450,8 @@ class RootCoordinator: NSObject, RequiresAppDependencies, UITabBarControllerDele
 			restServiceProvider: restServiceProvider,
 			store: store,
 			eventStore: eventStore,
-			coronaTestService: coronaTestService
+			coronaTestService: coronaTestService,
+			ppacService: ppacService
 		)
 	}()
 	

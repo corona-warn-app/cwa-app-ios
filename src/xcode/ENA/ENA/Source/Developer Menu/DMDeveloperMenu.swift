@@ -53,6 +53,7 @@ final class DMDeveloperMenu {
 		qrCodePosterTemplateProvider: QRCodePosterTemplateProviding,
 		ppacService: PrivacyPreservingAccessControl,
 		healthCertificateService: HealthCertificateService,
+		appConfiguration: AppConfigurationProviding,
 		cache: KeyValueCaching
 	) {
 		self.client = client
@@ -69,6 +70,7 @@ final class DMDeveloperMenu {
 		self.qrCodePosterTemplateProvider = qrCodePosterTemplateProvider
 		self.ppacService = ppacService
 		self.healthCertificateService = healthCertificateService
+		self.appConfiguration = appConfiguration
 		self.cache = cache
 	}
 
@@ -102,6 +104,7 @@ final class DMDeveloperMenu {
 			eventStore: eventStore,
 			qrCodePosterTemplateProvider: qrCodePosterTemplateProvider,
 			ppacService: ppacService,
+			appConfiguration: appConfiguration,
 			healthCertificateService: healthCertificateService,
 			cache: cache
 		)
@@ -146,6 +149,7 @@ final class DMDeveloperMenu {
 	private let qrCodePosterTemplateProvider: QRCodePosterTemplateProviding
 	private let ppacService: PrivacyPreservingAccessControl
 	private let healthCertificateService: HealthCertificateService
+	private let appConfiguration: AppConfigurationProviding
 	private let cache: KeyValueCaching
 
 	@objc
