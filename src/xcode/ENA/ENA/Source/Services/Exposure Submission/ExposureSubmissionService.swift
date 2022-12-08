@@ -64,6 +64,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		appConfigurationProvider: AppConfigurationProviding,
 		restServiceProvider: RestServiceProviding,
 		store: Store,
+		diaryStore: DiaryStoring,
 		eventStore: EventStoringProviding,
 		deadmanNotificationManager: DeadmanNotificationManageable? = nil,
 		coronaTestService: CoronaTestServiceProviding,
@@ -77,6 +78,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 			self.restServiceProvider = .exposureSubmissionServiceProvider
 			self.store = store
 			self.eventStore = eventStore
+			self.diaryStore = diaryStore
 			self.deadmanNotificationManager = deadmanNotificationManager ?? DeadmanNotificationManager()
 			self.coronaTestService = coronaTestService
 			self.ppacService = ppacService
@@ -90,6 +92,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		self.appConfigurationProvider = appConfigurationProvider
 		self.restServiceProvider = restServiceProvider
 		self.store = store
+		self.diaryStore = diaryStore
 		self.eventStore = eventStore
 		self.deadmanNotificationManager = deadmanNotificationManager ?? DeadmanNotificationManager()
 		self.coronaTestService = coronaTestService
@@ -104,6 +107,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 			appConfigurationProvider: dependencies.appConfigurationProvider,
 			restServiceProvider: dependencies.restServiceProvider,
 			store: dependencies.store,
+			diaryStore: dependencies.diaryStore,
 			eventStore: dependencies.eventStore,
 			coronaTestService: dependencies.coronaTestService,
 			ppacService: dependencies.ppacService
@@ -361,6 +365,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 	private let restServiceProvider: RestServiceProviding
 	private let store: Store
 	private let eventStore: EventStoringProviding
+	private let diaryStore: DiaryStoring
 	private let deadmanNotificationManager: DeadmanNotificationManageable
 	private let coronaTestService: CoronaTestServiceProviding
 	private let ppacService: PrivacyPreservingAccessControl
@@ -437,6 +442,11 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 			
 			switch result {
 			case .success(let cwaKeysTruncated):
+				self.diaryStore.addSubmission(
+					date: ISO8601DateFormatter.justLocalDateFormatter.string(
+					from: Date()
+				   )
+				)
 				self.submitExposureCleanup(submissionTestType: .srs(submissionType))
 
 				Log.info("Successfully completed SRS exposure submission.", log: .api)
@@ -483,7 +493,12 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 				if !checkins.isEmpty {
 					Analytics.collect(.keySubmissionMetadata(.submittedWithCheckins(true, coronaTest.type)))
 				}
-
+				
+				self.diaryStore.addSubmission(
+					date: ISO8601DateFormatter.justLocalDateFormatter.string(
+					from: Date()
+				   )
+				)
 				self.submitExposureCleanup(submissionTestType: .registeredTest(coronaTest.type))
 
 				Log.info("Successfully completed exposure submission.", log: .api)

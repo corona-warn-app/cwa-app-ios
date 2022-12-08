@@ -12,7 +12,8 @@ class DiaryOverviewDayCellModelTests: CWATestCase {
 		let diaryDay = DiaryDay(
 			dateString: "2021-01-14",
 			entries: [],
-			tests: []
+			tests: [],
+			submissions: []
 		)
 		let cellViewModel = DiaryOverviewDayCellModel(
 			diaryDay: diaryDay,
@@ -45,7 +46,8 @@ class DiaryOverviewDayCellModelTests: CWATestCase {
 		let diaryDay = DiaryDay(
 			dateString: "2021-01-14",
 			entries: [],
-			tests: []
+			tests: [],
+			submissions: []
 		)
 		let cellViewModel = DiaryOverviewDayCellModel(
 			diaryDay: diaryDay,
@@ -76,7 +78,8 @@ class DiaryOverviewDayCellModelTests: CWATestCase {
 		let diaryDay = DiaryDay(
 			dateString: "2021-01-14",
 			entries: [],
-			tests: []
+			tests: [],
+			submissions: []
 		)
 		let cellViewModel = DiaryOverviewDayCellModel(
 			diaryDay: diaryDay,
@@ -101,7 +104,8 @@ class DiaryOverviewDayCellModelTests: CWATestCase {
 		let diaryDay = DiaryDay(
 			dateString: "2021-01-14",
 			entries: [],
-			tests: []
+			tests: [],
+			submissions: []
 		)
 		let cellViewModel = DiaryOverviewDayCellModel(
 			diaryDay: diaryDay,
@@ -149,7 +153,8 @@ class DiaryOverviewDayCellModelTests: CWATestCase {
 					)
 				)
 			],
-			tests: []
+			tests: [],
+			submissions: []
 		)
 		let cellViewModel = DiaryOverviewDayCellModel(
 			diaryDay: diaryDay,
@@ -173,7 +178,8 @@ class DiaryOverviewDayCellModelTests: CWATestCase {
 				.contactPerson(DiaryContactPerson(id: 0, name: "Thomas Mesow", encounter: ContactPersonEncounter(id: 0, date: "2021-01-14", contactPersonId: 0))),
 				.location(DiaryLocation(id: 1, name: "Supermarkt", traceLocationId: nil, visit: LocationVisit(id: 1, date: "2021-01-14", locationId: 1, checkinId: nil)))
 			],
-			tests: []
+			tests: [],
+			submissions: []
 		)
 		let cellViewModel = DiaryOverviewDayCellModel(
 			diaryDay: diaryDay,
@@ -194,7 +200,8 @@ class DiaryOverviewDayCellModelTests: CWATestCase {
 		let diaryDay = DiaryDay(
 			dateString: "2021-01-14",
 			entries: [],
-			tests: []
+			tests: [],
+			submissions: []
 		)
 		let cellViewModel = DiaryOverviewDayCellModel(
 			diaryDay: diaryDay,
@@ -218,7 +225,8 @@ class DiaryOverviewDayCellModelTests: CWATestCase {
 				.contactPerson(DiaryContactPerson(id: 0, name: "Thomas Mesow", encounter: ContactPersonEncounter(id: 0, date: "2021-01-14", contactPersonId: 0))),
 				.location(DiaryLocation(id: 1, name: "Supermarkt", traceLocationId: nil, visit: LocationVisit(id: 1, date: "2021-01-14", locationId: 1, checkinId: nil)))
 			],
-			tests: []
+			tests: [],
+			submissions: []
 		)
 		let cellViewModel = DiaryOverviewDayCellModel(
 			diaryDay: diaryDay,
@@ -239,7 +247,8 @@ class DiaryOverviewDayCellModelTests: CWATestCase {
 		let diaryDay = DiaryDay(
 			dateString: "2021-01-14",
 			entries: [],
-			tests: []
+			tests: [],
+			submissions: []
 		)
 		let cellViewModel = DiaryOverviewDayCellModel(
 			diaryDay: diaryDay,
@@ -267,7 +276,7 @@ class DiaryOverviewDayCellModelTests: CWATestCase {
 			circumstances: ""
 		)
 		let cellViewModel = DiaryOverviewDayCellModel(
-			diaryDay: DiaryDay(dateString: "", entries: [], tests: []),
+			diaryDay: DiaryDay(dateString: "", entries: [], tests: [], submissions: []),
 			historyExposure: .encounter(.low),
 			minimumDistinctEncountersWithHighRisk: 0,
 			checkinsWithRisk: []
@@ -281,7 +290,7 @@ class DiaryOverviewDayCellModelTests: CWATestCase {
 		// GIVEN
 		let locationVisit = LocationVisit(id: 0, date: "2021-01-14", locationId: 0, durationInMinutes: 3 * 60 + 42, circumstances: "", checkinId: nil)
 		let cellViewModel = DiaryOverviewDayCellModel(
-			diaryDay: DiaryDay(dateString: "", entries: [], tests: []),
+			diaryDay: DiaryDay(dateString: "", entries: [], tests: [], submissions: []),
 			historyExposure: .encounter(.low),
 			minimumDistinctEncountersWithHighRisk: 0,
 			checkinsWithRisk: []
@@ -296,7 +305,8 @@ class DiaryOverviewDayCellModelTests: CWATestCase {
 		let diaryDay = DiaryDay(
 			dateString: "2021-03-29",
 			entries: [],
-			tests: []
+			tests: [],
+			submissions: []
 		)
 		
 		let checkinWithRisk = [CheckinWithRisk(checkIn: Checkin.mock(), risk: .low)]
@@ -330,7 +340,8 @@ class DiaryOverviewDayCellModelTests: CWATestCase {
 		let diaryDay = DiaryDay(
 			dateString: "2021-03-29",
 			entries: [],
-			tests: []
+			tests: [],
+			submissions: []
 		)
 		
 		let checkinWithRisk = [CheckinWithRisk(checkIn: Checkin.mock(), risk: .low), CheckinWithRisk(checkIn: Checkin.mock(), risk: .high)]
@@ -364,7 +375,8 @@ class DiaryOverviewDayCellModelTests: CWATestCase {
 		let diaryDay = DiaryDay(
 			dateString: "2021-03-29",
 			entries: [],
-			tests: []
+			tests: [],
+			submissions: []
 		)
 		let descriptionLow = "Kiosk"
 		let descriptionHigh = "Privates Treffen"

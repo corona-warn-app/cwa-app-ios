@@ -570,6 +570,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			appConfigurationProvider: self.appConfigurationProvider,
 			restServiceProvider: self.restServiceProvider,
 			store: self.store,
+			diaryStore: contactDiaryStore,
 			eventStore: self.eventStore,
 			coronaTestService: coronaTestService,
 			ppacService: ppacService

@@ -214,6 +214,7 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 			appConfigurationProvider: dependencies.appConfigurationProvider,
 			restServiceProvider: restServiceProvider,
 			store: dependencies.store,
+			diaryStore: dependencies.diaryStore,
 			eventStore: dependencies.eventStore,
 			coronaTestService: dependencies.coronaTestService,
 			ppacService: ppacService

@@ -20,7 +20,8 @@ class DiaryDayTest: CWATestCase {
 		let diaryDay = DiaryDay(
 			dateString: dateString,
 			entries: entries,
-			tests: []
+			tests: [],
+			submissions: []
 		)
 
 		XCTAssertEqual(diaryDay.dateString, dateString)
@@ -77,7 +78,8 @@ class DiaryDayTest: CWATestCase {
 		let diaryDay = DiaryDay(
 			dateString: dateString,
 			entries: entries,
-			tests: []
+			tests: [],
+			submissions: []
 		)
 
 		XCTAssertEqual(diaryDay.selectedEntries, [
@@ -90,7 +92,8 @@ class DiaryDayTest: CWATestCase {
 		let diaryDay = DiaryDay(
 			dateString: "2020-12-16",
 			entries: [],
-			tests: []
+			tests: [],
+			submissions: []
 		)
 
 		XCTAssertEqual(diaryDay.formattedDate, "Mittwoch, 16.12.20")

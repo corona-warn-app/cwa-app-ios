@@ -51,6 +51,7 @@ class ExposureSubmissionServiceTests: CWATestCase {
 			appConfigurationProvider: appConfigurationProvider,
 			restServiceProvider: restServiceProvider,
 			store: store,
+			diaryStore: MockDiaryStore(),
 			eventStore: MockEventStore(),
 			deadmanNotificationManager: deadmanNotificationManager,
 			coronaTestService: coronaTestService,
@@ -114,6 +115,7 @@ class ExposureSubmissionServiceTests: CWATestCase {
 			appConfigurationProvider: CachedAppConfigurationMock(),
 			restServiceProvider: restServiceProvider,
 			store: store,
+			diaryStore: MockDiaryStore(),
 			eventStore: eventStore,
 			coronaTestService: coronaTestService,
 			ppacService: ppacService
@@ -154,6 +156,7 @@ class ExposureSubmissionServiceTests: CWATestCase {
 			appConfigurationProvider: CachedAppConfigurationMock(),
 			restServiceProvider: restServiceProvider,
 			store: store,
+			diaryStore: MockDiaryStore(),
 			eventStore: MockEventStore(),
 			coronaTestService: coronaTestService,
 			ppacService: ppacService
@@ -207,6 +210,7 @@ class ExposureSubmissionServiceTests: CWATestCase {
 			appConfigurationProvider: CachedAppConfigurationMock(),
 			restServiceProvider: restServiceProvider,
 			store: MockTestStore(),
+			diaryStore: MockDiaryStore(),
 			eventStore: MockEventStore(),
 			coronaTestService: coronaTestService,
 			ppacService: ppacService
@@ -245,6 +249,7 @@ class ExposureSubmissionServiceTests: CWATestCase {
 			appConfigurationProvider: CachedAppConfigurationMock(),
 			restServiceProvider: .fake(),
 			store: MockTestStore(),
+			diaryStore: MockDiaryStore(),
 			eventStore: MockEventStore(),
 			coronaTestService: coronaTestService,
 			ppacService: ppacService
@@ -282,6 +287,7 @@ class ExposureSubmissionServiceTests: CWATestCase {
 			appConfigurationProvider: CachedAppConfigurationMock(),
 			restServiceProvider: .fake(),
 			store: MockTestStore(),
+			diaryStore: MockDiaryStore(),
 			eventStore: MockEventStore(),
 			coronaTestService: coronaTestService,
 			ppacService: ppacService
@@ -323,6 +329,7 @@ class ExposureSubmissionServiceTests: CWATestCase {
 			appConfigurationProvider: CachedAppConfigurationMock(),
 			restServiceProvider: .fake(),
 			store: MockTestStore(),
+			diaryStore: MockDiaryStore(),
 			eventStore: MockEventStore(),
 			coronaTestService: coronaTestService,
 			ppacService: ppacService
@@ -361,6 +368,7 @@ class ExposureSubmissionServiceTests: CWATestCase {
 			appConfigurationProvider: CachedAppConfigurationMock(),
 			restServiceProvider: .fake(),
 			store: MockTestStore(),
+			diaryStore: MockDiaryStore(),
 			eventStore: MockEventStore(),
 			coronaTestService: coronaTestService,
 			ppacService: ppacService
@@ -405,6 +413,7 @@ class ExposureSubmissionServiceTests: CWATestCase {
 			appConfigurationProvider: CachedAppConfigurationMock(),
 			restServiceProvider: restServiceProvider,
 			store: MockTestStore(),
+			diaryStore: MockDiaryStore(),
 			eventStore: MockEventStore(),
 			coronaTestService: coronaTestService,
 			ppacService: ppacService
@@ -450,6 +459,7 @@ class ExposureSubmissionServiceTests: CWATestCase {
 			appConfigurationProvider: CachedAppConfigurationMock(),
 			restServiceProvider: restServiceProvider,
 			store: MockTestStore(),
+			diaryStore: MockDiaryStore(),
 			eventStore: MockEventStore(),
 			coronaTestService: coronaTestService,
 			ppacService: ppacService
@@ -492,6 +502,7 @@ class ExposureSubmissionServiceTests: CWATestCase {
 			appConfigurationProvider: CachedAppConfigurationMock(),
 			restServiceProvider: restServiceProvider,
 			store: MockTestStore(),
+			diaryStore: MockDiaryStore(),
 			eventStore: MockEventStore(),
 			coronaTestService: coronaTestService,
 			ppacService: ppacService
@@ -535,6 +546,7 @@ class ExposureSubmissionServiceTests: CWATestCase {
 			appConfigurationProvider: CachedAppConfigurationMock(),
 			restServiceProvider: restServiceProvider,
 			store: MockTestStore(),
+			diaryStore: MockDiaryStore(),
 			eventStore: MockEventStore(),
 			coronaTestService: coronaTestService,
 			ppacService: ppacService
@@ -583,6 +595,7 @@ class ExposureSubmissionServiceTests: CWATestCase {
 			appConfigurationProvider: CachedAppConfigurationMock(),
 			restServiceProvider: restServiceProvider,
 			store: MockTestStore(),
+			diaryStore: MockDiaryStore(),
 			eventStore: MockEventStore(),
 			coronaTestService: coronaTestService,
 			ppacService: ppacService
@@ -624,6 +637,7 @@ class ExposureSubmissionServiceTests: CWATestCase {
 			appConfigurationProvider: appConfiguration,
 			restServiceProvider: .fake(),
 			store: MockTestStore(),
+			diaryStore: MockDiaryStore(),
 			eventStore: MockEventStore(),
 			coronaTestService: MockCoronaTestService(),
 			ppacService: ppacService
@@ -665,6 +679,7 @@ class ExposureSubmissionServiceTests: CWATestCase {
 			appConfigurationProvider: appConfiguration,
 			restServiceProvider: .fake(),
 			store: MockTestStore(),
+			diaryStore: MockDiaryStore(),
 			eventStore: MockEventStore(),
 			coronaTestService: MockCoronaTestService(),
 			ppacService: ppacService
@@ -709,6 +724,7 @@ class ExposureSubmissionServiceTests: CWATestCase {
 			appConfigurationProvider: CachedAppConfigurationMock(),
 			restServiceProvider: .fake(),
 			store: MockTestStore(),
+			diaryStore: MockDiaryStore(),
 			eventStore: MockEventStore(),
 			coronaTestService: MockCoronaTestService(),
 			ppacService: ppacService
@@ -825,6 +841,7 @@ class ExposureSubmissionServiceTests: CWATestCase {
 			appConfigurationProvider: CachedAppConfigurationMock(),
 			restServiceProvider: restServiceProvider,
 			store: MockTestStore(),
+			diaryStore: MockDiaryStore(),
 			eventStore: MockEventStore(),
 			coronaTestService: coronaTestService,
 			ppacService: ppacService
