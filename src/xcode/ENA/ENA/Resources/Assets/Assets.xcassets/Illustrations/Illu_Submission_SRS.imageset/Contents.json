@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "Illu_Submission_SRS_light.pdf",
+      "filename" : "Illu_Test_positive_light.pdf",
       "idiom" : "universal"
     },
     {
@@ -11,7 +11,7 @@
           "value" : "dark"
         }
       ],
-      "filename" : "Illu_Submission_SRS_dark.pdf",
+      "filename" : "Illu_Test_positive_dark.pdf",
       "idiom" : "universal"
     }
   ],
