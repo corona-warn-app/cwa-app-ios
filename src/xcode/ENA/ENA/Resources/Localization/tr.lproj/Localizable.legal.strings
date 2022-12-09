@@ -155,19 +155,27 @@
 
 /* SRS Consent Screen */
 
-"SRS_Consent_Legal_Headline" = "Ihr Einverständnis";
+"SRS_Consent_Legal_Headline" = "Rıza beyanınız";
 
-"SRS_Consent_Legal_Description" = "Durch Antippen von Einverstanden willigen Sie in die folgenden Schritte ein:";
+"SRS_Consent_Legal_Description" = "Kabul Ediyorum’a dokunarak aşağıdaki adımları kabul etmiş olursunuz:";
 
-"SRS_Consent_Legal_Text_1" = "Die App teilt Ihr positives Testergebnis, um andere Nutzer der Corona-Warn-App zu warnen, denen Sie begegnet sind oder die zeitgleich am selben Event oder Ort wie Sie eingecheckt waren.";
+"SRS_Consent_Legal_Text_1" = "Uygulama, karşılaştığınız veya sizinle aynı anda aynı etkinlikte veya yerde check-in yapmış olan diğer Corona Warn uygulaması kullanıcılarını uyarmak için pozitif test sonucunuzu paylaşır.";
 
-"SRS_Consent_Legal_Text_2" = "Bevor das Testergebnis geteilt werden kann, wird die Echtheit Ihrer App einmalig geprüft. Dazu wird durch Ihr Smartphone eine eindeutige Kennung erzeugt und an Apple  in die USA oder andere Drittländer übermittelt, damit Apple die Echtheit Ihrer App gegenüber dem RKI bestätigen kann. Die Kennung enthält Informationen über die Version Ihres Smartphones und der App. Apple kann damit möglicherweise auf Ihre Identität schließen und nachvollziehen, dass die Echtheitsprüfung Ihres Smartphones stattgefunden hat. Weitere Angaben aus der App erhält Apple hierbei nicht.";
+"SRS_Consent_Legal_Text_2" = "Test sonucu paylaşılmadan önce uygulamanızın orijinalliği bir kez kontrol edilir. Bu amaçla, akıllı telefonunuz tarafından benzersiz bir tanımlayıcı oluşturulur ve ABD’deki Apple’a [Google] veya diğer üçüncü taraf ülkelere iletilir, böylece Apple [Google] uygulamanızın gerçekliğini RKI’ye doğrulayabilir. Tanımlayıcı, akıllı telefonunuzun ve uygulamanın sürümü hakkında bilgi içerir. Apple [Google] bunu kimliğinizi çıkarmak ve akıllı telefonunuzun kimlik doğrulamasının gerçekleştiğini anlamak için kullanabilir. Apple [Google] uygulama haricinde herhangi bir bilgi almaz.";
 
-"SRS_Consent_Legal_Text_2_prefix" = "Bevor das Testergebnis geteilt werden kann, wird die ";
+"SRS_Consent_Legal_Text_2_prefix" = "Test sonucu paylaşılmadan önce ";
 
-"SRS_Consent_Legal_Text_2_highlighted" = "Echtheit Ihrer App einmalig geprüft";
+"SRS_Consent_Legal_Text_2_highlighted" = "uygulamanızın orijinalliği bir kez kontrol edilir";
 
-"SRS_Consent_Legal_Text_3" = "Wenn Sie zusätzlich Angaben zum Beginn Ihrer Symptome machen, werden auch diese geteilt.";
+"SRS_Consent_Legal_Text_3" = "Semptomlarınızın başlangıcı hakkında ek bilgi verirseniz, bu da paylaşılacaktır.";
+
+/* SRSDataProcessingInfo */
+
+"SRS_ConsentScreen_DataProcessingDetailInfo" = "ABD ve diğer üçüncü taraf ülkelerdeki kimlik doğrulama ve veri koruma riskleri hakkında ayrıntılı bilgi";
+
+"SRS_DataProcessingInfo_title" = "Orijinallik doğrulanması ve üçüncü taraf ülkelere aktarım";
+
+"SRS_DataProcessingInfodescription" = "Uygulamanızın orijinal olduğunu onaylamak adına akıllı telefonunuz, akıllı telefonunuzun sürümü ve Uygulamaya ilişkin veriler içeren benzersiz bir kimlik kodu oluşturur. Bu, yalnızca Corona Warn uygulamasını gerçekten kullanan ve manipüle edilmiş uyarılar vermeyen kullanıcıların pozitif bir kendi kendine testten sonra veya uygulamada olmayan bir test sonucuyla bir uyarıyı tetiklemesini sağlamak için gereklidir. Bu prosedür aynı zamanda uyarıların yalnızca pozitif bir kendi kendine yapılan testten sonra veya uygulamada mevcut olmayan bir test sonucu ile her üç ayda bir mümkün olmasını sağlamaya hizmet eder.\n\nOrijinallik kontrolü tarafından oluşturulan benzersiz tanımlayıcı, uyarı tetiklendiğinde Apple’a [Google] bir kez iletilir. Bu, verilerin ABD’ye veya diğer üçüncü taraf ülkelere aktarılmasına da neden olabilir. Burada Avrupa yasalarına uygun bir veri koruma düzeyi olmayabilir ve Avrupa veri koruma haklarınız uygulanamayabilir. Bu bağlamda özellikle üçüncü taraf ülkelerdeki güvenlik makamlarının, somut bir şüphe olmasa bile, Apple’a [Google] aktarılan bu verilere erişme ve örneğin verileri diğer bilgilerle ilişkilendirerek bunları değerlendirmeye alma olasılığı bulunmaktadır. Bu durum sadece Apple’a [Google] aktarılan kimlik kodları için söz konusudur. Bununla birlikte, Apple [Google] tanımlayıcıdan kimliğinizi çıkarabilir ve akıllı telefonunuzun kimlik doğrulamasının başkalarından gelen bir uyarının parçası olarak gerçekleştiğini anlayabilir.\n\nÜçüncü taraf ülkelere aktarımı kabul etmiyorsanız, lütfen “Kabul ediyorum” seçeneğine tıklamayın. Uygulamayı kullanmaya devam edebilirsiniz, ancak pozitif bir kendi kendine yapılan testten sonra veya uygulamada olmayan bir test sonucuyla başkalarını uyarmak mümkün değildir.";
 
 /* TraceLocation */
 
