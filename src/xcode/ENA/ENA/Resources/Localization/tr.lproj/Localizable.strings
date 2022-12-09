@@ -776,13 +776,6 @@
 
 "SRS_ConsentScreen_Acknowledgement_6" = "Sonraki adımda, rastgele kimliklerinize erişim onayı verin.";
 
-"SRS_ConsentScreen_DataProcessingDetailInfo" = "ABD’de ve Diğer Üçüncü Ülkelerde Orijinallik Kontrolü ve Veri Koruma Riskleri Hakkında Ayrıntılı Bilgiler";
-
-/* SRSDataProcessingInfo */
-"SRS_DataProcessingInfo_title" = "Orijinallik Doğrulaması ve Üçüncü Ülkelere Veri Aktarımı";
-
-"SRS_DataProcessingInfodescription" = "Akıllı telefonunuz, uygulamanızın orijinalliğini teyit etmek için akıllı telefonunuzun ve uygulamanızın sürümüne ilişkin bilgileri içeren bir benzersiz tanıtıcı oluşturur. Bu, pozitif bir kendi kendine testten veya uygulamada bulunmayan bir test sonucundan sonra yalnızca Corona-Warn-App’i gerçekten kullanan kişilerin uyarı gönderebilmesini ve üzerinde oynanmış hata raporlarının ortadan kaldırılabilmesini sağlamak için gereklidir. Bu prosedür ayrıca, pozitif bir kendi kendine testten veya uygulamada bulunmayan bir test sonucundan sonra uyarı gönderilme işleminin yalnızca üç ayda bir yapılabilmesini sağlar.\n\nOrijinallik kontrolü sırasında üretilen benzersiz tanıtıcı Apple'a gönderilir. Bu işlem kapsamında veriler, ABD’ye veya veri gizliliği düzeyinin Avrupa kanunlarına uygun olmadığı ve veri gizliliği konusunda Avrupa’daki haklarınızı kullanamayabileceğiniz başka üçüncü ülkelere aktarılabilir. Özellikle, üçüncü ülkedeki güvenlik servisleri herhangi bir şüphe sebebi olmasa bile verilere erişebilir, Apple ile verileri analiz edebilir ve bu verileri örneğin başka bilgilerle bağlantılandırabilir. Buna yalnızca Apple’a gönderilen tanıtıcı dahildir ancak Apple, tanıtıcıya göre kimliğinizi belirleyebilir ve uyarı gönderme işlemi sırasında akıllı telefonunuzda orijinallik kontrolünün yapıldığını takip edebilir.\n\nVerilerinizin üçüncü ülkeye aktarılmasına onay vermiyorsanız lütfen “Kabul Et” seçeneğine dokunmayın. Böyle bir durumda uygulamayı kullanmaya devam edebilirsiniz pozitif bir kendi kendine test sonucundan ya da uygulamada mevcut olmayan bir test sonucundan sonra diğer kullanıcıları uyaramazsınız.";
-
 /* Exposure Submission Result */
 "ExposureSubmissionResult_Title" = "Test Sonucunuz";
 
