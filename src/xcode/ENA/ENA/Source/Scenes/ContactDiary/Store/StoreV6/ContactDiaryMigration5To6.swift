@@ -15,7 +15,7 @@ final class ContactDiaryMigration5To6: Migration {
 
 	// MARK: - Protocol Migration
 
-	let version = 5
+	let version = 6
 
 	func execute() throws {
 		var error: Error?
