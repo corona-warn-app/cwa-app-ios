@@ -388,6 +388,25 @@ class ContactDiaryStoreTests: CWATestCase {
 		XCTAssertEqual(testType, 0)
 		XCTAssertEqual(testResult, 1)
 	}
+	
+	func test_WHEN_SubmissionIsSuccessful_THEN_SubmissionPersisted() throws {
+		// GIVEN
+		let databaseQueue = makeDatabaseQueue()
+		let store = makeContactDiaryStore(with: databaseQueue)
+
+		let result = store.addSubmission(date: "2022-12-08")
+
+		guard case let .success(id) = result,
+			  let submission = fetchEntries(for: "Submission", with: id, from: databaseQueue) else {
+			XCTFail("Failed to fetch Submissions")
+			return
+		}
+
+		let date = try XCTUnwrap(submission.string(forColumn: "date"))
+		submission.close()
+
+		XCTAssertEqual(date, "2022-12-08")
+	}
 
 	func test_When_updateLocationVisit_Then_LocationVisitIsUpdated() {
 		let databaseQueue = makeDatabaseQueue()
@@ -1331,14 +1350,14 @@ class ContactDiaryStoreTests: CWATestCase {
 		if let schema = schema {
 			_schema = schema
 		} else {
-			_schema = ContactDiaryStoreSchemaV5(databaseQueue: databaseQueue)
+			_schema = ContactDiaryStoreSchemaV6(databaseQueue: databaseQueue)
 		}
 
 		let _migrator: SerialMigratorProtocol
 		if let migrator = migrator {
 			_migrator = migrator
 		} else {
-			_migrator = SerialDatabaseQueueMigrator(queue: databaseQueue, latestVersion: 5, migrations: [])
+			_migrator = SerialDatabaseQueueMigrator(queue: databaseQueue, latestVersion: 6, migrations: [])
 		}
 
 		let store = ContactDiaryStore(
