@@ -1692,7 +1692,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 				title: AppStrings.SRSIncreasedWarningsVolumeAlert.title,
 				message: String(
 					format: AppStrings.SRSIncreasedWarningsVolumeAlert.message,
-					model.cwaKeysTruncated
+					String(model.cwaKeysTruncated)
 				),
 				preferredStyle: .alert
 			)
