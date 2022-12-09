@@ -67,6 +67,8 @@ struct OTPAuthorizationForSRSResource: Resource {
 			switch statusCode {
 			case 400, 401, 403:
 				return otpAuthorizationFailureHandler(for: responseBody, statusCode: statusCode)
+			case 429:
+				return .apiTokenQuotaExceeded
 			case 500:
 				Log.error("Failed to get authorized OTP - 500 status code", log: .api)
 				return .otherServerError

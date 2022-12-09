@@ -237,7 +237,27 @@ class ExposureSubmissionCoordinatorModel {
 				}
 				
 			case .failure(let srsError):
-				onError(.srsError(srsError))
+				switch srsError {
+				case .otpError(let otpError):
+					switch otpError {
+					case .restServiceError(let serverError):
+						switch serverError {
+						case .receivedResourceError(let otpAuthorizationError):
+							switch otpAuthorizationError {
+							case .apiTokenQuotaExceeded:
+								onError(.srsError(.otpError(.apiTokenQuotaExceeded)))
+							default:
+								onError(.srsError(.otpError(otpError)))
+							}
+						default:
+							onError(.srsError(.otpError(otpError)))
+						}
+					default:
+						onError(.srsError(.otpError(otpError)))
+					}
+				default:
+					onError(.srsError(srsError))
+				}
 				Log.debug(srsError.description, log: .ppac)
 			}
 		}
