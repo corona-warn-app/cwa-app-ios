@@ -856,16 +856,11 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 			checkins: model.eventProvider.checkinsPublisher.value,
 			onCompletion: { [weak self] selectedCheckins in
 				self?.model.exposureSubmissionService.checkins = selectedCheckins
-				
-				if isSRSFlow {
-					self?.showSymptomsScreen()
-				} else {
-					showNextScreen()
-				}
+				isSRSFlow ? self?.showSymptomsScreen() : showNextScreen()
 			},
 			onSkip: { [weak self] in
 				self?.showSkipCheckinsAlert(dontShareHandler: {
-					showNextScreen()
+					isSRSFlow ? self?.showSymptomsScreen() : showNextScreen()
 				})
 			},
 			onDismiss: { [weak self] in
