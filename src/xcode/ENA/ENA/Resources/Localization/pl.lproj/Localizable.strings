@@ -573,7 +573,7 @@
 
 "ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_insufficientAppUsageTime_message" = "Przepraszamy, ale w tej chwili nie możesz ostrzec innych, ponieważ aplikacja została przez Ciebie zainstalowana niedawno. Ma to na celu zabezpieczenie przed niewłaściwym użyciem funkcji ostrzegania.\nMożesz zarejestrować oficjalny test i użyć go do ostrzegania innych w dowolnym czasie (kod błędu %@).";
 
-"ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_positiveTestResultWasAlreadySubmittedWithin90Days_message" = "W tej chwili nie możesz ostrzec innych, ponieważ w ciągu ostatnich 90 dni został już zgłoszony przez Ciebie pozytywny wynik testu. Ma to na celu zabezpieczenie przed niewłaściwym użyciem funkcji ostrzegania.\nMożesz zarejestrować oficjalny test i użyć go do ostrzegania innych w dowolnym czasie (kod błędu %@).";
+"ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_positiveTestResultWasAlreadySubmittedWithinThresholdDays_message" = "W tej chwili nie możesz ostrzec innych, ponieważ w ciągu ostatnich %@ dni został już zgłoszony przez Ciebie pozytywny wynik testu. Ma to na celu zabezpieczenie przed niewłaściwym użyciem funkcji ostrzegania.\nMożesz zarejestrować oficjalny test i użyć go do ostrzegania innych w dowolnym czasie (kod błędu %@).";
 
 "ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_deviceCheckError_message" = "Czas na Twoim smartfonie jest niezgodny z bieżącym czasem. Popraw czas w ustawieniach swojego smartfona. Po tej korekcie może upłynąć kilka minut, zanim aplikacja ponownie sprawdzi czas. Kiedy to nastąpi, możesz spróbować znowu ostrzec innych.";
 

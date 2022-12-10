@@ -573,7 +573,7 @@
 
 "ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_insufficientAppUsageTime_message" = "Sorry, but you cannot warn others right now, because you only recently installed the app. This is intended to prevent misuse of the warn feature.\nYou can register an official test and use it to warn others at any time (error code %@).";
 
-"ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_positiveTestResultWasAlreadySubmittedWithin90Days_message" = "You cannot warn others right now because you already reported a positive test result within the last 90 days. This is intended to prevent misuse of the warn feature.\nYou can register an official test and use it to warn others at any time (error code %@).";
+"ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_positiveTestResultWasAlreadySubmittedWithinThresholdDays_message" = "You cannot warn others right now because you already reported a positive test result within the last %@ days. This is intended to prevent misuse of the warn feature.\nYou can register an official test and use it to warn others at any time (error code %@).";
 
 "ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_deviceCheckError_message" = "The time on your smartphone does not match the current time. Please correct the time in your smartphone settings. After this correction, it may take a few minutes until the app checks the time again. Once it does, you can try to warn others again.";
 
