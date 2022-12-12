@@ -388,6 +388,25 @@ class ContactDiaryStoreTests: CWATestCase {
 		XCTAssertEqual(testType, 0)
 		XCTAssertEqual(testResult, 1)
 	}
+	
+	func test_WHEN_SubmissionIsSuccessful_THEN_SubmissionPersisted() throws {
+		// GIVEN
+		let databaseQueue = makeDatabaseQueue()
+		let store = makeContactDiaryStore(with: databaseQueue)
+
+		let result = store.addSubmission(date: "2022-12-08")
+
+		guard case let .success(id) = result,
+			  let submission = fetchEntries(for: "Submission", with: id, from: databaseQueue) else {
+			XCTFail("Failed to fetch Submissions")
+			return
+		}
+
+		let date = try XCTUnwrap(submission.string(forColumn: "date"))
+		submission.close()
+
+		XCTAssertEqual(date, "2022-12-08")
+	}
 
 	func test_When_updateLocationVisit_Then_LocationVisitIsUpdated() {
 		let databaseQueue = makeDatabaseQueue()
@@ -1003,7 +1022,7 @@ class ContactDiaryStoreTests: CWATestCase {
 		let store = makeContactDiaryStore(with: databaseQueue)
 
 		databaseQueue.inDatabase { database in
-			XCTAssertEqual(database.numberOfTables, 5, "Looks like there is a new table. Please extend this test and add the new table to the dropTables() function.")
+			XCTAssertEqual(database.numberOfTables, 6, "Looks like there is a new table. Please extend this test and add the new table to the dropTables() function.")
 		}
 
 		// Add data and check if its persisted.
@@ -1013,12 +1032,14 @@ class ContactDiaryStoreTests: CWATestCase {
 		let locationId = addLocation(name: "Some Location", to: store)
 		addLocationVisit(locationId: locationId, date: Date(), store: store)
 		let coronaTestID = addCoronaTest(testDate: Date(), to: store)
+		let submissionID = addSubmission(date: Date(), to: store)
 
 		assertEntryExists(for: "Location", with: locationId, from: databaseQueue)
 		assertEntryExists(for: "LocationVisit", with: locationId, from: databaseQueue)
 		assertEntryExists(for: "ContactPerson", with: locationId, from: databaseQueue)
 		assertEntryExists(for: "ContactPersonEncounter", with: locationId, from: databaseQueue)
 		assertEntryExists(for: "CoronaTest", with: coronaTestID, from: databaseQueue)
+		assertEntryExists(for: "Submission", with: submissionID, from: databaseQueue)
 
 		// Reset store and check if date was removed.
 
@@ -1302,6 +1323,16 @@ class ContactDiaryStoreTests: CWATestCase {
 		}
 		return locationId
 	}
+	
+	@discardableResult
+	private func addSubmission(date: Date, to store: ContactDiaryStore) -> Int {
+		let dateString = dateFormatter.string(from: date)
+		let submissionResult = store.addSubmission(date: dateString)
+		guard case let .success(submissionId) = submissionResult else {
+			fatalError("Failed to add Submission")
+		}
+		return submissionId
+	}
 
 	private func makeDatabaseQueue() -> FMDatabaseQueue {
 		guard let databaseQueue = FMDatabaseQueue(path: "file::memory:") else {
@@ -1331,14 +1362,14 @@ class ContactDiaryStoreTests: CWATestCase {
 		if let schema = schema {
 			_schema = schema
 		} else {
-			_schema = ContactDiaryStoreSchemaV5(databaseQueue: databaseQueue)
+			_schema = ContactDiaryStoreSchemaV6(databaseQueue: databaseQueue)
 		}
 
 		let _migrator: SerialMigratorProtocol
 		if let migrator = migrator {
 			_migrator = migrator
 		} else {
-			_migrator = SerialDatabaseQueueMigrator(queue: databaseQueue, latestVersion: 5, migrations: [])
+			_migrator = SerialDatabaseQueueMigrator(queue: databaseQueue, latestVersion: 6, migrations: [])
 		}
 
 		let store = ContactDiaryStore(
