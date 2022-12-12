@@ -573,7 +573,7 @@
 
 "ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_insufficientAppUsageTime_message" = "Üzgünüz; uygulamayı yakın zamanda yüklediğiniz için şu anda diğer kullanıcıları uyaramazsınız. Bunun amacı, uyarı özelliğinin kötüye kullanımını önlemektir.\nResmi bir test kaydedip bu testi, dilediğiniz zaman diğer kullanıcıları uyarmak için kullanabilirsiniz (hata kodu %@).";
 
-"ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_positiveTestResultWasAlreadySubmittedWithin90Days_message" = "Geçmiş 90 gün içinde zaten pozitif bir test sonucu bildirdiğiniz için şu anda diğer kullanıcıları uyaramazsınız. Bunun amacı, uyarı özelliğinin kötüye kullanımını önlemektir.\nResmi bir test kaydedip bu testi, dilediğiniz zaman diğer kullanıcıları uyarmak için kullanabilirsiniz (hata kodu %@).";
+"ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_positiveTestResultWasAlreadySubmittedWithinThresholdDays_message" = "Geçmiş %@ gün içinde zaten pozitif bir test sonucu bildirdiğiniz için şu anda diğer kullanıcıları uyaramazsınız. Bunun amacı, uyarı özelliğinin kötüye kullanımını önlemektir.\nResmi bir test kaydedip bu testi, dilediğiniz zaman diğer kullanıcıları uyarmak için kullanabilirsiniz (hata kodu %@).";
 
 "ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_deviceCheckError_message" = "Akıllı telefonunuzun saati, geçerli saat ile eşleşmiyor. Lütfen akıllı telefonunuzun ayarlarında saati düzeltin. Bu düzeltmeden sonra uygulamanın yeniden saati kontrol etmesi birkaç dakika sürebilir. Uygulama saati yeniden kontrol ettikten sonra yeniden diğer kullanıcıları uyarmayı deneyebilirsiniz.";
 

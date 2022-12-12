@@ -239,7 +239,8 @@ final class OTPService: OTPServiceProviding {
 	private func authorizeSRS(_ otp: String, with ppacToken: PPACToken, completion: @escaping (Result<String, OTPError>) -> Void) {
 		Log.info("Authorization of a new OTP SRS started.", log: .otp)
 		// We authorize the otp with the ppac Token at our server.
-		let resource = OTPAuthorizationForSRSResource(otpSRS: otp, ppacToken: ppacToken)
+		 
+		let resource = OTPAuthorizationForSRSResource(otpSRS: otp, forceApiTokenHeader: store.forceAPITokenAuthorization, ppacToken: ppacToken)
 		restServiceProvider.load(resource) { [weak self] result in
 			guard let self = self else {
 				Log.error("could not create strong self", log: .otp)

@@ -573,7 +573,7 @@
 
 "ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_insufficientAppUsageTime_message" = "Ne pare rău, dar în acest moment nu-i puteți avertiza pe ceilalți, deoarece abia ați instalat aplicația. Această funcție este destinată prevenirii utilizării greșite a caracteristicii de avertizare.\nPuteți înregistra un test oficial și îl puteți utiliza pentru a-i avertiza pe ceilalți oricând (cod de eroare %@).";
 
-"ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_positiveTestResultWasAlreadySubmittedWithin90Days_message" = "În acest moment nu-i puteți avertiza pe ceilalți, deoarece ați raportat deja un rezultat de test pozitiv în ultimele 90 de zile. Această funcție este destinată prevenirii utilizării greșite a caracteristicii de avertizare.\nPuteți înregistra un test oficial și îl puteți utiliza pentru a-i avertiza pe ceilalți oricând (cod de eroare %@).";
+"ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_positiveTestResultWasAlreadySubmittedWithinThresholdDays_message" = "În acest moment nu-i puteți avertiza pe ceilalți, deoarece ați raportat deja un rezultat de test pozitiv în ultimele %@ de zile. Această funcție este destinată prevenirii utilizării greșite a caracteristicii de avertizare.\nPuteți înregistra un test oficial și îl puteți utiliza pentru a-i avertiza pe ceilalți oricând (cod de eroare %@).";
 
 "ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_deviceCheckError_message" = "Ora de pe smartphone-ul dvs. nu corespunde cu ora curentă. Vă rugăm să corectați ora în setările smartphone-ului dvs. După această corecție, poate dura câteva minute până când aplicația verifică din nou ora. După verificare, puteți încerca din nou să îi avertizați pe ceilalți.";
 

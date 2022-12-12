@@ -11,7 +11,7 @@ enum SRSPreconditionError: Error {
 	case insufficientAppUsageTime
 	
 	/// Precondition: there was already a key submission without a registered test, depending from configuration (for e.g. in the last 3 months)
-	case positiveTestResultWasAlreadySubmittedWithinThreshold
+	case positiveTestResultWasAlreadySubmittedWithinThreshold(timeBetweenSubmissionsInDays: Int)
 	
 	var errorCode: String { self.description }
 	
@@ -27,9 +27,10 @@ enum SRSPreconditionError: Error {
 				format: AppStrings.ExposureSubmissionDispatch.SRSWarnOthersPreconditionAlert.insufficientAppUsageTimeMessage,
 				errorCode
 			)
-		case  .positiveTestResultWasAlreadySubmittedWithinThreshold:
+		case  .positiveTestResultWasAlreadySubmittedWithinThreshold(let timeBetweenSubmissionsInDays):
 			return String(
-				format: AppStrings.ExposureSubmissionDispatch.SRSWarnOthersPreconditionAlert.positiveTestResultWasAlreadySubmittedWithin90DaysMessage,
+				format: AppStrings.ExposureSubmissionDispatch.SRSWarnOthersPreconditionAlert.positiveTestResultWasAlreadySubmittedWithinThresholdDaysMessage,
+				String(timeBetweenSubmissionsInDays),
 				errorCode
 			)
 		}
