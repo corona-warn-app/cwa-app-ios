@@ -11,6 +11,7 @@ struct OTPAuthorizationForSRSResource: Resource {
 	init(
 		otpSRS: String,
 		requestPadding: Data? = nil,
+		forceApiTokenHeader: Bool = false,
 		isFake: Bool = false,
 		ppacToken: PPACToken,
 		trustEvaluation: TrustEvaluating = DefaultTrustEvaluation(
@@ -37,7 +38,7 @@ struct OTPAuthorizationForSRSResource: Resource {
 			}
 		)
 		
-		self.locator = .authorizeOtpSrs(isFake: isFake)
+		self.locator = .authorizeOtpSrs(forceApiTokenHeader: forceApiTokenHeader, isFake: isFake)
 		self.type = .default
 		self.receiveResource = JSONReceiveResource<OTPForSRSResponsePropertiesReceiveModel>()
 		self.trustEvaluation = trustEvaluation
