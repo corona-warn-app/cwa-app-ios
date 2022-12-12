@@ -856,16 +856,11 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 			checkins: model.eventProvider.checkinsPublisher.value,
 			onCompletion: { [weak self] selectedCheckins in
 				self?.model.exposureSubmissionService.checkins = selectedCheckins
-				
-				if isSRSFlow {
-					self?.showSymptomsScreen()
-				} else {
-					showNextScreen()
-				}
+				isSRSFlow ? self?.showSymptomsScreen() : showNextScreen()
 			},
 			onSkip: { [weak self] in
 				self?.showSkipCheckinsAlert(dontShareHandler: {
-					showNextScreen()
+					isSRSFlow ? self?.showSymptomsScreen() : showNextScreen()
 				})
 			},
 			onDismiss: { [weak self] in
@@ -1692,7 +1687,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 				title: AppStrings.SRSIncreasedWarningsVolumeAlert.title,
 				message: String(
 					format: AppStrings.SRSIncreasedWarningsVolumeAlert.message,
-					model.cwaKeysTruncated
+					String(model.cwaKeysTruncated)
 				),
 				preferredStyle: .alert
 			)
