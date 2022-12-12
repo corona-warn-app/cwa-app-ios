@@ -1505,7 +1505,7 @@
 /* Home Alert Risk Lowered */
 "Home_Alert_RiskStatusLowered_Title" = "Zmiana Twojego statusu ryzyka";
 
-"Home_Alert_RiskStatusLowered_Message" = "Ostatnie narażenie, które spowodowało zwiększenie Twojego ryzyka, miało miejsce ponad %i dni temu. Z tego powodu ryzyko zakażenia zostało ponownie sklasyfikowane jako niskie.\n\nZalecenia:\nJeśli nie masz żadnych objawów zakażenia COVID-19, przestrzegaj nadal obowiązujących zasad dotyczących zachowania dystansu i higieny.\nJeżeli masz objawy zakażenia COVID-19, zalecamy wizytę u lekarza i wykonanie testu.";
+"Home_Alert_RiskStatusLowered_Message" = "Ostatnie narażenie, które spowodowało zwiększenie Twojego ryzyka, miało miejsce ponad %i dni temu. Z tego powodu ryzyko zakażenia zostało ponownie sklasyfikowane jako niskie.\n\nZalecenia:\n1. Jeśli nie masz żadnych objawów zakażenia COVID-19, przestrzegaj nadal obowiązujących zasad dotyczących zachowania dystansu i higieny.\n2. Jeżeli masz objawy zakażenia COVID-19, zalecamy wizytę u lekarza i wykonanie testu.";
 
 "Home_Alert_RiskStatusLowered_PrimaryButtonTitle" = "OK";
 
