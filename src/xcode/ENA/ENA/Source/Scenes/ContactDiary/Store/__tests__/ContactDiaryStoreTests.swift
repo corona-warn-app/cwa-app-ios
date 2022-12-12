@@ -1022,7 +1022,7 @@ class ContactDiaryStoreTests: CWATestCase {
 		let store = makeContactDiaryStore(with: databaseQueue)
 
 		databaseQueue.inDatabase { database in
-			XCTAssertEqual(database.numberOfTables, 5, "Looks like there is a new table. Please extend this test and add the new table to the dropTables() function.")
+			XCTAssertEqual(database.numberOfTables, 6, "Looks like there is a new table. Please extend this test and add the new table to the dropTables() function.")
 		}
 
 		// Add data and check if its persisted.
@@ -1032,12 +1032,14 @@ class ContactDiaryStoreTests: CWATestCase {
 		let locationId = addLocation(name: "Some Location", to: store)
 		addLocationVisit(locationId: locationId, date: Date(), store: store)
 		let coronaTestID = addCoronaTest(testDate: Date(), to: store)
+		let submissionID = addSubmission(date: Date(), to: store)
 
 		assertEntryExists(for: "Location", with: locationId, from: databaseQueue)
 		assertEntryExists(for: "LocationVisit", with: locationId, from: databaseQueue)
 		assertEntryExists(for: "ContactPerson", with: locationId, from: databaseQueue)
 		assertEntryExists(for: "ContactPersonEncounter", with: locationId, from: databaseQueue)
 		assertEntryExists(for: "CoronaTest", with: coronaTestID, from: databaseQueue)
+		assertEntryExists(for: "Submission", with: submissionID, from: databaseQueue)
 
 		// Reset store and check if date was removed.
 
@@ -1320,6 +1322,16 @@ class ContactDiaryStoreTests: CWATestCase {
 			fatalError("Failed to add Location")
 		}
 		return locationId
+	}
+	
+	@discardableResult
+	private func addSubmission(date: Date, to store: ContactDiaryStore) -> Int {
+		let dateString = dateFormatter.string(from: date)
+		let submissionResult = store.addSubmission(date: dateString)
+		guard case let .success(submissionId) = submissionResult else {
+			fatalError("Failed to add Submission")
+		}
+		return submissionId
 	}
 
 	private func makeDatabaseQueue() -> FMDatabaseQueue {
