@@ -106,6 +106,8 @@ struct OTPAuthorizationForSRSResource: Resource {
 				return .apiTokenExpired
 			case .API_TOKEN_QUOTA_EXCEEDED:
 				return .apiTokenQuotaExceeded
+			case .DEVICE_BLOCKED:
+				return .deviceBlocked
 			case .DEVICE_TOKEN_INVALID:
 				return .deviceTokenInvalid
 			case .DEVICE_TOKEN_REDEEMED:
