@@ -55,7 +55,7 @@ enum OTPError: Error, Equatable, LocalizedError {
             return "noNetworkConnection"
         case .restServiceError:
             return "restServiceError"
-        }
+		}
     }
 	
 	var errorDescription: String? {

@@ -82,6 +82,7 @@ struct OTPAuthorizationForSRSResource: Resource {
 	
 	// MARK: - Private
 	
+	// swiftlint:disable:next cyclomatic_complexity
 	private func otpAuthorizationFailureHandler(for response: Data?, statusCode: Int) -> OTPAuthorizationError? {
 		guard let responseBody = response else {
 			Log.error("Failed to get authorized OTP - no 200 status code: \(statusCode)", log: .api)
