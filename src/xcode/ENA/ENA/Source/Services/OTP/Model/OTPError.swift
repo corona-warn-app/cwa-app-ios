@@ -43,6 +43,8 @@ enum OTPError: Error, Equatable, LocalizedError {
             return "apiTokenExpired"
         case .apiTokenQuotaExceeded:
             return "apiTokenQuotaExceeded"
+        case .deviceBlocked:
+            return "deviceBlocked"
         case .deviceTokenInvalid:
             return "deviceTokenInvalid"
         case .deviceTokenRedeemed:
@@ -53,9 +55,6 @@ enum OTPError: Error, Equatable, LocalizedError {
             return "noNetworkConnection"
         case .restServiceError:
             return "restServiceError"
-		case .deviceBlocked:
-			return "deviceBlocked"
-		}
     }
 	
 	var errorDescription: String? {
