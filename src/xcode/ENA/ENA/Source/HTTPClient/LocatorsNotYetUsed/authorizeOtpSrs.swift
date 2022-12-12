@@ -35,8 +35,7 @@ extension Locator {
 			method: .post,
 			defaultHeaders: [
 				"Content-Type": "application/x-protobuf",
-				"cwa-fake": fake,
-				"cwa-ppac-ios-accept-api-token": forceApiHeader
+				"cwa-fake": fake
 			]
 		)
 		#endif
