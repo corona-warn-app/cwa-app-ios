@@ -444,6 +444,7 @@ enum AccessibilityIdentifiers {
 	}
 	
 	enum ExposureSubmissionSymptomsOnset {
+		static let subtitle = "AppStrings.ExposureSubmissionSymptomsOnset.subtitle"
 		static let description = "AppStrings.ExposureSubmissionSymptomsOnset.description"
 		static let answerOptionExactDate = "AppStrings.ExposureSubmissionSymptomsOnset.answerOptionExactDate"
 		static let answerOptionLastSevenDays = "AppStrings.ExposureSubmissionSymptomsOnset.answerOptionLastSevenDays"
