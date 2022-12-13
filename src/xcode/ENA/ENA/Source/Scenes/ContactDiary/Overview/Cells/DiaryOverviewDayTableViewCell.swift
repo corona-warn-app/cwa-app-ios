@@ -242,7 +242,7 @@ class DiaryOverviewDayTableViewCell: UITableViewCell {
 			let separatorLine = UIView()
 			separatorLine.backgroundColor = .enaColor(for: .hairline)
 			separatorLine.translatesAutoresizingMaskIntoConstraints = false
-			submissionsStackView.addSubview(separatorLine)
+			horizontalStackView.addSubview(separatorLine)
 			
 			// Draw the separator line from leading to trailing of the submissionsStackView
 			NSLayoutConstraint.activate([
@@ -257,7 +257,7 @@ class DiaryOverviewDayTableViewCell: UITableViewCell {
 				[
 					containerView.topAnchor.constraint(equalTo: submissionsStackView.topAnchor),
 					horizontalStackView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
-					horizontalStackView.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 12.0),
+					horizontalStackView.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 16.0),
 					horizontalStackView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
 					horizontalStackView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -12.0)
 
@@ -411,8 +411,8 @@ class DiaryOverviewDayTableViewCell: UITableViewCell {
 		bottomBackground.layer.borderWidth = 1
 		bottomBackground.layer.borderColor = UIColor.enaColor(for: .hairline).cgColor
 
-		// Show same background like the topBackground when we have not the encountersVisitsContainerStackView at the bottom displayed or the hole day is empty
-		if (testsStackView.isHidden && exposureHistoryStackView.isHidden && checkinHistoryContainerStackView.isHidden) || !encountersVisitsContainerStackView.isHidden {
+		// Show same background like the topBackground when we have not the encountersVisitsContainerStackView at the bottom displayed or the whole day is empty
+		if (testsStackView.isHidden && exposureHistoryStackView.isHidden && checkinHistoryContainerStackView.isHidden && submissionsStackView.isHidden) || !encountersVisitsContainerStackView.isHidden {
 			bottomBackground.backgroundColor = .enaColor(for: .cellBackground)
 		} else {
 			bottomBackground.backgroundColor = .enaColor(for: .darkBackground)
