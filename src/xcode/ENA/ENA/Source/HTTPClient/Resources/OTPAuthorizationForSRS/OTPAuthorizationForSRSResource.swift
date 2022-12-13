@@ -11,6 +11,7 @@ struct OTPAuthorizationForSRSResource: Resource {
 	init(
 		otpSRS: String,
 		requestPadding: Data? = nil,
+		forceApiTokenHeader: Bool = false,
 		isFake: Bool = false,
 		ppacToken: PPACToken,
 		trustEvaluation: TrustEvaluating = DefaultTrustEvaluation(
@@ -37,7 +38,7 @@ struct OTPAuthorizationForSRSResource: Resource {
 			}
 		)
 		
-		self.locator = .authorizeOtpSrs(isFake: isFake)
+		self.locator = .authorizeOtpSrs(forceApiTokenHeader: forceApiTokenHeader, isFake: isFake)
 		self.type = .default
 		self.receiveResource = JSONReceiveResource<OTPForSRSResponsePropertiesReceiveModel>()
 		self.trustEvaluation = trustEvaluation
@@ -65,7 +66,7 @@ struct OTPAuthorizationForSRSResource: Resource {
 			return .noNetworkConnection
 		case .unexpectedServerError(let statusCode):
 			switch statusCode {
-			case 400, 401, 403:
+			case 400, 401, 403, 429:
 				return otpAuthorizationFailureHandler(for: responseBody, statusCode: statusCode)
 			case 500:
 				Log.error("Failed to get authorized OTP - 500 status code", log: .api)
@@ -81,6 +82,7 @@ struct OTPAuthorizationForSRSResource: Resource {
 	
 	// MARK: - Private
 	
+	// swiftlint:disable:next cyclomatic_complexity
 	private func otpAuthorizationFailureHandler(for response: Data?, statusCode: Int) -> OTPAuthorizationError? {
 		guard let responseBody = response else {
 			Log.error("Failed to get authorized OTP - no 200 status code: \(statusCode)", log: .api)
@@ -106,6 +108,8 @@ struct OTPAuthorizationForSRSResource: Resource {
 				return .apiTokenExpired
 			case .API_TOKEN_QUOTA_EXCEEDED:
 				return .apiTokenQuotaExceeded
+			case .DEVICE_BLOCKED:
+				return .deviceBlocked
 			case .DEVICE_TOKEN_INVALID:
 				return .deviceTokenInvalid
 			case .DEVICE_TOKEN_REDEEMED:

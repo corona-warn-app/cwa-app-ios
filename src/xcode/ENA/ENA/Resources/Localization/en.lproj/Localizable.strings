@@ -573,7 +573,7 @@
 
 "ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_insufficientAppUsageTime_message" = "Sorry, but you cannot warn others right now, because you only recently installed the app. This is intended to prevent misuse of the warn feature.\nYou can register an official test and use it to warn others at any time (error code %@).";
 
-"ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_positiveTestResultWasAlreadySubmittedWithin90Days_message" = "You cannot warn others right now because you already reported a positive test result within the last 90 days. This is intended to prevent misuse of the warn feature.\nYou can register an official test and use it to warn others at any time (error code %@).";
+"ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_positiveTestResultWasAlreadySubmittedWithinThresholdDays_message" = "You cannot warn others right now because you already reported a positive test result within the last %@ days. This is intended to prevent misuse of the warn feature.\nYou can register an official test and use it to warn others at any time (error code %@).";
 
 "ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_deviceCheckError_message" = "The time on your smartphone does not match the current time. Please correct the time in your smartphone settings. After this correction, it may take a few minutes until the app checks the time again. Once it does, you can try to warn others again.";
 
@@ -775,13 +775,6 @@
 "SRS_ConsentScreen_Acknowledgement_5" = "You can also warn others without the verification of authenticity. To do so, register a PCR test or rapid test in the app and retrieve the result in the app.";
 
 "SRS_ConsentScreen_Acknowledgement_6" = "In the next step, grant your consent to access the random IDs.";
-
-"SRS_ConsentScreen_DataProcessingDetailInfo" = "Detailed Information about the Authenticity Check and Data Protection Risks in the U.S. and Other Third Countries";
-
-/* SRSDataProcessingInfo */
-"SRS_DataProcessingInfo_title" = "Verification of Authenticity and Data Transfer to Third Countries";
-
-"SRS_DataProcessingInfodescription" = "To confirm the authenticity of your app, your smartphone generates a unique identifier that contains information about the version of your smartphone and the app. This is necessary to ensure that only people who actually use the Corona-Warn-App can send a warning after a positive self-test or with a test result that is not available in the app and rule out manipulated error reports. This procedure also ensures that warnings after a positive self-test or with a test result that is not available in the app are only possible every three months.\n\nThe unique identifier generated during the authenticity check is sent to Apple. In this process, data may be transferred to the U.S. or other third countries, where the level of data privacy may not correspond to European law and you may not be able to enforce your European rights to data privacy. In particular, security services in the third country could access and analyze the data with Apple, even if there is no grounds for suspicion, and link this data with other information, for example. This only involves the identifier that is sent to Apple, however, Apple may be able to determine your identity based on the identifier and track that the authenticity check was performed on your smartphone during the warning process.\n\nIf you do not consent to this transfer of your data to a third country, please do not tap on “Agree”. You will still be able to use the app, but you cannot warn others after a positive self-test or with a test result that is not available in the app.";
 
 /* Exposure Submission Result */
 "ExposureSubmissionResult_Title" = "Your Test Result";

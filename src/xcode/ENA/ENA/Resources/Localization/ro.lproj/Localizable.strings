@@ -573,7 +573,7 @@
 
 "ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_insufficientAppUsageTime_message" = "Ne pare rău, dar în acest moment nu-i puteți avertiza pe ceilalți, deoarece abia ați instalat aplicația. Această funcție este destinată prevenirii utilizării greșite a caracteristicii de avertizare.\nPuteți înregistra un test oficial și îl puteți utiliza pentru a-i avertiza pe ceilalți oricând (cod de eroare %@).";
 
-"ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_positiveTestResultWasAlreadySubmittedWithin90Days_message" = "În acest moment nu-i puteți avertiza pe ceilalți, deoarece ați raportat deja un rezultat de test pozitiv în ultimele 90 de zile. Această funcție este destinată prevenirii utilizării greșite a caracteristicii de avertizare.\nPuteți înregistra un test oficial și îl puteți utiliza pentru a-i avertiza pe ceilalți oricând (cod de eroare %@).";
+"ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_positiveTestResultWasAlreadySubmittedWithinThresholdDays_message" = "În acest moment nu-i puteți avertiza pe ceilalți, deoarece ați raportat deja un rezultat de test pozitiv în ultimele %@ de zile. Această funcție este destinată prevenirii utilizării greșite a caracteristicii de avertizare.\nPuteți înregistra un test oficial și îl puteți utiliza pentru a-i avertiza pe ceilalți oricând (cod de eroare %@).";
 
 "ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_deviceCheckError_message" = "Ora de pe smartphone-ul dvs. nu corespunde cu ora curentă. Vă rugăm să corectați ora în setările smartphone-ului dvs. După această corecție, poate dura câteva minute până când aplicația verifică din nou ora. După verificare, puteți încerca din nou să îi avertizați pe ceilalți.";
 
@@ -775,13 +775,6 @@
 "SRS_ConsentScreen_Acknowledgement_5" = "De asemenea, îi puteți avertiza pe ceilalți fără verificarea autenticității. În acest scop, înregistrați un test PCR sau un test rapid în aplicație și aflați rezultatul în aplicație.";
 
 "SRS_ConsentScreen_Acknowledgement_6" = "În etapa următoare, acordați consimțământul pentru a accesa ID-urile aleatorii.";
-
-"SRS_ConsentScreen_DataProcessingDetailInfo" = "Informații detaliate despre verificarea autenticității și riscurile privind prelucrarea datelor în SUA și în alte țări terțe";
-
-/* SRSDataProcessingInfo */
-"SRS_DataProcessingInfo_title" = "Verificarea autenticității și a transferului de date către țări terțe";
-
-"SRS_DataProcessingInfodescription" = "Pentru a confirma autenticitatea aplicației dvs., smartphone-ul dvs. generează un identificator unic ce conține informații despre versiunea smartphone-ului și a aplicației. Acest lucru este necesar pentru a ne asigura că doar persoanele care utilizează efectiv aplicația Corona-Warn pot trimite o avertizare după un test făcut acasă pozitiv sau cu un rezultat de test care nu este disponibil în aplicație și, astfel, să excludem rapoartele de erori manipulate. Această procedură asigură, de asemenea, că o avertizare după un test făcut acasă pozitiv sau cu un rezultat de test care nu este disponibil în aplicație este posibilă doar la fiecare trei luni.\n\nIdentificatorul unic generat la verificarea autenticității este trimis la Apple. În acest proces, pot fi transferate date în SUA sau în alte țări terțe, unde nivelul de confidențialitate a datelor poate să nu corespundă cu legislația europeană și se poate să nu vă puteți exercita drepturile europene în ceea ce privește confidențialitatea datelor. În special, serviciile de securitate din țările terțe ar putea să vă acceseze și să vă analizeze datele de la Apple, chiar dacă nu există temei de suspiciune, și pot, de exemplu, lega aceste date de alte informații. Acest lucru se referă doar la identificatorul care este trimis la Apple, însă Apple ar putea determina identitatea dvs. pe baza identificatorului și ar putea urmări că a fost efectuată verificarea autenticității pe smartphone-ul dvs. în timpul procesului de avertizare.\n\nDacă nu sunteți de acord cu acest transfer al datelor dvs. către o țară terță, nu apăsați pe „Sunt de acord”. Veți putea utiliza aplicația în continuare, dar nu îi puteți avertiza pe ceilalți după un test făcut acasă pozitiv sau cu un rezultat de test care nu este disponibil în aplicație.";
 
 /* Exposure Submission Result */
 "ExposureSubmissionResult_Title" = "Rezultatul testului dvs.";

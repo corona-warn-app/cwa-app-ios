@@ -1012,6 +1012,8 @@
 		8F63407C262D8F4400077240 /* AntigenTestInformation+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F634077262D8EAA00077240 /* AntigenTestInformation+Mock.swift */; };
 		8F64BD91276796A400E48299 /* RoundedLabeledView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F64BD90276796A400E48299 /* RoundedLabeledView.swift */; };
 		8F6635F02713A7B500384B63 /* stats.bin in Resources */ = {isa = PBXBuildFile; fileRef = 8F6635EF2713A7B400384B63 /* stats.bin */; };
+		8F72B8F02942BE04005EB433 /* ContactDiaryMigration5To6Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F72B8EF2942BE04005EB433 /* ContactDiaryMigration5To6Tests.swift */; };
+		8F72B8F22942BE11005EB433 /* ContactDiaryStoreSchemaV6Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F72B8F12942BE11005EB433 /* ContactDiaryStoreSchemaV6Tests.swift */; };
 		8F75219229266B1200F1B3DE /* SRSError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F75219129266B1200F1B3DE /* SRSError.swift */; };
 		8F7AB89F25F106A50043A3C8 /* SendErrorLogsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F7AB89E25F106A50043A3C8 /* SendErrorLogsViewModel.swift */; };
 		8F7AB8CE25F257220043A3C8 /* TopErrorReportViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F7AB8CD25F257220043A3C8 /* TopErrorReportViewModel.swift */; };
@@ -1756,6 +1758,7 @@
 		DC03798A28EDD51C00E1EE20 /* link_card.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC03798928EDD51C00E1EE20 /* link_card.pb.swift */; };
 		DC03798C28F4483C00E1EE20 /* HomeLinkCardViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC03798B28F4483B00E1EE20 /* HomeLinkCardViewModelTests.swift */; };
 		DC03798E28F449D000E1EE20 /* HomeLinkCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC03798D28F449D000E1EE20 /* HomeLinkCard.swift */; };
+		DC1139802944AB30008B7E7E /* SRSPreconditionErrorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC11397F2944AB30008B7E7E /* SRSPreconditionErrorTests.swift */; };
 		DC28F7C828FEC94100EFFA34 /* UIImage+SFSymbols.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC28F7C728FEC94100EFFA34 /* UIImage+SFSymbols.swift */; };
 		DC29CBAA29376D6800BEAA79 /* OTPForSRSResponsePropertiesReceiveModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC29CBA929376D6800BEAA79 /* OTPForSRSResponsePropertiesReceiveModel.swift */; };
 		DC3B278F28F5936700A55769 /* NSAttributedString+Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC3B278E28F5936700A55769 /* NSAttributedString+Image.swift */; };
@@ -2922,6 +2925,8 @@
 		8F634077262D8EAA00077240 /* AntigenTestInformation+Mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AntigenTestInformation+Mock.swift"; sourceTree = "<group>"; };
 		8F64BD90276796A400E48299 /* RoundedLabeledView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedLabeledView.swift; sourceTree = "<group>"; };
 		8F6635EF2713A7B400384B63 /* stats.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = stats.bin; sourceTree = "<group>"; };
+		8F72B8EF2942BE04005EB433 /* ContactDiaryMigration5To6Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDiaryMigration5To6Tests.swift; sourceTree = "<group>"; };
+		8F72B8F12942BE11005EB433 /* ContactDiaryStoreSchemaV6Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDiaryStoreSchemaV6Tests.swift; sourceTree = "<group>"; };
 		8F75219129266B1200F1B3DE /* SRSError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SRSError.swift; sourceTree = "<group>"; };
 		8F7AB89E25F106A50043A3C8 /* SendErrorLogsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendErrorLogsViewModel.swift; sourceTree = "<group>"; };
 		8F7AB8CD25F257220043A3C8 /* TopErrorReportViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopErrorReportViewModel.swift; sourceTree = "<group>"; };
@@ -3666,6 +3671,7 @@
 		DC03798928EDD51C00E1EE20 /* link_card.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = link_card.pb.swift; sourceTree = "<group>"; };
 		DC03798B28F4483B00E1EE20 /* HomeLinkCardViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeLinkCardViewModelTests.swift; sourceTree = "<group>"; };
 		DC03798D28F449D000E1EE20 /* HomeLinkCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeLinkCard.swift; sourceTree = "<group>"; };
+		DC11397F2944AB30008B7E7E /* SRSPreconditionErrorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SRSPreconditionErrorTests.swift; sourceTree = "<group>"; };
 		DC28F7C728FEC94100EFFA34 /* UIImage+SFSymbols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+SFSymbols.swift"; sourceTree = "<group>"; };
 		DC29CBA929376D6800BEAA79 /* OTPForSRSResponsePropertiesReceiveModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPForSRSResponsePropertiesReceiveModel.swift; sourceTree = "<group>"; };
 		DC3B278C28F55B6D00A55769 /* SAP_Internal_Stats_LinkCard+Mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SAP_Internal_Stats_LinkCard+Mock.swift"; sourceTree = "<group>"; };
@@ -4089,6 +4095,7 @@
 			children = (
 				0123D5972501383100A91838 /* ExposureSubmissionErrorTests.swift */,
 				CDF27BD2246ADBA70044D32B /* ExposureSubmissionServiceTests.swift */,
+				DC11397F2944AB30008B7E7E /* SRSPreconditionErrorTests.swift */,
 			);
 			path = __tests__;
 			sourceTree = "<group>";
@@ -7366,8 +7373,8 @@
 		8F27018D259B58D700E48CFE /* StoreV2 */ = {
 			isa = PBXGroup;
 			children = (
-				8F270193259B5BA700E48CFE /* ContactDiaryMigration1To2.swift */,
 				8FF9B2B1259B6B030080770D /* ContactDiaryStoreSchemaV2.swift */,
+				8F270193259B5BA700E48CFE /* ContactDiaryMigration1To2.swift */,
 			);
 			path = StoreV2;
 			sourceTree = "<group>";
@@ -7528,6 +7535,15 @@
 				8F64BD90276796A400E48299 /* RoundedLabeledView.swift */,
 			);
 			path = RoundedLabeledView;
+			sourceTree = "<group>";
+		};
+		8F72B8E82942B91F005EB433 /* StoreV6 */ = {
+			isa = PBXGroup;
+			children = (
+				8F72B8F12942BE11005EB433 /* ContactDiaryStoreSchemaV6Tests.swift */,
+				8F72B8EF2942BE04005EB433 /* ContactDiaryMigration5To6Tests.swift */,
+			);
+			path = StoreV6;
 			sourceTree = "<group>";
 		};
 		8F7AB8E425F2616C0043A3C8 /* MainErrorReportViewControllers */ = {
@@ -8342,6 +8358,7 @@
 				AB6887F525D6AA2200907465 /* StoreV3 */,
 				AB190EE925FF5BD200FBFF0D /* StoreV4 */,
 				BAEFB3582656B05A00497F79 /* StoreV5 */,
+				8F72B8E82942B91F005EB433 /* StoreV6 */,
 			);
 			path = __tests__;
 			sourceTree = "<group>";
@@ -12786,7 +12803,9 @@
 				3598D99A24FE280700483F1F /* CountryTests.swift in Sources */,
 				ABBB8AC327D2241200CCA3F1 /* SystemTimeTests.swift in Sources */,
 				B163D1102499068D001A322C /* SettingsViewModelTests.swift in Sources */,
+				8F72B8F02942BE04005EB433 /* ContactDiaryMigration5To6Tests.swift in Sources */,
 				BADE0DD2276764F000DAE055 /* HomeBadgeWrapper+Fake.swift in Sources */,
+				8F72B8F22942BE11005EB433 /* ContactDiaryStoreSchemaV6Tests.swift in Sources */,
 				5017F65F25FFC1E8003A812E /* ClientMetadataTests.swift in Sources */,
 				AB2F094F25D169DC00C16309 /* SurveyURLServiceTests.swift in Sources */,
 				01DC16312819803300087C06 /* Locator+DigitalCovid19CertificateTest.swift in Sources */,
@@ -12828,6 +12847,7 @@
 				BA18127527AD82C5000E5EDD /* CCLServiceBoosterNotificationRulesTests.swift in Sources */,
 				BA2D4F05263701950080FD77 /* SimpleTextCellViewModelTests.swift in Sources */,
 				AB86B2AF26026AC3007C77B3 /* EventCheckoutServiceTests.swift in Sources */,
+				DC1139802944AB30008B7E7E /* SRSPreconditionErrorTests.swift in Sources */,
 				506BEF05276A465A0062D5D6 /* StandardRestServiceTests.swift in Sources */,
 				347FBB08260B8FE000672770 /* TraceLocationDetailsViewModelTests.swift in Sources */,
 				350B26C5265E4E8D00180183 /* CWATestCase.swift in Sources */,
@@ -13229,7 +13249,7 @@
 				CODE_SIGN_ENTITLEMENTS = "${PROJECT}/Resources/ENACommunity.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_TEAM = $IPHONE_APP_DEV_TEAM;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -13384,7 +13404,7 @@
 				CODE_SIGN_ENTITLEMENTS = "${PROJECT}/Resources/ENA.entitlements";
 				CODE_SIGN_IDENTITY = $IPHONE_APP_CODE_SIGN_IDENTITY;
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_TEAM = 523TP53AQF;
 				GCC_PREPROCESSOR_DEFINITIONS = "SQLITE_HAS_CODEC=1";
 				INFOPLIST_FILE = ENA/Resources/Info_Testflight.plist;
@@ -13563,7 +13583,7 @@
 				CODE_SIGN_ENTITLEMENTS = "${PROJECT}/Resources/ENA.entitlements";
 				CODE_SIGN_IDENTITY = $IPHONE_APP_CODE_SIGN_IDENTITY;
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_TEAM = 523TP53AQF;
 				GCC_PREPROCESSOR_DEFINITIONS = "SQLITE_HAS_CODEC=1";
 				INFOPLIST_FILE = ENA/Resources/Info_Testflight.plist;
@@ -13805,7 +13825,7 @@
 				CODE_SIGN_ENTITLEMENTS = "${PROJECT}/Resources/ENATest.entitlements";
 				CODE_SIGN_IDENTITY = $IPHONE_APP_CODE_SIGN_IDENTITY;
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_TEAM = 523TP53AQF;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -13845,7 +13865,7 @@
 				CODE_SIGN_ENTITLEMENTS = "${PROJECT}/Resources/ENA.entitlements";
 				CODE_SIGN_IDENTITY = $IPHONE_APP_CODE_SIGN_IDENTITY;
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 8;
 				GCC_PREPROCESSOR_DEFINITIONS = "SQLITE_HAS_CODEC=1";
 				INFOPLIST_FILE = ENA/Resources/Info.plist;
 				IPHONE_APP_CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -13988,7 +14008,7 @@
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 8;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -14032,7 +14052,7 @@
 				CODE_SIGNING_ALLOWED = NO;
 				CODE_SIGNING_REQUIRED = NO;
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 8;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -14075,7 +14095,7 @@
 				CODE_SIGNING_ALLOWED = NO;
 				CODE_SIGNING_REQUIRED = NO;
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 8;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;

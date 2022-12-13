@@ -587,7 +587,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_insufficientAppUsageTime_message" = "Leider können Sie momentan andere noch nicht warnen, da Sie die App noch nicht lange genug installiert haben. Dies dient der Vermeidung von Missbrauch.\nEinen offiziellen Test können Sie jederzeit registrieren und andere damit warnen. (Fehlercode %@)";
 
-"ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_positiveTestResultWasAlreadySubmittedWithin90Days_message" = "Sie können momentan andere nicht warnen, da Sie innerhalb der vergangenen 90 Tage bereits ein positives Testergebnis gemeldet haben. Dies dient der Vermeidung von Missbrauch.\nEinen offiziellen Test können Sie jederzeit registrieren und andere damit warnen. (Fehlercode %@)";
+"ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_positiveTestResultWasAlreadySubmittedWithinThresholdDays_message" = "Sie können momentan andere nicht warnen, da Sie innerhalb der vergangenen %@ Tage bereits ein positives Testergebnis gemeldet haben. Dies dient der Vermeidung von Missbrauch.\nEinen offiziellen Test können Sie jederzeit registrieren und andere damit warnen. (Fehlercode %@)";
 
 "ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_deviceCheckError_message" = "Die Uhrzeit Ihres Smartphones stimmt nicht mit der aktuellen Zeit überein. Bitte korrigieren Sie die Uhrzeit in den Einstellungen Ihres Smartphones. Nach der Korrektur kann es einige Minuten dauern, bis die App die Uhrzeit erneut überprüft. Danach können Sie erneut versuchen zu warnen.";
 
@@ -793,14 +793,6 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 "SRS_ConsentScreen_Acknowledgement_5" = "Sie können andere auch ohne Echtheitsprüfung warnen. Hierfür müssen Sie einen PCR- oder Schnelltest in der App registrieren und das Ergebnis in der App abrufen.";
 
 "SRS_ConsentScreen_Acknowledgement_6" = "Erteilen Sie im nächsten Schritt Ihre Erlaubnis zum Zugriff auf die Zufalls-IDs.";
-
-"SRS_ConsentScreen_DataProcessingDetailInfo" = "Ausführliche Informationen zur Echtheitsprüfung und den Datenschutzrisiken in den USA und anderen Drittländern";
-
-/* SRSDataProcessingInfo */
-
-"SRS_DataProcessingInfo_title" = "Prüfung der Echtheit und Drittlandsübermittlung";
-
-"SRS_DataProcessingInfodescription" = "Um die Echtheit Ihrer App zu bestätigen, erzeugt Ihr Smartphone eine eindeutige Kennung, die Informationen über die Version Ihres Smartphones und der App enthält. Das ist erforderlich, um sicherzustellen, dass nur Nutzer eine Warnung nach einem positiven Selbsttest oder mit einem Testergebnis, das nicht in der App vorliegt, auslösen, die tatsächlich die Corona-Warn-App nutzen und nicht manipulierte Warnungen bereitstellen. Das Verfahren dient außerdem dazu, sicherzustellen, dass Warnungen nach einem positiven Selbsttest oder mit einem Testergebnis, das nicht in der App vorliegt, nur alle drei Monate möglich sind.\n\nDie bei der Echtheitsprüfung erzeugte eindeutige Kennung wird beim Auslösen der Warnung einmalig an Apple übermittelt. Dabei kann es auch zu einer Datenübermittlung in die USA oder andere Drittländer kommen. Dort besteht möglicherweise kein dem europäischen Recht entsprechendes Datenschutzniveau und Ihre europäischen Datenschutzrechte können eventuell nicht durchgesetzt werden. Insbesondere besteht die Möglichkeit, dass Sicherheitsbehörden im Drittland, auch ohne einen konkreten Verdacht, auf die übermittelten Daten bei Apple zugreifen und diese auswerten, beispielsweise indem sie Daten mit anderen Informationen verknüpfen. Dies betrifft nur die an Apple übermittelte Kennung. Möglicherweise kann Apple jedoch anhand der Kennung auf Ihre Identität schließen und nachvollziehen, dass die Echtheitsprüfung Ihres Smartphones im Rahmen einer Warnung anderer stattgefunden hat.\n\nWenn Sie mit der Drittlandsübermittlung nicht einverstanden sind, tippen Sie bitte nicht „Einverstanden“ an. Sie können die App weiterhin nutzen, eine Warnung anderer nach einem positiven Selbsttest oder mit einem Testergebnis, das nicht in der App vorliegt, ist dann jedoch nicht möglich.";
 
 /* Exposure Submission Result */
 "ExposureSubmissionResult_Title" = "Ihr Testergebnis";

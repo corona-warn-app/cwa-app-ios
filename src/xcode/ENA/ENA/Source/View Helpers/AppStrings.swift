@@ -347,7 +347,7 @@ enum AppStrings {
 		enum SRSWarnOthersPreconditionAlert {
 			static let title = NSLocalizedString("ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_title", comment: "")
 			static let insufficientAppUsageTimeMessage = NSLocalizedString("ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_insufficientAppUsageTime_message", comment: "")
-			static let positiveTestResultWasAlreadySubmittedWithin90DaysMessage = NSLocalizedString("ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_positiveTestResultWasAlreadySubmittedWithin90Days_message", comment: "")
+			static let positiveTestResultWasAlreadySubmittedWithinThresholdDaysMessage = NSLocalizedString("ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_positiveTestResultWasAlreadySubmittedWithinThresholdDays_message", comment: "")
 			static let deviceCheckError = NSLocalizedString("ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_deviceCheckError_message", comment: "")
 			static let faqButtonTitle = NSLocalizedString("ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_faqButtonTitle", comment: "")
 			static let okButtonTitle = NSLocalizedString("ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_okButtonTitle", comment: "")
@@ -403,12 +403,12 @@ enum AppStrings {
 		static let acknowledgement4 = NSLocalizedString("SRS_ConsentScreen_Acknowledgement_4", comment: "")
 		static let acknowledgement5 = NSLocalizedString("SRS_ConsentScreen_Acknowledgement_5", comment: "")
 		static let acknowledgement6 = NSLocalizedString("SRS_ConsentScreen_Acknowledgement_6", comment: "")
-		static let dataProcessingDetailInfo = NSLocalizedString("SRS_ConsentScreen_DataProcessingDetailInfo", comment: "")
+		static let dataProcessingDetailInfo = NSLocalizedString("SRS_ConsentScreen_DataProcessingDetailInfo", tableName: "Localizable.legal", comment: "")
 	}
 	
 	enum SRSDataProcessingInfo {
-		static let title = NSLocalizedString("SRS_DataProcessingInfo_title", comment: "")
-		static let description = NSLocalizedString("SRS_DataProcessingInfodescription", comment: "")
+		static let title = NSLocalizedString("SRS_DataProcessingInfo_title", tableName: "Localizable.legal", comment: "")
+		static let description = NSLocalizedString("SRS_DataProcessingInfodescription", tableName: "Localizable.legal", comment: "")
 	}
 	
 	enum ExposureSubmissionQRInfo {

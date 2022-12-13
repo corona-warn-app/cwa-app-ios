@@ -573,7 +573,7 @@
 
 "ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_insufficientAppUsageTime_message" = "Przepraszamy, ale w tej chwili nie możesz ostrzec innych, ponieważ aplikacja została przez Ciebie zainstalowana niedawno. Ma to na celu zabezpieczenie przed niewłaściwym użyciem funkcji ostrzegania.\nMożesz zarejestrować oficjalny test i użyć go do ostrzegania innych w dowolnym czasie (kod błędu %@).";
 
-"ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_positiveTestResultWasAlreadySubmittedWithin90Days_message" = "W tej chwili nie możesz ostrzec innych, ponieważ w ciągu ostatnich 90 dni został już zgłoszony przez Ciebie pozytywny wynik testu. Ma to na celu zabezpieczenie przed niewłaściwym użyciem funkcji ostrzegania.\nMożesz zarejestrować oficjalny test i użyć go do ostrzegania innych w dowolnym czasie (kod błędu %@).";
+"ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_positiveTestResultWasAlreadySubmittedWithinThresholdDays_message" = "W tej chwili nie możesz ostrzec innych, ponieważ w ciągu ostatnich %@ dni został już zgłoszony przez Ciebie pozytywny wynik testu. Ma to na celu zabezpieczenie przed niewłaściwym użyciem funkcji ostrzegania.\nMożesz zarejestrować oficjalny test i użyć go do ostrzegania innych w dowolnym czasie (kod błędu %@).";
 
 "ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_deviceCheckError_message" = "Czas na Twoim smartfonie jest niezgodny z bieżącym czasem. Popraw czas w ustawieniach swojego smartfona. Po tej korekcie może upłynąć kilka minut, zanim aplikacja ponownie sprawdzi czas. Kiedy to nastąpi, możesz spróbować znowu ostrzec innych.";
 
@@ -775,13 +775,6 @@
 "SRS_ConsentScreen_Acknowledgement_5" = "Możesz także ostrzec innych bez weryfikacji autentyczności. W tym celu zarejestruj test PCR lub szybki test w aplikacji i pobierz wynik w aplikacji.";
 
 "SRS_ConsentScreen_Acknowledgement_6" = "W kolejnym kroku wyraź zgodę na dostęp do losowych identyfikatorów.";
-
-"SRS_ConsentScreen_DataProcessingDetailInfo" = "Szczegółowe informacje o ryzyku związanym z kontrolą autentyczności i przetwarzaniem i ochroną danych w USA i innych krajach trzecich";
-
-/* SRSDataProcessingInfo */
-"SRS_DataProcessingInfo_title" = "Weryfikacja autentyczności i przekazywanie danych do krajów trzecich";
-
-"SRS_DataProcessingInfodescription" = "Aby potwierdzić autentyczność aplikacji, smartfon generuje unikalny identyfikator zawierający informacje o wersji smartfona i aplikacji. Jest to konieczne w celu zapewnienia, by tylko osoby, które faktycznie używają aplikacji Corona-Warn-App mogły wysyłać ostrzeżenie po uzyskaniu pozytywnego wyniku samodzielne wykonanego testu lub z wynikiem testu niedostępnym w aplikacji i wykluczenia zmanipulowanych raportów o błędach. Ta procedura zapewnia też, że wysyłanie ostrzeżeń po uzyskaniu pozytywnego wyniku samodzielne wykonanego testu lub z wynikiem testu niedostępnym w aplikacji jest możliwe co trzy miesiące.\n\nUnikalny identyfikator wygenerowany podczas kontroli autentyczności jest wysyłany do Apple. W tym procesie dane mogą być przekazywane do Stanów Zjednoczonych lub innych krajów trzecich, gdzie poziom prywatności danych może nie odpowiadać prawu europejskiemu i możesz nie być w stanie wyegzekwować swoich europejskich praw do prywatności danych. W szczególności organy ds. bezpieczeństwa w kraju trzecim mogłyby uzyskać dostęp do danych i analizować je przy pomocy Apple, nawet jeśli nie ma podstaw do podejrzeń, i na przykład łączyć te dane z innymi informacjami. Dotyczy to tylko identyfikatora wysyłanego do Apple. Apple może jednak określić Twoją tożsamość na podstawie identyfikatora i poprzez prześledzenie danych ustalić, że sprawdzanie autentyczności zostało przeprowadzone na Twoim smartfonie podczas procesu ostrzegania.\n\nJeśli nie wyrażasz zgody na przekazanie swoich danych do kraju trzeciego, nie klikaj opcji „Akceptuj”. Nadal będziesz mieć możliwość korzystania z aplikacji, ale ostrzeganie innych po uzyskaniu pozytywnego wyniku samodzielnie wykonanego testu lub z wynikiem testu niedostępnym w aplikacji będzie niemożliwe.";
 
 /* Exposure Submission Result */
 "ExposureSubmissionResult_Title" = "Wynik Twojego testu";
