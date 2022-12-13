@@ -1505,7 +1505,7 @@
 /* Home Alert Risk Lowered */
 "Home_Alert_RiskStatusLowered_Title" = "Modificarea stării riscului dvs.";
 
-"Home_Alert_RiskStatusLowered_Message" = "Ultima expunere care a generat riscul dvs. crescut a avut loc cu mai mult de %i (de) zile în urmă. Prin urmare, riscul dvs. de infectare a fost clasificat ca fiind din nou redus.\n\nCe trebuie să faceți:\n Dacă nu aveți simptome specifice COVID-19, continuați să respectați regulile generale privind distanțarea și igiena.\n Dacă aveți simptome specifice COVID-19, vă recomandăm să mergeți la medic și să vă testați.";
+"Home_Alert_RiskStatusLowered_Message" = "Ultima expunere care a generat riscul dvs. crescut a avut loc cu mai mult de %i (de) zile în urmă. Prin urmare, riscul dvs. de infectare a fost clasificat ca fiind din nou redus.\n\nCe trebuie să faceți:\n 1. Dacă nu aveți simptome specifice COVID-19, continuați să respectați regulile generale privind distanțarea și igiena.\n 2. Dacă aveți simptome specifice COVID-19, vă recomandăm să mergeți la medic și să vă testați.";
 
 "Home_Alert_RiskStatusLowered_PrimaryButtonTitle" = "OK";
 
