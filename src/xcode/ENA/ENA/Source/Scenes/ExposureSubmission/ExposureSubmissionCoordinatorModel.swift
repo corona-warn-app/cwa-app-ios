@@ -237,7 +237,7 @@ class ExposureSubmissionCoordinatorModel {
 				}
 				
 			case .failure(let srsError):
-				onError(.srsError(srsError))
+				self.handleSRSError(srsError, onError: onError)
 				Log.debug(srsError.description, log: .ppac)
 			}
 		}
@@ -489,4 +489,40 @@ class ExposureSubmissionCoordinatorModel {
 	// MARK: - Private
 	
 	private let store: Store
+	
+	private func handleSRSError(_ srsError: SRSError, onError: @escaping (ExposureSubmissionServiceError) -> Void) {
+		switch srsError {
+		case .otpError(let otpError):
+			switch otpError {
+			case .restServiceError(let serverError):
+				switch serverError {
+				case .receivedResourceError(let otpAuthorizationError):
+					switch otpAuthorizationError {
+					case .apiTokenAlreadyIssued:
+						onError(.srsError(.otpError(.apiTokenAlreadyIssued)))
+					case .apiTokenExpired:
+						onError(.srsError(.otpError(.apiTokenExpired)))
+					case .apiTokenQuotaExceeded:
+						onError(.srsError(.otpError(.apiTokenQuotaExceeded)))
+					case .deviceBlocked:
+						onError(.srsError(.otpError(.deviceBlocked)))
+					case .deviceTokenInvalid:
+						onError(.srsError(.otpError(.deviceTokenInvalid)))
+					case .deviceTokenRedeemed:
+						onError(.srsError(.otpError(.deviceTokenRedeemed)))
+					case .deviceTokenSyntaxError:
+						onError(.srsError(.otpError(.deviceTokenSyntaxError)))
+					default:
+						onError(.srsError(.otpError(otpError)))
+					}
+				default:
+					onError(.srsError(.otpError(otpError)))
+				}
+			default:
+				onError(.srsError(.otpError(otpError)))
+			}
+		default:
+			onError(.srsError(srsError))
+		}
+	}
 }

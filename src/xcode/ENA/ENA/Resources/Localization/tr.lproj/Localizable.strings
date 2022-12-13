@@ -573,7 +573,7 @@
 
 "ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_insufficientAppUsageTime_message" = "Üzgünüz; uygulamayı yakın zamanda yüklediğiniz için şu anda diğer kullanıcıları uyaramazsınız. Bunun amacı, uyarı özelliğinin kötüye kullanımını önlemektir.\nResmi bir test kaydedip bu testi, dilediğiniz zaman diğer kullanıcıları uyarmak için kullanabilirsiniz (hata kodu %@).";
 
-"ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_positiveTestResultWasAlreadySubmittedWithin90Days_message" = "Geçmiş 90 gün içinde zaten pozitif bir test sonucu bildirdiğiniz için şu anda diğer kullanıcıları uyaramazsınız. Bunun amacı, uyarı özelliğinin kötüye kullanımını önlemektir.\nResmi bir test kaydedip bu testi, dilediğiniz zaman diğer kullanıcıları uyarmak için kullanabilirsiniz (hata kodu %@).";
+"ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_positiveTestResultWasAlreadySubmittedWithinThresholdDays_message" = "Geçmiş %@ gün içinde zaten pozitif bir test sonucu bildirdiğiniz için şu anda diğer kullanıcıları uyaramazsınız. Bunun amacı, uyarı özelliğinin kötüye kullanımını önlemektir.\nResmi bir test kaydedip bu testi, dilediğiniz zaman diğer kullanıcıları uyarmak için kullanabilirsiniz (hata kodu %@).";
 
 "ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_deviceCheckError_message" = "Akıllı telefonunuzun saati, geçerli saat ile eşleşmiyor. Lütfen akıllı telefonunuzun ayarlarında saati düzeltin. Bu düzeltmeden sonra uygulamanın yeniden saati kontrol etmesi birkaç dakika sürebilir. Uygulama saati yeniden kontrol ettikten sonra yeniden diğer kullanıcıları uyarmayı deneyebilirsiniz.";
 
@@ -1505,7 +1505,7 @@
 /* Home Alert Risk Lowered */
 "Home_Alert_RiskStatusLowered_Title" = "Risk Durumunuzda Değişiklik";
 
-"Home_Alert_RiskStatusLowered_Message" = "Risk durumunuzun artmasına neden olan son maruz kalma %i günden uzun süre önce gerçekleşti. Bu nedenle enfeksiyon riskiniz yeniden düşük olarak derecelendirildi.\n\nYapmanız gerekenler:\n Herhangi bir COVID-19 belirtiniz yoksa mesafe ve hijyen konusunda belirlenen kurallara riayet etmenizi öneririz.\n COVID-19 belirtiniz varsa doktorunuzu ziyaret edip test yaptırmanızı öneririz.";
+"Home_Alert_RiskStatusLowered_Message" = "Risk durumunuzun artmasına neden olan son maruz kalma %i günden uzun süre önce gerçekleşti. Bu nedenle enfeksiyon riskiniz yeniden düşük olarak derecelendirildi.\n\nYapmanız gerekenler:\n 1. Herhangi bir COVID-19 belirtiniz yoksa mesafe ve hijyen konusunda belirlenen kurallara riayet etmenizi öneririz.\n 2. COVID-19 belirtiniz varsa doktorunuzu ziyaret edip test yaptırmanızı öneririz.";
 
 "Home_Alert_RiskStatusLowered_PrimaryButtonTitle" = "Tamam";
 
