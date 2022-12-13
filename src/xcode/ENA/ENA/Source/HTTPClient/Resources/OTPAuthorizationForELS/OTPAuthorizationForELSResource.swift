@@ -14,6 +14,7 @@ enum OTPAuthorizationError: LocalizedError, Equatable {
 	case apiTokenAlreadyIssued
 	case apiTokenExpired
 	case apiTokenQuotaExceeded
+	case deviceBlocked
 	case deviceTokenInvalid
 	case deviceTokenRedeemed
 	case deviceTokenSyntaxError
@@ -41,6 +42,8 @@ enum OTPAuthorizationError: LocalizedError, Equatable {
 			return "apiTokenExpired"
 		case .apiTokenQuotaExceeded:
 			return "apiTokenQuotaExceeded"
+		case .deviceBlocked:
+			return "deviceBlocked"
 		case .deviceTokenInvalid:
 			return "deviceTokenInvalid"
 		case .deviceTokenRedeemed:

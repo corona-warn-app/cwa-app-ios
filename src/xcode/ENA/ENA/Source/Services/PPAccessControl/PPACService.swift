@@ -90,7 +90,11 @@ class PPACService: PrivacyPreservingAccessControl {
 			
 			if difference < minTimeBetweenSubmissions {
 				Log.error("SRSError: submission too early", log: .ppac)
-				completion(.failure(.positiveTestResultWasAlreadySubmittedWithinThreshold))
+				completion(.failure(
+					.positiveTestResultWasAlreadySubmittedWithinThreshold(
+						timeBetweenSubmissionsInDays: minTimeBetweenSubmissionsInDays
+					)
+				))
 				return
 			}
 		}
