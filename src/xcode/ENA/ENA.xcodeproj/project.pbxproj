@@ -1026,6 +1026,7 @@
 		8F8B4A332934CD18007ED94E /* DMSRSOptionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F8B4A322934CD18007ED94E /* DMSRSOptionsViewController.swift */; };
 		8F8B4A352934CD30007ED94E /* DMSRSOptionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F8B4A342934CD30007ED94E /* DMSRSOptionsViewModel.swift */; };
 		8F95A1B225EFC5BE00506CF2 /* SendErrorLogsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F95A1B125EFC5BE00506CF2 /* SendErrorLogsViewController.swift */; };
+		8FA1E1032948463D00C08D82 /* SRSKeySubmissionResourceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FA1E1022948463D00C08D82 /* SRSKeySubmissionResourceTests.swift */; };
 		8FA3E9C62913F334000512FC /* SRSConsentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FA3E9C52913F334000512FC /* SRSConsentViewController.swift */; };
 		8FA3E9C82913F34A000512FC /* SRSConsentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FA3E9C72913F34A000512FC /* SRSConsentViewModel.swift */; };
 		8FA88F672613325700FD36DA /* QRCodePayload+extention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FA88F662613325700FD36DA /* QRCodePayload+extention.swift */; };
@@ -2937,6 +2938,7 @@
 		8F8B4A342934CD30007ED94E /* DMSRSOptionsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMSRSOptionsViewModel.swift; sourceTree = "<group>"; };
 		8F8B4A362934DA10007ED94E /* ENATest.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ENATest.entitlements; sourceTree = "<group>"; };
 		8F95A1B125EFC5BE00506CF2 /* SendErrorLogsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendErrorLogsViewController.swift; sourceTree = "<group>"; };
+		8FA1E1022948463D00C08D82 /* SRSKeySubmissionResourceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SRSKeySubmissionResourceTests.swift; sourceTree = "<group>"; };
 		8FA3E9C52913F334000512FC /* SRSConsentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SRSConsentViewController.swift; sourceTree = "<group>"; };
 		8FA3E9C72913F34A000512FC /* SRSConsentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SRSConsentViewModel.swift; sourceTree = "<group>"; };
 		8FA88F662613325700FD36DA /* QRCodePayload+extention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "QRCodePayload+extention.swift"; sourceTree = "<group>"; };
@@ -8686,6 +8688,7 @@
 			isa = PBXGroup;
 			children = (
 				ABFDBEFC281AD7C000A11FA8 /* KeySubmissionResourceTests.swift */,
+				8FA1E1022948463D00C08D82 /* SRSKeySubmissionResourceTests.swift */,
 			);
 			path = __tests__;
 			sourceTree = "<group>";
@@ -12894,6 +12897,7 @@
 				BADDD83F2603956600337223 /* TraceLocationCellModelTests.swift in Sources */,
 				01D6816327C3D18200FF6D18 /* MockCoronaTestService.swift in Sources */,
 				71176E2F248922B0004B0C9F /* ENAColorTests.swift in Sources */,
+				8FA1E1032948463D00C08D82 /* SRSKeySubmissionResourceTests.swift in Sources */,
 				35C0C88B2614946F004BF509 /* CheckinSubmissionPreparationTests.swift in Sources */,
 				014086B82588F9FD00E9E5B2 /* DiaryEditEntriesViewModelTest.swift in Sources */,
 				01BA06D3261F41E100237DD8 /* ExposureSubmissionServiceTests.swift in Sources */,
