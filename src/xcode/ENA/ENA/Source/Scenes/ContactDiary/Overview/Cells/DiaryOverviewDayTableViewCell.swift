@@ -242,7 +242,7 @@ class DiaryOverviewDayTableViewCell: UITableViewCell {
 			let separatorLine = UIView()
 			separatorLine.backgroundColor = .enaColor(for: .hairline)
 			separatorLine.translatesAutoresizingMaskIntoConstraints = false
-			submissionsStackView.addSubview(separatorLine)
+			horizontalStackView.addSubview(separatorLine)
 			
 			// Draw the separator line from leading to trailing of the submissionsStackView
 			NSLayoutConstraint.activate([
