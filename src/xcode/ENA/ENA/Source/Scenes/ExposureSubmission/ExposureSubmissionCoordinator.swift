@@ -1034,11 +1034,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 					
 					self.model.shouldShowSymptomsOnsetScreen ? self.showSymptomsOnsetScreen() : self.submitExposure(showSubmissionSuccess: true, isLoading: isLoading)
 				case .srs:
-					self.model.shouldShowSymptomsOnsetScreen ? self.showSymptomsOnsetScreen() : self.submitSRSExposure(
-						showSubmissionSuccess: true,
-						viewControllerToPresentingAlert: exposureSubmissionSymptomsViewController,
-						isLoading: isLoading
-					)
+					self.model.shouldShowSymptomsOnsetScreen ? self.showSymptomsOnsetScreen() : self.showSRSFlowConsentAlert(for: .confirmWarnOthers(on: exposureSubmissionSymptomsViewController), isLoading: isLoading)
 				case .none:
 					break
 				}
@@ -1664,7 +1660,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 				handler: { [weak self] _ in
 					self?.submitSRSExposure(
 						showSubmissionSuccess: true,
-						viewControllerToPresentingAlert: viewController,
+						presentingViewController: viewController,
 						isLoading: isLoading
 					)
 				}
@@ -1897,7 +1893,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 	
 	private func submitSRSExposure(
 		showSubmissionSuccess: Bool = false,
-		viewControllerToPresentingAlert: UIViewController,
+		presentingViewController: UIViewController,
 		isLoading: @escaping (Bool) -> Void
 	) {
 		self.model.submitSRSExposure(
@@ -1915,7 +1911,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 				
 				if let cwaKeyTruncated = cwaKeyTruncated {
 					let increasedVolumeOfWarningsModel = SRSFlowAlert.Consent.IncreasedWarningsVolumeModel(
-						presentingViewController: viewControllerToPresentingAlert,
+						presentingViewController: presentingViewController,
 						cwaKeysTruncated: cwaKeyTruncated,
 						okayHandler: nextAction
 					)
