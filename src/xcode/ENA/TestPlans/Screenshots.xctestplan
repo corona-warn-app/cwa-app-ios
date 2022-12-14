@@ -61,6 +61,7 @@
         "ENAUITests_04a_ExposureSubmission\/test_screenshot_test_result_negative()",
         "ENAUITests_04a_ExposureSubmission\/test_screenshot_test_result_pending()",
         "ENAUITests_04a_ExposureSubmission\/test_screenshot_test_result_positive()",
+        "ENAUITests_04a_ExposureSubmission\/test_screenshpt_srs_positiveWithoutResultInTheApp()",
         "ENAUITests_04c_ExposureLogging\/test_screenshot_exposureLogging()",
         "ENAUITests_04c_ExposureLogging\/test_screenshot_exposureLoggingOff()",
         "ENAUITests_06_DeltaOnboarding\/test_screenshot_DeltaOnboardingNewVersionFeatures()",

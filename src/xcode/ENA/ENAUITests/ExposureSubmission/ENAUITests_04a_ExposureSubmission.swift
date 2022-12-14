@@ -834,6 +834,42 @@ class ENAUITests_04a_ExposureSubmission: CWATestCase {
 
 		snapshot("submissionflow_screenshot_symptoms_onset_date_option")
 	}
+	
+	func test_screenshpt_srs_positiveWithoutResultInTheApp() {
+		app.setLaunchArgument(LaunchArguments.common.ENStatus, to: ENStatus.active.stringValue)
+		launch()
+		
+		// Start Submission Flow
+		app.cells.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitAndTap()
+		
+		// Start Selftest Flow with Positive Test Without Result In The App
+		snapshot("submissionflow_srs_screenshot_dispatch_positive_selftest_option")
+		app.buttons[AccessibilityIdentifiers.ExposureSubmissionDispatch.SRSButtonDescription].waitAndTap()
+		
+		// SRS Consent Screen And Tap Next
+		snapshot("submissionflow_srs_screenshot_consent")
+		app.buttons[AccessibilityIdentifiers.ExposureSubmissionTestResultAvailable.primaryButton].waitAndTap(.long)
+
+		// Select Self Test and Tap Next
+		snapshot("submissionflow_srs_screenshot_testtype_selftest_option")
+		app.buttons[AccessibilityIdentifiers.ExposureSubmission.SRSTestTypeSelection.optionSRSSelfTest].waitAndTap()
+		app.buttons[AccessibilityIdentifiers.General.primaryFooterButton].waitAndTap()
+		
+		// Select Symptoms Yes And Tap Next
+		app.buttons[AccessibilityIdentifiers.ExposureSubmissionSymptoms.answerOptionYes].waitAndTap()
+		app.buttons[AccessibilityIdentifiers.ExposureSubmission.primaryButton].waitAndTap()
+		
+		// Select Option Last Seven Days And Tap Next
+		app.buttons[AccessibilityIdentifiers.ExposureSubmissionSymptomsOnset.answerOptionLastSevenDays].waitAndTap()
+		app.buttons[AccessibilityIdentifiers.ExposureSubmission.primaryButton].waitAndTap()
+
+		// Confirm Warn Others
+		snapshot("submissionflow_srs_screenshot_consent_warnothers")
+		app.alerts.firstMatch.buttons.element(boundBy: 0).waitAndTap()
+		
+		// Thank You Screen
+		snapshot("submissionflow_srs_screenshot_success_thankyou", timeWaitingForIdle: .medium)
+	}
 }
 
 // MARK: - Helpers.

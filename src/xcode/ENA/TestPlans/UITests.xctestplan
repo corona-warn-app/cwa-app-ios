@@ -111,6 +111,7 @@
         "ENAUITests_04a_ExposureSubmission\/test_screenshot_test_result_available()",
         "ENAUITests_04a_ExposureSubmission\/test_screenshot_test_result_pending()",
         "ENAUITests_04a_ExposureSubmission\/test_screenshot_test_result_positive()",
+        "ENAUITests_04a_ExposureSubmission\/test_screenshpt_srs_positiveWithoutResultInTheApp()",
         "ENAUITests_07_ContactJournal\/test_screenshot_AddTwoPersonsTwoLocations()",
         "ENAUITests_07_ContactJournal\/test_screenshot_ContactJournalInformation()",
         "ENAUITests_07_ContactJournal\/test_screenshot_EditLocationScreen()",
