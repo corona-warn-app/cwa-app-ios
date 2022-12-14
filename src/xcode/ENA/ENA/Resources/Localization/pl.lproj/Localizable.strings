@@ -1973,6 +1973,9 @@
 
 "ContactDiaray_Overview_Checkin_Low_Risk_In_Brackets" = "(niskie ryzyko)";
 
+/* Submission */
+"ContactDiary_Overview_Submission" = "Ostrzegłeś(-aś) innych";
+
 /* Day */
 "ContactDiary_Day_ContactPersonsSegment" = "Osoby";
 
