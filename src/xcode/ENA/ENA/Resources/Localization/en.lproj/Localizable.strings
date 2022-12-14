@@ -1505,7 +1505,7 @@
 /* Home Alert Risk Lowered */
 "Home_Alert_RiskStatusLowered_Title" = "Change of Your Risk Status";
 
-"Home_Alert_RiskStatusLowered_Message" = "The last exposure that resulted in your increased risk was more than %i days ago. Therefore, your risk of infection has been ranked as low again.\n\nWhat you should do:\n 1. If you do not have any COVID-19 symptoms, continue to follow the prevailing rules regarding distancing and hygiene.\n 2. If you have COVID-19 symptoms, we recommend that you visit your doctor and get tested.";
+"Home_Alert_RiskStatusLowered_Message" = "The last exposure that resulted in your increased risk was more than %i days ago. Therefore, your risk of infection has been classified as low again.\n\nWhat you should do:\n1. If you do not have any COVID-19 symptoms, continue to follow the prevailing rules regarding distancing and hygiene.\n2. If you have COVID-19 symptoms, we recommend that you visit your doctor and get tested.";
 
 "Home_Alert_RiskStatusLowered_PrimaryButtonTitle" = "OK";
 
@@ -1972,6 +1972,9 @@
 "ContactDiaray_Overview_Checkin_High_Risk_In_Brackets" = "(increased risk)";
 
 "ContactDiaray_Overview_Checkin_Low_Risk_In_Brackets" = "(low risk)";
+
+/* Submission */
+"ContactDiary_Overview_Submission" = "You Have Warned Others";
 
 /* Day */
 "ContactDiary_Day_ContactPersonsSegment" = "People";
