@@ -29,7 +29,7 @@ final class HTTPClientAuthorizationOTPEdusTests: CWATestCase {
 
 		let expectation = self.expectation(description: "completion handler is called without an error")
 		let otp = "OTPFake"
-		let ppacToken = PPACToken(apiToken: "APITokenFake", deviceToken: "DeviceTokenFake")
+		let ppacToken = PPACToken(apiToken: "APITokenFake", previousApiToken: "PreviousAPITokenFake", deviceToken: "DeviceTokenFake")
 
 		// WHEN
 		var expirationDate: Date?
@@ -58,7 +58,7 @@ final class HTTPClientAuthorizationOTPEdusTests: CWATestCase {
 
 		let expectation = self.expectation(description: "completion handler is called without an error")
 		let otp = "OTPFake"
-		let ppacToken = PPACToken(apiToken: "APITokenFake", deviceToken: "DeviceTokenFake")
+		let ppacToken = PPACToken(apiToken: "APITokenFake", previousApiToken: "PreviousAPITokenFake", deviceToken: "DeviceTokenFake")
 
 		// WHEN
 		var expectedOtpError: OTPError?
@@ -88,7 +88,7 @@ final class HTTPClientAuthorizationOTPEdusTests: CWATestCase {
 
 		let expectation = self.expectation(description: "completion handler is called without an error")
 		let otp = "OTPFake"
-		let ppacToken = PPACToken(apiToken: "APITokenFake", deviceToken: "DeviceTokenFake")
+		let ppacToken = PPACToken(apiToken: "APITokenFake", previousApiToken: "PreviousAPITokenFake", deviceToken: "DeviceTokenFake")
 
 		// WHEN
 		var expectedOtpError: OTPError?
@@ -118,7 +118,7 @@ final class HTTPClientAuthorizationOTPEdusTests: CWATestCase {
 
 		let expectation = self.expectation(description: "completion handler is called without an error")
 		let otp = "OTPFake"
-		let ppacToken = PPACToken(apiToken: "APITokenFake", deviceToken: "DeviceTokenFake")
+		let ppacToken = PPACToken(apiToken: "APITokenFake", previousApiToken: "PreviousAPITokenFake", deviceToken: "DeviceTokenFake")
 
 		// WHEN
 		var expectedOtpError: OTPError?
@@ -148,7 +148,7 @@ final class HTTPClientAuthorizationOTPEdusTests: CWATestCase {
 
 		let expectation = self.expectation(description: "completion handler is called without an error")
 		let otp = "OTPFake"
-		let ppacToken = PPACToken(apiToken: "APITokenFake", deviceToken: "DeviceTokenFake")
+		let ppacToken = PPACToken(apiToken: "APITokenFake", previousApiToken: "PreviousAPITokenFake", deviceToken: "DeviceTokenFake")
 
 		// WHEN
 		var expectedOtpError: OTPError?
@@ -178,7 +178,7 @@ final class HTTPClientAuthorizationOTPEdusTests: CWATestCase {
 
 		let expectation = self.expectation(description: "completion handler is called without an error")
 		let otp = "OTPFake"
-		let ppacToken = PPACToken(apiToken: "APITokenFake", deviceToken: "DeviceTokenFake")
+		let ppacToken = PPACToken(apiToken: "APITokenFake", previousApiToken: "PreviousAPITokenFake", deviceToken: "DeviceTokenFake")
 
 		// WHEN
 		var expectedOtpError: OTPError?
@@ -208,7 +208,7 @@ final class HTTPClientAuthorizationOTPEdusTests: CWATestCase {
 
 		let expectation = self.expectation(description: "completion handler is called without an error")
 		let otp = "OTPFake"
-		let ppacToken = PPACToken(apiToken: "APITokenFake", deviceToken: "DeviceTokenFake")
+		let ppacToken = PPACToken(apiToken: "APITokenFake", previousApiToken: "PreviousAPITokenFake", deviceToken: "DeviceTokenFake")
 
 		// WHEN
 		var expectedOtpError: OTPError?
@@ -238,7 +238,7 @@ final class HTTPClientAuthorizationOTPEdusTests: CWATestCase {
 
 		let expectation = self.expectation(description: "completion handler is called without an error")
 		let otp = "OTPFake"
-		let ppacToken = PPACToken(apiToken: "APITokenFake", deviceToken: "DeviceTokenFake")
+		let ppacToken = PPACToken(apiToken: "APITokenFake", previousApiToken: "PreviousAPITokenFake", deviceToken: "DeviceTokenFake")
 
 		// WHEN
 		var expectedOtpError: OTPError?
@@ -268,7 +268,7 @@ final class HTTPClientAuthorizationOTPEdusTests: CWATestCase {
 
 		let expectation = self.expectation(description: "completion handler is called without an error")
 		let otp = "OTPFake"
-		let ppacToken = PPACToken(apiToken: "APITokenFake", deviceToken: "DeviceTokenFake")
+		let ppacToken = PPACToken(apiToken: "APITokenFake", previousApiToken: "PreviousAPITokenFake", deviceToken: "DeviceTokenFake")
 
 		// WHEN
 		var expectedOtpError: OTPError?
@@ -298,7 +298,7 @@ final class HTTPClientAuthorizationOTPEdusTests: CWATestCase {
 
 		let expectation = self.expectation(description: "completion handler is called without an error")
 		let otp = "OTPFake"
-		let ppacToken = PPACToken(apiToken: "APITokenFake", deviceToken: "DeviceTokenFake")
+		let ppacToken = PPACToken(apiToken: "APITokenFake", previousApiToken: "PreviousAPITokenFake", deviceToken: "DeviceTokenFake")
 
 		// WHEN
 		var expectedOtpError: OTPError?
@@ -328,7 +328,7 @@ final class HTTPClientAuthorizationOTPEdusTests: CWATestCase {
 
 		let expectation = self.expectation(description: "completion handler is called without an error")
 		let otp = "OTPFake"
-		let ppacToken = PPACToken(apiToken: "APITokenFake", deviceToken: "DeviceTokenFake")
+		let ppacToken = PPACToken(apiToken: "APITokenFake", previousApiToken: "PreviousAPITokenFake", deviceToken: "DeviceTokenFake")
 
 		// WHEN
 		var expectedOtpError: OTPError?
@@ -358,7 +358,7 @@ final class HTTPClientAuthorizationOTPEdusTests: CWATestCase {
 
 		let expectation = self.expectation(description: "completion handler is called without an error")
 		let otp = "OTPFake"
-		let ppacToken = PPACToken(apiToken: "APITokenFake", deviceToken: "DeviceTokenFake")
+		let ppacToken = PPACToken(apiToken: "APITokenFake", previousApiToken: "PreviousAPITokenFake", deviceToken: "DeviceTokenFake")
 
 		// WHEN
 		var expectedOtpError: OTPError?
@@ -387,7 +387,7 @@ final class HTTPClientAuthorizationOTPEdusTests: CWATestCase {
 
 		let expectation = self.expectation(description: "completion handler is called without an error")
 		let otp = "OTPFake"
-		let ppacToken = PPACToken(apiToken: "APITokenFake", deviceToken: "DeviceTokenFake")
+		let ppacToken = PPACToken(apiToken: "APITokenFake", previousApiToken: "PreviousAPITokenFake", deviceToken: "DeviceTokenFake")
 
 		// WHEN
 		var expectedOtpError: OTPError?

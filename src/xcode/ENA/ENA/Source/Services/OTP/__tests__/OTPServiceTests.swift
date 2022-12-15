@@ -26,7 +26,7 @@ class OTPServiceTests: CWATestCase {
 			ppacService: ppacService,
 			appConfiguration: CachedAppConfigurationMock()
 		)
-		let ppacToken = PPACToken(apiToken: "apiTokenFake", deviceToken: "deviceTokenFake")
+		let ppacToken = PPACToken(apiToken: "APITokenFake", previousApiToken: "PreviousAPITokenFake", deviceToken: "DeviceTokenFake")
 
 		let expectation = self.expectation(description: "completion handler is called without an error")
 		var expectedOtp: String?
@@ -65,7 +65,7 @@ class OTPServiceTests: CWATestCase {
 			ppacService: ppacService,
 			appConfiguration: CachedAppConfigurationMock()
 		)
-		let ppacToken = PPACToken(apiToken: "apiTokenFake", deviceToken: "deviceTokenFake")
+		let ppacToken = PPACToken(apiToken: "APITokenFake", previousApiToken: "PreviousAPITokenFake", deviceToken: "DeviceTokenFake")
 
 		let expectation = self.expectation(description: "completion handler is called without an error")
 		let oldToken = OTPToken(token: "otpTokenFake", timestamp: Date(), expirationDate: Date())
@@ -109,7 +109,7 @@ class OTPServiceTests: CWATestCase {
 			ppacService: ppacService,
 			appConfiguration: CachedAppConfigurationMock()
 		)
-		let ppacToken = PPACToken(apiToken: "apiTokenFake", deviceToken: "deviceTokenFake")
+		let ppacToken = PPACToken(apiToken: "APITokenFake", previousApiToken: "PreviousAPITokenFake", deviceToken: "DeviceTokenFake")
 
 		let expectation = self.expectation(description: "completion handler is called without an error")
 
@@ -145,7 +145,7 @@ class OTPServiceTests: CWATestCase {
 			ppacService: ppacService,
 			appConfiguration: CachedAppConfigurationMock()
 		)
-		let ppacToken = PPACToken(apiToken: "apiTokenFake", deviceToken: "deviceTokenFake")
+		let ppacToken = PPACToken(apiToken: "APITokenFake", previousApiToken: "PreviousAPITokenFake", deviceToken: "DeviceTokenFake")
 
 		let expectation = self.expectation(description: "completion handler is called with an error")
 		store.otpEdusAuthorizationDate = Date()
@@ -217,7 +217,7 @@ class OTPServiceTests: CWATestCase {
 			ppacService: ppacService,
 			appConfiguration: CachedAppConfigurationMock()
 		)
-		let ppacToken = PPACToken(apiToken: "apiTokenFake", deviceToken: "deviceTokenFake")
+		let ppacToken = PPACToken(apiToken: "APITokenFake", previousApiToken: "PreviousAPITokenFake", deviceToken: "DeviceTokenFake")
 
 		let expectation = self.expectation(description: "completion handler is called without an error")
 		var expectedOtp: String?
@@ -285,7 +285,7 @@ class OTPServiceTests: CWATestCase {
 			ppacService: ppacService,
 			appConfiguration: CachedAppConfigurationMock()
 		)
-		let ppacToken = PPACToken(apiToken: "apiTokenFake", deviceToken: "deviceTokenFake")
+		let ppacToken = PPACToken(apiToken: "APITokenFake", previousApiToken: "PreviousAPITokenFake", deviceToken: "DeviceTokenFake")
 
 		let expectation = self.expectation(description: "completion handler is called without an error")
 		var expectedOtp: String?
@@ -358,7 +358,7 @@ class OTPServiceTests: CWATestCase {
 			ppacService: ppacService,
 			appConfiguration: CachedAppConfigurationMock()
 		)
-		let ppacToken = PPACToken(apiToken: "apiTokenFake", deviceToken: "deviceTokenFake")
+		let ppacToken = PPACToken(apiToken: "APITokenFake", previousApiToken: "PreviousAPITokenFake", deviceToken: "DeviceTokenFake")
 
 		let expectation = self.expectation(description: "completion handler is called without an error")
 		var expectedOtp: String?
@@ -405,7 +405,7 @@ class OTPServiceTests: CWATestCase {
 			ppacService: ppacService,
 			appConfiguration: CachedAppConfigurationMock()
 		)
-		let ppacToken = PPACToken(apiToken: "apiTokenFake", deviceToken: "deviceTokenFake")
+		let ppacToken = PPACToken(apiToken: "APITokenFake", previousApiToken: "PreviousAPITokenFake", deviceToken: "DeviceTokenFake")
 
 		let expectation = self.expectation(description: "completion handler is called without an error")
 		let oldToken = OTPToken(token: "otpTokenFake", timestamp: Date(), expirationDate: nil)
@@ -455,7 +455,7 @@ class OTPServiceTests: CWATestCase {
 			ppacService: ppacService,
 			appConfiguration: CachedAppConfigurationMock()
 		)
-		let ppacToken = PPACToken(apiToken: "apiTokenFake", deviceToken: "deviceTokenFake")
+		let ppacToken = PPACToken(apiToken: "APITokenFake", previousApiToken: "PreviousAPITokenFake", deviceToken: "DeviceTokenFake")
 
 		let expectation = self.expectation(description: "completion handler is called without an error")
 		let dateInFuture = Calendar.current.date(byAdding: .day, value: 10, to: Date())
@@ -506,7 +506,7 @@ class OTPServiceTests: CWATestCase {
 			ppacService: ppacService,
 			appConfiguration: CachedAppConfigurationMock()
 		)
-		let ppacToken = PPACToken(apiToken: "apiTokenFake", deviceToken: "deviceTokenFake")
+		let ppacToken = PPACToken(apiToken: "APITokenFake", previousApiToken: "PreviousAPITokenFake", deviceToken: "DeviceTokenFake")
 
 		let expectation = self.expectation(description: "completion handler is called without an error")
 		let dateInPast = Calendar.current.date(byAdding: .day, value: -10, to: Date())
@@ -557,7 +557,7 @@ class OTPServiceTests: CWATestCase {
 			ppacService: ppacService,
 			appConfiguration: CachedAppConfigurationMock()
 		)
-		let ppacToken = PPACToken(apiToken: "apiTokenFake", deviceToken: "deviceTokenFake")
+		let ppacToken = PPACToken(apiToken: "APITokenFake", previousApiToken: "PreviousAPITokenFake", deviceToken: "DeviceTokenFake")
 
 		let expectation = self.expectation(description: "completion handler is called without an error")
 		let dateInFuture = Calendar.current.date(byAdding: .day, value: 10, to: Date())
@@ -608,7 +608,7 @@ class OTPServiceTests: CWATestCase {
 			ppacService: ppacService,
 			appConfiguration: CachedAppConfigurationMock()
 		)
-		let ppacToken = PPACToken(apiToken: "apiTokenFake", deviceToken: "deviceTokenFake")
+		let ppacToken = PPACToken(apiToken: "APITokenFake", previousApiToken: "PreviousAPITokenFake", deviceToken: "DeviceTokenFake")
 
 		let expectation = self.expectation(description: "completion handler is called without an error")
 		let dateInPast = Calendar.current.date(byAdding: .day, value: -10, to: Date())
@@ -660,7 +660,7 @@ class OTPServiceTests: CWATestCase {
 			ppacService: ppacService,
 			appConfiguration: CachedAppConfigurationMock()
 		)
-		let ppacToken = PPACToken(apiToken: "apiTokenFake", deviceToken: "deviceTokenFake")
+		let ppacToken = PPACToken(apiToken: "APITokenFake", previousApiToken: "PreviousAPITokenFake", deviceToken: "DeviceTokenFake")
 
 		let expectation = self.expectation(description: "completion handler is called without an error")
 
@@ -713,7 +713,7 @@ class OTPServiceTests: CWATestCase {
 			ppacService: ppacService,
 			appConfiguration: CachedAppConfigurationMock()
 		)
-		let ppacToken = PPACToken(apiToken: "apiTokenFake", deviceToken: "deviceTokenFake")
+		let ppacToken = PPACToken(apiToken: "APITokenFake", previousApiToken: "PreviousAPITokenFake", deviceToken: "DeviceTokenFake")
 
 		let expectation = self.expectation(description: "completion handler is called without an error")
 		var expectedOtp: String?
