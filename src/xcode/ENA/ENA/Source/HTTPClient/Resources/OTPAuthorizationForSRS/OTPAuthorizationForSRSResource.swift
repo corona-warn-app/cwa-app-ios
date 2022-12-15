@@ -21,6 +21,7 @@ struct OTPAuthorizationForSRSResource: Resource {
 		let ppacIos = SAP_Internal_Ppdd_PPACIOS.with {
 			$0.apiToken = ppacToken.apiToken
 			$0.deviceToken = ppacToken.deviceToken
+			$0.previousApiToken = ppacToken.previousApiToken
 		}
 		let payload = SAP_Internal_Ppdd_SRSOneTimePassword.with {
 			$0.otp = otpSRS

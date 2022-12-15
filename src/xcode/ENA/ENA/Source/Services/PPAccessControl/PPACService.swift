@@ -122,12 +122,20 @@ class PPACService: PrivacyPreservingAccessControl {
 			return
 		}
 
-		deviceCheck.deviceToken(apiTokenPPAC.token, completion: completion)
+		deviceCheck.deviceToken(
+			apiToken: apiTokenPPAC.token,
+			previousApiToken: store.previousAPITokenPPAC?.token,
+			completion: completion
+		)
 	}
 	
 	func getAPITokenPPAC(_ completion: @escaping (Result<PPACToken, PPACError>) -> Void) {
 		// no device time checks for ELS
-		deviceCheck.deviceToken(apiTokenPPAC.token, completion: completion)
+		deviceCheck.deviceToken(
+			apiToken: apiTokenPPAC.token,
+			previousApiToken: store.previousAPITokenPPAC?.token,
+			completion: completion
+		)
 	}
 
 	#if !RELEASE
@@ -152,6 +160,7 @@ class PPACService: PrivacyPreservingAccessControl {
 			  storedToken.timestamp.isEqual(to: today, toGranularity: .month),
 			  storedToken.timestamp.isEqual(to: today, toGranularity: .year)
 		else {
+            store.previousAPITokenPPAC = store.apiTokenPPAC
 			let newToken = generateAndStoreFreshAPIToken()
 			store.apiTokenPPAC = newToken
 			return newToken

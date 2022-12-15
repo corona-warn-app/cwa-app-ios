@@ -9,7 +9,10 @@ class PPACTokenTests: CWATestCase {
 	
 	func testGIVEN_PPACToken_THEN_EverythinIsSetCorrect() {
 		// GIVEN
-		let ppacToken = PPACToken(apiToken: "12345", deviceToken: "device")
+		let ppacToken = PPACToken(
+			apiToken: "12345",
+			previousApiToken: "23456",
+			deviceToken: "device")
 		
 		// THEN
 		XCTAssertEqual(ppacToken.apiToken, "12345")

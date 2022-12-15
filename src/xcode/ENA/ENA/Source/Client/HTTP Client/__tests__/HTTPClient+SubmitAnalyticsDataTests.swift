@@ -24,7 +24,7 @@ final class HTTPClientSubmitAnalyticsDataTests: CWATestCase {
 		let payload = SAP_Internal_Ppdd_PPADataIOS.with {
 			$0.exposureRiskMetadataSet = []
 		}
-		let ppacToken = PPACToken(apiToken: "APITokenFake", deviceToken: "DeviceTokenFake")
+		let ppacToken = PPACToken(apiToken: "APITokenFake", previousApiToken: "PreviousAPITokenFake", deviceToken: "DeviceTokenFake")
 
 		// WHEN
 		var isSuccess = false
@@ -61,7 +61,7 @@ final class HTTPClientSubmitAnalyticsDataTests: CWATestCase {
 		let payload = SAP_Internal_Ppdd_PPADataIOS.with {
 			$0.exposureRiskMetadataSet = []
 		}
-		let ppacToken = PPACToken(apiToken: "APITokenFake", deviceToken: "DeviceTokenFake")
+		let ppacToken = PPACToken(apiToken: "APITokenFake", previousApiToken: "PreviousAPITokenFake", deviceToken: "DeviceTokenFake")
 		
 		let ppaSubmitResource = PPASubmitResource(
 			forceApiTokenHeader: false,
@@ -98,7 +98,7 @@ final class HTTPClientSubmitAnalyticsDataTests: CWATestCase {
 		let payload = SAP_Internal_Ppdd_PPADataIOS.with {
 			$0.exposureRiskMetadataSet = []
 		}
-		let ppacToken = PPACToken(apiToken: "APITokenFake", deviceToken: "DeviceTokenFake")
+		let ppacToken = PPACToken(apiToken: "APITokenFake", previousApiToken: "PreviousAPITokenFake", deviceToken: "DeviceTokenFake")
 		
 		let ppaSubmitResource = PPASubmitResource(
 			forceApiTokenHeader: false,
@@ -139,7 +139,7 @@ final class HTTPClientSubmitAnalyticsDataTests: CWATestCase {
 		let payload = SAP_Internal_Ppdd_PPADataIOS.with {
 			$0.exposureRiskMetadataSet = []
 		}
-		let ppacToken = PPACToken(apiToken: "APITokenFake", deviceToken: "DeviceTokenFake")
+		let ppacToken = PPACToken(apiToken: "APITokenFake", previousApiToken: "PreviousAPITokenFake", deviceToken: "DeviceTokenFake")
 		let ppaSubmitResource = PPASubmitResource(
 			forceApiTokenHeader: false,
 			payload: payload,
@@ -179,7 +179,7 @@ final class HTTPClientSubmitAnalyticsDataTests: CWATestCase {
 		let payload = SAP_Internal_Ppdd_PPADataIOS.with {
 			$0.exposureRiskMetadataSet = []
 		}
-		let ppacToken = PPACToken(apiToken: "APITokenFake", deviceToken: "DeviceTokenFake")
+		let ppacToken = PPACToken(apiToken: "APITokenFake", previousApiToken: "PreviousAPITokenFake", deviceToken: "DeviceTokenFake")
 		let ppaSubmitResource = PPASubmitResource(
 			forceApiTokenHeader: false,
 			payload: payload,
@@ -219,7 +219,7 @@ final class HTTPClientSubmitAnalyticsDataTests: CWATestCase {
 		let payload = SAP_Internal_Ppdd_PPADataIOS.with {
 			$0.exposureRiskMetadataSet = []
 		}
-		let ppacToken = PPACToken(apiToken: "APITokenFake", deviceToken: "DeviceTokenFake")
+		let ppacToken = PPACToken(apiToken: "APITokenFake", previousApiToken: "PreviousAPITokenFake", deviceToken: "DeviceTokenFake")
 		let ppaSubmitResource = PPASubmitResource(
 			forceApiTokenHeader: false,
 			payload: payload,
@@ -259,7 +259,7 @@ final class HTTPClientSubmitAnalyticsDataTests: CWATestCase {
 		let payload = SAP_Internal_Ppdd_PPADataIOS.with {
 			$0.exposureRiskMetadataSet = []
 		}
-		let ppacToken = PPACToken(apiToken: "APITokenFake", deviceToken: "DeviceTokenFake")
+		let ppacToken = PPACToken(apiToken: "APITokenFake", previousApiToken: "PreviousAPITokenFake", deviceToken: "DeviceTokenFake")
 		let ppaSubmitResource = PPASubmitResource(
 			forceApiTokenHeader: false,
 			payload: payload,
