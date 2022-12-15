@@ -522,14 +522,14 @@ extension SecureStore: PrivacyPreservingProviding {
 		set { kvStore["otpAuthorizationDate"] = newValue }
 	}
 
-	var ppacApiTokenEdus: TimestampedToken? {
-		get { kvStore["ppacApiToken"] as TimestampedToken? }
-		set { kvStore["ppacApiToken"] = newValue }
+	var apiTokenPPAC: TimestampedToken? {
+		get { kvStore["apiTokenPPAC"] as TimestampedToken? }
+		set { kvStore["apiTokenPPAC"] = newValue }
 	}
 	
-	var previousPpacApiTokenEdus: TimestampedToken? {
-		get { kvStore["previousPpacApiTokenEdus"] as TimestampedToken? }
-		set { kvStore["previousPpacApiTokenEdus"] = newValue }
+	var previousAPITokenPPAC: TimestampedToken? {
+		get { kvStore["previousAPITokenPPAC"] as TimestampedToken? }
+		set { kvStore["previousAPITokenPPAC"] = newValue }
 	}
 }
 
@@ -543,16 +543,6 @@ extension SecureStore: ErrorLogProviding {
 	var lastLoggedAppVersionTimestamp: Date? {
 		get { kvStore["lastLoggedAppVersionTimestamp"] as Date? }
 		set { kvStore["lastLoggedAppVersionTimestamp"] = newValue }
-	}
-	
-	var ppacApiTokenEls: TimestampedToken? {
-		get { kvStore["ppacApiTokenEls"] as TimestampedToken? }
-		set { kvStore["ppacApiTokenEls"] = newValue }
-	}
-	
-	var previousPpacApiTokenEls: TimestampedToken? {
-		get { kvStore["previousPpacApiTokenEls"] as TimestampedToken? }
-		set { kvStore["previousPpacApiTokenEls"] = newValue }
 	}
 
 	var otpTokenEls: OTPToken? {
@@ -574,16 +564,6 @@ extension SecureStore: ErrorLogProviding {
 }
 
 extension SecureStore: SRSProviding {
-	
-	var ppacApiTokenSrs: TimestampedToken? {
-		get { kvStore["ppacApiTokenSrs"] as TimestampedToken? }
-		set { kvStore["ppacApiTokenSrs"] = newValue }
-	}
-	
-	var previousPpacApiTokenSrs: TimestampedToken? {
-		get { kvStore["previousPpacApiTokenSrs"] as TimestampedToken? }
-		set { kvStore["previousPpacApiTokenSrs"] = newValue }
-	}
 
 	var otpTokenSrs: OTPToken? {
 		get { kvStore["otpTokenSrs"] as OTPToken? }

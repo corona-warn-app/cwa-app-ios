@@ -62,7 +62,7 @@ final class SRSService: SRSServiceProviding {
 	
 	func authenticate(completion: @escaping SRSAuthenticationResponse) {
 		// first get ppac token for SRS
-		self.ppacService.getPPACTokenSRS { [weak self] result in
+		self.ppacService.getAPITokenPPAC { [weak self] result in
 			guard let self = self else { return }
 			switch result {
 			case let .success(ppacToken):

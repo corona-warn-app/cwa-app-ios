@@ -11,11 +11,7 @@ class PPACServiceMock: PPACService {
 		completion(.success(Self.ppacTokenMock))
 	}
 	
-	override func getPPACTokenELS(_ completion: @escaping (Result<PPACToken, PPACError>) -> Void) {
-		completion(.success(Self.ppacTokenMock))
-	}
-	
-	override func getPPACTokenSRS(_ completion: @escaping (Result<PPACToken, PPACError>) -> Void) {
+	override func getAPITokenPPAC(_ completion: @escaping (Result<PPACToken, PPACError>) -> Void) {
 		completion(.success(Self.ppacTokenMock))
 	}
 	
