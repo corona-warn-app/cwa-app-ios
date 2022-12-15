@@ -205,11 +205,15 @@ class ExposureSubmissionCoordinatorModel {
 
 			case .success(let srsOTP):
 				
+				isLoading(true)
+				
 				// SUBMIT SRS EXPOSURE
 				self.exposureSubmissionService.submitSRSExposure(
 					submissionType: srsSubmissionType,
 					srsOTP: srsOTP
 				) { (submitSRSExposureResult: Result<Int?, ExposureSubmissionServiceError>) in
+					
+					isLoading(false)
 					
 					switch submitSRSExposureResult {
 
@@ -222,11 +226,6 @@ class ExposureSubmissionCoordinatorModel {
 							
 						// We continue the regular flow even if there are no keys collected.
 						case .preconditionError(.noKeysCollected):
-							onSuccess(nil)
-							
-						// We don't show an error if the submission consent was not given, because we assume that the submission already happened in the background.
-						case .preconditionError(.noSubmissionConsent):
-							Log.info("Consent Not Given", log: .ui)
 							onSuccess(nil)
 
 						default:
