@@ -104,7 +104,7 @@ class PPACService: PrivacyPreservingAccessControl {
 	func getPPACTokenSRS(_ completion: @escaping (Result<PPACToken, PPACError>) -> Void) {
 		deviceCheck.deviceToken(
 			apiToken: apiTokenSRS.token,
-			previousApiToken: store.previousPpacApiTokenSrs?.token ?? "",
+			previousApiToken: store.previousPpacApiTokenSrs?.token,
 			completion: completion
 		)
 	}
@@ -134,7 +134,7 @@ class PPACService: PrivacyPreservingAccessControl {
 
 		deviceCheck.deviceToken(
 			apiToken: apiTokenEDUS.token,
-			previousApiToken: store.previousPpacApiTokenEdus?.token ?? "",
+			previousApiToken: store.previousPpacApiTokenEdus?.token,
 			completion: completion
 		)
 	}
@@ -143,7 +143,7 @@ class PPACService: PrivacyPreservingAccessControl {
 		// no device time checks for ELS
 		deviceCheck.deviceToken(
 			apiToken: apiTokenELS.token,
-			previousApiToken: store.previousPpacApiTokenEls?.token ?? "",
+			previousApiToken: store.previousPpacApiTokenEls?.token,
 			completion: completion
 		)
 	}
