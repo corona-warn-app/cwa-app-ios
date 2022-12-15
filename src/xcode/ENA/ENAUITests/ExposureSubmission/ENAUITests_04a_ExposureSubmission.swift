@@ -835,7 +835,7 @@ class ENAUITests_04a_ExposureSubmission: CWATestCase {
 		snapshot("submissionflow_screenshot_symptoms_onset_date_option")
 	}
 	
-	func test_screenshpt_srs_positiveWithoutResultInTheApp() {
+	func test_screenshot_srs_positiveWithoutResultInTheApp() {
 		app.setLaunchArgument(LaunchArguments.common.ENStatus, to: ENStatus.active.stringValue)
 		launch()
 		
