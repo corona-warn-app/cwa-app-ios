@@ -43,10 +43,15 @@ class SRSConsentViewController: DynamicTableViewController, FooterViewHandling {
 	// MARK: - Protocol FooterViewHandling
 
 	func didTapFooterViewButton(_ type: FooterViewModel.ButtonType) {
-		onPrimaryButtonTap { [weak self] isLoading in
-			DispatchQueue.main.async {
-				self?.footerView?.setLoadingIndicator(isLoading, disable: isLoading, button: .primary)
+		switch type {
+		case .primary:
+			onPrimaryButtonTap { [weak self] isLoading in
+				DispatchQueue.main.async {
+					self?.footerView?.setLoadingIndicator(isLoading, disable: isLoading, button: .primary)
+				}
 			}
+		case .secondary:
+			dismiss()
 		}
 	}
 

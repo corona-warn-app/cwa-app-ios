@@ -776,6 +776,10 @@
 
 "SRS_ConsentScreen_Acknowledgement_6" = "В следващата стъпка давате съгласие за достъп до случайно генерирани ИД кодове.";
 
+"SRS_ConsentScreen_primaryButtonTitle" = "Приемам";
+
+"SRS_ConsentScreen_secondaryButtonTitle" = "Отказ";
+
 /* Exposure Submission Result */
 "ExposureSubmissionResult_Title" = "Резултатът от Вашия тест";
 

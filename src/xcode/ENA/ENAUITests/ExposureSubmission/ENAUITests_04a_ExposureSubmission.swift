@@ -262,7 +262,7 @@ class ENAUITests_04a_ExposureSubmission: CWATestCase {
 		
 		// SRS Consent Screen And Tap Next
 		XCTAssertTrue(app.cells[AccessibilityIdentifiers.SRSConsentScreen.acknowledgementTitle].waitForExistence(timeout: .medium))
-		app.buttons[AccessibilityIdentifiers.ExposureSubmissionTestResultAvailable.primaryButton].waitAndTap(.long)
+		app.buttons[AccessibilityIdentifiers.SRSConsentScreen.primaryButton].waitAndTap(.long)
 
 		// Type of Tests Screen is showing
 		XCTAssertTrue(
@@ -848,7 +848,7 @@ class ENAUITests_04a_ExposureSubmission: CWATestCase {
 		
 		// SRS Consent Screen And Tap Next
 		snapshot("submissionflow_srs_screenshot_consent")
-		app.buttons[AccessibilityIdentifiers.ExposureSubmissionTestResultAvailable.primaryButton].waitAndTap(.long)
+		app.buttons[AccessibilityIdentifiers.SRSConsentScreen.primaryButton].waitAndTap(.long)
 
 		// Select Self Test and Tap Next
 		snapshot("submissionflow_srs_screenshot_testtype_selftest_option")
