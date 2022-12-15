@@ -76,7 +76,7 @@ struct OTPAuthorizationForSRSResource: Resource {
 				return .otherServerError
 			}
 		default:
-			return .otherServerError
+			return .invalidResponseError
 		}
 	}
 	
@@ -91,9 +91,8 @@ struct OTPAuthorizationForSRSResource: Resource {
 		
 		do {
 			let decoder = JSONDecoder()
-			decoder.dateDecodingStrategy = .iso8601
 			let decodedResponse = try decoder.decode(
-				OTPResponseProperties.self,
+				OTPForSRSResponsePropertiesReceiveModel.self,
 				from: responseBody
 			)
 			guard let errorCode = decodedResponse.errorCode else {
@@ -121,7 +120,7 @@ struct OTPAuthorizationForSRSResource: Resource {
 			}
 		} catch {
 			Log.error("Failed to get errorCode because json could not be decoded", log: .api, error: error)
-			return .otherServerError
+			return .invalidResponseError
 		}
 	}
 }
