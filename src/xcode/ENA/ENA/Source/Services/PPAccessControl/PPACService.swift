@@ -102,7 +102,11 @@ class PPACService: PrivacyPreservingAccessControl {
 	}
 	
 	func getPPACTokenSRS(_ completion: @escaping (Result<PPACToken, PPACError>) -> Void) {
-		deviceCheck.deviceToken(apiTokenSRS.token, completion: completion)
+		deviceCheck.deviceToken(
+			apiToken: apiTokenSRS.token,
+			previousApiToken: store.previousPpacApiTokenSrs?.token,
+			completion: completion
+		)
 	}
 
 	func getPPACTokenEDUS(_ completion: @escaping (Result<PPACToken, PPACError>) -> Void) {
@@ -128,12 +132,20 @@ class PPACService: PrivacyPreservingAccessControl {
 			return
 		}
 
-		deviceCheck.deviceToken(apiTokenEDUS.token, completion: completion)
+		deviceCheck.deviceToken(
+			apiToken: apiTokenEDUS.token,
+			previousApiToken: store.previousPpacApiTokenEdus?.token,
+			completion: completion
+		)
 	}
 	
 	func getPPACTokenELS(_ completion: @escaping (Result<PPACToken, PPACError>) -> Void) {
 		// no device time checks for ELS
-		deviceCheck.deviceToken(apiTokenELS.token, completion: completion)
+		deviceCheck.deviceToken(
+			apiToken: apiTokenELS.token,
+			previousApiToken: store.previousPpacApiTokenEls?.token,
+			completion: completion
+		)
 	}
 
 	#if !RELEASE
@@ -164,6 +176,7 @@ class PPACService: PrivacyPreservingAccessControl {
 			  storedToken.timestamp.isEqual(to: today, toGranularity: .month),
 			  storedToken.timestamp.isEqual(to: today, toGranularity: .year)
 		else {
+            store.previousPpacApiTokenEdus = store.ppacApiTokenEdus
 			let newToken = generateAndStoreFreshAPIToken()
 			store.ppacApiTokenEdus = newToken
 			return newToken
@@ -172,23 +185,33 @@ class PPACService: PrivacyPreservingAccessControl {
 	}
 	
 	private var apiTokenELS: TimestampedToken {
-		guard let storedToken = store.ppacApiTokenEls
-		else {
-			let newToken = generateAndStoreFreshAPIToken()
-			store.ppacApiTokenEls = newToken
-			return newToken
-		}
-		return storedToken
+		let today = Date()
+		/// check if we already have a token and if it was created in this month / year
+        guard let storedToken = store.ppacApiTokenEls,
+              storedToken.timestamp.isEqual(to: Date(), toGranularity: .month),
+              storedToken.timestamp.isEqual(to: today, toGranularity: .year)
+        else {
+            store.previousPpacApiTokenEls = store.ppacApiTokenEls
+            let newToken = generateAndStoreFreshAPIToken()
+            store.ppacApiTokenEls = newToken
+            return newToken
+        }
+        return storedToken
 	}
 
 	private var apiTokenSRS: TimestampedToken {
-		guard let storedToken = store.ppacApiTokenSrs
-		else {
-			let newToken = generateAndStoreFreshAPIToken()
-			store.ppacApiTokenSrs = newToken
-			return newToken
-		}
-		return storedToken
+		let today = Date()
+		/// check if we already have a token and if it was created in this month / year
+        guard let storedToken = store.ppacApiTokenSrs,
+              storedToken.timestamp.isEqual(to: today, toGranularity: .month),
+              storedToken.timestamp.isEqual(to: today, toGranularity: .year)
+        else {
+            store.previousPpacApiTokenSrs = store.ppacApiTokenSrs
+            let newToken = generateAndStoreFreshAPIToken()
+            store.ppacApiTokenSrs = newToken
+            return newToken
+        }
+        return storedToken
 	}
 
 	/// generate a new API Token and store it
