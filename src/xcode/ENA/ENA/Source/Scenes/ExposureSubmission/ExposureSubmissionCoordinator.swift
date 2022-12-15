@@ -1034,7 +1034,12 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 					
 					self.model.shouldShowSymptomsOnsetScreen ? self.showSymptomsOnsetScreen() : self.submitExposure(showSubmissionSuccess: true, isLoading: isLoading)
 				case .srs:
-					self.model.shouldShowSymptomsOnsetScreen ? self.showSymptomsOnsetScreen() : self.showSRSFlowConsentAlert(for: .confirmWarnOthers(on: exposureSubmissionSymptomsViewController), isLoading: isLoading)
+					self.model.shouldShowSymptomsOnsetScreen
+						? self.showSymptomsOnsetScreen()
+						: self.showSRSFlowConsentAlert(
+							for: .confirmWarnOthers(on: exposureSubmissionSymptomsViewController),
+							isLoading: isLoading
+						)
 				case .none:
 					break
 				}
