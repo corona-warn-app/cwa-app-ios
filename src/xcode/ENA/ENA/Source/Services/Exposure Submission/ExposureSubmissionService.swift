@@ -428,6 +428,13 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		checkInProtectedReports: [SAP_Internal_Pt_CheckInProtectedReport],
 		completion: @escaping (Result<Int?, ServiceError<SRSKeySubmissionResourceError>>) -> Void
 	) {
+		#if DEBUG
+		if isUITesting {
+			completion(.success(nil))
+			return
+		}
+		#endif
+
 		let payload = SubmissionPayload(
 			exposureKeys: keys,
 			visitedCountries: visitedCountries,
