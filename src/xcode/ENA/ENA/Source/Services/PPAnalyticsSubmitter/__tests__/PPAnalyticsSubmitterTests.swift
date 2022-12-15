@@ -42,7 +42,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 		store.lastSubmissionAnalytics = Calendar.current.date(byAdding: .day, value: -5, to: Date())
 		store.dateOfAcceptedPrivacyNotice = Calendar.current.date(byAdding: .day, value: -5, to: Date())
 		store.lastAppReset = Calendar.current.date(byAdding: .day, value: -5, to: Date())
-		let ppacToken = PPACToken(apiToken: "FakeApiToken", deviceToken: "FakeDeviceToken")
+		let ppacToken = PPACToken(apiToken: "APITokenFake", previousApiToken: "PreviousAPITokenFake", deviceToken: "DeviceTokenFake")
 		
 		let twoDaysBefore = Calendar.current.date(byAdding: .day, value: -2, to: Date())
 		let currentENFRiskExposureMetadata = RiskExposureMetadata(
@@ -670,7 +670,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 		store.lastSubmissionAnalytics = Calendar.current.date(byAdding: .day, value: -5, to: Date())
 		store.dateOfAcceptedPrivacyNotice = Calendar.current.date(byAdding: .day, value: -5, to: Date())
 		store.lastAppReset = Calendar.current.date(byAdding: .day, value: -5, to: Date())
-		let ppacToken = PPACToken(apiToken: "FakeApiToken", deviceToken: "FakeDeviceToken")
+		let ppacToken = PPACToken(apiToken: "APITokenFake", previousApiToken: "PreviousAPITokenFake", deviceToken: "DeviceTokenFake")
 		
 		let twoDaysBefore = Calendar.current.date(byAdding: .day, value: -2, to: Date())
 		let currentENFRiskExposureMetadata = RiskExposureMetadata(
