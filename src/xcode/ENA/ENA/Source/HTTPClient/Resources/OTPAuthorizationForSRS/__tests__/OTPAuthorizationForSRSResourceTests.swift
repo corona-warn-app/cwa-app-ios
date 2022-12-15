@@ -1,20 +1,18 @@
-////
+//
 // 🦠 Corona-Warn-App
 //
 
-@testable import ENA
 import Foundation
 import XCTest
+@testable import ENA
 
-final class RestServiceAuthorizationOTPElsTests: CWATestCase {
-
+final class OTPAuthorizationForSRSResourceTests: XCTestCase {
 	let expectationsTimeout: TimeInterval = 2
 
 	func testGIVEN_AuthorizeOTP_WHEN_SuccesWithAuthorization_THEN_ExpirationDateIsReturned() throws {
 		// GIVEN
 		let dateString = "2021-02-16T08:34:00+00:00"
 		let dateFormatter = ISO8601DateFormatter()
-		let isoDate = dateFormatter.date(from: dateString)
 
 		let response: [String: String] = ["expirationDate": dateString]
 
@@ -28,12 +26,12 @@ final class RestServiceAuthorizationOTPElsTests: CWATestCase {
 
 		let expectation = self.expectation(description: "completion handler is called without an error")
 		let otp = "OTPFake"
-		let ppacToken = PPACToken(apiToken: "APITokenFake", previousApiToken: "PreviousAPITokenFake", deviceToken: "DeviceTokenFake")
+		let ppacToken = PPACToken(apiToken: "APITokenFake", previousApiToken: "PreviousApiTokenFake", deviceToken: "DeviceTokenFake")
 
 		// WHEN
-		var expirationDate: Date?
+		var expirationDate: String?
 		let serviceProvider = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
-		let resource = OTPAuthorizationForELSResource(otpEls: otp, ppacToken: ppacToken)
+		let resource = OTPAuthorizationForSRSResource(otpSRS: otp, ppacToken: ppacToken)
 		serviceProvider.load(resource) { result in
 			switch result {
 			case .success(let result):
@@ -46,7 +44,7 @@ final class RestServiceAuthorizationOTPElsTests: CWATestCase {
 		// THEN
 		waitForExpectations(timeout: expectationsTimeout)
 		XCTAssertNotNil(expirationDate)
-		XCTAssertEqual(expirationDate, isoDate)
+		XCTAssertEqual(expirationDate, dateString)
 	}
 
 	func testGIVEN_AuthorizeOTP_WHEN_Success_JsonParsing_THEN_invalidResponseErrorIsReturned() {
@@ -57,11 +55,11 @@ final class RestServiceAuthorizationOTPElsTests: CWATestCase {
 		)
 
 		let otp = "OTPFake"
-		let ppacToken = PPACToken(apiToken: "APITokenFake", previousApiToken: "PreviousAPITokenFake", deviceToken: "DeviceTokenFake")
+		let ppacToken = PPACToken(apiToken: "APITokenFake", previousApiToken: "PreviousApiTokenFake", deviceToken: "DeviceTokenFake")
 
 		// WHEN
 		let serviceProvider = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
-		let resource = OTPAuthorizationForELSResource(otpEls: otp, ppacToken: ppacToken)
+		let resource = OTPAuthorizationForSRSResource(otpSRS: otp, ppacToken: ppacToken)
 		serviceProvider.load(resource) { result in
 			switch result {
 				// THEN
@@ -86,11 +84,11 @@ final class RestServiceAuthorizationOTPElsTests: CWATestCase {
 		)
 
 		let otp = "OTPFake"
-		let ppacToken = PPACToken(apiToken: "APITokenFake", previousApiToken: "PreviousAPITokenFake", deviceToken: "DeviceTokenFake")
+		let ppacToken = PPACToken(apiToken: "APITokenFake", previousApiToken: "PreviousApiTokenFake", deviceToken: "DeviceTokenFake")
 
 		// WHEN
 		let serviceProvider = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
-		let resource = OTPAuthorizationForELSResource(otpEls: otp, ppacToken: ppacToken)
+		let resource = OTPAuthorizationForSRSResource(otpSRS: otp, ppacToken: ppacToken)
 		serviceProvider.load(resource) { result in
 			switch result {
 				// THEN
@@ -115,11 +113,11 @@ final class RestServiceAuthorizationOTPElsTests: CWATestCase {
 		)
 
 		let otp = "OTPFake"
-		let ppacToken = PPACToken(apiToken: "APITokenFake", previousApiToken: "PreviousAPITokenFake", deviceToken: "DeviceTokenFake")
+		let ppacToken = PPACToken(apiToken: "APITokenFake", previousApiToken: "PreviousApiTokenFake", deviceToken: "DeviceTokenFake")
 
 		// WHEN
 		let serviceProvider = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
-		let resource = OTPAuthorizationForELSResource(otpEls: otp, ppacToken: ppacToken)
+		let resource = OTPAuthorizationForSRSResource(otpSRS: otp, ppacToken: ppacToken)
 		serviceProvider.load(resource) { result in
 			switch result {
 				// THEN
@@ -144,11 +142,11 @@ final class RestServiceAuthorizationOTPElsTests: CWATestCase {
 		)
 
 		let otp = "OTPFake"
-		let ppacToken = PPACToken(apiToken: "APITokenFake", previousApiToken: "PreviousAPITokenFake", deviceToken: "DeviceTokenFake")
+		let ppacToken = PPACToken(apiToken: "APITokenFake", previousApiToken: "PreviousApiTokenFake", deviceToken: "DeviceTokenFake")
 
 		// WHEN
 		let serviceProvider = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
-		let resource = OTPAuthorizationForELSResource(otpEls: otp, ppacToken: ppacToken)
+		let resource = OTPAuthorizationForSRSResource(otpSRS: otp, ppacToken: ppacToken)
 		serviceProvider.load(resource) { result in
 			switch result {
 				// THEN
@@ -173,11 +171,11 @@ final class RestServiceAuthorizationOTPElsTests: CWATestCase {
 		)
 
 		let otp = "OTPFake"
-		let ppacToken = PPACToken(apiToken: "APITokenFake", previousApiToken: "PreviousAPITokenFake", deviceToken: "DeviceTokenFake")
+		let ppacToken = PPACToken(apiToken: "APITokenFake", previousApiToken: "PreviousApiTokenFake", deviceToken: "DeviceTokenFake")
 
 		// WHEN
 		let serviceProvider = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
-		let resource = OTPAuthorizationForELSResource(otpEls: otp, ppacToken: ppacToken)
+		let resource = OTPAuthorizationForSRSResource(otpSRS: otp, ppacToken: ppacToken)
 		serviceProvider.load(resource) { result in
 			switch result {
 				// THEN
@@ -192,6 +190,34 @@ final class RestServiceAuthorizationOTPElsTests: CWATestCase {
 			}
 		}
 	}
+	func testGIVEN_AuthorizeOTP_WHEN_Failure_DEVICE_BLOCKEDIsCalled_THEN_deviceIsBlockedReturned() throws {
+		// GIVEN
+		let response: [String: String] = ["errorCode": "DEVICE_BLOCKED"]
+		let stack = MockNetworkStack(
+			httpStatus: 400,
+			responseData: try JSONEncoder().encode(response)
+		)
+
+		let otp = "OTPFake"
+		let ppacToken = PPACToken(apiToken: "APITokenFake", previousApiToken: "PreviousApiTokenFake", deviceToken: "DeviceTokenFake")
+
+		// WHEN
+		let serviceProvider = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
+		let resource = OTPAuthorizationForSRSResource(otpSRS: otp, ppacToken: ppacToken)
+		serviceProvider.load(resource) { result in
+			switch result {
+				// THEN
+			case .success:
+				XCTFail("success should not be called")
+			case .failure(let otpError):
+				guard case let .receivedResourceError(customError) = otpError else {
+					XCTFail("unexpected error case")
+					return
+				}
+				XCTAssertEqual(customError, .deviceBlocked)
+			}
+		}
+	}
 
 	func testGIVEN_AuthorizeOTP_WHEN_Failure_DEVICE_TOKEN_REDEEMEDIsCalled_THEN_deviceTokenRedeemedIsReturned() throws {
 		// GIVEN
@@ -202,11 +228,11 @@ final class RestServiceAuthorizationOTPElsTests: CWATestCase {
 		)
 
 		let otp = "OTPFake"
-		let ppacToken = PPACToken(apiToken: "APITokenFake", previousApiToken: "PreviousAPITokenFake", deviceToken: "DeviceTokenFake")
+		let ppacToken = PPACToken(apiToken: "APITokenFake", previousApiToken: "PreviousApiTokenFake", deviceToken: "DeviceTokenFake")
 
 		// WHEN
 		let serviceProvider = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
-		let resource = OTPAuthorizationForELSResource(otpEls: otp, ppacToken: ppacToken)
+		let resource = OTPAuthorizationForSRSResource(otpSRS: otp, ppacToken: ppacToken)
 		serviceProvider.load(resource) { result in
 			switch result {
 				// THEN
@@ -231,11 +257,11 @@ final class RestServiceAuthorizationOTPElsTests: CWATestCase {
 		)
 
 		let otp = "OTPFake"
-		let ppacToken = PPACToken(apiToken: "APITokenFake", previousApiToken: "PreviousAPITokenFake", deviceToken: "DeviceTokenFake")
+		let ppacToken = PPACToken(apiToken: "APITokenFake", previousApiToken: "PreviousApiTokenFake", deviceToken: "DeviceTokenFake")
 
 		// WHEN
 		let serviceProvider = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
-		let resource = OTPAuthorizationForELSResource(otpEls: otp, ppacToken: ppacToken)
+		let resource = OTPAuthorizationForSRSResource(otpSRS: otp, ppacToken: ppacToken)
 		serviceProvider.load(resource) { result in
 			switch result {
 				// THEN
@@ -260,11 +286,11 @@ final class RestServiceAuthorizationOTPElsTests: CWATestCase {
 		)
 
 		let otp = "OTPFake"
-		let ppacToken = PPACToken(apiToken: "APITokenFake", previousApiToken: "PreviousAPITokenFake", deviceToken: "DeviceTokenFake")
+		let ppacToken = PPACToken(apiToken: "APITokenFake", previousApiToken: "PreviousApiTokenFake", deviceToken: "DeviceTokenFake")
 
 		// WHEN
 		let serviceProvider = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
-		let resource = OTPAuthorizationForELSResource(otpEls: otp, ppacToken: ppacToken)
+		let resource = OTPAuthorizationForSRSResource(otpSRS: otp, ppacToken: ppacToken)
 		serviceProvider.load(resource) { result in
 			switch result {
 				// THEN
@@ -280,49 +306,20 @@ final class RestServiceAuthorizationOTPElsTests: CWATestCase {
 		}
 	}
 
-	func testGIVEN_AuthorizeOTP_WHEN_Failure_JSONSyntaxError_THEN_invalidResponseErrorIsReturned() throws {
+	func testGIVEN_AuthorizeOTP_WHEN_Failure_500StatusCode_THEN_otherServerErrorErrorIsReturned() throws {
 		// GIVEN
-		let response: [String: String] = ["jsonError": "JWS_SIGNATURE_VERIFICATION_FAILED"]
-		let stack = MockNetworkStack(
-			httpStatus: 400,
-			responseData: try JSONEncoder().encode(response)
-		)
-
-		let otp = "OTPFake"
-		let ppacToken = PPACToken(apiToken: "APITokenFake", previousApiToken: "PreviousAPITokenFake", deviceToken: "DeviceTokenFake")
-
-		// WHEN
-		let serviceProvider = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
-		let resource = OTPAuthorizationForELSResource(otpEls: otp, ppacToken: ppacToken)
-		serviceProvider.load(resource) { result in
-			switch result {
-				// THEN
-			case .success:
-				XCTFail("success should not be called")
-			case .failure(let otpError):
-				guard case let .receivedResourceError(customError) = otpError else {
-					XCTFail("unexpected error case")
-					return
-				}
-				XCTAssertEqual(customError, .invalidResponseError)
-			}
-		}
-	}
-
-	func testGIVEN_AuthorizeOTP_WHEN_Failure_500StatusCode_THEN_internalServerErrorIsReturned() throws {
-		// GIVEN
-		let response: [String: String] = ["jsonError": "JWS_SIGNATURE_VERIFICATION_FAILED"]
+		let response: [String: String] = ["errorCode": "JWS_SIGNATURE_VERIFICATION_FAILED"]
 		let stack = MockNetworkStack(
 			httpStatus: 500,
 			responseData: try JSONEncoder().encode(response)
 		)
 
 		let otp = "OTPFake"
-		let ppacToken = PPACToken(apiToken: "APITokenFake", previousApiToken: "PreviousAPITokenFake", deviceToken: "DeviceTokenFake")
+		let ppacToken = PPACToken(apiToken: "APITokenFake", previousApiToken: "PreviousApiTokenFake", deviceToken: "DeviceTokenFake")
 
 		// WHEN
 		let serviceProvider = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
-		let resource = OTPAuthorizationForELSResource(otpEls: otp, ppacToken: ppacToken)
+		let resource = OTPAuthorizationForSRSResource(otpSRS: otp, ppacToken: ppacToken)
 		serviceProvider.load(resource) { result in
 			switch result {
 				// THEN
@@ -333,25 +330,25 @@ final class RestServiceAuthorizationOTPElsTests: CWATestCase {
 					XCTFail("unexpected error case")
 					return
 				}
-				XCTAssertEqual(customError, .internalServerError)
+				XCTAssertEqual(customError, .otherServerError)
 			}
 		}
 	}
 
-	func testGIVEN_AuthorizeOTP_WHEN_Failure_UnkownStatusCode_THEN_internalServerErrorIsReturned() throws {
+	func testGIVEN_AuthorizeOTP_WHEN_Failure_UnkownStatusCode_THEN_otherServerErrorIsReturned() throws {
 		// GIVEN
-		let response: [String: String] = ["jsonError": "JWS_SIGNATURE_VERIFICATION_FAILED"]
+		let response: [String: String] = ["errorCode": "JWS_SIGNATURE_VERIFICATION_FAILED"]
 		let stack = MockNetworkStack(
 			httpStatus: 91,
 			responseData: try JSONEncoder().encode(response)
 		)
 
 		let otp = "OTPFake"
-		let ppacToken = PPACToken(apiToken: "APITokenFake", previousApiToken: "PreviousAPITokenFake", deviceToken: "DeviceTokenFake")
+		let ppacToken = PPACToken(apiToken: "APITokenFake", previousApiToken: "PreviousApiTokenFake", deviceToken: "DeviceTokenFake")
 
 		// WHEN
 		let serviceProvider = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
-		let resource = OTPAuthorizationForELSResource(otpEls: otp, ppacToken: ppacToken)
+		let resource = OTPAuthorizationForSRSResource(otpSRS: otp, ppacToken: ppacToken)
 		serviceProvider.load(resource) { result in
 			switch result {
 				// THEN
@@ -362,7 +359,7 @@ final class RestServiceAuthorizationOTPElsTests: CWATestCase {
 					XCTFail("unexpected error case")
 					return
 				}
-				XCTAssertEqual(customError, .internalServerError)
+				XCTAssertEqual(customError, .otherServerError)
 			}
 		}
 	}
@@ -375,11 +372,11 @@ final class RestServiceAuthorizationOTPElsTests: CWATestCase {
 		)
 
 		let otp = "OTPFake"
-		let ppacToken = PPACToken(apiToken: "APITokenFake", previousApiToken: "PreviousAPITokenFake", deviceToken: "DeviceTokenFake")
+		let ppacToken = PPACToken(apiToken: "APITokenFake", previousApiToken: "PreviousApiTokenFake", deviceToken: "DeviceTokenFake")
 
 		// WHEN
 		let serviceProvider = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
-		let resource = OTPAuthorizationForELSResource(otpEls: otp, ppacToken: ppacToken)
+		let resource = OTPAuthorizationForSRSResource(otpSRS: otp, ppacToken: ppacToken)
 		serviceProvider.load(resource) { result in
 			switch result {
 				// THEN
@@ -414,11 +411,11 @@ final class RestServiceAuthorizationOTPElsTests: CWATestCase {
 		)
 
 		let otp = "OTPFake"
-		let ppacToken = PPACToken(apiToken: "APITokenFake", previousApiToken: "PreviousAPITokenFake", deviceToken: "DeviceTokenFake")
+		let ppacToken = PPACToken(apiToken: "APITokenFake", previousApiToken: "PreviousApiTokenFake", deviceToken: "DeviceTokenFake")
 
 		// WHEN
 		let serviceProvider = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
-		let resource = OTPAuthorizationForELSResource(otpEls: otp, ppacToken: ppacToken)
+		let resource = OTPAuthorizationForSRSResource(otpSRS: otp, ppacToken: ppacToken)
 		serviceProvider.load(resource) { result in
 			switch result {
 			case .success:
@@ -432,4 +429,5 @@ final class RestServiceAuthorizationOTPElsTests: CWATestCase {
 			}
 		}
 	}
+
 }

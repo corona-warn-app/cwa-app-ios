@@ -107,17 +107,17 @@ final class DMSRSOptionsViewModel {
 	private func apiTokenStaticText() -> String {
 	   """
 	   
-	   PPAC API Token SRS
-	   \(store.ppacApiTokenSrs?.token ?? "No API Token generated yet")
+	   PPAC API Token
+	   \(store.apiTokenPPAC?.token ?? "No API Token generated yet")
 	   
-	   PPAC API Token SRS Creation Date
-	   \(createDateString(from: store.ppacApiTokenSrs?.timestamp))
+	   PPAC API Token Creation Date
+	   \(createDateString(from: store.apiTokenPPAC?.timestamp))
 	   
-	   Previous PPAC API Token SRS
-	   \(store.previousPpacApiTokenSrs?.token ?? "No API Token available")
+	   Previous PPAC API Token
+	   \(store.previousAPITokenPPAC?.token ?? "No API Token available")
 	   
-	   Previous PPAC API Token SRS Creation Date
-	   \(createDateString(from: store.previousPpacApiTokenSrs?.timestamp, fallback: "No Date available"))
+	   Previous PPAC API Token Creation Date
+	   \(createDateString(from: store.previousAPITokenPPAC?.timestamp, fallback: "No Date available"))
 	   
 	   """
 	}

@@ -78,7 +78,7 @@ class FakeRequestService {
 
 	/// This method represents the fake Request for SRS OTP
 	func fakeSRSOTPServerRequest(completion: (() -> Void)? = nil) {
-		self.ppacService.getPPACTokenSRS { [weak self] result in
+		self.ppacService.getAPITokenPPAC { [weak self] result in
 			guard let self = self else {
 				Log.warning("[FakeRequestService] Could not get self, skipping fakeSRSOTPServerRequest call")
 				completion?()

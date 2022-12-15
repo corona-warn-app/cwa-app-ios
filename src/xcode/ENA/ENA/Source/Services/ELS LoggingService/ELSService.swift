@@ -118,7 +118,7 @@ final class ErrorLogSubmissionService: ErrorLogSubmissionProviding {
 	
 	private func authenticate(completion: @escaping ELSAuthenticationResponse) {
 		// first get ppac token for els (without divide time check)
-		ppacService.getPPACTokenELS({ [weak self] result in
+		ppacService.getAPITokenPPAC({ [weak self] result in
 			switch result {
 			case let .success(ppacToken):
 				Log.debug("Successfully retrieved for els a ppac token. Proceed for otp.")

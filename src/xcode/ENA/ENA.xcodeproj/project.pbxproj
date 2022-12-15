@@ -1028,6 +1028,8 @@
 		8F8B4A332934CD18007ED94E /* DMSRSOptionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F8B4A322934CD18007ED94E /* DMSRSOptionsViewController.swift */; };
 		8F8B4A352934CD30007ED94E /* DMSRSOptionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F8B4A342934CD30007ED94E /* DMSRSOptionsViewModel.swift */; };
 		8F95A1B225EFC5BE00506CF2 /* SendErrorLogsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F95A1B125EFC5BE00506CF2 /* SendErrorLogsViewController.swift */; };
+		8FA1E1032948463D00C08D82 /* SRSKeySubmissionResourceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FA1E1022948463D00C08D82 /* SRSKeySubmissionResourceTests.swift */; };
+		8FA1E10729484EC600C08D82 /* OTPAuthorizationForSRSResourceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FA1E10429484DE800C08D82 /* OTPAuthorizationForSRSResourceTests.swift */; };
 		8FA3E9C62913F334000512FC /* SRSConsentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FA3E9C52913F334000512FC /* SRSConsentViewController.swift */; };
 		8FA3E9C82913F34A000512FC /* SRSConsentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FA3E9C72913F34A000512FC /* SRSConsentViewModel.swift */; };
 		8FA88F672613325700FD36DA /* QRCodePayload+extention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FA88F662613325700FD36DA /* QRCodePayload+extention.swift */; };
@@ -1778,7 +1780,7 @@
 		DC95881828BE5E2800F4D03E /* MaskStateCellModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC95881728BE5E2800F4D03E /* MaskStateCellModelTests.swift */; };
 		DC9AB2392908174000A2F9D1 /* String+Attributed.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC9AB2382908174000A2F9D1 /* String+Attributed.swift */; };
 		DCB2897D2948CB51000A3841 /* PPACServiceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCB2897C2948CB51000A3841 /* PPACServiceMock.swift */; };
-		DCB2897E2948CC89000A3841 /* MockRiskProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD2D09F25A86C2A006E4220 /* MockRiskProvider.swift */; };
+		DCB78C47294B2FBC00EAE2AB /* MockRiskProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD2D09F25A86C2A006E4220 /* MockRiskProvider.swift */; };
 		DCD345B8291BF7B700E95A2D /* UIView+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCD345B7291BF7B700E95A2D /* UIView+Utils.swift */; };
 		DCDE5FD8292A9DE800F3E733 /* SRSErrorAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCDE5FD7292A9DE800F3E733 /* SRSErrorAlert.swift */; };
 		DCDE5FDA292CFABC00F3E733 /* SRSPreconditionError.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCDE5FD9292CFABC00F3E733 /* SRSPreconditionError.swift */; };
@@ -2943,6 +2945,8 @@
 		8F8B4A342934CD30007ED94E /* DMSRSOptionsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMSRSOptionsViewModel.swift; sourceTree = "<group>"; };
 		8F8B4A362934DA10007ED94E /* ENATest.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ENATest.entitlements; sourceTree = "<group>"; };
 		8F95A1B125EFC5BE00506CF2 /* SendErrorLogsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendErrorLogsViewController.swift; sourceTree = "<group>"; };
+		8FA1E1022948463D00C08D82 /* SRSKeySubmissionResourceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SRSKeySubmissionResourceTests.swift; sourceTree = "<group>"; };
+		8FA1E10429484DE800C08D82 /* OTPAuthorizationForSRSResourceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPAuthorizationForSRSResourceTests.swift; sourceTree = "<group>"; };
 		8FA3E9C52913F334000512FC /* SRSConsentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SRSConsentViewController.swift; sourceTree = "<group>"; };
 		8FA3E9C72913F34A000512FC /* SRSConsentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SRSConsentViewModel.swift; sourceTree = "<group>"; };
 		8FA88F662613325700FD36DA /* QRCodePayload+extention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "QRCodePayload+extention.swift"; sourceTree = "<group>"; };
@@ -7390,6 +7394,7 @@
 		8F2FA2E3292B2D5C00C6286A /* OTPAuthorizationForSRS */ = {
 			isa = PBXGroup;
 			children = (
+				8FA1E10629484E1500C08D82 /* __tests__ */,
 				8F2FA2E4292B2D8400C6286A /* OTPAuthorizationForSRSResource.swift */,
 				DC29CBA929376D6800BEAA79 /* OTPForSRSResponsePropertiesReceiveModel.swift */,
 			);
@@ -7574,6 +7579,14 @@
 				8F8B4A342934CD30007ED94E /* DMSRSOptionsViewModel.swift */,
 			);
 			path = DMSRSPrechecks;
+			sourceTree = "<group>";
+		};
+		8FA1E10629484E1500C08D82 /* __tests__ */ = {
+			isa = PBXGroup;
+			children = (
+				8FA1E10429484DE800C08D82 /* OTPAuthorizationForSRSResourceTests.swift */,
+			);
+			path = __tests__;
 			sourceTree = "<group>";
 		};
 		8FA3E9C42913F2E8000512FC /* SRSConsent */ = {
@@ -8705,6 +8718,7 @@
 			isa = PBXGroup;
 			children = (
 				ABFDBEFC281AD7C000A11FA8 /* KeySubmissionResourceTests.swift */,
+				8FA1E1022948463D00C08D82 /* SRSKeySubmissionResourceTests.swift */,
 			);
 			path = __tests__;
 			sourceTree = "<group>";
@@ -11812,7 +11826,7 @@
 				01A4DD4325935D1F007D5794 /* HomeRiskCellModel.swift in Sources */,
 				2EB7D68B2680790D00633D30 /* CoronaTestResultOperation.swift in Sources */,
 				0138F68F25F21C8000A9B075 /* EventTableViewCell.swift in Sources */,
-				DCB2897E2948CC89000A3841 /* MockRiskProvider.swift in Sources */,
+				DCB78C47294B2FBC00EAE2AB /* MockRiskProvider.swift in Sources */,
 				AB06F76328225D6C00E757EE /* SubmissionPadding.swift in Sources */,
 				0104CBD1273EAC7A009A543D /* TicketValidationResultToken+Fake.swift in Sources */,
 				018FD48726973A99000088F8 /* TechnicalValidationFailedRulesTableViewCell.swift in Sources */,
@@ -12699,6 +12713,7 @@
 				AB34787C269C93C20016A8AB /* CertLogicEngineTestData.swift in Sources */,
 				010A57A427185E4D001F5A09 /* RecycleBinItemCellModelTests.swift in Sources */,
 				50681F8B27E3C83C008056E3 /* RetryingTests.swift in Sources */,
+				8FA1E10729484EC600C08D82 /* OTPAuthorizationForSRSResourceTests.swift in Sources */,
 				BA015159279B11A900C93B02 /* RestServiceProviderTests.swift in Sources */,
 				506D881427A2D40D006297FE /* RegistrationTokenResourceTests.swift in Sources */,
 				35BDAB2E25F1148E004DFE32 /* ELSServiceTests.swift in Sources */,
@@ -12918,6 +12933,7 @@
 				BADDD83F2603956600337223 /* TraceLocationCellModelTests.swift in Sources */,
 				01D6816327C3D18200FF6D18 /* MockCoronaTestService.swift in Sources */,
 				71176E2F248922B0004B0C9F /* ENAColorTests.swift in Sources */,
+				8FA1E1032948463D00C08D82 /* SRSKeySubmissionResourceTests.swift in Sources */,
 				35C0C88B2614946F004BF509 /* CheckinSubmissionPreparationTests.swift in Sources */,
 				014086B82588F9FD00E9E5B2 /* DiaryEditEntriesViewModelTest.swift in Sources */,
 				01BA06D3261F41E100237DD8 /* ExposureSubmissionServiceTests.swift in Sources */,
@@ -13249,7 +13265,7 @@
 				CODE_SIGN_ENTITLEMENTS = "${PROJECT}/Resources/ENACommunity.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 9;
 				DEVELOPMENT_TEAM = $IPHONE_APP_DEV_TEAM;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -13404,7 +13420,7 @@
 				CODE_SIGN_ENTITLEMENTS = "${PROJECT}/Resources/ENA.entitlements";
 				CODE_SIGN_IDENTITY = $IPHONE_APP_CODE_SIGN_IDENTITY;
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 9;
 				DEVELOPMENT_TEAM = 523TP53AQF;
 				GCC_PREPROCESSOR_DEFINITIONS = "SQLITE_HAS_CODEC=1";
 				INFOPLIST_FILE = ENA/Resources/Info_Testflight.plist;
@@ -13583,7 +13599,7 @@
 				CODE_SIGN_ENTITLEMENTS = "${PROJECT}/Resources/ENA.entitlements";
 				CODE_SIGN_IDENTITY = $IPHONE_APP_CODE_SIGN_IDENTITY;
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 9;
 				DEVELOPMENT_TEAM = 523TP53AQF;
 				GCC_PREPROCESSOR_DEFINITIONS = "SQLITE_HAS_CODEC=1";
 				INFOPLIST_FILE = ENA/Resources/Info_Testflight.plist;
@@ -13825,7 +13841,7 @@
 				CODE_SIGN_ENTITLEMENTS = "${PROJECT}/Resources/ENATest.entitlements";
 				CODE_SIGN_IDENTITY = $IPHONE_APP_CODE_SIGN_IDENTITY;
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 9;
 				DEVELOPMENT_TEAM = 523TP53AQF;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -13865,7 +13881,7 @@
 				CODE_SIGN_ENTITLEMENTS = "${PROJECT}/Resources/ENA.entitlements";
 				CODE_SIGN_IDENTITY = $IPHONE_APP_CODE_SIGN_IDENTITY;
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 9;
 				GCC_PREPROCESSOR_DEFINITIONS = "SQLITE_HAS_CODEC=1";
 				INFOPLIST_FILE = ENA/Resources/Info.plist;
 				IPHONE_APP_CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -14008,7 +14024,7 @@
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 9;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -14052,7 +14068,7 @@
 				CODE_SIGNING_ALLOWED = NO;
 				CODE_SIGNING_REQUIRED = NO;
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 9;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -14095,7 +14111,7 @@
 				CODE_SIGNING_ALLOWED = NO;
 				CODE_SIGNING_REQUIRED = NO;
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 9;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;

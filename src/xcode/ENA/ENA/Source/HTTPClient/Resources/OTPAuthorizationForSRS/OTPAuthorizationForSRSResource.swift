@@ -21,6 +21,7 @@ struct OTPAuthorizationForSRSResource: Resource {
 		let ppacIos = SAP_Internal_Ppdd_PPACIOS.with {
 			$0.apiToken = ppacToken.apiToken
 			$0.deviceToken = ppacToken.deviceToken
+			$0.previousApiToken = ppacToken.previousApiToken
 		}
 		let payload = SAP_Internal_Ppdd_SRSOneTimePassword.with {
 			$0.otp = otpSRS
@@ -76,7 +77,7 @@ struct OTPAuthorizationForSRSResource: Resource {
 				return .otherServerError
 			}
 		default:
-			return .otherServerError
+			return .invalidResponseError
 		}
 	}
 	
@@ -91,9 +92,8 @@ struct OTPAuthorizationForSRSResource: Resource {
 		
 		do {
 			let decoder = JSONDecoder()
-			decoder.dateDecodingStrategy = .iso8601
 			let decodedResponse = try decoder.decode(
-				OTPResponseProperties.self,
+				OTPForSRSResponsePropertiesReceiveModel.self,
 				from: responseBody
 			)
 			guard let errorCode = decodedResponse.errorCode else {
@@ -121,7 +121,7 @@ struct OTPAuthorizationForSRSResource: Resource {
 			}
 		} catch {
 			Log.error("Failed to get errorCode because json could not be decoded", log: .api, error: error)
-			return .otherServerError
+			return .invalidResponseError
 		}
 	}
 }

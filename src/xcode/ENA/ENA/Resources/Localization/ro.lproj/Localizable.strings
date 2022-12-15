@@ -776,6 +776,10 @@
 
 "SRS_ConsentScreen_Acknowledgement_6" = "În etapa următoare, acordați consimțământul pentru a accesa ID-urile aleatorii.";
 
+"SRS_ConsentScreen_primaryButtonTitle" = "Accept";
+
+"SRS_ConsentScreen_secondaryButtonTitle" = "Anulare";
+
 /* Exposure Submission Result */
 "ExposureSubmissionResult_Title" = "Rezultatul testului dvs.";
 

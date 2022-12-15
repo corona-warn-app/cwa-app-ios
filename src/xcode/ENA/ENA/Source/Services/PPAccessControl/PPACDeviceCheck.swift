@@ -7,7 +7,12 @@ import DeviceCheck
 
 protocol DeviceCheckable {
 	var isSupported: Bool { get }
-	func deviceToken(_ apiToken: String, completion: @escaping (Result<PPACToken, PPACError>) -> Void)
+	
+	func deviceToken(
+		apiToken: String,
+		previousApiToken: String?,
+		completion: @escaping (Result<PPACToken, PPACError>) -> Void
+	)
 }
 
 final class PPACDeviceCheck: DeviceCheckable {
@@ -18,7 +23,11 @@ final class PPACDeviceCheck: DeviceCheckable {
 		return DCDevice.current.isSupported
 	}
 
-	func deviceToken(_ apiToken: String, completion: @escaping (Result<PPACToken, PPACError>) -> Void) {
+	func deviceToken(
+		apiToken: String,
+		previousApiToken: String?,
+		completion: @escaping (Result<PPACToken, PPACError>) -> Void
+	) {
 		DCDevice.current.generateToken { tokenData, error in
 			guard error == nil,
 				  let deviceToken = tokenData?.base64EncodedString() else {
@@ -35,6 +44,7 @@ final class PPACDeviceCheck: DeviceCheckable {
 				.success(
 					PPACToken(
 						apiToken: apiToken,
+						previousApiToken: previousApiToken ?? "",
 						deviceToken: deviceToken
 					)
 				)

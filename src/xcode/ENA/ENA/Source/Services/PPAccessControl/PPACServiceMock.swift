@@ -5,17 +5,13 @@
 import Foundation
 
 class PPACServiceMock: PPACService {
-	static let ppacTokenMock = PPACToken(apiToken: "api-token-mock", deviceToken: "device-token-mock")
+	static let ppacTokenMock = PPACToken(apiToken: "api-token-mock", previousApiToken: "previous-api-token-mock", deviceToken: "device-token-mock")
 
 	override func getPPACTokenEDUS(_ completion: @escaping (Result<PPACToken, PPACError>) -> Void) {
 		completion(.success(Self.ppacTokenMock))
 	}
 	
-	override func getPPACTokenELS(_ completion: @escaping (Result<PPACToken, PPACError>) -> Void) {
-		completion(.success(Self.ppacTokenMock))
-	}
-	
-	override func getPPACTokenSRS(_ completion: @escaping (Result<PPACToken, PPACError>) -> Void) {
+	override func getAPITokenPPAC(_ completion: @escaping (Result<PPACToken, PPACError>) -> Void) {
 		completion(.success(Self.ppacTokenMock))
 	}
 	

@@ -776,6 +776,10 @@
 
 "SRS_ConsentScreen_Acknowledgement_6" = "Sonraki adımda, rastgele kimliklerinize erişim onayı verin.";
 
+"SRS_ConsentScreen_primaryButtonTitle" = "Kabul Et";
+
+"SRS_ConsentScreen_secondaryButtonTitle" = "İptal";
+
 /* Exposure Submission Result */
 "ExposureSubmissionResult_Title" = "Test Sonucunuz";
 
