@@ -190,6 +190,34 @@ final class OTPAuthorizationForSRSResourceTests: XCTestCase {
 			}
 		}
 	}
+	func testGIVEN_AuthorizeOTP_WHEN_Failure_DEVICE_BLOCKEDIsCalled_THEN_deviceIsBlockedReturned() throws {
+		// GIVEN
+		let response: [String: String] = ["errorCode": "DEVICE_BLOCKED"]
+		let stack = MockNetworkStack(
+			httpStatus: 400,
+			responseData: try JSONEncoder().encode(response)
+		)
+
+		let otp = "OTPFake"
+		let ppacToken = PPACToken(apiToken: "APITokenFake", deviceToken: "DeviceTokenFake")
+
+		// WHEN
+		let serviceProvider = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
+		let resource = OTPAuthorizationForSRSResource(otpSRS: otp, ppacToken: ppacToken)
+		serviceProvider.load(resource) { result in
+			switch result {
+				// THEN
+			case .success:
+				XCTFail("success should not be called")
+			case .failure(let otpError):
+				guard case let .receivedResourceError(customError) = otpError else {
+					XCTFail("unexpected error case")
+					return
+				}
+				XCTAssertEqual(customError, .deviceBlocked)
+			}
+		}
+	}
 
 	func testGIVEN_AuthorizeOTP_WHEN_Failure_DEVICE_TOKEN_REDEEMEDIsCalled_THEN_deviceTokenRedeemedIsReturned() throws {
 		// GIVEN
@@ -278,7 +306,7 @@ final class OTPAuthorizationForSRSResourceTests: XCTestCase {
 		}
 	}
 
-	func testGIVEN_AuthorizeOTP_WHEN_Failure_500StatusCode_THEN_internalServerErrorIsReturned() throws {
+	func testGIVEN_AuthorizeOTP_WHEN_Failure_500StatusCode_THEN_otherServerErrorErrorIsReturned() throws {
 		// GIVEN
 		let response: [String: String] = ["errorCode": "JWS_SIGNATURE_VERIFICATION_FAILED"]
 		let stack = MockNetworkStack(
@@ -307,7 +335,7 @@ final class OTPAuthorizationForSRSResourceTests: XCTestCase {
 		}
 	}
 
-	func testGIVEN_AuthorizeOTP_WHEN_Failure_UnkownStatusCode_THEN_internalServerErrorIsReturned() throws {
+	func testGIVEN_AuthorizeOTP_WHEN_Failure_UnkownStatusCode_THEN_otherServerErrorIsReturned() throws {
 		// GIVEN
 		let response: [String: String] = ["errorCode": "JWS_SIGNATURE_VERIFICATION_FAILED"]
 		let stack = MockNetworkStack(
