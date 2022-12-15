@@ -32,6 +32,7 @@ struct PPASubmitResource: Resource {
 		let ppacIos = SAP_Internal_Ppdd_PPACIOS.with {
 			$0.apiToken = ppacToken.apiToken
 			$0.deviceToken = ppacToken.deviceToken
+			$0.previousApiToken = ppacToken.previousApiToken
 		}
 		self.sendResource = ProtobufSendResource(
 			SAP_Internal_Ppdd_PPADataRequestIOS.with {

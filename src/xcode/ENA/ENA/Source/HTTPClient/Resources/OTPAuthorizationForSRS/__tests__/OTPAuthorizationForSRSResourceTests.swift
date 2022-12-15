@@ -26,7 +26,7 @@ final class OTPAuthorizationForSRSResourceTests: XCTestCase {
 
 		let expectation = self.expectation(description: "completion handler is called without an error")
 		let otp = "OTPFake"
-		let ppacToken = PPACToken(apiToken: "APITokenFake", deviceToken: "DeviceTokenFake")
+		let ppacToken = PPACToken(apiToken: "APITokenFake", previousApiToken: "PreviousApiTokenFake", deviceToken: "DeviceTokenFake")
 
 		// WHEN
 		var expirationDate: String?
@@ -55,7 +55,7 @@ final class OTPAuthorizationForSRSResourceTests: XCTestCase {
 		)
 
 		let otp = "OTPFake"
-		let ppacToken = PPACToken(apiToken: "APITokenFake", deviceToken: "DeviceTokenFake")
+		let ppacToken = PPACToken(apiToken: "APITokenFake", previousApiToken: "PreviousApiTokenFake", deviceToken: "DeviceTokenFake")
 
 		// WHEN
 		let serviceProvider = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
@@ -84,7 +84,7 @@ final class OTPAuthorizationForSRSResourceTests: XCTestCase {
 		)
 
 		let otp = "OTPFake"
-		let ppacToken = PPACToken(apiToken: "APITokenFake", deviceToken: "DeviceTokenFake")
+		let ppacToken = PPACToken(apiToken: "APITokenFake", previousApiToken: "PreviousApiTokenFake", deviceToken: "DeviceTokenFake")
 
 		// WHEN
 		let serviceProvider = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
@@ -113,7 +113,7 @@ final class OTPAuthorizationForSRSResourceTests: XCTestCase {
 		)
 
 		let otp = "OTPFake"
-		let ppacToken = PPACToken(apiToken: "APITokenFake", deviceToken: "DeviceTokenFake")
+		let ppacToken = PPACToken(apiToken: "APITokenFake", previousApiToken: "PreviousApiTokenFake", deviceToken: "DeviceTokenFake")
 
 		// WHEN
 		let serviceProvider = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
@@ -142,7 +142,7 @@ final class OTPAuthorizationForSRSResourceTests: XCTestCase {
 		)
 
 		let otp = "OTPFake"
-		let ppacToken = PPACToken(apiToken: "APITokenFake", deviceToken: "DeviceTokenFake")
+		let ppacToken = PPACToken(apiToken: "APITokenFake", previousApiToken: "PreviousApiTokenFake", deviceToken: "DeviceTokenFake")
 
 		// WHEN
 		let serviceProvider = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
@@ -171,7 +171,7 @@ final class OTPAuthorizationForSRSResourceTests: XCTestCase {
 		)
 
 		let otp = "OTPFake"
-		let ppacToken = PPACToken(apiToken: "APITokenFake", deviceToken: "DeviceTokenFake")
+		let ppacToken = PPACToken(apiToken: "APITokenFake", previousApiToken: "PreviousApiTokenFake", deviceToken: "DeviceTokenFake")
 
 		// WHEN
 		let serviceProvider = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
@@ -199,7 +199,7 @@ final class OTPAuthorizationForSRSResourceTests: XCTestCase {
 		)
 
 		let otp = "OTPFake"
-		let ppacToken = PPACToken(apiToken: "APITokenFake", deviceToken: "DeviceTokenFake")
+		let ppacToken = PPACToken(apiToken: "APITokenFake", previousApiToken: "PreviousApiTokenFake", deviceToken: "DeviceTokenFake")
 
 		// WHEN
 		let serviceProvider = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
@@ -228,7 +228,7 @@ final class OTPAuthorizationForSRSResourceTests: XCTestCase {
 		)
 
 		let otp = "OTPFake"
-		let ppacToken = PPACToken(apiToken: "APITokenFake", deviceToken: "DeviceTokenFake")
+		let ppacToken = PPACToken(apiToken: "APITokenFake", previousApiToken: "PreviousApiTokenFake", deviceToken: "DeviceTokenFake")
 
 		// WHEN
 		let serviceProvider = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
@@ -257,7 +257,7 @@ final class OTPAuthorizationForSRSResourceTests: XCTestCase {
 		)
 
 		let otp = "OTPFake"
-		let ppacToken = PPACToken(apiToken: "APITokenFake", deviceToken: "DeviceTokenFake")
+		let ppacToken = PPACToken(apiToken: "APITokenFake", previousApiToken: "PreviousApiTokenFake", deviceToken: "DeviceTokenFake")
 
 		// WHEN
 		let serviceProvider = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
@@ -286,7 +286,7 @@ final class OTPAuthorizationForSRSResourceTests: XCTestCase {
 		)
 
 		let otp = "OTPFake"
-		let ppacToken = PPACToken(apiToken: "APITokenFake", deviceToken: "DeviceTokenFake")
+		let ppacToken = PPACToken(apiToken: "APITokenFake", previousApiToken: "PreviousApiTokenFake", deviceToken: "DeviceTokenFake")
 
 		// WHEN
 		let serviceProvider = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
@@ -315,7 +315,7 @@ final class OTPAuthorizationForSRSResourceTests: XCTestCase {
 		)
 
 		let otp = "OTPFake"
-		let ppacToken = PPACToken(apiToken: "APITokenFake", deviceToken: "DeviceTokenFake")
+		let ppacToken = PPACToken(apiToken: "APITokenFake", previousApiToken: "PreviousApiTokenFake", deviceToken: "DeviceTokenFake")
 
 		// WHEN
 		let serviceProvider = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
@@ -344,7 +344,7 @@ final class OTPAuthorizationForSRSResourceTests: XCTestCase {
 		)
 
 		let otp = "OTPFake"
-		let ppacToken = PPACToken(apiToken: "APITokenFake", deviceToken: "DeviceTokenFake")
+		let ppacToken = PPACToken(apiToken: "APITokenFake", previousApiToken: "PreviousApiTokenFake", deviceToken: "DeviceTokenFake")
 
 		// WHEN
 		let serviceProvider = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
@@ -372,7 +372,7 @@ final class OTPAuthorizationForSRSResourceTests: XCTestCase {
 		)
 
 		let otp = "OTPFake"
-		let ppacToken = PPACToken(apiToken: "APITokenFake", deviceToken: "DeviceTokenFake")
+		let ppacToken = PPACToken(apiToken: "APITokenFake", previousApiToken: "PreviousApiTokenFake", deviceToken: "DeviceTokenFake")
 
 		// WHEN
 		let serviceProvider = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
@@ -411,7 +411,7 @@ final class OTPAuthorizationForSRSResourceTests: XCTestCase {
 		)
 
 		let otp = "OTPFake"
-		let ppacToken = PPACToken(apiToken: "APITokenFake", deviceToken: "DeviceTokenFake")
+		let ppacToken = PPACToken(apiToken: "APITokenFake", previousApiToken: "PreviousApiTokenFake", deviceToken: "DeviceTokenFake")
 
 		// WHEN
 		let serviceProvider = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
