@@ -26,6 +26,31 @@ final class SRSService: SRSServiceProviding {
 		otpService: OTPServiceProviding,
 		configurationProvider: AppConfigurationProviding
 	) {
+		#if DEBUG
+		if isUITesting {
+			let mockTestStore = MockTestStore()
+			let restServiceProviderStub = RestServiceProviderStub()
+			let ppacServiceMock = PPACServiceMock(
+				store: mockTestStore,
+				deviceCheck: PPACDeviceCheckMock(true, deviceToken: "device-token-mock")
+			)
+			let cachedAppConfigurationMock = CachedAppConfigurationMock(store: mockTestStore)
+			self.restServicerProvider = restServiceProviderStub
+			self.store = mockTestStore
+			self.ppacService = ppacServiceMock
+			self.otpService = OTPServiceMock(
+				store: mockTestStore,
+				client: ClientMock(),
+				restServiceProvider: restServiceProviderStub,
+				riskProvider: MockRiskProvider(),
+				ppacService: ppacServiceMock,
+				appConfiguration: cachedAppConfigurationMock
+			)
+			self.configurationProvider = cachedAppConfigurationMock
+			return
+		}
+		#endif
+
 		self.restServicerProvider = restServicerProvider
 		self.store = store
 		self.ppacService = ppacService
