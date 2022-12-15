@@ -42,18 +42,11 @@ class DynamicTypeTableViewCell: UITableViewCell, DynamicTableViewTextCell {
 	func configureDynamicType(size: CGFloat = 17, weight: UIFont.Weight = .regular, style: UIFont.TextStyle = .body) {
 		contentTextLabel.font = UIFont.preferredFont(forTextStyle: style).scaledFont(size: size, weight: weight)
 		contentTextLabel.adjustsFontForContentSizeCategory = true
-		contentTextLabel.lineBreakMode = .byTruncatingTail
-		contentTextLabel.numberOfLines = 4
 	}
 
 	func configure(text: String, color: UIColor? = nil) {
 		contentTextLabel.text = text
 		contentTextLabel.textColor = color ?? .enaColor(for: .textPrimary1)
-		
-		let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(labelTapped))
-		contentTextLabel.addGestureRecognizer(tapGestureRecognizer)
-		contentTextLabel.isUserInteractionEnabled = true
-		contentTextLabel.isAccessibilityElement = true
 	}
 
 	func configureAccessibility(label: String? = nil, identifier: String? = nil, traits: UIAccessibilityTraits = .staticText) {
@@ -61,6 +54,13 @@ class DynamicTypeTableViewCell: UITableViewCell, DynamicTableViewTextCell {
 		contentTextLabel.isAccessibilityElement = true
 		accessibilityIdentifier = identifier
 		accessibilityTraits = traits
+	}
+	
+	func configureTapGesture() {
+		let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(labelTapped))
+		contentTextLabel.addGestureRecognizer(tapGestureRecognizer)
+		contentTextLabel.isUserInteractionEnabled = true
+		contentTextLabel.isAccessibilityElement = true
 	}
 
 	// MARK: - Internal
