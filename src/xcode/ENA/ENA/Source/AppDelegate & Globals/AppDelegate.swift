@@ -693,14 +693,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			/// - App installation date
 			///
 			/// read values from the current store
-			let ppacEdusApiToken = store.ppacApiTokenEdus
+			let apiTokenPPAC = store.apiTokenPPAC
 			let installationDate = store.appInstallationDate
 
 			let newKey = try KeychainHelper().generateDatabaseKey(persistForKeychainKey: SecureStore.encryptionKeyKeychainKey)
 			store.wipeAll(key: newKey)
 
 			/// write excluded values back to the 'new' store
-			store.ppacApiTokenEdus = ppacEdusApiToken
+			store.apiTokenPPAC = apiTokenPPAC
 			store.appInstallationDate = installationDate
             Analytics.collect(.submissionMetadata(.lastAppReset(Date())))
 		} catch {

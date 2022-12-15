@@ -52,17 +52,17 @@ final class DMPPCViewModel {
 		
 		switch section {
 		case .ppacEdusApiToken:
-			let ppacEdusApiToken = store.ppacApiTokenEdus?.token ?? "no API EDUS Token generated yet"
-			return DMKeyValueCellViewModel(key: "API EDUS Token", value: ppacEdusApiToken)
+			let apiTokenPPAC = store.apiTokenPPAC?.token ?? "no API PPAC Token generated yet"
+			return DMKeyValueCellViewModel(key: "API PPAC Token", value: apiTokenPPAC)
 
 		case .ppacEdusApiTokenLastChange:
 			let creationDate: String
-			if let timestamp = store.ppacApiTokenEdus?.timestamp {
+			if let timestamp = store.apiTokenPPAC?.timestamp {
 				creationDate = DateFormatter.localizedString(from: timestamp, dateStyle: .medium, timeStyle: .medium)
 			} else {
 				creationDate = "unknown"
 			}
-			return DMKeyValueCellViewModel(key: "API EDUS Token creation date", value: creationDate)
+			return DMKeyValueCellViewModel(key: "API PPAC Token creation date", value: creationDate)
 
 		case .deviceToken:
 			let deviceTokenValue = deviceTokenText ?? "no device token created"
@@ -70,7 +70,7 @@ final class DMPPCViewModel {
 
 		case .generateAPIToken:
 			return DMButtonCellViewModel(
-				text: "Generate new API EDUS Token",
+				text: "Generate new API PPAC Token",
 				textColor: .white,
 				backgroundColor: .enaColor(for: .buttonPrimary),
 				action: { [weak self] in
@@ -93,7 +93,7 @@ final class DMPPCViewModel {
 			)
 		case .forceHTTPHeader:
 			return DMSwitchCellViewModel(
-				labelText: "Force API EDUS Token Authorization",
+				labelText: "Force API PPAC Token Authorization",
 				isOn: { [store] in
 					return store.forceAPITokenAuthorization
 				},
@@ -110,7 +110,7 @@ final class DMPPCViewModel {
 	private var lastKnownDeviceToken: Result<PPACToken, PPACError>?
 
 	private func generateppacEdusApiToken() {
-		guard (ppacService?.generateNewAPIEdusToken()) != nil else {
+		guard (ppacService?.generateNewAPITokenPPAC()) != nil else {
 			return
 		}
 		refreshTableView(

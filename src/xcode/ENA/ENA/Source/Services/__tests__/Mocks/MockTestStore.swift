@@ -96,8 +96,8 @@ final class MockTestStore: Store, PPAnalyticsData {
 	var isPrivacyPreservingAnalyticsConsentGiven: Bool = false
 	var otpTokenEdus: OTPToken?
 	var otpEdusAuthorizationDate: Date?
-	var ppacApiTokenEdus: TimestampedToken?
-	var previousPpacApiTokenEdus: TimestampedToken?
+	var apiTokenPPAC: TimestampedToken?
+	var previousAPITokenPPAC: TimestampedToken?
 	var userData: UserMetadata?
 
 	// MARK: - PPAnalyticsData
@@ -124,8 +124,6 @@ final class MockTestStore: Store, PPAnalyticsData {
 
 	var lastLoggedAppVersionNumber: Version?
 	var lastLoggedAppVersionTimestamp: Date?
-	var ppacApiTokenEls: TimestampedToken?
-	var previousPpacApiTokenEls: TimestampedToken?
 	var otpTokenEls: OTPToken?
 	var otpElsAuthorizationDate: Date?
 	#if !RELEASE
