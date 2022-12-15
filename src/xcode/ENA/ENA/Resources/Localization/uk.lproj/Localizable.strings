@@ -776,6 +776,10 @@
 
 "SRS_ConsentScreen_Acknowledgement_6" = "На наступному кроці надайте свою згоду на доступ до випадкових ідентифікаторів.";
 
+"SRS_ConsentScreen_primaryButtonTitle" = "Прийняти";
+
+"SRS_ConsentScreen_secondaryButtonTitle" = "Скасувати";
+
 /* Exposure Submission Result */
 "ExposureSubmissionResult_Title" = "Ваш результат тесту";
 

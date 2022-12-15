@@ -776,6 +776,10 @@
 
 "SRS_ConsentScreen_Acknowledgement_6" = "In the next step, grant your consent to access the random IDs.";
 
+"SRS_ConsentScreen_primaryButtonTitle" = "Accept";
+
+"SRS_ConsentScreen_secondaryButtonTitle" = "Cancel";
+
 /* Exposure Submission Result */
 "ExposureSubmissionResult_Title" = "Your Test Result";
 
