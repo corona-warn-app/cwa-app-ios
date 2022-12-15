@@ -21,7 +21,7 @@ final class PPACDeviceCheckMock: DeviceCheckable {
 
 	func deviceToken(
 		apiToken: String,
-		previousApiToken: String? = nil,
+		previousApiToken: String,
 		completion: @escaping (Result<PPACToken, PPACError>) -> Void
 	) {
 		if !isSupported {
