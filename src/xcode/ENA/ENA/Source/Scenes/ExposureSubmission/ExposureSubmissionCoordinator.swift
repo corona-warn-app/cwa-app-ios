@@ -512,12 +512,13 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		)
 		
 		let footerViewModel = FooterViewModel(
-			primaryButtonName: AppStrings.ExposureSubmissionTestResultAvailable.primaryButtonTitle,
-			primaryIdentifier: AccessibilityIdentifiers.ExposureSubmissionTestResultAvailable.primaryButton,
-			isSecondaryButtonEnabled: false,
-			isSecondaryButtonHidden: true
+			primaryButtonName: AppStrings.SRSConsentScreen.primaryButtonTitle,
+			secondaryButtonName: AppStrings.SRSConsentScreen.secondaryButtonTitle,
+			primaryIdentifier: AccessibilityIdentifiers.SRSConsentScreen.primaryButton,
+			secondaryIdentifier: AccessibilityIdentifiers.SRSConsentScreen.secondaryButton,
+			isSecondaryButtonHidden: false
 		)
-
+			
 		let topBottomContainerViewController = TopBottomContainerViewController(
 			topController: srsConsentViewController,
 			bottomController: FooterViewController(footerViewModel)

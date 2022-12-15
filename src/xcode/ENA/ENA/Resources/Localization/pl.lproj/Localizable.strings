@@ -776,6 +776,10 @@
 
 "SRS_ConsentScreen_Acknowledgement_6" = "W kolejnym kroku wyraź zgodę na dostęp do losowych identyfikatorów.";
 
+"SRS_ConsentScreen_primaryButtonTitle" = "Akceptuj";
+
+"SRS_ConsentScreen_secondaryButtonTitle" = "Anuluj";
+
 /* Exposure Submission Result */
 "ExposureSubmissionResult_Title" = "Wynik Twojego testu";
 

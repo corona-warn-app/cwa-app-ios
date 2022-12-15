@@ -794,6 +794,10 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "SRS_ConsentScreen_Acknowledgement_6" = "Erteilen Sie im nächsten Schritt Ihre Erlaubnis zum Zugriff auf die Zufalls-IDs.";
 
+"SRS_ConsentScreen_primaryButtonTitle" = "Einverstanden";
+
+"SRS_ConsentScreen_secondaryButtonTitle" = "Abbrechen";
+
 /* Exposure Submission Result */
 "ExposureSubmissionResult_Title" = "Ihr Testergebnis";
 
