@@ -4,7 +4,8 @@
 
 import Foundation
 import ExposureNotification
-@testable import ENA
+
+#if !RELEASE
 
 class MockRiskProvider: RiskProviding {
 	
@@ -79,3 +80,5 @@ private extension RiskConsumer {
 		}
 	}
 }
+
+#endif
