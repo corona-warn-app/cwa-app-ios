@@ -42,6 +42,7 @@ class DynamicTypeTableViewCell: UITableViewCell, DynamicTableViewTextCell {
 	func configureDynamicType(size: CGFloat = 17, weight: UIFont.Weight = .regular, style: UIFont.TextStyle = .body) {
 		contentTextLabel.font = UIFont.preferredFont(forTextStyle: style).scaledFont(size: size, weight: weight)
 		contentTextLabel.adjustsFontForContentSizeCategory = true
+		contentTextLabel.numberOfLines = 0
 	}
 
 	func configure(text: String, color: UIColor? = nil) {
