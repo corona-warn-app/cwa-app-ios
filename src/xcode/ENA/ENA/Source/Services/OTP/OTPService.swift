@@ -48,7 +48,7 @@ protocol OTPServiceProviding {
 	func discardOTPSrs()
 }
 
-final class OTPService: OTPServiceProviding {
+class OTPService: OTPServiceProviding {
 
 	// MARK: - Init
 
@@ -280,5 +280,11 @@ final class OTPService: OTPServiceProviding {
 				completion(.failure(.restServiceError(error)))
 			}
 		}
+	}
+}
+
+class OTPServiceMock: OTPService {
+	override func getOTPSrs(ppacToken: PPACToken, completion: @escaping (Result<String, OTPError>) -> Void) {
+		completion(.success("otp-srs-mock"))
 	}
 }

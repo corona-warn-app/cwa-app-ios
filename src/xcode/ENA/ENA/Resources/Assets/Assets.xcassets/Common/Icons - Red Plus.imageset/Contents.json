@@ -1,17 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "cross_light.pdf",
-      "idiom" : "universal"
-    },
-    {
-      "appearances" : [
-        {
-          "appearance" : "luminosity",
-          "value" : "dark"
-        }
-      ],
-      "filename" : "Cross_DarkMode.pdf",
+      "filename" : "Icons - RedPlus.pdf",
       "idiom" : "universal"
     }
   ],
@@ -20,6 +10,7 @@
     "version" : 1
   },
   "properties" : {
-    "preserves-vector-representation" : true
+    "preserves-vector-representation" : true,
+    "template-rendering-intent" : "template"
   }
 }
