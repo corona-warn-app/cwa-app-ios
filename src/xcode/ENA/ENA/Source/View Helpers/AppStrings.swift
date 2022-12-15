@@ -396,6 +396,9 @@ enum AppStrings {
 		static let legalBulletPoint02prefix = NSLocalizedString("SRS_Consent_Legal_Text_2_prefix", tableName: "Localizable.legal", comment: "")
 		static let legalBulletPoint02highlighted = NSLocalizedString("SRS_Consent_Legal_Text_2_highlighted", tableName: "Localizable.legal", comment: "")
 		static let legalBulletPoint03 = NSLocalizedString("SRS_Consent_Legal_Text_3", tableName: "Localizable.legal", comment: "")
+		
+		static let primaryButtonTitle = NSLocalizedString("SRS_ConsentScreen_primaryButtonTitle", comment: "")
+		static let secondaryButtonTitle = NSLocalizedString("SRS_ConsentScreen_secondaryButtonTitle", comment: "")
 
 		static let acknowledgement1 = NSLocalizedString("SRS_ConsentScreen_Acknowledgement_1", comment: "")
 		static let acknowledgement2 = NSLocalizedString("SRS_ConsentScreen_Acknowledgement_2", comment: "")
