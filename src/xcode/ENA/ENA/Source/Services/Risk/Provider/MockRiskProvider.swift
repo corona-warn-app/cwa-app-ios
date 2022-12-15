@@ -5,7 +5,7 @@
 import Foundation
 import ExposureNotification
 
-#if #DEBUG
+#if DEBUG
 
 class MockRiskProvider: RiskProviding {
 	
