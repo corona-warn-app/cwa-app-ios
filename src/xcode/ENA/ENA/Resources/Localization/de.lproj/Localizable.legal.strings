@@ -158,7 +158,7 @@
 
 "SRS_Consent_Legal_Headline" = "Ihr Einverständnis";
 
-"SRS_Consent_Legal_Description" = "Durch Antippen von Einverstanden willigen Sie in die folgenden Schritte ein:";
+"SRS_Consent_Legal_Description" = "Durch Antippen von „Einverstanden“ willigen Sie in die folgenden Schritte ein:";
 
 "SRS_Consent_Legal_Text_1" = "Die App teilt Ihr positives Testergebnis, um andere Nutzer der Corona-Warn-App zu warnen, denen Sie begegnet sind oder die zeitgleich am selben Event oder Ort wie Sie eingecheckt waren.";
 
