@@ -288,6 +288,7 @@ extension ExposureSubmissionTestResultFamilyMemberViewModel {
 					style: .body,
 					title: AppStrings.ExposureSubmissionPositiveTestResult.keysSubmittedPCRInfo3,
 					icon: UIImage(named: "Icons - Red Plus"),
+					iconTint: .enaColor(for: .riskHigh),
 					hairline: .none,
 					bottomSpacing: .medium
 				)
