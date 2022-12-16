@@ -52,8 +52,16 @@ class DynamicTypeTableViewCell: UITableViewCell, DynamicTableViewTextCell {
 
 	func configureAccessibility(label: String? = nil, identifier: String? = nil, traits: UIAccessibilityTraits = .staticText) {
 		contentTextLabel.accessibilityLabel = label
+		contentTextLabel.isAccessibilityElement = true
 		accessibilityIdentifier = identifier
 		accessibilityTraits = traits
+	}
+	
+	func configureTapGesture() {
+		let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(labelTapped))
+		contentTextLabel.addGestureRecognizer(tapGestureRecognizer)
+		contentTextLabel.isUserInteractionEnabled = true
+		contentTextLabel.isAccessibilityElement = true
 	}
 
 	// MARK: - Internal
@@ -87,5 +95,11 @@ class DynamicTypeTableViewCell: UITableViewCell, DynamicTableViewTextCell {
 	private func resetMargins() {
 		contentView.layoutMargins = UIEdgeInsets(top: 8, left: 16, bottom: 8, right: 16)
 		contentView.insetsLayoutMarginsFromSafeArea = false
+	}
+	
+	@objc
+	private func labelTapped() {
+		contentTextLabel.adjustsFontSizeToFitWidth = true
+		contentTextLabel.numberOfLines = 0
 	}
 }

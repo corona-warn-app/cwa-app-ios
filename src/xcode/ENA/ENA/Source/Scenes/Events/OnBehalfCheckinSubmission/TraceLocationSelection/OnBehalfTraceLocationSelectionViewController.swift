@@ -155,7 +155,10 @@ class OnBehalfTraceLocationSelectionViewController: UITableViewController, Dismi
 			style: style.textStyle
 		)
 
+		cell.contentTextLabel.lineBreakMode = .byTruncatingTail
+		cell.contentTextLabel.numberOfLines = 4
 		cell.configureAccessibility()
+		cell.configureTapGesture()
 
 		return cell
 	}
