@@ -1678,10 +1678,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 			
 			alert.addAction(UIAlertAction(
 				title: AppStrings.SRSConfirmWarnOthersAlert.actionCancel,
-				style: .cancel,
-				handler: { [weak self] _ in
-					self?.dismiss()
-				}
+				style: .cancel
 			))
 			
 			alert.preferredAction = confirmAction
