@@ -25,9 +25,9 @@ extension SRSError: ErrorCodeProviding {
 	var description: String {
 		switch self {
 		case .ppacError(let ppacError):
-			return "ppacError: \(ppacError.description)"
+			return ppacError.description
 		case .otpError(let otpError):
-			return "otpError: \(otpError.description)"
+			return otpError.description
 		case .srsOTPClientError:
 			return "SRS_OTP_CLIENT_ERROR"
 		case .srsOTPNetworkError:
