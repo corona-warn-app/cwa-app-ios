@@ -24,6 +24,7 @@ class SRSDataProcessingInfoViewController: DynamicTableViewController {
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
+		
 		setupView()
 	}
 
@@ -33,7 +34,8 @@ class SRSDataProcessingInfoViewController: DynamicTableViewController {
 	
 	private func setupView() {
 		navigationController?.navigationBar.prefersLargeTitles = false
-		
+		navigationController?.presentationController?.delegate = self
+
 		if traitCollection.userInterfaceStyle == .dark {
 			navigationController?.navigationBar.tintColor = .enaColor(for: .textContrast)
 		} else {
@@ -50,4 +52,12 @@ class SRSDataProcessingInfoViewController: DynamicTableViewController {
 		dynamicTableViewModel = viewModel.dynamicTableViewModel
 		tableView.separatorStyle = .none
 	}
+}
+
+extension SRSDataProcessingInfoViewController: UIAdaptivePresentationControllerDelegate {
+	
+	func presentationControllerShouldDismiss(_ presentationController: UIPresentationController) -> Bool {
+		return false
+	}
+	
 }
