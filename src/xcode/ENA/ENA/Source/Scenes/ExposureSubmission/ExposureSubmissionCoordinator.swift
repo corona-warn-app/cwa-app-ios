@@ -883,7 +883,10 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 						}
 					})
 				} else {
-					self?.showTestResultAvailableCloseAlert()
+					switch isSRSFlow {
+					case true: self?.showSRSFlowAlert(for: .consent(.cancelWarnOthers(on: checkinsVC)), isLoading: { _ in })
+					case false: self?.showTestResultAvailableCloseAlert()
+					}
 				}
 			}
 		)
