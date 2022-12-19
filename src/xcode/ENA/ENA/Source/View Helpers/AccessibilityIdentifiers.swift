@@ -190,6 +190,8 @@ enum AccessibilityIdentifiers {
 			static let cellDateHeader = "ContactDiary_Overview_cellDateHeader-%d"
 			static let person = "ContactDiary_Overview_personEntry-%d"
 			static let location = "ContactDiary_Overview_locationEntry-%d"
+			static let submissionTitle = "AppStrings.ContactDiary.Overview.submissionTitle"
+			static let submissionImage = "AppStrings.ContactDiary.Overview.submissionImage"
 		}
 		
 		enum NotesInformation {

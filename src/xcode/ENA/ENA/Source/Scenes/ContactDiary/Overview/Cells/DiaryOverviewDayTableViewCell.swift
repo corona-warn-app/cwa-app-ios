@@ -217,6 +217,7 @@ class DiaryOverviewDayTableViewCell: UITableViewCell {
 			containerView.translatesAutoresizingMaskIntoConstraints = false
 
 			let imageView = UIImageView()
+			imageView.accessibilityIdentifier = AccessibilityIdentifiers.ContactDiaryInformation.Overview.submissionImage
 			imageView.image = UIImage(imageLiteralResourceName: "Warn_light")
 			NSLayoutConstraint.activate([
 				imageView.widthAnchor.constraint(equalToConstant: 32),
@@ -224,6 +225,7 @@ class DiaryOverviewDayTableViewCell: UITableViewCell {
 			])
 			let entryLabel = ENALabel()
 			entryLabel.text = AppStrings.ContactDiary.Overview.submission
+			entryLabel.accessibilityIdentifier = AccessibilityIdentifiers.ContactDiaryInformation.Overview.submissionTitle
 			entryLabel.adjustsFontForContentSizeCategory = true
 			entryLabel.style = .body
 									
