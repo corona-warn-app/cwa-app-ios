@@ -84,8 +84,7 @@ struct SRSKeySubmissionResource: Resource {
 			case 429:
 				return .tooManyKeyRequestsPerDay
 			// if the status code is a different client error (400 to 499), it shall fail with error code SRS_SUB_CLIENT_ERROR
-			case _ where statusCode >= 400 && statusCode <= 499
-				&& (statusCode != 400 || statusCode != 403 || statusCode != 429):
+			case 400...499:
 				return .clientError(statusCode)
 			// if the status code is a server error (500 to 599), it shall fail with error code SRS_SUB_SERVER_ERROR
 			case 500...599:
