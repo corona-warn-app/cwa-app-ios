@@ -587,7 +587,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_insufficientAppUsageTime_message" = "Leider können Sie momentan andere noch nicht warnen, da Sie die App noch nicht lange genug installiert haben. Dies dient der Vermeidung von Missbrauch.\nEinen offiziellen Test können Sie jederzeit registrieren und andere damit warnen. (Fehlercode %@)";
 
-"ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_positiveTestResultWasAlreadySubmittedWithin90Days_message" = "Sie können momentan andere nicht warnen, da Sie innerhalb der vergangenen 90 Tage bereits ein positives Testergebnis gemeldet haben. Dies dient der Vermeidung von Missbrauch.\nEinen offiziellen Test können Sie jederzeit registrieren und andere damit warnen. (Fehlercode %@)";
+"ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_positiveTestResultWasAlreadySubmittedWithinThresholdDays_message" = "Sie können momentan andere nicht warnen, da Sie innerhalb der vergangenen %@ Tage bereits ein positives Testergebnis gemeldet haben. Dies dient der Vermeidung von Missbrauch.\nEinen offiziellen Test können Sie jederzeit registrieren und andere damit warnen. (Fehlercode %@)";
 
 "ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_deviceCheckError_message" = "Die Uhrzeit Ihres Smartphones stimmt nicht mit der aktuellen Zeit überein. Bitte korrigieren Sie die Uhrzeit in den Einstellungen Ihres Smartphones. Nach der Korrektur kann es einige Minuten dauern, bis die App die Uhrzeit erneut überprüft. Danach können Sie erneut versuchen zu warnen.";
 
@@ -794,13 +794,9 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "SRS_ConsentScreen_Acknowledgement_6" = "Erteilen Sie im nächsten Schritt Ihre Erlaubnis zum Zugriff auf die Zufalls-IDs.";
 
-"SRS_ConsentScreen_DataProcessingDetailInfo" = "Ausführliche Informationen zur Echtheitsprüfung und den Datenschutzrisiken in den USA und anderen Drittländern";
+"SRS_ConsentScreen_primaryButtonTitle" = "Einverstanden";
 
-/* SRSDataProcessingInfo */
-
-"SRS_DataProcessingInfo_title" = "Prüfung der Echtheit und Drittlandsübermittlung";
-
-"SRS_DataProcessingInfodescription" = "Um die Echtheit Ihrer App zu bestätigen, erzeugt Ihr Smartphone eine eindeutige Kennung, die Informationen über die Version Ihres Smartphones und der App enthält. Das ist erforderlich, um sicherzustellen, dass nur Nutzer eine Warnung nach einem positiven Selbsttest oder mit einem Testergebnis, das nicht in der App vorliegt, auslösen, die tatsächlich die Corona-Warn-App nutzen und nicht manipulierte Warnungen bereitstellen. Das Verfahren dient außerdem dazu, sicherzustellen, dass Warnungen nach einem positiven Selbsttest oder mit einem Testergebnis, das nicht in der App vorliegt, nur alle drei Monate möglich sind.\n\nDie bei der Echtheitsprüfung erzeugte eindeutige Kennung wird beim Auslösen der Warnung einmalig an Apple übermittelt. Dabei kann es auch zu einer Datenübermittlung in die USA oder andere Drittländer kommen. Dort besteht möglicherweise kein dem europäischen Recht entsprechendes Datenschutzniveau und Ihre europäischen Datenschutzrechte können eventuell nicht durchgesetzt werden. Insbesondere besteht die Möglichkeit, dass Sicherheitsbehörden im Drittland, auch ohne einen konkreten Verdacht, auf die übermittelten Daten bei Apple zugreifen und diese auswerten, beispielsweise indem sie Daten mit anderen Informationen verknüpfen. Dies betrifft nur die an Apple übermittelte Kennung. Möglicherweise kann Apple jedoch anhand der Kennung auf Ihre Identität schließen und nachvollziehen, dass die Echtheitsprüfung Ihres Smartphones im Rahmen einer Warnung anderer stattgefunden hat.\n\nWenn Sie mit der Drittlandsübermittlung nicht einverstanden sind, tippen Sie bitte nicht „Einverstanden“ an. Sie können die App weiterhin nutzen, eine Warnung anderer nach einem positiven Selbsttest oder mit einem Testergebnis, das nicht in der App vorliegt, ist dann jedoch nicht möglich.";
+"SRS_ConsentScreen_secondaryButtonTitle" = "Abbrechen";
 
 /* Exposure Submission Result */
 "ExposureSubmissionResult_Title" = "Ihr Testergebnis";
@@ -1048,6 +1044,12 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 "ExposureSubmission_SRSFlow_alert_confirmWarnOthers_ActionConfirm" = "Andere Warnen";
 
 "ExposureSubmission_SRSFlow_alert_confirmWarnOthers_ActionCancel" = "Abbrechen";
+
+"ExposureSubmission_SRSFlow_alert_increasedVolumeOfWarnings_Title" = "Hinweis";
+
+"ExposureSubmission_SRSFlow_alert_increasedVolumeOfWarnings_Message" = "Aufgrund des aktuell erhöhten Aufkommens von Warnungen über die App wurden nur Kontakte der letzen %@ Tage gewarnt.";
+
+"ExposureSubmission_SRSFlow_alert_increasedVolumeOfWarnings_ActionOkay" = "OK";
 
 /* Exposure Submission Result */
 
@@ -1555,7 +1557,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Home_Alert_RiskStatusLowered_Title" = "Änderung Ihres Risikostatus";
 
-"Home_Alert_RiskStatusLowered_Message" = "Die Risiko-Begegnung, die zu einem erhöhten Risiko für Sie geführt hat, liegt mehr als %i Tage zurück. Daher wird das Infektionsrisiko wieder als niedrig für Sie eingestuft.\n\nSo verhalten Sie sich richtig:\n Wenn Sie keine Symptome von COVID-19 aufweisen, halten Sie sich an die allgemein geltenden Verhaltensregeln zu Abstand und Hygiene.\n Wenn Sie Symptome von COVID-19 aufweisen, empfehlen wir, dass Sie Ihren Arzt aufsuchen und sich testen lassen.";
+"Home_Alert_RiskStatusLowered_Message" = "Die Risiko-Begegnung, die zu einem erhöhten Risiko für Sie geführt hat, liegt mehr als %i Tage zurück. Daher wird das Infektionsrisiko wieder als niedrig für Sie eingestuft.\n\nSo verhalten Sie sich richtig:\n 1. Wenn Sie keine Symptome von COVID-19 aufweisen, halten Sie sich an die allgemein geltenden Verhaltensregeln zu Abstand und Hygiene.\n 2. Wenn Sie Symptome von COVID-19 aufweisen, empfehlen wir, dass Sie Ihren Arzt aufsuchen und sich testen lassen.";
 
 "Home_Alert_RiskStatusLowered_PrimaryButtonTitle" = "OK";
 
@@ -1675,6 +1677,14 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 "ErrorReport_StartButtonTitle" = "Starten";
 
 "ErrorReport_StopAndDeleteButtonTitle" = "Stoppen und löschen";
+
+"ErrorReport_StopAndDeleteButton_Alert_Title" = "Wollen Sie die Fehleranalyse wirklich stoppen?";
+
+"ErrorReport_StopAndDeleteButton_Alert_Message" = "Hierbei werden alle bereits aufgezeichneten Daten gelöscht. Wenn Sie eine lokale Kopie des Fehlerberichts gespeichert haben, wird diese nicht gelöscht.";
+
+"ErrorReport_StopAndDeleteButton_Alert_StopAnalyse" = "Analyse stoppen";
+
+"ErrorReport_StopAndDeleteButton_Alert_ContinueAnalyse" = "Analyse fortführen";
 
 "ErrorReport_SaveButtonTitle" = "Teilen und fortsetzen";
 
@@ -1956,7 +1966,6 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 "TestResultPositive_KeysSubmitted_PrimaryButton" = "Test löschen";
 
 /* Contact Diary*/
-
 /* Error */
 
 "ContactDiary_Overview_Error_Title" = "Fehler";
@@ -2024,6 +2033,10 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 "ContactDiaray_Overview_Checkin_High_Risk_In_Brackets" = "(erhöhtes Risiko)";
 
 "ContactDiaray_Overview_Checkin_Low_Risk_In_Brackets" = "(niedriges Risiko)";
+
+/* Submission */
+
+"ContactDiary_Overview_Submission" = "Andere gewarnt";
 
 /* Day */
 "ContactDiary_Day_ContactPersonsSegment" = "Personen";
@@ -2196,12 +2209,11 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Statistics_Card_PandemicRadar_title" = "Pandemieradar";
 
-"Statistics_Card_PandemicRadar_subtitle" = "des Robert Koch-Instituts";
+"Statistics_Card_PandemicRadar_subtitle" = "des Bundesministeriums für Gesundheit";
 
 "Statistics_Card_PandemicRadar_description" = "Entdecken Sie weitere Statistiken zur Pandemie.";
 
 "Statistics_Card_PandemicRadar_buttonTitle" = "Externen Link öffnen";
-
 
 /* - 7 Days Incedence */
 
@@ -2359,7 +2371,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Statistics_Info_PandemicRadar_Title" = "Pandemieradar";
 
-"Statistics_Info_PandemicRadar_Text" = "Diverse Statistiken zur Corona-Pandemie, die auf einer Webseite des Robert Koch-Instituts bereitgestellt werden. Bitte beachten Sie, dass die anfallenden Daten auf Ihr Datenvolumen angerechnet werden, die Webseite nicht barrierefrei und nur in deutscher Sprache verfügbar ist.";
+"Statistics_Info_PandemicRadar_Text" = "Das Bundesministerium für Gesundheit stellt verschiedene Statistiken zur Corona-Pandemie bereit. Bitte beachten Sie, dass die anfallenden Daten auf Ihr Datenvolumen angerechnet werden und die Website nicht barrierefrei ist. Die Seite ist verfügbar in deutscher, englischer, türkischer und russischer Sprache.";
 
 "Statistics_Info_Incidence_Title" = "7-Tage-Inzidenz";
 

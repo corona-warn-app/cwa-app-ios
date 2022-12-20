@@ -437,8 +437,10 @@ class RootCoordinator: NSObject, RequiresAppDependencies, UITabBarControllerDele
 				appConfigurationProvider: CachedAppConfigurationMock(with: CachedAppConfigurationMock.screenshotConfiguration, store: store),
 				restServiceProvider: restServiceProvider,
 				store: store,
+				diaryStore: contactDiaryStore,
 				eventStore: eventStore,
-				coronaTestService: coronaTestService
+				coronaTestService: coronaTestService,
+				ppacService: ppacService
 			)
 		}
 		#endif
@@ -448,8 +450,10 @@ class RootCoordinator: NSObject, RequiresAppDependencies, UITabBarControllerDele
 			appConfigurationProvider: appConfigurationProvider,
 			restServiceProvider: restServiceProvider,
 			store: store,
+			diaryStore: contactDiaryStore,
 			eventStore: eventStore,
-			coronaTestService: coronaTestService
+			coronaTestService: coronaTestService,
+			ppacService: ppacService
 		)
 	}()
 	

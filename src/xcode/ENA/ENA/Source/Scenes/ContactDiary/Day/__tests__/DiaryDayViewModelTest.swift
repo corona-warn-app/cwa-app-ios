@@ -203,7 +203,7 @@ class DiaryDayViewModelTest: CWATestCase {
 				.contactPerson(DiaryContactPerson(id: 8, name: "Puneet Mahali")),
 				.location(DiaryLocation(id: 1, name: "Bakery", traceLocationId: nil)),
 				.location(DiaryLocation(id: 0, name: "Supermarket", traceLocationId: nil))
-			], tests: []
+			], tests: [], submissions: []
 		)
 	}
 

@@ -25,7 +25,7 @@ protocol ExposureSubmissionService: AnyObject {
 	func submitSRSExposure(
 		submissionType: SRSSubmissionType,
 		srsOTP: String,
-		completion: @escaping (_ error: ExposureSubmissionServiceError?) -> Void
+		completion: @escaping (Result<Int?, ExposureSubmissionServiceError>) -> Void
 	)
 }
 
@@ -34,6 +34,8 @@ struct ExposureSubmissionServiceDependencies {
 	let appConfigurationProvider: AppConfigurationProviding
 	let restServiceProvider: RestServiceProviding
 	let store: Store
+	let diaryStore: DiaryStoring
 	let eventStore: EventStoringProviding
 	let coronaTestService: CoronaTestServiceProviding
+	let ppacService: PrivacyPreservingAccessControl
 }

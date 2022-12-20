@@ -187,45 +187,59 @@ class ExposureSubmissionCoordinatorModel {
 
 	func submitSRSExposure(
 		isLoading: @escaping (Bool) -> Void,
-		onSuccess: @escaping () -> Void,
+		onSuccess: @escaping (Int?) -> Void,
 		onError: @escaping (ExposureSubmissionServiceError) -> Void
 	) {
 		guard case let .srs(srsSubmissionType) = submissionTestType else {
 			return
 		}
 		isLoading(true)
-		srsService.authenticate(completion: { [weak self] (result: Result<String, SRSError>) in
+		
+		// AUTHENTICATE
+		srsService.authenticate { [weak self] (authenticateResult: Result<String, SRSError>) in
+
 			guard let self = self else { return }
 			isLoading(false)
-			switch result {
+			
+			switch authenticateResult {
+
 			case .success(let srsOTP):
+				
+				isLoading(true)
+				
+				// SUBMIT SRS EXPOSURE
 				self.exposureSubmissionService.submitSRSExposure(
 					submissionType: srsSubmissionType,
 					srsOTP: srsOTP
-				) { error in
+				) { (submitSRSExposureResult: Result<Int?, ExposureSubmissionServiceError>) in
 					
-					switch error {
+					isLoading(false)
+					
+					switch submitSRSExposureResult {
+
+					case .success(let cwaKeyTruncated):
+						onSuccess(cwaKeyTruncated)
+
+					case .failure(let exposureSubmissionServiceError):
 						
+						switch exposureSubmissionServiceError {
+							
 						// We continue the regular flow even if there are no keys collected.
-					case .none, .preconditionError(.noKeysCollected):
-						onSuccess()
-						
-						// We don't show an error if the submission consent was not given, because we assume that the submission already happened in the background.
-					case .preconditionError(.noSubmissionConsent):
-						Log.info("Consent Not Given", log: .ui)
-						onSuccess()
-						
-					case .some(let error):
-						Log.error("error: \(error.localizedDescription)", log: .api)
-						onError(error)
+						case .preconditionError(.noKeysCollected):
+							onSuccess(nil)
+
+						default:
+							Log.error("error: \(exposureSubmissionServiceError.localizedDescription)", log: .api)
+							onError(exposureSubmissionServiceError)
+						}
 					}
 				}
+				
 			case .failure(let srsError):
-				onError(.srsError(srsError))
+				self.handleSRSError(srsError, onError: onError)
 				Log.debug(srsError.description, log: .ppac)
 			}
-			
-		})
+		}
 	}
 
 	// swiftlint:disable cyclomatic_complexity
@@ -474,4 +488,40 @@ class ExposureSubmissionCoordinatorModel {
 	// MARK: - Private
 	
 	private let store: Store
+	
+	private func handleSRSError(_ srsError: SRSError, onError: @escaping (ExposureSubmissionServiceError) -> Void) {
+		switch srsError {
+		case .otpError(let otpError):
+			switch otpError {
+			case .restServiceError(let serverError):
+				switch serverError {
+				case .receivedResourceError(let otpAuthorizationError):
+					switch otpAuthorizationError {
+					case .apiTokenAlreadyIssued:
+						onError(.srsError(.otpError(.apiTokenAlreadyIssued)))
+					case .apiTokenExpired:
+						onError(.srsError(.otpError(.apiTokenExpired)))
+					case .apiTokenQuotaExceeded:
+						onError(.srsError(.otpError(.apiTokenQuotaExceeded)))
+					case .deviceBlocked:
+						onError(.srsError(.otpError(.deviceBlocked)))
+					case .deviceTokenInvalid:
+						onError(.srsError(.otpError(.deviceTokenInvalid)))
+					case .deviceTokenRedeemed:
+						onError(.srsError(.otpError(.deviceTokenRedeemed)))
+					case .deviceTokenSyntaxError:
+						onError(.srsError(.otpError(.deviceTokenSyntaxError)))
+					default:
+						onError(.srsError(.otpError(otpError)))
+					}
+				default:
+					onError(.srsError(.otpError(otpError)))
+				}
+			default:
+				onError(.srsError(.otpError(otpError)))
+			}
+		default:
+			onError(.srsError(srsError))
+		}
+	}
 }

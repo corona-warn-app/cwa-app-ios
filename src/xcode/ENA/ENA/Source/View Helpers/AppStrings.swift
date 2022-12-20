@@ -347,7 +347,7 @@ enum AppStrings {
 		enum SRSWarnOthersPreconditionAlert {
 			static let title = NSLocalizedString("ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_title", comment: "")
 			static let insufficientAppUsageTimeMessage = NSLocalizedString("ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_insufficientAppUsageTime_message", comment: "")
-			static let positiveTestResultWasAlreadySubmittedWithin90DaysMessage = NSLocalizedString("ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_positiveTestResultWasAlreadySubmittedWithin90Days_message", comment: "")
+			static let positiveTestResultWasAlreadySubmittedWithinThresholdDaysMessage = NSLocalizedString("ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_positiveTestResultWasAlreadySubmittedWithinThresholdDays_message", comment: "")
 			static let deviceCheckError = NSLocalizedString("ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_deviceCheckError_message", comment: "")
 			static let faqButtonTitle = NSLocalizedString("ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_faqButtonTitle", comment: "")
 			static let okButtonTitle = NSLocalizedString("ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_okButtonTitle", comment: "")
@@ -375,6 +375,12 @@ enum AppStrings {
 		static let actionConfirm = NSLocalizedString("ExposureSubmission_SRSFlow_alert_confirmWarnOthers_ActionConfirm", comment: "")
 		static let actionCancel = NSLocalizedString("ExposureSubmission_SRSFlow_alert_confirmWarnOthers_ActionCancel", comment: "")
 	}
+	
+	enum SRSIncreasedWarningsVolumeAlert {
+		static let title = NSLocalizedString("ExposureSubmission_SRSFlow_alert_increasedVolumeOfWarnings_Title", comment: "")
+		static let message = NSLocalizedString("ExposureSubmission_SRSFlow_alert_increasedVolumeOfWarnings_Message", comment: "")
+		static let actionOkay = NSLocalizedString("ExposureSubmission_SRSFlow_alert_increasedVolumeOfWarnings_ActionOkay", comment: "")
+	}
 
 	enum SRSConsentScreen {
 		static let title = NSLocalizedString("SRS_ConsentScreen_title", comment: "")
@@ -390,6 +396,9 @@ enum AppStrings {
 		static let legalBulletPoint02prefix = NSLocalizedString("SRS_Consent_Legal_Text_2_prefix", tableName: "Localizable.legal", comment: "")
 		static let legalBulletPoint02highlighted = NSLocalizedString("SRS_Consent_Legal_Text_2_highlighted", tableName: "Localizable.legal", comment: "")
 		static let legalBulletPoint03 = NSLocalizedString("SRS_Consent_Legal_Text_3", tableName: "Localizable.legal", comment: "")
+		
+		static let primaryButtonTitle = NSLocalizedString("SRS_ConsentScreen_primaryButtonTitle", comment: "")
+		static let secondaryButtonTitle = NSLocalizedString("SRS_ConsentScreen_secondaryButtonTitle", comment: "")
 
 		static let acknowledgement1 = NSLocalizedString("SRS_ConsentScreen_Acknowledgement_1", comment: "")
 		static let acknowledgement2 = NSLocalizedString("SRS_ConsentScreen_Acknowledgement_2", comment: "")
@@ -397,12 +406,12 @@ enum AppStrings {
 		static let acknowledgement4 = NSLocalizedString("SRS_ConsentScreen_Acknowledgement_4", comment: "")
 		static let acknowledgement5 = NSLocalizedString("SRS_ConsentScreen_Acknowledgement_5", comment: "")
 		static let acknowledgement6 = NSLocalizedString("SRS_ConsentScreen_Acknowledgement_6", comment: "")
-		static let dataProcessingDetailInfo = NSLocalizedString("SRS_ConsentScreen_DataProcessingDetailInfo", comment: "")
+		static let dataProcessingDetailInfo = NSLocalizedString("SRS_ConsentScreen_DataProcessingDetailInfo", tableName: "Localizable.legal", comment: "")
 	}
 	
 	enum SRSDataProcessingInfo {
-		static let title = NSLocalizedString("SRS_DataProcessingInfo_title", comment: "")
-		static let description = NSLocalizedString("SRS_DataProcessingInfodescription", comment: "")
+		static let title = NSLocalizedString("SRS_DataProcessingInfo_title", tableName: "Localizable.legal", comment: "")
+		static let description = NSLocalizedString("SRS_DataProcessingInfodescription", tableName: "Localizable.legal", comment: "")
 	}
 	
 	enum ExposureSubmissionQRInfo {
@@ -1344,6 +1353,7 @@ enum AppStrings {
 			static let riskTextStandardCause = NSLocalizedString("ContactDiary_Overview_Risk_Text_StandardCause", comment: "")
 			static let riskTextLowRiskEncountersCause = NSLocalizedString("ContactDiary_Overview_Risk_Text_LowRiskEncountersCause", comment: "")
 			static let riskTextDisclaimer = NSLocalizedString("ContactDiary_Overview_Risk_Text_Disclaimer", comment: "")
+			static let submission = NSLocalizedString("ContactDiary_Overview_Submission", comment: "")
 
 			enum Tests {
 				static let pcrRegistered = NSLocalizedString("ContactDiary_Overview_Tests_PCR_Registered", comment: "")
@@ -1802,6 +1812,10 @@ enum AppStrings {
 		static let statusProgress = NSLocalizedString("ErrorReport_Progress_Description", comment: "")
 		static let startButtonTitle = NSLocalizedString("ErrorReport_StartButtonTitle", comment: "")
 		static let stopAndDeleteButtonTitle = NSLocalizedString("ErrorReport_StopAndDeleteButtonTitle", comment: "")
+		static let stopAndDeleteButtonAlertTitle = NSLocalizedString("ErrorReport_StopAndDeleteButton_Alert_Title", comment: "")
+		static let stopAndDeleteButtonAlertMessage = NSLocalizedString("ErrorReport_StopAndDeleteButton_Alert_Message", comment: "")
+		static let stopAndDeleteButtonStopAnalyse = NSLocalizedString("ErrorReport_StopAndDeleteButton_Alert_StopAnalyse", comment: "")
+		static let stopAndDeleteButtonContinueAnalyse = NSLocalizedString("ErrorReport_StopAndDeleteButton_Alert_ContinueAnalyse", comment: "")
 		static let saveButtonTitle = NSLocalizedString("ErrorReport_SaveButtonTitle", comment: "")
 		static let sendButtontitle = NSLocalizedString("ErrorReport_SendButtonTitle", comment: "")
 

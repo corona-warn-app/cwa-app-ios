@@ -14,6 +14,9 @@ class CoronaTestRestorationHandlerTests: CWATestCase {
 		let appConfiguration = CachedAppConfigurationMock()
 		let recycleBin = RecycleBin(store: store)
 
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "SomeToken")
+		let ppacService = PPACService(store: store, deviceCheck: deviceCheck)
+		
 		let healthCertificateService = HealthCertificateService(
 			store: store,
 			dccSignatureVerifier: DCCSignatureVerifyingStub(),
@@ -36,6 +39,7 @@ class CoronaTestRestorationHandlerTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
+			ppacService: ppacService,
 			recycleBin: recycleBin,
 			badgeWrapper: .fake()
 		)
@@ -86,6 +90,9 @@ class CoronaTestRestorationHandlerTests: CWATestCase {
 		let appConfiguration = CachedAppConfigurationMock()
 		let recycleBin = RecycleBin(store: store)
 
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "SomeToken")
+		let ppacService = PPACService(store: store, deviceCheck: deviceCheck)
+		
 		let healthCertificateService = HealthCertificateService(
 			store: store,
 			dccSignatureVerifier: DCCSignatureVerifyingStub(),
@@ -108,6 +115,7 @@ class CoronaTestRestorationHandlerTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
+			ppacService: ppacService,
 			recycleBin: recycleBin,
 			badgeWrapper: .fake()
 		)
@@ -137,6 +145,9 @@ class CoronaTestRestorationHandlerTests: CWATestCase {
 		let appConfiguration = CachedAppConfigurationMock()
 		let recycleBin = RecycleBin(store: store)
 
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "SomeToken")
+		let ppacService = PPACService(store: store, deviceCheck: deviceCheck)
+		
 		let healthCertificateService = HealthCertificateService(
 			store: store,
 			dccSignatureVerifier: DCCSignatureVerifyingStub(),
@@ -159,6 +170,7 @@ class CoronaTestRestorationHandlerTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
+			ppacService: ppacService,
 			recycleBin: recycleBin,
 			badgeWrapper: .fake()
 		)

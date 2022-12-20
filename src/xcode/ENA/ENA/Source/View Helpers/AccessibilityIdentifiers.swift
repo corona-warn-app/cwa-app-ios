@@ -351,6 +351,7 @@ enum AccessibilityIdentifiers {
 
 	enum SRSConsentScreen {
 		static let primaryButton = "AppStrings.SRSConsentScreen.primaryButton"
+		static let secondaryButton = "AppStrings.SRSConsentScreen.secondaryButton"
 		static let accImageDescription = "AppStrings.SRSConsentScreen.accImageDescription"
 		static let headerSection1 = "AppStrings.SRSConsentScreen.headerSection1"
 		static let acknowledgementTitle = "AppStrings.SRSConsentScreen.acknowledgementTitle"
@@ -444,6 +445,7 @@ enum AccessibilityIdentifiers {
 	}
 	
 	enum ExposureSubmissionSymptomsOnset {
+		static let subtitle = "AppStrings.ExposureSubmissionSymptomsOnset.subtitle"
 		static let description = "AppStrings.ExposureSubmissionSymptomsOnset.description"
 		static let answerOptionExactDate = "AppStrings.ExposureSubmissionSymptomsOnset.answerOptionExactDate"
 		static let answerOptionLastSevenDays = "AppStrings.ExposureSubmissionSymptomsOnset.answerOptionLastSevenDays"

@@ -10,6 +10,9 @@ struct OTPAuthorizationForSRSResource: Resource {
 	
 	init(
 		otpSRS: String,
+		requestPadding: Data? = nil,
+		forceApiTokenHeader: Bool = false,
+		isFake: Bool = false,
 		ppacToken: PPACToken,
 		trustEvaluation: TrustEvaluating = DefaultTrustEvaluation(
 			publicKeyHash: Environments().currentEnvironment().pinningKeyHashData
@@ -18,18 +21,25 @@ struct OTPAuthorizationForSRSResource: Resource {
 		let ppacIos = SAP_Internal_Ppdd_PPACIOS.with {
 			$0.apiToken = ppacToken.apiToken
 			$0.deviceToken = ppacToken.deviceToken
+			$0.previousApiToken = ppacToken.previousApiToken
 		}
 		let payload = SAP_Internal_Ppdd_SRSOneTimePassword.with {
 			$0.otp = otpSRS
 		}
+		
 		self.sendResource = ProtobufSendResource(
 			SAP_Internal_Ppdd_SRSOneTimePasswordRequestIOS.with {
-				$0.payload = payload
+				if isFake {
+					// we set the requestPadding only in case of fakeService
+					$0.requestPadding = requestPadding ?? Data()
+				} else {
+					$0.payload = payload
+				}
 				$0.authentication = ppacIos
 			}
 		)
 		
-		self.locator = .authorizeOtpSrs(isFake: false)
+		self.locator = .authorizeOtpSrs(forceApiTokenHeader: forceApiTokenHeader, isFake: isFake)
 		self.type = .default
 		self.receiveResource = JSONReceiveResource<OTPForSRSResponsePropertiesReceiveModel>()
 		self.trustEvaluation = trustEvaluation
@@ -57,7 +67,7 @@ struct OTPAuthorizationForSRSResource: Resource {
 			return .noNetworkConnection
 		case .unexpectedServerError(let statusCode):
 			switch statusCode {
-			case 400, 401, 403:
+			case 400, 401, 403, 429:
 				return otpAuthorizationFailureHandler(for: responseBody, statusCode: statusCode)
 			case 500:
 				Log.error("Failed to get authorized OTP - 500 status code", log: .api)
@@ -67,12 +77,13 @@ struct OTPAuthorizationForSRSResource: Resource {
 				return .otherServerError
 			}
 		default:
-			return .otherServerError
+			return .invalidResponseError
 		}
 	}
 	
 	// MARK: - Private
 	
+	// swiftlint:disable:next cyclomatic_complexity
 	private func otpAuthorizationFailureHandler(for response: Data?, statusCode: Int) -> OTPAuthorizationError? {
 		guard let responseBody = response else {
 			Log.error("Failed to get authorized OTP - no 200 status code: \(statusCode)", log: .api)
@@ -81,9 +92,8 @@ struct OTPAuthorizationForSRSResource: Resource {
 		
 		do {
 			let decoder = JSONDecoder()
-			decoder.dateDecodingStrategy = .iso8601
 			let decodedResponse = try decoder.decode(
-				OTPResponseProperties.self,
+				OTPForSRSResponsePropertiesReceiveModel.self,
 				from: responseBody
 			)
 			guard let errorCode = decodedResponse.errorCode else {
@@ -98,6 +108,8 @@ struct OTPAuthorizationForSRSResource: Resource {
 				return .apiTokenExpired
 			case .API_TOKEN_QUOTA_EXCEEDED:
 				return .apiTokenQuotaExceeded
+			case .DEVICE_BLOCKED:
+				return .deviceBlocked
 			case .DEVICE_TOKEN_INVALID:
 				return .deviceTokenInvalid
 			case .DEVICE_TOKEN_REDEEMED:
@@ -109,7 +121,7 @@ struct OTPAuthorizationForSRSResource: Resource {
 			}
 		} catch {
 			Log.error("Failed to get errorCode because json could not be decoded", log: .api, error: error)
-			return .otherServerError
+			return .invalidResponseError
 		}
 	}
 }

@@ -126,19 +126,15 @@ protocol LocalStatisticsCaching: AnyObject {
 }
 
 protocol SRSProviding: AnyObject {
-	/// PPAC token for Self-Report Submission (SRS)
-	var ppacApiTokenSrs: TimestampedToken? { get set }
-	/// Previous PPAC token for Self-Report Submission (SRS)
-	var previousPpacApiTokenSrs: TimestampedToken? { get set }
 	/// OTP for Self-Report Submission (SRS)
 	var otpTokenSrs: OTPToken? { get set }
 	/// Date of last otp authorization
 	var otpSrsAuthorizationDate: Date? { get set }
 	
-#if !RELEASE
-/// For Developer Menu - Indicates if the SRS should have pre-checks
+	#if !RELEASE
+	/// For Developer Menu - Indicates if the SRS should have pre-checks
 	var isSrsPrechecksEnabled: Bool { get set }
-#endif
+	#endif
 }
 
 protocol PrivacyPreservingProviding: AnyObject {
@@ -150,17 +146,13 @@ protocol PrivacyPreservingProviding: AnyObject {
 	var otpTokenEdus: OTPToken? { get set }
 	/// Date of last otp authorization
 	var otpEdusAuthorizationDate: Date? { get set }
-	/// PPAC Edus token
-	var ppacApiTokenEdus: TimestampedToken? { get set }
-	/// PPAC Edus Previous token
-	var previousPpacApiTokenEdus: TimestampedToken? { get set }
+	/// PPAC API token
+	var apiTokenPPAC: TimestampedToken? { get set }
+	/// Previous PPAC API token
+	var previousAPITokenPPAC: TimestampedToken? { get set }
 }
 
 protocol ErrorLogProviding: AnyObject {
-	/// PPAC token for error log support (Els)
-	var ppacApiTokenEls: TimestampedToken? { get set }
-	/// Previous PPAC token for error log support (Els)
-	var previousPpacApiTokenEls: TimestampedToken? { get set }
 	/// OTP for error log support (Els)
 	var otpTokenEls: OTPToken? { get set }
 	/// Date of last otp authorization

@@ -16,6 +16,7 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 		restServiceProvider: RestServiceProviding,
 		exposureManager: ExposureManager,
 		plausibleDeniabilityService: PlausibleDeniabilityService,
+		ppacService: PrivacyPreservingAccessControl,
 		contactDiaryStore: DiaryStoring,
 		eventStore: EventStoring,
 		eventCheckoutService: EventCheckoutService,
@@ -29,6 +30,7 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 		self.restServiceProvider = restServiceProvider
 		self.exposureManager = exposureManager
 		self.plausibleDeniabilityService = plausibleDeniabilityService
+		self.ppacService = ppacService
 		self.contactDiaryStore = contactDiaryStore
 		self.eventStore = eventStore
 		self.eventCheckoutService = eventCheckoutService
@@ -198,6 +200,7 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 	private let eventCheckoutService: EventCheckoutService
 	private let healthCertificateService: HealthCertificateService
 	private let familyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding
+	private let ppacService: PrivacyPreservingAccessControl
 	private let cclService: CCLServable
 	private var subscriptions = Set<AnyCancellable>()
 
@@ -211,8 +214,10 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 			appConfigurationProvider: dependencies.appConfigurationProvider,
 			restServiceProvider: restServiceProvider,
 			store: dependencies.store,
+			diaryStore: dependencies.diaryStore,
 			eventStore: dependencies.eventStore,
-			coronaTestService: dependencies.coronaTestService
+			coronaTestService: dependencies.coronaTestService,
+			ppacService: ppacService
 		)
 
 		let group = DispatchGroup()

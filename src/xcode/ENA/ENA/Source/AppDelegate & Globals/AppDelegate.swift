@@ -308,6 +308,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			appConfiguration: appConfigurationProvider,
 			healthCertificateService: healthCertificateService,
 			healthCertificateRequestService: healthCertificateRequestService,
+			ppacService: ppacService,
 			recycleBin: recycleBin,
 			badgeWrapper: badgeWrapper
 		)
@@ -321,6 +322,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			appConfiguration: appConfigurationProvider,
 			healthCertificateService: healthCertificateService,
 			healthCertificateRequestService: healthCertificateRequestService,
+			ppacService: ppacService,
 			recycleBin: recycleBin
 		)
 	}()
@@ -342,7 +344,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			client: self.client,
 			restServiceProvider: self.restServiceProvider,
 			store: self.store,
-			coronaTestService: coronaTestService
+			coronaTestService: coronaTestService,
+			ppacService: ppacService,
+			appConfiguration: appConfigurationProvider
 		)
 	}()
 
@@ -451,7 +455,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		store: store,
 		client: client,
 		restServiceProvider: restServiceProvider,
-		riskProvider: riskProvider
+		riskProvider: riskProvider,
+		ppacService: ppacService,
+		appConfiguration: appConfigurationProvider
 	)
 	
 	private lazy var ppacService: PrivacyPreservingAccessControl = PPACService(
@@ -564,8 +570,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			appConfigurationProvider: self.appConfigurationProvider,
 			restServiceProvider: self.restServiceProvider,
 			store: self.store,
+			diaryStore: contactDiaryStore,
 			eventStore: self.eventStore,
-			coronaTestService: coronaTestService)
+			coronaTestService: coronaTestService,
+			ppacService: ppacService
+		)
 	}
 
 	func requestUpdatedExposureState() {
@@ -583,6 +592,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			restServiceProvider: restServiceProvider,
 			exposureManager: exposureManager,
 			plausibleDeniabilityService: self.plausibleDeniabilityService,
+			ppacService: ppacService,
 			contactDiaryStore: self.contactDiaryStore,
 			eventStore: self.eventStore,
 			eventCheckoutService: self.eventCheckoutService,
@@ -683,14 +693,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			/// - App installation date
 			///
 			/// read values from the current store
-			let ppacEdusApiToken = store.ppacApiTokenEdus
+			let apiTokenPPAC = store.apiTokenPPAC
 			let installationDate = store.appInstallationDate
 
 			let newKey = try KeychainHelper().generateDatabaseKey(persistForKeychainKey: SecureStore.encryptionKeyKeychainKey)
 			store.wipeAll(key: newKey)
 
 			/// write excluded values back to the 'new' store
-			store.ppacApiTokenEdus = ppacEdusApiToken
+			store.apiTokenPPAC = apiTokenPPAC
 			store.appInstallationDate = installationDate
             Analytics.collect(.submissionMetadata(.lastAppReset(Date())))
 		} catch {

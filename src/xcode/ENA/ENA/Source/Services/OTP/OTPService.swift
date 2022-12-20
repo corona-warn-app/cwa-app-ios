@@ -48,7 +48,7 @@ protocol OTPServiceProviding {
 	func discardOTPSrs()
 }
 
-final class OTPService: OTPServiceProviding {
+class OTPService: OTPServiceProviding {
 
 	// MARK: - Init
 
@@ -56,11 +56,15 @@ final class OTPService: OTPServiceProviding {
 		store: Store,
 		client: Client,
 		restServiceProvider: RestServiceProviding,
-		riskProvider: RiskProviding
+		riskProvider: RiskProviding,
+		ppacService: PrivacyPreservingAccessControl,
+		appConfiguration: AppConfigurationProviding
 	) {
 		self.store = store
 		self.client = client
 		self.restServiceProvider = restServiceProvider
+		self.ppacService = ppacService
+		self.fakeRequestService = FakeRequestService(restServiceProvider: restServiceProvider, ppacService: ppacService, appConfiguration: appConfiguration)
 		
 		self.riskConsumer = RiskConsumer()
 		self.riskConsumer.didCalculateRisk = { [weak self] risk in
@@ -114,12 +118,14 @@ final class OTPService: OTPServiceProviding {
 		if let otpToken = store.otpTokenSrs,
 		   let expirationDate = otpToken.expirationDate,
 		   expirationDate > Date(),
-		   store.otpElsAuthorizationDate == nil {
-			Log.info("Existing OTP ELS was not consumed before and can be used for submission.", log: .otp)
+		   store.otpSrsAuthorizationDate == nil {
+			Log.info("Existing OTP SRS was not consumed before and can be used for submission.", log: .otp)
+			
+			fakeRequestService.fakeSRSOTPServerRequest()
 			completion(.success(otpToken.token))
 			return
 		}
-		Log.info("No existing or valid OTP ELS was found. Generating new one.", log: .otp)
+		Log.info("No existing or valid OTP SRS was found. Generating new one.", log: .otp)
 		let otp = generateOTPToken()
 		authorizeSRS(otp, with: ppacToken, completion: completion)
 	}
@@ -145,6 +151,8 @@ final class OTPService: OTPServiceProviding {
 	private let client: Client
 	private let restServiceProvider: RestServiceProviding
 	private let riskConsumer: RiskConsumer
+	private let ppacService: PrivacyPreservingAccessControl
+	private let fakeRequestService: FakeRequestService
 	
 	private var isAuthorizedInCurrentMonth: Bool {
 		guard let authorizationDate = store.otpEdusAuthorizationDate else {
@@ -230,8 +238,14 @@ final class OTPService: OTPServiceProviding {
 	
 	private func authorizeSRS(_ otp: String, with ppacToken: PPACToken, completion: @escaping (Result<String, OTPError>) -> Void) {
 		Log.info("Authorization of a new OTP SRS started.", log: .otp)
+	
 		// We authorize the otp with the ppac Token at our server.
+		#if !RELEASE
+		let resource = OTPAuthorizationForSRSResource(otpSRS: otp, forceApiTokenHeader: store.forceAPITokenAuthorization, ppacToken: ppacToken)
+		#else
 		let resource = OTPAuthorizationForSRSResource(otpSRS: otp, ppacToken: ppacToken)
+		#endif
+
 		restServiceProvider.load(resource) { [weak self] result in
 			guard let self = self else {
 				Log.error("could not create strong self", log: .otp)
@@ -266,5 +280,11 @@ final class OTPService: OTPServiceProviding {
 				completion(.failure(.restServiceError(error)))
 			}
 		}
+	}
+}
+
+class OTPServiceMock: OTPService {
+	override func getOTPSrs(ppacToken: PPACToken, completion: @escaping (Result<String, OTPError>) -> Void) {
+		completion(.success("otp-srs-mock"))
 	}
 }

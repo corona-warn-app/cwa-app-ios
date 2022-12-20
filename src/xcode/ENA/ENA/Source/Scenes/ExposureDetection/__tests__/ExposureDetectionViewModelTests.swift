@@ -19,10 +19,13 @@ class ExposureDetectionViewModelTests: CWATestCase {
 	override func setUp() {
 		super.setUp()
 		
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "SomeToken")
+		let ppacService = PPACService(store: MockTestStore(), deviceCheck: deviceCheck)
+		
 		self.store = MockTestStore()
 		self.client = ClientMock()
-		self.otpService = OTPService(store: store, client: client, restServiceProvider: RestServiceProviderStub(), riskProvider: MockRiskProvider())
-		self.ppacToken = PPACToken(apiToken: "apiTokenFake", deviceToken: "deviceTokenFake")
+		self.otpService = OTPService(store: store, client: client, restServiceProvider: RestServiceProviderStub(), riskProvider: MockRiskProvider(), ppacService: ppacService, appConfiguration: CachedAppConfigurationMock())
+		self.ppacToken = PPACToken(apiToken: "APITokenFake", previousApiToken: "PreviousAPITokenFake", deviceToken: "DeviceTokenFake")
 	}
 	
 	func testInitialLowRiskStateWithoutEncounters() {

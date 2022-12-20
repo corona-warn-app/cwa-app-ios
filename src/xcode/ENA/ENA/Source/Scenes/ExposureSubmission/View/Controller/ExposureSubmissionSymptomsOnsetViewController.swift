@@ -132,7 +132,7 @@ class ExposureSubmissionSymptomsOnsetViewController: DynamicTableViewController,
 					cells: [
 						.headline(
 							text: AppStrings.ExposureSubmissionSymptomsOnset.subtitle,
-							accessibilityIdentifier: nil
+							accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionSymptomsOnset.subtitle
 						),
 						.body(
 							text: AppStrings.ExposureSubmissionSymptomsOnset.description,

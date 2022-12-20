@@ -112,6 +112,7 @@ class ExposureSubmissionSuccessViewController: DynamicTableViewController, ENANa
 						title: AppStrings.ExposureSubmissionSuccess.listItemPCR1,
 						accessibilityIdentifier: AccessibilityIdentifiers.Home.ShownPositiveTestResultCell.PCR.secondBulletPoint,
 						icon: UIImage(named: "Icons - ContactJournal"),
+						iconTint: .enaColor(for: .riskHigh),
 						hairline: .none,
 						bottomSpacing: .medium
 					),
@@ -129,6 +130,7 @@ class ExposureSubmissionSuccessViewController: DynamicTableViewController, ENANa
 						title: AppStrings.ExposureSubmissionSuccess.listItemPCR3,
 						accessibilityIdentifier: AccessibilityIdentifiers.Home.ShownPositiveTestResultCell.PCR.fourthBulletPoint,
 						icon: UIImage(named: "Icons - Red Plus"),
+						iconTint: .enaColor(for: .riskHigh),
 						hairline: .none,
 						bottomSpacing: .medium
 					)

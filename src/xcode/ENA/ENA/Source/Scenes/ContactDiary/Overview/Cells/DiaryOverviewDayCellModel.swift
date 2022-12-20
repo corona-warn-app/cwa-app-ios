@@ -178,6 +178,10 @@ final class DiaryOverviewDayCellModel {
 	var diaryDayTests: [DiaryDayTest] {
 		return diaryDay.tests
 	}
+	
+	var diaryDaySubmissions: [DiaryDaySubmission] {
+		return diaryDay.submissions
+	}
 
 	func checkInDespription(checkinWithRisk: CheckinWithRisk) -> String {
 		let checkinName = checkinWithRisk.checkIn.traceLocationDescription

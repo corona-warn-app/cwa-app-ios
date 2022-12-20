@@ -573,7 +573,7 @@
 
 "ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_insufficientAppUsageTime_message" = "Ne pare rău, dar în acest moment nu-i puteți avertiza pe ceilalți, deoarece abia ați instalat aplicația. Această funcție este destinată prevenirii utilizării greșite a caracteristicii de avertizare.\nPuteți înregistra un test oficial și îl puteți utiliza pentru a-i avertiza pe ceilalți oricând (cod de eroare %@).";
 
-"ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_positiveTestResultWasAlreadySubmittedWithin90Days_message" = "În acest moment nu-i puteți avertiza pe ceilalți, deoarece ați raportat deja un rezultat de test pozitiv în ultimele 90 de zile. Această funcție este destinată prevenirii utilizării greșite a caracteristicii de avertizare.\nPuteți înregistra un test oficial și îl puteți utiliza pentru a-i avertiza pe ceilalți oricând (cod de eroare %@).";
+"ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_positiveTestResultWasAlreadySubmittedWithinThresholdDays_message" = "În acest moment nu-i puteți avertiza pe ceilalți, deoarece ați raportat deja un rezultat de test pozitiv în ultimele %@ (de) zile. Această funcție este destinată prevenirii utilizării greșite a caracteristicii de avertizare.\nPuteți înregistra un test oficial și îl puteți utiliza pentru a-i avertiza pe ceilalți oricând (cod de eroare %@).";
 
 "ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_deviceCheckError_message" = "Ora de pe smartphone-ul dvs. nu corespunde cu ora curentă. Vă rugăm să corectați ora în setările smartphone-ului dvs. După această corecție, poate dura câteva minute până când aplicația verifică din nou ora. După verificare, puteți încerca din nou să îi avertizați pe ceilalți.";
 
@@ -684,7 +684,7 @@
 "ExposureSubmission_RAT_QR_Invalid_Alert_Button" = "OK";
 
 /* Exposure Submission Success */
-"ExposureSubmissionSuccess_Title" = "Vă mulţumim";
+"ExposureSubmissionSuccess_Title" = "Vă mulțumim";
 
 "ExposureSubmissionSuccess_AccImageDescription" = "Toată lumea din grup aclamă deoarece o persoană și-a împărtășit rezultatul testului.";
 
@@ -760,7 +760,7 @@
 
 "SRS_ConsentScreen_title_description1" = "Consimțământul dvs. este obligatoriu înainte de a-i avertiza pe ceilalți.";
 
-"SRS_ConsentScreen_instruction1" = "Dacă ați fost testat pozitiv la coronavirus, puteți să îi avertizați pe ceilalți prin intermediul aplicației.\nPentru a trimite o avertizare după un test făcut acasă pozitiv sau cu un rezultat de test care nu este în aplicație, trebuie verificată autenticitatea aplicației.";
+"SRS_ConsentScreen_instruction1" = "Dacă ați fost testat pozitiv la coronavirus, puteți să îi avertizați pe ceilalți prin intermediul aplicației.\nPentru a trimite o avertizare după un test făcut acasă pozitiv sau cu un rezultat de test care nu este în aplicație, trebuie verificată automat autenticitatea aplicației.";
 
 "SRS_ConsentScreen_instruction2" = "Această funcție asigură, de asemenea, că avertizările repetate sunt posibile doar după ce au trecut %@ de zile.";
 
@@ -776,12 +776,9 @@
 
 "SRS_ConsentScreen_Acknowledgement_6" = "În etapa următoare, acordați consimțământul pentru a accesa ID-urile aleatorii.";
 
-"SRS_ConsentScreen_DataProcessingDetailInfo" = "Informații detaliate despre verificarea autenticității și riscurile privind prelucrarea datelor în SUA și în alte țări terțe";
+"SRS_ConsentScreen_primaryButtonTitle" = "Accept";
 
-/* SRSDataProcessingInfo */
-"SRS_DataProcessingInfo_title" = "Verificarea autenticității și a transferului de date către țări terțe";
-
-"SRS_DataProcessingInfodescription" = "Pentru a confirma autenticitatea aplicației dvs., smartphone-ul dvs. generează un identificator unic ce conține informații despre versiunea smartphone-ului și a aplicației. Acest lucru este necesar pentru a ne asigura că doar persoanele care utilizează efectiv aplicația Corona-Warn pot trimite o avertizare după un test făcut acasă pozitiv sau cu un rezultat de test care nu este disponibil în aplicație și, astfel, să excludem rapoartele de erori manipulate. Această procedură asigură, de asemenea, că o avertizare după un test făcut acasă pozitiv sau cu un rezultat de test care nu este disponibil în aplicație este posibilă doar la fiecare trei luni.\n\nIdentificatorul unic generat la verificarea autenticității este trimis la Apple. În acest proces, pot fi transferate date în SUA sau în alte țări terțe, unde nivelul de confidențialitate a datelor poate să nu corespundă cu legislația europeană și se poate să nu vă puteți exercita drepturile europene în ceea ce privește confidențialitatea datelor. În special, serviciile de securitate din țările terțe ar putea să vă acceseze și să vă analizeze datele de la Apple, chiar dacă nu există temei de suspiciune, și pot, de exemplu, lega aceste date de alte informații. Acest lucru se referă doar la identificatorul care este trimis la Apple, însă Apple ar putea determina identitatea dvs. pe baza identificatorului și ar putea urmări că a fost efectuată verificarea autenticității pe smartphone-ul dvs. în timpul procesului de avertizare.\n\nDacă nu sunteți de acord cu acest transfer al datelor dvs. către o țară terță, nu apăsați pe „Sunt de acord”. Veți putea utiliza aplicația în continuare, dar nu îi puteți avertiza pe ceilalți după un test făcut acasă pozitiv sau cu un rezultat de test care nu este disponibil în aplicație.";
+"SRS_ConsentScreen_secondaryButtonTitle" = "Anulare";
 
 /* Exposure Submission Result */
 "ExposureSubmissionResult_Title" = "Rezultatul testului dvs.";
@@ -816,7 +813,7 @@
 
 "ExposureSubmissionResult_familyMember_antigenTestAdded" = "Testul rapid a fost adăugat";
 
-"ExposureSubmissionResult_antigenTestAddedDesc" = "Rezultatul testului dvs. este afișat timp de 48 de ore.";
+"ExposureSubmissionResult_antigenTestAddedDesc" = "Rezultatul testului dvs. este afișat aici timp de 48 de ore. De asemenea, aplicația creează o intrare în jurnalul dvs. de contacte.";
 
 "ExposureSubmissionResult_warnOthers" = "Avertizați-i pe ceilalți";
 
@@ -1027,6 +1024,12 @@
 
 "ExposureSubmission_SRSFlow_alert_confirmWarnOthers_ActionCancel" = "Anulare";
 
+"ExposureSubmission_SRSFlow_alert_increasedVolumeOfWarnings_Title" = "Notă";
+
+"ExposureSubmission_SRSFlow_alert_increasedVolumeOfWarnings_Message" = "Ca urmare a numărului mare de avertizări care sunt trimise în prezent prin aplicație, doar contactele dvs. din ultimele %@ zile au fost avertizate.";
+
+"ExposureSubmission_SRSFlow_alert_increasedVolumeOfWarnings_ActionOkay" = "OK";
+
 /* Exposure Submission Result */
 "ExposureSubmissionResult_RemoveAlert_Title" = "Ștergeți rezultatul testului?";
 
@@ -1134,7 +1137,7 @@
 
 "ExposureSubmission_Antigen_Profile_Overview_EmptyTitle" = "Nu a fost creat încă niciun profil de test rapid";
 
-"ExposureSubmission_Antigen_Profile_Overview_EmptyDescription" = "Puteți crea un profil de test rapid cu datele dvs. personale, pe care îl puteți transmite prin intermediul codului QR la fiecare punct de testare participant.";
+"ExposureSubmission_Antigen_Profile_Overview_EmptyDescription" = "Puteți crea un profil de test rapid cu datele dvs. personale, pe care îl puteți prezenta prin intermediul codului QR la fiecare punct de testare participant.";
 
 "ExposureSubmission_Antigen_Profile_Overview_EmptyImageDescription" = "Sigiliu certificat cu certificat digital în fundal";
 
@@ -1160,7 +1163,7 @@
 
 "ExposureSubmission_Profile_ProfileTile_Title" = "Profiluri de test rapid";
 
-"ExposureSubmission_Profile_ProfileTile_Description" = "Profilul de test rapid cu datele dvs. personale, pe care îl puteți trimite la orice punct de testare participant prin intermediul codului QR.";
+"ExposureSubmission_Profile_ProfileTile_Description" = "Profilul de test rapid cu datele dvs. personale, pe care îl puteți prezenta la orice punct de testare participant prin intermediul codului QR.";
 
 /* ExposureSubmission TestOwnerSelection */
 "ExposureSubmission_TestOwnerSelection_Title" = "Înregistrare test";
@@ -1194,7 +1197,7 @@
 
 "ExposureSubmission_TestCertificate_Information_BirthdayText" = "În scop de securitate, certificatul dvs. de test este protejat cu data nașterii dvs. Certificatul de test poate fi emis doar dacă specificați data corectă a nașterii.";
 
-"ExposureSubmission_TestCertificate_Information_Dataprivacy_Title" = "Informații detaliate privind prelucrarea datelor și consimțământul dvs.";
+"ExposureSubmission_TestCertificate_Information_Dataprivacy_Title" = "Pentru mai multe informații despre prelucrarea datelor, consultați înștiințarea de confidențialitate.";
 
 "ExposureSubmission_TestCertificate_Information_Alert_Title" = "Anulare înregistrare";
 
@@ -1506,7 +1509,7 @@
 /* Home Alert Risk Lowered */
 "Home_Alert_RiskStatusLowered_Title" = "Modificarea stării riscului dvs.";
 
-"Home_Alert_RiskStatusLowered_Message" = "Ultima expunere care a generat riscul dvs. crescut a avut loc cu mai mult de %i (de) zile în urmă. Prin urmare, riscul dvs. de infectare a fost clasificat ca fiind din nou redus.\n\nCe trebuie să faceți:\n Dacă nu aveți simptome specifice COVID-19, continuați să respectați regulile generale privind distanțarea și igiena.\n Dacă aveți simptome specifice COVID-19, vă recomandăm să mergeți la medic și să vă testați.";
+"Home_Alert_RiskStatusLowered_Message" = "Ultima expunere care a generat riscul dvs. crescut a avut loc cu mai mult de %i (de) zile în urmă. Prin urmare, riscul dvs. de infectare a fost clasificat ca fiind din nou redus.\n\nCe trebuie să faceți:\n1. Dacă nu aveți simptome specifice COVID-19, continuați să respectați regulile generale privind distanțarea și igiena.\n2. Dacă aveți simptome specifice COVID-19, vă recomandăm să mergeți la medic și să vă testați.";
 
 "Home_Alert_RiskStatusLowered_PrimaryButtonTitle" = "OK";
 
@@ -1621,6 +1624,14 @@
 "ErrorReport_StartButtonTitle" = "Pornire";
 
 "ErrorReport_StopAndDeleteButtonTitle" = "Oprire și ștergere";
+
+"ErrorReport_StopAndDeleteButton_Alert_Title" = "Opriți analiza erorilor?";
+
+"ErrorReport_StopAndDeleteButton_Alert_Message" = "Dacă faceți acest lucru, toate datele înregistrate vor fi șterse. Dacă ați salvat o copie locală a raportului de erori, aceasta nu va fi ștearsă.";
+
+"ErrorReport_StopAndDeleteButton_Alert_StopAnalyse" = "Oprire analiză";
+
+"ErrorReport_StopAndDeleteButton_Alert_ContinueAnalyse" = "Continuare analiză";
 
 "ErrorReport_SaveButtonTitle" = "Partajare și continuare";
 
@@ -1966,6 +1977,9 @@
 
 "ContactDiaray_Overview_Checkin_Low_Risk_In_Brackets" = "(risc redus)";
 
+/* Submission */
+"ContactDiary_Overview_Submission" = "I-ați avertizat pe ceilalți";
+
 /* Day */
 "ContactDiary_Day_ContactPersonsSegment" = "Persoane";
 
@@ -2130,7 +2144,7 @@
 /* - Pandemic Radar */
 "Statistics_Card_PandemicRadar_title" = "Radar pandemic";
 
-"Statistics_Card_PandemicRadar_subtitle" = "de la Institutul Robert Koch";
+"Statistics_Card_PandemicRadar_subtitle" = "De la Ministerul Federal al Sănătății din Germania";
 
 "Statistics_Card_PandemicRadar_description" = "Explorați statistici suplimentare referitoare la pandemie.";
 
@@ -2280,7 +2294,7 @@
 
 "Statistics_Info_PandemicRadar_Title" = "Radar pandemic";
 
-"Statistics_Info_PandemicRadar_Text" = "O varietate de statistici referitoare la pandemia de coronavirus, furnizate pe un site web al Institutului Robert Koch.\nRețineți că orice date utilizate la deschiderea site-ului web vor fi deduse din planul tarifar al datelor dvs. mobile și acest site web nu este conceput să fie fără bariere. De asemenea, este disponibil doar în germană.";
+"Statistics_Info_PandemicRadar_Text" = "Ministerul Federal al Sănătății din Germania oferă o varietate de statistici referitoare la pandemia de coronavirus. Rețineți că orice date utilizate la deschiderea site-ului web vor fi deduse din planul tarifar al datelor dvs. mobile și acest site web nu este conceput să fie fără bariere. Pagina este disponibilă în engleză, germană, turcă și rusă.";
 
 "Statistics_Info_Incidence_Title" = "Incidența pe 7 zile";
 

@@ -573,7 +573,7 @@
 
 "ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_insufficientAppUsageTime_message" = "Üzgünüz; uygulamayı yakın zamanda yüklediğiniz için şu anda diğer kullanıcıları uyaramazsınız. Bunun amacı, uyarı özelliğinin kötüye kullanımını önlemektir.\nResmi bir test kaydedip bu testi, dilediğiniz zaman diğer kullanıcıları uyarmak için kullanabilirsiniz (hata kodu %@).";
 
-"ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_positiveTestResultWasAlreadySubmittedWithin90Days_message" = "Geçmiş 90 gün içinde zaten pozitif bir test sonucu bildirdiğiniz için şu anda diğer kullanıcıları uyaramazsınız. Bunun amacı, uyarı özelliğinin kötüye kullanımını önlemektir.\nResmi bir test kaydedip bu testi, dilediğiniz zaman diğer kullanıcıları uyarmak için kullanabilirsiniz (hata kodu %@).";
+"ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_positiveTestResultWasAlreadySubmittedWithinThresholdDays_message" = "Geçmiş %@ gün içinde zaten pozitif bir test sonucu bildirdiğiniz için şu anda diğer kullanıcıları uyaramazsınız. Bunun amacı, uyarı özelliğinin kötüye kullanımını önlemektir.\nResmi bir test kaydedip bu testi, dilediğiniz zaman diğer kullanıcıları uyarmak için kullanabilirsiniz (hata kodu %@).";
 
 "ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_deviceCheckError_message" = "Akıllı telefonunuzun saati, geçerli saat ile eşleşmiyor. Lütfen akıllı telefonunuzun ayarlarında saati düzeltin. Bu düzeltmeden sonra uygulamanın yeniden saati kontrol etmesi birkaç dakika sürebilir. Uygulama saati yeniden kontrol ettikten sonra yeniden diğer kullanıcıları uyarmayı deneyebilirsiniz.";
 
@@ -760,7 +760,7 @@
 
 "SRS_ConsentScreen_title_description1" = "Diğer kullanıcıları uyarabilmeniz için izniniz gereklidir.";
 
-"SRS_ConsentScreen_instruction1" = "Koronavirüs testiniz pozitif çıkarsa uygulama üzerinden diğer kullanıcıları uyarabilirsiniz.\nKendi kendine test pozitif çıktıktan sonra veya uygulamada sunulmayan bir test sonucuyla uyarı göndermek için uygulamanın orijinalliği doğrulanmalıdır.";
+"SRS_ConsentScreen_instruction1" = "Koronavirüs testiniz pozitif çıkarsa uygulama üzerinden diğer kullanıcıları uyarabilirsiniz.\nKendi kendine test pozitif çıktıktan sonra veya uygulamada sunulmayan bir test sonucuyla uyarı göndermek için uygulamanın orijinalliği otomatik olarak doğrulanmalıdır.";
 
 "SRS_ConsentScreen_instruction2" = "Bu, yinelenen uyarıların yalnızca %@ gün geçtikten sonra gönderilebilmesini de sağlar.";
 
@@ -776,12 +776,9 @@
 
 "SRS_ConsentScreen_Acknowledgement_6" = "Sonraki adımda, rastgele kimliklerinize erişim onayı verin.";
 
-"SRS_ConsentScreen_DataProcessingDetailInfo" = "ABD’de ve Diğer Üçüncü Ülkelerde Orijinallik Kontrolü ve Veri Koruma Riskleri Hakkında Ayrıntılı Bilgiler";
+"SRS_ConsentScreen_primaryButtonTitle" = "Kabul Et";
 
-/* SRSDataProcessingInfo */
-"SRS_DataProcessingInfo_title" = "Orijinallik Doğrulaması ve Üçüncü Ülkelere Veri Aktarımı";
-
-"SRS_DataProcessingInfodescription" = "Akıllı telefonunuz, uygulamanızın orijinalliğini teyit etmek için akıllı telefonunuzun ve uygulamanızın sürümüne ilişkin bilgileri içeren bir benzersiz tanıtıcı oluşturur. Bu, pozitif bir kendi kendine testten veya uygulamada bulunmayan bir test sonucundan sonra yalnızca Corona-Warn-App’i gerçekten kullanan kişilerin uyarı gönderebilmesini ve üzerinde oynanmış hata raporlarının ortadan kaldırılabilmesini sağlamak için gereklidir. Bu prosedür ayrıca, pozitif bir kendi kendine testten veya uygulamada bulunmayan bir test sonucundan sonra uyarı gönderilme işleminin yalnızca üç ayda bir yapılabilmesini sağlar.\n\nOrijinallik kontrolü sırasında üretilen benzersiz tanıtıcı Apple'a gönderilir. Bu işlem kapsamında veriler, ABD’ye veya veri gizliliği düzeyinin Avrupa kanunlarına uygun olmadığı ve veri gizliliği konusunda Avrupa’daki haklarınızı kullanamayabileceğiniz başka üçüncü ülkelere aktarılabilir. Özellikle, üçüncü ülkedeki güvenlik servisleri herhangi bir şüphe sebebi olmasa bile verilere erişebilir, Apple ile verileri analiz edebilir ve bu verileri örneğin başka bilgilerle bağlantılandırabilir. Buna yalnızca Apple’a gönderilen tanıtıcı dahildir ancak Apple, tanıtıcıya göre kimliğinizi belirleyebilir ve uyarı gönderme işlemi sırasında akıllı telefonunuzda orijinallik kontrolünün yapıldığını takip edebilir.\n\nVerilerinizin üçüncü ülkeye aktarılmasına onay vermiyorsanız lütfen “Kabul Et” seçeneğine dokunmayın. Böyle bir durumda uygulamayı kullanmaya devam edebilirsiniz pozitif bir kendi kendine test sonucundan ya da uygulamada mevcut olmayan bir test sonucundan sonra diğer kullanıcıları uyaramazsınız.";
+"SRS_ConsentScreen_secondaryButtonTitle" = "İptal";
 
 /* Exposure Submission Result */
 "ExposureSubmissionResult_Title" = "Test Sonucunuz";
@@ -816,7 +813,7 @@
 
 "ExposureSubmissionResult_familyMember_antigenTestAdded" = "Hızlı test eklendi";
 
-"ExposureSubmissionResult_antigenTestAddedDesc" = "Test sonucu 48 saat süreyle burada görüntülenir.";
+"ExposureSubmissionResult_antigenTestAddedDesc" = "Test sonucu 48 saat süreyle burada görüntülenir. Uygulama ayrıca temas güncenizde bir giriş oluşturur.";
 
 "ExposureSubmissionResult_warnOthers" = "Diğer Kullanıcıları Uyarın";
 
@@ -1027,6 +1024,12 @@
 
 "ExposureSubmission_SRSFlow_alert_confirmWarnOthers_ActionCancel" = "İptal";
 
+"ExposureSubmission_SRSFlow_alert_increasedVolumeOfWarnings_Title" = "Not";
+
+"ExposureSubmission_SRSFlow_alert_increasedVolumeOfWarnings_Message" = "Şu anda uygulama üzerinden gönderilmekte olan yüksek uyarı sayısı nedeniyle yalnızca son %@ gün içinde temasa geçtiğiniz kişiler uyarıldı.";
+
+"ExposureSubmission_SRSFlow_alert_increasedVolumeOfWarnings_ActionOkay" = "Tamam";
+
 /* Exposure Submission Result */
 "ExposureSubmissionResult_RemoveAlert_Title" = "Test sonucu silinsin mi?";
 
@@ -1134,7 +1137,7 @@
 
 "ExposureSubmission_Antigen_Profile_Overview_EmptyTitle" = "Henüz hiçbir hızlı test profili oluşturulmadı";
 
-"ExposureSubmission_Antigen_Profile_Overview_EmptyDescription" = "Kişisel verilerinizle bir hızlı test profili oluşturabilir ve her katılan test noktasına QR kod aracılığıyla gönderebilirsiniz.";
+"ExposureSubmission_Antigen_Profile_Overview_EmptyDescription" = "Kişisel verilerinizle bir hızlı test profili oluşturabilir ve her katılan test noktasına QR kod aracılığıyla sunabilirsiniz.";
 
 "ExposureSubmission_Antigen_Profile_Overview_EmptyImageDescription" = "Arka planda dijital sertifika ve sertifika mührü";
 
@@ -1160,7 +1163,7 @@
 
 "ExposureSubmission_Profile_ProfileTile_Title" = "Hızlı Test Profilleri";
 
-"ExposureSubmission_Profile_ProfileTile_Description" = "QR kod ile dilediğiniz katılımcı test noktasına gönderebileceğiniz, kişisel verilerinizi içeren hızlı test profili.";
+"ExposureSubmission_Profile_ProfileTile_Description" = "QR kod ile dilediğiniz katılımcı test noktasına sunabileceğiniz, kişisel verilerinizi içeren hızlı test profili.";
 
 /* ExposureSubmission TestOwnerSelection */
 "ExposureSubmission_TestOwnerSelection_Title" = "Testi Kaydet";
@@ -1194,7 +1197,7 @@
 
 "ExposureSubmission_TestCertificate_Information_BirthdayText" = "Güvenlik amaçları nedeniyle test sertifikanız doğum tarihinizle korunmaktadır. Test sertifikası yalnızca doğru doğum tarihini belirtirseniz düzenlenebilir.";
 
-"ExposureSubmission_TestCertificate_Information_Dataprivacy_Title" = "Veri İşleme ve Onayınız Hakkında Ayrıntılı Bilgiler";
+"ExposureSubmission_TestCertificate_Information_Dataprivacy_Title" = "Veri işleme hakkında daha ayrıntılı bilgi için lütfen gizlilik bildirimine başvurun.";
 
 "ExposureSubmission_TestCertificate_Information_Alert_Title" = "Kaydı İptal Et";
 
@@ -1506,7 +1509,7 @@
 /* Home Alert Risk Lowered */
 "Home_Alert_RiskStatusLowered_Title" = "Risk Durumunuzda Değişiklik";
 
-"Home_Alert_RiskStatusLowered_Message" = "Risk durumunuzun artmasına neden olan son maruz kalma %i günden uzun süre önce gerçekleşti. Bu nedenle enfeksiyon riskiniz yeniden düşük olarak derecelendirildi.\n\nYapmanız gerekenler:\n Herhangi bir COVID-19 belirtiniz yoksa mesafe ve hijyen konusunda belirlenen kurallara riayet etmenizi öneririz.\n COVID-19 belirtiniz varsa doktorunuzu ziyaret edip test yaptırmanızı öneririz.";
+"Home_Alert_RiskStatusLowered_Message" = "Risk durumunuzun artmasına neden olan son maruz kalma %i günden uzun süre önce gerçekleşti. Bu nedenle enfeksiyon riskiniz yeniden düşük olarak sınıflandırıldı.\n\nYapmanız gerekenler:\n1. Herhangi bir COVID-19 belirtiniz yoksa mesafe ve hijyen konusunda belirlenen kurallara riayet etmenizi öneririz.\n2. COVID-19 belirtiniz varsa doktorunuzu ziyaret edip test yaptırmanızı öneririz.";
 
 "Home_Alert_RiskStatusLowered_PrimaryButtonTitle" = "Tamam";
 
@@ -1621,6 +1624,14 @@
 "ErrorReport_StartButtonTitle" = "Başlat";
 
 "ErrorReport_StopAndDeleteButtonTitle" = "Durdur ve Sil";
+
+"ErrorReport_StopAndDeleteButton_Alert_Title" = "Hata analizi durdurulsun mu?";
+
+"ErrorReport_StopAndDeleteButton_Alert_Message" = "Bunu seçerseniz kaydedilen tüm veriler silinir. Hata raporunun yerel bir kopyasını kaydettiyseniz bu kopya silinmez.";
+
+"ErrorReport_StopAndDeleteButton_Alert_StopAnalyse" = "Analizi Durdur";
+
+"ErrorReport_StopAndDeleteButton_Alert_ContinueAnalyse" = "Analizi Devam Ettir";
 
 "ErrorReport_SaveButtonTitle" = "Paylaş ve Devam Et";
 
@@ -1966,6 +1977,9 @@
 
 "ContactDiaray_Overview_Checkin_Low_Risk_In_Brackets" = "(düşük risk)";
 
+/* Submission */
+"ContactDiary_Overview_Submission" = "Diğer Kullanıcıları Uyardınız";
+
 /* Day */
 "ContactDiary_Day_ContactPersonsSegment" = "Kişiler";
 
@@ -2130,7 +2144,7 @@
 /* - Pandemic Radar */
 "Statistics_Card_PandemicRadar_title" = "Pandemi Radarı";
 
-"Statistics_Card_PandemicRadar_subtitle" = "Robert Koch Institute tarafından sunulur";
+"Statistics_Card_PandemicRadar_subtitle" = "Almanya Federal Sağlık Bakanlığı tarafından sunulur";
 
 "Statistics_Card_PandemicRadar_description" = "Pandemi ile ilgili ilave istatistikleri keşfedin.";
 
@@ -2280,7 +2294,7 @@
 
 "Statistics_Info_PandemicRadar_Title" = "Pandemi Radarı";
 
-"Statistics_Info_PandemicRadar_Text" = "Robert Koch Institute web sitesinde sunulan çeşitli koronavirüs pandemisi istatistikleri. Web sitesini açarken kullanılan tüm verilerin veri planınızdan düşüleceğini, web sitesinin engellilere uygun şekilde tasarlanmadığını ve yalnızca Almanca dilinde kullanılabildiğini unutmayın.";
+"Statistics_Info_PandemicRadar_Text" = "Almanya Federal Sağlık Bakanlığı, koronavirüs pandemisine ilişkin çeşitli istatistikler sağlar. Web sitesini açarken kullanılan tüm verilerin veri planınızdan düşüleceğini ve web sitesinin engellilere uygun şekilde tasarlanmadığını unutmayın. Bu sayfa İngilizce, Almanca, Türkçe ve Rusça dilinde kullanılabilir.";
 
 "Statistics_Info_Incidence_Title" = "7 Günlük Olay";
 

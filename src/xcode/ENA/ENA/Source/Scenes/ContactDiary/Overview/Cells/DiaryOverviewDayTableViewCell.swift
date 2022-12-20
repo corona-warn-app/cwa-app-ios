@@ -4,6 +4,7 @@
 
 import UIKit
 
+// swiftlint:disable:next type_body_length
 class DiaryOverviewDayTableViewCell: UITableViewCell {
 
 	// MARK: - Internal
@@ -22,6 +23,8 @@ class DiaryOverviewDayTableViewCell: UITableViewCell {
 		configureTests(cellViewModel)
 		// should not be clickable with white background
 		configureCheckinWithRisks(cellViewModel)
+		// should not be clickable with white background
+		configureSubmissions(cellViewModel)
 		// should be clickable with grey background
 		configureEncounters(cellViewModel)
 
@@ -51,6 +54,8 @@ class DiaryOverviewDayTableViewCell: UITableViewCell {
 	@IBOutlet private weak var exposureHistoryDetailLabel: ENALabel!
 	// PCR & Antigen Tests
 	@IBOutlet private weak var testsStackView: UIStackView!
+	// Exposure submissions
+	@IBOutlet private weak var submissionsStackView: UIStackView!
 	// Check-Ins with risk
 	@IBOutlet private weak var checkinHistoryContainerStackView: UIStackView!
 	@IBOutlet private weak var checkinHistoryNoticeImageView: UIImageView!
@@ -192,6 +197,72 @@ class DiaryOverviewDayTableViewCell: UITableViewCell {
 			checkInLabel.isAccessibilityElement = true
 			checkInLabel.accessibilityIdentifier = "CheckinWithRisk\(index)"
 			checkinsWithRiskStackView.addArrangedSubview(checkInLabel)
+		}
+	}
+
+	private func configureSubmissions(_ cellViewModel: DiaryOverviewDayCellModel) {
+		// submissions
+		submissionsStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
+		submissionsStackView.isHidden = cellViewModel.diaryDaySubmissions.isEmpty
+		if #available(iOS 14.0, *) {
+			submissionsStackView.backgroundColor = .enaColor(for: .darkBackground)
+		} else {
+			submissionsStackView.add(backgroundColor: .enaColor(for: .darkBackground))
+		}
+		// Because we set the background color, the border of the underlying view disappears. For this we need some new borders at the left and right.
+		drawBorders(to: [.left, .right], on: submissionsStackView)
+
+		cellViewModel.diaryDaySubmissions.forEach {_ in
+			let containerView = UIView()
+			containerView.translatesAutoresizingMaskIntoConstraints = false
+
+			let imageView = UIImageView()
+			imageView.image = UIImage(imageLiteralResourceName: "Warn_light")
+			NSLayoutConstraint.activate([
+				imageView.widthAnchor.constraint(equalToConstant: 32),
+				imageView.heightAnchor.constraint(equalToConstant: 32)
+			])
+			let entryLabel = ENALabel()
+			entryLabel.text = AppStrings.ContactDiary.Overview.submission
+			entryLabel.adjustsFontForContentSizeCategory = true
+			entryLabel.style = .body
+									
+			let horizontalStackView = UIStackView(arrangedSubviews: [imageView, entryLabel])
+			horizontalStackView.translatesAutoresizingMaskIntoConstraints = false
+			horizontalStackView.alignment = .center
+			horizontalStackView.spacing = 15.0
+			containerView.addSubview(horizontalStackView)
+
+			horizontalStackView.addArrangedSubview(imageView)
+			horizontalStackView.addArrangedSubview(entryLabel)
+			
+			drawBorders(to: [.top], on: submissionsStackView)
+			submissionsStackView.addArrangedSubview(containerView)
+
+			let separatorLine = UIView()
+			separatorLine.backgroundColor = .enaColor(for: .hairline)
+			separatorLine.translatesAutoresizingMaskIntoConstraints = false
+			horizontalStackView.addSubview(separatorLine)
+			
+			// Draw the separator line from leading to trailing of the submissionsStackView
+			NSLayoutConstraint.activate([
+				separatorLine.heightAnchor.constraint(equalToConstant: 1),
+				separatorLine.leadingAnchor.constraint(equalTo: submissionsStackView.leadingAnchor),
+				separatorLine.trailingAnchor.constraint(equalTo: submissionsStackView.trailingAnchor),
+				separatorLine.topAnchor.constraint(equalTo: submissionsStackView.topAnchor, constant: 0)
+			])
+
+			// Draw the containerView line from leading to trailing of the submissionsStackView
+			NSLayoutConstraint.activate(
+				[
+					containerView.topAnchor.constraint(equalTo: submissionsStackView.topAnchor),
+					horizontalStackView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
+					horizontalStackView.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 16.0),
+					horizontalStackView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
+					horizontalStackView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -12.0)
+
+				]
+			)
 		}
 	}
 
@@ -340,8 +411,8 @@ class DiaryOverviewDayTableViewCell: UITableViewCell {
 		bottomBackground.layer.borderWidth = 1
 		bottomBackground.layer.borderColor = UIColor.enaColor(for: .hairline).cgColor
 
-		// Show same background like the topBackground when we have not the encountersVisitsContainerStackView at the bottom displayed or the hole day is empty
-		if (testsStackView.isHidden && exposureHistoryStackView.isHidden && checkinHistoryContainerStackView.isHidden) || !encountersVisitsContainerStackView.isHidden {
+		// Show same background like the topBackground when we have not the encountersVisitsContainerStackView at the bottom displayed or the whole day is empty
+		if (testsStackView.isHidden && exposureHistoryStackView.isHidden && checkinHistoryContainerStackView.isHidden && submissionsStackView.isHidden) || !encountersVisitsContainerStackView.isHidden {
 			bottomBackground.backgroundColor = .enaColor(for: .cellBackground)
 		} else {
 			bottomBackground.backgroundColor = .enaColor(for: .darkBackground)

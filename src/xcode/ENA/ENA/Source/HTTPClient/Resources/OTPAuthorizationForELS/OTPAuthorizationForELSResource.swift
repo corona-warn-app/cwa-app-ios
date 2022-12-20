@@ -14,6 +14,7 @@ enum OTPAuthorizationError: LocalizedError, Equatable {
 	case apiTokenAlreadyIssued
 	case apiTokenExpired
 	case apiTokenQuotaExceeded
+	case deviceBlocked
 	case deviceTokenInvalid
 	case deviceTokenRedeemed
 	case deviceTokenSyntaxError
@@ -28,27 +29,29 @@ enum OTPAuthorizationError: LocalizedError, Equatable {
 				return "generalError"
 			}
 		case .invalidResponseError:
-			return "invalidResponseError"
+			return "INVALID_RESPONSE_ERROR"
 		case .internalServerError:
-			return "internalServerError"
+			return "INTERNAL_SERVER_ERROR"
 		case .otpAlreadyUsedThisMonth:
-			return "otpAlreadyUsedThisMonth"
+			return "OTP_ALREADY_USED_THIS_MONTH"
 		case .otherServerError:
-			return "otherServerError"
+			return "OTHER_SERVER_ERROR"
 		case .apiTokenAlreadyIssued:
-			return "apiTokenAlreadyIssued"
+			return "API_TOKEN_ALEARY_ISSUED"
 		case .apiTokenExpired:
-			return "apiTokenExpired"
+			return "API_TOKEN_EXPIRED"
 		case .apiTokenQuotaExceeded:
-			return "apiTokenQuotaExceeded"
+			return "API_TOKEN_QUOTA_EXEEDED"
+		case .deviceBlocked:
+			return "DEVICE_BLOCKED"
 		case .deviceTokenInvalid:
-			return "deviceTokenInvalid"
+			return "DEVICE_TOKEN_INVALID"
 		case .deviceTokenRedeemed:
-			return "deviceTokenRedeemed"
+			return "DEVICE_TOKEN_REDEEMED"
 		case .deviceTokenSyntaxError:
-			return "deviceTokenSyntaxError"
+			return "DEVICE_TOKEN_SYNTAX_ERROR"
 		case .noNetworkConnection:
-			return "noNetworkConnection"
+			return "NO_NETWORK_CONNECTION"
 		}
 	}
 
@@ -72,6 +75,7 @@ struct OTPAuthorizationForELSResource: Resource {
 		let ppacIos = SAP_Internal_Ppdd_PPACIOS.with {
 			$0.apiToken = ppacToken.apiToken
 			$0.deviceToken = ppacToken.deviceToken
+			$0.previousApiToken = ppacToken.previousApiToken
 		}
 
 		let payload = SAP_Internal_Ppdd_ELSOneTimePassword.with {

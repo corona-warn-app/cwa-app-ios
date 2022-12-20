@@ -18,15 +18,16 @@ enum SRSError: Error, Equatable {
 	case srsSUBServerError
 	case srsSUB400
 	case srsSUB403
+	case srsSUB429
 }
 
 extension SRSError: ErrorCodeProviding {
 	var description: String {
 		switch self {
 		case .ppacError(let ppacError):
-			return "ppacError: \(ppacError.description)"
+			return ppacError.description
 		case .otpError(let otpError):
-			return "otpError: \(otpError.description)"
+			return otpError.description
 		case .srsOTPClientError:
 			return "SRS_OTP_CLIENT_ERROR"
 		case .srsOTPNetworkError:
@@ -49,6 +50,8 @@ extension SRSError: ErrorCodeProviding {
 			return "SRS_SUB_400"
 		case .srsSUB403:
 			return "SRS_SUB_403"
+		case .srsSUB429:
+			return "SRS_SUB_429"
 		}
 	}
 }
@@ -64,7 +67,7 @@ extension SRSError: SRSErrorAlertProviding {
 			return .callHotline
 		case .srsOTPNetworkError, .srsSUBNoNetwork:
 			return .noNetwork
-		case .srsOTPServerError, .srsSUBServerError:
+		case .srsOTPServerError, .srsSUBServerError, .srsSUB429:
 			return .tryAgainLater
 		}
 	}

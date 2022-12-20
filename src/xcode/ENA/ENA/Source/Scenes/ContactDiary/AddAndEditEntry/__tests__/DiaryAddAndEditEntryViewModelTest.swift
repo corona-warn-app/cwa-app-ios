@@ -170,7 +170,8 @@ class DiaryAddAndEditEntryViewModelTest: CWATestCase {
 		let emptyDiaryDay = DiaryDay(
 			dateString: "2020-12-11",
 			entries: [],
-			tests: []
+			tests: [],
+			submissions: []
 		)
 		
 		let store = emptyMockStore()
@@ -305,7 +306,8 @@ class DiaryAddAndEditEntryViewModelTest: CWATestCase {
 		let emptyDiaryDay = DiaryDay(
 			dateString: "2020-12-11",
 			entries: [],
-			tests: []
+			tests: [],
+			submissions: []
 		)
 		
 		let store = emptyMockStore()
@@ -385,7 +387,8 @@ class DiaryAddAndEditEntryViewModelTest: CWATestCase {
 				.contactPerson(DiaryContactPerson(id: 3, name: "Pascal Brause", phoneNumber: "123456")),
 				.contactPerson(DiaryContactPerson(id: 8, name: "Puneet Mahali", emailAddress: "unknown"))
 			],
-			tests: []
+			tests: [],
+			submissions: []
 		)
 	}
 	

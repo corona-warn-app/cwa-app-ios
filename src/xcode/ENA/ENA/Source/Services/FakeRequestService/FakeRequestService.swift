@@ -10,9 +10,13 @@ class FakeRequestService {
 	// MARK: - Init
 
 	init(
-		restServiceProvider: RestServiceProviding
+		restServiceProvider: RestServiceProviding,
+		ppacService: PrivacyPreservingAccessControl,
+		appConfiguration: AppConfigurationProviding
 	) {
 		self.restServiceProvider = restServiceProvider
+		self.ppacService = ppacService
+		self.appConfiguration = appConfiguration
 	}
 
 	// MARK: - Internal
@@ -72,6 +76,34 @@ class FakeRequestService {
 		}
 	}
 
+	/// This method represents the fake Request for SRS OTP
+	func fakeSRSOTPServerRequest(completion: (() -> Void)? = nil) {
+		self.ppacService.getAPITokenPPAC { [weak self] result in
+			guard let self = self else {
+				Log.warning("[FakeRequestService] Could not get self, skipping fakeSRSOTPServerRequest call")
+				completion?()
+				return
+			}
+			
+			switch result {
+			case let .success(ppacToken):
+				let resource = OTPAuthorizationForSRSResource(
+					// no need to inject otpService as it can be generated easily
+					otpSRS: UUID().uuidString,
+					requestPadding: self.requestPadding,
+					isFake: true,
+					ppacToken: ppacToken
+				)
+				self.restServiceProvider.load(resource) { _ in
+					completion?()
+				}
+			case .failure:
+				Log.warning("[FakeRequestService] Could not get PPAC token for SRS, skipping fakeSRSOTPServerRequest call")
+				completion?()
+			}
+		}
+	}
+		
 	/// This method is convenience for sending a V + S request pattern.
 	func fakeVerificationAndSubmissionServerRequest(completion: (() -> Void)? = nil) {
 		fakeVerificationServerRequest { [weak self] in
@@ -90,4 +122,25 @@ class FakeRequestService {
 	// MARK: - Private
 
 	private let restServiceProvider: RestServiceProviding
+	private let ppacService: PrivacyPreservingAccessControl
+	private let appConfiguration: AppConfigurationProviding
+	
+	// The requestPadding property shall be set to a n random bytes with n being determined
+	// as a random number between the value of configuration parameter
+	// minRequestPaddingBytes and maxRequestPaddingBytes
+	private var requestPadding: Data? {
+		let plausibleDeniabilityParameters = appConfiguration.currentAppConfig.value.selfReportParameters.common.plausibleDeniabilityParameters
+		
+		let randomNumber = Int.random(in: Int(plausibleDeniabilityParameters.minRequestPaddingBytes)...Int(plausibleDeniabilityParameters.maxRequestPaddingBytes))
+		
+		var bytes = [UInt8](repeating: 0, count: randomNumber)
+		let result = SecRandomCopyBytes(kSecRandomDefault, bytes.count, &bytes)
+
+		guard result == errSecSuccess else {
+			Log.warning("[FakeRequestService] issue generating random bytes")
+			return nil
+		}
+
+		return Data(bytes)
+	}
 }

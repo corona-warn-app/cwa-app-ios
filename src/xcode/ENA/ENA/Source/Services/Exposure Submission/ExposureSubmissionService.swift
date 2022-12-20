@@ -54,6 +54,7 @@ enum ExposureSubmissionServiceError: LocalizedError, Equatable {
 /// state. It wraps around the `SecureStore` binding.
 /// The consent value is published using the `isSubmissionConsentGivenPublisher` and the rest of the application can simply subscribe to
 /// it to stay in sync.
+// swiftlint:disable:next type_body_length
 class ENAExposureSubmissionService: ExposureSubmissionService {
 
 	// MARK: - Init
@@ -63,9 +64,11 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		appConfigurationProvider: AppConfigurationProviding,
 		restServiceProvider: RestServiceProviding,
 		store: Store,
+		diaryStore: DiaryStoring,
 		eventStore: EventStoringProviding,
 		deadmanNotificationManager: DeadmanNotificationManageable? = nil,
-		coronaTestService: CoronaTestServiceProviding
+		coronaTestService: CoronaTestServiceProviding,
+		ppacService: PrivacyPreservingAccessControl
 	) {
 		
 		#if DEBUG
@@ -75,10 +78,12 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 			self.restServiceProvider = .exposureSubmissionServiceProvider
 			self.store = store
 			self.eventStore = eventStore
+			self.diaryStore = diaryStore
 			self.deadmanNotificationManager = deadmanNotificationManager ?? DeadmanNotificationManager()
 			self.coronaTestService = coronaTestService
-			
-			fakeRequestService = FakeRequestService(restServiceProvider: restServiceProvider)
+			self.ppacService = ppacService
+
+			fakeRequestService = FakeRequestService(restServiceProvider: restServiceProvider, ppacService: ppacService, appConfiguration: appConfigurationProvider)
 			return
 		}
 		#endif
@@ -87,11 +92,13 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		self.appConfigurationProvider = appConfigurationProvider
 		self.restServiceProvider = restServiceProvider
 		self.store = store
+		self.diaryStore = diaryStore
 		self.eventStore = eventStore
 		self.deadmanNotificationManager = deadmanNotificationManager ?? DeadmanNotificationManager()
 		self.coronaTestService = coronaTestService
-		
-		fakeRequestService = FakeRequestService(restServiceProvider: restServiceProvider)
+		self.ppacService = ppacService
+
+		fakeRequestService = FakeRequestService(restServiceProvider: restServiceProvider, ppacService: ppacService, appConfiguration: appConfigurationProvider)
 	}
 
 	convenience init(dependencies: ExposureSubmissionServiceDependencies) {
@@ -100,8 +107,10 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 			appConfigurationProvider: dependencies.appConfigurationProvider,
 			restServiceProvider: dependencies.restServiceProvider,
 			store: dependencies.store,
+			diaryStore: dependencies.diaryStore,
 			eventStore: dependencies.eventStore,
-			coronaTestService: dependencies.coronaTestService
+			coronaTestService: dependencies.coronaTestService,
+			ppacService: dependencies.ppacService
 		)
 	}
 
@@ -162,19 +171,19 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 	func submitSRSExposure(
 		submissionType: SRSSubmissionType,
 		srsOTP: String,
-		completion: @escaping (_ error: ExposureSubmissionServiceError?) -> Void
+		completion: @escaping (Result<Int?, ExposureSubmissionServiceError>) -> Void
 	) {
 		Log.info("Started SRS exposure submission...", log: .api)
 
 		guard let keys = temporaryExposureKeys else {
 			Log.info("Cancelled SRS exposure: No temporary exposure keys to submit.", log: .api)
-			completion(.preconditionError(.keysNotShared))
+			completion(.failure(.preconditionError(.keysNotShared)))
 			return
 		}
 
 		guard !keys.isEmpty || !checkins.isEmpty else {
 			Log.info("Cancelled SRS exposure: No temporary exposure keys or checkins to submit.", log: .api)
-			completion(.preconditionError(.noKeysCollected))
+			completion(.failure(.preconditionError(.noKeysCollected)))
 
 			// We perform a cleanup in order to set the correct
 			// timestamps, despite not having communicated with the backend,
@@ -220,11 +229,12 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 					visitedCountries: self.supportedCountries,
 					checkins: unencryptedCheckins,
 					checkInProtectedReports: checkinProtectedReports,
-					completion: { error in
-						if let error = error {
-							completion(.srsKeySubmissionError(error))
-						} else {
-							completion(nil)
+					completion: { result in
+						switch result {
+						case .success(let cwaKeyTruncated):
+							completion(.success(cwaKeyTruncated))
+						case .failure(let error):
+							completion(.failure(.srsKeySubmissionError(error)))
 						}
 					}
 				)
@@ -355,9 +365,10 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 	private let restServiceProvider: RestServiceProviding
 	private let store: Store
 	private let eventStore: EventStoringProviding
+	private let diaryStore: DiaryStoring
 	private let deadmanNotificationManager: DeadmanNotificationManageable
 	private let coronaTestService: CoronaTestServiceProviding
-
+	private let ppacService: PrivacyPreservingAccessControl
 	private let fakeRequestService: FakeRequestService
 
 	private var temporaryExposureKeys: [SAP_External_Exposurenotification_TemporaryExposureKey]? {
@@ -415,8 +426,15 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		visitedCountries: [Country],
 		checkins: [SAP_Internal_Pt_CheckIn],
 		checkInProtectedReports: [SAP_Internal_Pt_CheckInProtectedReport],
-		completion: @escaping (_ error: ServiceError<SRSKeySubmissionResourceError>?) -> Void
+		completion: @escaping (Result<Int?, ServiceError<SRSKeySubmissionResourceError>>) -> Void
 	) {
+		#if DEBUG
+		if isUITesting {
+			completion(.success(nil))
+			return
+		}
+		#endif
+
 		let payload = SubmissionPayload(
 			exposureKeys: keys,
 			visitedCountries: visitedCountries,
@@ -430,15 +448,20 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		restServiceProvider.load(resource) { result in
 			
 			switch result {
-			case .success:
+			case .success(let cwaKeysTruncated):
+				self.diaryStore.addSubmission(
+					date: ISO8601DateFormatter.justLocalDateFormatter.string(
+					from: Date()
+				   )
+				)
 				self.submitExposureCleanup(submissionTestType: .srs(submissionType))
 
 				Log.info("Successfully completed SRS exposure submission.", log: .api)
-				completion(nil)
+				completion(.success(cwaKeysTruncated))
 			case .failure(let error):
 				Log.error("Error while submitting SRS diagnosis keys: \(error.localizedDescription)", log: .api)
 				
-				completion(error)
+				completion(.failure(error))
 			}
 		}
 	}
@@ -477,7 +500,12 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 				if !checkins.isEmpty {
 					Analytics.collect(.keySubmissionMetadata(.submittedWithCheckins(true, coronaTest.type)))
 				}
-
+				
+				self.diaryStore.addSubmission(
+					date: ISO8601DateFormatter.justLocalDateFormatter.string(
+					from: Date()
+				   )
+				)
 				self.submitExposureCleanup(submissionTestType: .registeredTest(coronaTest.type))
 
 				Log.info("Successfully completed exposure submission.", log: .api)
