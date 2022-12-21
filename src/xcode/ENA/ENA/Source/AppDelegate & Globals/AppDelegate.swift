@@ -542,7 +542,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	)
 
 	private let recycleBin: RecycleBin
-	private let monitor = InternetConnectivityMonitor.shared
 
 	private let restServiceProvider: RestServiceProviding
 
