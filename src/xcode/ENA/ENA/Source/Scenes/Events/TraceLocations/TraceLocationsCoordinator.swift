@@ -56,8 +56,6 @@ class TraceLocationsCoordinator {
 	
 	private var traceLocationDetailsNavigationController: UINavigationController!
 	private var traceLocationAddingNavigationController: UINavigationController!
-
-	private var onBehalfCheckinSubmissionCoordinator: OnBehalfCheckinSubmissionCoordinator?
 	
 	private var infoScreenShown: Bool {
 		get { store.traceLocationsInfoScreenShown }
@@ -79,9 +77,6 @@ class TraceLocationsCoordinator {
 			),
 			onInfoButtonTap: { [weak self] in
 				self?.showInfoScreen()
-			},
-			onOnBehalfCheckinSubmissionTap: { [weak self] in
-				self?.showOnBehalfCheckinSubmissionFlow()
 			},
 			onAddEntryCellTap: { [weak self] in
 				self?.showTraceLocationTypeSelectionScreen()
@@ -281,17 +276,4 @@ class TraceLocationsCoordinator {
 		let navigationController = DismissHandlingNavigationController(rootViewController: traceLocationCheckinViewController, transparent: true)
 		parentNavigationController?.present(navigationController, animated: true)
 	}
-
-	private func showOnBehalfCheckinSubmissionFlow() {
-		onBehalfCheckinSubmissionCoordinator = OnBehalfCheckinSubmissionCoordinator(
-			parentViewController: parentNavigationController,
-			restServiceProvider: restServiceProvider,
-			appConfiguration: appConfig,
-			eventStore: eventStore,
-			qrScannerCoordinator: qrScannerCoordinator
-		)
-
-		onBehalfCheckinSubmissionCoordinator?.start()
-	}
-	
 }

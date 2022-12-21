@@ -840,7 +840,6 @@ enum AccessibilityIdentifiers {
 			enum MenuActionSheet {
 				static let infoAction = "AppStrings.TraceLocations.Overview.MenuActionSheet.infoAction"
 				static let editAction = "AppStrings.TraceLocations.Overview.MenuActionSheet.editAction"
-				static let onBehalfCheckinSubmissionAction = "AppStrings.TraceLocations.Overview.MenuActionSheet.onBehalfCheckinSubmissionAction"
 			}
 		}
 		
@@ -884,19 +883,6 @@ enum AccessibilityIdentifiers {
 			static let acknowledgementTitle = "Checkins.Information.acknowledgement_title"
 		}
 		
-	}
-
-	enum OnBehalfCheckinSubmission {
-
-		enum TraceLocationSelection {
-			static let selectionCell = "OnBehalfCheckinSubmission.TraceLocationSelection.selectionCell"
-		}
-
-		enum DateTimeSelection {
-			static let dateCell = "OnBehalfCheckinSubmission.DateTimeSelection.dateCell"
-			static let durationCell = "OnBehalfCheckinSubmission.DateTimeSelection.durationCell"
-		}
-
 	}
 	
 	enum AntigenProfile {
