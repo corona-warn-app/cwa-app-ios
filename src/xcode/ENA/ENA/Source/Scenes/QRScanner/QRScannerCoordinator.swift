@@ -107,7 +107,6 @@ class QRScannerCoordinator {
 	private weak var qrScannerViewController: QRScannerViewController?
 	private var healthCertificateCoordinator: HealthCertificateCoordinator?
 	private var traceLocationCheckinCoordinator: TraceLocationCheckinCoordinator?
-	private var onBehalfCheckinCoordinator: OnBehalfCheckinSubmissionCoordinator?
 	private var ticketValidationCoordinator: TicketValidationCoordinator?
 	private var fileScannerCoordinator: FileScannerCoordinator?
 

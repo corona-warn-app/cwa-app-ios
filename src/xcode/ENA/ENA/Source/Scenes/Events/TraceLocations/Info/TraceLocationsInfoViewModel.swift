@@ -76,19 +76,7 @@ struct TraceLocationsInfoViewModel {
 					.space(
 						height: 15.0,
 						color: .enaColor(for: .background)
-					),
-					.icon(
-						UIImage(imageLiteralResourceName: "Icons_Group"),
-						text: .string(AppStrings.TraceLocations.Information.itemGroupTitle),
-						alignment: .top,
-						imageAccessibilityIdentifier: AccessibilityIdentifiers.TraceLocation.infoBulletIconGroup,
-						textAccessibilityIdentifier: AccessibilityIdentifiers.TraceLocation.infoBulletTextGroup
-					),
-					.space(
-						height: 15.0,
-						color: .enaColor(for: .background)
 					)
-
 				]
 			),
 			// Legal text
