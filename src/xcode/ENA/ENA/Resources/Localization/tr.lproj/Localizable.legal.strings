@@ -157,7 +157,7 @@
 
 "SRS_Consent_Legal_Headline" = "Rıza beyanınız";
 
-"SRS_Consent_Legal_Description" = "Kabul Ediyorum’a dokunarak aşağıdaki adımları kabul etmiş olursunuz:";
+"SRS_Consent_Legal_Description" = "“Kabul et” dokunarak aşağıdaki adımları kabul etmiş olursunuz:";
 
 "SRS_Consent_Legal_Text_1" = "Uygulama, karşılaştığınız veya sizinle aynı anda aynı etkinlikte veya yerde check-in yapmış olan diğer Corona Warn uygulaması kullanıcılarını uyarmak için pozitif test sonucunuzu paylaşır.";
 
