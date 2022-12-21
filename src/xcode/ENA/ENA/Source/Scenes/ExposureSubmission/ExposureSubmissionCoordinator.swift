@@ -1611,6 +1611,22 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		navigationController?.present(alert, animated: true)
 	}
 	
+	private func showSRSServiceErrorAlert(for error: ExposureSubmissionServiceError, onCompletion: (() -> Void)? = nil) {
+		Log.error("error: \(error.localizedDescription)", log: .ui)
+		
+		let alert = UIAlertController.errorAlert(
+			title: AppStrings.SRSErrorAlert.title,
+			message: error.errorDescription ?? "",
+			okTitle: AppStrings.SRSErrorAlert.faqButtonTitle,
+			secondaryActionTitle: AppStrings.SRSErrorAlert.okButtonTitle,
+			completion: {
+				LinkHelper.open(urlString: AppStrings.Links.warnWithoutTANFAQLink)
+			}
+		)
+
+		navigationController?.present(alert, animated: true)
+	}
+	
 	private func showSRSFlowAlert(
 		for srsFlowAlert: SRSFlowAlert,
 		isLoading: @escaping CompletionBool
@@ -1935,7 +1951,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 				case .srsError(let srsError):
 					self?.showSRSFlowAlert(for: .error(srsError), isLoading: isLoading)
 				default:
-					self?.showServiceErrorAlert(for: error) {
+					self?.showSRSServiceErrorAlert(for: error) {
 						self?.dismiss()
 					}
 				}
