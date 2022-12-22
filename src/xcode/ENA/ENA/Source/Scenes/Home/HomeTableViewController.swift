@@ -653,6 +653,9 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 					self?.statisticsCell?.setEditing(isEditing, animated: false)
 					self?.statisticsCell?.updateManagementCellState()
 				}
+			},
+			onDeviceOfflineInfo: { [weak self] in
+				self?.showDeviceOfflineAlert()
 			}
 		)
 		
@@ -973,6 +976,23 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		alert.addAction(cancelAction)
 
 		present(alert, animated: true, completion: nil)
+	}
+	
+	private func showDeviceOfflineAlert() {
+		let alert = UIAlertController(
+			title: AppStrings.Common.noNetworkConnectionTitle,
+			message: AppStrings.Common.noNetworkConnectionDescription,
+			preferredStyle: .alert
+		)
+		
+		alert.addAction(
+			UIAlertAction(
+				title: AppStrings.Common.alertActionOk,
+				style: .default
+			)
+		)
+		
+		present(alert, animated: true)
 	}
 	
 	func showStartupErrorsIfNeeded(completion: @escaping () -> Void) {
