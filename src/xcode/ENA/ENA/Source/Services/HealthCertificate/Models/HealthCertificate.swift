@@ -278,6 +278,14 @@ final class HealthCertificate: Codable, Equatable, Comparable, RecycleBinIdentif
 	var expirationDate: Date {
 		return cborWebTokenHeader.expirationTime
 	}
+	
+	var ageInMinutes: Int? {
+		guard let sortDate = sortDate else {
+			return nil
+		}
+
+		return Calendar.current.dateComponents([.minute], from: sortDate, to: Date()).minute
+	}
 
 	var ageInHours: Int? {
 		guard let sortDate = sortDate else {
@@ -327,10 +335,11 @@ final class HealthCertificate: Codable, Equatable, Comparable, RecycleBinIdentif
 		case .vaccination, .recovery:
 			return true
 		case .test:
-			guard let ageInHours = ageInHours else {
+			guard let ageInMinutes = ageInMinutes else {
 				return false
 			}
-			return ageInHours <= 72
+			// Not older that 3 days (72h), based on minutes
+			return ageInMinutes <= 72 * 60
 		}
 	}
 	
