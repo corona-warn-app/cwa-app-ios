@@ -190,6 +190,8 @@ enum AccessibilityIdentifiers {
 			static let cellDateHeader = "ContactDiary_Overview_cellDateHeader-%d"
 			static let person = "ContactDiary_Overview_personEntry-%d"
 			static let location = "ContactDiary_Overview_locationEntry-%d"
+			static let submissionTitle = "AppStrings.ContactDiary.Overview.submissionTitle"
+			static let submissionImage = "AppStrings.ContactDiary.Overview.submissionImage"
 		}
 		
 		enum NotesInformation {
@@ -838,7 +840,6 @@ enum AccessibilityIdentifiers {
 			enum MenuActionSheet {
 				static let infoAction = "AppStrings.TraceLocations.Overview.MenuActionSheet.infoAction"
 				static let editAction = "AppStrings.TraceLocations.Overview.MenuActionSheet.editAction"
-				static let onBehalfCheckinSubmissionAction = "AppStrings.TraceLocations.Overview.MenuActionSheet.onBehalfCheckinSubmissionAction"
 			}
 		}
 		
@@ -882,19 +883,6 @@ enum AccessibilityIdentifiers {
 			static let acknowledgementTitle = "Checkins.Information.acknowledgement_title"
 		}
 		
-	}
-
-	enum OnBehalfCheckinSubmission {
-
-		enum TraceLocationSelection {
-			static let selectionCell = "OnBehalfCheckinSubmission.TraceLocationSelection.selectionCell"
-		}
-
-		enum DateTimeSelection {
-			static let dateCell = "OnBehalfCheckinSubmission.DateTimeSelection.dateCell"
-			static let durationCell = "OnBehalfCheckinSubmission.DateTimeSelection.durationCell"
-		}
-
 	}
 	
 	enum AntigenProfile {

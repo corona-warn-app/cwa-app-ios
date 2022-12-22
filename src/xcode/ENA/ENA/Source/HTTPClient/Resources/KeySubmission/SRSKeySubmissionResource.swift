@@ -10,17 +10,20 @@ enum SRSKeySubmissionResourceError: LocalizedError, Equatable {
 	case tooManyKeyRequestsPerDay
 	case requestCouldNotBeBuilt
 	case serverError(Int)
+	case clientError(Int)
 	
 	var errorDescription: String? {
 		switch self {
 		case let .serverError(code):
-			return "\(AppStrings.ExposureSubmissionError.other)\(code) \(AppStrings.ExposureSubmissionError.otherend)"
+			return String(format: AppStrings.SRSErrorAlert.tryAgainLater, "\(SRSError.srsSUBServerError.description): \(code)")
+		case let .clientError(code):
+			return String(format: AppStrings.SRSErrorAlert.callHotline, "\(SRSError.srsSUBClientError.description): \(code)")
 		case .invalidPayloadOrHeader:
-			return "\(AppStrings.ExposureSubmissionError.errorPrefix) - Received an invalid payload or headers."
+			return String(format: AppStrings.SRSErrorAlert.callHotline, SRSError.srsSUB400.description)
 		case .invalidOtp:
-			return "\(AppStrings.ExposureSubmissionDispatch.SRSSubmissionError.srsSubmissionInvalidOTP) - invalid OTP."
+			return String(format: AppStrings.SRSErrorAlert.callHotline, SRSError.srsSUB403.description)
 		case .tooManyKeyRequestsPerDay:
-			return "\(AppStrings.ExposureSubmissionError.errorPrefix) - The threshold of max SRS per day has reached."
+			return String(format: AppStrings.SRSErrorAlert.callHotline, SRSError.srsSUB429.description)
 		case .requestCouldNotBeBuilt:
 			return "\(AppStrings.ExposureSubmissionError.errorPrefix) - The submission request could not be built correctly."
 		}
@@ -73,12 +76,19 @@ struct SRSKeySubmissionResource: Resource {
 			return .requestCouldNotBeBuilt
 		case .unexpectedServerError(let statusCode):
 			switch statusCode {
+			// if the status code of the response is one of 400, 403, or 429, it shall fail with error code SRS_SUB_400, SRS_SUB_403, SRS_SUB_429 respectively
 			case 400:
 				return .invalidPayloadOrHeader
 			case 403:
 				return .invalidOtp
 			case 429:
 				return .tooManyKeyRequestsPerDay
+			// if the status code is a different client error (400 to 499), it shall fail with error code SRS_SUB_CLIENT_ERROR
+			case 400...499:
+				return .clientError(statusCode)
+			// if the status code is a server error (500 to 599), it shall fail with error code SRS_SUB_SERVER_ERROR
+			case 500...599:
+				return .serverError(statusCode)
 			default:
 				return .serverError(statusCode)
 			}

@@ -217,6 +217,7 @@ class DiaryOverviewDayTableViewCell: UITableViewCell {
 			containerView.translatesAutoresizingMaskIntoConstraints = false
 
 			let imageView = UIImageView()
+			imageView.accessibilityIdentifier = AccessibilityIdentifiers.ContactDiaryInformation.Overview.submissionImage
 			imageView.image = UIImage(imageLiteralResourceName: "Warn_light")
 			NSLayoutConstraint.activate([
 				imageView.widthAnchor.constraint(equalToConstant: 32),
@@ -224,6 +225,7 @@ class DiaryOverviewDayTableViewCell: UITableViewCell {
 			])
 			let entryLabel = ENALabel()
 			entryLabel.text = AppStrings.ContactDiary.Overview.submission
+			entryLabel.accessibilityIdentifier = AccessibilityIdentifiers.ContactDiaryInformation.Overview.submissionTitle
 			entryLabel.adjustsFontForContentSizeCategory = true
 			entryLabel.style = .body
 									
@@ -237,8 +239,25 @@ class DiaryOverviewDayTableViewCell: UITableViewCell {
 			horizontalStackView.addArrangedSubview(entryLabel)
 			
 			drawBorders(to: [.top], on: submissionsStackView)
-			submissionsStackView.addArrangedSubview(containerView)
 
+			let topAnchor: NSLayoutYAxisAnchor
+			if let lastSubmissionView = submissionsStackView.arrangedSubviews.last {
+				topAnchor = lastSubmissionView.bottomAnchor
+			} else {
+				topAnchor = submissionsStackView.topAnchor
+			}
+			submissionsStackView.addArrangedSubview(containerView)
+			// Draw the containerView line from leading to trailing of the submissionsStackView
+			NSLayoutConstraint.activate(
+				[
+					containerView.topAnchor.constraint(equalTo: topAnchor),
+					horizontalStackView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
+					horizontalStackView.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 16.0),
+					horizontalStackView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
+					horizontalStackView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -12.0)
+				]
+			)
+			
 			let separatorLine = UIView()
 			separatorLine.backgroundColor = .enaColor(for: .hairline)
 			separatorLine.translatesAutoresizingMaskIntoConstraints = false
@@ -249,20 +268,9 @@ class DiaryOverviewDayTableViewCell: UITableViewCell {
 				separatorLine.heightAnchor.constraint(equalToConstant: 1),
 				separatorLine.leadingAnchor.constraint(equalTo: submissionsStackView.leadingAnchor),
 				separatorLine.trailingAnchor.constraint(equalTo: submissionsStackView.trailingAnchor),
-				separatorLine.topAnchor.constraint(equalTo: submissionsStackView.topAnchor, constant: 0)
+				separatorLine.topAnchor.constraint(equalTo: topAnchor)
 			])
 
-			// Draw the containerView line from leading to trailing of the submissionsStackView
-			NSLayoutConstraint.activate(
-				[
-					containerView.topAnchor.constraint(equalTo: submissionsStackView.topAnchor),
-					horizontalStackView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
-					horizontalStackView.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 16.0),
-					horizontalStackView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
-					horizontalStackView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -12.0)
-
-				]
-			)
 		}
 	}
 

@@ -12,12 +12,10 @@ class TraceLocationsOverviewViewController: UITableViewController, FooterViewHan
 	init(
 		viewModel: TraceLocationsOverviewViewModel,
 		onInfoButtonTap: @escaping () -> Void,
-		onOnBehalfCheckinSubmissionTap: @escaping () -> Void,
 		onAddEntryCellTap: @escaping () -> Void
 	) {
 		self.viewModel = viewModel
 		self.onInfoButtonTap = onInfoButtonTap
-		self.onOnBehalfCheckinSubmissionTap = onOnBehalfCheckinSubmissionTap
 		self.onAddEntryCellTap = onAddEntryCellTap
 
 		super.init(nibName: nil, bundle: nil)
@@ -150,7 +148,6 @@ class TraceLocationsOverviewViewController: UITableViewController, FooterViewHan
 
 	private let viewModel: TraceLocationsOverviewViewModel
 	private let onInfoButtonTap: () -> Void
-	private let onOnBehalfCheckinSubmissionTap: () -> Void
 	private let onAddEntryCellTap: () -> Void
 
 	private var subscriptions = [AnyCancellable]()
@@ -294,19 +291,6 @@ class TraceLocationsOverviewViewController: UITableViewController, FooterViewHan
 		editAction.isAccessibilityElement = true
 		editAction.accessibilityIdentifier = AccessibilityIdentifiers.TraceLocation.Overview.MenuActionSheet.editAction
 		actionSheet.addAction(editAction)
-
-		// On Behalf Checkin Action
-		
-		let onBehalfCheckinSubmissionAction = UIAlertAction(
-			title: AppStrings.TraceLocations.Overview.ActionSheet.onBehalfCheckinSubmissionTitle,
-			style: .default,
-			handler: { [weak self] _ in
-				self?.onOnBehalfCheckinSubmissionTap()
-			}
-		)
-		onBehalfCheckinSubmissionAction.isAccessibilityElement = true
-		onBehalfCheckinSubmissionAction.accessibilityIdentifier = AccessibilityIdentifiers.TraceLocation.Overview.MenuActionSheet.onBehalfCheckinSubmissionAction
-		actionSheet.addAction(onBehalfCheckinSubmissionAction)
 
 		// Cancel
 		

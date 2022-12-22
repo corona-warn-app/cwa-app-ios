@@ -77,8 +77,8 @@ class SRSTestTypeSelectionViewModel {
 
 	/// The order of the list entries shown.
 	private let submissionTypes: [SRSSubmissionType] = [
-		.srsRegisteredRat,
 		.srsSelfTest,
+		.srsRegisteredRat,
 		.srsRegisteredPcr,
 		.srsUnregisteredPcr,
 		.srsRapidPcr,

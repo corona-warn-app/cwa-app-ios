@@ -2051,7 +2051,6 @@ enum AppStrings {
 
 			enum ActionSheet {
 				static let infoTitle = NSLocalizedString("TraceLocations_Overview_ActionSheet_InfoTitle", comment: "")
-				static let onBehalfCheckinSubmissionTitle = NSLocalizedString("TraceLocations_Overview_ActionSheet_OnBehalfCheckinSubmissionTitle", comment: "")
 				static let editTitle = NSLocalizedString("TraceLocations_Overview_ActionSheet_EditTitle", comment: "")
 			}
 		}
@@ -2081,59 +2080,6 @@ enum AppStrings {
 			static let hoursUnit = NSLocalizedString("TraceLocations_Configuration_HoursUnit", comment: "")
 			static let savingErrorMessage = NSLocalizedString("TraceLocations_Configuration_SavingErrorMessage", comment: "")
 		}
-	}
-
-	enum OnBehalfCheckinSubmission {
-
-		enum Info {
-			static let title = NSLocalizedString("OnBehalfCheckinSubmission_Info_Title", comment: "")
-			static let subtitle = NSLocalizedString("OnBehalfCheckinSubmission_Info_Subtitle", comment: "")
-			static let description = NSLocalizedString("OnBehalfCheckinSubmission_Info_Description", comment: "")
-			static let bulletPoint1 = NSLocalizedString("OnBehalfCheckinSubmission_Info_BulletPoint1", comment: "")
-			static let bulletPoint2 = NSLocalizedString("OnBehalfCheckinSubmission_Info_BulletPoint2", comment: "")
-			static let primaryButtonTitle = NSLocalizedString("OnBehalfCheckinSubmission_Info_PrimaryButtonTitle", comment: "")
-		}
-
-		enum TraceLocationSelection {
-			static let title = NSLocalizedString("OnBehalfCheckinSubmission_TraceLocationSelection_Title", comment: "")
-			static let emptyDescription = NSLocalizedString("OnBehalfCheckinSubmission_TraceLocationSelection_EmptyDescription", comment: "")
-			static let description = NSLocalizedString("OnBehalfCheckinSubmission_TraceLocationSelection_Description", comment: "")
-			static let scanButtonTitle = NSLocalizedString("OnBehalfCheckinSubmission_TraceLocationSelection_ScanButtonTitle", comment: "")
-			static let primaryButtonTitle = NSLocalizedString("OnBehalfCheckinSubmission_TraceLocationSelection_PrimaryButtonTitle", comment: "")
-
-			enum EmptyState {
-				static let title = NSLocalizedString("OnBehalfCheckinSubmission_TraceLocationSelection_EmptyState_Title", comment: "")
-				static let description = NSLocalizedString("OnBehalfCheckinSubmission_TraceLocationSelection_EmptyState_Description", comment: "")
-				static let imageDescription = NSLocalizedString("OnBehalfCheckinSubmission_TraceLocationSelection_EmptyState_ImageDescription", comment: "")
-			}
-		}
-
-		enum DateTimeSelection {
-			static let title = NSLocalizedString("OnBehalfCheckinSubmission_DateTimeSelection_Title", comment: "")
-			static let description = NSLocalizedString("OnBehalfCheckinSubmission_DateTimeSelection_Description", comment: "")
-			static let start = NSLocalizedString("OnBehalfCheckinSubmission_DateTimeSelection_Start", comment: "")
-			static let duration = NSLocalizedString("OnBehalfCheckinSubmission_DateTimeSelection_Duration", comment: "")
-			static let primaryButtonTitle = NSLocalizedString("OnBehalfCheckinSubmission_DateTimeSelection_PrimaryButtonTitle", comment: "")
-		}
-
-		enum TANInput {
-			static let title = NSLocalizedString("OnBehalfCheckinSubmission_TANInput_Title", comment: "")
-			static let description = NSLocalizedString("OnBehalfCheckinSubmission_TANInput_Description", comment: "")
-			static let primaryButtonTitle = NSLocalizedString("OnBehalfCheckinSubmission_TANInput_PrimaryButtonTitle", comment: "")
-		}
-
-		enum ThankYou {
-			static let title = NSLocalizedString("OnBehalfCheckinSubmission_ThankYou_Title", comment: "")
-			static let description = NSLocalizedString("OnBehalfCheckinSubmission_ThankYou_Description", comment: "")
-		}
-
-		enum Error {
-			static let failed = NSLocalizedString("OnBehalfCheckinSubmissionError_Failed", comment: "")
-			static let invalidTAN = NSLocalizedString("OnBehalfCheckinSubmissionError_InvalidTAN", comment: "")
-			static let tryAgain = NSLocalizedString("OnBehalfCheckinSubmissionError_TryAgain", comment: "")
-			static let noNetwork = NSLocalizedString("OnBehalfCheckinSubmissionError_NoNetwork", comment: "")
-		}
-
 	}
 
 	enum AntigenProfile {
