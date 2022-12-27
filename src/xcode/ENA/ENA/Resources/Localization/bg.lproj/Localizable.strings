@@ -994,7 +994,7 @@
 
 "ExposureSubmission_SRSTestTypeSelection_description" = "Стойността на този вид тест се използва само за статистически анализ. Не е свързан с предупреждение или с Вашата самоличност. Ако не желаете да посочвате стойност, просто изберете „Без отговор“.";
 
-"ExposureSubmission_SRSTestTypeSelection_optionSRSSelfTest_title" = "Бързият антигенен тест не е регистриран в приложението";
+"ExposureSubmission_SRSTestTypeSelection_optionSRSUnregisteredRat_title" = "Бързият антигенен тест не е регистриран в приложението";
 
 "ExposureSubmission_SRSTestTypeSelection_optionSRSRegisteredRat_title" = "Бързият антигенен тест е регистриран в приложението, но не е получен резултат";
 

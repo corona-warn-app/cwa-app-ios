@@ -34,6 +34,7 @@ class DMDatePickerTableViewCell: UITableViewCell, ConfigureableCell {
 		datePicker.datePickerMode = cellViewModel.datePickerMode
 		datePicker.date = cellViewModel.date
 		datePicker.addTarget(self, action: #selector(didSelectDate(datePicker:)), for: .valueChanged)
+		datePicker.accessibilityIdentifier = cellViewModel.accessibilityIdentifier
 	}
 
 	// MARK: - Private
