@@ -49,7 +49,7 @@ class DMInstallationDateViewController: UITableViewController {
 			}
 			return cell
 		} else {
-			fatalError("unsopported cellViewModel - can't find a matching cell")
+			fatalError("unsupported cellViewModel - can't find a matching cell")
 		}
 	}
 

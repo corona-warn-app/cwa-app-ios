@@ -6,6 +6,12 @@
 // swiftlint:disable:next type_body_length
 enum AccessibilityIdentifiers {
 
+	enum DeveloperMenu {
+		enum InstallationDay {
+			static let datePicker = "AppStrings.DeveloperMenu.InstallationDay.datePicker"
+		}
+	}
+	
 	enum ExposureNotificationSetting {
 		static let descriptionTitleInactive = "AppStrings.ExposureNotificationSetting.descriptionTitleInactive"
 		static let descriptionTitle = "AppStrings.ExposureNotificationSetting.descriptionTitle"

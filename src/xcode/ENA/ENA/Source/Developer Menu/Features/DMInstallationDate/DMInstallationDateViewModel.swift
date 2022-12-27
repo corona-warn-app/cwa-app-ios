@@ -39,6 +39,8 @@ final class DMInstallationDateViewModel {
 		case .installationDate:
 			return DMDatePickerCellViewModel(
 				title: "Installation Date",
+				accessibilityIdentifier: AccessibilityIdentifiers.DeveloperMenu.InstallationDay
+					.datePicker,
 				datePickerMode: .date,
 				date: store.appInstallationDate ?? Date()
 			)
