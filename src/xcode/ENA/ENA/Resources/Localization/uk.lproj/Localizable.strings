@@ -994,7 +994,7 @@
 
 "ExposureSubmission_SRSTestTypeSelection_description" = "Значення для типу тесту використовується виключно для статистичного аналізу. Воно не пов’язане з попередженням або з вашою особою. Якщо ви не хочете вказувати значення, просто виберіть «Немає відповіді».";
 
-"ExposureSubmission_SRSTestTypeSelection_optionSRSSelfTest_title" = "Експрес-тест на антиген не зареєстровано в застосунку";
+"ExposureSubmission_SRSTestTypeSelection_optionSRSUnregisteredRat_title" = "Експрес-тест на антиген не зареєстровано в застосунку";
 
 "ExposureSubmission_SRSTestTypeSelection_optionSRSRegisteredRat_title" = "Експрес-тест на антиген зареєстровано в застосунку, але результат не отримано";
 
