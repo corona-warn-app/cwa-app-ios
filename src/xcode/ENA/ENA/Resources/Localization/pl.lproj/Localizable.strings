@@ -994,7 +994,7 @@
 
 "ExposureSubmission_SRSTestTypeSelection_description" = "Wartość dla typu testu jest używana tylko do analizy statystycznej. Nie jest powiązywana z ostrzeżeniem ani z Twoją tożsamością. Jeśli nie chcesz określać wartości, wybierz \"Brak odpowiedzi\".";
 
-"ExposureSubmission_SRSTestTypeSelection_optionSRSSelfTest_title" = "Szybki test antygenowy niezarejestrowany w aplikacji";
+"ExposureSubmission_SRSTestTypeSelection_optionSRSUnregisteredRat_title" = "Szybki test antygenowy niezarejestrowany w aplikacji";
 
 "ExposureSubmission_SRSTestTypeSelection_optionSRSRegisteredRat_title" = "Szybki test antygenowy zarejestrowany w aplikacji, ale nie otrzymano wyniku";
 
