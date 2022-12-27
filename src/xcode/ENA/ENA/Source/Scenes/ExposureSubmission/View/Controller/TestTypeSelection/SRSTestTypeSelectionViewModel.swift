@@ -103,7 +103,7 @@ fileprivate extension SRSSubmissionType {
 		switch self {
 		case .srsSelfTest:
 			// This case "srsSelfTest" which is not shown in the test selection screen
-			// so we dont need a string to show on the screen
+			// so we don't need a string to show on the screen
 			return ""
 		case .srsRegisteredRat:
 			return AppStrings.ExposureSubmission.SRSTestTypeSelection.optionSRSRegisteredRatTitle
