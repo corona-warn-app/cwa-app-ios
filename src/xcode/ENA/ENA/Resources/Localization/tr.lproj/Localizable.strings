@@ -994,7 +994,7 @@
 
 "ExposureSubmission_SRSTestTypeSelection_description" = "Test türü değeri yalnızca istatistiksel analiz amaçları doğrultusunda kullanılır. Uyarıyla veya kimliğinizde ilişkilendirilmez. Değer belirtmen istemiyorsanız \"Bilgi yok\" seçeneğini belirlemeniz yeterlidir.";
 
-"ExposureSubmission_SRSTestTypeSelection_optionSRSSelfTest_title" = "Uygulamada kaydedilmeyen hızlı antijen testi";
+"ExposureSubmission_SRSTestTypeSelection_optionSRSUnregisteredRat_title" = "Uygulamada kaydedilmeyen hızlı antijen testi";
 
 "ExposureSubmission_SRSTestTypeSelection_optionSRSRegisteredRat_title" = "Uygulamada kaydedilen ancak sonuç alınmayan hızlı antijen testi";
 

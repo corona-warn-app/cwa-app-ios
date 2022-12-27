@@ -1015,7 +1015,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmission_SRSTestTypeSelection_description" = "Die Angabe der Art des Tests dient nur der statistischen Auswertung. Die Angabe ist freiwillig. Sie wird nicht mit der Warnung oder Ihrer Identität verbunden. Wenn Sie keine Angabe machen wollen, wählen Sie „Keine Angabe“.";
 
-"ExposureSubmission_SRSTestTypeSelection_optionSRSSelfTest_title" = "Antigen-Schnelltest nicht in der App registriert";
+"ExposureSubmission_SRSTestTypeSelection_optionSRSUnregisteredRat_title" = "Antigen-Schnelltest nicht in der App registriert";
 
 "ExposureSubmission_SRSTestTypeSelection_optionSRSRegisteredRat_title" = "Antigen-Schnelltest in der App registriert, aber kein Ergebnis erhalten";
 

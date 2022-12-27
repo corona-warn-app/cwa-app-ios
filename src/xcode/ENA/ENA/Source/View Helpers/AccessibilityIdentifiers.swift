@@ -6,6 +6,12 @@
 // swiftlint:disable:next type_body_length
 enum AccessibilityIdentifiers {
 
+	enum DeveloperMenu {
+		enum InstallationDay {
+			static let datePicker = "AppStrings.DeveloperMenu.InstallationDay.datePicker"
+		}
+	}
+	
 	enum ExposureNotificationSetting {
 		static let descriptionTitleInactive = "AppStrings.ExposureNotificationSetting.descriptionTitleInactive"
 		static let descriptionTitle = "AppStrings.ExposureNotificationSetting.descriptionTitle"
@@ -597,7 +603,7 @@ enum AccessibilityIdentifiers {
 		enum SRSTestTypeSelection {
 			static let body = "AppStrings.ExposureSubmission.SRSTestTypeSelection.body"
 			static let description = "AppStrings.ExposureSubmission.SRSTestTypeSelection.description"
-			static let optionSRSSelfTest = "AppStrings.ExposureSubmission.SRSTestTypeSelection.submissionType.srsSelfTest"
+			static let optionSRSUnregisteredRat = "AppStrings.ExposureSubmission.SRSTestTypeSelection.submissionType.srsUnregisteredRat"
 			static let optionSRSRegisteredRat = "AppStrings.ExposureSubmission.SRSTestTypeSelection.submissionType.srsRegisteredRat"
 			static let optionSRSRegisteredPcr = "AppStrings.ExposureSubmission.SRSTestTypeSelection.submissionType.srsRegisteredPcr"
 			static let optionSRSUnregisteredPcr = "AppStrings.ExposureSubmission.SRSTestTypeSelection.submissionType.srsUnregisteredPcr"
