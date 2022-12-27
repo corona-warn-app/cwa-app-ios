@@ -12,8 +12,9 @@ enum SubmissionTestType: Equatable {
 // Wrapping SAP_Internal_SubmissionPayload.SubmissionType with SRSSubmissionType
 // as it does not conform to protocol equatable
 enum SRSSubmissionType: Equatable {
-	case srsRegisteredRat
 	case srsSelfTest
+	case srsRegisteredRat
+	case srsUnregisterdRat
 	case srsRegisteredPcr
 	case srsUnregisteredPcr
 	case srsRapidPcr
@@ -21,10 +22,12 @@ enum SRSSubmissionType: Equatable {
 	
 	var protobufType: SAP_Internal_SubmissionPayload.SubmissionType {
 		switch self {
-		case .srsRegisteredRat:
-			return .srsRegisteredRat
 		case .srsSelfTest:
 			return .srsSelfTest
+		case .srsRegisteredRat:
+			return .srsRegisteredRat
+		case .srsUnregisterdRat:
+			return .srsUnregisteredRat
 		case .srsRegisteredPcr:
 			return .srsRegisteredPcr
 		case .srsUnregisteredPcr:
