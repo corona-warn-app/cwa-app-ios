@@ -188,7 +188,7 @@ enum AppStrings {
 			static let title = NSLocalizedString("ExposureSubmission_SRSTestTypeSelection_title", comment: "")
 			static let body = NSLocalizedString("ExposureSubmission_SRSTestTypeSelection_body", comment: "")
 			static let description = NSLocalizedString("ExposureSubmission_SRSTestTypeSelection_description", comment: "")
-			static let optionSRSSelfTestTitle = NSLocalizedString("ExposureSubmission_SRSTestTypeSelection_optionSRSSelfTest_title", comment: "")
+			static let optionSRSUnregisteredRatTitle = NSLocalizedString("ExposureSubmission_SRSTestTypeSelection_optionSRSUnregisteredRat_title", comment: "")
 			static let optionSRSRegisteredRatTitle = NSLocalizedString("ExposureSubmission_SRSTestTypeSelection_optionSRSRegisteredRat_title", comment: "")
 			static let optionSRSRegisteredPcrTitle = NSLocalizedString("ExposureSubmission_SRSTestTypeSelection_optionSRSRegisteredPcr_title", comment: "")
 			static let optionSRSUnregisteredPcrTitle = NSLocalizedString("ExposureSubmission_SRSTestTypeSelection_optionSRSUnregisteredPcr_title", comment: "")

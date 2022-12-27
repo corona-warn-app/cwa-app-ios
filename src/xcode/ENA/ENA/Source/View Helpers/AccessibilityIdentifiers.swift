@@ -597,7 +597,7 @@ enum AccessibilityIdentifiers {
 		enum SRSTestTypeSelection {
 			static let body = "AppStrings.ExposureSubmission.SRSTestTypeSelection.body"
 			static let description = "AppStrings.ExposureSubmission.SRSTestTypeSelection.description"
-			static let optionSRSSelfTest = "AppStrings.ExposureSubmission.SRSTestTypeSelection.submissionType.srsSelfTest"
+			static let optionSRSUnregisteredRat = "AppStrings.ExposureSubmission.SRSTestTypeSelection.submissionType.srsUnregisteredRat"
 			static let optionSRSRegisteredRat = "AppStrings.ExposureSubmission.SRSTestTypeSelection.submissionType.srsRegisteredRat"
 			static let optionSRSRegisteredPcr = "AppStrings.ExposureSubmission.SRSTestTypeSelection.submissionType.srsRegisteredPcr"
 			static let optionSRSUnregisteredPcr = "AppStrings.ExposureSubmission.SRSTestTypeSelection.submissionType.srsUnregisteredPcr"
