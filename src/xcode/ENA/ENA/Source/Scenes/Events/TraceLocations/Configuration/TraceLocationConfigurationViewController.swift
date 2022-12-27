@@ -277,6 +277,12 @@ class TraceLocationConfigurationViewController: UIViewController, FooterViewHand
 
 	@IBAction private func temporaryDefaultLengthSwitchToggled(_ sender: UISwitch) {
 		viewModel.temporaryDefaultLengthSwitchSet(to: sender.isOn)
+		
+		if sender.isOn == true && UIScreen.main.bounds.size.height <= 667 {
+			scrollView.setContentOffset(CGPoint(x: 0, y: scrollView.contentOffset.y + 150), animated: true)
+		} else {
+			scrollView.setContentOffset(CGPoint(x: 0, y: scrollView.contentOffset.y), animated: true)
+		}
 	}
 
 	private func setUpBindings() {
