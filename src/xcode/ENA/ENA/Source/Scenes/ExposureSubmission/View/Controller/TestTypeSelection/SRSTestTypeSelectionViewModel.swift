@@ -78,7 +78,7 @@ class SRSTestTypeSelectionViewModel {
 	/// The order of the list entries shown.
 	private let submissionTypes: [SRSSubmissionType] = [
 		.srsRegisteredRat,
-		.srsSelfTest,
+		.srsUnregisterdRat,
 		.srsRegisteredPcr,
 		.srsUnregisteredPcr,
 		.srsRapidPcr,
@@ -102,9 +102,13 @@ fileprivate extension SRSSubmissionType {
 	var optionTitle: String {
 		switch self {
 		case .srsSelfTest:
-			return AppStrings.ExposureSubmission.SRSTestTypeSelection.optionSRSSelfTestTitle
+			// This case "srsSelfTest" which is not shown in the test selection screen
+			// so we dont need a string to show on the screen
+			return ""
 		case .srsRegisteredRat:
 			return AppStrings.ExposureSubmission.SRSTestTypeSelection.optionSRSRegisteredRatTitle
+		case .srsUnregisterdRat:
+			return AppStrings.ExposureSubmission.SRSTestTypeSelection.optionSRSUnregisteredRatTitle
 		case .srsRegisteredPcr:
 			return AppStrings.ExposureSubmission.SRSTestTypeSelection.optionSRSRegisteredPcrTitle
 		case .srsUnregisteredPcr:
@@ -119,7 +123,11 @@ fileprivate extension SRSSubmissionType {
 	var optionAccessibilityIdentifier: String? {
 		switch self {
 		case .srsSelfTest:
-			return AccessibilityIdentifiers.ExposureSubmission.SRSTestTypeSelection.optionSRSSelfTest
+			// This case "srsSelfTest" which is not shown in the test selection screen
+			// so we dont need a string to show on the screen
+			return nil
+		case .srsUnregisterdRat:
+			return AccessibilityIdentifiers.ExposureSubmission.SRSTestTypeSelection.optionSRSUnregisteredRat
 		case .srsRegisteredRat:
 			return AccessibilityIdentifiers.ExposureSubmission.SRSTestTypeSelection.optionSRSRegisteredRat
 		case .srsRegisteredPcr:
