@@ -154,7 +154,7 @@ final class CountrySelectionCell: UITableViewCell, UIPickerViewDelegate, UIPicke
 
 	func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
 		guard delegate?.isAllowedCountrySelection ?? false else {
-			// If an user spins the wheel and collapse it then the row selection should be prevented.
+			// If a user spins the wheel and collapse it then the row selection should be prevented.
 			return
 		}
 		selectedCountryLabel.text = countries[row].localizedName
