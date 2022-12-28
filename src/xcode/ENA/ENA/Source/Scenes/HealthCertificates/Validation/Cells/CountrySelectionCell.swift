@@ -5,6 +5,10 @@
 import Foundation
 import UIKit
 
+protocol CountrySelectionCellPickerSelectionPreventable: AnyObject {
+	var isAllowedCountrySelection: Bool { get }
+}
+
 final class CountrySelectionCell: UITableViewCell, UIPickerViewDelegate, UIPickerViewDataSource {
 
 	// MARK: - Init
@@ -23,6 +27,8 @@ final class CountrySelectionCell: UITableViewCell, UIPickerViewDelegate, UIPicke
 	}
 
 	// MARK: - Internal
+	
+	weak var delegate: CountrySelectionCellPickerSelectionPreventable?
 
 	var didSelectCountry: ((Country) -> Void)?
 
@@ -147,6 +153,10 @@ final class CountrySelectionCell: UITableViewCell, UIPickerViewDelegate, UIPicke
 	}
 
 	func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+		guard delegate?.isAllowedCountrySelection ?? false else {
+			// If a user spins the wheel and collapse it then the row selection should be prevented.
+			return
+		}
 		selectedCountryLabel.text = countries[row].localizedName
 		didSelectCountry?(countries[row])
 	}
