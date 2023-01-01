@@ -994,7 +994,7 @@
 
 "ExposureSubmission_SRSTestTypeSelection_description" = "The value for the test type is used solely for statistical analysis. It is not linked with the warning or with your identity. If you do not want to specify a value, just select “No answer”.";
 
-"ExposureSubmission_SRSTestTypeSelection_optionSRSSelfTest_title" = "Rapid antigen test not registered in the app";
+"ExposureSubmission_SRSTestTypeSelection_optionSRSUnregisteredRat_title" = "Rapid antigen test not registered in the app";
 
 "ExposureSubmission_SRSTestTypeSelection_optionSRSRegisteredRat_title" = "Rapid antigen test registered in the app, but no result received";
 

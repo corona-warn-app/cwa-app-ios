@@ -994,7 +994,7 @@
 
 "ExposureSubmission_SRSTestTypeSelection_description" = "Valoarea pentru tipul de test este utilizată doar pentru analiză statistică. Nu este legată de nicio avertizare sau de identitatea dvs. Dacă nu doriți să specificați o valoare, selectați „Nu răspund”.";
 
-"ExposureSubmission_SRSTestTypeSelection_optionSRSSelfTest_title" = "Testul antigen rapid nu este înregistrat în aplicație";
+"ExposureSubmission_SRSTestTypeSelection_optionSRSUnregisteredRat_title" = "Testul antigen rapid nu este înregistrat în aplicație";
 
 "ExposureSubmission_SRSTestTypeSelection_optionSRSRegisteredRat_title" = "Testul antigen rapid este înregistrat în aplicație, dar nu s-a primit niciun răspuns";
 

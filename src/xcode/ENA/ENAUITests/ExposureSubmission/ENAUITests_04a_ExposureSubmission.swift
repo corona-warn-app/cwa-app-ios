@@ -271,7 +271,7 @@ class ENAUITests_04a_ExposureSubmission: CWATestCase {
 		)
 
 		// Select Self Test and Tap Next
-		app.buttons[AccessibilityIdentifiers.ExposureSubmission.SRSTestTypeSelection.optionSRSSelfTest].waitAndTap()
+		app.buttons[AccessibilityIdentifiers.ExposureSubmission.SRSTestTypeSelection.optionSRSUnregisteredRat].waitAndTap()
 		app.buttons[AccessibilityIdentifiers.General.primaryFooterButton].waitAndTap()
 		
 		// Select Symptoms Screen is showing
@@ -852,7 +852,7 @@ class ENAUITests_04a_ExposureSubmission: CWATestCase {
 
 		// Select Self Test and Tap Next
 		snapshot("submissionflow_srs_screenshot_testtype_selftest_option")
-		app.buttons[AccessibilityIdentifiers.ExposureSubmission.SRSTestTypeSelection.optionSRSSelfTest].waitAndTap()
+		app.buttons[AccessibilityIdentifiers.ExposureSubmission.SRSTestTypeSelection.optionSRSUnregisteredRat].waitAndTap()
 		app.buttons[AccessibilityIdentifiers.General.primaryFooterButton].waitAndTap()
 		
 		// Select Symptoms Yes And Tap Next

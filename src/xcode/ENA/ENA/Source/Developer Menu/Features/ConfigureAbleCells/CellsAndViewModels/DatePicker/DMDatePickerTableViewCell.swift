@@ -34,6 +34,7 @@ class DMDatePickerTableViewCell: UITableViewCell, ConfigureableCell {
 		datePicker.datePickerMode = cellViewModel.datePickerMode
 		datePicker.date = cellViewModel.date
 		datePicker.addTarget(self, action: #selector(didSelectDate(datePicker:)), for: .valueChanged)
+		datePicker.accessibilityIdentifier = cellViewModel.accessibilityIdentifier
 	}
 
 	// MARK: - Private
@@ -41,7 +42,7 @@ class DMDatePickerTableViewCell: UITableViewCell, ConfigureableCell {
 	private var stackView: UIStackView = {
 		let stackView = UIStackView(frame: .zero)
 		stackView.translatesAutoresizingMaskIntoConstraints = false
-		stackView.axis = .horizontal
+		stackView.axis = .vertical
 		return stackView
 	}()
 
@@ -55,6 +56,11 @@ class DMDatePickerTableViewCell: UITableViewCell, ConfigureableCell {
 
 	private var datePicker: UIDatePicker = {
 		let datePicker = UIDatePicker(frame: .zero)
+		if #available(iOS 15.0, *) {
+			datePicker.preferredDatePickerStyle = .inline
+		} else if #available(iOS 13.4, *) {
+			datePicker.preferredDatePickerStyle = .wheels
+		}
 		datePicker.translatesAutoresizingMaskIntoConstraints = false
 		datePicker.setContentHuggingPriority(.required, for: .horizontal)
 		datePicker.setContentCompressionResistancePriority(.required, for: .horizontal)
