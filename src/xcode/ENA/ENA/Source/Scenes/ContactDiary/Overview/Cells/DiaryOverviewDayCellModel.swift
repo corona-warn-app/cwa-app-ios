@@ -179,8 +179,8 @@ final class DiaryOverviewDayCellModel {
 		return diaryDay.tests
 	}
 	
-	var diaryDaySubmissions: [DiaryDaySubmission] {
-		return diaryDay.submissions
+	var diaryDaySubmission: DiaryDaySubmission? {
+		diaryDay.submissions.first
 	}
 
 	func checkInDespription(checkinWithRisk: CheckinWithRisk) -> String {
