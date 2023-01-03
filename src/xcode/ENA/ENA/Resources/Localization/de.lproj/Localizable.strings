@@ -27,8 +27,6 @@
 
 "General_BackButtonTitle" = "Zurück";
 
-"Common_No_Network_Title" = "Internet-Verbindung";
-
 "Common_No_Network" = "Der Vorgang konnte wegen Netzwerkproblemen nicht abgeschlossen werden. Bitte versuchen Sie es noch einmal.";
 
 "Common_ENError5_Description" = "Fehler 5: Es ist etwas schiefgelaufen. Ihr Risiko konnte leider nicht ermittelt werden. Wir arbeiten an einer Lösung für dieses Problem.";
@@ -587,7 +585,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_title" = "Andere warnen nicht möglich";
 
-"ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_insufficientAppUsageTime_message" = "Aus Sicherheitsgründen können Sie erst %@ Stunden, nachdem Sie die App installiert oder aktualisiert haben, diese Art von Warnung senden. Bitte versuchen Sie es in %@ Stunden erneut. (Fehlercode %@)";
+"ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_insufficientAppUsageTime_message" = "Leider können Sie momentan andere noch nicht warnen, da Sie die App noch nicht lange genug installiert haben. Dies dient der Vermeidung von Missbrauch.\nEinen offiziellen Test können Sie jederzeit registrieren und andere damit warnen. (Fehlercode %@)";
 
 "ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_positiveTestResultWasAlreadySubmittedWithinThresholdDays_message" = "Sie können momentan andere nicht warnen, da Sie innerhalb der vergangenen %@ Tage bereits ein positives Testergebnis gemeldet haben. Dies dient der Vermeidung von Missbrauch.\nEinen offiziellen Test können Sie jederzeit registrieren und andere damit warnen. (Fehlercode %@)";
 

@@ -91,8 +91,7 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 		onDismissState: @escaping () -> Void,
 		onDismissDistrict: @escaping (Bool) -> Void,
 		onAccessibilityFocus: @escaping () -> Void,
-		onUpdate: @escaping () -> Void,
-		onDeviceOfflineInfo: @escaping CompletionVoid
+		onUpdate: @escaping () -> Void
 	) {
 		guard cellModel == nil else { return }
 		
@@ -111,8 +110,7 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 					onDismissState: onDismissState,
 					onDismissDistrict: onDismissDistrict,
 					onAccessibilityFocus: onAccessibilityFocus,
-					onUpdate: onUpdate,
-					onDeviceOfflineInfo: onDeviceOfflineInfo
+					onUpdate: onUpdate
 				)
 			}
 			.store(in: &subscriptions)
@@ -129,8 +127,7 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 					onDismissState: onDismissState,
 					onDismissDistrict: onDismissDistrict,
 					onAccessibilityFocus: onAccessibilityFocus,
-					onUpdate: onUpdate,
-					onDeviceOfflineInfo: onDeviceOfflineInfo
+					onUpdate: onUpdate
 				)
 			}
 			.store(in: &subscriptions)
@@ -146,8 +143,7 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 		onDismissState: @escaping () -> Void,
 		onDismissDistrict: @escaping (Bool) -> Void,
 		onAccessibilityFocus: @escaping () -> Void,
-		onUpdate: @escaping () -> Void,
-		onDeviceOfflineInfo: @escaping CompletionVoid
+		onUpdate: @escaping () -> Void
 	) {
 		clearStackView()
 
@@ -157,8 +153,7 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 			onAddDistrict: onAddDistrict,
 			onDismissState: onDismissState,
 			onDismissDistrict: onDismissDistrict,
-			onAccessibilityFocus: onAccessibilityFocus,
-			onDeviceOfflineInfo: onDeviceOfflineInfo
+			onAccessibilityFocus: onAccessibilityFocus
 		)
 		configurePandemicRadarCard(
 			onInfoButtonTap: onInfoButtonTap,
@@ -208,8 +203,7 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 		onAddDistrict: @escaping (SelectValueTableViewController) -> Void,
 		onDismissState: @escaping () -> Void,
 		onDismissDistrict: @escaping (Bool) -> Void,
-		onAccessibilityFocus: @escaping () -> Void,
-		onDeviceOfflineInfo: @escaping CompletionVoid
+		onAccessibilityFocus: @escaping () -> Void
 	) {
 		let localStatisticsModel = LocalStatisticsModel()
 
@@ -243,8 +237,6 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 					self?.scrollView.scrollRectToVisible(manageLocalStatisticsCardView.frame, animated: true)
 					onAccessibilityFocus()
 					UIAccessibility.post(notification: .layoutChanged, argument: nil)
-				}, onDeviceOfflineInfo: {
-					onDeviceOfflineInfo()
 				}
 			)
 		}
