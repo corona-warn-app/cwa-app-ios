@@ -50,7 +50,7 @@ struct TraceLocation: Equatable {
 				to: endDate
 			).minute
 
-			duration = eventDuration.map { $0 == 0 ? fallback : $0 } ?? fallback
+			duration = eventDuration ?? fallback
 		} else {
 			duration = fallback
 		}
