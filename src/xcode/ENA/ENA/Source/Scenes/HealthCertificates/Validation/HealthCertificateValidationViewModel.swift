@@ -140,6 +140,7 @@ final class HealthCertificateValidationViewModel {
 			guard let self = self else { return }
 
 			if let countrySelectionCell = cell as? CountrySelectionCell {
+				countrySelectionCell.delegate = self
 
 				countrySelectionCell.didSelectCountry = { [weak self] country in
 					self?.store.lastSelectedValidationCountry = country
@@ -185,5 +186,13 @@ final class HealthCertificateValidationViewModel {
 				validationDateSelectionCell.isCollapsed = self.validationDateSelectionCollapsed
 			}
 		}
+	}
+}
+
+// MARK: - CountrySelectionCellPickerSelectionPreventable
+
+extension HealthCertificateValidationViewModel: CountrySelectionCellPickerSelectionPreventable {
+	var isAllowedCountrySelection: Bool {
+		!countrySelectionCollapsed
 	}
 }
