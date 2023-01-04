@@ -2622,8 +2622,6 @@
 
 "TraceLocations_Overview_ActionSheet_InfoTitle" = "Informații";
 
-"TraceLocations_Overview_ActionSheet_OnBehalfCheckinSubmissionTitle" = "Avertizarea altor persoane";
-
 "TraceLocations_Overview_ActionSheet_EditTitle" = "Editare";
 
 "TraceLocations_Overview_Item_Prefix" = "Cod QR pentru %@.";
@@ -2702,69 +2700,6 @@
 "TraceLocations_Configuration_HoursUnit" = "%@ ore.";
 
 "TraceLocations_Configuration_SavingErrorMessage" = "Codul QR nu poate fi salvat chiar acum. Încercați din nou mai târziu (cod de eroare %@).";
-
-/* On Behalf Checkin Submission */
-/* - Info */
-"OnBehalfCheckinSubmission_Info_Title" = "Avertizarea altor persoane";
-
-"OnBehalfCheckinSubmission_Info_Subtitle" = "Siguranță crescută pentru dvs. și invitații dvs.";
-
-"OnBehalfCheckinSubmission_Info_Description" = "Vă puteți avertiza invitații în numele cuiva care a fost diagnosticat cu coronavirus și care a participat la eveniment, dar care nu a făcut check-inul în Corona-Warn-App.";
-
-"OnBehalfCheckinSubmission_Info_BulletPoint1" = "Dacă o persoană care nu a făcut check-in la acest eveniment sau în acest loc este diagnosticată ulterior cu coronavirus, invitații pot fi notificați dacă au fost în aceeași cameră în același timp sau în decurs de 30 de minute după persoana diagnosticată.";
-
-"OnBehalfCheckinSubmission_Info_BulletPoint2" = "Vă puteți avertiza invitații în numele altor persoane doar dacă vi se solicită acest lucru de către autoritățile de sănătate publică. Acestea vă vor trimite un TAN, în acest caz.";
-
-"OnBehalfCheckinSubmission_Info_PrimaryButtonTitle" = "Continuare";
-
-/* - Trace Location Selection */
-"OnBehalfCheckinSubmission_TraceLocationSelection_Title" = "Avertizarea altor persoane";
-
-"OnBehalfCheckinSubmission_TraceLocationSelection_EmptyDescription" = "Selectați un eveniment pentru care doriți să avertizați alte persoane în numele unei persoane care a fost diagnosticată cu coronavirus.";
-
-"OnBehalfCheckinSubmission_TraceLocationSelection_Description" = "Selectați un eveniment pentru care doriți să avertizați alte persoane în numele unei persoane care a fost diagnosticată cu coronavirus sau să restaurați un eveniment șters scanând din nou codul QR al evenimentului respectiv.";
-
-"OnBehalfCheckinSubmission_TraceLocationSelection_ScanButtonTitle" = "Scanare cod QR";
-
-"OnBehalfCheckinSubmission_TraceLocationSelection_PrimaryButtonTitle" = "Continuare";
-
-"OnBehalfCheckinSubmission_TraceLocationSelection_EmptyState_Title" = "Nu există evenimente disponibile";
-
-"OnBehalfCheckinSubmission_TraceLocationSelection_EmptyState_Description" = "Scanați codul QR al evenimentului relevant din nou pentru a avertiza în numele altor persoane.";
-
-"OnBehalfCheckinSubmission_TraceLocationSelection_EmptyState_ImageDescription" = "Smartphone";
-
-/* - Date Time Selection */
-"OnBehalfCheckinSubmission_DateTimeSelection_Title" = "Avertizarea altor persoane";
-
-"OnBehalfCheckinSubmission_DateTimeSelection_Description" = "Specificați durata șederii persoanei care a fost diagnosticată cu coronavirus în numele căreia doriți să avertizați alte persoane. Primiți această informație de la autoritățile de sănătate publică.";
-
-"OnBehalfCheckinSubmission_DateTimeSelection_Start" = "Început/Sosire";
-
-"OnBehalfCheckinSubmission_DateTimeSelection_Duration" = "Durată";
-
-"OnBehalfCheckinSubmission_DateTimeSelection_PrimaryButtonTitle" = "Continuare";
-
-/* - TAN Input */
-"OnBehalfCheckinSubmission_TANInput_Title" = "Avertizarea altor persoane";
-
-"OnBehalfCheckinSubmission_TANInput_Description" = "Introduceți codul TAN din 10 caractere pe care l-ați primit.";
-
-"OnBehalfCheckinSubmission_TANInput_PrimaryButtonTitle" = "Trimitere avertizare";
-
-/* - Thank You */
-"OnBehalfCheckinSubmission_ThankYou_Title" = "Vă mulțumim!";
-
-"OnBehalfCheckinSubmission_ThankYou_Description" = "Datorită sprijinului dvs., alte persoane pot fi acum avertizate și pot reacționa adecvat.";
-
-/* - Errors */
-"OnBehalfCheckinSubmissionError_Failed" = "A apărut o eroare. Contactați hotline-ul tehnic prin Informații aplicație -> Hotline tehnic.";
-
-"OnBehalfCheckinSubmissionError_InvalidTAN" = "TAN nevalabil. Verificați intrarea dvs. sau contactați organizația care v-a trimis TAN-ul.";
-
-"OnBehalfCheckinSubmissionError_TryAgain" = "A apărut o eroare. Încercați din nou mai târziu sau contactați hotline-ul tehnic prin Informații aplicație -> Hotline tehnic.";
-
-"OnBehalfCheckinSubmissionError_NoNetwork" = "Conexiunea dvs. la internet a fost pierdută. Verificați conexiunea și încercați din nou.";
 
 /* Error Reporting */
 "ErrorReport_Title" = "Rapoarte de erori";
