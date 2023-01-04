@@ -2622,8 +2622,6 @@
 
 "TraceLocations_Overview_ActionSheet_InfoTitle" = "Інформація";
 
-"TraceLocations_Overview_ActionSheet_OnBehalfCheckinSubmissionTitle" = "Попереджати для інших";
-
 "TraceLocations_Overview_ActionSheet_EditTitle" = "Редагувати";
 
 "TraceLocations_Overview_Item_Prefix" = "Qr-код для %@.";
@@ -2702,69 +2700,6 @@
 "TraceLocations_Configuration_HoursUnit" = "%@ год.";
 
 "TraceLocations_Configuration_SavingErrorMessage" = "QR-код зараз неможливо зберегти. Спробуйте пізніше (код помилки %@).";
-
-/* On Behalf Checkin Submission */
-/* - Info */
-"OnBehalfCheckinSubmission_Info_Title" = "Попереджати для інших";
-
-"OnBehalfCheckinSubmission_Info_Subtitle" = "Підвищена безпека для вас і ваших гостей";
-
-"OnBehalfCheckinSubmission_Info_Description" = "Ви можете попередити своїх гостей від імені когось, у кого був діагностований коронавірус і який відвідав захід, але не був зареєстрований при вході за допомогою Corona-Warn-App.";
-
-"OnBehalfCheckinSubmission_Info_BulletPoint1" = "Якщо у когось, хто не зареєструвався при вході на цьому заході чи місці, пізніше діагностують коронавірус, гості можуть бути сповіщені, якщо вони перебували в одній кімнаті одночасно або через 30 хвилин після того, як діагностовано людину.";
-
-"OnBehalfCheckinSubmission_Info_BulletPoint2" = "Ви можете попереджати своїх гостей від імені інших, лише якщо ви отримали вказівку про це від державних органів охорони здоров’я. У цьому випадку вам надішлють TAN.";
-
-"OnBehalfCheckinSubmission_Info_PrimaryButtonTitle" = "Продовжити";
-
-/* - Trace Location Selection */
-"OnBehalfCheckinSubmission_TraceLocationSelection_Title" = "Попереджати для інших";
-
-"OnBehalfCheckinSubmission_TraceLocationSelection_EmptyDescription" = "Виберіть захід, про який ви хочете попередити інших від імені людини, у якої діагностовано коронавірус.";
-
-"OnBehalfCheckinSubmission_TraceLocationSelection_Description" = "Виберіть захід, про який ви хочете попередити інших від імені людини, у якої діагностовано коронавірус, або відновіть видалений захід, знову відсканувавши QR-код цього заходу.";
-
-"OnBehalfCheckinSubmission_TraceLocationSelection_ScanButtonTitle" = "Сканувати QR-код";
-
-"OnBehalfCheckinSubmission_TraceLocationSelection_PrimaryButtonTitle" = "Продовжити";
-
-"OnBehalfCheckinSubmission_TraceLocationSelection_EmptyState_Title" = "Немає доступних заходів";
-
-"OnBehalfCheckinSubmission_TraceLocationSelection_EmptyState_Description" = "Знову відскануйте QR-код відповідного заходу, щоб попередити від імені інших.";
-
-"OnBehalfCheckinSubmission_TraceLocationSelection_EmptyState_ImageDescription" = "Смартфон";
-
-/* - Date Time Selection */
-"OnBehalfCheckinSubmission_DateTimeSelection_Title" = "Попереджати для інших";
-
-"OnBehalfCheckinSubmission_DateTimeSelection_Description" = "Вкажіть термін перебування людини, у якої виявили коронавірус, від імені якої ви хочете попередити інших. Ви отримуєте цю інформацію від державних органів охорони здоров’я.";
-
-"OnBehalfCheckinSubmission_DateTimeSelection_Start" = "Початок/Прибуття";
-
-"OnBehalfCheckinSubmission_DateTimeSelection_Duration" = "Тривалість";
-
-"OnBehalfCheckinSubmission_DateTimeSelection_PrimaryButtonTitle" = "Продовжити";
-
-/* - TAN Input */
-"OnBehalfCheckinSubmission_TANInput_Title" = "Попереджати для інших";
-
-"OnBehalfCheckinSubmission_TANInput_Description" = "Введіть 10-значний TAN, який вам надали.";
-
-"OnBehalfCheckinSubmission_TANInput_PrimaryButtonTitle" = "Відправити застереження";
-
-/* - Thank You */
-"OnBehalfCheckinSubmission_ThankYou_Title" = "Дякуємо!";
-
-"OnBehalfCheckinSubmission_ThankYou_Description" = "Завдяки вашій підтримці інші люди тепер можуть бути попереджені та належним чином реагувати.";
-
-/* - Errors */
-"OnBehalfCheckinSubmissionError_Failed" = "Сталася помилка. Зв’яжіться з технічною гарячою лінією через Інформація про застосунок -> Технічна гаряча лінія.";
-
-"OnBehalfCheckinSubmissionError_InvalidTAN" = "Недійсний TAN. Перевірте свій запис або зв’яжіться з організацією, яка надіслала вам TAN.";
-
-"OnBehalfCheckinSubmissionError_TryAgain" = "Сталась помилка. Спробуйте пізніше або зв’яжіться з технічною гарячою лінією через Інформація про застосунок -> Технічна гаряча лінія.";
-
-"OnBehalfCheckinSubmissionError_NoNetwork" = "Ваше з’єднання з Інтернетом було втрачено. Перевірте з’єднання та спробуйте ще раз.";
 
 /* Error Reporting */
 "ErrorReport_Title" = "Звіти про помилки";

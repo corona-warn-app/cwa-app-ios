@@ -2622,8 +2622,6 @@
 
 "TraceLocations_Overview_ActionSheet_InfoTitle" = "Information";
 
-"TraceLocations_Overview_ActionSheet_OnBehalfCheckinSubmissionTitle" = "Warn for Others";
-
 "TraceLocations_Overview_ActionSheet_EditTitle" = "Edit";
 
 "TraceLocations_Overview_Item_Prefix" = "QR code for %@.";
@@ -2702,69 +2700,6 @@
 "TraceLocations_Configuration_HoursUnit" = "%@ hrs.";
 
 "TraceLocations_Configuration_SavingErrorMessage" = "The QR code cannot be saved right now. Please try again later (error code %@).";
-
-/* On Behalf Checkin Submission */
-/* - Info */
-"OnBehalfCheckinSubmission_Info_Title" = "Warn for Others";
-
-"OnBehalfCheckinSubmission_Info_Subtitle" = "Increased Safety for You and Your Guests";
-
-"OnBehalfCheckinSubmission_Info_Description" = "You can warn your guests on behalf of someone who has been diagnosed with coronavirus and who attended the event, but was not checked in with the Corona-Warn-App.";
-
-"OnBehalfCheckinSubmission_Info_BulletPoint1" = "If someone who did not check in to this event or place is diagnosed with coronavirus later, the guests can be notified if they were in the same room at the same time or up to 30 minutes after the diagnosed person.";
-
-"OnBehalfCheckinSubmission_Info_BulletPoint2" = "You can only warn your guests on behalf of others if you have been instructed to do so by the public health authorities. They will send you a TAN in this case.";
-
-"OnBehalfCheckinSubmission_Info_PrimaryButtonTitle" = "Continue";
-
-/* - Trace Location Selection */
-"OnBehalfCheckinSubmission_TraceLocationSelection_Title" = "Warn for Others";
-
-"OnBehalfCheckinSubmission_TraceLocationSelection_EmptyDescription" = "Select an event for which you want to warn others on behalf of a person who has been diagnosed with coronavirus.";
-
-"OnBehalfCheckinSubmission_TraceLocationSelection_Description" = "Select an event for which you want to warn others on behalf of a person who has been diagnosed with coronavirus, or restore a deleted event by scanning the QR code of that event again.";
-
-"OnBehalfCheckinSubmission_TraceLocationSelection_ScanButtonTitle" = "Scan QR Code";
-
-"OnBehalfCheckinSubmission_TraceLocationSelection_PrimaryButtonTitle" = "Continue";
-
-"OnBehalfCheckinSubmission_TraceLocationSelection_EmptyState_Title" = "No Events Available";
-
-"OnBehalfCheckinSubmission_TraceLocationSelection_EmptyState_Description" = "Scan the QR code of the relevant event again to warn on behalf of others.";
-
-"OnBehalfCheckinSubmission_TraceLocationSelection_EmptyState_ImageDescription" = "Smartphone";
-
-/* - Date Time Selection */
-"OnBehalfCheckinSubmission_DateTimeSelection_Title" = "Warn for Others";
-
-"OnBehalfCheckinSubmission_DateTimeSelection_Description" = "Specify the length of stay of the person who has been diagnosed with coronavirus, on behalf of whom you want to warn others. You receive this information from the public health authorities.";
-
-"OnBehalfCheckinSubmission_DateTimeSelection_Start" = "Start/Arrival";
-
-"OnBehalfCheckinSubmission_DateTimeSelection_Duration" = "Duration";
-
-"OnBehalfCheckinSubmission_DateTimeSelection_PrimaryButtonTitle" = "Continue";
-
-/* - TAN Input */
-"OnBehalfCheckinSubmission_TANInput_Title" = "Warn for Others";
-
-"OnBehalfCheckinSubmission_TANInput_Description" = "Enter the 10-place TAN that you were given.";
-
-"OnBehalfCheckinSubmission_TANInput_PrimaryButtonTitle" = "Send Warning";
-
-/* - Thank You */
-"OnBehalfCheckinSubmission_ThankYou_Title" = "Thank you!";
-
-"OnBehalfCheckinSubmission_ThankYou_Description" = "Thanks to your support, other people can now be warned and respond appropriately.";
-
-/* - Errors */
-"OnBehalfCheckinSubmissionError_Failed" = "An error has occurred. Please contact the technical hotline via App Information -> Technical Hotline.";
-
-"OnBehalfCheckinSubmissionError_InvalidTAN" = "Invalid TAN. Please check your entry or contact the organization that sent you the TAN.";
-
-"OnBehalfCheckinSubmissionError_TryAgain" = "An error occurred. Please try again later or contact the technical hotline via App Information -> Technical Hotline.";
-
-"OnBehalfCheckinSubmissionError_NoNetwork" = "Your Internet connection was lost. Please check the connection and try again.";
 
 /* Error Reporting */
 "ErrorReport_Title" = "Error Reports";
