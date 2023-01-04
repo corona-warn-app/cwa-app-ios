@@ -2622,8 +2622,6 @@
 
 "TraceLocations_Overview_ActionSheet_InfoTitle" = "Informacje";
 
-"TraceLocations_Overview_ActionSheet_OnBehalfCheckinSubmissionTitle" = "Ostrzegaj w imieniu innych";
-
 "TraceLocations_Overview_ActionSheet_EditTitle" = "Edytuj";
 
 "TraceLocations_Overview_Item_Prefix" = "Kod QR do %@.";
@@ -2702,69 +2700,6 @@
 "TraceLocations_Configuration_HoursUnit" = "%@ godz.";
 
 "TraceLocations_Configuration_SavingErrorMessage" = "W tej chwili nie można zapisać kodu QR. Spróbuj ponownie później (kod błędu %@).";
-
-/* On Behalf Checkin Submission */
-/* - Info */
-"OnBehalfCheckinSubmission_Info_Title" = "Ostrzegaj w imieniu innych";
-
-"OnBehalfCheckinSubmission_Info_Subtitle" = "Większe bezpieczeństwo dla Ciebie i Twoich gości";
-
-"OnBehalfCheckinSubmission_Info_Description" = "Możesz ostrzec swoich gości w imieniu osoby, u której zdiagnozowano koronawirusa i która uczestniczyła w wydarzeniu, ale nie zameldowała się za pomocą aplikacji Corona-Warn-App.";
-
-"OnBehalfCheckinSubmission_Info_BulletPoint1" = "Jeśli u osoby, która nie zameldowała swojej obecność w takim wydarzeniu lub miejscu, zostanie później zdiagnozowany koronawirus, goście zostaną powiadomieni, jeśli przebywali w tym samym pomieszczeniu w tym samym czasie lub do 30 minut po opuszczeniu pomieszczenia przez zdiagnozowaną osobę.";
-
-"OnBehalfCheckinSubmission_Info_BulletPoint2" = "Możesz ostrzegać swoich gości w imieniu innych osób tylko po otrzymaniu takiego polecenia od organu ds. zdrowia publicznego. W takim przypadku organ prześle Ci numer TAN.";
-
-"OnBehalfCheckinSubmission_Info_PrimaryButtonTitle" = "Kontynuuj";
-
-/* - Trace Location Selection */
-"OnBehalfCheckinSubmission_TraceLocationSelection_Title" = "Ostrzegaj w imieniu innych";
-
-"OnBehalfCheckinSubmission_TraceLocationSelection_EmptyDescription" = "Wybierz wydarzenie, o którym chcesz ostrzec innych w imieniu osoby, u której zdiagnozowano koronawirusa";
-
-"OnBehalfCheckinSubmission_TraceLocationSelection_Description" = "Wybierz wydarzenie, o którym chcesz ostrzec innych w imieniu osoby, u której zdiagnozowano koronawirusa, lub przywróć usunięte wydarzenie, skanując ponownie kod QR tego wydarzenia.";
-
-"OnBehalfCheckinSubmission_TraceLocationSelection_ScanButtonTitle" = "Skanuj kod QR";
-
-"OnBehalfCheckinSubmission_TraceLocationSelection_PrimaryButtonTitle" = "Kontynuuj";
-
-"OnBehalfCheckinSubmission_TraceLocationSelection_EmptyState_Title" = "Brak dostępnych wydarzeń";
-
-"OnBehalfCheckinSubmission_TraceLocationSelection_EmptyState_Description" = "Zeskanuj ponownie kod QR odpowiedniego wydarzenia, aby ostrzegać w imieniu innych.";
-
-"OnBehalfCheckinSubmission_TraceLocationSelection_EmptyState_ImageDescription" = "Smartfon";
-
-/* - Date Time Selection */
-"OnBehalfCheckinSubmission_DateTimeSelection_Title" = "Ostrzegaj w imieniu innych";
-
-"OnBehalfCheckinSubmission_DateTimeSelection_Description" = "Określ długość pobytu osoby ze zdiagnozowanym koronawirusem, w imieniu której chcesz ostrzec innych. Otrzymasz te informacje od organów ds. zdrowia publicznego.";
-
-"OnBehalfCheckinSubmission_DateTimeSelection_Start" = "Początek/Przyjazd";
-
-"OnBehalfCheckinSubmission_DateTimeSelection_Duration" = "Czas trwania";
-
-"OnBehalfCheckinSubmission_DateTimeSelection_PrimaryButtonTitle" = "Kontynuuj";
-
-/* - TAN Input */
-"OnBehalfCheckinSubmission_TANInput_Title" = "Ostrzegaj w imieniu innych";
-
-"OnBehalfCheckinSubmission_TANInput_Description" = "Wprowadź otrzymany 10-miejscowy numer TAN.";
-
-"OnBehalfCheckinSubmission_TANInput_PrimaryButtonTitle" = "Wyślij ostrzeżenie";
-
-/* - Thank You */
-"OnBehalfCheckinSubmission_ThankYou_Title" = "Dziękujemy!";
-
-"OnBehalfCheckinSubmission_ThankYou_Description" = "Twoje wsparcie pozwala na ostrzeganie innych osób i daje im możliwość odpowiedniego zareagowania.";
-
-/* - Errors */
-"OnBehalfCheckinSubmissionError_Failed" = "Wystąpił błąd. Skontaktuj się z infolinią techniczną, korzystając z opcji: Informacje o aplikacji -> Infolinia techniczna.";
-
-"OnBehalfCheckinSubmissionError_InvalidTAN" = "Nieprawidłowy numer TAN. Sprawdź swój wpis lub skontaktuj się z organizacją, która przesłała Ci numer TAN.";
-
-"OnBehalfCheckinSubmissionError_TryAgain" = "Wystąpił błąd. Spróbuj ponownie później lub skontaktuj się z infolinią techniczną, korzystając z opcji: Informacje o aplikacji -> Infolinia techniczna.";
-
-"OnBehalfCheckinSubmissionError_NoNetwork" = "Połączenie internetowe zostało utracone. Sprawdź połączenie i spróbuj ponownie.";
 
 /* Error Reporting */
 "ErrorReport_Title" = "Raporty o błędach";

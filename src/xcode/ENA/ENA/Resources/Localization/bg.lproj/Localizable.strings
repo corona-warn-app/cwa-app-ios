@@ -2622,8 +2622,6 @@
 
 "TraceLocations_Overview_ActionSheet_InfoTitle" = "Информация";
 
-"TraceLocations_Overview_ActionSheet_OnBehalfCheckinSubmissionTitle" = "Предупреждение за другите";
-
 "TraceLocations_Overview_ActionSheet_EditTitle" = "Редактиране";
 
 "TraceLocations_Overview_Item_Prefix" = "QR код за %@.";
@@ -2702,69 +2700,6 @@
 "TraceLocations_Configuration_HoursUnit" = "%@ ч";
 
 "TraceLocations_Configuration_SavingErrorMessage" = "QR кодът не може да бъде запазен в момента. Моля, опитайте по-късно (код на грешката: %@).";
-
-/* On Behalf Checkin Submission */
-/* - Info */
-"OnBehalfCheckinSubmission_Info_Title" = "Предупреждение за другите";
-
-"OnBehalfCheckinSubmission_Info_Subtitle" = "Повече безопасност за Вас и Вашите посетители";
-
-"OnBehalfCheckinSubmission_Info_Description" = "Можете да предупредите гостите си от името на лице, което е било диагностицирано с коронавирус и е посетило събитието, но не се е регистрирало в приложението Corona-Warn-App.";
-
-"OnBehalfCheckinSubmission_Info_BulletPoint1" = "Ако лице, което не се е регистрирало на това събитие или място, е диагностицирано с коронавирус по-късно, гостите ще могат да получат предупреждение, ако са били в едно помещение по същото време или до 30 минути след него.";
-
-"OnBehalfCheckinSubmission_Info_BulletPoint2" = "Можете да изпращате такива предупреждения от името на други лице единствено ако сте инструктирани от службите за обществено здравеопазване да направите това. В такъв случай те ще ви изпратят ТАН код.";
-
-"OnBehalfCheckinSubmission_Info_PrimaryButtonTitle" = "Напред";
-
-/* - Trace Location Selection */
-"OnBehalfCheckinSubmission_TraceLocationSelection_Title" = "Предупреждение за другите";
-
-"OnBehalfCheckinSubmission_TraceLocationSelection_EmptyDescription" = "Изберете събитие, за което искате да изпратите предупреждения до другите от името на лице, което е било диагностицирано с коронавирус.";
-
-"OnBehalfCheckinSubmission_TraceLocationSelection_Description" = "Изберете събитие, за което искате да изпратите предупреждения до другите от името на лице, което е диагностицирано с коронавирус или възстановете изтрито събитие като сканирате QR кода му отново.";
-
-"OnBehalfCheckinSubmission_TraceLocationSelection_ScanButtonTitle" = "Сканиране на QR код";
-
-"OnBehalfCheckinSubmission_TraceLocationSelection_PrimaryButtonTitle" = "Напред";
-
-"OnBehalfCheckinSubmission_TraceLocationSelection_EmptyState_Title" = "Не са налични събития";
-
-"OnBehalfCheckinSubmission_TraceLocationSelection_EmptyState_Description" = "Сканирайте QR кода на желаното събитие отново, за да изпратите предупреждения от името на други лица.";
-
-"OnBehalfCheckinSubmission_TraceLocationSelection_EmptyState_ImageDescription" = "Смартфон";
-
-/* - Date Time Selection */
-"OnBehalfCheckinSubmission_DateTimeSelection_Title" = "Предупреждение за другите";
-
-"OnBehalfCheckinSubmission_DateTimeSelection_Description" = "Посочете продължителността на престоя на лицето, което е диагностицирано с коронавирус от името на лицето, което трябва да предупреди останалите. Тази информация ще получите от службите по обществено здравеопазване.";
-
-"OnBehalfCheckinSubmission_DateTimeSelection_Start" = "Начало/пристигане";
-
-"OnBehalfCheckinSubmission_DateTimeSelection_Duration" = "Продължителност";
-
-"OnBehalfCheckinSubmission_DateTimeSelection_PrimaryButtonTitle" = "Напред";
-
-/* - TAN Input */
-"OnBehalfCheckinSubmission_TANInput_Title" = "Предупреждение за другите";
-
-"OnBehalfCheckinSubmission_TANInput_Description" = "Въведете предоставения Ви ТАН код от 10 символа.";
-
-"OnBehalfCheckinSubmission_TANInput_PrimaryButtonTitle" = "Изпратете предупреждение";
-
-/* - Thank You */
-"OnBehalfCheckinSubmission_ThankYou_Title" = "Благодарим Ви!";
-
-"OnBehalfCheckinSubmission_ThankYou_Description" = "Благодарение на Вашата подкрепа други хора ще бъдат предупредени и ще могат да реагират адекватно.";
-
-/* - Errors */
-"OnBehalfCheckinSubmissionError_Failed" = "Възникна грешка. Моля, свържете се с горещата линия за технически проблеми, посочена в „Информация за приложението“ -> „Технически въпроси“.";
-
-"OnBehalfCheckinSubmissionError_InvalidTAN" = "Невалиден ТАН код. Моля, проверете въведените данни или се свържете с организацията, която ви е изпратила кода.";
-
-"OnBehalfCheckinSubmissionError_TryAgain" = "Възникна грешка. Моля, опитайте по-късно или се свържете с горещата линия за технически проблеми, посочена в „Информация за приложението“ -> „Технически въпроси“.";
-
-"OnBehalfCheckinSubmissionError_NoNetwork" = "Няма връзка с интернет. Моля, проверете я и опитайте отново.";
 
 /* Error Reporting */
 "ErrorReport_Title" = "Отчети за грешки";
