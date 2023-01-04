@@ -27,7 +27,7 @@ enum SRSPreconditionError: Error {
 				format: AppStrings.ExposureSubmissionDispatch.SRSWarnOthersPreconditionAlert.insufficientAppUsageTimeMessage,
 				errorCode
 			)
-		case  .positiveTestResultWasAlreadySubmittedWithinThreshold(let timeBetweenSubmissionsInDays):
+		case let .positiveTestResultWasAlreadySubmittedWithinThreshold(timeBetweenSubmissionsInDays):
 			return String(
 				format: AppStrings.ExposureSubmissionDispatch.SRSWarnOthersPreconditionAlert.positiveTestResultWasAlreadySubmittedWithinThresholdDaysMessage,
 				String(timeBetweenSubmissionsInDays),

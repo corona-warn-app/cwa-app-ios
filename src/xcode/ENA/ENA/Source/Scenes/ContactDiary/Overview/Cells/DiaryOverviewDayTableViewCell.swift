@@ -203,7 +203,7 @@ class DiaryOverviewDayTableViewCell: UITableViewCell {
 	private func configureSubmissions(_ cellViewModel: DiaryOverviewDayCellModel) {
 		// submissions
 		submissionsStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
-		submissionsStackView.isHidden = cellViewModel.diaryDaySubmissions.isEmpty
+		submissionsStackView.isHidden = cellViewModel.diaryDaySubmission == nil
 		if #available(iOS 14.0, *) {
 			submissionsStackView.backgroundColor = .enaColor(for: .darkBackground)
 		} else {
@@ -212,66 +212,65 @@ class DiaryOverviewDayTableViewCell: UITableViewCell {
 		// Because we set the background color, the border of the underlying view disappears. For this we need some new borders at the left and right.
 		drawBorders(to: [.left, .right], on: submissionsStackView)
 
-		cellViewModel.diaryDaySubmissions.forEach {_ in
-			let containerView = UIView()
-			containerView.translatesAutoresizingMaskIntoConstraints = false
+		guard cellViewModel.diaryDaySubmission != nil else { return }
 
-			let imageView = UIImageView()
-			imageView.accessibilityIdentifier = AccessibilityIdentifiers.ContactDiaryInformation.Overview.submissionImage
-			imageView.image = UIImage(imageLiteralResourceName: "Warn_light")
-			NSLayoutConstraint.activate([
-				imageView.widthAnchor.constraint(equalToConstant: 32),
-				imageView.heightAnchor.constraint(equalToConstant: 32)
-			])
-			let entryLabel = ENALabel()
-			entryLabel.text = AppStrings.ContactDiary.Overview.submission
-			entryLabel.accessibilityIdentifier = AccessibilityIdentifiers.ContactDiaryInformation.Overview.submissionTitle
-			entryLabel.adjustsFontForContentSizeCategory = true
-			entryLabel.style = .body
-									
-			let horizontalStackView = UIStackView(arrangedSubviews: [imageView, entryLabel])
-			horizontalStackView.translatesAutoresizingMaskIntoConstraints = false
-			horizontalStackView.alignment = .center
-			horizontalStackView.spacing = 15.0
-			containerView.addSubview(horizontalStackView)
-
-			horizontalStackView.addArrangedSubview(imageView)
-			horizontalStackView.addArrangedSubview(entryLabel)
-			
-			drawBorders(to: [.top], on: submissionsStackView)
-
-			let topAnchor: NSLayoutYAxisAnchor
-			if let lastSubmissionView = submissionsStackView.arrangedSubviews.last {
-				topAnchor = lastSubmissionView.bottomAnchor
-			} else {
-				topAnchor = submissionsStackView.topAnchor
-			}
-			submissionsStackView.addArrangedSubview(containerView)
-			// Draw the containerView line from leading to trailing of the submissionsStackView
-			NSLayoutConstraint.activate(
-				[
-					containerView.topAnchor.constraint(equalTo: topAnchor),
-					horizontalStackView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
-					horizontalStackView.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 16.0),
-					horizontalStackView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
-					horizontalStackView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -12.0)
-				]
-			)
-			
-			let separatorLine = UIView()
-			separatorLine.backgroundColor = .enaColor(for: .hairline)
-			separatorLine.translatesAutoresizingMaskIntoConstraints = false
-			horizontalStackView.addSubview(separatorLine)
-			
-			// Draw the separator line from leading to trailing of the submissionsStackView
-			NSLayoutConstraint.activate([
-				separatorLine.heightAnchor.constraint(equalToConstant: 1),
-				separatorLine.leadingAnchor.constraint(equalTo: submissionsStackView.leadingAnchor),
-				separatorLine.trailingAnchor.constraint(equalTo: submissionsStackView.trailingAnchor),
-				separatorLine.topAnchor.constraint(equalTo: topAnchor)
-			])
-
+		let containerView = UIView()
+		containerView.translatesAutoresizingMaskIntoConstraints = false
+		
+		let imageView = UIImageView()
+		imageView.accessibilityIdentifier = AccessibilityIdentifiers.ContactDiaryInformation.Overview.submissionImage
+		imageView.image = UIImage(imageLiteralResourceName: "Warn_light")
+		NSLayoutConstraint.activate([
+			imageView.widthAnchor.constraint(equalToConstant: 32),
+			imageView.heightAnchor.constraint(equalToConstant: 32)
+		])
+		let entryLabel = ENALabel()
+		entryLabel.text = AppStrings.ContactDiary.Overview.submission
+		entryLabel.accessibilityIdentifier = AccessibilityIdentifiers.ContactDiaryInformation.Overview.submissionTitle
+		entryLabel.adjustsFontForContentSizeCategory = true
+		entryLabel.style = .body
+		
+		let horizontalStackView = UIStackView(arrangedSubviews: [imageView, entryLabel])
+		horizontalStackView.translatesAutoresizingMaskIntoConstraints = false
+		horizontalStackView.alignment = .center
+		horizontalStackView.spacing = 15.0
+		containerView.addSubview(horizontalStackView)
+		
+		horizontalStackView.addArrangedSubview(imageView)
+		horizontalStackView.addArrangedSubview(entryLabel)
+		
+		drawBorders(to: [.top], on: submissionsStackView)
+		
+		let topAnchor: NSLayoutYAxisAnchor
+		if let lastSubmissionView = submissionsStackView.arrangedSubviews.last {
+			topAnchor = lastSubmissionView.bottomAnchor
+		} else {
+			topAnchor = submissionsStackView.topAnchor
 		}
+		submissionsStackView.addArrangedSubview(containerView)
+		// Draw the containerView line from leading to trailing of the submissionsStackView
+		NSLayoutConstraint.activate(
+			[
+				containerView.topAnchor.constraint(equalTo: topAnchor),
+				horizontalStackView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
+				horizontalStackView.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 16.0),
+				horizontalStackView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
+				horizontalStackView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor)
+			]
+		)
+		
+		let separatorLine = UIView()
+		separatorLine.backgroundColor = .enaColor(for: .hairline)
+		separatorLine.translatesAutoresizingMaskIntoConstraints = false
+		horizontalStackView.addSubview(separatorLine)
+		
+		// Draw the separator line from leading to trailing of the submissionsStackView
+		NSLayoutConstraint.activate([
+			separatorLine.heightAnchor.constraint(equalToConstant: 1),
+			separatorLine.leadingAnchor.constraint(equalTo: submissionsStackView.leadingAnchor),
+			separatorLine.trailingAnchor.constraint(equalTo: submissionsStackView.trailingAnchor),
+			separatorLine.topAnchor.constraint(equalTo: topAnchor)
+		])
 	}
 
 	// swiftlint:disable:next cyclomatic_complexity
