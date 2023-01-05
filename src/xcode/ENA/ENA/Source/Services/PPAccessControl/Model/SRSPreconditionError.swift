@@ -8,7 +8,7 @@ enum SRSPreconditionError: Error {
 	case deviceTimeError(PPACError)
 
 	/// Precondition: the app was installed less than 48h
-	case insufficientAppUsageTime(timeSinceOnboardingInHours: Int, timeStillToWaitInHours: Int)
+	case insufficientAppUsageTime
 	
 	/// Precondition: there was already a key submission without a registered test, depending from configuration (for e.g. in the last 3 months)
 	case positiveTestResultWasAlreadySubmittedWithinThreshold(timeBetweenSubmissionsInDays: Int)
@@ -22,11 +22,9 @@ enum SRSPreconditionError: Error {
 				format: AppStrings.ExposureSubmissionDispatch.SRSWarnOthersPreconditionAlert.deviceCheckError,
 				errorCode
 			)
-		case let .insufficientAppUsageTime(timeSinceOnboardingInHours, timeStillToWaitInHours):
+		case .insufficientAppUsageTime:
 			return String(
 				format: AppStrings.ExposureSubmissionDispatch.SRSWarnOthersPreconditionAlert.insufficientAppUsageTimeMessage,
-				String(timeSinceOnboardingInHours),
-				String(timeStillToWaitInHours),
 				errorCode
 			)
 		case let .positiveTestResultWasAlreadySubmittedWithinThreshold(timeBetweenSubmissionsInDays):

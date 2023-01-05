@@ -74,18 +74,7 @@ class PPACService: PrivacyPreservingAccessControl {
 			
 			if difference < minTimeSinceOnboarding {
 				Log.error("SRSError: too short time since onboarding", log: .ppac)
-				
-				// Default is 1 to avoid texts like "wait for 0 hours" ...
-				let timeStillToWaitInHours = difference == 0 ? 1 : difference
-
-				completion(
-					.failure(
-						.insufficientAppUsageTime(
-							timeSinceOnboardingInHours: minTimeSinceOnboarding,
-							timeStillToWaitInHours: timeStillToWaitInHours
-						)
-					)
-				)
+				completion(.failure(.insufficientAppUsageTime))
 				return
 			}
 		}

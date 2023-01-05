@@ -23,20 +23,13 @@ final class SRSPreconditionErrorTests: CWATestCase {
 
 	func testInsufficientAppUsageTime_Message() {
 		// GIVEN
-		let timeSinceOnboardingInHours = 42
-		let timeStillToWaitInHours = 23
-		let sut = SRSPreconditionError.insufficientAppUsageTime(
-			timeSinceOnboardingInHours: timeSinceOnboardingInHours,
-			timeStillToWaitInHours: timeStillToWaitInHours
-		)
+		let sut = SRSPreconditionError.insufficientAppUsageTime
 		
 		// THEN
 		XCTAssertEqual(
 			sut.message,
 			String(
 				format: AppStrings.ExposureSubmissionDispatch.SRSWarnOthersPreconditionAlert.insufficientAppUsageTimeMessage,
-				String(timeSinceOnboardingInHours),
-				String(timeStillToWaitInHours),
 				sut.errorCode
 			)
 		)
@@ -62,7 +55,7 @@ final class SRSPreconditionErrorTests: CWATestCase {
 	
 	func testErrorCode_EqualTo_ErrorDescription() {
 		// GIVEN
-		let sut = SRSPreconditionError.insufficientAppUsageTime(timeSinceOnboardingInHours: 42, timeStillToWaitInHours: 42)
+		let sut = SRSPreconditionError.insufficientAppUsageTime
 		
 		// THEN
 		XCTAssertEqual(sut.errorCode, sut.description)
@@ -82,7 +75,7 @@ final class SRSPreconditionErrorTests: CWATestCase {
 		XCTAssertEqual(sut.description, "DEVICE_TIME_UNVERIFIED")
 		
 		// WHEN
-		sut = SRSPreconditionError.insufficientAppUsageTime(timeSinceOnboardingInHours: 42, timeStillToWaitInHours: 42)
+		sut = .insufficientAppUsageTime
 		
 		// THEN
 		XCTAssertEqual(sut.description, "MIN_TIME_SINCE_ONBOARDING")

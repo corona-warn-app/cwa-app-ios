@@ -135,12 +135,6 @@ final class OnboardingInfoViewController: UIViewController {
 			gotoDataDonationScreen()
 			return
 		}
-		
-		// Avoid "double" push effect for ViewController with same `pageType`.
-		guard nextPageType != pageType else {
-			return
-		}
-
 		let next = OnboardingInfoViewController(
 			pageType: nextPageType,
 			exposureManager: self.exposureManager,
@@ -377,15 +371,6 @@ final class OnboardingInfoViewController: UIViewController {
 						persistForDPP(accepted: false)
 					} else {
 						persistForDPP(accepted: true)
-					}
-					
-					// When try to activate / enable EN, but wait on Apple EN Alert without any gesture,
-					// Then skip completion handler for that moment.
-					if
-						!self.exposureManager.exposureManagerState.authorized,
-						!self.exposureManager.exposureManagerState.enabled,
-						self.exposureManager.exposureManagerState.status == .unauthorized {
-						return
 					}
 					completion?()
 				}

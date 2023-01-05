@@ -219,15 +219,15 @@
 /* Survey Errors */
 "SurveyConsent_Error_Title" = "Error";
 
-"SurveyConsent_Error_TryAgainLater" = "The survey cannot be retrieved right now. Please try again later (error code %@).";
+"SurveyConsent_Error_TryAgainLater" = "The survey cannot be retrieved right now. Please try again later (%@).";
 
-"SurveyConsent_Error_DeviceNotSupported" = "The survey cannot be retrieved (error code %@).";
+"SurveyConsent_Error_DeviceNotSupported" = "The survey cannot be retrieved (%@).";
 
-"SurveyConsent_Error_ChangeDeviceTime" = "The time on your smartphone does not match the current time. Please correct the time in your smartphone settings (error code %@).";
+"SurveyConsent_Error_ChangeDeviceTime" = "The time on your smartphone does not match the current time. Please correct the time in your smartphone settings (%@).";
 
-"SurveyConsent_Error_TryAgainNextMonth" = "The survey cannot be retrieved due to security reasons. You can take the survey again in the next calendar month (error code %@).";
+"SurveyConsent_Error_TryAgainNextMonth" = "The survey cannot be retrieved due to security reasons. You can take the survey again in the next calendar month (%@).";
 
-"SurveyConsent_Error_AlreadyParticipated" = "You have already taken the survey. You can only take the survey once per month (error code %@).";
+"SurveyConsent_Error_AlreadyParticipated" = "You have already taken the survey. You can only take the survey once per month (%@).";
 
 /* Survey Consent Screen */
 "SurveyConsent_Title" = "Survey to Assess and Improve the Corona-Warn-App.";
@@ -571,9 +571,9 @@
 /* SRS Warn Others Precondition Error Alert */
 "ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_title" = "You Cannot Warn Others";
 
-"ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_insufficientAppUsageTime_message" = "Sorry, but you cannot warn others right now, because you only recently installed the app. This is intended to prevent misuse of the warn feature.\nYou can register an official test and use it to warn others at any time (error code %@).";
+"ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_insufficientAppUsageTime_message" = "Sorry, but you cannot warn others right now, because you only recently installed the app. This is intended to prevent misuse of the warn feature.\nYou can register an official test and use it to warn others at any time. (%@)";
 
-"ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_positiveTestResultWasAlreadySubmittedWithinThresholdDays_message" = "You cannot warn others right now because you already reported a positive test result within the last %@ days. This is intended to prevent misuse of the warn feature.\nYou can register an official test and use it to warn others at any time (error code %@).";
+"ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_positiveTestResultWasAlreadySubmittedWithinThresholdDays_message" = "You cannot warn others right now because you already reported a positive test result within the last %@ days. This is intended to prevent misuse of the warn feature.\nYou can register an official test and use it to warn others at any time. (%@)";
 
 "ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_deviceCheckError_message" = "The time on your smartphone does not match the current time. Please correct the time in your smartphone settings. After this correction, it may take a few minutes until the app checks the time again. Once it does, you can try to warn others again.";
 
@@ -586,21 +586,21 @@
 
 "ExposureSubmission_SRSError_Message_CallHotline" = "An error occurred. Please try to send the warning again later or contact the technical hotline via App Information -> Technical Hotline. (%@)";
 
-"ExposureSubmission_SRSError_Message_ChangeDeviceTime" = "The time on your smartphone does not match the current time. Please correct the time in your smartphone settings. After this correction, it may take a few minutes until the app checks the time again. Once it does, you can try to warn others again (error code %@).";
+"ExposureSubmission_SRSError_Message_ChangeDeviceTime" = "The time on your smartphone does not match the current time. Please correct the time in your smartphone settings. After this correction, it may take a few minutes until the app checks the time again. Once it does, you can try to warn others again. (%@)";
 
-"ExposureSubmission_SRSError_Message_DeviceNotSupported" = "Sorry, your smartphone does not support this type of warning. You can register an official test and use it to warn others at any time (error code %@).";
+"ExposureSubmission_SRSError_Message_DeviceNotSupported" = "Sorry, your smartphone does not support this type of warning. You can register an official test and use it to warn others at any time. (%@)";
 
-"ExposureSubmission_SRSError_Message_DeviceNotTrusted" = "Your device does not meet the security requirements for this type of warning. You can register an official test and use it to warn others at any time (error code %@).";
+"ExposureSubmission_SRSError_Message_DeviceNotTrusted" = "Your device does not meet the security requirements for this type of warning. You can register an official test and use it to warn others at any time. (%@)";
 
-"ExposureSubmission_SRSError_Message_NoNetwork" = "Your Internet connection may have been lost. Please check the connection and try again (error code %@).";
+"ExposureSubmission_SRSError_Message_NoNetwork" = "Your Internet connection may have been lost. Please check the connection and try again. (%@)";
 
-"ExposureSubmission_SRSError_Message_SubmissionTooEarly" = "You cannot warn others right now because you already reported a positive test result within the last %@ days. This is intended to prevent misuse of the warn feature.\nYou can register an official test in the app and use it to warn others at any time (error code %@).";
+"ExposureSubmission_SRSError_Message_SubmissionTooEarly" = "You cannot warn others right now because you already reported a positive test result within the last %@ days. This is intended to prevent misuse of the warn feature.\nYou can register an official test in the app and use it to warn others at any time. (%@)";
 
-"ExposureSubmission_SRSError_Message_TimeSinceOnboardingUnverified" = "For security reasons, you cannot send this type of warning until %@ after you install or update the app. Please try again in %@ hours (error code %@).";
+"ExposureSubmission_SRSError_Message_TimeSinceOnboardingUnverified" = "For security reasons, you cannot send this type of warning until %@ hours after you install or update the app. Please try again in %@ hours. (%@)";
 
-"ExposureSubmission_SRSError_Message_TryAgainLater" = "An error occurred. Please try to send the warning again (error code %@).";
+"ExposureSubmission_SRSError_Message_TryAgainLater" = "An error occurred. Please try to send the warning again. (%@)";
 
-"ExposureSubmission_SRSError_Message_TryAgainNextMonth" = "For security reasons, the warning cannot be sent in this calendar month. Please wait until the next calendar month or register an official test in the app to send a warning at any time (error code %@).";
+"ExposureSubmission_SRSError_Message_TryAgainNextMonth" = "For security reasons, the warning cannot be sent in this calendar month. Please wait until the next calendar month or register an official test in the app to send a warning at any time. (%@)";
 
 "ExposureSubmission_SRSError_faqButtonTitle" = "FAQ";
 
@@ -2573,19 +2573,19 @@
 
 "Checkin_QR_Scanner_Checkin_Error_Title" = "Invalid QR Code";
 
-"Checkin_QR_Scanner_Error_InvalidURL" = "The scanned QR code is not valid for check-ins for an event or place. Please scan a suitable QR code (error code INVALID_URL).";
+"Checkin_QR_Scanner_Error_InvalidURL" = "The scanned QR code is not valid for check-ins for an event or place. Please scan a suitable QR code (INVALID_URL).";
 
-"Checkin_QR_Scanner_Error_InvalidPayload" = "Check-in prevented due to invalid QR code. The responsible party has to generate a new QR code (error code INVALID_PAYLOAD).";
+"Checkin_QR_Scanner_Error_InvalidPayload" = "Check-in prevented due to invalid QR code. The responsible party has to generate a new QR code (INVALID_PAYLOAD).";
 
-"Checkin_QR_Scanner_Error_InvalidURLVendorData" = "Check-in prevented due to invalid QR code. The responsible party has to generate a new QR code (error code INVALID_VENDOR_DATA).";
+"Checkin_QR_Scanner_Error_InvalidURLVendorData" = "Check-in prevented due to invalid QR code. The responsible party has to generate a new QR code (INVALID_VENDOR_DATA).";
 
-"Checkin_QR_Scanner_Error_InvalidDescription" = "Check-in prevented due to invalid QR code. The responsible party has to generate a new QR code (error code INVALID_DESCRIPTION).";
+"Checkin_QR_Scanner_Error_InvalidDescription" = "Check-in prevented due to invalid QR code. The responsible party has to generate a new QR code (INVALID_DESCRIPTION).";
 
-"Checkin_QR_Scanner_Error_InvalidAddress" = "Check-in prevented due to invalid QR code. The responsible party has to generate a new QR code (error code INVALID_ADDRESS).";
+"Checkin_QR_Scanner_Error_InvalidAddress" = "Check-in prevented due to invalid QR code. The responsible party has to generate a new QR code (INVALID_ADDRESS).";
 
-"Checkin_QR_Scanner_Error_InvalidCryptographicSeed" = "Check-in prevented due to invalid QR code. The responsible party has to generate a new QR code (error code INVALID_CRYPTO_SEED).";
+"Checkin_QR_Scanner_Error_InvalidCryptographicSeed" = "Check-in prevented due to invalid QR code. The responsible party has to generate a new QR code (INVALID_CRYPTO_SEED).";
 
-"Checkin_QR_Scanner_Error_InvalidTimeStamps" = "Check-in prevented due to invalid QR code. The responsible party has to generate a new QR code (error code INVALID_TIMESTAMPS).";
+"Checkin_QR_Scanner_Error_InvalidTimeStamps" = "Check-in prevented due to invalid QR code. The responsible party has to generate a new QR code (INVALID_TIMESTAMPS).";
 
 /* TraceLocations */
 "TraceLocations_Overview_Title" = "My QR Codes";
@@ -2621,8 +2621,6 @@
 "TraceLocations_Overview_DeleteAll_AlertCancelButtonTitle" = "Cancel";
 
 "TraceLocations_Overview_ActionSheet_InfoTitle" = "Information";
-
-"TraceLocations_Overview_ActionSheet_OnBehalfCheckinSubmissionTitle" = "Warn for Others";
 
 "TraceLocations_Overview_ActionSheet_EditTitle" = "Edit";
 
@@ -2701,70 +2699,7 @@
 
 "TraceLocations_Configuration_HoursUnit" = "%@ hrs.";
 
-"TraceLocations_Configuration_SavingErrorMessage" = "The QR code cannot be saved right now. Please try again later (error code %@).";
-
-/* On Behalf Checkin Submission */
-/* - Info */
-"OnBehalfCheckinSubmission_Info_Title" = "Warn for Others";
-
-"OnBehalfCheckinSubmission_Info_Subtitle" = "Increased Safety for You and Your Guests";
-
-"OnBehalfCheckinSubmission_Info_Description" = "You can warn your guests on behalf of someone who has been diagnosed with coronavirus and who attended the event, but was not checked in with the Corona-Warn-App.";
-
-"OnBehalfCheckinSubmission_Info_BulletPoint1" = "If someone who did not check in to this event or place is diagnosed with coronavirus later, the guests can be notified if they were in the same room at the same time or up to 30 minutes after the diagnosed person.";
-
-"OnBehalfCheckinSubmission_Info_BulletPoint2" = "You can only warn your guests on behalf of others if you have been instructed to do so by the public health authorities. They will send you a TAN in this case.";
-
-"OnBehalfCheckinSubmission_Info_PrimaryButtonTitle" = "Continue";
-
-/* - Trace Location Selection */
-"OnBehalfCheckinSubmission_TraceLocationSelection_Title" = "Warn for Others";
-
-"OnBehalfCheckinSubmission_TraceLocationSelection_EmptyDescription" = "Select an event for which you want to warn others on behalf of a person who has been diagnosed with coronavirus.";
-
-"OnBehalfCheckinSubmission_TraceLocationSelection_Description" = "Select an event for which you want to warn others on behalf of a person who has been diagnosed with coronavirus, or restore a deleted event by scanning the QR code of that event again.";
-
-"OnBehalfCheckinSubmission_TraceLocationSelection_ScanButtonTitle" = "Scan QR Code";
-
-"OnBehalfCheckinSubmission_TraceLocationSelection_PrimaryButtonTitle" = "Continue";
-
-"OnBehalfCheckinSubmission_TraceLocationSelection_EmptyState_Title" = "No Events Available";
-
-"OnBehalfCheckinSubmission_TraceLocationSelection_EmptyState_Description" = "Scan the QR code of the relevant event again to warn on behalf of others.";
-
-"OnBehalfCheckinSubmission_TraceLocationSelection_EmptyState_ImageDescription" = "Smartphone";
-
-/* - Date Time Selection */
-"OnBehalfCheckinSubmission_DateTimeSelection_Title" = "Warn for Others";
-
-"OnBehalfCheckinSubmission_DateTimeSelection_Description" = "Specify the length of stay of the person who has been diagnosed with coronavirus, on behalf of whom you want to warn others. You receive this information from the public health authorities.";
-
-"OnBehalfCheckinSubmission_DateTimeSelection_Start" = "Start/Arrival";
-
-"OnBehalfCheckinSubmission_DateTimeSelection_Duration" = "Duration";
-
-"OnBehalfCheckinSubmission_DateTimeSelection_PrimaryButtonTitle" = "Continue";
-
-/* - TAN Input */
-"OnBehalfCheckinSubmission_TANInput_Title" = "Warn for Others";
-
-"OnBehalfCheckinSubmission_TANInput_Description" = "Enter the 10-place TAN that you were given.";
-
-"OnBehalfCheckinSubmission_TANInput_PrimaryButtonTitle" = "Send Warning";
-
-/* - Thank You */
-"OnBehalfCheckinSubmission_ThankYou_Title" = "Thank you!";
-
-"OnBehalfCheckinSubmission_ThankYou_Description" = "Thanks to your support, other people can now be warned and respond appropriately.";
-
-/* - Errors */
-"OnBehalfCheckinSubmissionError_Failed" = "An error has occurred. Please contact the technical hotline via App Information -> Technical Hotline.";
-
-"OnBehalfCheckinSubmissionError_InvalidTAN" = "Invalid TAN. Please check your entry or contact the organization that sent you the TAN.";
-
-"OnBehalfCheckinSubmissionError_TryAgain" = "An error occurred. Please try again later or contact the technical hotline via App Information -> Technical Hotline.";
-
-"OnBehalfCheckinSubmissionError_NoNetwork" = "Your Internet connection was lost. Please check the connection and try again.";
+"TraceLocations_Configuration_SavingErrorMessage" = "The QR code cannot be saved right now. Please try again later (%@).";
 
 /* Error Reporting */
 "ErrorReport_Title" = "Error Reports";
@@ -2797,9 +2732,9 @@
 
 "ErrorReport_History_Navigation_Subline" = "IDs of the error analyses shared so far";
 
-"ErrorReport_DEVICE_NOT_SUPPORTED" = "The error report cannot be sent (error code %@).";
+"ErrorReport_DEVICE_NOT_SUPPORTED" = "The error report cannot be sent (%@).";
 
-"ErrorReport_TRY_AGAIN_LATER" = "The error report cannot be sent right now. Please try again later (error code %@).";
+"ErrorReport_TRY_AGAIN_LATER" = "The error report cannot be sent right now. Please try again later (%@).";
 
 /* Checkins */
 "Checkin_Information_Title" = "Check In";
