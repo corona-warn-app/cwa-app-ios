@@ -219,15 +219,15 @@
 /* Survey Errors */
 "SurveyConsent_Error_Title" = "Błąd";
 
-"SurveyConsent_Error_TryAgainLater" = "W tej chwili nie można pobrać ankiety. Spróbuj ponownie później (kod błędu %@).";
+"SurveyConsent_Error_TryAgainLater" = "W tej chwili nie można pobrać ankiety. Spróbuj ponownie później (%@).";
 
-"SurveyConsent_Error_DeviceNotSupported" = "Nie można pobrać ankiety (kod błędu %@).";
+"SurveyConsent_Error_DeviceNotSupported" = "Nie można pobrać ankiety (%@).";
 
-"SurveyConsent_Error_ChangeDeviceTime" = "Czas na Twoim smartfonie nie zgadza się z aktualnym czasem. Popraw czas w ustawieniach swojego smartfona (kod błędu %@).";
+"SurveyConsent_Error_ChangeDeviceTime" = "Czas na Twoim smartfonie nie zgadza się z aktualnym czasem. Popraw czas w ustawieniach swojego smartfona (%@).";
 
-"SurveyConsent_Error_TryAgainNextMonth" = "Ankiety nie można pobrać ze względów bezpieczeństwa. Możesz ponownie wypełnić ankietę w następnym miesiącu kalendarzowym (kod błędu %@).";
+"SurveyConsent_Error_TryAgainNextMonth" = "Ankiety nie można pobrać ze względów bezpieczeństwa. Możesz ponownie wypełnić ankietę w następnym miesiącu kalendarzowym (%@).";
 
-"SurveyConsent_Error_AlreadyParticipated" = "Wypełniłeś(-aś) już ankietę. Ankietę można wypełnić tylko raz w miesiącu (kod błędu %@).";
+"SurveyConsent_Error_AlreadyParticipated" = "Wypełniłeś(-aś) już ankietę. Ankietę można wypełnić tylko raz w miesiącu (%@).";
 
 /* Survey Consent Screen */
 "SurveyConsent_Title" = "Ankieta oceniająca i ulepszająca aplikację Corona-Warn-App.";
@@ -571,9 +571,9 @@
 /* SRS Warn Others Precondition Error Alert */
 "ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_title" = "Nie możesz ostrzec innych";
 
-"ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_insufficientAppUsageTime_message" = "Przepraszamy, ale w tej chwili nie możesz ostrzec innych, ponieważ aplikacja została przez Ciebie zainstalowana niedawno. Ma to na celu zabezpieczenie przed niewłaściwym użyciem funkcji ostrzegania.\nMożesz zarejestrować oficjalny test i użyć go do ostrzegania innych w dowolnym czasie (kod błędu %@).";
+"ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_insufficientAppUsageTime_message" = "Przepraszamy, ale w tej chwili nie możesz ostrzec innych, ponieważ aplikacja została przez Ciebie zainstalowana niedawno. Ma to na celu zabezpieczenie przed niewłaściwym użyciem funkcji ostrzegania.\nMożesz zarejestrować oficjalny test i użyć go do ostrzegania innych w dowolnym czasie. (%@)";
 
-"ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_positiveTestResultWasAlreadySubmittedWithinThresholdDays_message" = "W tej chwili nie możesz ostrzec innych, ponieważ w ciągu ostatnich %@ dni został już zgłoszony przez Ciebie pozytywny wynik testu. Ma to na celu zabezpieczenie przed niewłaściwym użyciem funkcji ostrzegania.\nMożesz zarejestrować oficjalny test i użyć go do ostrzegania innych w dowolnym czasie (kod błędu %@).";
+"ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_positiveTestResultWasAlreadySubmittedWithinThresholdDays_message" = "W tej chwili nie możesz ostrzec innych, ponieważ w ciągu ostatnich %@ dni został już zgłoszony przez Ciebie pozytywny wynik testu. Ma to na celu zabezpieczenie przed niewłaściwym użyciem funkcji ostrzegania.\nMożesz zarejestrować oficjalny test i użyć go do ostrzegania innych w dowolnym czasie. (%@)";
 
 "ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_deviceCheckError_message" = "Czas na Twoim smartfonie jest niezgodny z bieżącym czasem. Popraw czas w ustawieniach swojego smartfona. Po tej korekcie może upłynąć kilka minut, zanim aplikacja ponownie sprawdzi czas. Kiedy to nastąpi, możesz spróbować znowu ostrzec innych.";
 
@@ -586,21 +586,21 @@
 
 "ExposureSubmission_SRSError_Message_CallHotline" = "Wystąpił błąd. Spróbuj ponownie później wysłać ostrzeżenie lub skontaktuj się z infolinią techniczną, korzystając z opcji: Informacje o aplikacji -> Infolinia techniczna. (%@)";
 
-"ExposureSubmission_SRSError_Message_ChangeDeviceTime" = "Czas na Twoim smartfonie jest niezgodny z bieżącym czasem. Popraw czas w ustawieniach swojego smartfona. Po tej korekcie może upłynąć kilka minut, zanim aplikacja ponownie sprawdzi czas. Kiedy to nastąpi, możesz spróbować znowu ostrzec innych (kod błędu %@).";
+"ExposureSubmission_SRSError_Message_ChangeDeviceTime" = "Czas na Twoim smartfonie jest niezgodny z bieżącym czasem. Popraw czas w ustawieniach swojego smartfona. Po tej korekcie może upłynąć kilka minut, zanim aplikacja ponownie sprawdzi czas. Kiedy to nastąpi, możesz spróbować znowu ostrzec innych. (%@)";
 
-"ExposureSubmission_SRSError_Message_DeviceNotSupported" = "Przepraszamy, Twój smartfon nie obsługuje tego typu ostrzeżenia. Możesz zarejestrować oficjalny test i użyć go do ostrzegania innych w dowolnym czasie (kod błędu %@).";
+"ExposureSubmission_SRSError_Message_DeviceNotSupported" = "Przepraszamy, Twój smartfon nie obsługuje tego typu ostrzeżenia. Możesz zarejestrować oficjalny test i użyć go do ostrzegania innych w dowolnym czasie. (%@)";
 
-"ExposureSubmission_SRSError_Message_DeviceNotTrusted" = "Twoje urządzenie nie spełnia wymogów bezpieczeństwa dla tego typu ostrzeżenia. Możesz zarejestrować oficjalny test i użyć go do ostrzegania innych w dowolnym czasie (kod błędu %@).";
+"ExposureSubmission_SRSError_Message_DeviceNotTrusted" = "Twoje urządzenie nie spełnia wymogów bezpieczeństwa dla tego typu ostrzeżenia. Możesz zarejestrować oficjalny test i użyć go do ostrzegania innych w dowolnym czasie. (%@)";
 
-"ExposureSubmission_SRSError_Message_NoNetwork" = "Połączenie internetowe mogło zostać utracone. Sprawdź połączenie i spróbuj ponownie (kod błędu %@).";
+"ExposureSubmission_SRSError_Message_NoNetwork" = "Połączenie internetowe mogło zostać utracone. Sprawdź połączenie i spróbuj ponownie. (%@)";
 
-"ExposureSubmission_SRSError_Message_SubmissionTooEarly" = "W tej chwili nie możesz ostrzec innych, ponieważ w ciągu ostatnich %@ dni został już zgłoszony przez Ciebie pozytywny wynik testu. Ma to na celu zabezpieczenie przed niewłaściwym użyciem funkcji ostrzegania.\nMożesz zarejestrować oficjalny test w aplikacji i użyć go do ostrzegania innych w dowolnym czasie (kod błędu %@).";
+"ExposureSubmission_SRSError_Message_SubmissionTooEarly" = "W tej chwili nie możesz ostrzec innych, ponieważ w ciągu ostatnich %@ dni został już zgłoszony przez Ciebie pozytywny wynik testu. Ma to na celu zabezpieczenie przed niewłaściwym użyciem funkcji ostrzegania.\nMożesz zarejestrować oficjalny test w aplikacji i użyć go do ostrzegania innych w dowolnym czasie. (%@)";
 
-"ExposureSubmission_SRSError_Message_TimeSinceOnboardingUnverified" = "Ze względów bezpieczeństwa nie możesz wysłać tego typu ostrzeżenia do %@ po instalacji lub aktualizacji aplikacji. Spróbuj ponownie za %@ godz. (kod błędu %@).";
+"ExposureSubmission_SRSError_Message_TimeSinceOnboardingUnverified" = "Ze względów bezpieczeństwa nie możesz wysłać tego typu ostrzeżenia do %@ godz. po instalacji lub aktualizacji aplikacji. Spróbuj ponownie za %@ godz. (%@)";
 
-"ExposureSubmission_SRSError_Message_TryAgainLater" = "Wystąpił błąd. Spróbuj wysłać ostrzeżenie ponownie (kod błędu %@).";
+"ExposureSubmission_SRSError_Message_TryAgainLater" = "Wystąpił błąd. Spróbuj wysłać ostrzeżenie ponownie. (%@)";
 
-"ExposureSubmission_SRSError_Message_TryAgainNextMonth" = "Ze względów bezpieczeństwa ostrzeżenia nie można wysłać w tym miesiącu kalendarzowym. Poczekaj do następnego miesiąca kalendarzowego lub zarejestruj oficjalny test w aplikacji, aby wysłać ostrzeżenie w dowolnym czasie (kod błędu %@).";
+"ExposureSubmission_SRSError_Message_TryAgainNextMonth" = "Ze względów bezpieczeństwa ostrzeżenia nie można wysłać w tym miesiącu kalendarzowym. Poczekaj do następnego miesiąca kalendarzowego lub zarejestruj oficjalny test w aplikacji, aby wysłać ostrzeżenie w dowolnym czasie. (%@)";
 
 "ExposureSubmission_SRSError_faqButtonTitle" = "Często zadawane pytania";
 
@@ -2573,19 +2573,19 @@
 
 "Checkin_QR_Scanner_Checkin_Error_Title" = "Nieprawidłowy kod QR";
 
-"Checkin_QR_Scanner_Error_InvalidURL" = "Zeskanowany kod QR nie jest prawidłowy dla zameldowania obecności w wydarzeniu lub miejscu. Zeskanuj odpowiedni kod QR (kod błędu INVALID_URL).";
+"Checkin_QR_Scanner_Error_InvalidURL" = "Zeskanowany kod QR nie jest prawidłowy dla zameldowania obecności w wydarzeniu lub miejscu. \nZeskanuj odpowiedni kod QR (INVALID_URL).";
 
-"Checkin_QR_Scanner_Error_InvalidPayload" = "Zameldowanie niemożliwe z powodu nieprawidłowego kodu QR. Osoba odpowiedzialna musi wygenerować nowy kod QR (kod błędu INVALID_PAYLOAD).";
+"Checkin_QR_Scanner_Error_InvalidPayload" = "Zameldowanie niemożliwe z powodu nieprawidłowego kodu QR. Osoba odpowiedzialna musi wygenerować nowy kod QR (INVALID_PAYLOAD).";
 
-"Checkin_QR_Scanner_Error_InvalidURLVendorData" = "Zameldowanie niemożliwe z powodu nieprawidłowego kodu QR. Osoba odpowiedzialna musi wygenerować nowy kod QR (kod błędu INVALID_VENDOR_DATA).";
+"Checkin_QR_Scanner_Error_InvalidURLVendorData" = "Zameldowanie niemożliwe z powodu nieprawidłowego kodu QR. Osoba odpowiedzialna musi wygenerować nowy kod QR (INVALID_VENDOR_DATA).";
 
-"Checkin_QR_Scanner_Error_InvalidDescription" = "Zameldowanie niemożliwe z powodu nieprawidłowego kodu QR. Osoba odpowiedzialna musi wygenerować nowy kod QR (kod błędu INVALID_DESCRIPTION).";
+"Checkin_QR_Scanner_Error_InvalidDescription" = "Zameldowanie niemożliwe z powodu nieprawidłowego kodu QR. Osoba odpowiedzialna musi wygenerować nowy kod QR (INVALID_DESCRIPTION).";
 
-"Checkin_QR_Scanner_Error_InvalidAddress" = "Zameldowanie niemożliwe z powodu nieprawidłowego kodu QR. Osoba odpowiedzialna musi wygenerować nowy kod QR (kod błędu INVALID_ADDRESS).";
+"Checkin_QR_Scanner_Error_InvalidAddress" = "Zameldowanie niemożliwe z powodu nieprawidłowego kodu QR. Osoba odpowiedzialna musi wygenerować nowy kod QR (INVALID_ADDRESS).";
 
-"Checkin_QR_Scanner_Error_InvalidCryptographicSeed" = "Zameldowanie niemożliwe z powodu nieprawidłowego kodu QR. Osoba odpowiedzialna musi wygenerować nowy kod QR (kod błędu INVALID_CRYPTO_SEED).";
+"Checkin_QR_Scanner_Error_InvalidCryptographicSeed" = "Zameldowanie niemożliwe z powodu nieprawidłowego kodu QR. Osoba odpowiedzialna musi wygenerować nowy kod QR (INVALID_CRYPTO_SEED).";
 
-"Checkin_QR_Scanner_Error_InvalidTimeStamps" = "Zameldowanie niemożliwe z powodu nieprawidłowego kodu QR. Osoba odpowiedzialna musi wygenerować nowy kod QR (kod błędu INVALID_TIMESTAMPS).";
+"Checkin_QR_Scanner_Error_InvalidTimeStamps" = "Zameldowanie niemożliwe z powodu nieprawidłowego kodu QR. Osoba odpowiedzialna musi wygenerować nowy kod QR (INVALID_TIMESTAMPS).";
 
 /* TraceLocations */
 "TraceLocations_Overview_Title" = "Moje kody QR";
@@ -2699,7 +2699,7 @@
 
 "TraceLocations_Configuration_HoursUnit" = "%@ godz.";
 
-"TraceLocations_Configuration_SavingErrorMessage" = "W tej chwili nie można zapisać kodu QR. Spróbuj ponownie później (kod błędu %@).";
+"TraceLocations_Configuration_SavingErrorMessage" = "W tej chwili nie można zapisać kodu QR. Spróbuj ponownie później (%@).";
 
 /* Error Reporting */
 "ErrorReport_Title" = "Raporty o błędach";
@@ -2732,9 +2732,9 @@
 
 "ErrorReport_History_Navigation_Subline" = "Identyfikatory dotychczas udostępnionych analiz błędów";
 
-"ErrorReport_DEVICE_NOT_SUPPORTED" = "Nie można wysłać raportu o błędzie (kod błędu %@).";
+"ErrorReport_DEVICE_NOT_SUPPORTED" = "Nie można wysłać raportu o błędzie (%@).";
 
-"ErrorReport_TRY_AGAIN_LATER" = "W tej chwili nie można wysłać raportu o błędzie. Spróbuj ponownie później (kod błędu %@).";
+"ErrorReport_TRY_AGAIN_LATER" = "W tej chwili nie można wysłać raportu o błędzie. Spróbuj ponownie później (%@).";
 
 /* Checkins */
 "Checkin_Information_Title" = "Zamelduj się";
