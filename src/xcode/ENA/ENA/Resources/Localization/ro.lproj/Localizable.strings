@@ -219,15 +219,15 @@
 /* Survey Errors */
 "SurveyConsent_Error_Title" = "Eroare";
 
-"SurveyConsent_Error_TryAgainLater" = "Nu se poate obține sondajul chiar acum. Încercați din nou mai târziu (cod de eroare %@).";
+"SurveyConsent_Error_TryAgainLater" = "Nu se poate obține sondajul chiar acum. Încercați din nou mai târziu (%@).";
 
-"SurveyConsent_Error_DeviceNotSupported" = "Nu se poate obține sondajul (cod de eroare %@).";
+"SurveyConsent_Error_DeviceNotSupported" = "Nu se poate obține sondajul (%@).";
 
-"SurveyConsent_Error_ChangeDeviceTime" = "Ora de pe smartphone-ul dvs. nu corespunde cu ora curentă. Vă rugăm să corectați ora în setările smartphone-ului dvs. (cod de eroare %@).";
+"SurveyConsent_Error_ChangeDeviceTime" = "Ora de pe smartphone-ul dvs. nu corespunde cu ora curentă. Vă rugăm să corectați ora în setările smartphone-ului dvs (%@).";
 
-"SurveyConsent_Error_TryAgainNextMonth" = "Nu se poate obține sondajul din cauza unor motive de securitate. Puteți participa din nou la sondaj în următoarea lună calendaristică (cod de eroare %@).";
+"SurveyConsent_Error_TryAgainNextMonth" = "Nu se poate obține sondajul din cauza unor motive de securitate. Puteți participa din nou la sondaj în următoarea lună calendaristică (%@).";
 
-"SurveyConsent_Error_AlreadyParticipated" = "Ați participat deja la sondaj. Puteți participa la sondaj doar o dată pe lună (cod de eroare %@).";
+"SurveyConsent_Error_AlreadyParticipated" = "Ați participat deja la sondaj. Puteți participa la sondaj doar o dată pe lună (%@).";
 
 /* Survey Consent Screen */
 "SurveyConsent_Title" = "Sondaj pentru evaluarea și îmbunătățirea aplicației Corona-Warn.";
@@ -571,9 +571,9 @@
 /* SRS Warn Others Precondition Error Alert */
 "ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_title" = "Nu-i puteți avertiza pe ceilalți";
 
-"ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_insufficientAppUsageTime_message" = "Ne pare rău, dar în acest moment nu-i puteți avertiza pe ceilalți, deoarece abia ați instalat aplicația. Această funcție este destinată prevenirii utilizării greșite a caracteristicii de avertizare.\nPuteți înregistra un test oficial și îl puteți utiliza pentru a-i avertiza pe ceilalți oricând (cod de eroare %@).";
+"ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_insufficientAppUsageTime_message" = "Ne pare rău, dar în acest moment nu-i puteți avertiza pe ceilalți, deoarece abia ați instalat aplicația. Această funcție este destinată prevenirii utilizării greșite a caracteristicii de avertizare.\nPuteți înregistra un test oficial și îl puteți utiliza pentru a-i avertiza pe ceilalți oricând. (%@)";
 
-"ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_positiveTestResultWasAlreadySubmittedWithinThresholdDays_message" = "În acest moment nu-i puteți avertiza pe ceilalți, deoarece ați raportat deja un rezultat de test pozitiv în ultimele %@ (de) zile. Această funcție este destinată prevenirii utilizării greșite a caracteristicii de avertizare.\nPuteți înregistra un test oficial și îl puteți utiliza pentru a-i avertiza pe ceilalți oricând (cod de eroare %@).";
+"ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_positiveTestResultWasAlreadySubmittedWithinThresholdDays_message" = "În acest moment nu-i puteți avertiza pe ceilalți, deoarece ați raportat deja un rezultat de test pozitiv în ultimele %@ de zile. Această funcție este destinată prevenirii utilizării greșite a caracteristicii de avertizare. Puteți înregistra un test oficial și îl puteți utiliza pentru a-i avertiza pe ceilalți oricând.(%@)";
 
 "ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_deviceCheckError_message" = "Ora de pe smartphone-ul dvs. nu corespunde cu ora curentă. Vă rugăm să corectați ora în setările smartphone-ului dvs. După această corecție, poate dura câteva minute până când aplicația verifică din nou ora. După verificare, puteți încerca din nou să îi avertizați pe ceilalți.";
 
@@ -586,21 +586,21 @@
 
 "ExposureSubmission_SRSError_Message_CallHotline" = "A apărut o eroare. Încercați din nou mai târziu să trimiteți avertizarea sau contactați hotline-ul tehnic prin Informații aplicație -> Hotline tehnic. (%@)";
 
-"ExposureSubmission_SRSError_Message_ChangeDeviceTime" = "Ora de pe smartphone-ul dvs. nu corespunde cu ora curentă. Vă rugăm să corectați ora în setările smartphone-ului dvs. După această corecție, poate dura câteva minute până când aplicația verifică din nou ora. După verificare, puteți încerca din nou să îi avertizați pe ceilalți (cod de eroare %@).";
+"ExposureSubmission_SRSError_Message_ChangeDeviceTime" = "Ora de pe smartphone-ul dvs. nu corespunde cu ora curentă. Vă rugăm să corectați ora în setările smartphone-ului dvs. După această corecție, poate dura câteva minute până când aplicația verifică din nou ora. După verificare, puteți încerca din nou să îi avertizați pe ceilalți. (%@)";
 
-"ExposureSubmission_SRSError_Message_DeviceNotSupported" = "Ne pare rău, tipul dvs. de smartphone nu suportă acest tip de avertizare. Puteți înregistra un test oficial și îl puteți utiliza pentru a-i avertiza pe ceilalți oricând (cod de eroare %@).";
+"ExposureSubmission_SRSError_Message_DeviceNotSupported" = "Ne pare rău, tipul dvs. de smartphone nu suportă acest tip de avertizare. Puteți înregistra un test oficial și îl puteți utiliza pentru a-i avertiza pe ceilalți oricând. (%@)";
 
-"ExposureSubmission_SRSError_Message_DeviceNotTrusted" = "Dispozitivul dvs. nu îndeplinește cerințele de securitate pentru acest tip de avertizare. Puteți înregistra un test oficial și îl puteți utiliza pentru a-i avertiza pe ceilalți oricând (cod de eroare %@).";
+"ExposureSubmission_SRSError_Message_DeviceNotTrusted" = "Dispozitivul dvs. nu îndeplinește cerințele de securitate pentru acest tip de avertizare. Puteți înregistra un test oficial și îl puteți utiliza pentru a-i avertiza pe ceilalți oricând. (%@)";
 
-"ExposureSubmission_SRSError_Message_NoNetwork" = "Conexiunea dvs. la internet se poate să fi fost pierdută. Verificați conexiunea și încercați din nou (cod de eroare %@).";
+"ExposureSubmission_SRSError_Message_NoNetwork" = "Conexiunea dvs. la internet se poate să fi fost pierdută. Verificați conexiunea și încercați din nou. (%@)";
 
-"ExposureSubmission_SRSError_Message_SubmissionTooEarly" = "În acest moment nu-i puteți avertiza pe ceilalți, deoarece ați raportat deja un rezultat de test pozitiv în ultimele %@ zile. Această funcție este destinată prevenirii utilizării greșite a caracteristicii de avertizare.\nPuteți înregistra un test oficial în aplicație și îl puteți utiliza pentru a-i avertiza pe ceilalți oricând (cod de eroare %@).";
+"ExposureSubmission_SRSError_Message_SubmissionTooEarly" = "În acest moment nu-i puteți avertiza pe ceilalți, deoarece ați raportat deja un rezultat de test pozitiv în ultimele %@ zile. Această funcție este destinată prevenirii utilizării greșite a caracteristicii de avertizare.\nPuteți înregistra un test oficial în aplicație și îl puteți utiliza pentru a-i avertiza pe ceilalți oricând. (%@)";
 
-"ExposureSubmission_SRSError_Message_TimeSinceOnboardingUnverified" = "Din motive de securitate, nu puteți trimite acest tip de avertizare până la %@, după ce instalați sau actualizați aplicația. Încercați din nou în %@ ore (cod de eroare %@).";
+"ExposureSubmission_SRSError_Message_TimeSinceOnboardingUnverified" = "Din motive de securitate, nu puteți trimite acest tip de avertizare până la %@ (de) ore după ce instalați sau actualizați aplicația. Încercați din nou în %@ (de) ore. (%@)";
 
-"ExposureSubmission_SRSError_Message_TryAgainLater" = "A apărut o eroare. Încercați să trimiteți din nou avertizarea (cod de eroare %@).";
+"ExposureSubmission_SRSError_Message_TryAgainLater" = "A apărut o eroare. Încercați să trimiteți din nou avertizarea. (%@)";
 
-"ExposureSubmission_SRSError_Message_TryAgainNextMonth" = "Din motive de securitate, avertizarea nu poate fi trimisă în această lună calendaristică. Așteptați până în următoarea lună calendaristică sau înregistrați un test oficial în aplicație pentru a trimite o avertizare oricând (cod de eroare %@).";
+"ExposureSubmission_SRSError_Message_TryAgainNextMonth" = "Din motive de securitate, avertizarea nu poate fi trimisă în această lună calendaristică. Așteptați până în următoarea lună calendaristică sau înregistrați un test oficial în aplicație pentru a trimite o avertizare oricând. (%@)";
 
 "ExposureSubmission_SRSError_faqButtonTitle" = "Întrebări frecvente";
 
@@ -2573,19 +2573,19 @@
 
 "Checkin_QR_Scanner_Checkin_Error_Title" = "Cod QR nevalabil";
 
-"Checkin_QR_Scanner_Error_InvalidURL" = "Codul QR scanat nu este valabil pentru check-inurile la un eveniment sau într-un loc. Scanați un cod QR corespunzător (cod de eroare INVALID_URL).";
+"Checkin_QR_Scanner_Error_InvalidURL" = "Codul QR scanat nu este valabil pentru check-inurile la un eveniment sau într-un loc. \nScanați un cod QR corespunzător (INVALID_URL).";
 
-"Checkin_QR_Scanner_Error_InvalidPayload" = "Check-in împiedicat din cauza unui cod QR nevalabil. Partea responsabilă trebuie să genereze un cod QR nou (cod de eroare INVALID_PAYLOAD).";
+"Checkin_QR_Scanner_Error_InvalidPayload" = "Check-in împiedicat din cauza unui cod QR nevalabil. Partea responsabilă trebuie să genereze un cod QR nou (INVALID_PAYLOAD).";
 
-"Checkin_QR_Scanner_Error_InvalidURLVendorData" = "Check-in împiedicat din cauza unui cod QR nevalabil. Partea responsabilă trebuie să genereze un cod QR nou (cod de eroare INVALID_VENDOR_DATA).";
+"Checkin_QR_Scanner_Error_InvalidURLVendorData" = "Check-in împiedicat din cauza unui cod QR nevalabil. Partea responsabilă trebuie să genereze un cod QR nou (INVALID_VENDOR_DATA).";
 
-"Checkin_QR_Scanner_Error_InvalidDescription" = "Check-in împiedicat din cauza unui cod QR nevalabil. Partea responsabilă trebuie să genereze un cod QR nou (cod de eroare INVALID_DESCRIPTION).";
+"Checkin_QR_Scanner_Error_InvalidDescription" = "Check-in împiedicat din cauza unui cod QR nevalabil. Partea responsabilă trebuie să genereze un cod QR nou (INVALID_DESCRIPTION).";
 
-"Checkin_QR_Scanner_Error_InvalidAddress" = "Check-in împiedicat din cauza unui cod QR nevalabil. Partea responsabilă trebuie să genereze un cod QR nou (cod de eroare INVALID_ADDRESS).";
+"Checkin_QR_Scanner_Error_InvalidAddress" = "Check-in împiedicat din cauza unui cod QR nevalabil. Partea responsabilă trebuie să genereze un cod QR nou (INVALID_ADDRESS).";
 
-"Checkin_QR_Scanner_Error_InvalidCryptographicSeed" = "Check-in împiedicat din cauza unui cod QR nevalabil. Partea responsabilă trebuie să genereze un cod QR nou (cod de eroare INVALID_CRYPTO_SEED).";
+"Checkin_QR_Scanner_Error_InvalidCryptographicSeed" = "Check-in împiedicat din cauza unui cod QR nevalabil. Partea responsabilă trebuie să genereze un cod QR nou (INVALID_CRYPTO_SEED).";
 
-"Checkin_QR_Scanner_Error_InvalidTimeStamps" = "Check-in împiedicat din cauza unui cod QR nevalabil. Partea responsabilă trebuie să genereze un cod QR nou (cod de eroare INVALID_TIMESTAMPS).";
+"Checkin_QR_Scanner_Error_InvalidTimeStamps" = "Check-in împiedicat din cauza unui cod QR nevalabil. Partea responsabilă trebuie să genereze un cod QR nou (INVALID_TIMESTAMPS).";
 
 /* TraceLocations */
 "TraceLocations_Overview_Title" = "Codurile mele QR";
@@ -2699,7 +2699,7 @@
 
 "TraceLocations_Configuration_HoursUnit" = "%@ ore.";
 
-"TraceLocations_Configuration_SavingErrorMessage" = "Codul QR nu poate fi salvat chiar acum. Încercați din nou mai târziu (cod de eroare %@).";
+"TraceLocations_Configuration_SavingErrorMessage" = "Codul QR nu poate fi salvat chiar acum. Încercați din nou mai târziu (%@).";
 
 /* Error Reporting */
 "ErrorReport_Title" = "Rapoarte de erori";
@@ -2732,9 +2732,9 @@
 
 "ErrorReport_History_Navigation_Subline" = "ID-urile analizelor de erori partajate până în prezent";
 
-"ErrorReport_DEVICE_NOT_SUPPORTED" = "Raportul de erori nu poate fi trimis (cod de eroare %@).";
+"ErrorReport_DEVICE_NOT_SUPPORTED" = "Raportul de erori nu poate fi trimis (%@).";
 
-"ErrorReport_TRY_AGAIN_LATER" = "Nu se poate trimite raportul de erori chiar acum. Încercați din nou mai târziu (cod de eroare %@).";
+"ErrorReport_TRY_AGAIN_LATER" = "Nu se poate trimite raportul de erori chiar acum. Încercați din nou mai târziu (%@).";
 
 /* Checkins */
 "Checkin_Information_Title" = "Check-in";
