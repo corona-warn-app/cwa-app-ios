@@ -218,6 +218,33 @@ class ExposureSubmissionCoordinatorModel {
 					switch submitSRSExposureResult {
 
 					case .success(let cwaKeyTruncated):
+						let submittedWithCheckIns = !self.eventProvider.checkinsPublisher.value.isEmpty
+
+						let keySubmissionMetadata = KeySubmissionMetadata(
+							submitted: true,
+							submittedInBackground: false,
+							submittedAfterCancel: false,
+							submittedAfterSymptomFlow: true,
+							lastSubmissionFlowScreen: .submissionFlowScreenUnknown,
+							advancedConsentGiven: false,
+							hoursSinceTestResult: 0,
+							hoursSinceTestRegistration: 0,
+							daysSinceMostRecentDateAtRiskLevelAtTestRegistration: -1,
+							hoursSinceHighRiskWarningAtTestRegistration: -1,
+							submittedWithTeleTAN: false,
+							submittedAfterRapidAntigenTest: false,
+							daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration: -1,
+							hoursSinceCheckinHighRiskWarningAtTestRegistration: -1,
+							submittedWithCheckIns: submittedWithCheckIns,
+							submissionType: srsSubmissionType
+						)
+						Analytics.collect(.keySubmissionMetadata(.create(keySubmissionMetadata, .srs(srsSubmissionType))))
+						Analytics.collect(.keySubmissionMetadata(.setDaysSinceMostRecentDateAtENFRiskLevelAtTestRegistration(.srs(srsSubmissionType))))
+						Analytics.collect(.keySubmissionMetadata(.setHoursSinceENFHighRiskWarningAtTestRegistration(.srs(srsSubmissionType))))
+						Analytics.collect(.keySubmissionMetadata(.setDaysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration(.srs(srsSubmissionType))))
+						Analytics.collect(.keySubmissionMetadata(.setHoursSinceCheckinHighRiskWarningAtTestRegistration(.srs(srsSubmissionType))))
+
+
 						onSuccess(cwaKeyTruncated)
 
 					case .failure(let exposureSubmissionServiceError):
