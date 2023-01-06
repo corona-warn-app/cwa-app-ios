@@ -61,7 +61,7 @@ enum OTPError: Error, Equatable, LocalizedError {
 	var errorDescription: String? {
 		switch self {
 		case .noNetworkConnection:
-			return AppStrings.Common.noNetworkConnectionDescription
+			return AppStrings.Common.noNetworkConnection
 		default:
 			return description
 		}

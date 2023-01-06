@@ -32,8 +32,7 @@ enum AppStrings {
 		static let deadmanAlertTitle = NSLocalizedString("Common_Deadman_AlertTitle", comment: "")
 		static let deadmanAlertBody = NSLocalizedString("Common_Deadman_AlertBody", comment: "")
 		static let tessRelayDescription = NSLocalizedString("Common_Tess_Relay_Description", comment: "")
-		static let noNetworkConnectionTitle = NSLocalizedString("Common_No_Network_Title", comment: "")
-		static let noNetworkConnectionDescription = NSLocalizedString("Common_No_Network", comment: "")
+		static let noNetworkConnection = NSLocalizedString("Common_No_Network", comment: "")
 	}
 
 	enum Links {

@@ -27,8 +27,6 @@
 
 "General_BackButtonTitle" = "Zurück";
 
-"Common_No_Network_Title" = "Internet-Verbindung";
-
 "Common_No_Network" = "Der Vorgang konnte wegen Netzwerkproblemen nicht abgeschlossen werden. Bitte versuchen Sie es noch einmal.";
 
 "Common_ENError5_Description" = "Fehler 5: Es ist etwas schiefgelaufen. Ihr Risiko konnte leider nicht ermittelt werden. Wir arbeiten an einer Lösung für dieses Problem.";
@@ -81,7 +79,7 @@
 
 "ExposureDetection_RefreshingIn" = "Aktualisierung in %02d:%02d\U00A0Minuten";
 
-"ExposureDetection_RefreshIn" = "Aktualisierung in %@";
+"ExposureDetection_RefreshIn" = "Aktualisierung alle 4 Std. im WLAN";
 
 "ExposureDetection_LastRiskLevel" = "Letzte Risiko-Überprüfung: %@";
 
@@ -223,15 +221,15 @@
 
 "SurveyConsent_Error_Title" = "Fehler";
 
-"SurveyConsent_Error_TryAgainLater" = "Die Befragung kann aktuell nicht aufgerufen werden. Bitte versuchen Sie es später noch mal (Fehlercode %@).";
+"SurveyConsent_Error_TryAgainLater" = "Die Befragung kann aktuell nicht aufgerufen werden. Bitte versuchen Sie es später noch mal (%@).";
 
-"SurveyConsent_Error_DeviceNotSupported" = "Die Befragung kann nicht aufgerufen werden (Fehlercode %@).";
+"SurveyConsent_Error_DeviceNotSupported" = "Die Befragung kann nicht aufgerufen werden (%@).";
 
-"SurveyConsent_Error_ChangeDeviceTime" = "Die Uhrzeit Ihres Smartphones stimmt nicht mit der aktuellen Zeit überein. Bitte korrigieren Sie die Uhrzeit in den Einstellungen Ihres Smartphones (Fehlercode %@).";
+"SurveyConsent_Error_ChangeDeviceTime" = "Die Uhrzeit Ihres Smartphones stimmt nicht mit der aktuellen Zeit überein. Bitte korrigieren Sie die Uhrzeit in den Einstellungen Ihres Smartphones (%@).";
 
-"SurveyConsent_Error_TryAgainNextMonth" = "Die Befragung konnte aus Sicherheitsgründen nicht aufgerufen werden. Sie können im nächsten Kalendermonat wieder teilnehmen (Fehlercode %@).";
+"SurveyConsent_Error_TryAgainNextMonth" = "Die Befragung konnte aus Sicherheitsgründen nicht aufgerufen werden. Sie können im nächsten Kalendermonat wieder teilnehmen (%@).";
 
-"SurveyConsent_Error_AlreadyParticipated" = "Sie haben bereits an der Befragung teilgenommen. Sie können nur einmal im Monat an der Befragung teilnehmen (Fehlercode %@).";
+"SurveyConsent_Error_AlreadyParticipated" = "Sie haben bereits an der Befragung teilgenommen. Sie können nur einmal im Monat an der Befragung teilnehmen (%@).";
 
 /* Survey Consent Screen */
 
@@ -587,9 +585,9 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_title" = "Andere warnen nicht möglich";
 
-"ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_insufficientAppUsageTime_message" = "Leider können Sie momentan andere noch nicht warnen, da Sie die App noch nicht lange genug installiert haben. Dies dient der Vermeidung von Missbrauch.\nEinen offiziellen Test können Sie jederzeit registrieren und andere damit warnen. (Fehlercode %@)";
+"ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_insufficientAppUsageTime_message" = "Leider können Sie momentan andere noch nicht warnen, da Sie die App noch nicht lange genug installiert haben. Dies dient der Vermeidung von Missbrauch.\nEinen offiziellen Test können Sie jederzeit registrieren und andere damit warnen. (%@)";
 
-"ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_positiveTestResultWasAlreadySubmittedWithinThresholdDays_message" = "Sie können momentan andere nicht warnen, da Sie innerhalb der vergangenen %@ Tage bereits ein positives Testergebnis gemeldet haben. Dies dient der Vermeidung von Missbrauch.\nEinen offiziellen Test können Sie jederzeit registrieren und andere damit warnen. (Fehlercode %@)";
+"ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_positiveTestResultWasAlreadySubmittedWithinThresholdDays_message" = "Sie können momentan andere nicht warnen, da Sie innerhalb der vergangenen %@ Tage bereits ein positives Testergebnis gemeldet haben. Dies dient der Vermeidung von Missbrauch.\nEinen offiziellen Test können Sie jederzeit registrieren und andere damit warnen. (%@)";
 
 "ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_deviceCheckError_message" = "Die Uhrzeit Ihres Smartphones stimmt nicht mit der aktuellen Zeit überein. Bitte korrigieren Sie die Uhrzeit in den Einstellungen Ihres Smartphones. Nach der Korrektur kann es einige Minuten dauern, bis die App die Uhrzeit erneut überprüft. Danach können Sie erneut versuchen zu warnen.";
 
@@ -601,23 +599,23 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmission_SRSError_title" = "Andere warnen nicht möglich";
 
-"ExposureSubmission_SRSError_Message_CallHotline" = "Ein Fehler ist aufgetreten. Bitte versuchen Sie die Warnung später erneut zu senden oder kontaktieren Sie die technische Hotline über App-Informationen -> Technische Hotline. (Fehlercode %@)";
+"ExposureSubmission_SRSError_Message_CallHotline" = "Ein Fehler ist aufgetreten. Bitte versuchen Sie die Warnung später erneut zu senden oder kontaktieren Sie die technische Hotline über App-Informationen -> Technische Hotline. (%@)";
 
-"ExposureSubmission_SRSError_Message_ChangeDeviceTime" = "Die Uhrzeit Ihres Smartphones stimmt nicht mit der aktuellen Zeit überein. Bitte korrigieren Sie die Uhrzeit in den Einstellungen Ihres Smartphones. Nach der Korrektur kann es einige Minuten dauern, bis die App die Uhrzeit erneut überprüft. Danach können Sie erneut versuchen zu warnen. (Fehlercode %@)";
+"ExposureSubmission_SRSError_Message_ChangeDeviceTime" = "Die Uhrzeit Ihres Smartphones stimmt nicht mit der aktuellen Zeit überein. Bitte korrigieren Sie die Uhrzeit in den Einstellungen Ihres Smartphones. Nach der Korrektur kann es einige Minuten dauern, bis die App die Uhrzeit erneut überprüft. Danach können Sie erneut versuchen zu warnen. (%@)";
 
-"ExposureSubmission_SRSError_Message_DeviceNotSupported" = "Ihr Smartphone unterstützt diese Art von Warnung leider nicht. Einen offiziellen Test können Sie jederzeit in der App registrieren und andere damit warnen. (Fehlercode %@)";
+"ExposureSubmission_SRSError_Message_DeviceNotSupported" = "Ihr Smartphone unterstützt diese Art von Warnung leider nicht. Einen offiziellen Test können Sie jederzeit in der App registrieren und andere damit warnen. (%@)";
 
-"ExposureSubmission_SRSError_Message_DeviceNotTrusted" = "Ihr Gerät erfüllt nicht die notwendigen Sicherheitsanforderungen für diese Art von Warnung. Einen offiziellen Test können Sie jederzeit in der App registrieren und andere damit warnen. (Fehlercode %@)";
+"ExposureSubmission_SRSError_Message_DeviceNotTrusted" = "Ihr Gerät erfüllt nicht die notwendigen Sicherheitsanforderungen für diese Art von Warnung. Einen offiziellen Test können Sie jederzeit in der App registrieren und andere damit warnen. (%@)";
 
-"ExposureSubmission_SRSError_Message_NoNetwork" = "Möglicherweise wurde Ihre Internet-Verbindung unterbrochen. Bitte prüfen Sie die Verbindung und versuchen Sie es erneut. (Fehlercode %@)";
+"ExposureSubmission_SRSError_Message_NoNetwork" = "Möglicherweise wurde Ihre Internet-Verbindung unterbrochen. Bitte prüfen Sie die Verbindung und versuchen Sie es erneut. (%@)";
 
-"ExposureSubmission_SRSError_Message_SubmissionTooEarly" = "Sie können momentan andere nicht warnen, da Sie innerhalb der vergangenen %@ Tage bereits ein positives Testergebnis gemeldet haben. Dies dient der Vermeidung von Missbrauch. Einen offiziellen Test können Sie jederzeit in der App registrieren und andere damit warnen. (Fehlercode %@)";
+"ExposureSubmission_SRSError_Message_SubmissionTooEarly" = "Sie können momentan andere nicht warnen, da Sie innerhalb der vergangenen %@ Tage bereits ein positives Testergebnis gemeldet haben. Dies dient der Vermeidung von Missbrauch. Einen offiziellen Test können Sie jederzeit in der App registrieren und andere damit warnen. (%@)";
 
-"ExposureSubmission_SRSError_Message_TimeSinceOnboardingUnverified" = "Aus Sicherheitsgründen können Sie erst %@ Stunden, nachdem Sie die App installiert oder aktualisiert haben, diese Art von Warnung senden. Bitte versuchen Sie es in %@ Stunden erneut. (Fehlercode %@)";
+"ExposureSubmission_SRSError_Message_TimeSinceOnboardingUnverified" = "Aus Sicherheitsgründen können Sie erst %@ Stunden, nachdem Sie die App installiert oder aktualisiert haben, diese Art von Warnung senden. Bitte versuchen Sie es in %@ Stunden erneut. (%@)";
 
-"ExposureSubmission_SRSError_Message_TryAgainLater" = "Ein Fehler ist aufgetreten. Bitte versuchen Sie die Warnung erneut zu senden. (Fehlercode %@)";
+"ExposureSubmission_SRSError_Message_TryAgainLater" = "Ein Fehler ist aufgetreten. Bitte versuchen Sie die Warnung erneut zu senden. (%@)";
 
-"ExposureSubmission_SRSError_Message_TryAgainNextMonth" = "Die Warnung kann aus Sicherheitsgründen in diesem Kalendermonat nicht gesendet werden. Bitte warten Sie bis zum nächsten Kalendermonat oder warnen Sie jederzeit mit einem in der App registrierten offiziellen Test. (Fehlercode %@)";
+"ExposureSubmission_SRSError_Message_TryAgainNextMonth" = "Die Warnung kann aus Sicherheitsgründen in diesem Kalendermonat nicht gesendet werden. Bitte warten Sie bis zum nächsten Kalendermonat oder warnen Sie jederzeit mit einem in der App registrierten offiziellen Test. (%@)";
 
 "ExposureSubmission_SRSError_faqButtonTitle" = "FAQ";
 
@@ -2660,19 +2658,19 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "Checkin_QR_Scanner_Checkin_Error_Title" = "Ungültiger QR-Code";
 
-"Checkin_QR_Scanner_Error_InvalidURL" = "Der gescannte QR-Code gilt nicht für das Einchecken für ein Event oder einen Ort. Bitte scannen Sie einen geeigneten QR-Code (Fehlercode INVALID_URL).";
+"Checkin_QR_Scanner_Error_InvalidURL" = "Der gescannte QR-Code gilt nicht für das Einchecken für ein Event oder einen Ort. Bitte scannen Sie einen geeigneten QR-Code (INVALID_URL).";
 
-"Checkin_QR_Scanner_Error_InvalidPayload" = "Ungültiger QR-Code verhindert das Einchecken. Die verantwortliche Stelle muss einen neuen QR-Code generieren (Fehlercode INVALID_PAYLOAD).";
+"Checkin_QR_Scanner_Error_InvalidPayload" = "Ungültiger QR-Code verhindert das Einchecken. Die verantwortliche Stelle muss einen neuen QR-Code generieren (INVALID_PAYLOAD).";
 
-"Checkin_QR_Scanner_Error_InvalidURLVendorData" = "Ungültiger QR-Code verhindert das Einchecken. Die verantwortliche Stelle muss einen neuen QR-Code generieren (Fehlercode INVALID_VENDOR_DATA).";
+"Checkin_QR_Scanner_Error_InvalidURLVendorData" = "Ungültiger QR-Code verhindert das Einchecken. Die verantwortliche Stelle muss einen neuen QR-Code generieren (INVALID_VENDOR_DATA).";
 
-"Checkin_QR_Scanner_Error_InvalidDescription" = "Ungültiger QR-Code verhindert das Einchecken. Die verantwortliche Stelle muss einen neuen QR-Code generieren (Fehlercode INVALID_DESCRIPTION).";
+"Checkin_QR_Scanner_Error_InvalidDescription" = "Ungültiger QR-Code verhindert das Einchecken. Die verantwortliche Stelle muss einen neuen QR-Code generieren (INVALID_DESCRIPTION).";
 
-"Checkin_QR_Scanner_Error_InvalidAddress" = "Ungültiger QR-Code verhindert das Einchecken. Die verantwortliche Stelle muss einen neuen QR-Code generieren (Fehlercode INVALID_ADDRESS).";
+"Checkin_QR_Scanner_Error_InvalidAddress" = "Ungültiger QR-Code verhindert das Einchecken. Die verantwortliche Stelle muss einen neuen QR-Code generieren (INVALID_ADDRESS).";
 
-"Checkin_QR_Scanner_Error_InvalidCryptographicSeed" = "Ungültiger QR-Code verhindert das Einchecken. Die verantwortliche Stelle muss einen neuen QR-Code generieren (Fehlercode INVALID_CRYPTO_SEED).";
+"Checkin_QR_Scanner_Error_InvalidCryptographicSeed" = "Ungültiger QR-Code verhindert das Einchecken. Die verantwortliche Stelle muss einen neuen QR-Code generieren (INVALID_CRYPTO_SEED).";
 
-"Checkin_QR_Scanner_Error_InvalidTimeStamps" = "Ungültiger QR-Code verhindert das Einchecken. Die verantwortliche Stelle muss einen neuen QR-Code generieren (Fehlercode INVALID_TIMESTAMPS).";
+"Checkin_QR_Scanner_Error_InvalidTimeStamps" = "Ungültiger QR-Code verhindert das Einchecken. Die verantwortliche Stelle muss einen neuen QR-Code generieren (INVALID_TIMESTAMPS).";
 
 /* TraceLocations */
 
@@ -2790,7 +2788,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "TraceLocations_Configuration_HoursUnit" = "%@ Std.";
 
-"TraceLocations_Configuration_SavingErrorMessage" = "Der QR-Code kann aktuell nicht gespeichert werden. Bitte versuchen Sie es später noch einmal (Fehlercode %@).";
+"TraceLocations_Configuration_SavingErrorMessage" = "Der QR-Code kann aktuell nicht gespeichert werden. Bitte versuchen Sie es später noch einmal (%@).";
 
 /* Error Reporting */
 
@@ -2824,9 +2822,9 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "ErrorReport_History_Navigation_Subline" = "IDs der bisher geteilten Fehleranalysen";
 
-"ErrorReport_DEVICE_NOT_SUPPORTED" = "Der Fehlerbericht kann nicht übertragen werden (Fehlercode %@).";
+"ErrorReport_DEVICE_NOT_SUPPORTED" = "Der Fehlerbericht kann nicht übertragen werden (%@).";
 
-"ErrorReport_TRY_AGAIN_LATER" = "Der Fehlerbericht kann aktuell nicht übertragen werden. Bitte versuchen Sie es später noch einmal (Fehlercode %@).";
+"ErrorReport_TRY_AGAIN_LATER" = "Der Fehlerbericht kann aktuell nicht übertragen werden. Bitte versuchen Sie es später noch einmal (%@).";
 
 /* Checkins */
 
