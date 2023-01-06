@@ -49,6 +49,25 @@ enum PPATestResultMetadata {
 }
 
 enum PPAKeySubmissionMetadata {
+	case create(KeySubmissionMetadata, SubmissionTestType)
+	case submitted(Bool, CoronaTestType)
+	case submittedInBackground(Bool, CoronaTestType)
+	case submittedAfterCancel(Bool, CoronaTestType)
+	case submittedAfterSymptomFlow(Bool, CoronaTestType)
+	case submittedWithTeletan(Bool, CoronaTestType)
+	case submittedWithCheckins(Bool?, CoronaTestType)
+	case lastSubmissionFlowScreen(LastSubmissionFlowScreen?, CoronaTestType)
+	case advancedConsentGiven(Bool, CoronaTestType)
+	case submittedAfterRapidAntigenTest(CoronaTestType)
+	case setHoursSinceTestResult(CoronaTestType)
+	case setHoursSinceTestRegistration(CoronaTestType)
+	case setDaysSinceMostRecentDateAtENFRiskLevelAtTestRegistration(SubmissionTestType)
+	case setHoursSinceENFHighRiskWarningAtTestRegistration(SubmissionTestType)
+	case setDaysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration(SubmissionTestType)
+	case setHoursSinceCheckinHighRiskWarningAtTestRegistration(SubmissionTestType)
+}
+
+enum SrsPPAKeySubmissionMetadata {
 	case create(KeySubmissionMetadata, CoronaTestType)
 	case submitted(Bool, CoronaTestType)
 	case submittedInBackground(Bool, CoronaTestType)
