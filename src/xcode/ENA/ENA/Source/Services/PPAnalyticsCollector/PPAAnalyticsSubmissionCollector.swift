@@ -26,12 +26,19 @@ final class PPAAnalyticsSubmissionCollector {
 	// swiftlint:disable:next cyclomatic_complexity
 	func logKeySubmissionMetadata(_ keySubmissionMetadata: PPAKeySubmissionMetadata) {
 		switch keySubmissionMetadata {
-		case let .create(metadata, type):
-			switch type {
-			case .pcr:
-				store.pcrKeySubmissionMetadata = metadata
-			case .antigen:
-				store.antigenKeySubmissionMetadata = metadata
+		case let .create(metadata, submissionTestType):
+			switch submissionTestType {
+			case .registeredTest(let type):
+				switch type {
+				case .pcr:
+					store.pcrKeySubmissionMetadata = metadata
+				case .antigen:
+					store.antigenKeySubmissionMetadata = metadata
+				default:
+					break
+				}
+			case .srs:
+				store.srsKeySubmissionMetadata = metadata
 			}
 		case let .submitted(submitted, type):
 			switch type {
@@ -166,16 +173,28 @@ final class PPAAnalyticsSubmissionCollector {
 		}
 	}
 
-	private func setDaysSinceMostRecentDateAtENFRiskLevelAtTestRegistration(type: CoronaTestType) {
-		guard let registrationDate = coronaTestService.coronaTest(ofType: type)?.registrationDate else {
-			switch type {
-			case .pcr:
-				store.pcrKeySubmissionMetadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration = -1
-			case .antigen:
-				store.antigenKeySubmissionMetadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration = -1
+	private func setDaysSinceMostRecentDateAtENFRiskLevelAtTestRegistration(type: SubmissionTestType) {
+		let registrationDate: Date
+		switch type {
+		case .registeredTest(let coronaTestType):
+			guard let coronaTest = coronaTestType,
+				let registrationDateForTest = coronaTestService.coronaTest(ofType: coronaTest)?.registrationDate else {
+				switch coronaTestType {
+				case .pcr:
+					store.pcrKeySubmissionMetadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration = -1
+				case .antigen:
+					store.antigenKeySubmissionMetadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration = -1
+				default:
+					break
+				}
+				return
 			}
-			return
+			registrationDate = registrationDateForTest
+		case .srs:
+			// for SRS we use the current device time (not date of the test registration)
+			registrationDate = Date()
 		}
+
 		if let mostRecentRiskCalculationDate = store.enfRiskCalculationResult?.mostRecentDateWithCurrentRiskLevel {
 			let daysSinceMostRecentDateAtRiskLevelAtTestRegistration = Calendar.utcCalendar.dateComponents([.day], from: mostRecentRiskCalculationDate, to: registrationDate).day
 			let days = Int32(daysSinceMostRecentDateAtRiskLevelAtTestRegistration ?? -1)
@@ -185,16 +204,25 @@ final class PPAAnalyticsSubmissionCollector {
 		}
 	}
 
-	private func persistDaysSinceMostRecentDateAtENFRiskLevelAtTestRegistration(_ days: Int32, for type: CoronaTestType) {
+	private func persistDaysSinceMostRecentDateAtENFRiskLevelAtTestRegistration(_ days: Int32, for type: SubmissionTestType) {
+		
 		switch type {
-		case .pcr:
-			store.pcrKeySubmissionMetadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration = days
-		case .antigen:
-			store.antigenKeySubmissionMetadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration = days
+		case .registeredTest(let coronaTestType):
+			switch coronaTestType {
+			case .pcr:
+				store.pcrKeySubmissionMetadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration = days
+			case .antigen:
+				store.antigenKeySubmissionMetadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration = days
+			default:
+				break
+			}
+		case .srs:
+			store.srsKeySubmissionMetadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration = days
 		}
-	}
 
-	private func setHoursSinceENFHighRiskWarningAtTestRegistration(type: CoronaTestType) {
+	}
+	
+	private func setHoursSinceENFHighRiskWarningAtTestRegistration(type: SubmissionTestType) {
 		guard let riskLevel = store.enfRiskCalculationResult?.riskLevel  else {
 			Log.warning("Could not log hoursSinceHighRiskWarningAtTestRegistration due to riskLevel is nil", log: .ppa)
 			return
@@ -204,10 +232,19 @@ final class PPAAnalyticsSubmissionCollector {
 
 			let _registrationTime: Date?
 			switch type {
-			case .pcr:
-				_registrationTime = coronaTestService.pcrTest.value?.registrationDate
-			case .antigen:
-				_registrationTime = coronaTestService.antigenTest.value?.registrationDate
+			case .registeredTest(let coronaTestType):
+				switch coronaTestType {
+				case .pcr:
+					_registrationTime = coronaTestService.pcrTest.value?.registrationDate
+				case .antigen:
+					_registrationTime = coronaTestService.antigenTest.value?.registrationDate
+				default:
+					// this case is impossible to happen as we always pass the test type along with the registered test
+					_registrationTime = nil
+				}
+			case .srs:
+				// for SRS we use the current device time (not date of the test registration)
+				_registrationTime = Date()
 			}
 
 			guard let dateOfRiskChangeToHigh = store.dateOfConversionToENFHighRisk,
@@ -223,25 +260,44 @@ final class PPAAnalyticsSubmissionCollector {
 		}
 	}
 
-	private func persistHoursSinceENFHighRiskWarningAtTestRegistration(_ hours: Int32, for type: CoronaTestType) {
+	private func persistHoursSinceENFHighRiskWarningAtTestRegistration(_ hours: Int32, for type: SubmissionTestType) {
 		switch type {
-		case .pcr:
-			store.pcrKeySubmissionMetadata?.hoursSinceHighRiskWarningAtTestRegistration = hours
-		case .antigen:
-			store.antigenKeySubmissionMetadata?.hoursSinceHighRiskWarningAtTestRegistration = hours
+		case .registeredTest(let coronaTestType):
+			switch coronaTestType {
+			case .pcr:
+				store.pcrKeySubmissionMetadata?.hoursSinceHighRiskWarningAtTestRegistration = hours
+			case .antigen:
+				store.antigenKeySubmissionMetadata?.hoursSinceHighRiskWarningAtTestRegistration = hours
+			default:
+				break
+			}
+		case .srs:
+			store.srsKeySubmissionMetadata?.hoursSinceHighRiskWarningAtTestRegistration = hours
 		}
 	}
 	
-	private func setDaysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration(type: CoronaTestType) {
-		guard let registrationDate = coronaTestService.coronaTest(ofType: type)?.registrationDate else {
-			switch type {
-			case .pcr:
-				store.pcrKeySubmissionMetadata?.daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration = -1
-			case .antigen:
-				store.antigenKeySubmissionMetadata?.daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration = -1
+	private func setDaysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration(type: SubmissionTestType) {
+		let registrationDate: Date
+		switch type {
+		case .registeredTest(let coronaTestType):
+			guard let coronaTest = coronaTestType,
+				let registrationDateForTest = coronaTestService.coronaTest(ofType: coronaTest)?.registrationDate else {
+				switch coronaTestType {
+				case .pcr:
+					store.pcrKeySubmissionMetadata?.daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration = -1
+				case .antigen:
+					store.antigenKeySubmissionMetadata?.daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration = -1
+				default:
+					break
+				}
+				return
 			}
-			return
+			registrationDate = registrationDateForTest
+		case .srs:
+			// for SRS we use the current device time (not date of the test registration)
+			registrationDate = Date()
 		}
+
 		if let mostRecentRiskCalculationDate = store.checkinRiskCalculationResult?.mostRecentDateWithCurrentRiskLevel {
 			let daysSinceMostRecentDateAtRiskLevelAtTestRegistration = Calendar.utcCalendar.dateComponents([.day], from: mostRecentRiskCalculationDate, to: registrationDate).day
 			let days = Int32(daysSinceMostRecentDateAtRiskLevelAtTestRegistration ?? -1)
@@ -251,16 +307,23 @@ final class PPAAnalyticsSubmissionCollector {
 		}
 	}
 
-	private func persistDaysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration(_ days: Int32, for type: CoronaTestType) {
+	private func persistDaysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration(_ days: Int32, for type: SubmissionTestType) {
 		switch type {
-		case .pcr:
-			store.pcrKeySubmissionMetadata?.daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration = days
-		case .antigen:
-			store.antigenKeySubmissionMetadata?.daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration = days
+		case .registeredTest(let coronaTestType):
+			switch coronaTestType {
+			case .pcr:
+				store.pcrKeySubmissionMetadata?.daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration = days
+			case .antigen:
+				store.antigenKeySubmissionMetadata?.daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration = days
+			default:
+				break
+			}
+		case .srs:
+			store.srsKeySubmissionMetadata?.daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration = days
 		}
 	}
-
-	private func setHoursSinceCheckinHighRiskWarningAtTestRegistration(type: CoronaTestType) {
+	
+	private func setHoursSinceCheckinHighRiskWarningAtTestRegistration(type: SubmissionTestType) {
 		guard let riskLevel = store.checkinRiskCalculationResult?.riskLevel  else {
 			Log.warning("Could not log hoursSinceHighRiskWarningAtTestRegistration due to riskLevel is nil", log: .ppa)
 			return
@@ -269,10 +332,19 @@ final class PPAAnalyticsSubmissionCollector {
 		case .high:
 			let _registrationTime: Date?
 			switch type {
-			case .pcr:
-				_registrationTime = coronaTestService.pcrTest.value?.registrationDate
-			case .antigen:
-				_registrationTime = coronaTestService.antigenTest.value?.registrationDate
+			case .registeredTest(let coronaTestType):
+				switch coronaTestType {
+				case .pcr:
+					_registrationTime = coronaTestService.pcrTest.value?.registrationDate
+				case .antigen:
+					_registrationTime = coronaTestService.antigenTest.value?.registrationDate
+				default:
+					// this case is impossible to happen as we always pass the test type along with the registered test
+					_registrationTime = nil
+				}
+			case .srs:
+				// for SRS we use the current device time (not date of the test registration)
+				_registrationTime = Date()
 			}
 
 			guard let dateOfRiskChangeToHigh = store.dateOfConversionToCheckinHighRisk,
@@ -288,12 +360,19 @@ final class PPAAnalyticsSubmissionCollector {
 		}
 	}
 
-	private func persistHoursSinceCheckinHighRiskWarningAtTestRegistration(_ hours: Int32, for type: CoronaTestType) {
+	private func persistHoursSinceCheckinHighRiskWarningAtTestRegistration(_ hours: Int32, for type: SubmissionTestType) {
 		switch type {
-		case .pcr:
-			store.pcrKeySubmissionMetadata?.hoursSinceCheckinHighRiskWarningAtTestRegistration = hours
-		case .antigen:
-			store.antigenKeySubmissionMetadata?.hoursSinceCheckinHighRiskWarningAtTestRegistration = hours
+		case .registeredTest(let coronaTestType):
+			switch coronaTestType {
+			case .pcr:
+				store.pcrKeySubmissionMetadata?.hoursSinceCheckinHighRiskWarningAtTestRegistration = hours
+			case .antigen:
+				store.antigenKeySubmissionMetadata?.hoursSinceCheckinHighRiskWarningAtTestRegistration = hours
+			default:
+				break
+			}
+		case .srs:
+			store.srsKeySubmissionMetadata?.hoursSinceCheckinHighRiskWarningAtTestRegistration = hours
 		}
 	}
 }
