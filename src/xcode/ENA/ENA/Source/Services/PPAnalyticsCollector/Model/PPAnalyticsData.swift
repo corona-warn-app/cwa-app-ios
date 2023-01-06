@@ -31,6 +31,8 @@ protocol PPAnalyticsData: AnyObject {
 	var pcrKeySubmissionMetadata: KeySubmissionMetadata? { get set }
 	/// Analytics data
 	var antigenKeySubmissionMetadata: KeySubmissionMetadata? { get set }
+	/// Analytics data
+	var srsKeySubmissionMetadata: KeySubmissionMetadata? { get set }
 	/// Analytics data.
 	var pcrTestResultMetadata: TestResultMetadata? { get set }
 	/// Analytics data.
@@ -128,6 +130,11 @@ extension SecureStore: PPAnalyticsData {
 		set { kvStore["antigenKeySubmissionMetadata"] = newValue }
 	}
 
+	var srsKeySubmissionMetadata: KeySubmissionMetadata? {
+		get { kvStore["srsKeySubmissionMetadata"] as KeySubmissionMetadata? }
+		set { kvStore["srsKeySubmissionMetadata"] = newValue }
+	}
+	
 	var exposureWindowsMetadata: ExposureWindowsMetadata? {
 		get { kvStore["exposureWindowsMetadata"] as ExposureWindowsMetadata? }
 		set { kvStore["exposureWindowsMetadata"] = newValue }
