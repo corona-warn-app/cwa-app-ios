@@ -219,15 +219,15 @@
 /* Survey Errors */
 "SurveyConsent_Error_Title" = "Грешка";
 
-"SurveyConsent_Error_TryAgainLater" = "Анкетата не може да бъде извлечена в момента. Моля, опитайте по-късно. Код на грешката: %@.";
+"SurveyConsent_Error_TryAgainLater" = "Анкетата не може да бъде извлечена в момента. Моля, опитайте по-късно (%@).";
 
-"SurveyConsent_Error_DeviceNotSupported" = "Анкетата не може да бъде извлечена. Код на грешката: %@.";
+"SurveyConsent_Error_DeviceNotSupported" = "Анкетата не може да бъде извлечена (%@).";
 
-"SurveyConsent_Error_ChangeDeviceTime" = "Часът, показван от Вашия смартфон, не съответства на текущия час. Моля, коригирайте това в настройките на устройството. Код на грешката: %@.";
+"SurveyConsent_Error_ChangeDeviceTime" = "Часът, показван от Вашия смартфон, не съответства на текущия час. Моля, коригирайте това в настройките на устройството (%@).";
 
-"SurveyConsent_Error_TryAgainNextMonth" = "Анкетата не може да бъде извлечена поради причини, свързани със сигурността. Може да попълните анкетата отново през следващия календарен месец. Код на грешката: %@.";
+"SurveyConsent_Error_TryAgainNextMonth" = "Анкетата не може да бъде извлечена поради причини, свързани със сигурността. Може да попълните анкетата отново през следващия календарен месец (%@).";
 
-"SurveyConsent_Error_AlreadyParticipated" = "Вече сте попълнили анкетата. Може да правите това само веднъж месечно. Код на грешката: %@.";
+"SurveyConsent_Error_AlreadyParticipated" = "Вече сте попълнили анкетата. Може да правите това само веднъж месечно (%@).";
 
 /* Survey Consent Screen */
 "SurveyConsent_Title" = "Анкета за оценяване и подобряване на приложението Corona-Warn-App.";
@@ -571,9 +571,9 @@
 /* SRS Warn Others Precondition Error Alert */
 "ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_title" = "Не може да предупреждавате другите";
 
-"ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_insufficientAppUsageTime_message" = "Съжаляваме, но в момента не може да предупредите другите потребители, защото сте инсталирали приложението наскоро. Това е с цел да се предотврати злоупотреба с тази функция. \nМоже да регистрирате официален тест и да го използвате, за да предупредите другите потребители по всяко време (код на грешка %@).";
+"ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_insufficientAppUsageTime_message" = "Съжаляваме, но в момента не може да предупредите другите потребители, защото сте инсталирали приложението наскоро. Това е с цел да се предотврати злоупотреба с тази функция. \nМоже да регистрирате официален тест и да го използвате, за да предупредите другите потребители по всяко време. (%@)";
 
-"ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_positiveTestResultWasAlreadySubmittedWithinThresholdDays_message" = "В момента не може да предупредите другите потребители, защото вече сте регистрирали положителен резултат от тест в приложението  през последните %@ дни. Това е с цел да се предотврати злоупотреба с тази функция. \nМоже да регистрирате официален тест и да го използвате, за да предупредите другите потребители по всяко време (код на грешка %@).";
+"ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_positiveTestResultWasAlreadySubmittedWithinThresholdDays_message" = "В момента не може да предупредите другите потребители, защото вече сте регистрирали положителен резултат от тест в приложението  през последните %@ дни. Това е с цел да се предотврати злоупотреба с тази функция. \nМоже да регистрирате официален тест и да го използвате, за да предупредите другите потребители по всяко време. (%@)";
 
 "ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_deviceCheckError_message" = "Часът на Вашия смартфон не съвпада с текущия час. Моля, коригирайте го в настройките на Вашия смартфон. След това може да отнеме няколко минути докато приложението провери часа отново. Когато това стане може да опитате отново да изпратите предупреждението на другите потребители.";
 
@@ -586,21 +586,21 @@
 
 "ExposureSubmission_SRSError_Message_CallHotline" = "Възникна грешка. Моля, опитайте да изпратите предупреждението по-късно или се свържете с горещата линия за технически проблеми, посочена в „Информация за приложението“ -> „Технически въпроси“. (%@)";
 
-"ExposureSubmission_SRSError_Message_ChangeDeviceTime" = "Часът на Вашия смартфон не съвпада с текущия час. Моля, коригирайте го в настройките на Вашия смартфон. След това може да отнеме няколко минути докато приложението провери часа отново. Когато това стане може да опитате отново да изпратите предупреждението на другите потребители (код на грешка %@).";
+"ExposureSubmission_SRSError_Message_ChangeDeviceTime" = "Часът на Вашия смартфон не съвпада с текущия час. Моля, коригирайте го в настройките на Вашия смартфон. След това може да отнеме няколко минути докато приложението провери часа отново. Когато това стане може да опитате отново да изпратите предупреждението на другите потребители. (%@)";
 
-"ExposureSubmission_SRSError_Message_DeviceNotSupported" = "Съжаляваме, Вашият смартфон не поддържа този вид предупреждение. Може да регистрирате официален тест и да го използвате, за да предупредите другите потребители по всяко време (код на грешка %@).";
+"ExposureSubmission_SRSError_Message_DeviceNotSupported" = "Съжаляваме, Вашият смартфон не поддържа този вид предупреждение. Може да регистрирате официален тест и да го използвате, за да предупредите другите потребители по всяко време. (%@)";
 
-"ExposureSubmission_SRSError_Message_DeviceNotTrusted" = "Вашето устройство не отговаря на изискванията за сигурност за този вид предупреждение. Може да регистрирате официален тест и да го използвате, за да предупредите другите потребители по всяко време (код на грешка %@).";
+"ExposureSubmission_SRSError_Message_DeviceNotTrusted" = "Вашето устройство не отговаря на изискванията за сигурност за този вид предупреждение. Може да регистрирате официален тест и да го използвате, за да предупредите другите потребители по всяко време. (%@)";
 
-"ExposureSubmission_SRSError_Message_NoNetwork" = "Възможно е да няма връзка с интернет. Моля, проверете я и опитайте отново (код на грешка %@).";
+"ExposureSubmission_SRSError_Message_NoNetwork" = "Възможно е да няма връзка с интернет. Моля, проверете я и опитайте отново. (%@)";
 
-"ExposureSubmission_SRSError_Message_SubmissionTooEarly" = "В момента не може да предупредите другите потребители, защото вече сте регистрирали положителен резултат от тест в приложението  през последните %@ дни. Това е с цел да се предотврати злоупотреба с тази функция. \nМоже да регистрирате официален тест в приложението и да го използвате, за да предупредите другите потребители по всяко време (код на грешка %@).";
+"ExposureSubmission_SRSError_Message_SubmissionTooEarly" = "В момента не може да предупредите другите потребители, защото вече сте регистрирали положителен резултат от тест в приложението  през последните %@ дни. Това е с цел да се предотврати злоупотреба с тази функция. \nМоже да регистрирате официален тест в приложението и да го използвате, за да предупредите другите потребители по всяко време. (%@)";
 
-"ExposureSubmission_SRSError_Message_TimeSinceOnboardingUnverified" = "От съображения за сигурност не може да изпращате този вид предупреждение до %@ след като сте инсталирали или актуализирали приложението. Моля, опитайте пак след %@ часа (код на грешка %@).";
+"ExposureSubmission_SRSError_Message_TimeSinceOnboardingUnverified" = "От съображения за сигурност не може да изпращате този вид предупреждение до %@ часа след като сте инсталирали или актуализирали приложението. Моля, опитайте пак след %@ часа. (%@)";
 
-"ExposureSubmission_SRSError_Message_TryAgainLater" = "Възникна грешка. Моля, опитайте да изпратите предупреждението отново (код на грешка %@).";
+"ExposureSubmission_SRSError_Message_TryAgainLater" = "Възникна грешка. Моля, опитайте да изпратите предупреждението отново. (%@)";
 
-"ExposureSubmission_SRSError_Message_TryAgainNextMonth" = "От съображения за сигурност предупреждението не може да се изпрати през този календарен месец. Моля, изчакайте до следващия или регистрирайте официален тест в приложението, за да изпратите предупреждение по всяко време (код на грешка %@).";
+"ExposureSubmission_SRSError_Message_TryAgainNextMonth" = "От съображения за сигурност предупреждението не може да се изпрати през този календарен месец. Моля, изчакайте до следващия или регистрирайте официален тест в приложението, за да изпратите предупреждение по всяко време. (%@)";
 
 "ExposureSubmission_SRSError_faqButtonTitle" = "ЧЗВ";
 
@@ -2573,19 +2573,19 @@
 
 "Checkin_QR_Scanner_Checkin_Error_Title" = "Невалиден QR код";
 
-"Checkin_QR_Scanner_Error_InvalidURL" = "Сканираният QR код не е валиден за регистрации за събитие или място. Моля, сканирайте подходящ QR код (код за грешка: INVALID_URL).";
+"Checkin_QR_Scanner_Error_InvalidURL" = "Сканираният QR код не е валиден за регистрации за събитие или място. \nМоля, сканирайте подходящ QR код (INVALID_URL).";
 
-"Checkin_QR_Scanner_Error_InvalidPayload" = "Регистрацията не е извършена поради невалиден QR код. Отговорната страна трябва да генерира нов QR код (код за грешка: INVALID_PAYLOAD).";
+"Checkin_QR_Scanner_Error_InvalidPayload" = "Регистрацията не е извършена поради невалиден QR код. Отговорната страна трябва да генерира нов QR код (INVALID_PAYLOAD).";
 
-"Checkin_QR_Scanner_Error_InvalidURLVendorData" = "Регистрацията не е извършена поради невалиден QR код. Отговорната страна трябва да генерира нов QR код (код за грешка: INVALID_VENDOR_DATA).";
+"Checkin_QR_Scanner_Error_InvalidURLVendorData" = "Регистрацията не е извършена поради невалиден QR код. Отговорната страна трябва да генерира нов QR код (INVALID_VENDOR_DATA).";
 
-"Checkin_QR_Scanner_Error_InvalidDescription" = "Регистрацията не е извършена поради невалиден QR код. Отговорната страна трябва да генерира нов QR код (код за грешка: INVALID_DESCRIPTION).";
+"Checkin_QR_Scanner_Error_InvalidDescription" = "Регистрацията не е извършена поради невалиден QR код. Отговорната страна трябва да генерира нов QR код (INVALID_DESCRIPTION).";
 
-"Checkin_QR_Scanner_Error_InvalidAddress" = "Регистрацията не е извършена поради невалиден QR код. Отговорната страна трябва да генерира нов QR код (код за грешка: INVALID_ADDRESS).";
+"Checkin_QR_Scanner_Error_InvalidAddress" = "Регистрацията не е извършена поради невалиден QR код. Отговорната страна трябва да генерира нов QR код (INVALID_ADDRESS).";
 
-"Checkin_QR_Scanner_Error_InvalidCryptographicSeed" = "Регистрацията не е извършена поради невалиден QR код. Отговорната страна трябва да генерира нов QR код (код за грешка: INVALID_CRYPTO_SEED).";
+"Checkin_QR_Scanner_Error_InvalidCryptographicSeed" = "Регистрацията не е извършена поради невалиден QR код. Отговорната страна трябва да генерира нов QR код (INVALID_CRYPTO_SEED).";
 
-"Checkin_QR_Scanner_Error_InvalidTimeStamps" = "Регистрацията не е извършена поради невалиден QR код. Отговорната страна трябва да генерира нов QR код (код за грешка: INVALID_TIMESTAMPS).";
+"Checkin_QR_Scanner_Error_InvalidTimeStamps" = "Регистрацията не е извършена поради невалиден QR код. Отговорната страна трябва да генерира нов QR код (INVALID_TIMESTAMPS).";
 
 /* TraceLocations */
 "TraceLocations_Overview_Title" = "Моите QR кодове";
@@ -2621,8 +2621,6 @@
 "TraceLocations_Overview_DeleteAll_AlertCancelButtonTitle" = "Отказ";
 
 "TraceLocations_Overview_ActionSheet_InfoTitle" = "Информация";
-
-"TraceLocations_Overview_ActionSheet_OnBehalfCheckinSubmissionTitle" = "Предупреждение за другите";
 
 "TraceLocations_Overview_ActionSheet_EditTitle" = "Редактиране";
 
@@ -2701,70 +2699,7 @@
 
 "TraceLocations_Configuration_HoursUnit" = "%@ ч";
 
-"TraceLocations_Configuration_SavingErrorMessage" = "QR кодът не може да бъде запазен в момента. Моля, опитайте по-късно (код на грешката: %@).";
-
-/* On Behalf Checkin Submission */
-/* - Info */
-"OnBehalfCheckinSubmission_Info_Title" = "Предупреждение за другите";
-
-"OnBehalfCheckinSubmission_Info_Subtitle" = "Повече безопасност за Вас и Вашите посетители";
-
-"OnBehalfCheckinSubmission_Info_Description" = "Можете да предупредите гостите си от името на лице, което е било диагностицирано с коронавирус и е посетило събитието, но не се е регистрирало в приложението Corona-Warn-App.";
-
-"OnBehalfCheckinSubmission_Info_BulletPoint1" = "Ако лице, което не се е регистрирало на това събитие или място, е диагностицирано с коронавирус по-късно, гостите ще могат да получат предупреждение, ако са били в едно помещение по същото време или до 30 минути след него.";
-
-"OnBehalfCheckinSubmission_Info_BulletPoint2" = "Можете да изпращате такива предупреждения от името на други лице единствено ако сте инструктирани от службите за обществено здравеопазване да направите това. В такъв случай те ще ви изпратят ТАН код.";
-
-"OnBehalfCheckinSubmission_Info_PrimaryButtonTitle" = "Напред";
-
-/* - Trace Location Selection */
-"OnBehalfCheckinSubmission_TraceLocationSelection_Title" = "Предупреждение за другите";
-
-"OnBehalfCheckinSubmission_TraceLocationSelection_EmptyDescription" = "Изберете събитие, за което искате да изпратите предупреждения до другите от името на лице, което е било диагностицирано с коронавирус.";
-
-"OnBehalfCheckinSubmission_TraceLocationSelection_Description" = "Изберете събитие, за което искате да изпратите предупреждения до другите от името на лице, което е диагностицирано с коронавирус или възстановете изтрито събитие като сканирате QR кода му отново.";
-
-"OnBehalfCheckinSubmission_TraceLocationSelection_ScanButtonTitle" = "Сканиране на QR код";
-
-"OnBehalfCheckinSubmission_TraceLocationSelection_PrimaryButtonTitle" = "Напред";
-
-"OnBehalfCheckinSubmission_TraceLocationSelection_EmptyState_Title" = "Не са налични събития";
-
-"OnBehalfCheckinSubmission_TraceLocationSelection_EmptyState_Description" = "Сканирайте QR кода на желаното събитие отново, за да изпратите предупреждения от името на други лица.";
-
-"OnBehalfCheckinSubmission_TraceLocationSelection_EmptyState_ImageDescription" = "Смартфон";
-
-/* - Date Time Selection */
-"OnBehalfCheckinSubmission_DateTimeSelection_Title" = "Предупреждение за другите";
-
-"OnBehalfCheckinSubmission_DateTimeSelection_Description" = "Посочете продължителността на престоя на лицето, което е диагностицирано с коронавирус от името на лицето, което трябва да предупреди останалите. Тази информация ще получите от службите по обществено здравеопазване.";
-
-"OnBehalfCheckinSubmission_DateTimeSelection_Start" = "Начало/пристигане";
-
-"OnBehalfCheckinSubmission_DateTimeSelection_Duration" = "Продължителност";
-
-"OnBehalfCheckinSubmission_DateTimeSelection_PrimaryButtonTitle" = "Напред";
-
-/* - TAN Input */
-"OnBehalfCheckinSubmission_TANInput_Title" = "Предупреждение за другите";
-
-"OnBehalfCheckinSubmission_TANInput_Description" = "Въведете предоставения Ви ТАН код от 10 символа.";
-
-"OnBehalfCheckinSubmission_TANInput_PrimaryButtonTitle" = "Изпратете предупреждение";
-
-/* - Thank You */
-"OnBehalfCheckinSubmission_ThankYou_Title" = "Благодарим Ви!";
-
-"OnBehalfCheckinSubmission_ThankYou_Description" = "Благодарение на Вашата подкрепа други хора ще бъдат предупредени и ще могат да реагират адекватно.";
-
-/* - Errors */
-"OnBehalfCheckinSubmissionError_Failed" = "Възникна грешка. Моля, свържете се с горещата линия за технически проблеми, посочена в „Информация за приложението“ -> „Технически въпроси“.";
-
-"OnBehalfCheckinSubmissionError_InvalidTAN" = "Невалиден ТАН код. Моля, проверете въведените данни или се свържете с организацията, която ви е изпратила кода.";
-
-"OnBehalfCheckinSubmissionError_TryAgain" = "Възникна грешка. Моля, опитайте по-късно или се свържете с горещата линия за технически проблеми, посочена в „Информация за приложението“ -> „Технически въпроси“.";
-
-"OnBehalfCheckinSubmissionError_NoNetwork" = "Няма връзка с интернет. Моля, проверете я и опитайте отново.";
+"TraceLocations_Configuration_SavingErrorMessage" = "QR кодът не може да бъде запазен в момента. Моля, опитайте по-късно (%@).";
 
 /* Error Reporting */
 "ErrorReport_Title" = "Отчети за грешки";
@@ -2797,9 +2732,9 @@
 
 "ErrorReport_History_Navigation_Subline" = "ИД на анализите на грешки, споделени досега";
 
-"ErrorReport_DEVICE_NOT_SUPPORTED" = "Отчетът за грешки не може да бъде изпратен. Код на грешката: %@.";
+"ErrorReport_DEVICE_NOT_SUPPORTED" = "Отчетът за грешки не може да бъде изпратен (%@).";
 
-"ErrorReport_TRY_AGAIN_LATER" = "Отчетът за грешки не може да бъде изпратен в момента. Моля, опитайте по-късно. Код на грешката: %@.";
+"ErrorReport_TRY_AGAIN_LATER" = "Отчетът за грешки не може да бъде изпратен в момента. Моля, опитайте по-късно (%@).";
 
 /* Checkins */
 "Checkin_Information_Title" = "Регистрация";
