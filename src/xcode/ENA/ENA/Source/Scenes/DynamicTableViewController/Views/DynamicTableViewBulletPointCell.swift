@@ -39,7 +39,16 @@ final class DynamicTableViewBulletPointCell: UITableViewCell {
 	// MARK: - Internal
 	/// keepOriginalAttributes parameter: If you have already attributes in the attributedStrings you want to keep, you can set keepOriginalAttributes to true. This will ensure, that your attributes are not overwritten internally
 	func configure(attributedString text: NSAttributedString, spacing: Spacing, alignment: Alignment = .normal, accessibilityTraits: UIAccessibilityTraits, accessibilityIdentifier: String? = nil, keepOriginalAttributes: Bool = false) {
-		contentLabel.attributedText = text.bulletPointString(bulletPointFont: contentLabel.font, keepOriginalAttributes: keepOriginalAttributes)
+
+		let bulletPointFont = text.attribute(
+			.font, at: 0,
+			effectiveRange: nil
+		) as? UIFont ?? contentLabel.font ?? .enaFont(for: .body)
+		
+		contentLabel.attributedText = text.bulletPointString(
+			bulletPointFont: bulletPointFont,
+			keepOriginalAttributes: keepOriginalAttributes
+		)
 		
 		self.accessibilityIdentifier = accessibilityIdentifier
 		self.accessibilityTraits = accessibilityTraits
