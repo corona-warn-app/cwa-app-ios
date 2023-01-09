@@ -78,11 +78,11 @@ class SRSConsentViewModel {
 						cell.backgroundColor = .enaColor(for: .background)
 					}
 				),
-				acknoledgementBulletPoint(for: AppStrings.SRSConsentScreen.acknowledgement1),
-				acknoledgementBulletPoint(for: AppStrings.SRSConsentScreen.acknowledgement2),
-				acknoledgementBulletPoint(for: AppStrings.SRSConsentScreen.acknowledgement3),
-				acknoledgementBulletPoint(for: AppStrings.SRSConsentScreen.acknowledgement4),
-				acknoledgementBulletPoint(for: AppStrings.SRSConsentScreen.acknowledgement5),
+				acknowledgementBulletPoint(for: AppStrings.SRSConsentScreen.acknowledgement1),
+				acknowledgementBulletPoint(for: AppStrings.SRSConsentScreen.acknowledgement2),
+				acknowledgementBulletPoint(for: AppStrings.SRSConsentScreen.acknowledgement3),
+				acknowledgementBulletPoint(for: AppStrings.SRSConsentScreen.acknowledgement4),
+				acknowledgementBulletPoint(for: AppStrings.SRSConsentScreen.acknowledgement5),
 				.body(text: AppStrings.SRSConsentScreen.acknowledgement6)
 			])
 		)
@@ -113,7 +113,7 @@ class SRSConsentViewModel {
 		
 		// For normal texts
 		let fontRegularAttributes: [NSAttributedString.Key: Any] = [
-			.font: UIFont.enaFont(for: .body, weight: .regular)
+			.font: UIFont.enaFont(for: .body)
 		]
 		
 		// For highlight texts
@@ -161,7 +161,7 @@ class SRSConsentViewModel {
 	
 	private var subscriptions = Set<AnyCancellable>()
 	
-	private func acknoledgementBulletPoint(for text: String) -> DynamicCell {
+	private func acknowledgementBulletPoint(for text: String) -> DynamicCell {
 		.bulletPoint(
 			attributedText: NSMutableAttributedString(
 				string: text,
