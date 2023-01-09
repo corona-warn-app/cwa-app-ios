@@ -146,7 +146,7 @@ final class ExposureSubmissionSymptomsViewController: DynamicTableViewController
 			.bulletPoint(
 				attributedText: NSMutableAttributedString(
 					string: symptom,
-					attributes: [.font: UIFont.enaFont(for: .body, weight: .regular)]
+					attributes: [.font: UIFont.enaFont(for: .body)]
 				)
 			)
 		}

@@ -166,7 +166,7 @@ class SRSConsentViewModel {
 			attributedText: NSMutableAttributedString(
 				string: text,
 				attributes: [
-					.font: UIFont.enaFont(for: .body, weight: .regular)
+					.font: UIFont.enaFont(for: .body)
 				]
 			),
 			spacing: .large,
