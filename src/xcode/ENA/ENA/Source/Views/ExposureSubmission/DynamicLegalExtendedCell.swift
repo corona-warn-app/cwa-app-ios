@@ -68,13 +68,27 @@ class DynamicLegalExtendedCell: UITableViewCell, ReuseIdentifierProviding {
 	/// - bulletPoints
 	func configure(title: NSAttributedString, description: NSAttributedString?, bulletPoints: [NSAttributedString]?, accessibilityIdentifier: String? = nil) {
 		
-		let label = ENALabel() // get the default font – create fake label
+		var textBlocks1 = [NSAttributedString]()
 		
-		let textBlocks1 = bulletPoints?.map({ $0.bulletPointString(bulletPointFont: label.font) }) ?? []
-		let textBlocks2 = [NSAttributedString]()
-		
-		let description2 = NSAttributedString(string: "")
-		configure(title: title, description1: description, description2: description2, textBlocks1: textBlocks1, textBlocks2: textBlocks2, accessibilityIdentifier: accessibilityIdentifier)
+		if let bulletPoints = bulletPoints {
+			textBlocks1 = bulletPoints.map { attributedString in
+				let font = attributedString.attribute(
+					.font, at: 0,
+					effectiveRange: nil
+				) as? UIFont ?? .enaFont(for: .body)
+				
+				return attributedString.bulletPointString(bulletPointFont: font)
+			}
+		}
+
+		configure(
+			title: title,
+			description1: description,
+			description2: NSAttributedString(),
+			textBlocks1: textBlocks1,
+			textBlocks2: [NSAttributedString](),
+			accessibilityIdentifier: accessibilityIdentifier
+		)
 	}
 	
 	/// Configure a legal extended cell:
@@ -154,6 +168,8 @@ class DynamicLegalExtendedCell: UITableViewCell, ReuseIdentifierProviding {
 
 		cardView.layoutIfNeeded()
 	}
+	
+	// MARK: - Private
 
 	private func configure(
 		title: NSAttributedString,
