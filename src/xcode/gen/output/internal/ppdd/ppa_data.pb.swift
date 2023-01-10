@@ -302,11 +302,12 @@ enum SAP_Internal_Ppdd_PPAKeySubmissionType: SwiftProtobuf.Enum {
   typealias RawValue = Int
   case submissionTypeRegisteredTest // = 0
   case submissionTypeSrsSelfTest // = 1
-  case submissionTypeSrsRat // = 2
-  case submissionTypeSrsRegisteredPcr // = 3
-  case submissionTypeSrsUnregisteredPcr // = 4
-  case submissionTypeSrsRapidPcr // = 5
-  case submissionTypeSrsOther // = 6
+  case submissionTypeSrsRegisteredRat // = 2
+  case submissionTypeSrsUnregisteredRat // = 3
+  case submissionTypeSrsRegisteredPcr // = 4
+  case submissionTypeSrsUnregisteredPcr // = 5
+  case submissionTypeSrsRapidPcr // = 6
+  case submissionTypeSrsOther // = 7
   case UNRECOGNIZED(Int)
 
   init() {
@@ -317,11 +318,12 @@ enum SAP_Internal_Ppdd_PPAKeySubmissionType: SwiftProtobuf.Enum {
     switch rawValue {
     case 0: self = .submissionTypeRegisteredTest
     case 1: self = .submissionTypeSrsSelfTest
-    case 2: self = .submissionTypeSrsRat
-    case 3: self = .submissionTypeSrsRegisteredPcr
-    case 4: self = .submissionTypeSrsUnregisteredPcr
-    case 5: self = .submissionTypeSrsRapidPcr
-    case 6: self = .submissionTypeSrsOther
+    case 2: self = .submissionTypeSrsRegisteredRat
+    case 3: self = .submissionTypeSrsUnregisteredRat
+    case 4: self = .submissionTypeSrsRegisteredPcr
+    case 5: self = .submissionTypeSrsUnregisteredPcr
+    case 6: self = .submissionTypeSrsRapidPcr
+    case 7: self = .submissionTypeSrsOther
     default: self = .UNRECOGNIZED(rawValue)
     }
   }
@@ -330,11 +332,12 @@ enum SAP_Internal_Ppdd_PPAKeySubmissionType: SwiftProtobuf.Enum {
     switch self {
     case .submissionTypeRegisteredTest: return 0
     case .submissionTypeSrsSelfTest: return 1
-    case .submissionTypeSrsRat: return 2
-    case .submissionTypeSrsRegisteredPcr: return 3
-    case .submissionTypeSrsUnregisteredPcr: return 4
-    case .submissionTypeSrsRapidPcr: return 5
-    case .submissionTypeSrsOther: return 6
+    case .submissionTypeSrsRegisteredRat: return 2
+    case .submissionTypeSrsUnregisteredRat: return 3
+    case .submissionTypeSrsRegisteredPcr: return 4
+    case .submissionTypeSrsUnregisteredPcr: return 5
+    case .submissionTypeSrsRapidPcr: return 6
+    case .submissionTypeSrsOther: return 7
     case .UNRECOGNIZED(let i): return i
     }
   }
@@ -348,7 +351,8 @@ extension SAP_Internal_Ppdd_PPAKeySubmissionType: CaseIterable {
   static var allCases: [SAP_Internal_Ppdd_PPAKeySubmissionType] = [
     .submissionTypeRegisteredTest,
     .submissionTypeSrsSelfTest,
-    .submissionTypeSrsRat,
+    .submissionTypeSrsRegisteredRat,
+    .submissionTypeSrsUnregisteredRat,
     .submissionTypeSrsRegisteredPcr,
     .submissionTypeSrsUnregisteredPcr,
     .submissionTypeSrsRapidPcr,
@@ -940,11 +944,12 @@ extension SAP_Internal_Ppdd_PPAKeySubmissionType: SwiftProtobuf._ProtoNameProvid
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     0: .same(proto: "SUBMISSION_TYPE_REGISTERED_TEST"),
     1: .same(proto: "SUBMISSION_TYPE_SRS_SELF_TEST"),
-    2: .same(proto: "SUBMISSION_TYPE_SRS_RAT"),
-    3: .same(proto: "SUBMISSION_TYPE_SRS_REGISTERED_PCR"),
-    4: .same(proto: "SUBMISSION_TYPE_SRS_UNREGISTERED_PCR"),
-    5: .same(proto: "SUBMISSION_TYPE_SRS_RAPID_PCR"),
-    6: .same(proto: "SUBMISSION_TYPE_SRS_OTHER"),
+    2: .same(proto: "SUBMISSION_TYPE_SRS_REGISTERED_RAT"),
+    3: .same(proto: "SUBMISSION_TYPE_SRS_UNREGISTERED_RAT"),
+    4: .same(proto: "SUBMISSION_TYPE_SRS_REGISTERED_PCR"),
+    5: .same(proto: "SUBMISSION_TYPE_SRS_UNREGISTERED_PCR"),
+    6: .same(proto: "SUBMISSION_TYPE_SRS_RAPID_PCR"),
+    7: .same(proto: "SUBMISSION_TYPE_SRS_OTHER"),
   ]
 }
 
