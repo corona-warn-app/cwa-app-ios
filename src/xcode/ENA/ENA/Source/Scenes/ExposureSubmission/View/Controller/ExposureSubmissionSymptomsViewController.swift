@@ -30,6 +30,12 @@ final class ExposureSubmissionSymptomsViewController: DynamicTableViewController
 
 		setupView()
 	}
+	
+	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+		super.traitCollectionDidChange(previousTraitCollection)
+		
+		dynamicTableViewModel = dynamicTableViewModel()
+	}
 
 	// MARK: - Protocol FooterViewHandling
 	
@@ -136,8 +142,13 @@ final class ExposureSubmissionSymptomsViewController: DynamicTableViewController
 
 	private func dynamicTableViewModel() -> DynamicTableViewModel {
 		
-		let bulletPointCells = AppStrings.ExposureSubmissionSymptoms.symptoms.map {
-			DynamicCell.bulletPoint(text: $0)
+		let bulletPointCells = AppStrings.ExposureSubmissionSymptoms.symptoms.map { symptom -> DynamicCell in
+			.bulletPoint(
+				attributedText: NSMutableAttributedString(
+					string: symptom,
+					attributes: [.font: UIFont.enaFont(for: .body)]
+				)
+			)
 		}
 		
 		return DynamicTableViewModel.with {
