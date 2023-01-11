@@ -27,6 +27,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		vaccinationValueSetsProvider: VaccinationValueSetsProviding,
 		healthCertificateValidationOnboardedCountriesProvider: HealthCertificateValidationOnboardedCountriesProviding,
 		qrScannerCoordinator: QRScannerCoordinator,
+		badgeWrapper: HomeBadgeWrapper,
 		recycleBin: RecycleBin,
 		store: Store
 	) {
@@ -37,6 +38,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		self.vaccinationValueSetsProvider = vaccinationValueSetsProvider
 		self.healthCertificateValidationOnboardedCountriesProvider = healthCertificateValidationOnboardedCountriesProvider
 		self.qrScannerCoordinator = qrScannerCoordinator
+		self.badgeWrapper = badgeWrapper
 
 		super.init()
 
@@ -206,6 +208,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 	private let vaccinationValueSetsProvider: VaccinationValueSetsProviding
 	private let healthCertificateValidationOnboardedCountriesProvider: HealthCertificateValidationOnboardedCountriesProviding
 	private let qrScannerCoordinator: QRScannerCoordinator
+	private let badgeWrapper: HomeBadgeWrapper
 
 	private let healthCertificateService: HealthCertificateService
 	private let healthCertificateValidationService: HealthCertificateValidationProviding
@@ -1794,6 +1797,8 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 				message: error.localizedDescription,
 				completion: { [weak self] in
 					self?.dismiss()
+					// reset the home badge count
+					self?.badgeWrapper.resetAll()
 				}
 			)
 		default:

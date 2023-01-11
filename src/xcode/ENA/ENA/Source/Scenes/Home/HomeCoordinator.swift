@@ -327,6 +327,7 @@ class HomeCoordinator: RequiresAppDependencies {
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
 			healthCertificateValidationOnboardedCountriesProvider: healthCertificateValidationOnboardedCountriesProvider,
 			qrScannerCoordinator: qrScannerCoordinator,
+			badgeWrapper: badgeWrapper,
 			recycleBin: recycleBin,
 			store: store
 		)
