@@ -47,11 +47,10 @@ struct TraceLocation: Equatable {
 			let eventDuration = Calendar.current.dateComponents(
 				[.minute],
 				from: startDate,
-				// The event duration should be atleast 15 minutes
-				to: endDate.addingTimeInterval(15 * 60)
+				to: endDate
 			).minute
 
-			duration = eventDuration ?? fallback
+			duration = eventDuration.map { $0 == 0 ? fallback : $0 } ?? fallback
 		} else {
 			duration = fallback
 		}
