@@ -298,6 +298,70 @@ extension SAP_Internal_Ppdd_PPALastSubmissionFlowScreen: CaseIterable {
 
 #endif  // swift(>=4.2)
 
+enum SAP_Internal_Ppdd_PPAKeySubmissionType: SwiftProtobuf.Enum {
+  typealias RawValue = Int
+  case submissionTypeRegisteredTest // = 0
+  case submissionTypeSrsSelfTest // = 1
+  case submissionTypeSrsRegisteredRat // = 2
+  case submissionTypeSrsUnregisteredRat // = 3
+  case submissionTypeSrsRegisteredPcr // = 4
+  case submissionTypeSrsUnregisteredPcr // = 5
+  case submissionTypeSrsRapidPcr // = 6
+  case submissionTypeSrsOther // = 7
+  case UNRECOGNIZED(Int)
+
+  init() {
+    self = .submissionTypeRegisteredTest
+  }
+
+  init?(rawValue: Int) {
+    switch rawValue {
+    case 0: self = .submissionTypeRegisteredTest
+    case 1: self = .submissionTypeSrsSelfTest
+    case 2: self = .submissionTypeSrsRegisteredRat
+    case 3: self = .submissionTypeSrsUnregisteredRat
+    case 4: self = .submissionTypeSrsRegisteredPcr
+    case 5: self = .submissionTypeSrsUnregisteredPcr
+    case 6: self = .submissionTypeSrsRapidPcr
+    case 7: self = .submissionTypeSrsOther
+    default: self = .UNRECOGNIZED(rawValue)
+    }
+  }
+
+  var rawValue: Int {
+    switch self {
+    case .submissionTypeRegisteredTest: return 0
+    case .submissionTypeSrsSelfTest: return 1
+    case .submissionTypeSrsRegisteredRat: return 2
+    case .submissionTypeSrsUnregisteredRat: return 3
+    case .submissionTypeSrsRegisteredPcr: return 4
+    case .submissionTypeSrsUnregisteredPcr: return 5
+    case .submissionTypeSrsRapidPcr: return 6
+    case .submissionTypeSrsOther: return 7
+    case .UNRECOGNIZED(let i): return i
+    }
+  }
+
+}
+
+#if swift(>=4.2)
+
+extension SAP_Internal_Ppdd_PPAKeySubmissionType: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  static var allCases: [SAP_Internal_Ppdd_PPAKeySubmissionType] = [
+    .submissionTypeRegisteredTest,
+    .submissionTypeSrsSelfTest,
+    .submissionTypeSrsRegisteredRat,
+    .submissionTypeSrsUnregisteredRat,
+    .submissionTypeSrsRegisteredPcr,
+    .submissionTypeSrsUnregisteredPcr,
+    .submissionTypeSrsRapidPcr,
+    .submissionTypeSrsOther,
+  ]
+}
+
+#endif  // swift(>=4.2)
+
 enum SAP_Internal_Ppdd_PPAFederalState: SwiftProtobuf.Enum {
   typealias RawValue = Int
   case federalStateUnspecified // = 0
@@ -660,6 +724,8 @@ struct SAP_Internal_Ppdd_PPAKeySubmissionMetadata {
 
   var submittedWithCheckIns: SAP_Internal_Ppdd_TriStateBoolean = .tsbUnspecified
 
+  var submissionType: SAP_Internal_Ppdd_PPAKeySubmissionType = .submissionTypeRegisteredTest
+
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
   init() {}
@@ -800,6 +866,7 @@ extension SAP_Internal_Ppdd_PPAExposureWindowReportType: @unchecked Sendable {}
 extension SAP_Internal_Ppdd_PPAExposureWindowInfectiousness: @unchecked Sendable {}
 extension SAP_Internal_Ppdd_PPATestResult: @unchecked Sendable {}
 extension SAP_Internal_Ppdd_PPALastSubmissionFlowScreen: @unchecked Sendable {}
+extension SAP_Internal_Ppdd_PPAKeySubmissionType: @unchecked Sendable {}
 extension SAP_Internal_Ppdd_PPAFederalState: @unchecked Sendable {}
 extension SAP_Internal_Ppdd_PPAAgeGroup: @unchecked Sendable {}
 extension SAP_Internal_Ppdd_PPADataIOS: @unchecked Sendable {}
@@ -870,6 +937,19 @@ extension SAP_Internal_Ppdd_PPALastSubmissionFlowScreen: SwiftProtobuf._ProtoNam
     3: .same(proto: "SUBMISSION_FLOW_SCREEN_WARN_OTHERS"),
     4: .same(proto: "SUBMISSION_FLOW_SCREEN_SYMPTOMS"),
     5: .same(proto: "SUBMISSION_FLOW_SCREEN_SYMPTOM_ONSET"),
+  ]
+}
+
+extension SAP_Internal_Ppdd_PPAKeySubmissionType: SwiftProtobuf._ProtoNameProviding {
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "SUBMISSION_TYPE_REGISTERED_TEST"),
+    1: .same(proto: "SUBMISSION_TYPE_SRS_SELF_TEST"),
+    2: .same(proto: "SUBMISSION_TYPE_SRS_REGISTERED_RAT"),
+    3: .same(proto: "SUBMISSION_TYPE_SRS_UNREGISTERED_RAT"),
+    4: .same(proto: "SUBMISSION_TYPE_SRS_REGISTERED_PCR"),
+    5: .same(proto: "SUBMISSION_TYPE_SRS_UNREGISTERED_PCR"),
+    6: .same(proto: "SUBMISSION_TYPE_SRS_RAPID_PCR"),
+    7: .same(proto: "SUBMISSION_TYPE_SRS_OTHER"),
   ]
 }
 
@@ -1274,6 +1354,7 @@ extension SAP_Internal_Ppdd_PPAKeySubmissionMetadata: SwiftProtobuf.Message, Swi
     13: .same(proto: "ptDaysSinceMostRecentDateAtRiskLevelAtTestRegistration"),
     14: .same(proto: "ptHoursSinceHighRiskWarningAtTestRegistration"),
     15: .same(proto: "submittedWithCheckIns"),
+    16: .same(proto: "submissionType"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -1297,6 +1378,7 @@ extension SAP_Internal_Ppdd_PPAKeySubmissionMetadata: SwiftProtobuf.Message, Swi
       case 13: try { try decoder.decodeSingularInt32Field(value: &self.ptDaysSinceMostRecentDateAtRiskLevelAtTestRegistration) }()
       case 14: try { try decoder.decodeSingularInt32Field(value: &self.ptHoursSinceHighRiskWarningAtTestRegistration) }()
       case 15: try { try decoder.decodeSingularEnumField(value: &self.submittedWithCheckIns) }()
+      case 16: try { try decoder.decodeSingularEnumField(value: &self.submissionType) }()
       default: break
       }
     }
@@ -1348,6 +1430,9 @@ extension SAP_Internal_Ppdd_PPAKeySubmissionMetadata: SwiftProtobuf.Message, Swi
     if self.submittedWithCheckIns != .tsbUnspecified {
       try visitor.visitSingularEnumField(value: self.submittedWithCheckIns, fieldNumber: 15)
     }
+    if self.submissionType != .submissionTypeRegisteredTest {
+      try visitor.visitSingularEnumField(value: self.submissionType, fieldNumber: 16)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -1367,6 +1452,7 @@ extension SAP_Internal_Ppdd_PPAKeySubmissionMetadata: SwiftProtobuf.Message, Swi
     if lhs.ptDaysSinceMostRecentDateAtRiskLevelAtTestRegistration != rhs.ptDaysSinceMostRecentDateAtRiskLevelAtTestRegistration {return false}
     if lhs.ptHoursSinceHighRiskWarningAtTestRegistration != rhs.ptHoursSinceHighRiskWarningAtTestRegistration {return false}
     if lhs.submittedWithCheckIns != rhs.submittedWithCheckIns {return false}
+    if lhs.submissionType != rhs.submissionType {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
