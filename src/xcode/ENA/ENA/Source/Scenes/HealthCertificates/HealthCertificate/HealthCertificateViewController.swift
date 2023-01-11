@@ -51,6 +51,9 @@ class HealthCertificateViewController: UIViewController, UITableViewDataSource, 
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 
+		// explicitly set navigation bar for versions < iOS 13
+		setupNavigationBar()
+		
 		// Next line avoids disappearing of back button and title image when
 		// back swipe gesture triggers life cycle methods `viewWillDisappear(_:)` and `viewWillAppear(_:)`
 		parent?.navigationController?.navigationBar.tintColor = .white
