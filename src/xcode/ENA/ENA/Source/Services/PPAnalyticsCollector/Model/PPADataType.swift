@@ -67,25 +67,6 @@ enum PPAKeySubmissionMetadata {
 	case setHoursSinceCheckinHighRiskWarningAtTestRegistration(SubmissionTestType)
 }
 
-enum SrsPPAKeySubmissionMetadata {
-	case create(KeySubmissionMetadata, CoronaTestType)
-	case submitted(Bool, CoronaTestType)
-	case submittedInBackground(Bool, CoronaTestType)
-	case submittedAfterCancel(Bool, CoronaTestType)
-	case submittedAfterSymptomFlow(Bool, CoronaTestType)
-	case submittedWithTeletan(Bool, CoronaTestType)
-	case submittedWithCheckins(Bool?, CoronaTestType)
-	case lastSubmissionFlowScreen(LastSubmissionFlowScreen?, CoronaTestType)
-	case advancedConsentGiven(Bool, CoronaTestType)
-	case submittedAfterRapidAntigenTest(CoronaTestType)
-	case setHoursSinceTestResult(CoronaTestType)
-	case setHoursSinceTestRegistration(CoronaTestType)
-	case setDaysSinceMostRecentDateAtENFRiskLevelAtTestRegistration(CoronaTestType)
-	case setHoursSinceENFHighRiskWarningAtTestRegistration(CoronaTestType)
-	case setDaysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration(CoronaTestType)
-	case setHoursSinceCheckinHighRiskWarningAtTestRegistration(CoronaTestType)
-}
-
 enum PPAExposureWindowsMetadata {
 	case collectExposureWindows([RiskCalculationExposureWindow])
 }

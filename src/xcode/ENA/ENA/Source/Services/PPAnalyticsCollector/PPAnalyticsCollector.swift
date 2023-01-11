@@ -314,7 +314,7 @@ extension PPAnalyticsCollector {
 			PPAnalyticsCollector.testResultCollector = testResultCollector
 		}
 
-		if let store = store, let coronaTestService = coronaTestService {
+		if let store = store {
 			let submissionCollector = PPAAnalyticsSubmissionCollector(
 				store: store,
 				coronaTestService: coronaTestService

@@ -8,7 +8,7 @@ final class PPAAnalyticsSubmissionCollector {
 
 	init(
 		store: Store,
-		coronaTestService: CoronaTestServiceProviding
+		coronaTestService: CoronaTestServiceProviding?
 	) {
 		// We put the PPAnalyticsData protocol and its implementation in a separate file because this protocol is only used by the collector. And only the collector should use it!
 		// This way we avoid the direct access of analytics data at other places over the store.
@@ -131,10 +131,10 @@ final class PPAAnalyticsSubmissionCollector {
 	// MARK: - Private
 
 	private var store: PPAnalyticsData & StoreProtocol
-	private var coronaTestService: CoronaTestServiceProviding
+	private var coronaTestService: CoronaTestServiceProviding?
 
 	private func setHoursSinceTestResult(type: CoronaTestType) {
-		guard let testResultReceivedDate = coronaTestService.coronaTest(ofType: type)?.finalTestResultReceivedDate else {
+		guard let testResultReceivedDate = coronaTestService?.coronaTest(ofType: type)?.finalTestResultReceivedDate else {
 			Log.warning("Could not log hoursSinceTestResult due to testResultReceivedTimeStamp is nil", log: .ppa)
 			return
 		}
@@ -154,7 +154,7 @@ final class PPAAnalyticsSubmissionCollector {
 	}
 
 	private func setHoursSinceTestRegistration(type: CoronaTestType) {
-		guard let registrationDate = coronaTestService.coronaTest(ofType: type)?.registrationDate else {
+		guard let registrationDate = coronaTestService?.coronaTest(ofType: type)?.registrationDate else {
 			Log.warning("Could not log hoursSinceTestRegistration due to testRegistrationDate is nil", log: .ppa)
 			return
 		}
@@ -178,7 +178,7 @@ final class PPAAnalyticsSubmissionCollector {
 		switch type {
 		case .registeredTest(let coronaTestType):
 			guard let coronaTest = coronaTestType,
-				let registrationDateForTest = coronaTestService.coronaTest(ofType: coronaTest)?.registrationDate else {
+				let registrationDateForTest = coronaTestService?.coronaTest(ofType: coronaTest)?.registrationDate else {
 				switch coronaTestType {
 				case .pcr:
 					store.pcrKeySubmissionMetadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration = -1
@@ -235,9 +235,9 @@ final class PPAAnalyticsSubmissionCollector {
 			case .registeredTest(let coronaTestType):
 				switch coronaTestType {
 				case .pcr:
-					_registrationTime = coronaTestService.pcrTest.value?.registrationDate
+					_registrationTime = coronaTestService?.pcrTest.value?.registrationDate
 				case .antigen:
-					_registrationTime = coronaTestService.antigenTest.value?.registrationDate
+					_registrationTime = coronaTestService?.antigenTest.value?.registrationDate
 				default:
 					// this case is impossible to happen as we always pass the test type along with the registered test
 					_registrationTime = nil
@@ -281,7 +281,7 @@ final class PPAAnalyticsSubmissionCollector {
 		switch type {
 		case .registeredTest(let coronaTestType):
 			guard let coronaTest = coronaTestType,
-				let registrationDateForTest = coronaTestService.coronaTest(ofType: coronaTest)?.registrationDate else {
+				let registrationDateForTest = coronaTestService?.coronaTest(ofType: coronaTest)?.registrationDate else {
 				switch coronaTestType {
 				case .pcr:
 					store.pcrKeySubmissionMetadata?.daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration = -1
@@ -335,9 +335,9 @@ final class PPAAnalyticsSubmissionCollector {
 			case .registeredTest(let coronaTestType):
 				switch coronaTestType {
 				case .pcr:
-					_registrationTime = coronaTestService.pcrTest.value?.registrationDate
+					_registrationTime = coronaTestService?.pcrTest.value?.registrationDate
 				case .antigen:
-					_registrationTime = coronaTestService.antigenTest.value?.registrationDate
+					_registrationTime = coronaTestService?.antigenTest.value?.registrationDate
 				default:
 					// this case is impossible to happen as we always pass the test type along with the registered test
 					_registrationTime = nil

@@ -38,4 +38,23 @@ enum SRSSubmissionType: Equatable, Codable {
 			return .srsOther
 		}
 	}
+	
+	var keySubmissionProtobuf: SAP_Internal_Ppdd_PPAKeySubmissionType {
+		switch self {
+		case .srsSelfTest:
+			return .submissionTypeSrsSelfTest
+		case .srsRegisteredRat:
+			return .submissionTypeSrsRegisteredRat
+		case .srsUnregisterdRat:
+			return .submissionTypeSrsUnregisteredRat
+		case .srsRegisteredPcr:
+			return .submissionTypeSrsRegisteredPcr
+		case .srsUnregisteredPcr:
+			return .submissionTypeSrsUnregisteredPcr
+		case .srsRapidPcr:
+			return .submissionTypeSrsRapidPcr
+		case .srsOther:
+			return .submissionTypeSrsOther
+		}
+	}
 }
