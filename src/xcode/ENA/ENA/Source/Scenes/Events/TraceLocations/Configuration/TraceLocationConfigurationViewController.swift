@@ -147,7 +147,7 @@ class TraceLocationConfigurationViewController: UIViewController, FooterViewHand
 		permanentSettingsContainerView.backgroundColor = .enaColor(for: .cellBackground)
 		temporarySettingsContainerView.backgroundColor = .enaColor(for: .cellBackground)
 		temporaryDefaultLengthPickerBackgroundView.backgroundColor = .enaColor(for: .cellBackground)
-		temporaryDefaultLengthPickerContainerView.backgroundColor = .enaColor(for: .cellBackground)
+		temporaryDefaultLengthPickerContainerView.backgroundColor = .enaColor(for: .textField)
 
 		scrollView.backgroundColor = .enaColor(for: .background)
 		textFieldContainerView.layer.cornerRadius = 8
@@ -166,6 +166,7 @@ class TraceLocationConfigurationViewController: UIViewController, FooterViewHand
 
 		temporaryDefaultLengthPickerBackgroundView.layer.borderWidth = 1
 		temporaryDefaultLengthPickerBackgroundView.layer.borderColor = UIColor.enaColor(for: .hairline).cgColor
+		temporaryDefaultLengthPickerBackgroundView.backgroundColor = .enaColor(for: .darkBackground)
 
 		permanentDefaultLengthPickerBackgroundView.layer.borderWidth = 1
 		permanentDefaultLengthPickerBackgroundView.layer.borderColor = UIColor.enaColor(for: .hairline).cgColor

@@ -405,7 +405,7 @@
                                                             <constraints>
                                                                 <constraint firstItem="9lC-bg-weJ" firstAttribute="top" secondItem="ijX-5T-y6e" secondAttribute="top" id="HAp-Hu-Mnj"/>
                                                                 <constraint firstItem="9lC-bg-weJ" firstAttribute="leading" secondItem="ijX-5T-y6e" secondAttribute="leading" constant="20" id="RpM-qg-yw8"/>
-                                                                <constraint firstAttribute="bottom" secondItem="9lC-bg-weJ" secondAttribute="bottom" constant="8" id="iPE-58-5Lh"/>
+                                                                <constraint firstAttribute="bottom" secondItem="9lC-bg-weJ" secondAttribute="bottom" constant="20" id="iPE-58-5Lh"/>
                                                                 <constraint firstAttribute="trailing" secondItem="9lC-bg-weJ" secondAttribute="trailing" constant="20" id="tpE-ie-3dC"/>
                                                             </constraints>
                                                         </view>
