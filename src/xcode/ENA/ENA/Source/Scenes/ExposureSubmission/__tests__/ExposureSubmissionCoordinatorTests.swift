@@ -106,7 +106,8 @@ class ExposureSubmissionCoordinatorTests: CWATestCase {
 			exposureSubmissionService: exposureSubmissionService,
 			coronaTestService: coronaTestService,
 			familyMemberCoronaTestService: familyMemberCoronaTestService,
-			recycleBin: recycleBin
+			recycleBin: recycleBin,
+			badgeWrapper: .fake()
 		)
 	}
 	
@@ -130,6 +131,7 @@ class ExposureSubmissionCoordinatorTests: CWATestCase {
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
 			healthCertificateValidationOnboardedCountriesProvider: healthCertificateValidationOnboardedCountriesProvider,
 			qrScannerCoordinator: qrScannerCoordinator,
+			badgeWrapper: .fake(),
 			recycleBin: RecycleBin(store: store),
 			store: MockTestStore()
 		)
