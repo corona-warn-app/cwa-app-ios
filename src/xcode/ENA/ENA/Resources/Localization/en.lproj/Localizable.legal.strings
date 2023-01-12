@@ -2,7 +2,7 @@
 
 "ExposureSubmissionWarnOthers_acknowledgementTitle" = "Your Consent";
 
-"ExposureSubmissionWarnOthers_acknowledgementBody" = "By tapping on “Accept”, you consent to the following steps:";
+"ExposureSubmissionWarnOthers_acknowledgementBody" = "By tapping on “Accept”, you consent to the following:";
 
 "ExposureSubmissionWarnOthers_acknowledgement_1_1" = "The app will share your test result in order to warn users whom you have encountered. This applies to users of coronavirus apps from the above countries and users who were simultaneously checked in at the same event or place as you. In the case of rapid tests, only users of the Corona-Warn-App will be warned. If you provide additional information about the onset of symptoms, this will be also shared.";
 
