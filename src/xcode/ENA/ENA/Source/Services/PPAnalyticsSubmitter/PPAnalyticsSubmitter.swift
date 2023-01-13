@@ -651,7 +651,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 			}
 			$0.submittedAfterRapidAntigenTest = metadata.submittedAfterRapidAntigenTest
 			// SRS submissionType is injected in the initialiser
-			// this means this is a normal registered test "PCR or Antigen"
+			// In case the type is not injected i.e "nil", this means this is a normal registered test "PCR or Antigen"
 			$0.submissionType = metadata.submissionType?.keySubmissionProtobuf ?? .submissionTypeRegisteredTest
 		}
 	}
