@@ -17,7 +17,7 @@ import XCTest
 // swiftlint:disable:next type_body_length
 class KeySubmissionMetadataTests: CWATestCase {
 	
-	func testSRSKeySubmissionMetadataValues_ENFHighRisk() {
+	func testSRSKeySubmissionMetadataValues() {
 		let secureStore = MockTestStore()
 		Analytics.setupMock(store: secureStore, coronaTestService: nil)
 
@@ -56,13 +56,13 @@ class KeySubmissionMetadataTests: CWATestCase {
 		Analytics.collect(.keySubmissionMetadata(.setHoursSinceCheckinHighRiskWarningAtTestRegistration(.srs(srsSubmissionType))))
 		
 	
-		XCTAssertNotNil(secureStore.srsKeySubmissionMetadata, "srsKeySubmissionMetadata should be initialized with default values")
+		XCTAssertNotNil(secureStore.srsKeySubmissionMetadata, "pcrKeySubmissionMetadata should be initialized with default values")
 		XCTAssertEqual(secureStore.srsKeySubmissionMetadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration, 2, "number of days should be 2")
 		XCTAssertEqual(secureStore.srsKeySubmissionMetadata?.hoursSinceHighRiskWarningAtTestRegistration, 24, "the difference is one day so it should be 24")
 		XCTAssertFalse(secureStore.srsKeySubmissionMetadata?.submittedAfterRapidAntigenTest ?? true)
 		XCTAssertEqual(secureStore.srsKeySubmissionMetadata?.daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration, -1, "property should not be changed from init param")
 		XCTAssertEqual(secureStore.srsKeySubmissionMetadata?.hoursSinceCheckinHighRiskWarningAtTestRegistration, -1, "property should not be changed from init param")
-		XCTAssertFalse(secureStore.srsKeySubmissionMetadata?.submittedWithCheckIns ?? true)
+		XCTAssertTrue(secureStore.srsKeySubmissionMetadata?.submittedWithCheckIns ?? true)
 	}
 
 	func testKeySubmissionMetadataValues_ENFHighRisk() {
