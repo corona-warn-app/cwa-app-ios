@@ -1498,7 +1498,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		alert.addAction(
 			UIAlertAction(
 				title: AppStrings.ExposureSubmissionCheckins.alertDontShare,
-				style: .cancel,
+				style: .default,
 				handler: { _ in
 					dontShareHandler()
 				}
@@ -1508,7 +1508,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		alert.addAction(
 			UIAlertAction(
 				title: AppStrings.ExposureSubmissionCheckins.alertShare,
-				style: .default
+				style: .cancel
 			)
 		)
 
