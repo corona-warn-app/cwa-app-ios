@@ -650,7 +650,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 				$0.submittedWithTeleTan = submittedWithTeleTan
 			}
 			$0.submittedAfterRapidAntigenTest = metadata.submittedAfterRapidAntigenTest
-			// the srs submissionType is injected during in the initialiser, in case the type is not injected "i.e nil"
+			// SRS submissionType is injected in the initialiser
 			// this means this is a normal registered test "PCR or Antigen"
 			$0.submissionType = metadata.submissionType?.keySubmissionProtobuf ?? .submissionTypeRegisteredTest
 		}
