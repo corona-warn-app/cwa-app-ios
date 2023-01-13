@@ -1690,6 +1690,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 					)
 				}
 			)
+			confirmAction.accessibilityIdentifier = AccessibilityIdentifiers.SRSConfirmWarnOthersAlert.actionConfirm
 			alert.addAction(confirmAction)
 			
 			alert.addAction(UIAlertAction(
