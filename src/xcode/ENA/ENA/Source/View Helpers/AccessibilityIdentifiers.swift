@@ -369,6 +369,10 @@ enum AccessibilityIdentifiers {
 	enum SRSDataProcessingDetailInfo {
 		static let content = "AppStrings.SRSConsentScreen.dataProcessingDetailInfo"
 	}
+	
+	enum SRSConfirmWarnOthersAlert {
+		static let actionConfirm = "AppStrings.SRSConfirmWarnOthersAlert.actionConfirm"
+	}
 
 	enum ExposureSubmissionQRInfo {
 		static let headerSection1 = "AppStrings.ExposureSubmissionQRInfo.headerSection1"
