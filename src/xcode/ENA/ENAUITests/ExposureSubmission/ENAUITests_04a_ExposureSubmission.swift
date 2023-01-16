@@ -865,7 +865,7 @@ class ENAUITests_04a_ExposureSubmission: CWATestCase {
 
 		// Confirm Warn Others
 		snapshot("submissionflow_srs_screenshot_consent_warnothers")
-		app.alerts.firstMatch.buttons.element(boundBy: 0).waitAndTap()
+		app.alerts.firstMatch.buttons[AccessibilityIdentifiers.SRSConfirmWarnOthersAlert.actionConfirm].waitAndTap()
 		
 		// Thank You Screen
 		snapshot("submissionflow_srs_screenshot_success_thankyou", timeWaitingForIdle: .medium)

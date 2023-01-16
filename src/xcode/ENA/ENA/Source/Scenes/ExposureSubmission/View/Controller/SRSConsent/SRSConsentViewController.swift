@@ -39,6 +39,12 @@ class SRSConsentViewController: DynamicTableViewController, FooterViewHandling {
 			}
 		}
 	}
+	
+	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+		super.traitCollectionDidChange(previousTraitCollection)
+		
+		dynamicTableViewModel = viewModel.dynamicTableViewModel
+	}
 
 	// MARK: - Protocol FooterViewHandling
 

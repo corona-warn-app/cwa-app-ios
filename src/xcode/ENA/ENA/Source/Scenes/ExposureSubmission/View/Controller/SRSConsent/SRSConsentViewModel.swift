@@ -70,24 +70,19 @@ class SRSConsentViewModel {
 					title: NSAttributedString(string: AppStrings.SRSConsentScreen.legalHeadline),
 					description: NSAttributedString(
 						string: AppStrings.SRSConsentScreen.legalDescription,
-						attributes: [.font: UIFont.preferredFont(forTextStyle: .body)]
+						attributes: [.font: UIFont.enaFont(for: .body)]
 					),
-					bulletPoints: bulletPoints,
+					bulletPoints: legalExtendedDataDonationBulletPoints,
 					accessibilityIdentifier: AccessibilityIdentifiers.SRSConsentScreen.acknowledgementTitle,
 					configure: { _, cell, _ in
 						cell.backgroundColor = .enaColor(for: .background)
 					}
 				),
-				.bulletPoint(text: AppStrings.SRSConsentScreen.acknowledgement1, alignment: .legal),
-				.space(height: 8.0),
-				.bulletPoint(text: AppStrings.SRSConsentScreen.acknowledgement2, alignment: .legal),
-				.space(height: 8.0),
-				.bulletPoint(text: AppStrings.SRSConsentScreen.acknowledgement3, alignment: .legal),
-				.space(height: 8.0),
-				.bulletPoint(text: AppStrings.SRSConsentScreen.acknowledgement4, alignment: .legal),
-				.space(height: 8.0),
-				.bulletPoint(text: AppStrings.SRSConsentScreen.acknowledgement5, alignment: .legal),
-				.space(height: 8.0),
+				acknowledgementBulletPoint(for: AppStrings.SRSConsentScreen.acknowledgement1),
+				acknowledgementBulletPoint(for: AppStrings.SRSConsentScreen.acknowledgement2),
+				acknowledgementBulletPoint(for: AppStrings.SRSConsentScreen.acknowledgement3),
+				acknowledgementBulletPoint(for: AppStrings.SRSConsentScreen.acknowledgement4),
+				acknowledgementBulletPoint(for: AppStrings.SRSConsentScreen.acknowledgement5),
 				.body(text: AppStrings.SRSConsentScreen.acknowledgement6)
 			])
 		)
@@ -113,24 +108,42 @@ class SRSConsentViewModel {
 
 	// MARK: - Private
 
-	private var bulletPoints: [NSAttributedString] {
+	private var legalExtendedDataDonationBulletPoints: [NSAttributedString] {
 		var points = [NSAttributedString]()
-
-		// highlighted texts
-		let attributes: [NSAttributedString.Key: Any] = [
-			.font: UIFont.preferredFont(forTextStyle: .headline)
+		
+		// For normal texts
+		let fontRegularAttributes: [NSAttributedString.Key: Any] = [
+			.font: UIFont.enaFont(for: .body)
+		]
+		
+		// For highlight texts
+		let fontBoldAttributes: [NSAttributedString.Key: Any] = [
+			.font: UIFont.enaFont(for: .body, weight: .bold)
 		]
 
 		// Don't forget the tab for all paragraphs after the first!
-		let ack1 = NSMutableAttributedString(string: "\(AppStrings.SRSConsentScreen.legalBulletPoint01)")
-		ack1.addAttributes(attributes, range: NSRange(location: 0, length: AppStrings.SRSConsentScreen.legalBulletPoint01.count))
-
-		let ack2 = NSMutableAttributedString(string: "\(AppStrings.SRSConsentScreen.legalBulletPoint02)")
-		ack2.addAttributes(attributes, range: NSRange(location: AppStrings.SRSConsentScreen.legalBulletPoint02prefix.count, length: AppStrings.SRSConsentScreen.legalBulletPoint02highlighted.count))
-
-		let ack3 = NSMutableAttributedString(string: "\(AppStrings.SRSConsentScreen.legalBulletPoint03)")
-		ack3.addAttributes(attributes, range: NSRange(location: 0, length: AppStrings.SRSConsentScreen.legalBulletPoint03.count))
+		let ack1 = NSMutableAttributedString(
+			string: AppStrings.SRSConsentScreen.legalBulletPoint01,
+			attributes: fontBoldAttributes
+		)
 		
+		let ack2 = NSMutableAttributedString(
+			string: AppStrings.SRSConsentScreen.legalBulletPoint02,
+			attributes: fontRegularAttributes
+		)
+		ack2.setAttributes(
+			fontBoldAttributes,
+			range: NSRange(
+				location: AppStrings.SRSConsentScreen.legalBulletPoint02prefix.count,
+				length: AppStrings.SRSConsentScreen.legalBulletPoint02highlighted.count
+			)
+		)
+		
+		let ack3 = NSMutableAttributedString(
+			string: AppStrings.SRSConsentScreen.legalBulletPoint03,
+			attributes: fontBoldAttributes
+		)
+
 		points.append(ack1)
 		points.append(ack2)
 		points.append(ack3)
@@ -147,4 +160,17 @@ class SRSConsentViewModel {
 	}
 	
 	private var subscriptions = Set<AnyCancellable>()
+	
+	private func acknowledgementBulletPoint(for text: String) -> DynamicCell {
+		.bulletPoint(
+			attributedText: NSMutableAttributedString(
+				string: text,
+				attributes: [
+					.font: UIFont.enaFont(for: .body)
+				]
+			),
+			spacing: .large,
+			alignment: .legal
+		)
+	}
 }
