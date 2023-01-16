@@ -1798,7 +1798,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 				completion: { [weak self] in
 					self?.dismiss()
 					// reset the home badge count
-					self?.badgeWrapper.resetAll()
+					self?.badgeWrapper.reset(.unseenTests)
 				}
 			)
 		default:
