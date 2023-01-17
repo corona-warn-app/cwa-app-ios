@@ -537,6 +537,14 @@ extension SecureStore: PrivacyPreservingProviding {
 		get { kvStore["previousAPITokenPPAC"] as TimestampedToken? }
 		set { kvStore["previousAPITokenPPAC"] = newValue }
 	}
+	
+	// FOR reading legacy values for DEVMENU ONLY!, dont save any new code to these 2 variables!
+	var ppacApiTokenEdus: TimestampedToken? {
+		kvStore["ppacApiToken"] as TimestampedToken?
+	}
+	var ppacApiTokenEls: TimestampedToken? {
+		kvStore["ppacApiTokenEls"] as TimestampedToken?
+	}
 }
 
 extension SecureStore: ErrorLogProviding {
