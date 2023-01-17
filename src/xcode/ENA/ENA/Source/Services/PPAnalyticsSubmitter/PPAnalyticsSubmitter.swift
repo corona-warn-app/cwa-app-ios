@@ -350,8 +350,9 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 		let exposureRiskMetadata = gatherExposureRiskMetadata()
 		let userMetadata = gatherUserMetadata()
 		let clientMetadata = gatherClientMetadata()
-		let pcrKeySubmissionMetadata = gatherKeySubmissionMetadata(for: .pcr)
-		let antigenKeySubmissionMetadata = gatherKeySubmissionMetadata(for: .antigen)
+		let pcrKeySubmissionMetadata = gatherKeySubmissionMetadata(for: .registeredTest(.pcr))
+		let antigenKeySubmissionMetadata = gatherKeySubmissionMetadata(for: .registeredTest(.antigen))
+		let srsKeySubmissionMetadata = gatherKeySubmissionMetadata(for: .srs(.srsOther))
 		let pcrTestResultMetadata = gatherTestResultMetadata(for: .pcr)
 		let antigenTestResultMetadata = gatherTestResultMetadata(for: .antigen)
 		let newExposureWindows = gatherNewExposureWindows()
@@ -580,14 +581,21 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 	}
 	
 	// swiftlint:disable:next cyclomatic_complexity
-	func gatherKeySubmissionMetadata(for type: CoronaTestType) -> SAP_Internal_Ppdd_PPAKeySubmissionMetadata? {
+	func gatherKeySubmissionMetadata(for type: SubmissionTestType) -> SAP_Internal_Ppdd_PPAKeySubmissionMetadata? {
 
 		let _metadata: KeySubmissionMetadata?
 		switch type {
-		case .pcr:
-			_metadata = store.pcrKeySubmissionMetadata
-		case .antigen:
-			_metadata = store.antigenKeySubmissionMetadata
+		case .registeredTest(let testType):
+			switch testType {
+			case .pcr:
+				_metadata = store.pcrKeySubmissionMetadata
+			case .antigen:
+				_metadata = store.antigenKeySubmissionMetadata
+			default:
+				_metadata = nil
+			}
+		case .srs:
+			_metadata = store.srsKeySubmissionMetadata
 		}
 
 		guard let metadata = _metadata else {
@@ -642,6 +650,9 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 				$0.submittedWithTeleTan = submittedWithTeleTan
 			}
 			$0.submittedAfterRapidAntigenTest = metadata.submittedAfterRapidAntigenTest
+			// SRS submissionType is injected in the initialiser
+			// In case the type is not injected i.e "nil", this means this is a normal registered test "PCR or Antigen"
+			$0.submissionType = metadata.submissionType?.keySubmissionProtobuf ?? .submissionTypeRegisteredTest
 		}
 	}
 	

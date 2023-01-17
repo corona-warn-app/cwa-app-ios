@@ -16,7 +16,55 @@ import XCTest
 
 // swiftlint:disable:next type_body_length
 class KeySubmissionMetadataTests: CWATestCase {
+	
+	func testSRSKeySubmissionMetadataValues() {
+		let secureStore = MockTestStore()
+		Analytics.setupMock(store: secureStore, coronaTestService: nil)
+
+		secureStore.isPrivacyPreservingAnalyticsConsentGiven = true
+
+		let riskCalculationResult = mockENFHighRiskCalculationResult()
+
+		secureStore.dateOfConversionToENFHighRisk = Calendar.current.date(byAdding: .day, value: -1, to: Date())
+		secureStore.enfRiskCalculationResult = riskCalculationResult
+
+		let srsSubmissionType: SRSSubmissionType = .srsSelfTest
 		
+		let srsKeySubmissionMetadata = KeySubmissionMetadata(
+			submitted: true,
+			submittedInBackground: false,
+			submittedAfterCancel: false,
+			submittedAfterSymptomFlow: true,
+			lastSubmissionFlowScreen: .submissionFlowScreenUnknown,
+			advancedConsentGiven: false,
+			hoursSinceTestResult: 0,
+			hoursSinceTestRegistration: 0,
+			daysSinceMostRecentDateAtRiskLevelAtTestRegistration: -1,
+			hoursSinceHighRiskWarningAtTestRegistration: -1,
+			submittedWithTeleTAN: false,
+			submittedAfterRapidAntigenTest: false,
+			daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration: -1,
+			hoursSinceCheckinHighRiskWarningAtTestRegistration: -1,
+			submittedWithCheckIns: true,
+			submissionType: srsSubmissionType
+		)
+
+		Analytics.collect(.keySubmissionMetadata(.create(srsKeySubmissionMetadata, .srs(srsSubmissionType))))
+		Analytics.collect(.keySubmissionMetadata(.setDaysSinceMostRecentDateAtENFRiskLevelAtTestRegistration(.srs(srsSubmissionType))))
+		Analytics.collect(.keySubmissionMetadata(.setHoursSinceENFHighRiskWarningAtTestRegistration(.srs(srsSubmissionType))))
+		Analytics.collect(.keySubmissionMetadata(.setDaysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration(.srs(srsSubmissionType))))
+		Analytics.collect(.keySubmissionMetadata(.setHoursSinceCheckinHighRiskWarningAtTestRegistration(.srs(srsSubmissionType))))
+		
+	
+		XCTAssertNotNil(secureStore.srsKeySubmissionMetadata, "pcrKeySubmissionMetadata should be initialized with default values")
+		XCTAssertEqual(secureStore.srsKeySubmissionMetadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration, 2, "number of days should be 2")
+		XCTAssertEqual(secureStore.srsKeySubmissionMetadata?.hoursSinceHighRiskWarningAtTestRegistration, 24, "the difference is one day so it should be 24")
+		XCTAssertFalse(secureStore.srsKeySubmissionMetadata?.submittedAfterRapidAntigenTest ?? true)
+		XCTAssertEqual(secureStore.srsKeySubmissionMetadata?.daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration, -1, "property should not be changed from init param")
+		XCTAssertEqual(secureStore.srsKeySubmissionMetadata?.hoursSinceCheckinHighRiskWarningAtTestRegistration, -1, "property should not be changed from init param")
+		XCTAssertTrue(secureStore.srsKeySubmissionMetadata?.submittedWithCheckIns ?? true)
+	}
+
 	func testKeySubmissionMetadataValues_ENFHighRisk() {
 		let secureStore = MockTestStore()
 		let coronaTestService = MockCoronaTestService()
@@ -35,15 +83,15 @@ class KeySubmissionMetadataTests: CWATestCase {
 
 		let keySubmissionMetadata = mockEmptyKeySubmissionMetadata()
 		
-		Analytics.collect(.keySubmissionMetadata(.create(keySubmissionMetadata, .pcr)))
-		Analytics.collect(.keySubmissionMetadata(.setDaysSinceMostRecentDateAtENFRiskLevelAtTestRegistration(.pcr)))
-		Analytics.collect(.keySubmissionMetadata(.setHoursSinceENFHighRiskWarningAtTestRegistration(.pcr)))
+		Analytics.collect(.keySubmissionMetadata(.create(keySubmissionMetadata, .registeredTest(.pcr))))
+		Analytics.collect(.keySubmissionMetadata(.setDaysSinceMostRecentDateAtENFRiskLevelAtTestRegistration(.registeredTest(.pcr))))
+		Analytics.collect(.keySubmissionMetadata(.setHoursSinceENFHighRiskWarningAtTestRegistration(.registeredTest(.pcr))))
 		Analytics.collect(.keySubmissionMetadata(.submittedAfterRapidAntigenTest(.pcr)))
 		Analytics.collect(.keySubmissionMetadata(.submittedWithCheckins(false, .pcr)))
 		
-		Analytics.collect(.keySubmissionMetadata(.create(keySubmissionMetadata, .antigen)))
-		Analytics.collect(.keySubmissionMetadata(.setDaysSinceMostRecentDateAtENFRiskLevelAtTestRegistration(.antigen)))
-		Analytics.collect(.keySubmissionMetadata(.setHoursSinceENFHighRiskWarningAtTestRegistration(.antigen)))
+		Analytics.collect(.keySubmissionMetadata(.create(keySubmissionMetadata, .registeredTest(.antigen))))
+		Analytics.collect(.keySubmissionMetadata(.setDaysSinceMostRecentDateAtENFRiskLevelAtTestRegistration(.registeredTest(.antigen))))
+		Analytics.collect(.keySubmissionMetadata(.setHoursSinceENFHighRiskWarningAtTestRegistration(.registeredTest(.antigen))))
 		Analytics.collect(.keySubmissionMetadata(.submittedAfterRapidAntigenTest(.antigen)))
 		Analytics.collect(.keySubmissionMetadata(.submittedWithCheckins(false, .antigen)))
 		
@@ -87,9 +135,9 @@ class KeySubmissionMetadataTests: CWATestCase {
 
 		let keySubmissionMetadata = mockEmptyKeySubmissionMetadata()
 		
-		Analytics.collect(.keySubmissionMetadata(.create(keySubmissionMetadata, .pcr)))
-		Analytics.collect(.keySubmissionMetadata(.setDaysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration(.pcr)))
-		Analytics.collect(.keySubmissionMetadata(.setHoursSinceCheckinHighRiskWarningAtTestRegistration(.pcr)))
+		Analytics.collect(.keySubmissionMetadata(.create(keySubmissionMetadata, .registeredTest(.pcr))))
+		Analytics.collect(.keySubmissionMetadata(.setDaysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration(.registeredTest(.pcr))))
+		Analytics.collect(.keySubmissionMetadata(.setHoursSinceCheckinHighRiskWarningAtTestRegistration(.registeredTest(.pcr))))
 		Analytics.collect(.keySubmissionMetadata(.submittedWithCheckins(true, .pcr)))
 
 		XCTAssertNotNil(secureStore.pcrKeySubmissionMetadata, "keySubmissionMetadata should be initialized with default values")
@@ -130,11 +178,11 @@ class KeySubmissionMetadataTests: CWATestCase {
 
 		let keySubmissionMetadata = mockEmptyKeySubmissionMetadata()
 		
-		Analytics.collect(.keySubmissionMetadata(.create(keySubmissionMetadata, .antigen)))
-		Analytics.collect(.keySubmissionMetadata(.setDaysSinceMostRecentDateAtENFRiskLevelAtTestRegistration(.antigen)))
-		Analytics.collect(.keySubmissionMetadata(.setHoursSinceENFHighRiskWarningAtTestRegistration(.antigen)))
-		Analytics.collect(.keySubmissionMetadata(.setDaysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration(.antigen)))
-		Analytics.collect(.keySubmissionMetadata(.setHoursSinceCheckinHighRiskWarningAtTestRegistration(.antigen)))
+		Analytics.collect(.keySubmissionMetadata(.create(keySubmissionMetadata, .registeredTest(.antigen))))
+		Analytics.collect(.keySubmissionMetadata(.setDaysSinceMostRecentDateAtENFRiskLevelAtTestRegistration(.registeredTest(.antigen))))
+		Analytics.collect(.keySubmissionMetadata(.setHoursSinceENFHighRiskWarningAtTestRegistration(.registeredTest(.antigen))))
+		Analytics.collect(.keySubmissionMetadata(.setDaysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration(.registeredTest(.antigen))))
+		Analytics.collect(.keySubmissionMetadata(.setHoursSinceCheckinHighRiskWarningAtTestRegistration(.registeredTest(.antigen))))
 		Analytics.collect(.keySubmissionMetadata(.submittedWithCheckins(true, .antigen)))
 
 		XCTAssertNotNil(secureStore.antigenKeySubmissionMetadata, "keySubmissionMetadata should be initialized with default values")
@@ -167,9 +215,9 @@ class KeySubmissionMetadataTests: CWATestCase {
 
 		let keySubmissionMetadata = mockEmptyKeySubmissionMetadata()
 		
-		Analytics.collect(.keySubmissionMetadata(.create(keySubmissionMetadata, .pcr)))
-		Analytics.collect(.keySubmissionMetadata(.setDaysSinceMostRecentDateAtENFRiskLevelAtTestRegistration(.pcr)))
-		Analytics.collect(.keySubmissionMetadata(.setHoursSinceENFHighRiskWarningAtTestRegistration(.pcr)))
+		Analytics.collect(.keySubmissionMetadata(.create(keySubmissionMetadata, .registeredTest(.pcr))))
+		Analytics.collect(.keySubmissionMetadata(.setDaysSinceMostRecentDateAtENFRiskLevelAtTestRegistration(.registeredTest(.pcr))))
+		Analytics.collect(.keySubmissionMetadata(.setHoursSinceENFHighRiskWarningAtTestRegistration(.registeredTest(.pcr))))
 
 		XCTAssertNotNil(secureStore.pcrKeySubmissionMetadata, "keySubmissionMetadata should be initialized with default values")
 		XCTAssertEqual(secureStore.pcrKeySubmissionMetadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration, 3, "number of days should be 3")
@@ -200,9 +248,9 @@ class KeySubmissionMetadataTests: CWATestCase {
 
 		let keySubmissionMetadata = mockEmptyKeySubmissionMetadata()
 		
-		Analytics.collect(.keySubmissionMetadata(.create(keySubmissionMetadata, .antigen)))
-		Analytics.collect(.keySubmissionMetadata(.setDaysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration(.antigen)))
-		Analytics.collect(.keySubmissionMetadata(.setHoursSinceCheckinHighRiskWarningAtTestRegistration(.antigen)))
+		Analytics.collect(.keySubmissionMetadata(.create(keySubmissionMetadata, .registeredTest(.antigen))))
+		Analytics.collect(.keySubmissionMetadata(.setDaysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration(.registeredTest(.antigen))))
+		Analytics.collect(.keySubmissionMetadata(.setHoursSinceCheckinHighRiskWarningAtTestRegistration(.registeredTest(.antigen))))
 		Analytics.collect(.keySubmissionMetadata(.submittedWithCheckins(true, .antigen)))
 
 		XCTAssertNotNil(secureStore.antigenKeySubmissionMetadata, "keySubmissionMetadata should be initialized with default values")
@@ -242,11 +290,11 @@ class KeySubmissionMetadataTests: CWATestCase {
 
 		let keySubmissionMetadata = mockEmptyKeySubmissionMetadata()
 		
-		Analytics.collect(.keySubmissionMetadata(.create(keySubmissionMetadata, .pcr)))
-		Analytics.collect(.keySubmissionMetadata(.setDaysSinceMostRecentDateAtENFRiskLevelAtTestRegistration(.pcr)))
-		Analytics.collect(.keySubmissionMetadata(.setHoursSinceENFHighRiskWarningAtTestRegistration(.pcr)))
-		Analytics.collect(.keySubmissionMetadata(.setDaysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration(.pcr)))
-		Analytics.collect(.keySubmissionMetadata(.setHoursSinceCheckinHighRiskWarningAtTestRegistration(.pcr)))
+		Analytics.collect(.keySubmissionMetadata(.create(keySubmissionMetadata, .registeredTest(.pcr))))
+		Analytics.collect(.keySubmissionMetadata(.setDaysSinceMostRecentDateAtENFRiskLevelAtTestRegistration(.registeredTest(.pcr))))
+		Analytics.collect(.keySubmissionMetadata(.setHoursSinceENFHighRiskWarningAtTestRegistration(.registeredTest(.pcr))))
+		Analytics.collect(.keySubmissionMetadata(.setDaysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration(.registeredTest(.pcr))))
+		Analytics.collect(.keySubmissionMetadata(.setHoursSinceCheckinHighRiskWarningAtTestRegistration(.registeredTest(.pcr))))
 		Analytics.collect(.keySubmissionMetadata(.submittedWithCheckins(true, .pcr)))
 
 		XCTAssertNotNil(secureStore.pcrKeySubmissionMetadata, "keySubmissionMetadata should be initialized with default values")
@@ -285,10 +333,10 @@ class KeySubmissionMetadataTests: CWATestCase {
 
 		let keySubmissionMetadata = mockEmptyKeySubmissionMetadata()
 		
-		Analytics.collect(.keySubmissionMetadata(.create(keySubmissionMetadata, .pcr)))
+		Analytics.collect(.keySubmissionMetadata(.create(keySubmissionMetadata, .registeredTest(.pcr))))
 		Analytics.collect(.keySubmissionMetadata(.setHoursSinceTestRegistration(.pcr)))
 		Analytics.collect(.keySubmissionMetadata(.setHoursSinceTestResult(.pcr)))
-		Analytics.collect(.keySubmissionMetadata(.create(keySubmissionMetadata, .antigen)))
+		Analytics.collect(.keySubmissionMetadata(.create(keySubmissionMetadata, .registeredTest(.antigen))))
 		Analytics.collect(.keySubmissionMetadata(.setHoursSinceTestRegistration(.antigen)))
 		Analytics.collect(.keySubmissionMetadata(.setHoursSinceTestResult(.antigen)))
 
@@ -315,11 +363,11 @@ class KeySubmissionMetadataTests: CWATestCase {
 
 		let keySubmissionMetadata = mockEmptyKeySubmissionMetadata()
 		
-		Analytics.collect(.keySubmissionMetadata(.create(keySubmissionMetadata, .pcr)))
+		Analytics.collect(.keySubmissionMetadata(.create(keySubmissionMetadata, .registeredTest(.pcr))))
 		Analytics.collect(.keySubmissionMetadata(.submitted(true, .pcr)))
 		Analytics.collect(.keySubmissionMetadata(.submittedInBackground(true, .pcr)))
 		Analytics.collect(.keySubmissionMetadata(.advancedConsentGiven(true, .pcr)))
-		Analytics.collect(.keySubmissionMetadata(.create(keySubmissionMetadata, .antigen)))
+		Analytics.collect(.keySubmissionMetadata(.create(keySubmissionMetadata, .registeredTest(.antigen))))
 		Analytics.collect(.keySubmissionMetadata(.submitted(true, .antigen)))
 		Analytics.collect(.keySubmissionMetadata(.submittedInBackground(true, .antigen)))
 		Analytics.collect(.keySubmissionMetadata(.advancedConsentGiven(true, .antigen)))
@@ -350,14 +398,14 @@ class KeySubmissionMetadataTests: CWATestCase {
 
 		let keySubmissionMetadata = mockEmptyKeySubmissionMetadata()
 			
-		Analytics.collect(.keySubmissionMetadata(.create(keySubmissionMetadata, .pcr)))
+		Analytics.collect(.keySubmissionMetadata(.create(keySubmissionMetadata, .registeredTest(.pcr))))
 		Analytics.collect(.keySubmissionMetadata(.submitted(true, .pcr)))
 		Analytics.collect(.keySubmissionMetadata(.submittedInBackground(false, .pcr)))
 		Analytics.collect(.keySubmissionMetadata(.submittedAfterCancel(true, .pcr)))
 		Analytics.collect(.keySubmissionMetadata(.submittedAfterSymptomFlow(true, .pcr)))
 		Analytics.collect(.keySubmissionMetadata(.lastSubmissionFlowScreen(.submissionFlowScreenSymptoms, .pcr)))
 
-		Analytics.collect(.keySubmissionMetadata(.create(keySubmissionMetadata, .antigen)))
+		Analytics.collect(.keySubmissionMetadata(.create(keySubmissionMetadata, .registeredTest(.antigen))))
 		Analytics.collect(.keySubmissionMetadata(.submitted(true, .antigen)))
 		Analytics.collect(.keySubmissionMetadata(.submittedInBackground(false, .antigen)))
 		Analytics.collect(.keySubmissionMetadata(.submittedAfterCancel(true, .antigen)))

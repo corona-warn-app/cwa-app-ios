@@ -49,7 +49,7 @@ enum PPATestResultMetadata {
 }
 
 enum PPAKeySubmissionMetadata {
-	case create(KeySubmissionMetadata, CoronaTestType)
+	case create(KeySubmissionMetadata, SubmissionTestType)
 	case submitted(Bool, CoronaTestType)
 	case submittedInBackground(Bool, CoronaTestType)
 	case submittedAfterCancel(Bool, CoronaTestType)
@@ -61,10 +61,10 @@ enum PPAKeySubmissionMetadata {
 	case submittedAfterRapidAntigenTest(CoronaTestType)
 	case setHoursSinceTestResult(CoronaTestType)
 	case setHoursSinceTestRegistration(CoronaTestType)
-	case setDaysSinceMostRecentDateAtENFRiskLevelAtTestRegistration(CoronaTestType)
-	case setHoursSinceENFHighRiskWarningAtTestRegistration(CoronaTestType)
-	case setDaysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration(CoronaTestType)
-	case setHoursSinceCheckinHighRiskWarningAtTestRegistration(CoronaTestType)
+	case setDaysSinceMostRecentDateAtENFRiskLevelAtTestRegistration(SubmissionTestType)
+	case setHoursSinceENFHighRiskWarningAtTestRegistration(SubmissionTestType)
+	case setDaysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration(SubmissionTestType)
+	case setHoursSinceCheckinHighRiskWarningAtTestRegistration(SubmissionTestType)
 }
 
 enum PPAExposureWindowsMetadata {
