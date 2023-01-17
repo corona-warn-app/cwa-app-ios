@@ -11,7 +11,7 @@ enum SubmissionTestType: Equatable {
 
 // Wrapping SAP_Internal_SubmissionPayload.SubmissionType with SRSSubmissionType
 // as it does not conform to protocol equatable
-enum SRSSubmissionType: Equatable {
+enum SRSSubmissionType: Equatable, Codable {
 	case srsSelfTest
 	case srsRegisteredRat
 	case srsUnregisterdRat
@@ -36,6 +36,25 @@ enum SRSSubmissionType: Equatable {
 			return .srsRapidPcr
 		case .srsOther:
 			return .srsOther
+		}
+	}
+	
+	var keySubmissionProtobuf: SAP_Internal_Ppdd_PPAKeySubmissionType {
+		switch self {
+		case .srsSelfTest:
+			return .submissionTypeSrsSelfTest
+		case .srsRegisteredRat:
+			return .submissionTypeSrsRegisteredRat
+		case .srsUnregisterdRat:
+			return .submissionTypeSrsUnregisteredRat
+		case .srsRegisteredPcr:
+			return .submissionTypeSrsRegisteredPcr
+		case .srsUnregisteredPcr:
+			return .submissionTypeSrsUnregisteredPcr
+		case .srsRapidPcr:
+			return .submissionTypeSrsRapidPcr
+		case .srsOther:
+			return .submissionTypeSrsOther
 		}
 	}
 }

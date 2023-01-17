@@ -96,6 +96,24 @@ class PPAnalyticsCollectorTests: CWATestCase {
 			hoursSinceCheckinHighRiskWarningAtTestRegistration: -1,
 			submittedWithCheckIns: nil
 		)
+		store.srsKeySubmissionMetadata = KeySubmissionMetadata(
+			submitted: true,
+			submittedInBackground: false,
+			submittedAfterCancel: false,
+			submittedAfterSymptomFlow: true,
+			lastSubmissionFlowScreen: .submissionFlowScreenUnknown,
+			advancedConsentGiven: false,
+			hoursSinceTestResult: 0,
+			hoursSinceTestRegistration: 0,
+			daysSinceMostRecentDateAtRiskLevelAtTestRegistration: -1,
+			hoursSinceHighRiskWarningAtTestRegistration: -1,
+			submittedWithTeleTAN: false,
+			submittedAfterRapidAntigenTest: false,
+			daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration: -1,
+			hoursSinceCheckinHighRiskWarningAtTestRegistration: -1,
+			submittedWithCheckIns: true,
+			submissionType: .srsSelfTest
+		)
 		store.exposureWindowsMetadata = ExposureWindowsMetadata(
 			newExposureWindowsQueue: [],
 			reportedExposureWindowsQueue: []
@@ -138,6 +156,8 @@ class PPAnalyticsCollectorTests: CWATestCase {
 		XCTAssertNil(store.pcrKeySubmissionMetadata)
 		countOfDeletedProperties += 1
 		XCTAssertNil(store.antigenKeySubmissionMetadata)
+		countOfDeletedProperties += 1
+		XCTAssertNil(store.srsKeySubmissionMetadata)
 		countOfDeletedProperties += 1
 		XCTAssertNil(store.exposureWindowsMetadata)
 		countOfDeletedProperties += 1

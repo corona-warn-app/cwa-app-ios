@@ -113,6 +113,7 @@ final class MockTestStore: Store, PPAnalyticsData {
 	var clientMetadata: ClientMetadata?
 	var pcrKeySubmissionMetadata: KeySubmissionMetadata?
 	var antigenKeySubmissionMetadata: KeySubmissionMetadata?
+	var srsKeySubmissionMetadata: KeySubmissionMetadata?
 	var pcrTestResultMetadata: TestResultMetadata?
 	var antigenTestResultMetadata: TestResultMetadata?
 	var exposureWindowsMetadata: ExposureWindowsMetadata?

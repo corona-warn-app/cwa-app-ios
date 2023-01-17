@@ -86,6 +86,7 @@ enum PPAnalyticsCollector {
 		store?.antigenTestResultMetadata = nil
 		store?.pcrKeySubmissionMetadata = nil
 		store?.antigenKeySubmissionMetadata = nil
+		store?.srsKeySubmissionMetadata = nil
 		store?.exposureWindowsMetadata = nil
 		store?.dateOfConversionToENFHighRisk = nil
 		store?.dateOfConversionToCheckinHighRisk = nil
@@ -313,7 +314,7 @@ extension PPAnalyticsCollector {
 			PPAnalyticsCollector.testResultCollector = testResultCollector
 		}
 
-		if let store = store, let coronaTestService = coronaTestService {
+		if let store = store {
 			let submissionCollector = PPAAnalyticsSubmissionCollector(
 				store: store,
 				coronaTestService: coronaTestService
