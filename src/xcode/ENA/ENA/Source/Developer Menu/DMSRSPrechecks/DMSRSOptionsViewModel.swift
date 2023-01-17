@@ -82,6 +82,16 @@ final class DMSRSOptionsViewModel {
 					self.refreshTableView([TableViewSections.srsStateValues.rawValue])
 				}
 			)
+		case .restApiTokenPPAC:
+			return DMButtonCellViewModel(
+				text: "Reset API Token",
+				textColor: .white,
+				backgroundColor: .enaColor(for: .buttonDestructive),
+				action: { [store] in
+					store.apiTokenPPAC = nil
+					self.refreshTableView([TableViewSections.srsStateValues.rawValue])
+				}
+			)
 		}
 	}
 
