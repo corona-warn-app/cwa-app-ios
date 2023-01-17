@@ -116,7 +116,12 @@ final class DMSRSOptionsViewModel {
 	
 	private func apiTokenStaticText() -> String {
 	   """
+	   DEPRICATED API Token EDUS
+	   \(store.ppacApiTokenEdus?.token ?? "No Existing EDUS API Token in the store")
 	   
+	   DEPRICATED API Token ELS
+	   \(store.ppacApiTokenEls?.token ?? "No Existing ELS API Token in the store")
+
 	   PPAC API Token
 	   \(store.apiTokenPPAC?.token ?? "No API Token generated yet")
 	   
@@ -151,6 +156,7 @@ extension DMSRSOptionsViewModel {
 		case apiToken
 		case resetMostRecentKeySubmission
 		case resetSRSStateValues
+		case restApiTokenPPAC
 		
 		var sectionTitle: String {
 			switch self {
@@ -164,6 +170,8 @@ extension DMSRSOptionsViewModel {
 				return "Most Recent Key Submission"
 			case .resetSRSStateValues:
 				return "All SRS State Values"
+			case .restApiTokenPPAC:
+				return "Rest API Token"
 			}
 		}
 	}
