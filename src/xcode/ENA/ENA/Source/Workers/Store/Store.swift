@@ -150,6 +150,10 @@ protocol PrivacyPreservingProviding: AnyObject {
 	var apiTokenPPAC: TimestampedToken? { get set }
 	/// Previous PPAC API token
 	var previousAPITokenPPAC: TimestampedToken? { get set }
+	/// DEPRECATED, Only used for dev menu testing for API tokens
+	var ppacApiTokenEdus: TimestampedToken? { get }
+	/// DEPRECATED, Only used for dev menu testing for API tokens
+	var ppacApiTokenEls: TimestampedToken? { get }
 }
 
 protocol ErrorLogProviding: AnyObject {

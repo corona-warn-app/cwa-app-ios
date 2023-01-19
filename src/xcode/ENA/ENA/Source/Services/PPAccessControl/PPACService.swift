@@ -165,6 +165,8 @@ class PPACService: PrivacyPreservingAccessControl {
 			store.apiTokenPPAC = newToken
 			return newToken
 		}
+		Log.info("fetched existing valid API token: \(private: storedToken)", log: .ppac)
+		
 		return storedToken
 	}
 
@@ -174,7 +176,7 @@ class PPACService: PrivacyPreservingAccessControl {
 		let utcDate = Date()
 		let token = TimestampedToken(token: uuid, timestamp: utcDate)
 
-		Log.info("Generated new API token", log: .ppac)
+		Log.info("Generated new API token: \(private: token)", log: .ppac)
 		return token
 	}
 }
