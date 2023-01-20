@@ -1,6 +1,6 @@
 /* ExposureSubmissionWarnOthers */
 
-"ExposureSubmissionWarnOthers_acknowledgementTitle" = "Rıza Beyanınız";
+"ExposureSubmissionWarnOthers_acknowledgementTitle" = "Rıza beyanınız";
 
 "ExposureSubmissionWarnOthers_acknowledgementBody" = "„Kabul ediyorum“ seçeneğine dokunarak aşağıdakileri onaylarsınız:";
 
@@ -24,7 +24,7 @@
 
 /* Exposure Submission QR Code Info */
 
-"ExposureSubmissionQRInfo_acknowledgement_legal_title" = "Rıza Beyanınız";
+"ExposureSubmissionQRInfo_acknowledgement_legal_title" = "Rıza beyanınız";
 
 "ExposureSubmissionQRInfo_acknowledgement_legal_body" = "“Kabul ediyorum”a tıklayarak aşağıdaki adımlara onay vermiş olursunuz:";
 
