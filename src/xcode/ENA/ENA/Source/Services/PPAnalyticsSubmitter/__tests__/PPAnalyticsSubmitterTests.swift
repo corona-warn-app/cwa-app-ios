@@ -1181,7 +1181,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 		)
 		
 		let lastScreen: LastSubmissionFlowScreen = .submissionFlowScreenOther
-		Analytics.collect(.keySubmissionMetadata(.create(keySubmissionMetadata, .pcr)))
+		Analytics.collect(.keySubmissionMetadata(.create(keySubmissionMetadata, .registeredTest(.pcr))))
 		Analytics.collect(.keySubmissionMetadata(.submitted(true, .pcr)))
 		Analytics.collect(.keySubmissionMetadata(.submittedInBackground(true, .pcr)))
 		Analytics.collect(.keySubmissionMetadata(.submittedAfterCancel(true, .pcr)))
@@ -1200,7 +1200,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 		XCTAssertEqual(metadata?.advancedConsentGiven, true, "Wrong pcrKeySubmissionMetadata")
 		
 		// Mapping to protobuf
-		let protobuf = analyticsSubmitter.gatherKeySubmissionMetadata(for: .pcr)
+		let protobuf = analyticsSubmitter.gatherKeySubmissionMetadata(for: .registeredTest(.pcr))
 		XCTAssertEqual(protobuf?.submitted, metadata?.submitted, "Wrong submitted")
 		XCTAssertEqual(protobuf?.submittedInBackground, metadata?.submittedInBackground, "Wrong submittedInBackground")
 		XCTAssertEqual(protobuf?.submittedAfterCancel, metadata?.submittedAfterCancel, "Wrong submittedAfterCancel")

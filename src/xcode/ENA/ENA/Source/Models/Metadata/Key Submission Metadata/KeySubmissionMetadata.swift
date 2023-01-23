@@ -23,7 +23,8 @@ struct KeySubmissionMetadata: Codable {
 		submittedAfterRapidAntigenTest: Bool,
 		daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration: Int32,
 		hoursSinceCheckinHighRiskWarningAtTestRegistration: Int32,
-		submittedWithCheckIns: Bool?
+		submittedWithCheckIns: Bool?,
+		submissionType: SRSSubmissionType? = nil
 	) {
 		self.submitted = submitted
 		self.submittedInBackground = submittedInBackground
@@ -40,6 +41,7 @@ struct KeySubmissionMetadata: Codable {
 		self.daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration = daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration
 		self.hoursSinceCheckinHighRiskWarningAtTestRegistration = hoursSinceCheckinHighRiskWarningAtTestRegistration
 		self.submittedWithCheckIns = submittedWithCheckIns
+		self.submissionType = submissionType
 	}
 
 	// MARK: - Protocol Codable
@@ -62,6 +64,7 @@ struct KeySubmissionMetadata: Codable {
 		daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration = try container.decodeIfPresent(Int32.self, forKey: .daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration)
 		hoursSinceCheckinHighRiskWarningAtTestRegistration = try container.decodeIfPresent(Int32.self, forKey: .hoursSinceCheckinHighRiskWarningAtTestRegistration)
 		submittedWithCheckIns = try container.decodeIfPresent(Bool.self, forKey: .submittedWithCheckIns)
+		submissionType = try container.decodeIfPresent(SRSSubmissionType.self, forKey: .submissionType)
 	}
 	
 	enum CodingKeys: String, CodingKey {
@@ -80,6 +83,7 @@ struct KeySubmissionMetadata: Codable {
 		case daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration
 		case hoursSinceCheckinHighRiskWarningAtTestRegistration
 		case submittedWithCheckIns
+		case submissionType
 
 	}
 	
@@ -104,4 +108,5 @@ struct KeySubmissionMetadata: Codable {
 	// the checkin risk version
 	var hoursSinceCheckinHighRiskWarningAtTestRegistration: Int32?
 	var submittedWithCheckIns: Bool?
+	var submissionType: SRSSubmissionType?
 }

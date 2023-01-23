@@ -521,15 +521,29 @@ extension SecureStore: PrivacyPreservingProviding {
 		get { kvStore["otpAuthorizationDate"] as Date? }
 		set { kvStore["otpAuthorizationDate"] = newValue }
 	}
-
 	var apiTokenPPAC: TimestampedToken? {
-		get { kvStore["apiTokenPPAC"] as TimestampedToken? }
+		get {
+			// "apiTokenPPAC" is the unified api token used in 3.0 or later versions
+			if let existingApiTokenPPAC = kvStore["apiTokenPPAC"] as TimestampedToken? {
+				return existingApiTokenPPAC
+			} else {
+				// we check for the legacy api tokens: "ppacApiToken" for EDUS and "ppacApiTokenEls" for ELS
+				return kvStore["ppacApiToken"] as TimestampedToken? ?? kvStore["ppacApiTokenEls"] as TimestampedToken?
+			}
+		}
 		set { kvStore["apiTokenPPAC"] = newValue }
 	}
-	
 	var previousAPITokenPPAC: TimestampedToken? {
 		get { kvStore["previousAPITokenPPAC"] as TimestampedToken? }
 		set { kvStore["previousAPITokenPPAC"] = newValue }
+	}
+	
+	// FOR reading legacy values for DEVMENU ONLY!, dont save any new code to these 2 variables!
+	var ppacApiTokenEdus: TimestampedToken? {
+		kvStore["ppacApiToken"] as TimestampedToken?
+	}
+	var ppacApiTokenEls: TimestampedToken? {
+		kvStore["ppacApiTokenEls"] as TimestampedToken?
 	}
 }
 

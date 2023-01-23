@@ -90,6 +90,10 @@ final class MockTestStore: Store, PPAnalyticsData {
 	var previousPpacApiTokenSrs: TimestampedToken?
 	var otpTokenSrs: OTPToken?
     var otpSrsAuthorizationDate: Date?
+	/// DEPRECATED, Only used for dev menu testing for API tokens
+	var ppacApiTokenEdus: TimestampedToken?
+	/// DEPRECATED, Only used for dev menu testing for API tokens
+	var ppacApiTokenEls: TimestampedToken?
 
 	// MARK: - PrivacyPreservingProviding
 
@@ -113,6 +117,7 @@ final class MockTestStore: Store, PPAnalyticsData {
 	var clientMetadata: ClientMetadata?
 	var pcrKeySubmissionMetadata: KeySubmissionMetadata?
 	var antigenKeySubmissionMetadata: KeySubmissionMetadata?
+	var srsKeySubmissionMetadata: KeySubmissionMetadata?
 	var pcrTestResultMetadata: TestResultMetadata?
 	var antigenTestResultMetadata: TestResultMetadata?
 	var exposureWindowsMetadata: ExposureWindowsMetadata?

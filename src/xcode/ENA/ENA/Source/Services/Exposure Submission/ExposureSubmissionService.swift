@@ -232,6 +232,33 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 					completion: { result in
 						switch result {
 						case .success(let cwaKeyTruncated):
+							let submittedWithCheckIns = !self.eventStore.checkinsPublisher.value.isEmpty
+
+							let keySubmissionMetadata = KeySubmissionMetadata(
+								submitted: true,
+								submittedInBackground: false,
+								submittedAfterCancel: false,
+								submittedAfterSymptomFlow: true,
+								lastSubmissionFlowScreen: .submissionFlowScreenUnknown,
+								advancedConsentGiven: false,
+								hoursSinceTestResult: 0,
+								hoursSinceTestRegistration: 0,
+								daysSinceMostRecentDateAtRiskLevelAtTestRegistration: -1,
+								hoursSinceHighRiskWarningAtTestRegistration: -1,
+								submittedWithTeleTAN: false,
+								submittedAfterRapidAntigenTest: false,
+								daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration: -1,
+								hoursSinceCheckinHighRiskWarningAtTestRegistration: -1,
+								submittedWithCheckIns: submittedWithCheckIns,
+								submissionType: submissionType
+							)
+							Analytics.collect(.keySubmissionMetadata(.create(keySubmissionMetadata, .srs(submissionType))))
+							Analytics.collect(.keySubmissionMetadata(.setDaysSinceMostRecentDateAtENFRiskLevelAtTestRegistration(.srs(submissionType))))
+							Analytics.collect(.keySubmissionMetadata(.setHoursSinceENFHighRiskWarningAtTestRegistration(.srs(submissionType))))
+							Analytics.collect(.keySubmissionMetadata(.setDaysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration(.srs(submissionType))))
+							Analytics.collect(.keySubmissionMetadata(.setHoursSinceCheckinHighRiskWarningAtTestRegistration(.srs(submissionType))))
+
+
 							completion(.success(cwaKeyTruncated))
 						case .failure(let error):
 							completion(.failure(.srsKeySubmissionError(error)))

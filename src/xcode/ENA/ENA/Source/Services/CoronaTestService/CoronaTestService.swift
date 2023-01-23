@@ -972,10 +972,10 @@ class CoronaTestService: CoronaTestServiceProviding {
 
 
 					if duringRegistration {
-						Analytics.collect(.keySubmissionMetadata(.setHoursSinceENFHighRiskWarningAtTestRegistration(coronaTestType)))
-						Analytics.collect(.keySubmissionMetadata(.setDaysSinceMostRecentDateAtENFRiskLevelAtTestRegistration(coronaTestType)))
-						Analytics.collect(.keySubmissionMetadata(.setHoursSinceCheckinHighRiskWarningAtTestRegistration(coronaTestType)))
-						Analytics.collect(.keySubmissionMetadata(.setDaysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration(coronaTestType)))
+						Analytics.collect(.keySubmissionMetadata(.setHoursSinceENFHighRiskWarningAtTestRegistration(.registeredTest(coronaTestType))))
+						Analytics.collect(.keySubmissionMetadata(.setDaysSinceMostRecentDateAtENFRiskLevelAtTestRegistration(.registeredTest(coronaTestType))))
+						Analytics.collect(.keySubmissionMetadata(.setHoursSinceCheckinHighRiskWarningAtTestRegistration(.registeredTest(coronaTestType))))
+						Analytics.collect(.keySubmissionMetadata(.setDaysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration(.registeredTest(coronaTestType))))
 					}
 
 					completion(.success(testResult))
@@ -1059,9 +1059,9 @@ class CoronaTestService: CoronaTestServiceProviding {
 			submittedWithCheckIns: submittedWithCheckIns
 		)
 
-		Analytics.collect(.keySubmissionMetadata(.create(keySubmissionMetadata, coronaTest.type)))
-		Analytics.collect(.keySubmissionMetadata(.setDaysSinceMostRecentDateAtENFRiskLevelAtTestRegistration(coronaTest.type)))
-		Analytics.collect(.keySubmissionMetadata(.setHoursSinceENFHighRiskWarningAtTestRegistration(coronaTest.type)))
+		Analytics.collect(.keySubmissionMetadata(.create(keySubmissionMetadata, .registeredTest(coronaTest.type))))
+		Analytics.collect(.keySubmissionMetadata(.setDaysSinceMostRecentDateAtENFRiskLevelAtTestRegistration(.registeredTest(coronaTest.type))))
+		Analytics.collect(.keySubmissionMetadata(.setHoursSinceENFHighRiskWarningAtTestRegistration(.registeredTest(coronaTest.type))))
 	}
 
 	private func scheduleOutdatedStateTimer() {
