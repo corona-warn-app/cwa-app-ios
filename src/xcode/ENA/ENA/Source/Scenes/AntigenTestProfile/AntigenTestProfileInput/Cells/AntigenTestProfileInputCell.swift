@@ -19,33 +19,36 @@ class AntigenTestProfileInputCell: UITableViewCell, ReuseIdentifierProviding {
 
 		selectionStyle = .none
 		contentView.backgroundColor = .enaColor(for: .background)
-
+		
+		contentView.addSubview(scrollView)
+		scrollView.addSubview(stackView)
+		
 		firstNameTextField = textField()
 		firstNameTextField.placeholder = AppStrings.AntigenProfile.Create.firstNameTextFieldPlaceholder
 		firstNameTextField.accessibilityIdentifier = AccessibilityIdentifiers.AntigenProfile.Create.firstNameTextField
 		firstNameTextField.textContentType = .givenName
-		contentView.addSubview(firstNameTextField)
+		stackView.addArrangedSubview(firstNameTextField)
 		textFields.append(firstNameTextField)
 
 		lastNameTextField = textField()
 		lastNameTextField.placeholder = AppStrings.AntigenProfile.Create.lastNameTextFieldPlaceholder
 		lastNameTextField.accessibilityIdentifier = AccessibilityIdentifiers.AntigenProfile.Create.lastNameTextField
 		lastNameTextField.textContentType = .familyName
-		contentView.addSubview(lastNameTextField)
+		stackView.addArrangedSubview(lastNameTextField)
 		textFields.append(lastNameTextField)
 
 		birthDateNameTextField = textField()
 		birthDateNameTextField.placeholder = AppStrings.AntigenProfile.Create.birthDateTextFieldPlaceholder
 		birthDateNameTextField.accessibilityIdentifier = AccessibilityIdentifiers.AntigenProfile.Create.birthDateTextField
 		birthDateNameTextField.inputView = birthdayPicker
-		contentView.addSubview(birthDateNameTextField)
+		stackView.addArrangedSubview(birthDateNameTextField)
 		textFields.append(birthDateNameTextField)
 
 		addressLineTextField = textField()
 		addressLineTextField.placeholder = AppStrings.AntigenProfile.Create.streetTextFieldPlaceholder
 		addressLineTextField.accessibilityIdentifier = AccessibilityIdentifiers.AntigenProfile.Create.streetTextField
 		addressLineTextField.textContentType = .streetAddressLine1
-		contentView.addSubview(addressLineTextField)
+		stackView.addArrangedSubview(addressLineTextField)
 		textFields.append(addressLineTextField)
 
 		postalCodeTextField = textField()
@@ -53,14 +56,14 @@ class AntigenTestProfileInputCell: UITableViewCell, ReuseIdentifierProviding {
 		postalCodeTextField.accessibilityIdentifier = AccessibilityIdentifiers.AntigenProfile.Create.postalCodeTextField
 		postalCodeTextField.keyboardType = .asciiCapableNumberPad
 		postalCodeTextField.textContentType = .postalCode
-		contentView.addSubview(postalCodeTextField)
+		stackView.addArrangedSubview(postalCodeTextField)
 		textFields.append(postalCodeTextField)
 
 		cityTextField = textField()
 		cityTextField.placeholder = AppStrings.AntigenProfile.Create.cityTextFieldPlaceholder
 		cityTextField.accessibilityIdentifier = AccessibilityIdentifiers.AntigenProfile.Create.cityTextField
 		cityTextField.textContentType = .addressCity
-		contentView.addSubview(cityTextField)
+		stackView.addArrangedSubview(cityTextField)
 		textFields.append(cityTextField)
 
 		phoneNumberTextField = textField()
@@ -68,7 +71,7 @@ class AntigenTestProfileInputCell: UITableViewCell, ReuseIdentifierProviding {
 		phoneNumberTextField.accessibilityIdentifier = AccessibilityIdentifiers.AntigenProfile.Create.phoneNumberTextField
 		phoneNumberTextField.keyboardType = .phonePad
 		phoneNumberTextField.textContentType = .telephoneNumber
-		contentView.addSubview(phoneNumberTextField)
+		stackView.addArrangedSubview(phoneNumberTextField)
 		textFields.append(phoneNumberTextField)
 
 		emailAddressTextField = textField()
@@ -76,52 +79,21 @@ class AntigenTestProfileInputCell: UITableViewCell, ReuseIdentifierProviding {
 		emailAddressTextField.accessibilityIdentifier = AccessibilityIdentifiers.AntigenProfile.Create.emailAddressTextField
 		emailAddressTextField.keyboardType = .emailAddress
 		emailAddressTextField.textContentType = .emailAddress
-		contentView.addSubview(emailAddressTextField)
+		stackView.addArrangedSubview(emailAddressTextField)
 		textFields.append(emailAddressTextField)
-
-		let inset: CGFloat = 23
 		
 		NSLayoutConstraint.activate([
-
-			firstNameTextField.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: inset),
-			firstNameTextField.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -inset),
-			firstNameTextField.topAnchor.constraint(equalTo: contentView.topAnchor, constant: inset),
-			firstNameTextField.bottomAnchor.constraint(lessThanOrEqualTo: contentView.bottomAnchor, constant: -inset),
-
-			lastNameTextField.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: inset),
-			lastNameTextField.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -inset),
-			lastNameTextField.topAnchor.constraint(equalTo: firstNameTextField.bottomAnchor, constant: 7),
-			lastNameTextField.bottomAnchor.constraint(lessThanOrEqualTo: contentView.bottomAnchor, constant: -inset),
-
-			birthDateNameTextField.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: inset),
-			birthDateNameTextField.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -inset),
-			birthDateNameTextField.topAnchor.constraint(equalTo: lastNameTextField.bottomAnchor, constant: 7),
-			birthDateNameTextField.bottomAnchor.constraint(lessThanOrEqualTo: contentView.bottomAnchor, constant: -inset),
-
-			addressLineTextField.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: inset),
-			addressLineTextField.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -inset),
-			addressLineTextField.topAnchor.constraint(equalTo: birthDateNameTextField.bottomAnchor, constant: 7),
-			addressLineTextField.bottomAnchor.constraint(lessThanOrEqualTo: contentView.bottomAnchor, constant: -inset),
-
-			postalCodeTextField.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: inset),
-			postalCodeTextField.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -inset),
-			postalCodeTextField.topAnchor.constraint(equalTo: addressLineTextField.bottomAnchor, constant: 7),
-			postalCodeTextField.bottomAnchor.constraint(lessThanOrEqualTo: contentView.bottomAnchor, constant: -inset),
-
-			cityTextField.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: inset),
-			cityTextField.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -inset),
-			cityTextField.topAnchor.constraint(equalTo: postalCodeTextField.bottomAnchor, constant: 7),
-			cityTextField.bottomAnchor.constraint(lessThanOrEqualTo: contentView.bottomAnchor, constant: -inset),
-
-			phoneNumberTextField.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: inset),
-			phoneNumberTextField.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -inset),
-			phoneNumberTextField.topAnchor.constraint(equalTo: cityTextField.bottomAnchor, constant: 7),
-			phoneNumberTextField.bottomAnchor.constraint(lessThanOrEqualTo: contentView.bottomAnchor, constant: -inset),
-
-			emailAddressTextField.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: inset),
-			emailAddressTextField.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -inset),
-			emailAddressTextField.topAnchor.constraint(equalTo: phoneNumberTextField.bottomAnchor, constant: 7),
-			emailAddressTextField.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -inset)
+			
+			scrollView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+			scrollView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+			scrollView.topAnchor.constraint(equalTo: contentView.topAnchor),
+			scrollView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+			
+			stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 23),
+			stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -23),
+			stackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 23),
+			stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -23)
+			
 		])
 		
 		setVoiceOverOrderOfInputFields()
@@ -142,6 +114,21 @@ class AntigenTestProfileInputCell: UITableViewCell, ReuseIdentifierProviding {
 			birthdayPicker.date = date
 		}
 		return birthdayPicker
+	}()
+	
+	var scrollView: UIScrollView = {
+		let scrollView = UIScrollView()
+		scrollView.translatesAutoresizingMaskIntoConstraints = false
+		return scrollView
+	}()
+	
+	var stackView: UIStackView = {
+		let stackView = UIStackView()
+		stackView.translatesAutoresizingMaskIntoConstraints = false
+		stackView.axis = .vertical
+		stackView.distribution = .fillEqually
+		stackView.spacing = 10
+		return stackView
 	}()
 
 	var textFields = [UITextField]()
