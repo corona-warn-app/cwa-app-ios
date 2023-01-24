@@ -183,6 +183,9 @@ class AntigenTestProfileInputViewController: UITableViewController, FooterViewHa
 		navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton
 
 		view.backgroundColor = .enaColor(for: .background)
+		
+		// dismiss the keyboard
+		view.addGestureRecognizer(UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing(_:))))
 
 		tableView.separatorStyle = .none
 		tableView.register(AntigenTestProfileInputDescriptionCell.self, forCellReuseIdentifier: AntigenTestProfileInputDescriptionCell.reuseIdentifier)
