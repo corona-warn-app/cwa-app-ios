@@ -142,7 +142,12 @@ enum AccessibilityIdentifiers {
 			static let shareLabel = "AppStrings.Home.shareActionView"
 		}
 		
-		static let submitCardButton = "AppStrings.Home.submitCardButton"
+		enum TestRegistrationCell {
+			static let titleLabel = "AppStrings.Home.TestRegistrationCell.titleLabel"
+			static let descriptionLabel = "AppStrings.Home.TestRegistrationCell.descriptionLabel"
+			static let submitCardButton = "AppStrings.Home.TestRegistrationCell.submitCardButton"
+		}
+		
 		static let traceLocationsCardButton = "AppStrings.Home.traceLocationsCardButton"
 
 		enum Alerts {
