@@ -30,7 +30,8 @@ class ManageStatisticsCardView: UIView {
 		onDismissDistrict: @escaping (Bool) -> Void,
 		onFetchGroupData: @escaping (LocalStatisticsRegion) -> Void,
 		onEditButtonTap: @escaping () -> Void,
-		onAccessibilityFocus: @escaping () -> Void
+		onAccessibilityFocus: @escaping () -> Void,
+		onDeviceOfflineInfo: @escaping CompletionVoid
 	) {
 		self.model = localStatisticsModel
 
@@ -41,11 +42,17 @@ class ManageStatisticsCardView: UIView {
 		self.onFetchGroupData = onFetchGroupData
 		self.onEditButtonTap = onEditButtonTap
 		self.onAccessibilityFocus = onAccessibilityFocus
+		self.onDeviceOfflineInfo = onDeviceOfflineInfo
 
 		updateUI(for: availableCardsState)
 	}
 
 	private func onAddLocalIncidenceButtonPressed() {
+		guard InternetConnectivityMonitor.shared.isDeviceOnline else {
+			onDeviceOfflineInfo?()
+			return
+		}
+			
 		guard let model = self.model else {
 			Log.warning("AddStatistics model is nil", log: .localStatistics)
 			return
@@ -137,6 +144,7 @@ class ManageStatisticsCardView: UIView {
 	private var onFetchGroupData: ((LocalStatisticsRegion) -> Void)?
 	private var onEditButtonTap: (() -> Void)?
 	private var onAccessibilityFocus: (() -> Void)?
+	private var onDeviceOfflineInfo: CompletionVoid?
 	private var viewModel: ManageStatisticsCardsViewModel?
 	private var model: LocalStatisticsModel?
 }
