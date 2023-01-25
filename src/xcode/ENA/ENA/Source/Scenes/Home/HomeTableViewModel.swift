@@ -15,6 +15,7 @@ class HomeTableViewModel {
 		appConfiguration: AppConfigurationProviding,
 		coronaTestService: CoronaTestServiceProviding,
 		familyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding,
+		cclService: CCLServable,
 		onTestResultCellTap: @escaping (CoronaTestType?) -> Void,
 		badgeWrapper: HomeBadgeWrapper
 	) {
@@ -23,6 +24,7 @@ class HomeTableViewModel {
 		self.appConfiguration = appConfiguration
 		self.coronaTestService = coronaTestService
 		self.familyMemberCoronaTestService = familyMemberCoronaTestService
+		self.cclService = cclService
 		self.onTestResultCellTap = onTestResultCellTap
 		self.badgeWrapper = badgeWrapper
 
@@ -64,6 +66,7 @@ class HomeTableViewModel {
 	// MARK: - Internal
 
 	enum Section: Int, CaseIterable {
+		case appClosureNotice
 		case exposureLogging
 		case riskAndTestResults
 		case testRegistration
@@ -88,6 +91,7 @@ class HomeTableViewModel {
 	let store: Store
 	let coronaTestService: CoronaTestServiceProviding
 	let familyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding
+	let cclService: CCLServable
 	var isUpdating: Bool = false
 
 	@OpenCombine.Published var testResultLoadingError: Error?
@@ -100,9 +104,30 @@ class HomeTableViewModel {
 	var numberOfSections: Int {
 		Section.allCases.count
 	}
+	
+	var statusTabNotice: StatusTabNotice? {
+		let result = self.cclService.statusTabNotice()
+		
+		switch result {
+		case .success(let statusTabNotice):
+			return statusTabNotice
+		case .failure:
+			return nil
+		}
+	}
+	
+	var shouldShowStatusTabNotice: Bool {
+		if let statusNotice = statusTabNotice {
+			return statusNotice.visible
+		}
+		
+		return false
+	}
 
 	func numberOfRows(in section: Int) -> Int {
 		switch Section(rawValue: section) {
+		case .appClosureNotice:
+			return shouldShowStatusTabNotice ? 1 : 0
 		case .exposureLogging:
 			return 1
 		case .riskAndTestResults:
