@@ -5,7 +5,7 @@
 import UIKit
 import OpenCombine
 
-class AppClosureNoticeTableViewCell: UITableViewCell {
+class HomeAppClosureNoticeTableViewCell: UITableViewCell {
 
 	// MARK: - Overrides
 
@@ -25,7 +25,7 @@ class AppClosureNoticeTableViewCell: UITableViewCell {
 
 	// MARK: - Internal
 
-	func configure(with cellModel: AppClosureNoticeCellModel) {
+	func configure(with cellModel: HomeAppClosureNoticeCellModel) {
 		cellModel.$title.assign(to: \.text, on: titleLabel).store(in: &subscriptions)
 		cellModel.$title.assign(to: \.accessibilityLabel, on: cardView).store(in: &subscriptions)
 		cellModel.$subtitle.assign(to: \.text, on: subtitleLabel).store(in: &subscriptions)
@@ -45,6 +45,6 @@ class AppClosureNoticeTableViewCell: UITableViewCell {
 	@IBOutlet private var cardView: HomeCardView!
 
 	private var subscriptions = Set<AnyCancellable>()
-	private var cellModel: AppClosureNoticeCellModel?
+	private var cellModel: HomeAppClosureNoticeCellModel?
 
 }
