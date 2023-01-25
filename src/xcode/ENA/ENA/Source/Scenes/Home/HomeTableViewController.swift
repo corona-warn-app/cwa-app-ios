@@ -102,6 +102,14 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 				)
 			}
 			.store(in: &subscriptions)
+		
+		viewModel.cclService.shouldShowNoticeTile
+			.dropFirst()
+			.sink { [weak self] shouldShowNoticeTile in
+				self?.viewModel.shouldShowAppClosureNotice = shouldShowNoticeTile
+				self?.tableView.reloadSections([HomeTableViewModel.Section.appClosureNotice.rawValue], with: .none)
+			}
+			.store(in: &subscriptions)
 	}
 
 	@available(*, unavailable)

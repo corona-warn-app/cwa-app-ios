@@ -93,6 +93,7 @@ class HomeTableViewModel {
 	let familyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding
 	let cclService: CCLServable
 	var isUpdating: Bool = false
+	var shouldShowAppClosureNotice: Bool = false
 
 	@OpenCombine.Published var testResultLoadingError: Error?
 	@OpenCombine.Published var riskAndTestResultsRows: [RiskAndTestResultsRow] = []
@@ -116,18 +117,10 @@ class HomeTableViewModel {
 		}
 	}
 	
-	var shouldShowStatusTabNotice: Bool {
-		if let statusNotice = statusTabNotice {
-			return statusNotice.visible
-		}
-		
-		return false
-	}
-
 	func numberOfRows(in section: Int) -> Int {
 		switch Section(rawValue: section) {
 		case .appClosureNotice:
-			return shouldShowStatusTabNotice ? 1 : 0
+			return shouldShowAppClosureNotice ? 1 : 0
 		case .exposureLogging:
 			return 1
 		case .riskAndTestResults:
