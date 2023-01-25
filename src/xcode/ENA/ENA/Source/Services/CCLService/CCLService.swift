@@ -23,6 +23,10 @@ enum DCCAdmissionCheckScenariosAccessError: Error {
 	case failedFunctionsEvaluation(Error)
 }
 
+enum StatusTabNoticeAccessError: Error {
+	case failedFunctionsEvaluation(Error)
+}
+
 protocol CCLServable {
 
 	var configurationVersion: String { get }
@@ -41,6 +45,8 @@ protocol CCLServable {
 	
 	func dccAdmissionCheckScenarios() -> Swift.Result<DCCAdmissionCheckScenarios, DCCAdmissionCheckScenariosAccessError>
 
+	func statusTabNotice() -> Swift.Result<StatusTabNotice, StatusTabNoticeAccessError>
+	
 	func evaluateFunctionWithDefaultValues<T: Decodable>(name: String, parameters: [String: AnyDecodable]) throws -> T
 
 }
@@ -193,6 +199,21 @@ class CCLService: CCLServable {
 		}
 	}
 	
+	func statusTabNotice() -> Swift.Result<StatusTabNotice, StatusTabNoticeAccessError> {
+		let getStatusTabNoticeInput = GetStatusTabNoticeInput.make()
+		
+		do {
+			let statusTabNotice: StatusTabNotice = try jsonFunctions.evaluateFunction(
+				name: "getStatusTabNotice",
+				parameters: getStatusTabNoticeInput
+			)
+			
+			return .success(statusTabNotice)
+		} catch {
+			return .failure(.failedFunctionsEvaluation(error))
+		}
+	}
+
 	func dccAdmissionCheckScenarios() -> Swift.Result<DCCAdmissionCheckScenarios, DCCAdmissionCheckScenariosAccessError> {
 		#if DEBUG
 		if isUITesting {
