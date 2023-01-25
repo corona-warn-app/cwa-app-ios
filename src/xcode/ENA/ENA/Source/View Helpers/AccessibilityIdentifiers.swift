@@ -48,6 +48,7 @@ enum AccessibilityIdentifiers {
 		static let rightBarButtonDescription = "AppStrings.Home.rightBarButtonDescription"
 		static let activateCardOnTitle = "AppStrings.Home.activateCardOnTitle"
 		static let activateCardOffTitle = "AppStrings.Home.activateCardOffTitle"
+		static let appClosureNotice = "AppStrings.Home.appClosureNotice"
 		static let activateCardBluetoothOffTitle = "AppStrings.Home.activateCardBluetoothOffTitle"
 		static let riskCardIntervalUpdateTitle = "AppStrings.Home.riskCardIntervalUpdateTitle"
 		static let tableView = "AppStrings.Home.tableView"
