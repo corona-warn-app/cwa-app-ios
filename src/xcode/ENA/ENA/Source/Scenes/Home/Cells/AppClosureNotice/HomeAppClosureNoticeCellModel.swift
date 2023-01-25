@@ -5,16 +5,12 @@
 import UIKit
 import OpenCombine
 
-class AppClosureNoticeCellModel {
+class HomeAppClosureNoticeCellModel {
 
 	// MARK: - Init
 
-	init(state: HomeState) {
-		state.$enState
-			.sink { [weak self] enState in
-				self?.update(for: enState)
-			}
-			.store(in: &subscriptions)
+	init(statusTabNotice: StatusTabNotice?, cclService: CCLServable) {
+		self.update(statusTabNotice: statusTabNotice, cclService: cclService)
 	}
 
 	// MARK: - Internal
@@ -28,9 +24,14 @@ class AppClosureNoticeCellModel {
 
 	private var subscriptions = Set<AnyCancellable>()
 
-	private func update(for state: ENStateHandler.State) {
-		title = "Betriebsende"
-		subtitle = "Der Betrieb der Corona-Warn-App wird am xx.xx.xxxx eingestellt."
+	private func update(statusTabNotice: StatusTabNotice?, cclService: CCLServable) {
+		if let titleText = statusTabNotice?.titleText?.localized(cclService: cclService), !titleText.isEmpty {
+			title = titleText
+		}
+		if let subtitleText = statusTabNotice?.subtitleText?.localized(cclService: cclService), !subtitleText.isEmpty {
+			subtitle = subtitleText
+		}
+
 		icon = UIImage(named: "Icons_Attention_high")
 		accessibilityIdentifier = AccessibilityIdentifiers.Home.appClosureNotice
 	}
