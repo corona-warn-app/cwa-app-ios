@@ -29,6 +29,8 @@ enum StatusTabNoticeAccessError: Error {
 
 protocol CCLServable {
 
+	var shouldShowNoticeTile: OpenCombine.CurrentValueSubject<Bool, Never> { get }
+	
 	var configurationVersion: String { get }
 	
 	var dccAdmissionCheckScenariosEnabled: Bool { get }
@@ -90,7 +92,9 @@ class CCLService: CCLServable {
 	}
 
 	// MARK: - Protocol CCLServable
-
+	
+	var shouldShowNoticeTile = CurrentValueSubject<Bool, Never>(false)
+	
 	var configurationVersion: String = ""
 
 	var dccAdmissionCheckScenariosEnabled: Bool {
@@ -132,6 +136,7 @@ class CCLService: CCLServable {
 		}
 	}
 	
+	// swiftlint:disable:next cyclomatic_complexity
 	func updateConfiguration(
 		completion: @escaping (_ didChange: Bool) -> Void
 	) {
@@ -142,6 +147,14 @@ class CCLService: CCLServable {
 		var configurationDidUpdate: Bool = false
 		var boosterRulesDidUpdate: Bool = false
 		var invalidationRulesDidUpdate: Bool = false
+		
+		let result = statusTabNotice()
+		switch result {
+		case .success(let statusTabNotice):
+			shouldShowNoticeTile.value = statusTabNotice.visible
+		case .failure:
+			shouldShowNoticeTile.value = false
+		}
 		
 		// lookup configuration updates
 		if cclServiceMode.contains(.configuration) {
@@ -294,7 +307,7 @@ class CCLService: CCLServable {
 	private var boosterNotificationRules = [Rule]()
 	private var invalidationRules = [Rule]()
 	private var isSetUp = false
-
+	
 	#if DEBUG
 	private var mockDCCAdmissionCheckScenarios: DCCAdmissionCheckScenarios {
 		let statusTitle = DCCUIText(
