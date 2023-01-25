@@ -82,12 +82,28 @@ final class DMSRSOptionsViewModel {
 					self.refreshTableView([TableViewSections.srsStateValues.rawValue])
 				}
 			)
+		case .restApiTokenPPAC:
+			return DMButtonCellViewModel(
+				text: "Reset API Token",
+				textColor: .white,
+				backgroundColor: .enaColor(for: .buttonDestructive),
+				action: { [store] in
+					store.apiTokenPPAC = nil
+					self.refreshTableView([TableViewSections.srsStateValues.rawValue])
+				}
+			)
 		}
 	}
 
 	// MARK: - Private
 
 	private let store: Store
+	
+	private let dateFormatter: DateFormatter = {
+		let dateFormatter = DateFormatter()
+		dateFormatter.dateFormat = "yyyy-MM-dd, HH:mm:ss"
+		return dateFormatter
+	}()
 	
 	private func srsStateValueStaticText() -> String {
 		"""
@@ -106,7 +122,12 @@ final class DMSRSOptionsViewModel {
 	
 	private func apiTokenStaticText() -> String {
 	   """
+	   DEPRICATED API Token EDUS
+	   \(store.ppacApiTokenEdus?.token ?? "No Existing EDUS API Token in the store")
 	   
+	   DEPRICATED API Token ELS
+	   \(store.ppacApiTokenEls?.token ?? "No Existing ELS API Token in the store")
+
 	   PPAC API Token
 	   \(store.apiTokenPPAC?.token ?? "No API Token generated yet")
 	   
@@ -127,7 +148,7 @@ final class DMSRSOptionsViewModel {
 		fallback: String = "No Date set yet"
 	) -> String {
 		if let date = date {
-			return ISO8601DateFormatter.justLocalDateFormatter.string(from: date)
+			return dateFormatter.string(from: date)
 		} else {
 			return fallback
 		}
@@ -141,6 +162,7 @@ extension DMSRSOptionsViewModel {
 		case apiToken
 		case resetMostRecentKeySubmission
 		case resetSRSStateValues
+		case restApiTokenPPAC
 		
 		var sectionTitle: String {
 			switch self {
@@ -154,6 +176,8 @@ extension DMSRSOptionsViewModel {
 				return "Most Recent Key Submission"
 			case .resetSRSStateValues:
 				return "All SRS State Values"
+			case .restApiTokenPPAC:
+				return "Rest API Token"
 			}
 		}
 	}
