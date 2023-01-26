@@ -40,7 +40,8 @@ class AntigenTestProfileViewModel {
 			text: AppStrings.ExposureSubmission.AntigenTest.Profile.headerText,
 			topSpace: 42.0,
 			font: .enaFont(for: .headline),
-			accessibilityTraits: .header
+			accessibilityTraits: .header,
+			accessibilityIdentifier: AccessibilityIdentifiers.AntigenProfile.Profile.header
 		)
 	}()
 
@@ -53,7 +54,8 @@ class AntigenTestProfileViewModel {
 			topSpace: 18.0,
 			font: .enaFont(for: .subheadline),
 			borderColor: .enaColor(for: .hairline),
-			accessibilityTraits: .staticText
+			accessibilityTraits: .staticText,
+			accessibilityIdentifier: AccessibilityIdentifiers.AntigenProfile.Profile.notice
 		)
 	}()
 
@@ -63,7 +65,8 @@ class AntigenTestProfileViewModel {
 		QRCodeCellViewModel(
 			antigenTestProfile: antigenTestProfile,
 			backgroundColor: .enaColor(for: .background),
-			borderColor: .enaColor(for: .hairline)
+			borderColor: .enaColor(for: .hairline),
+			accessibilityIdentifier: AccessibilityIdentifiers.AntigenProfile.Profile.qrCode
 		)
 	}
 

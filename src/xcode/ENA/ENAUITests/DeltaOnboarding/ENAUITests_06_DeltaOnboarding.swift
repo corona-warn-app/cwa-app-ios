@@ -37,7 +37,7 @@ class ENAUITests_06_DeltaOnboarding: CWATestCase {
 		checkDataDonationScreen()
 		
 		// On Home Screen?
-		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitForExistence(timeout: .short))
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.TestRegistrationCell.submitCardButton].waitForExistence(timeout: .short))
 	}
 	
 	func testDeltaOnboardingNewVersionFeatures() throws {
@@ -48,7 +48,7 @@ class ENAUITests_06_DeltaOnboarding: CWATestCase {
 		checkNewFeaturesScreen()
 		
 		// On Home Screen?
-		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitForExistence(timeout: .short))
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.TestRegistrationCell.submitCardButton].waitForExistence(timeout: .short))
 	}
 
 	func test_DeltaOnboardingNewVersionFeatures() throws {

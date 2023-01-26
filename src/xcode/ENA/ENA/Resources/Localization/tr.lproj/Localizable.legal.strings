@@ -1,8 +1,8 @@
 /* ExposureSubmissionWarnOthers */
 
-"ExposureSubmissionWarnOthers_acknowledgementTitle" = "Rıza Beyanınız";
+"ExposureSubmissionWarnOthers_acknowledgementTitle" = "Rıza beyanınız";
 
-"ExposureSubmissionWarnOthers_acknowledgementBody" = "“Kabul et” tıklayarak aşağıdaki adımlara onay vermiş olursunuz:";
+"ExposureSubmissionWarnOthers_acknowledgementBody" = "„Kabul ediyorum“ seçeneğine dokunarak aşağıdakileri onaylarsınız:";
 
 "ExposureSubmissionWarnOthers_acknowledgement_1_1" = "Uygulama test sonucunuzu, karşılaştığınız kullanıcıları uyarmak için paylaşır. Bu yukarıda belirtilen ülkelerdeki Korona Uygulamasının kullanıcıları ve aynı zamanda aynı etkinlikte ya da yerde bulunduğunuz kullanıcılar için geçerlidir. Hızlı test durumunda sadece Korona Uyarı Uygulamasının kullanıcıları uyarılır. Semptomlarınızın başladığına ilişkin ek bilgiler verirseniz bu veriler de paylaşılır.";
 
@@ -24,7 +24,7 @@
 
 /* Exposure Submission QR Code Info */
 
-"ExposureSubmissionQRInfo_acknowledgement_legal_title" = "Rıza Beyanınız";
+"ExposureSubmissionQRInfo_acknowledgement_legal_title" = "Rıza beyanınız";
 
 "ExposureSubmissionQRInfo_acknowledgement_legal_body" = "“Kabul ediyorum”a tıklayarak aşağıdaki adımlara onay vermiş olursunuz:";
 

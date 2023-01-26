@@ -55,7 +55,7 @@ class ENAUITests_11_QuickActions: CWATestCase {
 		app.launch()
 
 		// On home screen?
-		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitForExistence(timeout: .medium))
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.TestRegistrationCell.submitCardButton].waitForExistence(timeout: .medium))
 
 		let quickAction = try checkAppMenu(expectNewDiaryItem: true)
 		quickAction.waitAndTap()
@@ -74,7 +74,7 @@ class ENAUITests_11_QuickActions: CWATestCase {
 		app.launch()
 
 		// On home screen?
-		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitForExistence(timeout: .medium))
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.TestRegistrationCell.submitCardButton].waitForExistence(timeout: .medium))
 		let quickAction = try checkAppMenu(expectNewDiaryItem: true)
 		quickAction.waitAndTap()
 
@@ -92,7 +92,7 @@ class ENAUITests_11_QuickActions: CWATestCase {
 		app.launch()
 
 		/// Now on Home screen. Go to "Register your test" screen.
-		app.cells.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitAndTap()
+		app.cells.buttons[AccessibilityIdentifiers.Home.TestRegistrationCell.submitCardButton].waitAndTap()
 
 		/// Now on "Register your Test" screen. Go to "Enter TAN for PCR Test" screen.
 		
@@ -127,7 +127,7 @@ class ENAUITests_11_QuickActions: CWATestCase {
 		app.alerts.firstMatch.buttons.element(boundBy: 1).waitAndTap()
 
 		// Back on home screen?
-		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitForExistence(timeout: .medium))
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.TestRegistrationCell.submitCardButton].waitForExistence(timeout: .medium))
 		try checkAppMenu(expectNewDiaryItem: true, expectEventCheckin: true) // available again?
 	}
 	*/

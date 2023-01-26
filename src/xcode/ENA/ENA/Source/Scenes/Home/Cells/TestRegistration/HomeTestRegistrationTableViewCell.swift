@@ -44,8 +44,10 @@ final class HomeTestRegistrationTableViewCell: UITableViewCell {
 	func configure(with cellModel: HomeTestRegistrationCellModel, onPrimaryAction: @escaping () -> Void) {
 		gradientView.type = cellModel.gradientViewType
 		titleLabel.text = cellModel.title
+		titleLabel.accessibilityIdentifier = cellModel.titleAccessibilityIdentifier
 		subtitleLabel.text = cellModel.subtitle
 		descriptionLabel.text = cellModel.description
+		descriptionLabel.accessibilityIdentifier = cellModel.descriptionAccessibilityIdentifier
 		illustrationView.image = cellModel.image
 
 		button.setTitle(cellModel.buttonTitle, for: .normal)

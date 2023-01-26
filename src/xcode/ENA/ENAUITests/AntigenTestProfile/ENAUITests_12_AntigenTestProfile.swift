@@ -30,7 +30,7 @@ class ENAUITests_12_AntigenTestProfile: CWATestCase {
 		
 		/// Home Screen
 
-		let registerTestButton = try XCTUnwrap(app.buttons[AccessibilityIdentifiers.Home.submitCardButton])
+		let registerTestButton = try XCTUnwrap(app.buttons[AccessibilityIdentifiers.Home.TestRegistrationCell.submitCardButton])
 		registerTestButton.waitAndTap()
 		
 		/// Register Test Screen

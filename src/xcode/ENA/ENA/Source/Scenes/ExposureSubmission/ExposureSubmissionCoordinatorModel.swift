@@ -475,7 +475,7 @@ class ExposureSubmissionCoordinatorModel {
 					format: srsErrorAlert.message,
 					String(timeSinceOnboardingInHours),
 					String(timeSinceOnboardingInHours),
-					error.description
+					AppStrings.SRSErrorAlert.timeSinceOnboardingUnverified
 				)
 			} else {
 				message = String(format: srsErrorAlert.message, error.description)

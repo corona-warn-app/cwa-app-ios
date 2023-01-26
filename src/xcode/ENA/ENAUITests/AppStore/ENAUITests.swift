@@ -72,7 +72,7 @@ class ENAUITests: CWATestCase {
 		app.navigationBars.buttons.element(boundBy: 0).waitAndTap()
 		app.swipeDown()
 		// todo: need accessibility for Notify and Help
-		app.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitAndTap()
+		app.buttons[AccessibilityIdentifiers.Home.TestRegistrationCell.submitCardButton].waitAndTap()
 
 		XCTAssertTrue(app.buttons["AppStrings.ExposureSubmissionDispatch.qrCodeButtonDescription"].waitForExistence(timeout: .medium))
 		if snapshotsActive { snapshot("AppStore_0005") }
@@ -103,7 +103,7 @@ class ENAUITests: CWATestCase {
 
 		// ScreenShot_0006: Negative result
 		try navigateThroughOnboarding()
-		app.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitAndTap()
+		app.buttons[AccessibilityIdentifiers.Home.TestRegistrationCell.submitCardButton].waitAndTap()
 
 		if snapshotsActive { snapshot("AppStore_0006") }
 	}
