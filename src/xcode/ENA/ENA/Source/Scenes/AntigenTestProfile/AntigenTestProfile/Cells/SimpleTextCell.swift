@@ -35,6 +35,7 @@ class SimpleTextCell: UITableViewCell, ReuseIdentifierProviding {
 	func configure(with cellViewModel: SimpleTextCellViewModel) {
 		backgroundContainerView.backgroundColor = cellViewModel.backgroundColor ?? .clear
 		contentTextLabel.accessibilityTraits = cellViewModel.accessibilityTraits
+		contentTextLabel.accessibilityIdentifier = cellViewModel.accessibilityIdentifier
 		if cellViewModel.attributedText != nil {
 			contentTextLabel.attributedText = cellViewModel.attributedText
 		} else {

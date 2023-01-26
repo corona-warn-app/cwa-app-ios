@@ -34,7 +34,7 @@ class ENAUITests_04a_ExposureSubmission: CWATestCase {
 		XCTAssertFalse(app.cells.buttons[AccessibilityIdentifiers.Home.TestResultCell.unconfiguredButton].exists)
 
 		// Click submit card.
-		app.cells.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitAndTap()
+		app.cells.buttons[AccessibilityIdentifiers.Home.TestRegistrationCell.submitCardButton].waitAndTap()
 
 		// Check whether we have entered the info screen.
 		XCTAssertTrue(app.images["ExposureSubmissionIntroViewController.image"].waitForExistence(timeout: .medium))
@@ -44,7 +44,7 @@ class ENAUITests_04a_ExposureSubmission: CWATestCase {
 		launch()
 
 		// -> Open Intro screen
-		app.cells.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitAndTap()
+		app.cells.buttons[AccessibilityIdentifiers.Home.TestRegistrationCell.submitCardButton].waitAndTap()
 		XCTAssertTrue(app.navigationBars[AccessibilityIdentifiers.General.exposureSubmissionNavigationControllerTitle].waitForExistence(timeout: .medium))
 
 		// Intro screen
@@ -255,7 +255,7 @@ class ENAUITests_04a_ExposureSubmission: CWATestCase {
 		launch()
 		
 		// Start Submission Flow
-		app.cells.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitAndTap()
+		app.cells.buttons[AccessibilityIdentifiers.Home.TestRegistrationCell.submitCardButton].waitAndTap()
 		
 		// Start Selftest Flow with Positive Test Without Result In The App
 		app.buttons[AccessibilityIdentifiers.ExposureSubmissionDispatch.SRSButtonDescription].waitAndTap()
@@ -322,7 +322,7 @@ class ENAUITests_04a_ExposureSubmission: CWATestCase {
 		}
 
 		// Start Submission Flow
-		app.cells.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitAndTap()
+		app.cells.buttons[AccessibilityIdentifiers.Home.TestRegistrationCell.submitCardButton].waitAndTap()
 
 		// Overview Screen: click TAN button.
 		app.buttons["AppStrings.ExposureSubmissionDispatch.tanButtonDescription"].waitAndTap()
@@ -361,7 +361,7 @@ class ENAUITests_04a_ExposureSubmission: CWATestCase {
 		}
 		
 		// Start Submission Flow
-		app.cells.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitAndTap(.long)
+		app.cells.buttons[AccessibilityIdentifiers.Home.TestRegistrationCell.submitCardButton].waitAndTap(.long)
 
 		// Overview Screen: click TAN button.
 
@@ -448,7 +448,7 @@ class ENAUITests_04a_ExposureSubmission: CWATestCase {
 		launch()
 
 		// -> Open Intro screen
-		app.cells.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitAndTap()
+		app.cells.buttons[AccessibilityIdentifiers.Home.TestRegistrationCell.submitCardButton].waitAndTap()
 		XCTAssertTrue(app.navigationBars[AccessibilityIdentifiers.General.exposureSubmissionNavigationControllerTitle].waitForExistence(timeout: .medium))
 
 		// Intro screen
@@ -470,7 +470,7 @@ class ENAUITests_04a_ExposureSubmission: CWATestCase {
 		launch()
 
 		// Open Intro screen.
-		app.cells.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitAndTap()
+		app.cells.buttons[AccessibilityIdentifiers.Home.TestRegistrationCell.submitCardButton].waitAndTap()
 
 		// Overview Screen: click TAN button.
 		app.buttons["AppStrings.ExposureSubmissionDispatch.tanButtonDescription"].waitAndTap()
@@ -530,7 +530,7 @@ class ENAUITests_04a_ExposureSubmission: CWATestCase {
 		launch()
 
 		// -> Open Intro screen
-		app.cells.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitAndTap()
+		app.cells.buttons[AccessibilityIdentifiers.Home.TestRegistrationCell.submitCardButton].waitAndTap()
 		XCTAssertTrue(app.navigationBars[AccessibilityIdentifiers.General.exposureSubmissionNavigationControllerTitle].waitForExistence(timeout: .medium))
 
 		// Intro screen
@@ -553,7 +553,7 @@ class ENAUITests_04a_ExposureSubmission: CWATestCase {
 		launch()
 
 		// -> Open Intro screen
-		app.cells.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitAndTap()
+		app.cells.buttons[AccessibilityIdentifiers.Home.TestRegistrationCell.submitCardButton].waitAndTap()
 		XCTAssertTrue(app.navigationBars[AccessibilityIdentifiers.General.exposureSubmissionNavigationControllerTitle].waitForExistence(timeout: .medium))
 
 		// Intro screen
@@ -580,7 +580,7 @@ class ENAUITests_04a_ExposureSubmission: CWATestCase {
 		launch()
 
 		// -> Open Intro screen
-		app.cells.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitAndTap()
+		app.cells.buttons[AccessibilityIdentifiers.Home.TestRegistrationCell.submitCardButton].waitAndTap()
 		XCTAssertTrue(app.navigationBars[AccessibilityIdentifiers.General.exposureSubmissionNavigationControllerTitle].waitForExistence(timeout: .medium))
 
 		// Intro screen
@@ -602,7 +602,7 @@ class ENAUITests_04a_ExposureSubmission: CWATestCase {
 		launch()
 
 		// -> Open Intro screen
-		app.cells.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitAndTap()
+		app.cells.buttons[AccessibilityIdentifiers.Home.TestRegistrationCell.submitCardButton].waitAndTap()
 		XCTAssertTrue(app.navigationBars[AccessibilityIdentifiers.General.exposureSubmissionNavigationControllerTitle].waitForExistence(timeout: .medium))
 
 		// Intro screen
@@ -631,7 +631,7 @@ class ENAUITests_04a_ExposureSubmission: CWATestCase {
 		launch()
 
 		// -> Open Intro screen
-		app.cells.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitAndTap()
+		app.cells.buttons[AccessibilityIdentifiers.Home.TestRegistrationCell.submitCardButton].waitAndTap()
 		XCTAssertTrue(app.navigationBars[AccessibilityIdentifiers.General.exposureSubmissionNavigationControllerTitle].waitForExistence(timeout: .medium))
 
 		// Intro screen
@@ -699,7 +699,7 @@ class ENAUITests_04a_ExposureSubmission: CWATestCase {
 		}
 		
 		// Open Intro screen.
-		app.cells.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitAndTap()
+		app.cells.buttons[AccessibilityIdentifiers.Home.TestRegistrationCell.submitCardButton].waitAndTap()
 				
 		// Overview Screen: click TAN button.
 		app.buttons["AppStrings.ExposureSubmissionDispatch.tanButtonDescription"].waitAndTap()
@@ -740,7 +740,7 @@ class ENAUITests_04a_ExposureSubmission: CWATestCase {
 
 		/// Home Screen
 		
-		app.cells.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitAndTap()
+		app.cells.buttons[AccessibilityIdentifiers.Home.TestRegistrationCell.submitCardButton].waitAndTap()
 		snapshot("tan_submissionflow_qr_\(String(format: "%04d", (screenshotCounter.inc() )))")
 
 		/// Register your test screen
@@ -840,7 +840,7 @@ class ENAUITests_04a_ExposureSubmission: CWATestCase {
 		launch()
 		
 		// Start Submission Flow
-		app.cells.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitAndTap()
+		app.cells.buttons[AccessibilityIdentifiers.Home.TestRegistrationCell.submitCardButton].waitAndTap()
 		
 		// Start Selftest Flow with Positive Test Without Result In The App
 		snapshot("submissionflow_srs_screenshot_dispatch_positive_selftest_option")

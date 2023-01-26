@@ -44,7 +44,7 @@ class ENAUITests_21_FamilyMember: CWATestCase {
 		XCTAssertFalse(app.staticTexts[AccessibilityIdentifiers.FamilyMemberCoronaTestCell.homeCellDetailText].waitForExistence(timeout: .short))
 
 		// open register test
-		app.cells.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitAndTap()
+		app.cells.buttons[AccessibilityIdentifiers.Home.TestRegistrationCell.submitCardButton].waitAndTap()
 
 		// select QRCode screen.
 		app.buttons["AppStrings.ExposureSubmissionDispatch.qrCodeButtonDescription"].waitAndTap()
