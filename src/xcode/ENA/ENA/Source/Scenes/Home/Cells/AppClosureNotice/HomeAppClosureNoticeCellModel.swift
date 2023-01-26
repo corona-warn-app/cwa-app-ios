@@ -33,7 +33,7 @@ class HomeAppClosureNoticeCellModel {
 		}
 
 		icon = UIImage(named: "Icons_Attention_high")
-		accessibilityIdentifier = AccessibilityIdentifiers.Home.appClosureNotice
+		accessibilityIdentifier = AccessibilityIdentifiers.Home.AppClosureNoticeCell.container
 	}
 
 }

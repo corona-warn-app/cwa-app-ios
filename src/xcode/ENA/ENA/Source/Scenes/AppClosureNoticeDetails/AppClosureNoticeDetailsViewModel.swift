@@ -22,13 +22,20 @@ class AppClosureNoticeDetailsViewModel {
 		
 		if let titleText = statusTabNotice.titleText?.localized(cclService: cclService), !titleText.isEmpty {
 			cells.append(
-				.title1(text: titleText)
+				.title1(
+					text: titleText,
+					accessibilityIdentifier: AccessibilityIdentifiers.Home.AppClosureNoticeCell.Details.titleLabel
+				)
 			)
 		}
 		
 		if let subtitleText = statusTabNotice.subtitleText?.localized(cclService: cclService), !subtitleText.isEmpty {
 			cells.append(
-				.subheadline(text: subtitleText, color: .enaColor(for: .textPrimary2)) { _, cell, _ in
+				.subheadline(
+					text: subtitleText,
+					color: .enaColor(for: .textPrimary2),
+					accessibilityIdentifier: AccessibilityIdentifiers.Home.AppClosureNoticeCell.Details.subtitleLabel
+				) { _, cell, _ in
 					cell.contentView.preservesSuperviewLayoutMargins = false
 					
 					cell.contentView.layoutMargins.top = 0
@@ -38,7 +45,10 @@ class AppClosureNoticeDetailsViewModel {
 
 		if let longText = statusTabNotice.longText?.localized(cclService: cclService), !longText.isEmpty {
 			cells.append(
-				.body(text: longText)
+				.body(
+					text: longText,
+				    accessibilityIdentifier: AccessibilityIdentifiers.Home.AppClosureNoticeCell.Details.longTextLabel
+				)
 			)
 		}
 		
@@ -46,7 +56,8 @@ class AppClosureNoticeDetailsViewModel {
 			cells.append(
 				.link(
 					text: AppStrings.HealthCertificate.Person.faq,
-					url: URL(string: LinkHelper.urlString(suffix: faqAnchor, type: .faq))
+					url: URL(string: LinkHelper.urlString(suffix: faqAnchor, type: .faq)),
+					accessibilityIdentifier: AccessibilityIdentifiers.Home.AppClosureNoticeCell.Details.faqLabel
 				)
 			)
 		}
@@ -56,7 +67,7 @@ class AppClosureNoticeDetailsViewModel {
 				.section(
 					header: .image(
 						UIImage(named: "Illu_AppClosure_Notice"),
-						accessibilityIdentifier: AccessibilityIdentifiers.BoosterNotification.Details.image
+						accessibilityIdentifier: AccessibilityIdentifiers.Home.AppClosureNoticeCell.Details.image
 					),
 					cells: cells
 				)
