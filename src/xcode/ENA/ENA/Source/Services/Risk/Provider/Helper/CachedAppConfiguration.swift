@@ -31,9 +31,10 @@ final class CachedAppConfiguration: AppConfigurationProviding {
 	// MARK: Protocol AppConfigurationProviding
 
 	func appConfiguration(forceFetch: Bool = false) -> AnyPublisher<SAP_Internal_V2_ApplicationConfigurationIOS, Never> {
+		let isOnline = InternetConnectivityMonitor.shared.isDeviceOnline
 		let force = shouldFetch() || forceFetch
 
-		if let cachedVersion = store.appConfigMetadata?.appConfig, !force {
+		if let cachedVersion = store.appConfigMetadata?.appConfig, (!force || !isOnline) {
 			Log.debug("fetching cached app configuration", log: .appConfig)
 			// use the cached version
 			return Just(cachedVersion)
