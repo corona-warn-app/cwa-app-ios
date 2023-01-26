@@ -32,6 +32,7 @@ class HomeTableViewModelTests: CWATestCase {
 			appConfiguration: CachedAppConfigurationMock(),
 			coronaTestService: MockCoronaTestService(),
 			familyMemberCoronaTestService: MockFamilyMemberCoronaTestService(),
+			cclService: FakeCCLService(),
 			onTestResultCellTap: { _ in },
 			badgeWrapper: .fake()
 		)
@@ -78,7 +79,8 @@ class HomeTableViewModelTests: CWATestCase {
 			store: store,
 			appConfiguration: appConfiguration,
 			coronaTestService: MockCoronaTestService(),
-			familyMemberCoronaTestService: familyCoronaTestService,
+			familyMemberCoronaTestService: MockFamilyMemberCoronaTestService(),
+			cclService: FakeCCLService(),
 			onTestResultCellTap: { _ in },
 			badgeWrapper: .fake()
 		)
@@ -114,7 +116,8 @@ class HomeTableViewModelTests: CWATestCase {
 			store: store,
 			appConfiguration: appConfiguration,
 			coronaTestService: MockCoronaTestService(),
-			familyMemberCoronaTestService: familyCoronaTestService,
+			familyMemberCoronaTestService: MockFamilyMemberCoronaTestService(),
+			cclService: FakeCCLService(),
 			onTestResultCellTap: { _ in },
 			badgeWrapper: .fake()
 		)
@@ -159,6 +162,7 @@ class HomeTableViewModelTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			coronaTestService: coronaTestService,
 			familyMemberCoronaTestService: MockFamilyMemberCoronaTestService(),
+			cclService: FakeCCLService(),
 			onTestResultCellTap: { _ in },
 			badgeWrapper: .fake()
 		)
@@ -203,6 +207,7 @@ class HomeTableViewModelTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			coronaTestService: coronaTestService,
 			familyMemberCoronaTestService: MockFamilyMemberCoronaTestService(),
+			cclService: FakeCCLService(),
 			onTestResultCellTap: { _ in },
 			badgeWrapper: .fake()
 		)
@@ -245,6 +250,7 @@ class HomeTableViewModelTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			coronaTestService: coronaTestService,
 			familyMemberCoronaTestService: MockFamilyMemberCoronaTestService(),
+			cclService: FakeCCLService(),
 			onTestResultCellTap: { _ in },
 			badgeWrapper: .fake()
 		)
@@ -289,6 +295,7 @@ class HomeTableViewModelTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			coronaTestService: coronaTestService,
 			familyMemberCoronaTestService: MockFamilyMemberCoronaTestService(),
+			cclService: FakeCCLService(),
 			onTestResultCellTap: { _ in },
 			badgeWrapper: .fake()
 		)
@@ -333,6 +340,7 @@ class HomeTableViewModelTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			coronaTestService: coronaTestService,
 			familyMemberCoronaTestService: MockFamilyMemberCoronaTestService(),
+			cclService: FakeCCLService(),
 			onTestResultCellTap: { _ in },
 			badgeWrapper: .fake()
 		)
@@ -377,6 +385,7 @@ class HomeTableViewModelTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			coronaTestService: coronaTestService,
 			familyMemberCoronaTestService: MockFamilyMemberCoronaTestService(),
+			cclService: FakeCCLService(),
 			onTestResultCellTap: { _ in },
 			badgeWrapper: .fake()
 		)
@@ -419,6 +428,7 @@ class HomeTableViewModelTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			coronaTestService: coronaTestService,
 			familyMemberCoronaTestService: MockFamilyMemberCoronaTestService(),
+			cclService: FakeCCLService(),
 			onTestResultCellTap: { _ in },
 			badgeWrapper: .fake()
 		)
@@ -463,6 +473,7 @@ class HomeTableViewModelTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			coronaTestService: coronaTestService,
 			familyMemberCoronaTestService: MockFamilyMemberCoronaTestService(),
+			cclService: FakeCCLService(),
 			onTestResultCellTap: { _ in },
 			badgeWrapper: .fake()
 		)
@@ -507,6 +518,7 @@ class HomeTableViewModelTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			coronaTestService: coronaTestService,
 			familyMemberCoronaTestService: MockFamilyMemberCoronaTestService(),
+			cclService: FakeCCLService(),
 			onTestResultCellTap: { _ in },
 			badgeWrapper: .fake()
 		)
@@ -549,6 +561,7 @@ class HomeTableViewModelTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			coronaTestService: coronaTestService,
 			familyMemberCoronaTestService: MockFamilyMemberCoronaTestService(),
+			cclService: FakeCCLService(),
 			onTestResultCellTap: { _ in },
 			badgeWrapper: .fake()
 		)
@@ -593,6 +606,7 @@ class HomeTableViewModelTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			coronaTestService: coronaTestService,
 			familyMemberCoronaTestService: MockFamilyMemberCoronaTestService(),
+			cclService: FakeCCLService(),
 			onTestResultCellTap: { _ in },
 			badgeWrapper: .fake()
 		)
@@ -637,6 +651,7 @@ class HomeTableViewModelTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			coronaTestService: coronaTestService,
 			familyMemberCoronaTestService: MockFamilyMemberCoronaTestService(),
+			cclService: FakeCCLService(),
 			onTestResultCellTap: { _ in },
 			badgeWrapper: .fake()
 		)
@@ -681,6 +696,7 @@ class HomeTableViewModelTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			coronaTestService: coronaTestService,
 			familyMemberCoronaTestService: MockFamilyMemberCoronaTestService(),
+			cclService: FakeCCLService(),
 			onTestResultCellTap: { _ in },
 			badgeWrapper: .fake()
 		)
@@ -723,6 +739,7 @@ class HomeTableViewModelTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			coronaTestService: coronaTestService,
 			familyMemberCoronaTestService: MockFamilyMemberCoronaTestService(),
+			cclService: FakeCCLService(),
 			onTestResultCellTap: { _ in },
 			badgeWrapper: .fake()
 		)
@@ -769,6 +786,7 @@ class HomeTableViewModelTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			coronaTestService: coronaTestService,
 			familyMemberCoronaTestService: MockFamilyMemberCoronaTestService(),
+			cclService: FakeCCLService(),
 			onTestResultCellTap: { _ in },
 			badgeWrapper: .fake()
 		)
@@ -814,6 +832,7 @@ class HomeTableViewModelTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			coronaTestService: coronaTestService,
 			familyMemberCoronaTestService: MockFamilyMemberCoronaTestService(),
+			cclService: FakeCCLService(),
 			onTestResultCellTap: { _ in },
 			badgeWrapper: .fake()
 		)
@@ -842,6 +861,7 @@ class HomeTableViewModelTests: CWATestCase {
 			appConfiguration: CachedAppConfigurationMock(),
 			coronaTestService: MockCoronaTestService(),
 			familyMemberCoronaTestService: MockFamilyMemberCoronaTestService(),
+			cclService: FakeCCLService(),
 			onTestResultCellTap: { _ in },
 			badgeWrapper: .fake()
 		)
@@ -879,6 +899,7 @@ class HomeTableViewModelTests: CWATestCase {
 			appConfiguration: CachedAppConfigurationMock(),
 			coronaTestService: MockCoronaTestService(),
 			familyMemberCoronaTestService: MockFamilyMemberCoronaTestService(),
+			cclService: FakeCCLService(),
 			onTestResultCellTap: { _ in },
 			badgeWrapper: .fake()
 		)
@@ -918,6 +939,7 @@ class HomeTableViewModelTests: CWATestCase {
 			appConfiguration: CachedAppConfigurationMock(),
 			coronaTestService: coronaTestService,
 			familyMemberCoronaTestService: MockFamilyMemberCoronaTestService(),
+			cclService: FakeCCLService(),
 			onTestResultCellTap: { _ in },
 			badgeWrapper: .fake()
 		)
