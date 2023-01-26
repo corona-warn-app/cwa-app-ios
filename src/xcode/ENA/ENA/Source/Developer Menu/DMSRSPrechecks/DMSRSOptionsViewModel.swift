@@ -99,6 +99,12 @@ final class DMSRSOptionsViewModel {
 
 	private let store: Store
 	
+	private let dateFormatter: DateFormatter = {
+		let dateFormatter = DateFormatter()
+		dateFormatter.dateFormat = "yyyy-MM-dd, HH:mm:ss"
+		return dateFormatter
+	}()
+	
 	private func srsStateValueStaticText() -> String {
 		"""
 
@@ -142,7 +148,7 @@ final class DMSRSOptionsViewModel {
 		fallback: String = "No Date set yet"
 	) -> String {
 		if let date = date {
-			return ISO8601DateFormatter.justLocalDateFormatter.string(from: date)
+			return dateFormatter.string(from: date)
 		} else {
 			return fallback
 		}
