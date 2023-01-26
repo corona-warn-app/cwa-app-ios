@@ -1282,13 +1282,7 @@ enum AppStrings {
 		static let generalDescription = NSLocalizedString("DeltaOnboarding_NewVersionFeatures_Description", comment: "")
 		static let aboutAppInformation = NSLocalizedString("NewVersionFeatures_Info_about_abb_information", comment: "")
 		
-		/* Version 3.0 */
-		static let feature30SelfTestWarnOthersTitle = NSLocalizedString("NewVersionFeature_30_selftest_warn_others_title", comment: "")
-		static let feature30SelfTestWarnOthersDescription = NSLocalizedString("NewVersionFeature_30_selftest_warn_others_description", comment: "")
-		static let feature30WarningUnregisteredTestsTitle = NSLocalizedString("NewVersionFeature_30_warning_unregistered_tests_title", comment: "")
-		static let feature30WarningUnregisteredTestsDescription = NSLocalizedString("NewVersionFeature_30_warning_unregistered_tests_description", comment: "")
-		static let feature30TANHotlineRemovalTitle = NSLocalizedString("NewVersionFeature_30_tan_hotline_removal_title", comment: "")
-		static let feature30TANHotlineRemovalDescription = NSLocalizedString("NewVersionFeature_30_tan_hotline_removal_description", comment: "")
+		/* Version 3.1 */
 	}
 
 	enum DeltaOnboarding {
