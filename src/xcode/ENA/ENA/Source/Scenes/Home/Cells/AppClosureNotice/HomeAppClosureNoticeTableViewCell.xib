@@ -18,10 +18,10 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BJI-OH-UMx" userLabel="Container View" customClass="HomeCardView" customModule="ENA" customModuleProvider="target">
-                        <rect key="frame" x="16" y="28" width="382" height="83"/>
+                        <rect key="frame" x="16" y="28" width="382" height="95"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="gPv-89-hDP">
-                                <rect key="frame" x="16" y="16" width="320" height="51"/>
+                                <rect key="frame" x="16" y="16" width="320" height="63"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WVU-zu-rID">
                                         <rect key="frame" x="0.0" y="0.0" width="32" height="32"/>
@@ -78,7 +78,7 @@
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
                     <constraint firstItem="BJI-OH-UMx" firstAttribute="leading" secondItem="rmF-Fg-vDb" secondAttribute="leading" constant="16" identifier="cell.container.leading" id="EXQ-Rp-2kb"/>
-                    <constraint firstAttribute="bottom" secondItem="BJI-OH-UMx" secondAttribute="bottom" constant="12" identifier="cell.container.bottom" id="qk5-iT-ixI"/>
+                    <constraint firstAttribute="bottom" secondItem="BJI-OH-UMx" secondAttribute="bottom" identifier="cell.container.bottom" id="qk5-iT-ixI"/>
                     <constraint firstAttribute="trailing" secondItem="BJI-OH-UMx" secondAttribute="trailing" constant="16" identifier="cell.container.trailing" id="w1H-Mn-b6C"/>
                     <constraint firstItem="BJI-OH-UMx" firstAttribute="top" secondItem="rmF-Fg-vDb" secondAttribute="top" constant="28" identifier="cell.container.top" id="xZZ-ur-4TD"/>
                 </constraints>
