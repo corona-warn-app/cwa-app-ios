@@ -7,6 +7,26 @@ import AnyCodable
 
 @testable import ENA
 
+extension StatusTabNotice {
+
+	static func fake(
+		visible: Bool = false,
+		titleText: DCCUIText? = nil,
+		subtitleText: DCCUIText? = nil,
+		longText: DCCUIText? = nil,
+		faqAnchor: String? = nil
+	) -> StatusTabNotice {
+		StatusTabNotice(
+			visible: visible,
+			titleText: titleText,
+			subtitleText: subtitleText,
+			longText: longText,
+			faqAnchor: faqAnchor
+		)
+	}
+
+}
+
 extension DCCWalletInfo {
 
 	static func fake(
