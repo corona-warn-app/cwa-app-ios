@@ -14,7 +14,7 @@ class FakeCCLService: CCLServable {
 
 	// MARK: - Protocol CCLServable
 
-	var shouldShowNoticeTile = CurrentValueSubject<Bool, Never>(true)
+	var shouldShowNoticeTile = CurrentValueSubject<Bool, Never>(false)
 	
 	var configurationVersion: String = "configurationVersion"
 
