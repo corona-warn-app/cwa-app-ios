@@ -577,6 +577,7 @@
 		34D873C72979773D0065E839 /* HomeAppClosureNoticeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34D873C62979773D0065E839 /* HomeAppClosureNoticeTableViewCell.xib */; };
 		34D873CA29798CAF0065E839 /* AppClosureNoticeDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D873C929798CAF0065E839 /* AppClosureNoticeDetailsViewController.swift */; };
 		34D873CC29798CC30065E839 /* AppClosureNoticeDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D873CB29798CC30065E839 /* AppClosureNoticeDetailsViewModel.swift */; };
+		34D873D02982B60F0065E839 /* AppClosureNoticeDetailsViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D873CE2982B5C90065E839 /* AppClosureNoticeDetailsViewModelTests.swift */; };
 		34D9977F29264190000EA8BF /* SubmissionTestType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D9977E29264190000EA8BF /* SubmissionTestType.swift */; };
 		34E03F822823BEF8001A352B /* ccl-configuration.bin in Resources */ = {isa = PBXBuildFile; fileRef = 34E03F812823BEF8001A352B /* ccl-configuration.bin */; };
 		34E03F842823ED29001A352B /* HealthCertificateWebTokenHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34E03F832823ED29001A352B /* HealthCertificateWebTokenHeader.swift */; };
@@ -2455,6 +2456,7 @@
 		34D873C62979773D0065E839 /* HomeAppClosureNoticeTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeAppClosureNoticeTableViewCell.xib; sourceTree = "<group>"; };
 		34D873C929798CAF0065E839 /* AppClosureNoticeDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppClosureNoticeDetailsViewController.swift; sourceTree = "<group>"; };
 		34D873CB29798CC30065E839 /* AppClosureNoticeDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppClosureNoticeDetailsViewModel.swift; sourceTree = "<group>"; };
+		34D873CE2982B5C90065E839 /* AppClosureNoticeDetailsViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppClosureNoticeDetailsViewModelTests.swift; sourceTree = "<group>"; };
 		34D9977E29264190000EA8BF /* SubmissionTestType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubmissionTestType.swift; sourceTree = "<group>"; };
 		34E03F812823BEF8001A352B /* ccl-configuration.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = "ccl-configuration.bin"; sourceTree = "<group>"; };
 		34E03F832823ED29001A352B /* HealthCertificateWebTokenHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateWebTokenHeader.swift; sourceTree = "<group>"; };
@@ -5545,6 +5547,7 @@
 		34D873C1297971140065E839 /* AppClosureNotice */ = {
 			isa = PBXGroup;
 			children = (
+				34D873D12982BA060065E839 /* __tests__ */,
 				34D873C22979722E0065E839 /* HomeAppClosureNoticeTableViewCell.swift */,
 				34D873C4297972730065E839 /* HomeAppClosureNoticeCellModel.swift */,
 				34D873C62979773D0065E839 /* HomeAppClosureNoticeTableViewCell.xib */,
@@ -5555,10 +5558,26 @@
 		34D873C829798B890065E839 /* AppClosureNoticeDetails */ = {
 			isa = PBXGroup;
 			children = (
+				34D873CD2982B4950065E839 /* __tests__ */,
 				34D873C929798CAF0065E839 /* AppClosureNoticeDetailsViewController.swift */,
 				34D873CB29798CC30065E839 /* AppClosureNoticeDetailsViewModel.swift */,
 			);
 			path = AppClosureNoticeDetails;
+			sourceTree = "<group>";
+		};
+		34D873CD2982B4950065E839 /* __tests__ */ = {
+			isa = PBXGroup;
+			children = (
+				34D873CE2982B5C90065E839 /* AppClosureNoticeDetailsViewModelTests.swift */,
+			);
+			path = __tests__;
+			sourceTree = "<group>";
+		};
+		34D873D12982BA060065E839 /* __tests__ */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = __tests__;
 			sourceTree = "<group>";
 		};
 		34FE15922604AD700002CB69 /* sample_qr_code_template */ = {
@@ -12811,6 +12830,7 @@
 				0144DD9725D40CC600CFB1D1 /* MockDeadmanNotificationManager.swift in Sources */,
 				BAEFB35A2656B07A00497F79 /* ContactDiaryStoreSchemaV5Tests.swift in Sources */,
 				B1FE13FE24896EF700D012E5 /* CachedAppConfigurationTests.swift in Sources */,
+				34D873D02982B60F0065E839 /* AppClosureNoticeDetailsViewModelTests.swift in Sources */,
 				3494634E27F498D900403F7A /* ExposureSubmissionTestResultFamilyMemberViewModelTests.swift in Sources */,
 				50352C9F25C96687007193D2 /* HTTPClient+AuthorizationOTPEdusTests.swift in Sources */,
 				524C4292256587B900EBC3B0 /* ExposureSubmissionTestResultConsentViewModelTests.swift in Sources */,
