@@ -578,6 +578,7 @@
 		34D873CA29798CAF0065E839 /* AppClosureNoticeDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D873C929798CAF0065E839 /* AppClosureNoticeDetailsViewController.swift */; };
 		34D873CC29798CC30065E839 /* AppClosureNoticeDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D873CB29798CC30065E839 /* AppClosureNoticeDetailsViewModel.swift */; };
 		34D873D02982B60F0065E839 /* AppClosureNoticeDetailsViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D873CE2982B5C90065E839 /* AppClosureNoticeDetailsViewModelTests.swift */; };
+		34D873D42982C8930065E839 /* HomeAppClosureNoticeCellModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D873D22982C8180065E839 /* HomeAppClosureNoticeCellModelTests.swift */; };
 		34D9977F29264190000EA8BF /* SubmissionTestType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D9977E29264190000EA8BF /* SubmissionTestType.swift */; };
 		34E03F822823BEF8001A352B /* ccl-configuration.bin in Resources */ = {isa = PBXBuildFile; fileRef = 34E03F812823BEF8001A352B /* ccl-configuration.bin */; };
 		34E03F842823ED29001A352B /* HealthCertificateWebTokenHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34E03F832823ED29001A352B /* HealthCertificateWebTokenHeader.swift */; };
@@ -2457,6 +2458,7 @@
 		34D873C929798CAF0065E839 /* AppClosureNoticeDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppClosureNoticeDetailsViewController.swift; sourceTree = "<group>"; };
 		34D873CB29798CC30065E839 /* AppClosureNoticeDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppClosureNoticeDetailsViewModel.swift; sourceTree = "<group>"; };
 		34D873CE2982B5C90065E839 /* AppClosureNoticeDetailsViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppClosureNoticeDetailsViewModelTests.swift; sourceTree = "<group>"; };
+		34D873D22982C8180065E839 /* HomeAppClosureNoticeCellModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeAppClosureNoticeCellModelTests.swift; sourceTree = "<group>"; };
 		34D9977E29264190000EA8BF /* SubmissionTestType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubmissionTestType.swift; sourceTree = "<group>"; };
 		34E03F812823BEF8001A352B /* ccl-configuration.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = "ccl-configuration.bin"; sourceTree = "<group>"; };
 		34E03F832823ED29001A352B /* HealthCertificateWebTokenHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateWebTokenHeader.swift; sourceTree = "<group>"; };
@@ -5576,6 +5578,7 @@
 		34D873D12982BA060065E839 /* __tests__ */ = {
 			isa = PBXGroup;
 			children = (
+				34D873D22982C8180065E839 /* HomeAppClosureNoticeCellModelTests.swift */,
 			);
 			path = __tests__;
 			sourceTree = "<group>";
@@ -12616,6 +12619,7 @@
 				BA89F94A27F24C3200132C59 /* FamilyMemberPCRTest+Mock.swift in Sources */,
 				ABAAE2D827C516D500A53AB1 /* TrustEvaluationFake.swift in Sources */,
 				AB86B2B926033E8F007C77B3 /* CheckinSplittingServiceTests.swift in Sources */,
+				34D873D42982C8930065E839 /* HomeAppClosureNoticeCellModelTests.swift in Sources */,
 				AB1EEC1026382BC20001D1DB /* ExposureSubmissionIntroViewModelTests.swift in Sources */,
 				01BA07202620921400237DD8 /* CheckinTestCase.swift in Sources */,
 				01A23685251A23740043D9F8 /* ExposureSubmissionQRInfoModelTests.swift in Sources */,

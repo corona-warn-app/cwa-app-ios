@@ -447,7 +447,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 			fatalError("Could not dequeue HomeAppClosureNoticeTableViewCell")
 		}
 
-		cell.configure(with: HomeAppClosureNoticeCellModel(statusTabNotice: statusTabNotice, cclService: viewModel.cclService))
+		cell.configure(with: HomeAppClosureNoticeCellModel(cclService: viewModel.cclService, statusTabNotice: statusTabNotice))
 
 		return cell
 	}

@@ -9,8 +9,8 @@ class HomeAppClosureNoticeCellModel {
 
 	// MARK: - Init
 
-	init(statusTabNotice: StatusTabNotice?, cclService: CCLServable) {
-		self.update(statusTabNotice: statusTabNotice, cclService: cclService)
+	init(cclService: CCLServable, statusTabNotice: StatusTabNotice?) {
+		self.update(cclService: cclService, statusTabNotice: statusTabNotice)
 	}
 
 	// MARK: - Internal
@@ -24,7 +24,7 @@ class HomeAppClosureNoticeCellModel {
 
 	private var subscriptions = Set<AnyCancellable>()
 
-	private func update(statusTabNotice: StatusTabNotice?, cclService: CCLServable) {
+	private func update(cclService: CCLServable, statusTabNotice: StatusTabNotice?) {
 		if let titleText = statusTabNotice?.titleText?.localized(cclService: cclService), !titleText.isEmpty {
 			title = titleText
 		}
