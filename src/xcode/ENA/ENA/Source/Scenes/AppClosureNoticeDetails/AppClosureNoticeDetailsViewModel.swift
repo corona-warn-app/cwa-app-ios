@@ -47,7 +47,7 @@ class AppClosureNoticeDetailsViewModel {
 			cells.append(
 				.body(
 					text: longText,
-				    accessibilityIdentifier: AccessibilityIdentifiers.Home.AppClosureNoticeCell.Details.longTextLabel
+					accessibilityIdentifier: AccessibilityIdentifiers.Home.AppClosureNoticeCell.Details.longTextLabel
 				)
 			)
 		}
