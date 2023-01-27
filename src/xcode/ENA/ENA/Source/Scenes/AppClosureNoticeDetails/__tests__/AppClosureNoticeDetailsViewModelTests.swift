@@ -34,7 +34,7 @@ class AppClosureNoticeDetailsViewModelTests: CWATestCase {
 			quantity: nil,
 			quantityParameterIndex: nil,
 			functionName: nil,
-			localizedText: ["de": "Sie erhalten dann keine Warnungen mehr über Risikobegegnungen und können selbst andere nicht mehr warnen. Sie können keine Tests mehr registrieren und erhalten keine Testergebnisse mehr über die App. Auf Ihre Zertifikate und das Kontakt-Tagebuch haben Sie weiterhin Zugriff. Allerdings können Sie keine neuen Zertifikate mehr hinzufügen."],
+			localizedText: ["de": "Sie erhalten dann keine Warnungen mehr über Risiko-Begegnungen und können selbst andere nicht mehr warnen. Sie können keine Tests mehr registrieren und erhalten keine Testergebnisse mehr über die App. Auf Ihre Zertifikate und das Kontakt-Tagebuch haben Sie weiterhin Zugriff. Allerdings können Sie keine neuen Zertifikate mehr hinzufügen."],
 			parameters: []
 		)
 		
