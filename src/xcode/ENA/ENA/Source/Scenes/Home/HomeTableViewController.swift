@@ -161,7 +161,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 
 		#if DEBUG
 		if isUITesting && LaunchArguments.test.common.showTestResultCards.boolValue {
-			tableView.scrollToRow(at: IndexPath(row: 1, section: 1), at: .top, animated: false)
+			tableView.scrollToRow(at: IndexPath(row: 1, section: 2), at: .top, animated: false)
 		}
 		#endif
 		
