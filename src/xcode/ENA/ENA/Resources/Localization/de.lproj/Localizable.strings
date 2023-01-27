@@ -1839,25 +1839,13 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "DeltaOnboarding_NewVersionFeatures_Button_Continue" = "Weiter";
 
-"DeltaOnboarding_NewVersionFeatures_Description" = "Mit diesem Update stellen wir Ihnen neben Fehlerbehebungen auch neue und erweiterte Funktionen zur Verfügung.";
+"DeltaOnboarding_NewVersionFeatures_Description" = "Mit diesem Update beheben wir Fehler in der App. Es enthält keine neuen Funktionen.";
 
 /* New Version Features */
 
 "NewVersionFeatures_Info_about_abb_information" = "Änderungen zum Release finden Sie in den App-Informationen unter dem Menüpunkt „Neue Funktionen”.";
 
-/* Version 3.0 */
-
-"NewVersionFeature_30_selftest_warn_others_title" = "Warnung mit Selbsttests";
-
-"NewVersionFeature_30_selftest_warn_others_description" = "Sie können jetzt mit positiven Ergebnissen von alleine durchgeführten Selbsttests eine Warnung an andere Nutzer der Corona-Warn-App schicken.";
-
-"NewVersionFeature_30_warning_unregistered_tests_title" = "Warnung mit unregistrierten Tests";
-
-"NewVersionFeature_30_warning_unregistered_tests_description" = "Sollten Sie bei einer Teststelle mit einem nicht in der Corona-Warn-App registrierten Schnell- oder PCR-Test positiv getestet worden sein, können Sie jetzt auch mit diesen Testergebnissen andere Nutzer der App warnen.";
-
-"NewVersionFeature_30_tan_hotline_removal_title" = "TAN Hotline entfällt";
-
-"NewVersionFeature_30_tan_hotline_removal_description" = "Die Möglichkeit, eine TAN über die TAN-Hotline zu erhalten, entfällt in einigen Wochen. Sie können nun ohne TAN andere Nutzer der Corona-Warn-App warnen.";
+/* Version 3.1 */
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Länderübergreifende Risiko-Ermittlung";
