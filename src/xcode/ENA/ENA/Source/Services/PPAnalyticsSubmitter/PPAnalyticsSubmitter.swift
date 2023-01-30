@@ -374,6 +374,10 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 			   let antigenKeySubmissionMetadata = antigenKeySubmissionMetadata {
 				keySubmissionMetadataSet.append(antigenKeySubmissionMetadata)
 			}
+			if let isSubmitted = store.srsKeySubmissionMetadata?.submitted,
+				isSubmitted, let srsKeySubmissionMetadata = srsKeySubmissionMetadata {
+				keySubmissionMetadataSet.append(srsKeySubmissionMetadata)
+			}
 			$0.keySubmissionMetadataSet = keySubmissionMetadataSet
 
 			var testResultMetadataSet = [SAP_Internal_Ppdd_PPATestResultMetadata]()
@@ -383,6 +387,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 			if shouldIncludeTestResultMetadata(for: .antigen) {
 				testResultMetadataSet.append(antigenTestResultMetadata)
 			}
+			
 			$0.testResultMetadataSet = testResultMetadataSet
 
 			/*
@@ -454,6 +459,9 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 				}
 				if let shouldIncludeAntigenKeySubmissionMetadata = self?.shouldIncludeKeySubmissionMetadata(for: .antigen), shouldIncludeAntigenKeySubmissionMetadata {
 					self?.store.antigenKeySubmissionMetadata = nil
+				}
+				if let isSubmitted = self?.store.srsKeySubmissionMetadata?.submitted, isSubmitted {
+					self?.store.srsKeySubmissionMetadata = nil
 				}
 				self?.store.lastSubmittedPPAData = payload.textFormatString()
 				self?.store.exposureWindowsMetadata?.newExposureWindowsQueue.removeAll()
