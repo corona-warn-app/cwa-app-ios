@@ -1094,6 +1094,42 @@ class CoronaTestService: CoronaTestServiceProviding {
 				self.antigenTest.value?.uniqueCertificateIdentifier = uniqueCertificateIdentifier
 			}
 		}
+		
+		setUniqueCertificateIdentifierForRecycleBinItemsIfNeeded(uniqueCertificateIdentifier, from: testCertificateRequest)
+	}
+	
+	private func setUniqueCertificateIdentifierForRecycleBinItemsIfNeeded(_ uniqueCertificateIdentifier: String, from testCertificateRequest: TestCertificateRequest) {
+		switch testCertificateRequest.coronaTestType {
+		case .pcr:
+			recycleBin.recycledItems.forEach { recycleBinItem in
+				if case let .userCoronaTest(userCoronaTest) = recycleBinItem.item,
+					userCoronaTest.registrationToken == testCertificateRequest.registrationToken {
+					
+					if case let .pcr(userPCRTest) = userCoronaTest {
+						var userPCRTestValueCopy = userPCRTest
+						userPCRTestValueCopy.set(uniqueCertificateIdentifier: uniqueCertificateIdentifier)
+						
+						recycleBin.moveToBin(.userCoronaTest(.pcr(userPCRTestValueCopy)))
+						recycleBin.remove(recycleBinItem)
+					}
+				}
+			}
+
+		case .antigen:
+			recycleBin.recycledItems.forEach { recycleBinItem in
+				if case let .userCoronaTest(userCoronaTest) = recycleBinItem.item,
+					userCoronaTest.registrationToken == testCertificateRequest.registrationToken {
+					
+					if case let .antigen(userAntigenTest) = userCoronaTest {
+						var userAntigenTestValueCopy = userAntigenTest
+						userAntigenTestValueCopy.set(uniqueCertificateIdentifier: uniqueCertificateIdentifier)
+						
+						recycleBin.moveToBin(.userCoronaTest(.antigen(userAntigenTestValueCopy)))
+						recycleBin.remove(recycleBinItem)
+					}
+				}
+			}
+		}
 	}
 
 	@objc
