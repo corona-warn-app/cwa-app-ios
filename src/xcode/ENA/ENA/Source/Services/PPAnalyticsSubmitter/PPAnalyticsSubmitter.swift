@@ -387,7 +387,6 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 			if shouldIncludeTestResultMetadata(for: .antigen) {
 				testResultMetadataSet.append(antigenTestResultMetadata)
 			}
-			
 			$0.testResultMetadataSet = testResultMetadataSet
 
 			/*
