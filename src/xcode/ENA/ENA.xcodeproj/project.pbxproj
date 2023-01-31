@@ -8760,7 +8760,6 @@
 			isa = PBXGroup;
 			children = (
 				B16457BC24DC3E0E002879EB /* Features */,
-				8F8B4A312934CCC7007ED94E /* DMSRSPrechecks */,
 				B1FC2D1E24D9C8CB00083C81 /* Helper */,
 				2FC951FA24DC2366008D39F4 /* Cells */,
 				B1741B432461C257006275D9 /* DMDeveloperMenu.swift */,
@@ -8803,6 +8802,7 @@
 		B16457BC24DC3E0E002879EB /* Features */ = {
 			isa = PBXGroup;
 			children = (
+				8F8B4A312934CCC7007ED94E /* DMSRSPrechecks */,
 				018105D428115BF500C40268 /* DMRevocationList */,
 				50DED23527CE31E70035267C /* DMHealthCertificateMigration */,
 				50AF182527A4222500BAA9DB /* DMCCLConfiguration */,
