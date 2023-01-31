@@ -10,7 +10,9 @@
 			"dccURL": "https://TestEnvironment0.dgc",
 			"dccRecertifyURL": "https://TestEnvironment0.logupload",
 			"validationKeyString": "Key0",
-			"pinningKeyHash": "hash0"
+			"pinningKeyHash": [
+				"hash0"
+			]
 		},
 		{
 			"name": "TestEnvironment1",
@@ -22,7 +24,9 @@
 			"dccURL": "https://TestEnvironment1.dgc",
 			"dccRecertifyURL": "https://TestEnvironment1.logupload",
 			"validationKeyString": "Key1",
-			"pinningKeyHash": "hash1"
+			"pinningKeyHash": [
+				"hash1"
+			]
 		},
 		{
 			"name": "TestEnvironment2",
@@ -34,7 +38,9 @@
 			"dccURL": "https://TestEnvironment2.dgc",
 			"dccRecertifyURL": "https://TestEnvironment2.logupload",
 			"validationKeyString": "Key2",
-			"pinningKeyHash": "hash2"
+			"pinningKeyHash": [
+				"hash2"
+			]
 		},
 		{
 			"name": "prod",
@@ -46,7 +52,9 @@
 			"dccURL": "https://prod.dgc",
 			"dccRecertifyURL": "https://prod.recertify",
 			"validationKeyString": "Key",
-			"pinningKeyHash": "hash"
+			"pinningKeyHash": [
+				"hash"
+			]
 		}
 	]
 }
