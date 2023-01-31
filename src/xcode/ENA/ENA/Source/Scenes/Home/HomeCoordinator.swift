@@ -5,6 +5,7 @@
 import UIKit
 import OpenCombine
 
+// swiftlint:disable file_length
 // swiftlint:disable type_body_length
 class HomeCoordinator: RequiresAppDependencies {
 
@@ -89,6 +90,7 @@ class HomeCoordinator: RequiresAppDependencies {
 				appConfiguration: appConfigurationProvider,
 				coronaTestService: coronaTestService,
 				familyMemberCoronaTestService: familyMemberCoronaTestService,
+				cclService: cclService,
 				onTestResultCellTap: { [weak self] coronaTestType in
 					self?.showExposureSubmission(testType: coronaTestType)
 				},
@@ -99,6 +101,9 @@ class HomeCoordinator: RequiresAppDependencies {
 			startupErrors: startupErrors,
 			onInfoBarButtonItemTap: { [weak self] in
 				self?.showRiskLegend()
+			},
+			onAppClosureNoticeTap: { [weak self] in
+				self?.showAppClosureNoticeDetails()
 			},
 			onExposureLoggingCellTap: { [weak self] enState in
 				self?.showExposureNotificationSetting(enState: enState)
@@ -295,6 +300,23 @@ class HomeCoordinator: RequiresAppDependencies {
 		guard !rootViewController.viewControllers.contains(where: { $0 is ExposureNotificationSettingViewController }) else { return }
 		
 		rootViewController.pushViewController(vc, animated: true)
+	}
+
+	private func showAppClosureNoticeDetails() {
+		let result = self.cclService.statusTabNotice()
+		
+		switch result {
+		case .success(let statusTabNotice):
+			let appClosureNoticeDetailsViewController = AppClosureNoticeDetailsViewController(
+				viewModel: AppClosureNoticeDetailsViewModel(cclService: cclService, statusTabNotice: statusTabNotice),
+				dismiss: { [weak rootViewController] in
+					rootViewController?.dismiss(animated: true)
+				})
+			
+			rootViewController.pushViewController(appClosureNoticeDetailsViewController, animated: true)
+		case .failure(let error):
+			Log.error(error.localizedDescription)
+		}
 	}
 
 	private func showExposureDetection(state: HomeState) {
