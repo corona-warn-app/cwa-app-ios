@@ -190,7 +190,7 @@ final class HealthCertificateReissuanceConsentViewModel {
 				}
 				
 				let trustEvaluation = DefaultTrustEvaluation(
-					publicKeyHash: appConfig.dgcParameters.reissueServicePublicKeyDigest,
+					publicKeyHash: [appConfig.dgcParameters.reissueServicePublicKeyDigest],
 					certificatePosition: 0
 				)
 				guard let certificateReissuance = self.certifiedPerson.dccWalletInfo?.certificateReissuance else {
