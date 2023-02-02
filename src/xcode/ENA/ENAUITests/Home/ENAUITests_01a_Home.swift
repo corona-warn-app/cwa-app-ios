@@ -5,6 +5,7 @@
 import XCTest
 import ExposureNotification
 
+// swiftlint:disable:next type_body_length
 class ENAUITests_01a_Home: CWATestCase {
 	var app: XCUIApplication!
 
@@ -253,6 +254,21 @@ class ENAUITests_01a_Home: CWATestCase {
 		XCTAssertTrue(app.cells.element(boundBy: 0).waitForExistence(timeout: .medium))
 	}
 
+	func test_homescreen_appClosureNoticeTile() throws {
+		app.setPreferredContentSizeCategory(accessibility: .accessibility, size: .XS)
+		app.setLaunchArgument(LaunchArguments.appClosureNotice.showAppClosureNoticeTile, to: true)
+		app.launch()
+		
+		let appClosureNoticeTile = app.cells[AccessibilityIdentifiers.Home.AppClosureNoticeCell.container]
+		appClosureNoticeTile.waitAndTap()
+		
+		XCTAssertTrue(app.images[AccessibilityIdentifiers.Home.AppClosureNoticeCell.Details.image].waitForExistence(timeout: .medium))
+		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.Home.AppClosureNoticeCell.Details.titleLabel].waitForExistence(timeout: .medium))
+		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.Home.AppClosureNoticeCell.Details.subtitleLabel].waitForExistence(timeout: .medium))
+		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.Home.AppClosureNoticeCell.Details.longTextLabel].waitForExistence(timeout: .medium))
+		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.Home.AppClosureNoticeCell.Details.faqLabel].exists)
+	}
+	
 	// MARK: - Screenshots
 
 	func test_screenshot_homescreen_riskCardLow_DetailsScreen() throws {
