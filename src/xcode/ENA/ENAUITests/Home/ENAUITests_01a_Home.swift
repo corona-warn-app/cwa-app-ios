@@ -259,9 +259,11 @@ class ENAUITests_01a_Home: CWATestCase {
 		app.setLaunchArgument(LaunchArguments.appClosureNotice.showAppClosureNoticeTile, to: true)
 		app.launch()
 		
+		// check for app closure notice tile on the home screen
 		let appClosureNoticeTile = app.cells[AccessibilityIdentifiers.Home.AppClosureNoticeCell.container]
 		appClosureNoticeTile.waitAndTap()
 		
+		// check for attributes on the app closure notice details screen
 		XCTAssertTrue(app.images[AccessibilityIdentifiers.Home.AppClosureNoticeCell.Details.image].waitForExistence(timeout: .medium))
 		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.Home.AppClosureNoticeCell.Details.titleLabel].waitForExistence(timeout: .medium))
 		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.Home.AppClosureNoticeCell.Details.subtitleLabel].waitForExistence(timeout: .medium))
