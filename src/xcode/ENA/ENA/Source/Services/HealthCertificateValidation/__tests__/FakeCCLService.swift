@@ -5,6 +5,7 @@
 import Foundation
 import AnyCodable
 import jsonfunctions
+import OpenCombine
 
 @testable import ENA
 import class CertLogic.Rule
@@ -13,6 +14,8 @@ class FakeCCLService: CCLServable {
 
 	// MARK: - Protocol CCLServable
 
+	var shouldShowNoticeTile = CurrentValueSubject<Bool, Never>(false)
+	
 	var configurationVersion: String = "configurationVersion"
 
 	var dccAdmissionCheckScenariosEnabled: Bool = false
@@ -23,6 +26,10 @@ class FakeCCLService: CCLServable {
 
 	func dccWalletInfo(for certificates: [DCCWalletCertificate], with identifier: String?) -> Result<DCCWalletInfo, DCCWalletInfoAccessError> {
 		return dccWalletInfoResult
+	}
+	
+	func statusTabNotice() -> Swift.Result<StatusTabNotice, StatusTabNoticeAccessError> {
+		return statusTabNoticeResult
 	}
 
 	func dccAdmissionCheckScenarios() -> Swift.Result<DCCAdmissionCheckScenarios, DCCAdmissionCheckScenariosAccessError> {
@@ -42,6 +49,7 @@ class FakeCCLService: CCLServable {
 	var didChange: Bool = false
 	var dccWalletInfoResult: Result<DCCWalletInfo, DCCWalletInfoAccessError> = .success(DCCWalletInfo.fake())
 	var dccAdmissionCheckScenariosResult: Result<DCCAdmissionCheckScenarios, DCCAdmissionCheckScenariosAccessError> = .success(DCCAdmissionCheckScenarios.fake())
+	var statusTabNoticeResult: Result<StatusTabNotice, StatusTabNoticeAccessError> = .success(StatusTabNotice.fake())
 	var functionEvaluationResult: Any?
 
 }

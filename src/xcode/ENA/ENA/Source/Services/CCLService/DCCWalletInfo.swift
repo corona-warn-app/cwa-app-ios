@@ -13,6 +13,16 @@ enum MaskStateIdentifier: String, Codable {
 
 }
 
+struct StatusTabNotice: Codable, Equatable {
+
+	let visible: Bool
+	let titleText: DCCUIText?
+	let subtitleText: DCCUIText?
+	let longText: DCCUIText?
+	let faqAnchor: String?
+
+}
+
 struct DCCWalletInfo: Codable, Equatable {
 
 	let admissionState: DCCAdmissionState

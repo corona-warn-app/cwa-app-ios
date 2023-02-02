@@ -1783,7 +1783,7 @@
 
 "DeltaOnboarding_NewVersionFeatures_Button_Continue" = "Înainte";
 
-"DeltaOnboarding_NewVersionFeatures_Description" = "Pe lângă remedierile de erori, această actualizare include și caracteristici noi și îmbunătățiri.";
+"DeltaOnboarding_NewVersionFeatures_Description" = "Această actualizare corectează erori din aplicație. Nu conține caracteristici noi.";
 
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Modificările din această versiune pot fi găsite în informațiile aplicației, la „Caracteristici noi”.";

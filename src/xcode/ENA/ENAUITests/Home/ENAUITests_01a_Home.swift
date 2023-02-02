@@ -250,7 +250,7 @@ class ENAUITests_01a_Home: CWATestCase {
 		app.setLaunchArgument(LaunchArguments.test.antigen.testResult, to: TestResult.serverResponseAsString(for: TestResult.negative, on: .antigen))
 		app.launch()
 
-		XCTAssertTrue(app.cells.element(boundBy: 2).waitForExistence(timeout: .medium))
+		XCTAssertTrue(app.cells.element(boundBy: 0).waitForExistence(timeout: .medium))
 	}
 
 	// MARK: - Screenshots
