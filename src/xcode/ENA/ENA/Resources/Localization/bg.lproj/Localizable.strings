@@ -1783,7 +1783,7 @@
 
 "DeltaOnboarding_NewVersionFeatures_Button_Continue" = "Напред";
 
-"DeltaOnboarding_NewVersionFeatures_Description" = "Наред с корекциите на грешки настоящата актуализация съдържа също и нови и разширени функции.";
+"DeltaOnboarding_NewVersionFeatures_Description" = "Настоящата актуализация съдържа корекциите на грешки в приложението. Не съдържа нови функции.";
 
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Може да видите промените в тази версия в подраздела „Нови функции“ на информацията за приложението.";

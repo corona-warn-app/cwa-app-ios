@@ -1783,7 +1783,7 @@
 
 "DeltaOnboarding_NewVersionFeatures_Button_Continue" = "Next";
 
-"DeltaOnboarding_NewVersionFeatures_Description" = "Along with bug fixes, this update also includes new and enhanced features.";
+"DeltaOnboarding_NewVersionFeatures_Description" = "This update corrects bugs in the app. It does not contain any new features.";
 
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Changes in this release can be found in the app information, under “New Features”.";

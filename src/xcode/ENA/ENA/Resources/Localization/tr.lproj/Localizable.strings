@@ -1783,7 +1783,7 @@
 
 "DeltaOnboarding_NewVersionFeatures_Button_Continue" = "Sonraki";
 
-"DeltaOnboarding_NewVersionFeatures_Description" = "Hata düzeltmelerinin yanında bu güncelleme ile birlikte yeni ve gelişmiş özellikler sunulmaktadır.";
+"DeltaOnboarding_NewVersionFeatures_Description" = "Bu güncelleme ile hatalar düzeltilmektedir. Bu güncellemede yeni özellik sunulmamaktadır.";
 
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Bu sürümdeki değişiklikleri uygulama bilgilerinde “Yeni Özellikler” bölümünde bulabilirsiniz.";
