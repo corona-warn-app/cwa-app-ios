@@ -15,6 +15,8 @@ class HomeTestRegistrationCellModel {
 	var image = UIImage(named: "Illu_WarningAfterSelfTest")
 	var tintColor: UIColor = .enaColor(for: .textPrimary1)
 	var gradientViewType: GradientView.GradientType = .lightBlueToWhite
-	var buttonAccessibilityIdentifier = AccessibilityIdentifiers.Home.submitCardButton
+	var titleAccessibilityIdentifier = AccessibilityIdentifiers.Home.TestRegistrationCell.titleLabel
+	var descriptionAccessibilityIdentifier = AccessibilityIdentifiers.Home.TestRegistrationCell.descriptionLabel
+	var buttonAccessibilityIdentifier = AccessibilityIdentifiers.Home.TestRegistrationCell.submitCardButton
 
 }

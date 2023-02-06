@@ -23,8 +23,14 @@ enum DCCAdmissionCheckScenariosAccessError: Error {
 	case failedFunctionsEvaluation(Error)
 }
 
+enum StatusTabNoticeAccessError: Error {
+	case failedFunctionsEvaluation(Error)
+}
+
 protocol CCLServable {
 
+	var shouldShowNoticeTile: OpenCombine.CurrentValueSubject<Bool, Never> { get }
+	
 	var configurationVersion: String { get }
 	
 	var dccAdmissionCheckScenariosEnabled: Bool { get }
@@ -41,6 +47,8 @@ protocol CCLServable {
 	
 	func dccAdmissionCheckScenarios() -> Swift.Result<DCCAdmissionCheckScenarios, DCCAdmissionCheckScenariosAccessError>
 
+	func statusTabNotice() -> Swift.Result<StatusTabNotice, StatusTabNoticeAccessError>
+	
 	func evaluateFunctionWithDefaultValues<T: Decodable>(name: String, parameters: [String: AnyDecodable]) throws -> T
 
 }
@@ -86,7 +94,9 @@ class CCLService: CCLServable {
 	}
 
 	// MARK: - Protocol CCLServable
-
+	
+	var shouldShowNoticeTile = CurrentValueSubject<Bool, Never>(false)
+	
 	var configurationVersion: String = ""
 
 	var dccAdmissionCheckScenariosEnabled: Bool {
@@ -128,6 +138,7 @@ class CCLService: CCLServable {
 		}
 	}
 	
+	// swiftlint:disable:next cyclomatic_complexity
 	func updateConfiguration(
 		completion: @escaping (_ didChange: Bool) -> Void
 	) {
@@ -138,6 +149,14 @@ class CCLService: CCLServable {
 		var configurationDidUpdate: Bool = false
 		var boosterRulesDidUpdate: Bool = false
 		var invalidationRulesDidUpdate: Bool = false
+		
+		let result = statusTabNotice()
+		switch result {
+		case .success(let statusTabNotice):
+			shouldShowNoticeTile.value = statusTabNotice.visible
+		case .failure:
+			shouldShowNoticeTile.value = false
+		}
 		
 		// lookup configuration updates
 		if cclServiceMode.contains(.configuration) {
@@ -195,6 +214,27 @@ class CCLService: CCLServable {
 		}
 	}
 	
+	func statusTabNotice() -> Swift.Result<StatusTabNotice, StatusTabNoticeAccessError> {
+		#if DEBUG
+		if isUITesting {
+			return .success(mockStatusTabNotice)
+		}
+		#endif
+		
+		let getStatusTabNoticeInput = GetStatusTabNoticeInput.make()
+		
+		do {
+			let statusTabNotice: StatusTabNotice = try jsonFunctions.evaluateFunction(
+				name: "getStatusTabNotice",
+				parameters: getStatusTabNoticeInput
+			)
+			
+			return .success(statusTabNotice)
+		} catch {
+			return .failure(.failedFunctionsEvaluation(error))
+		}
+	}
+
 	func dccAdmissionCheckScenarios() -> Swift.Result<DCCAdmissionCheckScenarios, DCCAdmissionCheckScenariosAccessError> {
 		#if DEBUG
 		if isUITesting {
@@ -276,8 +316,41 @@ class CCLService: CCLServable {
 	private var boosterNotificationRules = [Rule]()
 	private var invalidationRules = [Rule]()
 	private var isSetUp = false
-
+	
 	#if DEBUG
+	private var mockStatusTabNotice: StatusTabNotice {
+		let titleText = DCCUIText(
+			type: "string",
+			quantity: nil,
+			quantityParameterIndex: nil,
+			functionName: nil,
+			localizedText: ["de": "Betriebsende"],
+			parameters: []
+		)
+
+		let subtitleText = DCCUIText(
+			type: "string",
+			quantity: nil,
+			quantityParameterIndex: nil,
+			functionName: nil,
+			localizedText: ["de": "Der Betrieb der Corona-Warn-App wird am xx.xx.xxxx eingestellt."],
+			parameters: []
+		)
+		
+		let longText = DCCUIText(
+			type: "string",
+			quantity: nil,
+			quantityParameterIndex: nil,
+			functionName: nil,
+			localizedText: ["de": "Sie erhalten dann keine Warnungen mehr über Risiko-begegnungen und können selbst andere nicht mehr warnen. Sie können keine Tests mehr registrieren und erhalten keine Testergebnisse mehr über die App. Auf Ihre Zertifikate und das Kontakt-Tagebuch haben Sie weiterhin Zugriff. Allerdings können Sie keine neuen Zertifikate mehr hinzufügen."],
+			parameters: []
+		)
+		
+		let faqText = "Mehr Informationen finden Sie in den FAQ."
+
+		return StatusTabNotice(visible: true, titleText: titleText, subtitleText: subtitleText, longText: longText, faqAnchor: faqText)
+	}
+	
 	private var mockDCCAdmissionCheckScenarios: DCCAdmissionCheckScenarios {
 		let statusTitle = DCCUIText(
 			type: "string",

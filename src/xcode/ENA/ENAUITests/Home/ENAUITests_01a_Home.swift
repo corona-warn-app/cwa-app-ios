@@ -5,6 +5,7 @@
 import XCTest
 import ExposureNotification
 
+// swiftlint:disable:next type_body_length
 class ENAUITests_01a_Home: CWATestCase {
 	var app: XCUIApplication!
 
@@ -133,7 +134,7 @@ class ENAUITests_01a_Home: CWATestCase {
 		app.launch()
 		
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.RiskTableViewCell.topContainer].waitForExistence(timeout: .medium))
-		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitForExistence(timeout: .short))
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.TestRegistrationCell.submitCardButton].waitForExistence(timeout: .short))
 
 		// Red risk card title "Erhöhtes Risiko" – the localized text is used as accessibility identifier
 		// see HomeRiskLevelCellConfigurator.setupAccessibility()
@@ -156,7 +157,7 @@ class ENAUITests_01a_Home: CWATestCase {
 		app.launch()
 		
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.RiskTableViewCell.topContainer].waitForExistence(timeout: .medium))
-		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitForExistence(timeout: .short))
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.TestRegistrationCell.submitCardButton].waitForExistence(timeout: .short))
 		
 		// Green risk card title "Niedriges Risiko" – the localized text is used as accessibility identifier
 		// see HomeRiskLevelCellConfigurator.setupAccessibility()
@@ -207,7 +208,7 @@ class ENAUITests_01a_Home: CWATestCase {
 		app.setLaunchArgument(LaunchArguments.common.ENStatus, to: ENStatus.active.stringValue)
 		app.launch()
 
-		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitForExistence(timeout: .short))
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.TestRegistrationCell.submitCardButton].waitForExistence(timeout: .short))
 
 		// Inactive risk card title "Risiko-Ermittlung gestoppt"
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.RiskTableViewCell.topContainer].waitForExistence(timeout: .short))
@@ -225,7 +226,7 @@ class ENAUITests_01a_Home: CWATestCase {
 		app.launch()
 
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.RiskTableViewCell.topContainer].waitForExistence(timeout: .medium))
-		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitForExistence(timeout: .short))
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.TestRegistrationCell.submitCardButton].waitForExistence(timeout: .short))
 	}
 	
 	func test_details_riskCardLow_riskOneDay_Ndays() throws {
@@ -250,9 +251,26 @@ class ENAUITests_01a_Home: CWATestCase {
 		app.setLaunchArgument(LaunchArguments.test.antigen.testResult, to: TestResult.serverResponseAsString(for: TestResult.negative, on: .antigen))
 		app.launch()
 
-		XCTAssertTrue(app.cells.element(boundBy: 2).waitForExistence(timeout: .medium))
+		XCTAssertTrue(app.cells.element(boundBy: 0).waitForExistence(timeout: .medium))
 	}
 
+	func test_homescreen_appClosureNoticeTile() throws {
+		app.setPreferredContentSizeCategory(accessibility: .accessibility, size: .XS)
+		app.setLaunchArgument(LaunchArguments.appClosureNotice.showAppClosureNoticeTile, to: true)
+		app.launch()
+		
+		// check for app closure notice tile on the home screen
+		let appClosureNoticeTile = app.cells[AccessibilityIdentifiers.Home.AppClosureNoticeCell.container]
+		appClosureNoticeTile.waitAndTap()
+		
+		// check for attributes on the app closure notice details screen
+		XCTAssertTrue(app.images[AccessibilityIdentifiers.Home.AppClosureNoticeCell.Details.image].waitForExistence(timeout: .medium))
+		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.Home.AppClosureNoticeCell.Details.titleLabel].waitForExistence(timeout: .medium))
+		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.Home.AppClosureNoticeCell.Details.subtitleLabel].waitForExistence(timeout: .medium))
+		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.Home.AppClosureNoticeCell.Details.longTextLabel].waitForExistence(timeout: .medium))
+		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.Home.AppClosureNoticeCell.Details.faqLabel].exists)
+	}
+	
 	// MARK: - Screenshots
 
 	func test_screenshot_homescreen_riskCardLow_DetailsScreen() throws {
@@ -339,7 +357,7 @@ class ENAUITests_01a_Home: CWATestCase {
 		app.launch()
 		
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.RiskTableViewCell.topContainer].waitForExistence(timeout: .medium))
-		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitForExistence(timeout: .short))
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.TestRegistrationCell.submitCardButton].waitForExistence(timeout: .short))
 
 		// Red risk card title "Erhöhtes Risiko" – the localized text is used as accessibility identifier
 		// see HomeRiskLevelCellConfigurator.setupAccessibility()
@@ -363,7 +381,7 @@ class ENAUITests_01a_Home: CWATestCase {
 		app.launch()
 		
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.RiskTableViewCell.topContainer].waitForExistence(timeout: .medium))
-		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitForExistence(timeout: .short))
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.TestRegistrationCell.submitCardButton].waitForExistence(timeout: .short))
 		
 		// Green risk card title "Niedriges Risiko" – the localized text is used as accessibility identifier
 		// see HomeRiskLevelCellConfigurator.setupAccessibility()
@@ -388,7 +406,7 @@ class ENAUITests_01a_Home: CWATestCase {
 		app.launch()
 		
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.RiskTableViewCell.topContainer].waitForExistence(timeout: .medium))
-		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitForExistence(timeout: .short))
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.TestRegistrationCell.submitCardButton].waitForExistence(timeout: .short))
 		
 		// Green risk card title "Niedriges Risiko" – the localized text is used as accessibility identifier
 		// see HomeRiskLevelCellConfigurator.setupAccessibility()

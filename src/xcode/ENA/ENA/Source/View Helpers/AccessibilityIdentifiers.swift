@@ -52,6 +52,18 @@ enum AccessibilityIdentifiers {
 		static let riskCardIntervalUpdateTitle = "AppStrings.Home.riskCardIntervalUpdateTitle"
 		static let tableView = "AppStrings.Home.tableView"
 
+		enum AppClosureNoticeCell {
+			static let container = "AppStrings.Home.AppClosureNoticeCell.container"
+			
+			enum Details {
+				static let image = "AppStrings.Home.AppClosureNoticeCell.Details.image"
+				static let titleLabel = "AppStrings.Home.AppClosureNoticeCell.Details.titleLabel"
+				static let subtitleLabel = "AppStrings.Home.AppClosureNoticeCell.Details.subtitleLabel"
+				static let longTextLabel = "AppStrings.Home.AppClosureNoticeCell.Details.longTextLabel"
+				static let faqLabel = "AppStrings.Home.AppClosureNoticeCell.Details.faqLabel"
+			}
+		}
+
 		enum RiskTableViewCell {
 			enum LowRisk {
 				static let title = "AccessibilityIdentifiers.Home.RiskTableViewCell.LowRiskTitle"
@@ -142,7 +154,12 @@ enum AccessibilityIdentifiers {
 			static let shareLabel = "AppStrings.Home.shareActionView"
 		}
 		
-		static let submitCardButton = "AppStrings.Home.submitCardButton"
+		enum TestRegistrationCell {
+			static let titleLabel = "AppStrings.Home.TestRegistrationCell.titleLabel"
+			static let descriptionLabel = "AppStrings.Home.TestRegistrationCell.descriptionLabel"
+			static let submitCardButton = "AppStrings.Home.TestRegistrationCell.submitCardButton"
+		}
+		
 		static let traceLocationsCardButton = "AppStrings.Home.traceLocationsCardButton"
 
 		enum Alerts {
@@ -915,7 +932,15 @@ enum AccessibilityIdentifiers {
 			static let addButton = "AppStrings.AntigenProfile.AddButton"
 			static let tableView = "TableView.AntigenProfileOverview"
 			static let antigenTestPersonProfileCell = "AppStrings.AntigenProfile.Overview.antigenTestPersonProfileCell"
-			static let emptyState = "AppStrings.AntigenProfile.Overview.emptyState"
+			static let emptyStateTitle = "AppStrings.AntigenProfile.Overview.emptyStateTitle"
+			static let emptyStateDescription = "AppStrings.AntigenProfile.Overview.emptyStateDescription"
+			static let emptyStateImage = "AppStrings.AntigenProfile.Overview.emptyStateImage"
+		}
+		
+		enum Profile {
+			static let header = "AppStrings.ExposureSubmission.AntigenTest.Profile.header"
+			static let notice = "AppStrings.ExposureSubmission.AntigenTest.Profile.notice"
+			static let qrCode = "AppStrings.ExposureSubmission.AntigenTest.Profile.qrCode"
 		}
 	}
 

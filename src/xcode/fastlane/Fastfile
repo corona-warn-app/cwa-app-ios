@@ -19,7 +19,7 @@ ENV["LC_ALL"] = "de_DE.UTF-8"
 ENV["LANG"] = "de_DE.UTF-8"
 
 ENV["FASTLANE_SKIP_UPDATE_CHECK"] = "true"
-
+ENV['ITMSTRANSPORTER_FORCE_ITMS_PACKAGE_UPLOAD'] = 'true'
 
 default_platform(:ios)
 
