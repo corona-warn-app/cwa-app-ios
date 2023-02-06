@@ -148,14 +148,6 @@ class CCLService: CCLServable {
 		var boosterRulesDidUpdate: Bool = false
 		var invalidationRulesDidUpdate: Bool = false
 		
-		let result = statusTabNotice()
-		switch result {
-		case .success(let statusTabNotice):
-			shouldShowNoticeTile.value = statusTabNotice.visible
-		case .failure:
-			shouldShowNoticeTile.value = false
-		}
-		
 		// lookup configuration updates
 		if cclServiceMode.contains(.configuration) {
 			dispatchGroup.enter()

@@ -410,6 +410,15 @@ class HealthCertificateService: HealthCertificateServiceServable {
 				completion?()
 				return
 			}
+			
+			let result = self.cclService.statusTabNotice()
+			switch result {
+			case .success(let statusTabNotice):
+				self.cclService.shouldShowNoticeTile.value = statusTabNotice.visible
+			case .failure:
+				self.cclService.shouldShowNoticeTile.value = false
+			}
+			
 			let dispatchGroup = DispatchGroup()
 			for person in self.healthCertifiedPersons where (configurationDidChange || person.needsDCCWalletInfoUpdate || self.hasAppVersionChangedSinceLastWalletInfoUpdate || isForced) {
 				dispatchGroup.enter()
@@ -417,7 +426,7 @@ class HealthCertificateService: HealthCertificateServiceServable {
 					dispatchGroup.leave()
 				}
 			}
-
+			
 			dispatchGroup.notify(queue: .global()) { [weak self] in
 				self?.store.appVersion = Bundle.main.appVersion
 				completion?()
