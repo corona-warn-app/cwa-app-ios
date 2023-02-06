@@ -28,6 +28,7 @@ final class MockTestStore: Store, PPAnalyticsData {
 	var exposureActivationConsentAcceptTimestamp: Int64?
 	var exposureActivationConsentAccept: Bool = false
 	var isOnboarded: Bool = false
+	var cclVersion: String?
 	var onboardingVersion: String = ""
 	var finishedDeltaOnboardings: [String: [String]] = [String: [String]]()
 	var dateOfAcceptedPrivacyNotice: Date?

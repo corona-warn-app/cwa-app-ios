@@ -91,6 +91,10 @@ protocol StoreProtocol: AnyObject {
 
 }
 
+protocol CCLStoring: AnyObject {
+	var cclVersion: String? { get set }
+}
+
 protocol DeviceTimeCheckStoring: AnyObject {
 	var deviceTimeCheckResult: DeviceTimeCheck.TimeCheckResult { get set }
 	var deviceTimeLastStateChange: Date { get set }
@@ -342,6 +346,7 @@ protocol Store:
 	TicketValidationStoring,
 	HomeBadgeStoring,
 	KeyValueCacheStoring,
-	SRSProviding
+	SRSProviding,
+	CCLStoring
 {}
 // swiftlint:enable all
