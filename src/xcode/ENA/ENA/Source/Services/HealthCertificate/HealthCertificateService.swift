@@ -420,7 +420,7 @@ class HealthCertificateService: HealthCertificateServiceServable {
 					dispatchGroup.leave()
 				}
 			}
-			
+
 			dispatchGroup.notify(queue: .global()) { [weak self] in
 				self?.store.appVersion = Bundle.main.appVersion
 				completion?()
