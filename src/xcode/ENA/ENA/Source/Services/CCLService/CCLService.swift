@@ -135,8 +135,7 @@ class CCLService: CCLServable {
 			completion()
 		}
 	}
-	
-	// swiftlint:disable:next cyclomatic_complexity
+
 	func updateConfiguration(
 		completion: @escaping (_ didChange: Bool) -> Void
 	) {
