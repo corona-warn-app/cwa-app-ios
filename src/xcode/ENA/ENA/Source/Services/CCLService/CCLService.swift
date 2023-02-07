@@ -74,6 +74,7 @@ struct CCLServiceMode: OptionSet {
 	static let invalidationRules = CCLServiceMode(rawValue: 1 << 2)
 }
 
+// swiftlint:disable type_body_length
 class CCLService: CCLServable {
 
 	// MARK: - Init
