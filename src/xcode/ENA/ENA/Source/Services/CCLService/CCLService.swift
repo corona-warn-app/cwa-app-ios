@@ -138,8 +138,7 @@ class CCLService: CCLServable {
 			completion()
 		}
 	}
-	
-	// swiftlint:disable:next cyclomatic_complexity
+
 	func updateConfiguration(
 		completion: @escaping (_ didChange: Bool) -> Void
 	) {
@@ -150,14 +149,6 @@ class CCLService: CCLServable {
 		var configurationDidUpdate: Bool = false
 		var boosterRulesDidUpdate: Bool = false
 		var invalidationRulesDidUpdate: Bool = false
-		
-		let result = statusTabNotice()
-		switch result {
-		case .success(let statusTabNotice):
-			shouldShowNoticeTile.value = statusTabNotice.visible
-		case .failure:
-			shouldShowNoticeTile.value = false
-		}
 		
 		// lookup configuration updates
 		if cclServiceMode.contains(.configuration) {

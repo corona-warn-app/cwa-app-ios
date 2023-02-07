@@ -106,4 +106,8 @@ struct UserPCRTest: Equatable, Hashable, Codable {
 	
 	var uniqueCertificateIdentifier: String?
 	
+	mutating func set(uniqueCertificateIdentifier: String) {
+		self.uniqueCertificateIdentifier = uniqueCertificateIdentifier
+	}
+	
 }

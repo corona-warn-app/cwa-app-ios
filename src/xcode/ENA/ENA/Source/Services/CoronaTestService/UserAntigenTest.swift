@@ -129,4 +129,7 @@ struct UserAntigenTest: Equatable, Hashable, Codable {
 		return sampleCollectionDate ?? pointOfCareConsentDate
 	}
 
+	mutating func set(uniqueCertificateIdentifier: String) {
+		self.uniqueCertificateIdentifier = uniqueCertificateIdentifier
+	}
 }
