@@ -74,6 +74,7 @@ struct CCLServiceMode: OptionSet {
 	static let invalidationRules = CCLServiceMode(rawValue: 1 << 2)
 }
 
+// swiftlint:disable type_body_length
 class CCLService: CCLServable {
 
 	// MARK: - Init
@@ -83,10 +84,12 @@ class CCLService: CCLServable {
 	/// - signatureVerifier: for fake CBOR Receive Resources to work
 	init(
 		_ restServiceProvider: RestServiceProviding,
+		store: CCLStoring,
 		appConfiguration: AppConfigurationProviding,
 		cclServiceMode: [CCLServiceMode] = [.configuration, .boosterRules, .invalidationRules]
 	) {
 		self.restServiceProvider = restServiceProvider
+		self.store = store
 		self.appConfiguration = appConfiguration
 		self.cclServiceMode = cclServiceMode
 	}
@@ -157,7 +160,7 @@ class CCLService: CCLServable {
 
 				switch result {
 				case let .success(configurations):
-					self?.replaceCCLConfigurations(with: configurations)
+					self?.replaceCCLConfigurationsIfNeeded(with: configurations)
 					configurationDidUpdate = true
 				case .failure(let error):
 					Log.error("CCLConfiguration might be loaded from the cache - skip this error", error: error)
@@ -300,6 +303,7 @@ class CCLService: CCLServable {
 	)
 
 	private let cclServiceMode: [CCLServiceMode]
+	private let store: CCLStoring
 
 	private var boosterNotificationRules = [Rule]()
 	private var invalidationRules = [Rule]()
@@ -440,7 +444,7 @@ class CCLService: CCLServable {
 			self.restServiceProvider.cached(mutableCclConfigurationResource, { [weak self] result in
 				switch result {
 				case let .success(configurations):
-					self?.replaceCCLConfigurations(with: configurations.cclConfigurations)
+					self?.replaceCCLConfigurationsIfNeeded(with: configurations.cclConfigurations)
 				case let .failure(error):
 					Log.error("Failed to read ccl configurations from cache", error: error)
 				}
@@ -495,6 +499,29 @@ class CCLService: CCLServable {
 		}
 	}
 	
+	// this function checks the edge case if the new CCL updated version is lower than the previous version then we dont persist this new config and we keep the latest version
+	// this case is only visible on Debug environment that is why have the #if !release
+	// for release versions the latest downloaded CCL will always be persisted even if version number is lower
+	private func replaceCCLConfigurationsIfNeeded(
+		with newCCLConfigurations: [CCLConfiguration]
+	) {
+		var shouldReplaceCCLConfigurations = true
+
+		#if !RELEASE
+		let currentVersion = store.cclVersion ?? "0.0"
+		let updatedVersion = newCCLConfigurations.first?.version ?? "0.0"
+		let compareResult = currentVersion.compare(updatedVersion, options: .numeric)
+		
+		shouldReplaceCCLConfigurations = !(compareResult == .orderedDescending)
+		#endif
+		
+		if shouldReplaceCCLConfigurations {
+			replaceCCLConfigurations(with: newCCLConfigurations)
+		} else {
+			configurationVersion = currentVersion
+		}
+	}
+	
 	private func replaceCCLConfigurations(
 		with newCCLConfigurations: [CCLConfiguration]
 	) {
@@ -508,6 +535,7 @@ class CCLService: CCLServable {
 		var registeredConfigurations = newCCLConfigurations
 
 		/// Register functions from the default configurations as well, in case the default configurations contain (new) configurations not contained in the cached/fetched configurations
+		
 		if let defaultConfigurations = cclConfigurationResource.defaultModel?.cclConfigurations {
 			for configuration in defaultConfigurations where !newCCLConfigurations.contains(where: { $0.identifier == configuration.identifier }) {
 				registerJsonFunctions(from: configuration)
@@ -519,8 +547,9 @@ class CCLService: CCLServable {
 			.sorted { $0.identifier < $1.identifier }
 			.map { $0.version }
 			.joined(separator: ", ")
+		self.store.cclVersion = configurationVersion
 	}
-
+	
 	private func registerJsonFunctions(
 		from configuration: CCLConfiguration
 	) {

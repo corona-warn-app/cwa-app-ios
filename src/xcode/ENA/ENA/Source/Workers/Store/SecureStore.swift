@@ -73,6 +73,11 @@ final class SecureStore: SecureKeyValueStoring, Store {
 		set { kvStore["isOnboarded"] = newValue }
 	}
 
+	var cclVersion: String? {
+		get { kvStore["cclVersion"] as String? }
+		set { kvStore["cclVersion"] = newValue }
+	}
+
 	var finishedDeltaOnboardings: [String: [String]] {
 		get { kvStore["finishedDeltaOnboardings"] as [String: [String]]? ?? [String: [String]]() }
 		set { kvStore["finishedDeltaOnboardings"] = newValue }
