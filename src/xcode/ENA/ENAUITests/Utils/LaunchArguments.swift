@@ -208,4 +208,9 @@ enum LaunchArguments {
 			static let isOpen = LaunchArgument(name: "isOpen")
 		}
 	}
+	
+	enum appClosureNotice {
+		/// To show appClosureNoticeTile
+		static let showAppClosureNoticeTile = LaunchArgument(name: "showAppClosureNoticeTile")
+	}
 }

@@ -569,7 +569,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionDispatch_QRCodeButtonTitle" = "QR-Code scannen";
 
-"ExposureSubmissionDispatch_QRCodeButtonDescription" = "Erhalten Sie Ihr Testergebnis und die Ihrer Familienmitglieder und fordern Sie Ihr COVID-Testzertifikat an.";
+"ExposureSubmissionDispatch_QRCodeButtonDescription" = "Erhalten Sie Ihr Testergebnis und Ergebnisse für Ihre Familienmitglieder und fordern Sie Ihr COVID-Testzertifikat an.";
 
 "ExposureSubmissionDispatch_PositiveSelfTestButtonTitle" = "Selbsttest positiv?";
 

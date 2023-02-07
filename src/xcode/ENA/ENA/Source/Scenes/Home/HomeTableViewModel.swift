@@ -120,6 +120,11 @@ class HomeTableViewModel {
 	func numberOfRows(in section: Int) -> Int {
 		switch Section(rawValue: section) {
 		case .appClosureNotice:
+			#if DEBUG
+			if isUITesting, LaunchArguments.appClosureNotice.showAppClosureNoticeTile.boolValue {
+				return 1
+			}
+			#endif
 			return shouldShowAppClosureNotice ? 1 : 0
 		case .exposureLogging:
 			return 1
