@@ -129,7 +129,7 @@ class ENAUITests_01b_Statistics: CWATestCase {
 		// WHEN
 		app.setPreferredContentSizeCategory(accessibility: .normal, size: .S)
 		app.launch()
-		app.swipeUp(velocity: .slow)
+		app.swipeUp(velocity: .fast)
 
 		// THEN
 		switch layoutDirection {
