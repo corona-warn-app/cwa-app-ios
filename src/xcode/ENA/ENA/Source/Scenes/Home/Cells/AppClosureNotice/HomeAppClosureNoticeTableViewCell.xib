@@ -5,6 +5,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -21,7 +22,7 @@
                         <rect key="frame" x="16" y="28" width="382" height="95"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="gPv-89-hDP">
-                                <rect key="frame" x="16" y="16" width="320" height="63"/>
+                                <rect key="frame" x="16" y="16" width="332" height="63"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WVU-zu-rID">
                                         <rect key="frame" x="0.0" y="0.0" width="32" height="32"/>
@@ -56,19 +57,29 @@
                                             <constraint firstAttribute="width" constant="265" id="y0n-9m-z2A"/>
                                         </constraints>
                                     </stackView>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" insetsLayoutMarginsFromSafeArea="NO" image="Icons_Chevron_plain" adjustsImageSizeForAccessibilityContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zpw-WN-fM1">
-                                        <rect key="frame" x="313" y="0.0" width="7" height="12"/>
-                                        <color key="tintColor" name="ENA Chevron Dark Color"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xUm-zt-CGT">
+                                        <rect key="frame" x="313" y="0.0" width="19" height="52"/>
+                                        <subviews>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" insetsLayoutMarginsFromSafeArea="NO" image="Icons_Chevron_plain" adjustsImageSizeForAccessibilityContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zpw-WN-fM1">
+                                                <rect key="frame" x="0.0" y="4" width="7" height="12"/>
+                                                <color key="tintColor" name="ENA Chevron Dark Color"/>
+                                            </imageView>
+                                        </subviews>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="7" id="CHO-vg-pVt"/>
+                                            <constraint firstItem="zpw-WN-fM1" firstAttribute="leading" secondItem="xUm-zt-CGT" secondAttribute="leading" id="2CP-cN-e7W"/>
                                         </constraints>
-                                    </imageView>
+                                    </view>
                                 </subviews>
+                                <constraints>
+                                    <constraint firstItem="zpw-WN-fM1" firstAttribute="top" secondItem="zt9-fL-aWe" secondAttribute="top" constant="4" id="vY1-nU-xwH"/>
+                                </constraints>
                             </stackView>
                         </subviews>
                         <color key="backgroundColor" name="ENA App Closure Notice Color"/>
                         <constraints>
                             <constraint firstItem="gPv-89-hDP" firstAttribute="top" secondItem="BJI-OH-UMx" secondAttribute="topMargin" id="Khe-Cd-lZh"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="gPv-89-hDP" secondAttribute="trailing" constant="18" id="gov-5N-nei"/>
                             <constraint firstAttribute="bottomMargin" secondItem="gPv-89-hDP" secondAttribute="bottom" id="pyD-MP-qPD"/>
                             <constraint firstItem="gPv-89-hDP" firstAttribute="leading" secondItem="BJI-OH-UMx" secondAttribute="leadingMargin" id="yjm-g3-1px"/>
                         </constraints>
@@ -115,5 +126,8 @@
         <namedColor name="ENA Text Primary 2 Color Constrast Color">
             <color red="0.090196078431372548" green="0.098039215686274508" blue="0.10196078431372549" alpha="0.60000002384185791" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
     </resources>
 </document>
