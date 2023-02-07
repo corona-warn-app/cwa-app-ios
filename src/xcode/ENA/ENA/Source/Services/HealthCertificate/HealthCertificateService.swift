@@ -410,6 +410,9 @@ class HealthCertificateService: HealthCertificateServiceServable {
 				completion?()
 				return
 			}
+			
+			self.updateStatusTabNotice()
+			
 			let dispatchGroup = DispatchGroup()
 			for person in self.healthCertifiedPersons where (configurationDidChange || person.needsDCCWalletInfoUpdate || self.hasAppVersionChangedSinceLastWalletInfoUpdate || isForced) {
 				dispatchGroup.enter()
@@ -425,6 +428,16 @@ class HealthCertificateService: HealthCertificateServiceServable {
 		}
 	}
 
+	func updateStatusTabNotice() {
+		let result = self.cclService.statusTabNotice()
+		switch result {
+		case .success(let statusTabNotice):
+			self.cclService.shouldShowNoticeTile.value = statusTabNotice.visible
+		case .failure:
+			self.cclService.shouldShowNoticeTile.value = false
+		}
+	}
+	
 	func updatePublishersFromStore() {
 		Log.info("[HealthCertificateService] Updating publishers from store", log: .api)
 
