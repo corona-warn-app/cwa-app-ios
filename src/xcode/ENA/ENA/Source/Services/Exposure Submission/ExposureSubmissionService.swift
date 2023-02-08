@@ -174,6 +174,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		completion: @escaping (Result<Int?, ExposureSubmissionServiceError>) -> Void
 	) {
 		Log.info("Started SRS exposure submission...", log: .api)
+		submittedWithCheckins = !self.store.submissionCheckins.isEmpty
 
 		guard let keys = temporaryExposureKeys else {
 			Log.info("Cancelled SRS exposure: No temporary exposure keys to submit.", log: .api)
@@ -229,11 +230,13 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 					visitedCountries: self.supportedCountries,
 					checkins: unencryptedCheckins,
 					checkInProtectedReports: checkinProtectedReports,
-					completion: { result in
+					completion: { [weak self] result in
+						guard let self = self else {
+							return
+						}
+
 						switch result {
 						case .success(let cwaKeyTruncated):
-							let submittedWithCheckIns = !self.eventStore.checkinsPublisher.value.isEmpty
-
 							let keySubmissionMetadata = KeySubmissionMetadata(
 								submitted: true,
 								submittedInBackground: false,
@@ -249,9 +252,10 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 								submittedAfterRapidAntigenTest: false,
 								daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration: -1,
 								hoursSinceCheckinHighRiskWarningAtTestRegistration: -1,
-								submittedWithCheckIns: submittedWithCheckIns,
+								submittedWithCheckIns: self.submittedWithCheckins,
 								submissionType: submissionType
 							)
+							
 							Analytics.collect(.keySubmissionMetadata(.create(keySubmissionMetadata, .srs(submissionType))))
 							Analytics.collect(.keySubmissionMetadata(.setDaysSinceMostRecentDateAtENFRiskLevelAtTestRegistration(.srs(submissionType))))
 							Analytics.collect(.keySubmissionMetadata(.setHoursSinceENFHighRiskWarningAtTestRegistration(.srs(submissionType))))
@@ -278,7 +282,8 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		completion: @escaping (_ error: ExposureSubmissionServiceError?) -> Void
 	) {
 		Log.info("Started exposure submission...", log: .api)
-
+		submittedWithCheckins = !self.store.submissionCheckins.isEmpty
+		
 		guard let coronaTest = coronaTestService.coronaTest(ofType: coronaTestType) else {
 			Log.info("Cancelled submission: No corona test of given type registered.", log: .api)
 			completion(.preconditionError(.noCoronaTestOfGivenType))
@@ -397,7 +402,9 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 	private let coronaTestService: CoronaTestServiceProviding
 	private let ppacService: PrivacyPreservingAccessControl
 	private let fakeRequestService: FakeRequestService
-
+	
+	private var submittedWithCheckins: Bool = false
+	
 	private var temporaryExposureKeys: [SAP_External_Exposurenotification_TemporaryExposureKey]? {
 		get { store.submissionKeys }
 		set { store.submissionKeys = newValue }
@@ -515,7 +522,10 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		)
 				
 		let resource = KeySubmissionResource(payload: payload)
-		restServiceProvider.load(resource) { result in
+		restServiceProvider.load(resource) { [weak self] result in
+			guard let self = self else {
+				return
+			}
 			
 			switch result {
 			case .success:
@@ -523,10 +533,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 				Analytics.collect(.keySubmissionMetadata(.setHoursSinceTestResult(coronaTest.type)))
 				Analytics.collect(.keySubmissionMetadata(.setHoursSinceTestRegistration(coronaTest.type)))
 				Analytics.collect(.keySubmissionMetadata(.submitted(true, coronaTest.type)))
-
-				if !checkins.isEmpty {
-					Analytics.collect(.keySubmissionMetadata(.submittedWithCheckins(true, coronaTest.type)))
-				}
+				Analytics.collect(.keySubmissionMetadata(.submittedWithCheckins(self.submittedWithCheckins, coronaTest.type)))
 				
 				self.diaryStore.addSubmission(
 					date: ISO8601DateFormatter.justLocalDateFormatter.string(
