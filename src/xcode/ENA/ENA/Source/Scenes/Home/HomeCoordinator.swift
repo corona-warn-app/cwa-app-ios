@@ -310,7 +310,7 @@ class HomeCoordinator: RequiresAppDependencies {
 			let appClosureNoticeDetailsViewController = AppClosureNoticeDetailsViewController(
 				viewModel: AppClosureNoticeDetailsViewModel(cclService: cclService, statusTabNotice: statusTabNotice),
 				dismiss: { [weak rootViewController] in
-					rootViewController?.dismiss(animated: true)
+					rootViewController?.popViewController(animated: true)
 				})
 			
 			rootViewController.pushViewController(appClosureNoticeDetailsViewController, animated: true)
