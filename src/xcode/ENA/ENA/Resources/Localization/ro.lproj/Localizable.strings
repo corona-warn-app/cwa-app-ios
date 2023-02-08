@@ -26,6 +26,8 @@
 
 "General_BackButtonTitle" = "Înapoi";
 
+"Common_No_Network_Title" = "Conexiune la internet";
+
 "Common_No_Network" = "Procesul nu a putut fi terminat din cauza problemelor de rețea. Încercați din nou.";
 
 "Common_ENError5_Description" = "Eroarea 5: A apărut o problemă. Nivelul dvs. de risc nu poate fi determinat. Lucrăm la soluționarea problemei.";
@@ -78,7 +80,7 @@
 
 "ExposureDetection_RefreshingIn" = "Actualizare în %02d:%02d\U00A0minute";
 
-"ExposureDetection_RefreshIn" = "Actualizare în %@";
+"ExposureDetection_RefreshIn" = "Actualizare la fiecare 4 ore prin Wi-Fi";
 
 "ExposureDetection_LastRiskLevel" = "Ultima verificare a expunerilor: %@";
 
@@ -1788,19 +1790,7 @@
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Modificările din această versiune pot fi găsite în informațiile aplicației, la „Caracteristici noi”.";
 
-/* Version 3.0 */
-"NewVersionFeature_30_selftest_warn_others_title" = "Avertizare cu autotestare";
-
-"NewVersionFeature_30_selftest_warn_others_description" = "Acum puteți trimite o avertizare altor utilizatori ai aplicației Corona-Warn dacă un test făcut de dvs. indică o infectare cu coronavirus.";
-
-"NewVersionFeature_30_warning_unregistered_tests_title" = "Avertizare cu teste neînregistrate";
-
-"NewVersionFeature_30_warning_unregistered_tests_description" = "Dacă un test rapid sau un test PCR dintr-un centru de testare indică o infectare cu coronavirus, dar acest test nu este înregistrat în aplicația Corona-Warn, puteți totuși să-i avertizați pe ceilalți utilizatori ai aplicației Corona-Warn.";
-
-"NewVersionFeature_30_tan_hotline_removal_title" = "Hotline-ul TAN va fi eliminat";
-
-"NewVersionFeature_30_tan_hotline_removal_description" = "Opțiunea de a obține un TAN de la un hotline TAN va fi eliminată în următoarele săptămâni. În consecință, nu veți mai avea nevoie de un TAN pentru a-i avertiza pe ceilalți utilizatori ai aplicației Corona-Warn.";
-
+/* Version 3.1 */
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Înregistrare transnațională a expunerilor în jurnal";
 
