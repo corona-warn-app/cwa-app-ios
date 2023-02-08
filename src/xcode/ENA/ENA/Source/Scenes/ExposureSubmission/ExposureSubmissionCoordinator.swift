@@ -1011,8 +1011,8 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 	private func showSRSFlowSymptomsOrCheckinsScreen() {
 		let checkins = model.eventProvider.checkinsPublisher.value
 		
-		// No checkins, or checkins without checkout (running)
-		if checkins.isEmpty || checkins.contains(where: { $0.checkinCompleted == false }) {
+		// No checkins, or all checkins are still running (not completed)
+		if checkins.isEmpty || checkins.allSatisfy({ $0.checkinCompleted == false }) {
 			showSymptomsScreen()
 		} else {
 			showCheckinsScreen(isSRSFlow: true)
