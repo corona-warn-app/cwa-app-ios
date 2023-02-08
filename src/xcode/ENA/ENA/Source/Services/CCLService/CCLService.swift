@@ -506,9 +506,9 @@ class CCLService: CCLServable {
 		with newCCLConfigurations: [CCLConfiguration]
 	) {
 		var shouldReplaceCCLConfigurations = true
+		let currentVersion = store.cclVersion ?? "0.0"
 
 		#if !RELEASE
-		let currentVersion = store.cclVersion ?? "0.0"
 		let updatedVersion = newCCLConfigurations.first?.version ?? "0.0"
 		let compareResult = currentVersion.compare(updatedVersion, options: .numeric)
 		
