@@ -860,6 +860,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 				isSRSFlow ? self?.showSymptomsScreen() : showNextScreen()
 			},
 			onSkip: { [weak self] in
+				self?.model.exposureSubmissionService.resetCheckins()
 				self?.showSkipCheckinsAlert(dontShareHandler: {
 					isSRSFlow ? self?.showSymptomsScreen() : showNextScreen()
 				})

@@ -1039,8 +1039,6 @@ class CoronaTestService: CoronaTestServiceProviding {
 			submittedAfterRapidAntigenTest = true
 		}
 
-		let submittedWithCheckIns = !eventStore.checkinsPublisher.value.isEmpty
-
 		let keySubmissionMetadata = KeySubmissionMetadata(
 			submitted: false,
 			submittedInBackground: false,
@@ -1056,7 +1054,7 @@ class CoronaTestService: CoronaTestServiceProviding {
 			submittedAfterRapidAntigenTest: submittedAfterRapidAntigenTest,
 			daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration: -1,
 			hoursSinceCheckinHighRiskWarningAtTestRegistration: -1,
-			submittedWithCheckIns: submittedWithCheckIns
+			submittedWithCheckIns: false
 		)
 
 		Analytics.collect(.keySubmissionMetadata(.create(keySubmissionMetadata, .registeredTest(coronaTest.type))))
