@@ -121,6 +121,15 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		set { store.submissionSymptomsOnset = newValue }
 	}
 
+	var exposureManagerState: ExposureManagerState {
+		diagnosisKeysRetrieval.exposureManagerState
+	}
+
+	var checkins: [Checkin] {
+		get { store.submissionCheckins }
+		set { store.submissionCheckins = newValue }
+	}
+	
 	func loadSupportedCountries(
 		isLoading: @escaping (Bool) -> Void,
 		onSuccess: @escaping ([Country]) -> Void
@@ -378,14 +387,9 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 			}
 			.store(in: &subscriptions)
 	}
-
-	var exposureManagerState: ExposureManagerState {
-		diagnosisKeysRetrieval.exposureManagerState
-	}
-
-	var checkins: [Checkin] {
-		get { store.submissionCheckins }
-		set { store.submissionCheckins = newValue }
+	
+	func resetCheckins() {
+		checkins = []
 	}
 
 	// MARK: - Private
