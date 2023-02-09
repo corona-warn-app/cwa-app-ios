@@ -104,12 +104,10 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 			.store(in: &subscriptions)
 		
 		viewModel.cclService.shouldShowNoticeTile
+			.receive(on: DispatchQueue.OCombine(.main))
 			.sink { [weak self] shouldShowNoticeTile in
 				self?.viewModel.shouldShowAppClosureNotice = shouldShowNoticeTile
-				
-				DispatchQueue.main.async { [weak self] in
-					self?.tableView.reloadSections([HomeTableViewModel.Section.appClosureNotice.rawValue], with: .none)
-				}
+				self?.tableView.reloadSections([HomeTableViewModel.Section.appClosureNotice.rawValue], with: .none)
 			}
 			.store(in: &subscriptions)
 	}
