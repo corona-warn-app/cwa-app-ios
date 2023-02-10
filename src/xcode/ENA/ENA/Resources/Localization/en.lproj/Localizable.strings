@@ -26,6 +26,8 @@
 
 "General_BackButtonTitle" = "Back";
 
+"Common_No_Network_Title" = "Internet Connection";
+
 "Common_No_Network" = "The process could not be completed due to network problems. Please try again.";
 
 "Common_ENError5_Description" = "Error 5: Something went wrong. Your level of risk cannot be determined. We are working on a solution of the problem.";
@@ -78,7 +80,7 @@
 
 "ExposureDetection_RefreshingIn" = "Update in %02d:%02d\U00A0minutes";
 
-"ExposureDetection_RefreshIn" = "Update in %@";
+"ExposureDetection_RefreshIn" = "Update every 4 hours on Wi-Fi";
 
 "ExposureDetection_LastRiskLevel" = "Last exposure check: %@";
 
@@ -1788,19 +1790,7 @@
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Changes in this release can be found in the app information, under “New Features”.";
 
-/* Version 3.0 */
-"NewVersionFeature_30_selftest_warn_others_title" = "Warning with Self-Tests";
-
-"NewVersionFeature_30_selftest_warn_others_description" = "You can now send a warning to other users of the Corona-Warn-App if a self-test indicates that you have a coronavirus infection.";
-
-"NewVersionFeature_30_warning_unregistered_tests_title" = "Warning with Unregistered Tests";
-
-"NewVersionFeature_30_warning_unregistered_tests_description" = "If a rapid test or PCR test from a testing point indicates you have a coronavirus infection, but this test is not registered in the Corona-Warn-App, you can now still warn other app users.";
-
-"NewVersionFeature_30_tan_hotline_removal_title" = "TAN Hotline to Be Discontinued";
-
-"NewVersionFeature_30_tan_hotline_removal_description" = "The option of getting a TAN from the TAN hotline will be discontinued within the next few weeks. Therefore, you no longer need a TAN to warn other users of the Corona-Warn-App.";
-
+/* Version 3.1 */
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Transnational Exposure Logging";
 

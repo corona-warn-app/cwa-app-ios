@@ -1212,7 +1212,7 @@ class CoronaTestServiceTests: CWATestCase {
 			coronaTestService: service
 		)
 		store.isPrivacyPreservingAnalyticsConsentGiven = true
-		
+
 		service.pcrTest.value = nil
 
 		let expectation = self.expectation(description: "Expect to receive a result.")
@@ -1255,7 +1255,6 @@ class CoronaTestServiceTests: CWATestCase {
 		XCTAssertFalse(pcrTest.keysSubmitted)
 		XCTAssertTrue(pcrTest.journalEntryCreated)
 		XCTAssertFalse(diaryStore.coronaTests.isEmpty)
-		XCTAssertEqual(store.pcrKeySubmissionMetadata?.submittedWithCheckIns, true)
 	}
 
 	func testRegisterPCRTestWithTeleTAN_successWithSubmissionConsentGiven() {

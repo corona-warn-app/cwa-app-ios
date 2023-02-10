@@ -26,6 +26,8 @@
 
 "General_BackButtonTitle" = "Назад";
 
+"Common_No_Network_Title" = "Връзка с интернет";
+
 "Common_No_Network" = "Процесът не беше завършен поради проблеми с мрежата. Моля, опитайте отново.";
 
 "Common_ENError5_Description" = "Грешка 5: Нещо се обърка. Вашето ниво на риск не може да бъде определено. Работим по намиране на решение за проблема.";
@@ -78,7 +80,7 @@
 
 "ExposureDetection_RefreshingIn" = "Актуализиране след %02d:%02d\U00A0минути";
 
-"ExposureDetection_RefreshIn" = "Актуализиране след %@";
+"ExposureDetection_RefreshIn" = "Актуализиране на всеки 4 часа през Wi-Fi";
 
 "ExposureDetection_LastRiskLevel" = "Последна проверка за излагане на риск: %@";
 
@@ -1788,19 +1790,7 @@
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Може да видите промените в тази версия в подраздела „Нови функции“ на информацията за приложението.";
 
-/* Version 3.0 */
-"NewVersionFeature_30_selftest_warn_others_title" = "Предупреждение със самостоятелни тествания";
-
-"NewVersionFeature_30_selftest_warn_others_description" = "Вече може да изпращате предупреждения на други потребители на приложението Corona-Warn-App, ако самотестуване покаже, че имате коронавирусна инфекция.";
-
-"NewVersionFeature_30_warning_unregistered_tests_title" = "Предупреждения с нерегистрирани тестове";
-
-"NewVersionFeature_30_warning_unregistered_tests_description" = "Ако бърз тест или PCR тест от пункт за тестване покаже, че имате коронавирусна инфекция, но този тест не е регистриран в приложението Corona-Warn-App, Вие вече може да изпращане предупреждения на другите потребители.";
-
-"NewVersionFeature_30_tan_hotline_removal_title" = "Гореща лияния с TAN кодове ще бъде прекратена";
-
-"NewVersionFeature_30_tan_hotline_removal_description" = "Опцията да получите TAN код от горещата линия с TAN кодове ще бъде прекратена в следващите няколко седмици. Следователно, вече няма да Ви трябва TAN код, за да предупреждавате другите потребители на приложението Corona-Warn-App.";
-
+/* Version 3.1 */
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Международно регистриране на излаганията";
 

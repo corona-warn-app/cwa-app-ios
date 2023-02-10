@@ -83,10 +83,12 @@ class CCLService: CCLServable {
 	/// - signatureVerifier: for fake CBOR Receive Resources to work
 	init(
 		_ restServiceProvider: RestServiceProviding,
+		store: CCLStoring,
 		appConfiguration: AppConfigurationProviding,
 		cclServiceMode: [CCLServiceMode] = [.configuration, .boosterRules, .invalidationRules]
 	) {
 		self.restServiceProvider = restServiceProvider
+		self.store = store
 		self.appConfiguration = appConfiguration
 		self.cclServiceMode = cclServiceMode
 	}
@@ -300,6 +302,7 @@ class CCLService: CCLServable {
 	)
 
 	private let cclServiceMode: [CCLServiceMode]
+	private let store: CCLStoring
 
 	private var boosterNotificationRules = [Rule]()
 	private var invalidationRules = [Rule]()
@@ -508,6 +511,7 @@ class CCLService: CCLServable {
 		var registeredConfigurations = newCCLConfigurations
 
 		/// Register functions from the default configurations as well, in case the default configurations contain (new) configurations not contained in the cached/fetched configurations
+		
 		if let defaultConfigurations = cclConfigurationResource.defaultModel?.cclConfigurations {
 			for configuration in defaultConfigurations where !newCCLConfigurations.contains(where: { $0.identifier == configuration.identifier }) {
 				registerJsonFunctions(from: configuration)
@@ -519,8 +523,9 @@ class CCLService: CCLServable {
 			.sorted { $0.identifier < $1.identifier }
 			.map { $0.version }
 			.joined(separator: ", ")
+		self.store.cclVersion = configurationVersion
 	}
-
+	
 	private func registerJsonFunctions(
 		from configuration: CCLConfiguration
 	) {

@@ -26,6 +26,8 @@
 
 "General_BackButtonTitle" = "Назад";
 
+"Common_No_Network_Title" = "З’єднання з Інтернетом";
+
 "Common_No_Network" = "Не вдалося завершити процес через проблеми з мережею. Спробуйте ще раз.";
 
 "Common_ENError5_Description" = "Помилка 5: Щось пішло не так. Ваш рівень ризику неможливо визначити. Ми працюємо над вирішенням проблеми.";
@@ -78,7 +80,7 @@
 
 "ExposureDetection_RefreshingIn" = "Оновити через %02d:%02d\U00A0хвилин";
 
-"ExposureDetection_RefreshIn" = "Оновити через %@";
+"ExposureDetection_RefreshIn" = "Оновлювати через Wi-Fi кожні 4 години";
 
 "ExposureDetection_LastRiskLevel" = "Остання перевірка ризику зараження: %@";
 
@@ -1788,19 +1790,7 @@
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Зміни у цій версії можна знайти в інформації про застосунок в розділі «Нові функції».";
 
-/* Version 3.0 */
-"NewVersionFeature_30_selftest_warn_others_title" = "Попередження із самотестуванням";
-
-"NewVersionFeature_30_selftest_warn_others_description" = "Тепер ви можете надіслати попередження іншим користувачам застосунку Corona-Warn-App, якщо самостійне тестування покаже, що у вас коронавірусна інфекція.";
-
-"NewVersionFeature_30_warning_unregistered_tests_title" = "Попередження з незареєстрованими тестами";
-
-"NewVersionFeature_30_warning_unregistered_tests_description" = "Якщо експрес-тест або ПЛР-тест із пункту тестування вказуватиме на наявність у вас коронавірусної інфекції, але цей тест не зареєстровано в застосунку Corona-Warn-App, ви однаково зможете попередити інших користувачів застосунку.";
-
-"NewVersionFeature_30_tan_hotline_removal_title" = "Роботу гарячої лінії TAN буде припинено";
-
-"NewVersionFeature_30_tan_hotline_removal_description" = "Можливість отримати TAN через гарячу лінію TAN буде припинено протягом наступних кількох тижнів. Тому вам більше не потрібен номер TAN, щоб попереджати інших користувачів застосунку Corona-Warn-App.";
-
+/* Version 3.1 */
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Транснаціональна реєстрація ризику зараження";
 

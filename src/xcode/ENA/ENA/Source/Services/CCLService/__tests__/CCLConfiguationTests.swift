@@ -27,6 +27,7 @@ class CCLServiceConfigurationTests: CCLServiceBaseTests {
 		let restServiceProvider = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
 		let cclService = CCLService(
 			restServiceProvider,
+			store: MockTestStore(),
 			appConfiguration: appConfiguration,
 			cclServiceMode: [.configuration]
 		)
@@ -70,6 +71,7 @@ class CCLServiceConfigurationTests: CCLServiceBaseTests {
 		let restServiceProvider = RestServiceProvider(session: stack.urlSession, cache: cache)
 		let cclService = CCLService(
 			restServiceProvider,
+			store: MockTestStore(),
 			appConfiguration: appConfiguration,
 			cclServiceMode: [.configuration]
 		)
@@ -113,6 +115,7 @@ class CCLServiceConfigurationTests: CCLServiceBaseTests {
 		let restServiceProvider = RestServiceProvider(session: stack.urlSession, cache: cache)
 		let cclService = CCLService(
 			restServiceProvider,
+			store: MockTestStore(),
 			appConfiguration: appConfiguration,
 			cclServiceMode: [.configuration]
 		)
@@ -158,6 +161,7 @@ class CCLServiceConfigurationTests: CCLServiceBaseTests {
 
 		let cclService = CCLService(
 			restServiceProvider,
+			store: MockTestStore(),
 			appConfiguration: appConfiguration,
 			cclServiceMode: [.configuration]
 		)
@@ -198,6 +202,7 @@ class CCLServiceConfigurationTests: CCLServiceBaseTests {
 
 		let cclService = CCLService(
 			restServiceProvider,
+			store: MockTestStore(),
 			appConfiguration: appConfiguration,
 			cclServiceMode: [.configuration]
 		)
@@ -249,6 +254,7 @@ class CCLServiceConfigurationTests: CCLServiceBaseTests {
 
 		let cclService = CCLService(
 			restServiceProvider,
+			store: MockTestStore(),
 			appConfiguration: appConfiguration,
 			cclServiceMode: [.configuration]
 		)
@@ -288,6 +294,7 @@ class CCLServiceConfigurationTests: CCLServiceBaseTests {
 
 		let cclService = CCLService(
 			restServiceProvider,
+			store: MockTestStore(),
 			appConfiguration: appConfiguration,
 			cclServiceMode: [.configuration]
 		)
@@ -322,6 +329,7 @@ class CCLServiceConfigurationTests: CCLServiceBaseTests {
 
 		let cclService = CCLService(
 			restServiceProvider,
+			store: MockTestStore(),
 			appConfiguration: appConfiguration,
 			cclServiceMode: [.configuration]
 		)
@@ -362,6 +370,7 @@ class CCLServiceConfigurationTests: CCLServiceBaseTests {
 
 		let cclService = CCLService(
 			restServiceProvider,
+			store: MockTestStore(),
 			appConfiguration: appConfiguration,
 			cclServiceMode: [.configuration]
 		)
@@ -404,6 +413,7 @@ class CCLServiceConfigurationTests: CCLServiceBaseTests {
 
 		let cclService = CCLService(
 			restServiceProvider,
+			store: MockTestStore(),
 			appConfiguration: appConfiguration,
 			cclServiceMode: [.configuration]
 		)
@@ -490,6 +500,7 @@ class CCLServiceConfigurationTests: CCLServiceBaseTests {
 
 		let cclService = CCLService(
 			restServiceProvider,
+			store: MockTestStore(),
 			appConfiguration: appConfiguration,
 			cclServiceMode: [.configuration]
 		)

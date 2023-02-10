@@ -307,13 +307,16 @@ class HomeCoordinator: RequiresAppDependencies {
 		
 		switch result {
 		case .success(let statusTabNotice):
-			let appClosureNoticeDetailsViewController = AppClosureNoticeDetailsViewController(
-				viewModel: AppClosureNoticeDetailsViewModel(cclService: cclService, statusTabNotice: statusTabNotice),
-				dismiss: { [weak rootViewController] in
-					rootViewController?.dismiss(animated: true)
-				})
+			let appClosureNoticeDetailsViewController = UINavigationController(
+				rootViewController: AppClosureNoticeDetailsViewController(
+					viewModel: AppClosureNoticeDetailsViewModel(cclService: cclService, statusTabNotice: statusTabNotice),
+					dismiss: { [weak rootViewController] in
+						rootViewController?.dismiss(animated: true)
+					}
+				)
+			)
 			
-			rootViewController.pushViewController(appClosureNoticeDetailsViewController, animated: true)
+			rootViewController.present(appClosureNoticeDetailsViewController, animated: true)
 		case .failure(let error):
 			Log.error(error.localizedDescription)
 		}
