@@ -22,7 +22,7 @@ enum SRSPreconditionError: Error {
 				format: AppStrings.ExposureSubmissionDispatch.SRSWarnOthersPreconditionAlert.deviceCheckError,
 				errorCode
 			)
-		case .insufficientAppUsageTime(let timeSinceOnboardingInHours, let timeStillToWaitInHours):
+		case let .insufficientAppUsageTime(timeSinceOnboardingInHours, timeStillToWaitInHours):
 			return String(
 				format: AppStrings.ExposureSubmissionDispatch.SRSWarnOthersPreconditionAlert.insufficientAppUsageTimeMessage,
 				String(timeSinceOnboardingInHours),
