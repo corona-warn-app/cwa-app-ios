@@ -54,6 +54,11 @@ final class DMCCLConfigurationViewModel {
 				},
 				toggle: {
 					let forceUpdate = !UserDefaults.standard.bool(forKey: CCLConfigurationResource.keyForceUpdateCCLConfiguration)
+					if forceUpdate {
+						// clear cache for the CCLConfigurationResource
+						self.restService.resetCache(for: CCLConfigurationResource())
+						Log.info("Reseted CCL Cache")
+					}
 					UserDefaults.standard.setValue(forceUpdate, forKey: CCLConfigurationResource.keyForceUpdateCCLConfiguration)
 					Log.info("Force-update CCL Configuration: \(forceUpdate)")
 					DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
