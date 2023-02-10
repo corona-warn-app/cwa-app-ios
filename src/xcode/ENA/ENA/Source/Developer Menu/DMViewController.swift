@@ -87,7 +87,11 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 		case .healthCertificateMigration:
 			vc = DMHealthCertificateMigrationViewController(store: store)
 		case .cclConfig:
-			vc = DMCCLConfigurationViewController()
+			vc = DMCCLConfigurationViewController(
+				viewModel: DMCCLConfigurationViewModel(
+					restService: restServiceProvider
+				)
+			)
 		case .revocationList:
 			vc = DMRevocationListViewController()
 		case .newHttp:
