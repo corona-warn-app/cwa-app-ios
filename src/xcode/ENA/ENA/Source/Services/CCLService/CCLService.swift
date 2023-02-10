@@ -160,7 +160,7 @@ class CCLService: CCLServable {
 
 				switch result {
 				case let .success(configurations):
-					self?.replaceCCLConfigurationsIfNeeded(with: configurations)
+					self?.replaceCCLConfigurations(with: configurations)
 					configurationDidUpdate = true
 				case .failure(let error):
 					Log.error("CCLConfiguration might be loaded from the cache - skip this error", error: error)
@@ -444,7 +444,7 @@ class CCLService: CCLServable {
 			self.restServiceProvider.cached(mutableCclConfigurationResource, { [weak self] result in
 				switch result {
 				case let .success(configurations):
-					self?.replaceCCLConfigurationsIfNeeded(with: configurations.cclConfigurations)
+					self?.replaceCCLConfigurations(with: configurations.cclConfigurations)
 				case let .failure(error):
 					Log.error("Failed to read ccl configurations from cache", error: error)
 				}
@@ -496,29 +496,6 @@ class CCLService: CCLServable {
 					completion(.failure(.custom(DCCDownloadRulesError.RULE_CLIENT_ERROR(resourceType.ruleType))))
 				}
 			}
-		}
-	}
-	
-	// this function checks the edge case if the new CCL updated version is lower than the previous version then we dont persist this new config and we keep the latest version
-	// this case is only visible on Debug environment that is why have the #if !release
-	// for release versions the latest downloaded CCL will always be persisted even if version number is lower
-	private func replaceCCLConfigurationsIfNeeded(
-		with newCCLConfigurations: [CCLConfiguration]
-	) {
-		var shouldReplaceCCLConfigurations = true
-		let currentVersion = store.cclVersion ?? "0.0"
-
-		#if !RELEASE
-		let updatedVersion = newCCLConfigurations.first?.version ?? "0.0"
-		let compareResult = currentVersion.compare(updatedVersion, options: .numeric)
-		
-		shouldReplaceCCLConfigurations = !(compareResult == .orderedDescending)
-		#endif
-		
-		if shouldReplaceCCLConfigurations {
-			replaceCCLConfigurations(with: newCCLConfigurations)
-		} else {
-			configurationVersion = currentVersion
 		}
 	}
 	
