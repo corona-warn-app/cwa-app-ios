@@ -17,14 +17,6 @@ struct CCLConfigurationResource: Resource {
 		self.type = .caching(
 			Set<CacheUsePolicy>([.loadOnlyOnceADay])
 		)
-		
-		#if !RELEASE
-		// Debug menu: Force update of CCLConfiguration and Booster Notification Rules.
-		if UserDefaults.standard.bool(forKey: CCLConfigurationResource.keyForceUpdateCCLConfiguration) {
-			self.type = .default
-		}
-		#endif
-		
 		self.locator = .CCLConfiguration(isFake: isFake)
 
 		self.sendResource = EmptySendResource()
