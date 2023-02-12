@@ -23,10 +23,10 @@ struct EnvironmentData: Codable {
 	let validationKeyString: String
 
 	/// Used for certificate pinning
-	let pinningKeyHash: String
+	let pinningKeyHash: [String]
 	
-	var pinningKeyHashData: Data {
-		pinningKeyHash.dataWithHexString()
+	var pinningKeyHashData: [Data] {
+		pinningKeyHash.map { $0.dataWithHexString() }
 	}
 }
 

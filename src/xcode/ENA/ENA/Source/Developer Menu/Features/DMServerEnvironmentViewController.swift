@@ -106,6 +106,7 @@ class DMServerEnvironmentViewController: UIViewController, UIPickerViewDelegate,
 			self.store.appConfigMetadata = nil
 			self.store.enfRiskCalculationResult = nil
 			self.store.checkinRiskCalculationResult = nil
+			self.store.cclVersion = nil
 			self.downloadedPackagesStore.reset()
 			exit(0)
 		}

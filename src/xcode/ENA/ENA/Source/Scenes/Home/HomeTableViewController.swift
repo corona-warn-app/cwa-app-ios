@@ -16,6 +16,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		route: Route?,
 		startupErrors: [Error],
 		onInfoBarButtonItemTap: @escaping () -> Void,
+		onAppClosureNoticeTap: @escaping () -> Void,
 		onExposureLoggingCellTap: @escaping (ENStateHandler.State) -> Void,
 		onRiskCellTap: @escaping (HomeState) -> Void,
 		onFamilyTestResultsCellTap: @escaping () -> Void,
@@ -42,6 +43,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		self.route = route
 		self.startupErrors = startupErrors
 		self.onInfoBarButtonItemTap = onInfoBarButtonItemTap
+		self.onAppClosureNoticeTap = onAppClosureNoticeTap
 		self.onExposureLoggingCellTap = onExposureLoggingCellTap
 		self.onRiskCellTap = onRiskCellTap
 		self.onFamilyTestResultsCellTap = onFamilyTestResultsCellTap
@@ -100,6 +102,14 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 				)
 			}
 			.store(in: &subscriptions)
+		
+		viewModel.cclService.shouldShowNoticeTile
+			.receive(on: DispatchQueue.OCombine(.main))
+			.sink { [weak self] shouldShowNoticeTile in
+				self?.viewModel.shouldShowAppClosureNotice = shouldShowNoticeTile
+				self?.tableView.reloadSections([HomeTableViewModel.Section.appClosureNotice.rawValue], with: .none)
+			}
+			.store(in: &subscriptions)
 	}
 
 	@available(*, unavailable)
@@ -126,7 +136,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
-
+		
 		/// preload expensive and updating cells to increase initial scrolling performance (especially of the statistics cell) and prevent animation on initial appearance
 		if statisticsCell == nil {
 			riskCell = riskCell(forRowAt: IndexPath(row: 0, section: HomeTableViewModel.Section.riskAndTestResults.rawValue))
@@ -151,7 +161,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 
 		#if DEBUG
 		if isUITesting && LaunchArguments.test.common.showTestResultCards.boolValue {
-			tableView.scrollToRow(at: IndexPath(row: 1, section: 1), at: .top, animated: false)
+			tableView.scrollToRow(at: IndexPath(row: 1, section: 2), at: .top, animated: false)
 		}
 		#endif
 		
@@ -171,6 +181,8 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 	// swiftlint:disable:next cyclomatic_complexity
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		switch HomeTableViewModel.Section(rawValue: indexPath.section) {
+		case .appClosureNotice:
+			return appClosureNoticeCell(forRowAt: indexPath, statusTabNotice: viewModel.statusTabNotice)
 		case .exposureLogging:
 			return exposureLoggingCell(forRowAt: indexPath)
 		case .riskAndTestResults:
@@ -234,9 +246,12 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 
 	// MARK: - Protocol UITableViewDelegate
 
+	// swiftlint:disable cyclomatic_complexity
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		tableView.deselectRow(at: indexPath, animated: true)
 		switch HomeTableViewModel.Section(rawValue: indexPath.section) {
+		case .appClosureNotice:
+			onAppClosureNoticeTap()
 		case .exposureLogging:
 			onExposureLoggingCellTap(viewModel.state.enState)
 		case .riskAndTestResults:
@@ -309,6 +324,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 	private let appConfigurationProvider: AppConfigurationProviding
 
 	private let onInfoBarButtonItemTap: () -> Void
+	private let onAppClosureNoticeTap: () -> Void
 	private let onExposureLoggingCellTap: (ENStateHandler.State) -> Void
 	private let onRiskCellTap: (HomeState) -> Void
 	private let onFamilyTestResultsCellTap: () -> Void
@@ -361,6 +377,10 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 	private func setupTableView() {
 		tableView.accessibilityIdentifier = AccessibilityIdentifiers.Home.tableView
 		
+		tableView.register(
+			UINib(nibName: String(describing: HomeAppClosureNoticeTableViewCell.self), bundle: nil),
+			forCellReuseIdentifier: String(describing: HomeAppClosureNoticeTableViewCell.self)
+		)
 		tableView.register(
 			UINib(nibName: String(describing: HomeExposureLoggingTableViewCell.self), bundle: nil),
 			forCellReuseIdentifier: String(describing: HomeExposureLoggingTableViewCell.self)
@@ -422,6 +442,16 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		}
 	}
 
+	private func appClosureNoticeCell(forRowAt indexPath: IndexPath, statusTabNotice: StatusTabNotice?) -> UITableViewCell {
+		guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: HomeAppClosureNoticeTableViewCell.self), for: indexPath) as? HomeAppClosureNoticeTableViewCell else {
+			fatalError("Could not dequeue HomeAppClosureNoticeTableViewCell")
+		}
+
+		cell.configure(with: HomeAppClosureNoticeCellModel(cclService: viewModel.cclService, statusTabNotice: statusTabNotice))
+
+		return cell
+	}
+	
 	private func exposureLoggingCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
 		guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: HomeExposureLoggingTableViewCell.self), for: indexPath) as? HomeExposureLoggingTableViewCell else {
 			fatalError("Could not dequeue HomeExposureLoggingTableViewCell")

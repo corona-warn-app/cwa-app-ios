@@ -32,6 +32,7 @@ class CCLServiceBoosterNotificationRulesTests: CCLServiceBaseTests {
 		let restServiceProvider = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
 		let cclService = CCLService(
 			restServiceProvider,
+			store: MockTestStore(),
 			appConfiguration: appConfiguration,
 			cclServiceMode: [.boosterRules]
 		)
@@ -74,6 +75,7 @@ class CCLServiceBoosterNotificationRulesTests: CCLServiceBaseTests {
 		let restServiceProvider = RestServiceProvider(session: stack.urlSession, cache: cache)
 		let cclService = CCLService(
 			restServiceProvider,
+			store: MockTestStore(),
 			appConfiguration: appConfiguration,
 			cclServiceMode: [.boosterRules]
 		)
@@ -116,6 +118,7 @@ class CCLServiceBoosterNotificationRulesTests: CCLServiceBaseTests {
 		let restServiceProvider = RestServiceProvider(session: stack.urlSession, cache: cache)
 		let cclService = CCLService(
 			restServiceProvider,
+			store: MockTestStore(),
 			appConfiguration: appConfiguration,
 			cclServiceMode: [.boosterRules]
 		)

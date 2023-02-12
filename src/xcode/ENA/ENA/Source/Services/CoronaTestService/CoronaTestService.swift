@@ -1039,8 +1039,6 @@ class CoronaTestService: CoronaTestServiceProviding {
 			submittedAfterRapidAntigenTest = true
 		}
 
-		let submittedWithCheckIns = !eventStore.checkinsPublisher.value.isEmpty
-
 		let keySubmissionMetadata = KeySubmissionMetadata(
 			submitted: false,
 			submittedInBackground: false,
@@ -1056,7 +1054,7 @@ class CoronaTestService: CoronaTestServiceProviding {
 			submittedAfterRapidAntigenTest: submittedAfterRapidAntigenTest,
 			daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration: -1,
 			hoursSinceCheckinHighRiskWarningAtTestRegistration: -1,
-			submittedWithCheckIns: submittedWithCheckIns
+			submittedWithCheckIns: false
 		)
 
 		Analytics.collect(.keySubmissionMetadata(.create(keySubmissionMetadata, .registeredTest(coronaTest.type))))
@@ -1092,6 +1090,48 @@ class CoronaTestService: CoronaTestServiceProviding {
 		case .antigen:
 			if self.antigenTest.value?.registrationToken == testCertificateRequest.registrationToken {
 				self.antigenTest.value?.uniqueCertificateIdentifier = uniqueCertificateIdentifier
+			}
+		}
+		
+		setUniqueCertificateIdentifierForRecycleBinItemsIfNeeded(uniqueCertificateIdentifier, from: testCertificateRequest)
+	}
+	
+	// For Edge Cases, if a Test Certificate was received, after the Test Result was moved to recycle bin.
+	// The method sets the Unique Certificate Identifier (UCI) in the corresponding item.
+	private func setUniqueCertificateIdentifierForRecycleBinItemsIfNeeded(_ uniqueCertificateIdentifier: String, from testCertificateRequest: TestCertificateRequest) {
+		switch testCertificateRequest.coronaTestType {
+		case .pcr:
+			recycleBin.recycledItems.forEach { recycleBinItem in
+				if case let .userCoronaTest(userCoronaTest) = recycleBinItem.item,
+					userCoronaTest.registrationToken == testCertificateRequest.registrationToken {
+					
+					if case let .pcr(userPCRTest) = userCoronaTest {
+						var userPCRTestValueCopy = userPCRTest
+						userPCRTestValueCopy.set(uniqueCertificateIdentifier: uniqueCertificateIdentifier)
+						
+						// Write the item with the UCI
+						recycleBin.moveToBin(.userCoronaTest(.pcr(userPCRTestValueCopy)))
+						// Remove the item without the UCI
+						recycleBin.remove(recycleBinItem)
+					}
+				}
+			}
+
+		case .antigen:
+			recycleBin.recycledItems.forEach { recycleBinItem in
+				if case let .userCoronaTest(userCoronaTest) = recycleBinItem.item,
+					userCoronaTest.registrationToken == testCertificateRequest.registrationToken {
+					
+					if case let .antigen(userAntigenTest) = userCoronaTest {
+						var userAntigenTestValueCopy = userAntigenTest
+						userAntigenTestValueCopy.set(uniqueCertificateIdentifier: uniqueCertificateIdentifier)
+						
+						// Write the item with the UCI
+						recycleBin.moveToBin(.userCoronaTest(.antigen(userAntigenTestValueCopy)))
+						// Remove the item without the UCI
+						recycleBin.remove(recycleBinItem)
+					}
+				}
 			}
 		}
 	}

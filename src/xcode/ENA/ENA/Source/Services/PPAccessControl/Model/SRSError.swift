@@ -23,6 +23,10 @@ enum SRSError: Error, Equatable {
 
 extension SRSError: ErrorCodeProviding {
 	var description: String {
+		guard InternetConnectivityMonitor.shared.isDeviceOnline else {
+			return "SRS_OTP_NO_NETWORK"
+		}
+		
 		switch self {
 		case .ppacError(let ppacError):
 			return ppacError.description
@@ -58,6 +62,10 @@ extension SRSError: ErrorCodeProviding {
 
 extension SRSError: SRSErrorAlertProviding {
 	var srsErrorAlert: SRSErrorAlert? {
+		guard InternetConnectivityMonitor.shared.isDeviceOnline else {
+			return .noNetwork
+		}
+		
 		switch self {
 		case .ppacError(let ppacError):
 			return ppacError.srsErrorAlert

@@ -26,6 +26,8 @@
 
 "General_BackButtonTitle" = "Wstecz";
 
+"Common_No_Network_Title" = "Połączenie z Internetem";
+
 "Common_No_Network" = "Proces nie mógł zostać ukończony z powodu problemów z siecią. Spróbuj ponownie.";
 
 "Common_ENError5_Description" = "Błąd 5: Coś poszło nie tak. Nie można ustalić Twojego poziomu ryzyka. Pracujemy nad rozwiązaniem tego problemu.";
@@ -78,7 +80,7 @@
 
 "ExposureDetection_RefreshingIn" = "Aktualizacja za %02d:%02d\U00A0minut(y)";
 
-"ExposureDetection_RefreshIn" = "Aktualizacja za %@";
+"ExposureDetection_RefreshIn" = "Aktualizacja co 4 godziny przez WI-FI";
 
 "ExposureDetection_LastRiskLevel" = "Ostatnie sprawdzenie narażenia: %@";
 
@@ -1783,24 +1785,12 @@
 
 "DeltaOnboarding_NewVersionFeatures_Button_Continue" = "Dalej";
 
-"DeltaOnboarding_NewVersionFeatures_Description" = "Oprócz poprawek błędów ta aktualizacja zawiera również nowe i ulepszone funkcje.";
+"DeltaOnboarding_NewVersionFeatures_Description" = "Ta aktualizacja poprawia błędy w aplikacji. Nie zawiera żadnych nowych funkcji.";
 
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Dane o zmianach w tej wersji można znaleźć w informacjach o aplikacji w sekcji „Nowe funkcje”.";
 
-/* Version 3.0 */
-"NewVersionFeature_30_selftest_warn_others_title" = "Ostrzeżenie z samodzielnie wykonanymi testami";
-
-"NewVersionFeature_30_selftest_warn_others_description" = "Możesz teraz wysłać ostrzeżenie do innych użytkowników aplikacji Corona-Warn-App, jeśli samodzielnie wykonany test wskazuje na zakażenie koronawirusem.";
-
-"NewVersionFeature_30_warning_unregistered_tests_title" = "Ostrzeżenie z niezarejestrowanymi testami";
-
-"NewVersionFeature_30_warning_unregistered_tests_description" = "Jeśli szybki test lub test PCR z punktu testowania wskazuje na zarażenie koronawirusem, ale ten test nie jest zarejestrowany w aplikacji Corona-Warn-App, nadal możesz ostrzegać innych użytkowników aplikacji.";
-
-"NewVersionFeature_30_tan_hotline_removal_title" = "Infolinia TAN zostanie wycofana";
-
-"NewVersionFeature_30_tan_hotline_removal_description" = "Opcja uzyskania numeru TAN z infolinii TAN zostanie wycofana w ciągu kilku następnych tygodni. Dlatego nie potrzebujesz już numeru TAN do ostrzegania innych użytkowników aplikacji Corona-Warn-App.";
-
+/* Version 3.1 */
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Rejestrowanie narażenia w różnych krajach";
 

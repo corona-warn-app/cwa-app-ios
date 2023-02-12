@@ -48,5 +48,8 @@ class MockExposureSubmissionService: ExposureSubmissionService {
 		submitSRSExposureCallback?(completion)
 	}
 
+	func resetCheckins() {
+		checkins = []
+	}
 }
 #endif

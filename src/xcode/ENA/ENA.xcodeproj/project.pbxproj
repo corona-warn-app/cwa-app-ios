@@ -572,6 +572,13 @@
 		34C40E3227A2FCC00098C6ED /* ccl-text-descriptor-test-cases.json in Resources */ = {isa = PBXBuildFile; fileRef = 34C40E3127A2FCB30098C6ED /* ccl-text-descriptor-test-cases.json */; };
 		34C40E3627A2FE3A0098C6ED /* TestCases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34C40E3427A2FE150098C6ED /* TestCases.swift */; };
 		34CF3B1F2615C1D1004A9435 /* QRCodeErrorCorrectionLevelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34CF3B1E2615C1D1004A9435 /* QRCodeErrorCorrectionLevelType.swift */; };
+		34D873C32979722E0065E839 /* HomeAppClosureNoticeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D873C22979722E0065E839 /* HomeAppClosureNoticeTableViewCell.swift */; };
+		34D873C5297972730065E839 /* HomeAppClosureNoticeCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D873C4297972730065E839 /* HomeAppClosureNoticeCellModel.swift */; };
+		34D873C72979773D0065E839 /* HomeAppClosureNoticeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34D873C62979773D0065E839 /* HomeAppClosureNoticeTableViewCell.xib */; };
+		34D873CA29798CAF0065E839 /* AppClosureNoticeDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D873C929798CAF0065E839 /* AppClosureNoticeDetailsViewController.swift */; };
+		34D873CC29798CC30065E839 /* AppClosureNoticeDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D873CB29798CC30065E839 /* AppClosureNoticeDetailsViewModel.swift */; };
+		34D873D02982B60F0065E839 /* AppClosureNoticeDetailsViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D873CE2982B5C90065E839 /* AppClosureNoticeDetailsViewModelTests.swift */; };
+		34D873D42982C8930065E839 /* HomeAppClosureNoticeCellModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D873D22982C8180065E839 /* HomeAppClosureNoticeCellModelTests.swift */; };
 		34D9977F29264190000EA8BF /* SubmissionTestType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D9977E29264190000EA8BF /* SubmissionTestType.swift */; };
 		34E03F822823BEF8001A352B /* ccl-configuration.bin in Resources */ = {isa = PBXBuildFile; fileRef = 34E03F812823BEF8001A352B /* ccl-configuration.bin */; };
 		34E03F842823ED29001A352B /* HealthCertificateWebTokenHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34E03F832823ED29001A352B /* HealthCertificateWebTokenHeader.swift */; };
@@ -1739,6 +1746,7 @@
 		DC3B278F28F5936700A55769 /* NSAttributedString+Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC3B278E28F5936700A55769 /* NSAttributedString+Image.swift */; };
 		DC4618C429155B2F0035CAA7 /* SRSTestTypeSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC4618C329155B2F0035CAA7 /* SRSTestTypeSelectionViewController.swift */; };
 		DC4618C629155E560035CAA7 /* SRSTestTypeSelectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC4618C529155E560035CAA7 /* SRSTestTypeSelectionViewModel.swift */; };
+		DC535C872982A98A00A8BC7D /* SRSErrorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC535C862982A98A00A8BC7D /* SRSErrorTests.swift */; };
 		DC5469AF2934F2E40027B3B3 /* SRSErrorAlertProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC5469AE2934F2E40027B3B3 /* SRSErrorAlertProviding.swift */; };
 		DC5469B12934F2FA0027B3B3 /* ErrorCodeProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC5469B02934F2FA0027B3B3 /* ErrorCodeProviding.swift */; };
 		DC7002D9284F6B7900B164AC /* HealthCertificateExportCertificatesInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC7002D8284F6B7900B164AC /* HealthCertificateExportCertificatesInfoViewModel.swift */; };
@@ -2446,6 +2454,13 @@
 		34C40E3127A2FCB30098C6ED /* ccl-text-descriptor-test-cases.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "ccl-text-descriptor-test-cases.json"; sourceTree = "<group>"; };
 		34C40E3427A2FE150098C6ED /* TestCases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCases.swift; sourceTree = "<group>"; };
 		34CF3B1E2615C1D1004A9435 /* QRCodeErrorCorrectionLevelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeErrorCorrectionLevelType.swift; sourceTree = "<group>"; };
+		34D873C22979722E0065E839 /* HomeAppClosureNoticeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeAppClosureNoticeTableViewCell.swift; sourceTree = "<group>"; };
+		34D873C4297972730065E839 /* HomeAppClosureNoticeCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeAppClosureNoticeCellModel.swift; sourceTree = "<group>"; };
+		34D873C62979773D0065E839 /* HomeAppClosureNoticeTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeAppClosureNoticeTableViewCell.xib; sourceTree = "<group>"; };
+		34D873C929798CAF0065E839 /* AppClosureNoticeDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppClosureNoticeDetailsViewController.swift; sourceTree = "<group>"; };
+		34D873CB29798CC30065E839 /* AppClosureNoticeDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppClosureNoticeDetailsViewModel.swift; sourceTree = "<group>"; };
+		34D873CE2982B5C90065E839 /* AppClosureNoticeDetailsViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppClosureNoticeDetailsViewModelTests.swift; sourceTree = "<group>"; };
+		34D873D22982C8180065E839 /* HomeAppClosureNoticeCellModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeAppClosureNoticeCellModelTests.swift; sourceTree = "<group>"; };
 		34D9977E29264190000EA8BF /* SubmissionTestType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubmissionTestType.swift; sourceTree = "<group>"; };
 		34E03F812823BEF8001A352B /* ccl-configuration.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = "ccl-configuration.bin"; sourceTree = "<group>"; };
 		34E03F832823ED29001A352B /* HealthCertificateWebTokenHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateWebTokenHeader.swift; sourceTree = "<group>"; };
@@ -3630,6 +3645,7 @@
 		DC3B278E28F5936700A55769 /* NSAttributedString+Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSAttributedString+Image.swift"; sourceTree = "<group>"; };
 		DC4618C329155B2F0035CAA7 /* SRSTestTypeSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SRSTestTypeSelectionViewController.swift; sourceTree = "<group>"; };
 		DC4618C529155E560035CAA7 /* SRSTestTypeSelectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SRSTestTypeSelectionViewModel.swift; sourceTree = "<group>"; };
+		DC535C862982A98A00A8BC7D /* SRSErrorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SRSErrorTests.swift; sourceTree = "<group>"; };
 		DC5469AE2934F2E40027B3B3 /* SRSErrorAlertProviding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SRSErrorAlertProviding.swift; sourceTree = "<group>"; };
 		DC5469B02934F2FA0027B3B3 /* ErrorCodeProviding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorCodeProviding.swift; sourceTree = "<group>"; };
 		DC7002D8284F6B7900B164AC /* HealthCertificateExportCertificatesInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateExportCertificatesInfoViewModel.swift; sourceTree = "<group>"; };
@@ -3971,6 +3987,7 @@
 				0123D5972501383100A91838 /* ExposureSubmissionErrorTests.swift */,
 				CDF27BD2246ADBA70044D32B /* ExposureSubmissionServiceTests.swift */,
 				DC11397F2944AB30008B7E7E /* SRSPreconditionErrorTests.swift */,
+				DC535C862982A98A00A8BC7D /* SRSErrorTests.swift */,
 			);
 			path = __tests__;
 			sourceTree = "<group>";
@@ -4989,6 +5006,7 @@
 		01EA176E2590F02F00E98E02 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				34D873C1297971140065E839 /* AppClosureNotice */,
 				01EA17BF2591346300E98E02 /* ExposureLogging */,
 				BA91611B27ECD2D10076BC6B /* Family */,
 				8F3905872715B06400A90E79 /* More */,
@@ -5529,6 +5547,43 @@
 				345D1E6727BD8A7600F79EFD /* GetAdmissionCheckScenariosInputTests.swift */,
 				ABBB8AC227D2241200CCA3F1 /* SystemTimeTests.swift */,
 				ABBB8AC427D2302000CCA3F1 /* GetWalletInfoInputTests.swift */,
+			);
+			path = __tests__;
+			sourceTree = "<group>";
+		};
+		34D873C1297971140065E839 /* AppClosureNotice */ = {
+			isa = PBXGroup;
+			children = (
+				34D873D12982BA060065E839 /* __tests__ */,
+				34D873C22979722E0065E839 /* HomeAppClosureNoticeTableViewCell.swift */,
+				34D873C4297972730065E839 /* HomeAppClosureNoticeCellModel.swift */,
+				34D873C62979773D0065E839 /* HomeAppClosureNoticeTableViewCell.xib */,
+			);
+			path = AppClosureNotice;
+			sourceTree = "<group>";
+		};
+		34D873C829798B890065E839 /* AppClosureNoticeDetails */ = {
+			isa = PBXGroup;
+			children = (
+				34D873CD2982B4950065E839 /* __tests__ */,
+				34D873C929798CAF0065E839 /* AppClosureNoticeDetailsViewController.swift */,
+				34D873CB29798CC30065E839 /* AppClosureNoticeDetailsViewModel.swift */,
+			);
+			path = AppClosureNoticeDetails;
+			sourceTree = "<group>";
+		};
+		34D873CD2982B4950065E839 /* __tests__ */ = {
+			isa = PBXGroup;
+			children = (
+				34D873CE2982B5C90065E839 /* AppClosureNoticeDetailsViewModelTests.swift */,
+			);
+			path = __tests__;
+			sourceTree = "<group>";
+		};
+		34D873D12982BA060065E839 /* __tests__ */ = {
+			isa = PBXGroup;
+			children = (
+				34D873D22982C8180065E839 /* HomeAppClosureNoticeCellModelTests.swift */,
 			);
 			path = __tests__;
 			sourceTree = "<group>";
@@ -7102,6 +7157,7 @@
 		85D759712457059A008175F0 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				34D873C829798B890065E839 /* AppClosureNoticeDetails */,
 				01A4DFD12653D3DE00F13432 /* AntigenTestProfile */,
 				71176E30248957B1004B0C9F /* App */,
 				EE85998B2462EFD4002E7AE2 /* AppInformation */,
@@ -11002,6 +11058,7 @@
 				013069512705D4A900D945E3 /* QRScannerTooltipViewController.xib in Resources */,
 				85D7594B24570491008175F0 /* Assets.xcassets in Resources */,
 				DC03798228EDA34E00E1EE20 /* HomeLinkCardView.xib in Resources */,
+				34D873C72979773D0065E839 /* HomeAppClosureNoticeTableViewCell.xib in Resources */,
 				342F8960284F962D00E683F5 /* NonDE_TestCertificateTemplate_v4.1.pdf in Resources */,
 				AB9B991426D522B700F2506D /* OpenSans-Bold.ttf in Resources */,
 				711EFCC924935C79005FEF21 /* ExposureSubmissionTestResultHeaderView.xib in Resources */,
@@ -11678,6 +11735,7 @@
 				35BE8598251CE495005C2FD0 /* CachingHTTPClient.swift in Sources */,
 				5001DE9626E21272004242FA /* SubmitELS.swift in Sources */,
 				01B7232D24F8E0260064C0EB /* MultipleChoiceChoiceView.swift in Sources */,
+				34D873C5297972730065E839 /* HomeAppClosureNoticeCellModel.swift in Sources */,
 				BAF5371625E7CC1B00C835E2 /* Sequence+NSAttributedText.swift in Sources */,
 				50C0299125E4067400460FA4 /* LastSubmissionFlowScreen.swift in Sources */,
 				010A476F27551B18000AA80E /* TicketValidationResultTokenResult.swift in Sources */,
@@ -12015,6 +12073,7 @@
 				01960F4326654438000D714E /* TestCertificateConsent.swift in Sources */,
 				2EDE67F9266E406900864D53 /* StackViewLabel.swift in Sources */,
 				BAE2101B25C8463400162966 /* PPACDeviceCheckMock.swift in Sources */,
+				34D873C32979722E0065E839 /* HomeAppClosureNoticeTableViewCell.swift in Sources */,
 				5001DE9026E20E52004242FA /* Locator+TraceWarningDiscovery.swift in Sources */,
 				01EA176A2590EF4F00E98E02 /* HomeTableViewModel.swift in Sources */,
 				8F27B8CF28C80D7200C35A5D /* OTPResponse.swift in Sources */,
@@ -12252,6 +12311,7 @@
 				013A551F260B48250092B5B1 /* TraceLocationType.swift in Sources */,
 				94BACE6A25D27DC2007B2A99 /* DeltaOnboardingDataDonation.swift in Sources */,
 				347FBB41260E405000672770 /* TraceLocationDetailsHeaderCell.swift in Sources */,
+				34D873CA29798CAF0065E839 /* AppClosureNoticeDetailsViewController.swift in Sources */,
 				50DED23727CE31F10035267C /* DMHealthCertificateMigrationViewController.swift in Sources */,
 				0190B225255C423600CF4244 /* Date+Age.swift in Sources */,
 				8F499B05267CDE530047C1A6 /* ManageStatisticsCardView.swift in Sources */,
@@ -12288,6 +12348,7 @@
 				AB190EB725FB72F600FBFF0D /* CreateTraceWarningPackageMetadataQuery.swift in Sources */,
 				B14D0CD9246E946E00D5BEBC /* ExposureDetection.swift in Sources */,
 				BA69A7D825CD787D00023265 /* SelectValueTableViewController.swift in Sources */,
+				34D873CC29798CC30065E839 /* AppClosureNoticeDetailsViewModel.swift in Sources */,
 				EBA403D12589260D00D1F039 /* ColorCompatibility.swift in Sources */,
 				8F2FA2EC292B447100C6286A /* srs_otp_request_ios.pb.swift in Sources */,
 				B161782524804AC3006E435A /* DownloadedPackagesSQLLiteStoreV1.swift in Sources */,
@@ -12560,11 +12621,13 @@
 				508266DA278DA60000091991 /* Archive+CBOR.swift in Sources */,
 				50C51CB625CDEA4300D4C33A /* HTTPClient+SubmitAnalyticsDataTests.swift in Sources */,
 				0127B09E272855D6008E30AF /* CoronaTestRestorationHandlerTests.swift in Sources */,
+				DC535C872982A98A00A8BC7D /* SRSErrorTests.swift in Sources */,
 				ABA146CE27E380650096A44E /* Migration2To3Tests.swift in Sources */,
 				3421AFD828104A7D0059802B /* AddAntigenTestProfileCellModelTests.swift in Sources */,
 				BA89F94A27F24C3200132C59 /* FamilyMemberPCRTest+Mock.swift in Sources */,
 				ABAAE2D827C516D500A53AB1 /* TrustEvaluationFake.swift in Sources */,
 				AB86B2B926033E8F007C77B3 /* CheckinSplittingServiceTests.swift in Sources */,
+				34D873D42982C8930065E839 /* HomeAppClosureNoticeCellModelTests.swift in Sources */,
 				AB1EEC1026382BC20001D1DB /* ExposureSubmissionIntroViewModelTests.swift in Sources */,
 				01BA07202620921400237DD8 /* CheckinTestCase.swift in Sources */,
 				01A23685251A23740043D9F8 /* ExposureSubmissionQRInfoModelTests.swift in Sources */,
@@ -12779,6 +12842,7 @@
 				0144DD9725D40CC600CFB1D1 /* MockDeadmanNotificationManager.swift in Sources */,
 				BAEFB35A2656B07A00497F79 /* ContactDiaryStoreSchemaV5Tests.swift in Sources */,
 				B1FE13FE24896EF700D012E5 /* CachedAppConfigurationTests.swift in Sources */,
+				34D873D02982B60F0065E839 /* AppClosureNoticeDetailsViewModelTests.swift in Sources */,
 				3494634E27F498D900403F7A /* ExposureSubmissionTestResultFamilyMemberViewModelTests.swift in Sources */,
 				50352C9F25C96687007193D2 /* HTTPClient+AuthorizationOTPEdusTests.swift in Sources */,
 				524C4292256587B900EBC3B0 /* ExposureSubmissionTestResultConsentViewModelTests.swift in Sources */,
@@ -13069,7 +13133,7 @@
 				CODE_SIGN_ENTITLEMENTS = "${PROJECT}/Resources/ENACommunity.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 0;
 				DEVELOPMENT_TEAM = $IPHONE_APP_DEV_TEAM;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -13085,7 +13149,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.1.0;
+				MARKETING_VERSION = 3.2.0;
 				OTHER_CFLAGS = (
 					"-DSQLITE_HAS_CODEC",
 					"-DSQLITE_TEMP_STORE=3",
@@ -13224,7 +13288,7 @@
 				CODE_SIGN_ENTITLEMENTS = "${PROJECT}/Resources/ENA.entitlements";
 				CODE_SIGN_IDENTITY = $IPHONE_APP_CODE_SIGN_IDENTITY;
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 0;
 				DEVELOPMENT_TEAM = 523TP53AQF;
 				GCC_PREPROCESSOR_DEFINITIONS = "SQLITE_HAS_CODEC=1";
 				INFOPLIST_FILE = ENA/Resources/Info_Testflight.plist;
@@ -13235,7 +13299,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.1.0;
+				MARKETING_VERSION = 3.2.0;
 				OTHER_CFLAGS = (
 					"-DSQLITE_HAS_CODEC",
 					"-DSQLITE_TEMP_STORE=3",
@@ -13403,7 +13467,7 @@
 				CODE_SIGN_ENTITLEMENTS = "${PROJECT}/Resources/ENA.entitlements";
 				CODE_SIGN_IDENTITY = $IPHONE_APP_CODE_SIGN_IDENTITY;
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 0;
 				DEVELOPMENT_TEAM = 523TP53AQF;
 				GCC_PREPROCESSOR_DEFINITIONS = "SQLITE_HAS_CODEC=1";
 				INFOPLIST_FILE = ENA/Resources/Info_Testflight.plist;
@@ -13414,7 +13478,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.1.0;
+				MARKETING_VERSION = 3.2.0;
 				OTHER_CFLAGS = (
 					"-DSQLITE_HAS_CODEC",
 					"-DSQLITE_TEMP_STORE=3",
@@ -13645,7 +13709,7 @@
 				CODE_SIGN_ENTITLEMENTS = "${PROJECT}/Resources/ENATest.entitlements";
 				CODE_SIGN_IDENTITY = $IPHONE_APP_CODE_SIGN_IDENTITY;
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 0;
 				DEVELOPMENT_TEAM = 523TP53AQF;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -13660,7 +13724,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.1.0;
+				MARKETING_VERSION = 3.2.0;
 				OTHER_CFLAGS = (
 					"-DSQLITE_HAS_CODEC",
 					"-DSQLITE_TEMP_STORE=3",
@@ -13685,7 +13749,7 @@
 				CODE_SIGN_ENTITLEMENTS = "${PROJECT}/Resources/ENA.entitlements";
 				CODE_SIGN_IDENTITY = $IPHONE_APP_CODE_SIGN_IDENTITY;
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = "SQLITE_HAS_CODEC=1";
 				INFOPLIST_FILE = ENA/Resources/Info.plist;
 				IPHONE_APP_CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -13695,7 +13759,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.1.0;
+				MARKETING_VERSION = 3.2.0;
 				OTHER_CFLAGS = (
 					"-DSQLITE_HAS_CODEC",
 					"-DSQLITE_TEMP_STORE=3",
@@ -13828,7 +13892,7 @@
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 0;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -13872,7 +13936,7 @@
 				CODE_SIGNING_ALLOWED = NO;
 				CODE_SIGNING_REQUIRED = NO;
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 0;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -13915,7 +13979,7 @@
 				CODE_SIGNING_ALLOWED = NO;
 				CODE_SIGNING_REQUIRED = NO;
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 0;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;

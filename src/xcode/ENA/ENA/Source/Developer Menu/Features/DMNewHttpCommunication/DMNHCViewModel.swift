@@ -88,7 +88,7 @@ final class DMNHCViewModel {
 						let requestCertificates = [certificateToReissue] + accompanyingCertificates
 						let sendModel = DCCReissuanceSendModel(action: certificate.action, certificates: requestCertificates)
 						let appConfig = self.appConfiguration.currentAppConfig.value
-						let publicKeyHash = appConfig.dgcParameters.reissueServicePublicKeyDigest
+						let publicKeyHash = [appConfig.dgcParameters.reissueServicePublicKeyDigest]
 						let trustEvaluation = DefaultTrustEvaluation(
 							publicKeyHash: publicKeyHash,
 							certificatePosition: 0

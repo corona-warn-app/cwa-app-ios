@@ -496,7 +496,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 						switch srsFlowType {
 						case .srsPositive:
 							self.model.storeSelectedSRSSubmissionType(.srsSelfTest)
-							self.showSRSFlowNextScreen()
+							self.showSRSFlowSymptomsOrCheckinsScreen()
 						case .positiveWithoutResultInTheApp:
 							self.showSRSTestTypeSelectionScreen()
 						}
@@ -863,6 +863,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 				isSRSFlow ? self?.showSymptomsScreen() : showNextScreen()
 			},
 			onSkip: { [weak self] in
+				self?.model.exposureSubmissionService.resetCheckins()
 				self?.showSkipCheckinsAlert(dontShareHandler: {
 					isSRSFlow ? self?.showSymptomsScreen() : showNextScreen()
 				})
@@ -988,7 +989,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		srsTestTypeSelectionViewController = SRSTestTypeSelectionViewController(
 			onPrimaryButtonTap: { [weak self] submissionType in
 				self?.model.storeSelectedSRSSubmissionType(submissionType)
-				self?.showSRSFlowNextScreen()
+				self?.showSRSFlowSymptomsOrCheckinsScreen()
 			}, onDismiss: { [weak self] in
 				self?.showSRSFlowConsentAlert(for: .cancelWarnOthers(on: srsTestTypeSelectionViewController), isLoading: { _ in })
 			}
@@ -1010,8 +1011,11 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		push(topBottomContainerViewController)
 	}
 	
-	private func showSRSFlowNextScreen() {
-		if model.eventProvider.checkinsPublisher.value.isEmpty {
+	private func showSRSFlowSymptomsOrCheckinsScreen() {
+		let checkins = model.eventProvider.checkinsPublisher.value
+		
+		// No checkins, or all checkins are still running (not completed)
+		if checkins.isEmpty || checkins.allSatisfy({ $0.checkinCompleted == false }) {
 			showSymptomsScreen()
 		} else {
 			showCheckinsScreen(isSRSFlow: true)
