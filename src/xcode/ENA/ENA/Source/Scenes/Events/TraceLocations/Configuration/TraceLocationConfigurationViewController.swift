@@ -229,12 +229,32 @@ class TraceLocationConfigurationViewController: UIViewController, FooterViewHand
 	private func temporaryDefaultLengthHeaderTapped() {
 		viewModel.temporaryDefaultLengthHeaderTapped()
 		view.endEditing(true)
+		
+		// If iPhone resolution height is less than or equal to 844 then the screen will auto scroll to see the event duration picker
+		// if the height is more than 844 then user can see the event duration picker without auto scroll.
+		// For screen resolution please see more details on: https://www.ios-resolution.com/
+		if !viewModel.temporaryDefaultLengthPickerIsHidden && UIScreen.main.bounds.size.height <= 667 {
+			scrollView.setContentOffset(CGPoint(x: 0, y: scrollView.contentOffset.y + 300), animated: true)
+		} else if !viewModel.temporaryDefaultLengthPickerIsHidden && UIScreen.main.bounds.size.height > 667 && UIScreen.main.bounds.size.height <= 844 {
+			scrollView.setContentOffset(CGPoint(x: 0, y: scrollView.contentOffset.y + 100), animated: true)
+		} else {
+			scrollView.setContentOffset(CGPoint(x: 0, y: scrollView.contentOffset.y), animated: true)
+		}
 	}
 
 	@objc
 	private func permanentDefaultLengthHeaderTapped() {
 		viewModel.permanentDefaultLengthHeaderTapped()
 		view.endEditing(true)
+		
+		// If iPhone resolution height is less than or equal to 667 then the screen will auto scroll to see the location duration picker
+		// if the height is more than 667 then user can see the location duration picker without auto scroll.
+		// For screen resolution please see more details on: https://www.ios-resolution.com/
+		if !viewModel.permanentDefaultLengthPickerIsHidden && UIScreen.main.bounds.size.height <= 667 {
+			scrollView.setContentOffset(CGPoint(x: 0, y: scrollView.contentOffset.y + 150 ), animated: true)
+		} else {
+			scrollView.setContentOffset(CGPoint(x: 0, y: scrollView.contentOffset.y), animated: true)
+		}
 	}
 
 	@IBAction private func descriptionTextFieldEditingDidBegin() {
@@ -279,11 +299,13 @@ class TraceLocationConfigurationViewController: UIViewController, FooterViewHand
 	@IBAction private func temporaryDefaultLengthSwitchToggled(_ sender: UISwitch) {
 		viewModel.temporaryDefaultLengthSwitchSet(to: sender.isOn)
 		
-		// If iPhone resolution height is less than or equal to 667 then the screen will auto scroll to see the duration picker
-		// if the height is more than 667 then we can see the duration picker without auto scroll.
-		// For screen resolution please visit: https://www.ios-resolution.com/
+		// If iPhone resolution height is less than or equal to 844 then the screen will auto scroll to see the event duration picker
+		// if the height is more than 844 then user can see the event duration picker without auto scroll.
+		// For screen resolution please see more details on: https://www.ios-resolution.com/
 		if sender.isOn == true && UIScreen.main.bounds.size.height <= 667 {
-			scrollView.setContentOffset(CGPoint(x: 0, y: scrollView.contentOffset.y + 150), animated: true)
+			scrollView.setContentOffset(CGPoint(x: 0, y: scrollView.contentOffset.y + 300), animated: true)
+		} else if sender.isOn == true && UIScreen.main.bounds.size.height > 667 && UIScreen.main.bounds.size.height <= 844 {
+			scrollView.setContentOffset(CGPoint(x: 0, y: scrollView.contentOffset.y + 100), animated: true)
 		} else {
 			scrollView.setContentOffset(CGPoint(x: 0, y: scrollView.contentOffset.y), animated: true)
 		}
