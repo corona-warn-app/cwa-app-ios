@@ -122,6 +122,7 @@ final class DMSRSOptionsViewModel {
 	
 	private func apiTokenStaticText() -> String {
 	   """
+	   
 	   [DEPRECATED] API Token EDUS
 	   \(store.ppacApiTokenEdus?.token ?? "No Existing EDUS API Token in the store")
 	   
