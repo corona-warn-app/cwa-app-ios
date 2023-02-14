@@ -108,7 +108,7 @@ final class DMSRSOptionsViewModel {
 	private func srsStateValueStaticText() -> String {
 		"""
 
-		Most Recent Key Submission  Date
+		Most Recent Key Submission Date
 		\(createDateString(from: store.mostRecentKeySubmissionDate))
 
 		SRS OTP Token
@@ -122,10 +122,10 @@ final class DMSRSOptionsViewModel {
 	
 	private func apiTokenStaticText() -> String {
 	   """
-	   DEPRICATED API Token EDUS
+	   [DEPRECATED] API Token EDUS
 	   \(store.ppacApiTokenEdus?.token ?? "No Existing EDUS API Token in the store")
 	   
-	   DEPRICATED API Token ELS
+	   [DEPRECATED] API Token ELS
 	   \(store.ppacApiTokenEls?.token ?? "No Existing ELS API Token in the store")
 
 	   PPAC API Token
