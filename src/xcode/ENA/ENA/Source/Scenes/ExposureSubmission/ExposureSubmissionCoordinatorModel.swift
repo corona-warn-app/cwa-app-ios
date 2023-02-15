@@ -471,11 +471,11 @@ class ExposureSubmissionCoordinatorModel {
 				)
 			} else if case .timeSinceOnboardingUnverified = srsErrorAlert {
 				let timeSinceOnboardingInHours = srsParametersCommon.timeSinceOnboardingInHours <= 0 ? 24 : srsParametersCommon.timeSinceOnboardingInHours
-								message = String(
+				message = String(
 					format: srsErrorAlert.message,
 					String(timeSinceOnboardingInHours),
 					String(timeSinceOnboardingInHours),
-					AppStrings.SRSErrorAlert.timeSinceOnboardingUnverified
+					error.description
 				)
 			} else {
 				message = String(format: srsErrorAlert.message, error.description)
