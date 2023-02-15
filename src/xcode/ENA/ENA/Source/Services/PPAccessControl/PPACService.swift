@@ -72,11 +72,24 @@ class PPACService: PrivacyPreservingAccessControl {
 			Log.debug("Actual time since onboarding: \(minTimeSinceOnboardingInHours) hours.", log: .ppac)
 			Log.debug("Corrected default time since onboarding: \(minTimeSinceOnboarding) hours.", log: .ppac)
 			
-			if difference < minTimeSinceOnboarding {
+			if difference <= minTimeSinceOnboarding {
 				Log.error("SRSError: too short time since onboarding", log: .ppac)
 				
 				// Default is 1 to avoid texts like "wait for 0 hours" ...
-				let timeStillToWaitInHours = difference == 0 ? 1 : difference
+				var timeStillToWaitInHours = 1
+				
+				// Remaining time when fresh app installation
+				if difference == 0 {
+					timeStillToWaitInHours = minTimeSinceOnboarding
+				}
+				// Remaining time, also if calculated remaining time is 0 hours
+				else if difference == minTimeSinceOnboarding {
+					timeStillToWaitInHours = 1
+				}
+				// Remaining time
+				else {
+					timeStillToWaitInHours = difference
+				}
 
 				completion(
 					.failure(
