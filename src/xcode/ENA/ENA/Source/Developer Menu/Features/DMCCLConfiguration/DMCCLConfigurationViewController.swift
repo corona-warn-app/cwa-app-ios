@@ -10,8 +10,8 @@ class DMCCLConfigurationViewController: UITableViewController {
 
 	// MARK: - Init
 
-	init() {
-		self.viewModel = DMCCLConfigurationViewModel()
+	init(viewModel: DMCCLConfigurationViewModel) {
+		self.viewModel = viewModel
 
 		if #available(iOS 13.0, *) {
 			super.init(style: .insetGrouped)
