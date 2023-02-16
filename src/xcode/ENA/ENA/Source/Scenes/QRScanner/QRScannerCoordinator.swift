@@ -41,7 +41,8 @@ class QRScannerCoordinator {
 		exposureSubmissionService: ExposureSubmissionService,
 		coronaTestService: CoronaTestServiceProviding,
 		familyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding,
-		recycleBin: RecycleBin
+		recycleBin: RecycleBin,
+		badgeWrapper: HomeBadgeWrapper
 	) {
 		self.store = store
 		self.client = client
@@ -58,6 +59,7 @@ class QRScannerCoordinator {
 		self.coronaTestService = coronaTestService
 		self.familyMemberCoronaTestService = familyMemberCoronaTestService
 		self.recycleBin = recycleBin
+		self.badgeWrapper = badgeWrapper
 	}
 	
 	// MARK: - Internal
@@ -98,6 +100,7 @@ class QRScannerCoordinator {
 	private let coronaTestService: CoronaTestServiceProviding
 	private let familyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding
 	private let recycleBin: RecycleBin
+	private let badgeWrapper: HomeBadgeWrapper
 
 	private let activityIndicatorView = QRScannerActivityIndicatorView(title: AppStrings.FileScanner.hudText)
 	private let activityIndicatorAnimationDuration = 0.45
@@ -776,6 +779,7 @@ class QRScannerCoordinator {
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
 			healthCertificateValidationOnboardedCountriesProvider: healthCertificateValidationOnboardedCountriesProvider,
 			qrScannerCoordinator: self,
+			badgeWrapper: badgeWrapper,
 			recycleBin: recycleBin,
 			store: store
 		)
