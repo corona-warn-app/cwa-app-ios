@@ -1758,6 +1758,7 @@
 		DC7003092858A83800B164AC /* ErrorLogSubmissionProvidingMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC7003082858A83800B164AC /* ErrorLogSubmissionProvidingMock.swift */; };
 		DC8795AC2923ED8D00F478D5 /* UIViewController+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC8795AB2923ED8D00F478D5 /* UIViewController+Helpers.swift */; };
 		DC8BC2BF2953266B003C8CB1 /* InternetConnectivityMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC8BC2BE2953266B003C8CB1 /* InternetConnectivityMonitor.swift */; };
+		DC9390A2299F931A00C2F8F4 /* GlobalsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC9390A1299F931A00C2F8F4 /* GlobalsTests.swift */; };
 		DC95881428BCF9FE00F4D03E /* MaskStateTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC95881328BCF9FE00F4D03E /* MaskStateTableViewCell.swift */; };
 		DC95881628BE3D5500F4D03E /* MaskStateCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC95881528BE3D5500F4D03E /* MaskStateCellModel.swift */; };
 		DC95881828BE5E2800F4D03E /* MaskStateCellModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC95881728BE5E2800F4D03E /* MaskStateCellModelTests.swift */; };
@@ -3657,6 +3658,7 @@
 		DC7003082858A83800B164AC /* ErrorLogSubmissionProvidingMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorLogSubmissionProvidingMock.swift; sourceTree = "<group>"; };
 		DC8795AB2923ED8D00F478D5 /* UIViewController+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Helpers.swift"; sourceTree = "<group>"; };
 		DC8BC2BE2953266B003C8CB1 /* InternetConnectivityMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InternetConnectivityMonitor.swift; sourceTree = "<group>"; };
+		DC9390A1299F931A00C2F8F4 /* GlobalsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalsTests.swift; sourceTree = "<group>"; };
 		DC95881328BCF9FE00F4D03E /* MaskStateTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaskStateTableViewCell.swift; sourceTree = "<group>"; };
 		DC95881528BE3D5500F4D03E /* MaskStateCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaskStateCellModel.swift; sourceTree = "<group>"; };
 		DC95881728BE5E2800F4D03E /* MaskStateCellModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaskStateCellModelTests.swift; sourceTree = "<group>"; };
@@ -5633,6 +5635,7 @@
 			children = (
 				BA7F15A02629D3F200CA4783 /* RouteTests.swift */,
 				502AB79826E64E5B00536DD2 /* NotificationManagerTests.swift */,
+				DC9390A1299F931A00C2F8F4 /* GlobalsTests.swift */,
 			);
 			path = __tests__;
 			sourceTree = "<group>";
@@ -12432,6 +12435,7 @@
 				A1BABD0924A57B88000ED515 /* TemporaryExposureKeyMock.swift in Sources */,
 				BAF5E41E27B17720001DF172 /* Locator+TestResultTests.swift in Sources */,
 				940109F225DFB5EF0017355C /* DiaryDayNotesInfoViewModelTest.swift in Sources */,
+				DC9390A2299F931A00C2F8F4 /* GlobalsTests.swift in Sources */,
 				BAA19D7326121ACC00CBBDDD /* EditCheckinDetailViewModelTests.swift in Sources */,
 				A1E41949249548770016E52A /* HTTPClient+SubmitTests.swift in Sources */,
 				A1E41941249410AF0016E52A /* SAPDownloadedPackage+Helpers.swift in Sources */,
