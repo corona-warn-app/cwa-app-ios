@@ -183,6 +183,8 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 			vc = DMCrashAppViewController()
 		case .srs:
 			vc = DMSRSOptionsViewController(store: store)
+		case .hibernation2023:
+			vc = DMHibernationOptionsViewController(store: store)
 		}
 
 		if let vc = vc {
