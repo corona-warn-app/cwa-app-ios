@@ -378,7 +378,7 @@ final class SecureStore: SecureKeyValueStoring, Store {
 		set { kvStore["recentTraceLocationCheckedInto"] = newValue }
 	}
 	
-	var hibernationComparingDate: Date? {
+	var hibernationComparingDate: Date {
 		get { kvStore["hibernationComparingDate"] as Date? ?? Date() }
 		set { kvStore["hibernationComparingDate"] = newValue }
 	}

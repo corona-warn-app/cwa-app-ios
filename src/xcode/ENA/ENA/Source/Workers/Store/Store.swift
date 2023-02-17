@@ -87,7 +87,7 @@ protocol StoreProtocol: AnyObject {
 	
 	var recentTraceLocationCheckedInto: DMRecentTraceLocationCheckedInto? { get set }
 	
-	var hibernationComparingDate: Date? { get set }
+	var hibernationComparingDate: Date { get set }
 
 	#endif
 

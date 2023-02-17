@@ -25,17 +25,11 @@ class DMHibernationOptionsViewModel {
 		
 		switch section {
 		case .hibernationComparingDate:
-			var title = "App will be shutdown after set a new date value in the date picker.\n\n"
-			
-			if let date = store.hibernationComparingDate {
-				title.append("Currently the hibernation threshold compares against the set date \(dateFormatter.string(from: date))")
-			} else {
-				title.append("Currently there was no fake date set, so threshold date compares to today (\(dateFormatter.string(from: Date())))")
-			}
+			var title = "App will be shutdown after set a new date value in the date picker.\n\nCurrently the hibernation threshold compares against the set date \(dateFormatter.string(from: store.hibernationComparingDate))"
 			
 			return title
 		case .reset:
-			return "App will be shutdown after reset."
+			return "App will be shutdown after reset to today date."
 		}
 	}
 	
@@ -50,24 +44,20 @@ class DMHibernationOptionsViewModel {
 				title: "Hibernation Comparing Date",
 				accessibilityIdentifier: AccessibilityIdentifiers.DeveloperMenu.Hibernation.datePicker,
 				datePickerMode: .date,
-				date: store.hibernationComparingDate ?? Date()
+				date: store.hibernationComparingDate
 			)
 		case .reset:
 			return DMButtonCellViewModel(
 				text: "Reset Comparing Date",
 				textColor: .white,
 				backgroundColor: .enaColor(for: .buttonDestructive)) {
-					self.store(hibernationComparingDate: nil)
+					self.store(hibernationComparingDate: Date())
 				}
 		}
 	}
 	
-	func store(hibernationComparingDate: Date?) {
-		if let hibernationComparingDate = hibernationComparingDate {
-			Log.debug("[Debug-Menu] Set hibernation comparing date to \(dateFormatter.string(from: hibernationComparingDate)).")
-		} else {
-			Log.debug("[Debug-Menu] Reset hibernation comparing date.")
-		}
+	func store(hibernationComparingDate: Date) {
+		Log.debug("[Debug-Menu] Set hibernation comparing date to \(dateFormatter.string(from: hibernationComparingDate)).")
 		store.hibernationComparingDate = hibernationComparingDate
 		
 		exitApp()

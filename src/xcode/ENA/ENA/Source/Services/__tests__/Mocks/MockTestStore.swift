@@ -63,7 +63,7 @@ final class MockTestStore: Store, PPAnalyticsData {
 	var forceAPITokenAuthorization = false
 	var recentTraceLocationCheckedInto: DMRecentTraceLocationCheckedInto?
 	var isSrsPrechecksEnabled = false
-	var hibernationComparingDate: Date?
+	var hibernationComparingDate = Date()
 	#endif
 
 	// MARK: - AppConfigCaching
