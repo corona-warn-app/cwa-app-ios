@@ -14,6 +14,7 @@
 		0104CBCF273EAC5B009A543D /* TicketValidationResultToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0104CBCE273EAC5B009A543D /* TicketValidationResultToken.swift */; };
 		0104CBD1273EAC7A009A543D /* TicketValidationResultToken+Fake.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0104CBD0273EAC7A009A543D /* TicketValidationResultToken+Fake.swift */; };
 		0104CBD3273EACA1009A543D /* MockTicketValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0104CBD2273EACA1009A543D /* MockTicketValidation.swift */; };
+        0104CBD5273EAD72009A543D /* TicketValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0104CBD4273EAD72009A543D /* TicketValidation.swift */; };
 		0104CBD5273EAD72009A543D /* TicketValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0104CBD4273EAD72009A543D /* TicketValidation.swift */; };
 		0105D8AA25B87920007E288B /* SAP_Internal_Stats_KeyFigure+Formatting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0105D8A925B87920007E288B /* SAP_Internal_Stats_KeyFigure+Formatting.swift */; };
 		0109DB8726036E4400624BB3 /* CheckinsOverviewViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0109DB762603682C00624BB3 /* CheckinsOverviewViewModelTest.swift */; };
@@ -1758,9 +1759,10 @@
 		DC7003092858A83800B164AC /* ErrorLogSubmissionProvidingMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC7003082858A83800B164AC /* ErrorLogSubmissionProvidingMock.swift */; };
 		DC8795AC2923ED8D00F478D5 /* UIViewController+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC8795AB2923ED8D00F478D5 /* UIViewController+Helpers.swift */; };
 		DC8BC2BF2953266B003C8CB1 /* InternetConnectivityMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC8BC2BE2953266B003C8CB1 /* InternetConnectivityMonitor.swift */; };
-		DC9390A2299F931A00C2F8F4 /* GlobalsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC9390A1299F931A00C2F8F4 /* GlobalsTests.swift */; };
 		DC9390A5299FAB6A00C2F8F4 /* DMHibernationOptionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC9390A4299FAB6A00C2F8F4 /* DMHibernationOptionsViewController.swift */; };
 		DC9390A7299FAB9B00C2F8F4 /* DMHibernationOptionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC9390A6299FAB9B00C2F8F4 /* DMHibernationOptionsViewModel.swift */; };
+		DC9390A2299F931A00C2F8F4 /* CWAHibernationProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC9390A1299F931A00C2F8F4 /* CWAHibernationProviderTests.swift */; };
+		DC9390A9299FC0F300C2F8F4 /* CWAHibernationProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC9390A8299FC0F300C2F8F4 /* CWAHibernationProvider.swift */; };
 		DC95881428BCF9FE00F4D03E /* MaskStateTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC95881328BCF9FE00F4D03E /* MaskStateTableViewCell.swift */; };
 		DC95881628BE3D5500F4D03E /* MaskStateCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC95881528BE3D5500F4D03E /* MaskStateCellModel.swift */; };
 		DC95881828BE5E2800F4D03E /* MaskStateCellModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC95881728BE5E2800F4D03E /* MaskStateCellModelTests.swift */; };
@@ -3660,9 +3662,10 @@
 		DC7003082858A83800B164AC /* ErrorLogSubmissionProvidingMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorLogSubmissionProvidingMock.swift; sourceTree = "<group>"; };
 		DC8795AB2923ED8D00F478D5 /* UIViewController+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Helpers.swift"; sourceTree = "<group>"; };
 		DC8BC2BE2953266B003C8CB1 /* InternetConnectivityMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InternetConnectivityMonitor.swift; sourceTree = "<group>"; };
-		DC9390A1299F931A00C2F8F4 /* GlobalsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalsTests.swift; sourceTree = "<group>"; };
 		DC9390A4299FAB6A00C2F8F4 /* DMHibernationOptionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMHibernationOptionsViewController.swift; sourceTree = "<group>"; };
 		DC9390A6299FAB9B00C2F8F4 /* DMHibernationOptionsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMHibernationOptionsViewModel.swift; sourceTree = "<group>"; };
+		DC9390A1299F931A00C2F8F4 /* CWAHibernationProviderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CWAHibernationProviderTests.swift; sourceTree = "<group>"; };
+		DC9390A8299FC0F300C2F8F4 /* CWAHibernationProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CWAHibernationProvider.swift; sourceTree = "<group>"; };
 		DC95881328BCF9FE00F4D03E /* MaskStateTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaskStateTableViewCell.swift; sourceTree = "<group>"; };
 		DC95881528BE3D5500F4D03E /* MaskStateCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaskStateCellModel.swift; sourceTree = "<group>"; };
 		DC95881728BE5E2800F4D03E /* MaskStateCellModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaskStateCellModelTests.swift; sourceTree = "<group>"; };
@@ -5639,7 +5642,7 @@
 			children = (
 				BA7F15A02629D3F200CA4783 /* RouteTests.swift */,
 				502AB79826E64E5B00536DD2 /* NotificationManagerTests.swift */,
-				DC9390A1299F931A00C2F8F4 /* GlobalsTests.swift */,
+				DC9390A1299F931A00C2F8F4 /* CWAHibernationProviderTests.swift */,
 			);
 			path = __tests__;
 			sourceTree = "<group>";
@@ -5707,6 +5710,7 @@
 				353412CB2525EE4A0086D15C /* Globals.swift */,
 				35B2FAB925B9D3F3009ABC8E /* ENATaskExecutionDelegate.swift */,
 				3518DD6425BA2D060090A26B /* NotificationManager.swift */,
+				DC9390A8299FC0F300C2F8F4 /* CWAHibernationProvider.swift */,
 			);
 			path = "AppDelegate & Globals";
 			sourceTree = "<group>";
@@ -11299,6 +11303,7 @@
 				2FA9E39524D2F2B00030561C /* ExposureSubmission+DeviceRegistrationKey.swift in Sources */,
 				BAE11F5528217E1E00CA2790 /* FetchDayResource.swift in Sources */,
 				BAE11F5328217D5500CA2790 /* Locator+DiagnosisKeys.swift in Sources */,
+				DC9390A9299FC0F300C2F8F4 /* CWAHibernationProvider.swift in Sources */,
 				EB08F17E2541CE3300D11FA9 /* app_version_config.pb.swift in Sources */,
 				0138F54B25ECD44300A9B075 /* semantic_version.pb.swift in Sources */,
 				A3FF84EC247BFAF00053E947 /* ENAHasher.swift in Sources */,
@@ -12451,7 +12456,7 @@
 				A1BABD0924A57B88000ED515 /* TemporaryExposureKeyMock.swift in Sources */,
 				BAF5E41E27B17720001DF172 /* Locator+TestResultTests.swift in Sources */,
 				940109F225DFB5EF0017355C /* DiaryDayNotesInfoViewModelTest.swift in Sources */,
-				DC9390A2299F931A00C2F8F4 /* GlobalsTests.swift in Sources */,
+				DC9390A2299F931A00C2F8F4 /* CWAHibernationProviderTests.swift in Sources */,
 				BAA19D7326121ACC00CBBDDD /* EditCheckinDetailViewModelTests.swift in Sources */,
 				A1E41949249548770016E52A /* HTTPClient+SubmitTests.swift in Sources */,
 				A1E41941249410AF0016E52A /* SAPDownloadedPackage+Helpers.swift in Sources */,
