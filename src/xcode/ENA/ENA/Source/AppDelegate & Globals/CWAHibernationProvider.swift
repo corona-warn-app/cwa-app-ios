@@ -11,7 +11,7 @@ class CWAHibernationProvider: RequiresAppDependencies {
 	/// Use shared instance instead
 	private init() {}
 	
-	// MARK: Internal
+	// MARK: - Internal
 	
 	static let shared = CWAHibernationProvider()
 	
