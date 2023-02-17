@@ -5,13 +5,18 @@
 import XCTest
 @testable import ENA
 
-final class GlobalsTests: CWATestCase {
+final class CWAHibernationProviderTests: CWATestCase {
 
     func testIsHibernationState_DeveloperMenuSetting_true() throws {
+		// GIVEN
+		let sut = CWAHibernationProvider.shared
+		
+		// WHEN
         // to.do Dev Setting true
 		// https://jira-ibs.wbs.net.sap/browse/EXPOSUREAPP-14812
 		
-		XCTAssertTrue(isHibernationState)
+		// THEN
+		XCTAssertTrue(sut.isHibernationState)
     }
 	
 	func testIsHibernationState_DeveloperMenuSetting_false() throws {
