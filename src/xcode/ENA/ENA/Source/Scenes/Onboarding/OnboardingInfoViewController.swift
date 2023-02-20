@@ -102,8 +102,14 @@ final class OnboardingInfoViewController: UIViewController {
 		nextButton.isUserInteractionEnabled = false
 		runActionForPageType(
 			completion: { [weak self] in
-				self?.gotoNextScreen()
-				self?.nextButton.isUserInteractionEnabled = true
+				guard let self = self else { return }
+				
+				if CWAHibernationProvider.shared.isHibernationState && self.pageType.isPrivacyPage() {
+					self.finishOnBoarding()
+				}
+				
+				self.gotoNextScreen()
+				self.nextButton.isUserInteractionEnabled = true
 			}
 		)
 	}
