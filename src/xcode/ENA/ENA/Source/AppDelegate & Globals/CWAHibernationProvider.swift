@@ -59,6 +59,6 @@ class CWAHibernationProvider: RequiresAppDependencies {
 	
 	#if !RELEASE
 	/// For UI/Unit Test purposes only
-	private var customStore: Store? = nil
+	private var customStore: Store?
 	#endif
 }

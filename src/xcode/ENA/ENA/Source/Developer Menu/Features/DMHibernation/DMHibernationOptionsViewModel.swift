@@ -50,9 +50,10 @@ class DMHibernationOptionsViewModel {
 			return DMButtonCellViewModel(
 				text: "Reset Comparing Date",
 				textColor: .white,
-				backgroundColor: .enaColor(for: .buttonDestructive)) {
-					self.store(hibernationComparingDate: Date())
-				}
+				backgroundColor: .enaColor(for: .buttonDestructive)
+			) { [weak self] in
+				self?.store(hibernationComparingDate: Date())
+			}
 		}
 	}
 	
@@ -81,7 +82,7 @@ class DMHibernationOptionsViewModel {
 }
 
 extension DMHibernationOptionsViewModel {
-	enum Sections :Int, CaseIterable {
+	enum Sections: Int, CaseIterable {
 		/// The date, that will be used to compare it against the hibernation start date (01.06.2023)
 		case hibernationComparingDate
 		/// Reset the stored fake date, the hibernation threshold compares to

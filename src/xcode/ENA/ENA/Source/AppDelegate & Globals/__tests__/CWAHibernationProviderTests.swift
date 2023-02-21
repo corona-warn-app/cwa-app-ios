@@ -22,7 +22,10 @@ final class CWAHibernationProviderTests: CWATestCase {
 		beforeHibernationStartDateComponents.second = 59
 		beforeHibernationStartDateComponents.timeZone = .utcTimeZone
 		
-		mockTestStore.hibernationComparingDate = Calendar.current.date(from: beforeHibernationStartDateComponents)!
+		guard let hibernationComparingDate = Calendar.current.date(from: beforeHibernationStartDateComponents) else {
+			return XCTFail("Expect the hibernation comparing date from the corresponding date components.")
+		}
+		mockTestStore.hibernationComparingDate = hibernationComparingDate
 		
 		// THEN
 		XCTAssertFalse(sut.isHibernationState)
@@ -43,7 +46,10 @@ final class CWAHibernationProviderTests: CWATestCase {
 		afterHibernationStartDateComponents.second = 0
 		afterHibernationStartDateComponents.timeZone = .utcTimeZone
 
-		mockTestStore.hibernationComparingDate = Calendar.current.date(from: afterHibernationStartDateComponents)!
+		guard let hibernationComparingDate = Calendar.current.date(from: afterHibernationStartDateComponents) else {
+			return XCTFail("Expect the hibernation comparing date from the corresponding date components.")
+		}
+		mockTestStore.hibernationComparingDate = hibernationComparingDate
 		
 		// THEN
 		XCTAssertTrue(sut.isHibernationState)
