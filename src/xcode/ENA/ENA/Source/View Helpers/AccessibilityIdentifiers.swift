@@ -154,6 +154,11 @@ enum AccessibilityIdentifiers {
 			static let shareLabel = "AppStrings.Home.shareActionView"
 		}
 		
+		enum EndOfLifeThankYouCell {
+			static let titleLabel = "AppStrings.Home.EndOfLifeThankYouCell.titleLabel"
+			static let descriptionLabel = "AppStrings.Home.EndOfLifeThankYouCell.descriptionLabel"
+		}
+
 		enum TestRegistrationCell {
 			static let titleLabel = "AppStrings.Home.TestRegistrationCell.titleLabel"
 			static let descriptionLabel = "AppStrings.Home.TestRegistrationCell.descriptionLabel"
