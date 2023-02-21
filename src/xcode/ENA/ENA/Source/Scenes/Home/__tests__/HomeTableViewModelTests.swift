@@ -38,7 +38,7 @@ class HomeTableViewModelTests: CWATestCase {
 		)
 
 		// Number of Sections
-		XCTAssertEqual(viewModel.numberOfSections, 7)
+		XCTAssertEqual(viewModel.numberOfSections, 8)
 		
 		// Number of Rows per Section
 		XCTAssertEqual(viewModel.numberOfRows(in: 0), 0)
