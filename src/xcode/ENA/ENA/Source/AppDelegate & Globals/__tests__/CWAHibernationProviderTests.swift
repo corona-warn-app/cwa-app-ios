@@ -7,7 +7,7 @@ import XCTest
 
 final class CWAHibernationProviderTests: CWATestCase {
 	
-	func testIsHibernationState_Store_HibernationComparingDate_before_false() throws {
+	func testIsHibernationState_Store_HibernationComparisonDate_before_false() throws {
 		// GIVEN
 		let mockTestStore = MockTestStore()
 		let sut = CWAHibernationProvider(customStore: mockTestStore)
@@ -22,16 +22,16 @@ final class CWAHibernationProviderTests: CWATestCase {
 		beforeHibernationStartDateComponents.second = 59
 		beforeHibernationStartDateComponents.timeZone = .utcTimeZone
 		
-		guard let hibernationComparingDate = Calendar.current.date(from: beforeHibernationStartDateComponents) else {
-			return XCTFail("Expect the hibernation comparing date from the corresponding date components.")
+		guard let hibernationComparisonDate = Calendar.current.date(from: beforeHibernationStartDateComponents) else {
+			return XCTFail("Expect the hibernation comparison date from the corresponding date components.")
 		}
-		mockTestStore.hibernationComparisonDate = hibernationComparingDate
+		mockTestStore.hibernationComparisonDate = hibernationComparisonDate
 		
 		// THEN
 		XCTAssertFalse(sut.isHibernationState)
 	}
 
-    func testIsHibernationState_Store_HibernationComparingDate_after_true() throws {
+    func testIsHibernationState_Store_HibernationComparisonDate_after_true() throws {
 		// GIVEN
 		let mockTestStore = MockTestStore()
 		let sut = CWAHibernationProvider(customStore: mockTestStore)
@@ -46,10 +46,10 @@ final class CWAHibernationProviderTests: CWATestCase {
 		afterHibernationStartDateComponents.second = 0
 		afterHibernationStartDateComponents.timeZone = .utcTimeZone
 
-		guard let hibernationComparingDate = Calendar.current.date(from: afterHibernationStartDateComponents) else {
-			return XCTFail("Expect the hibernation comparing date from the corresponding date components.")
+		guard let hibernationComparisonDate = Calendar.current.date(from: afterHibernationStartDateComponents) else {
+			return XCTFail("Expect the hibernation comparison date from the corresponding date components.")
 		}
-		mockTestStore.hibernationComparisonDate = hibernationComparingDate
+		mockTestStore.hibernationComparisonDate = hibernationComparisonDate
 		
 		// THEN
 		XCTAssertTrue(sut.isHibernationState)

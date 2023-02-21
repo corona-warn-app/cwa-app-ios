@@ -26,7 +26,7 @@ class DMHibernationOptionsViewModel {
 		}
 		
 		switch section {
-		case .hibernationComparingDate:
+		case .hibernationComparisonDate:
 			var title = "App will shutdown after selecting a new date value in the date picker.\n\nCurrently the hibernation threshold compares against the set date: \(dateFormatter.string(from: store.hibernationComparisonDate))"
 			
 			return title
@@ -41,7 +41,7 @@ class DMHibernationOptionsViewModel {
 		}
 		
 		switch section {
-		case .hibernationComparingDate:
+		case .hibernationComparisonDate:
 			return DMDatePickerCellViewModel(
 				title: "Hibernation Comparison Date",
 				accessibilityIdentifier: AccessibilityIdentifiers.DeveloperMenu.Hibernation.datePicker,
@@ -86,7 +86,7 @@ class DMHibernationOptionsViewModel {
 extension DMHibernationOptionsViewModel {
 	enum Sections: Int, CaseIterable {
 		/// The date, that will be used to compare it against the hibernation start date (01.06.2023)
-		case hibernationComparingDate
+		case hibernationComparisonDate
 		/// Reset the stored fake date, the hibernation threshold compares to
 		case reset
 	}

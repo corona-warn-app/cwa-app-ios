@@ -46,10 +46,10 @@ class DMHibernationOptionsViewController: UITableViewController {
 		let cellViewModel = viewModel.cellViewModel(for: indexPath)
 		
 		if let cellViewModel = cellViewModel as? DMDatePickerCellViewModel {
-			return configureHibernationComparingDatePickerCell(cellViewModel: cellViewModel, indexPath: indexPath)
+			return configureHibernationComparisonDatePickerCell(cellViewModel: cellViewModel, indexPath: indexPath)
 
 		} else if let cellViewModel = cellViewModel as? DMButtonCellViewModel {
-			return configureHibernationComparingDateResetCell(cellViewModel: cellViewModel, indexPath: indexPath)
+			return configureHibernationComparisonDateResetCell(cellViewModel: cellViewModel, indexPath: indexPath)
 
 		} else {
 			return UITableViewCell()
@@ -76,7 +76,7 @@ class DMHibernationOptionsViewController: UITableViewController {
 		tableView.register(DMButtonTableViewCell.self, forCellReuseIdentifier: DMButtonTableViewCell.reuseIdentifier)
 	}
 	
-	private func configureHibernationComparingDatePickerCell(
+	private func configureHibernationComparisonDatePickerCell(
 		cellViewModel: DMDatePickerCellViewModel,
 		indexPath: IndexPath
 	) -> DMDatePickerTableViewCell {
@@ -90,7 +90,7 @@ class DMHibernationOptionsViewController: UITableViewController {
 		return cell
 	}
 	
-	private func configureHibernationComparingDateResetCell(
+	private func configureHibernationComparisonDateResetCell(
 		cellViewModel: DMButtonCellViewModel,
 		indexPath: IndexPath
 	) -> DMButtonTableViewCell {
