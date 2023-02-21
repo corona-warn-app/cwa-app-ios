@@ -120,6 +120,7 @@ final class FooterViewModel {
 		switch button {
 		case .primary:
 			isPrimaryButtonEnabled = isEnabled
+			isPrimaryButtonHidden = CWAHibernationProvider.shared.isHibernationState
 		case .secondary:
 			isSecondaryButtonEnabled = isEnabled
 		}
