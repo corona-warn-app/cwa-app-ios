@@ -66,6 +66,7 @@ class HomeTableViewModel {
 	// MARK: - Internal
 
 	enum Section: Int, CaseIterable {
+		case endOfLifeThankYou
 		case appClosureNotice
 		case exposureLogging
 		case riskAndTestResults
@@ -94,6 +95,7 @@ class HomeTableViewModel {
 	let cclService: CCLServable
 	var isUpdating: Bool = false
 	var shouldShowAppClosureNotice: Bool = false
+	var isHibernationState: Bool = false
 
 	@OpenCombine.Published var testResultLoadingError: Error?
 	@OpenCombine.Published var riskAndTestResultsRows: [RiskAndTestResultsRow] = []
@@ -119,6 +121,8 @@ class HomeTableViewModel {
 	
 	func numberOfRows(in section: Int) -> Int {
 		switch Section(rawValue: section) {
+		case .endOfLifeThankYou:
+			return isHibernationState ? 1 : 0
 		case .appClosureNotice:
 			#if DEBUG
 			if isUITesting, LaunchArguments.appClosureNotice.showAppClosureNoticeTile.boolValue {
