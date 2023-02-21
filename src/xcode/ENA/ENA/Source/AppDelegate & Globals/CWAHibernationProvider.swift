@@ -31,7 +31,7 @@ class CWAHibernationProvider: RequiresAppDependencies {
 		#endif
 	}
 	
-	/// CWA hibernation 2023 threshold date.
+	/// CWA hibernation threshold date.
 	private let hibernationStartDate: Date = {
 		var hibernationStartDateComponents = DateComponents()
 		hibernationStartDateComponents.year = 2023
