@@ -47,11 +47,7 @@ final class EndOfLifeThankYouCell: UITableViewCell {
 	}
 	
 	private func updateIllustration(for traitCollection: UITraitCollection) {
-		if traitCollection.preferredContentSizeCategory >= .accessibilityLarge {
-			illustrationImageView.isHidden = true
-		} else {
-			illustrationImageView.isHidden = false
-		}
+illustrationImageView.isHidden = traitCollection.preferredContentSizeCategory >= .accessibilityLarge
 	}
 	
 	private func setupAccessibility() {
