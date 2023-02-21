@@ -14,6 +14,7 @@
 		0104CBCF273EAC5B009A543D /* TicketValidationResultToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0104CBCE273EAC5B009A543D /* TicketValidationResultToken.swift */; };
 		0104CBD1273EAC7A009A543D /* TicketValidationResultToken+Fake.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0104CBD0273EAC7A009A543D /* TicketValidationResultToken+Fake.swift */; };
 		0104CBD3273EACA1009A543D /* MockTicketValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0104CBD2273EACA1009A543D /* MockTicketValidation.swift */; };
+        0104CBD5273EAD72009A543D /* TicketValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0104CBD4273EAD72009A543D /* TicketValidation.swift */; };
 		0104CBD5273EAD72009A543D /* TicketValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0104CBD4273EAD72009A543D /* TicketValidation.swift */; };
 		0105D8AA25B87920007E288B /* SAP_Internal_Stats_KeyFigure+Formatting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0105D8A925B87920007E288B /* SAP_Internal_Stats_KeyFigure+Formatting.swift */; };
 		0109DB8726036E4400624BB3 /* CheckinsOverviewViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0109DB762603682C00624BB3 /* CheckinsOverviewViewModelTest.swift */; };
@@ -1758,6 +1759,8 @@
 		DC7003092858A83800B164AC /* ErrorLogSubmissionProvidingMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC7003082858A83800B164AC /* ErrorLogSubmissionProvidingMock.swift */; };
 		DC8795AC2923ED8D00F478D5 /* UIViewController+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC8795AB2923ED8D00F478D5 /* UIViewController+Helpers.swift */; };
 		DC8BC2BF2953266B003C8CB1 /* InternetConnectivityMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC8BC2BE2953266B003C8CB1 /* InternetConnectivityMonitor.swift */; };
+		DC9390A5299FAB6A00C2F8F4 /* DMHibernationOptionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC9390A4299FAB6A00C2F8F4 /* DMHibernationOptionsViewController.swift */; };
+		DC9390A7299FAB9B00C2F8F4 /* DMHibernationOptionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC9390A6299FAB9B00C2F8F4 /* DMHibernationOptionsViewModel.swift */; };
 		DC9390A2299F931A00C2F8F4 /* CWAHibernationProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC9390A1299F931A00C2F8F4 /* CWAHibernationProviderTests.swift */; };
 		DC9390A9299FC0F300C2F8F4 /* CWAHibernationProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC9390A8299FC0F300C2F8F4 /* CWAHibernationProvider.swift */; };
 		DC95881428BCF9FE00F4D03E /* MaskStateTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC95881328BCF9FE00F4D03E /* MaskStateTableViewCell.swift */; };
@@ -3659,6 +3662,8 @@
 		DC7003082858A83800B164AC /* ErrorLogSubmissionProvidingMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorLogSubmissionProvidingMock.swift; sourceTree = "<group>"; };
 		DC8795AB2923ED8D00F478D5 /* UIViewController+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Helpers.swift"; sourceTree = "<group>"; };
 		DC8BC2BE2953266B003C8CB1 /* InternetConnectivityMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InternetConnectivityMonitor.swift; sourceTree = "<group>"; };
+		DC9390A4299FAB6A00C2F8F4 /* DMHibernationOptionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMHibernationOptionsViewController.swift; sourceTree = "<group>"; };
+		DC9390A6299FAB9B00C2F8F4 /* DMHibernationOptionsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMHibernationOptionsViewModel.swift; sourceTree = "<group>"; };
 		DC9390A1299F931A00C2F8F4 /* CWAHibernationProviderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CWAHibernationProviderTests.swift; sourceTree = "<group>"; };
 		DC9390A8299FC0F300C2F8F4 /* CWAHibernationProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CWAHibernationProvider.swift; sourceTree = "<group>"; };
 		DC95881328BCF9FE00F4D03E /* MaskStateTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaskStateTableViewCell.swift; sourceTree = "<group>"; };
@@ -8864,6 +8869,7 @@
 		B16457BC24DC3E0E002879EB /* Features */ = {
 			isa = PBXGroup;
 			children = (
+				DC9390A3299FAB3900C2F8F4 /* DMHibernation */,
 				8F8B4A312934CCC7007ED94E /* DMSRSPrechecks */,
 				018105D428115BF500C40268 /* DMRevocationList */,
 				50DED23527CE31E70035267C /* DMHealthCertificateMigration */,
@@ -10597,6 +10603,15 @@
 			name = Mocks;
 			sourceTree = "<group>";
 		};
+		DC9390A3299FAB3900C2F8F4 /* DMHibernation */ = {
+			isa = PBXGroup;
+			children = (
+				DC9390A4299FAB6A00C2F8F4 /* DMHibernationOptionsViewController.swift */,
+				DC9390A6299FAB9B00C2F8F4 /* DMHibernationOptionsViewModel.swift */,
+			);
+			path = DMHibernation;
+			sourceTree = "<group>";
+		};
 		DC95881228BCF6C100F4D03E /* MaskState */ = {
 			isa = PBXGroup;
 			children = (
@@ -11435,6 +11450,7 @@
 				01DE60752744EF3F00E12FA4 /* TicketValidationInitializationData.swift in Sources */,
 				013C413D255463A400826C9F /* DMDebugRiskCalculationViewController.swift in Sources */,
 				01BB00D0274FDAD70065D1D1 /* TicketValidationConditions.swift in Sources */,
+				DC9390A7299FAB9B00C2F8F4 /* DMHibernationOptionsViewModel.swift in Sources */,
 				BAB6C7EF25C4626100E042FB /* TimestampedToken.swift in Sources */,
 				2FC951FE24DC23B9008D39F4 /* DMConfigurationCell.swift in Sources */,
 				3529BC1925D6BA800097E492 /* CachingHTTPClientMock.swift in Sources */,
@@ -12271,6 +12287,7 @@
 				EBCD2412250790F400E5574C /* ExposureSubmissionSymptomsViewController.swift in Sources */,
 				AB7420B7251B69E2006666AC /* DeltaOnboardingCoordinator.swift in Sources */,
 				ABE961E225F29A5000D0F699 /* EventStoreSchemaV1.swift in Sources */,
+				DC9390A5299FAB6A00C2F8F4 /* DMHibernationOptionsViewController.swift in Sources */,
 				ABE9616725F1208300D0F699 /* TraceLocation.swift in Sources */,
 				01A4DCFE25926A66007D5794 /* HomeImageItemViewModel.swift in Sources */,
 				0138F65525F1174200A9B075 /* TraceLocationsOverviewViewModel.swift in Sources */,
