@@ -83,8 +83,8 @@ class DMHibernationOptionsViewController: UITableViewController {
 		let cell = tableView.dequeueReusableCell(cellType: DMDatePickerTableViewCell.self, for: indexPath)
 		cell.configure(cellViewModel: cellViewModel)
 		
-		cell.didSelectDate = { [weak self] hibernationComparingDate in
-			self?.viewModel.store(hibernationComparingDate: hibernationComparingDate)
+		cell.didSelectDate = { [weak self] hibernationComparisonDate in
+			self?.viewModel.store(hibernationComparisonDate: hibernationComparisonDate)
 		}
 		
 		return cell

@@ -4,6 +4,8 @@
 
 import Foundation
 
+#if !RELEASE
+
 class DMHibernationOptionsViewModel {
 	
 	// MARK: - Init
@@ -25,11 +27,11 @@ class DMHibernationOptionsViewModel {
 		
 		switch section {
 		case .hibernationComparingDate:
-			var title = "App will be shutdown after set a new date value in the date picker.\n\nCurrently the hibernation threshold compares against the set date \(dateFormatter.string(from: store.hibernationComparingDate))"
+			var title = "App will shutdown after selecting a new date value in the date picker.\n\nCurrently the hibernation threshold compares against the set date: \(dateFormatter.string(from: store.hibernationComparisonDate))"
 			
 			return title
 		case .reset:
-			return "App will be shutdown after reset to today date."
+			return "App will shutdown after reseting to today's date."
 		}
 	}
 	
@@ -41,25 +43,25 @@ class DMHibernationOptionsViewModel {
 		switch section {
 		case .hibernationComparingDate:
 			return DMDatePickerCellViewModel(
-				title: "Hibernation Comparing Date",
+				title: "Hibernation Comparison Date",
 				accessibilityIdentifier: AccessibilityIdentifiers.DeveloperMenu.Hibernation.datePicker,
 				datePickerMode: .date,
-				date: store.hibernationComparingDate
+				date: store.hibernationComparisonDate
 			)
 		case .reset:
 			return DMButtonCellViewModel(
-				text: "Reset Comparing Date",
+				text: "Reset Comparison Date",
 				textColor: .white,
 				backgroundColor: .enaColor(for: .buttonDestructive)
 			) { [weak self] in
-				self?.store(hibernationComparingDate: Date())
+				self?.store(hibernationComparisonDate: Date())
 			}
 		}
 	}
 	
-	func store(hibernationComparingDate: Date) {
-		Log.debug("[Debug-Menu] Set hibernation comparing date to \(dateFormatter.string(from: hibernationComparingDate)).")
-		store.hibernationComparingDate = hibernationComparingDate
+	func store(hibernationComparisonDate: Date) {
+		Log.debug("[Debug-Menu] Set hibernation comparison date to: \(dateFormatter.string(from: hibernationComparisonDate)).")
+		store.hibernationComparisonDate = hibernationComparisonDate
 		
 		exitApp()
 	}
@@ -89,3 +91,5 @@ extension DMHibernationOptionsViewModel {
 		case reset
 	}
 }
+
+#endif
