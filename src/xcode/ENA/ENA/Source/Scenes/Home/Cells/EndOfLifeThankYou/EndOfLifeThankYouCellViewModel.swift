@@ -9,7 +9,7 @@ class EndOfLifeThankYouCellViewModel {
 	// MARK: - Internal
 
 	var title = AppStrings.Home.EndOfLifeThankYouTile.title
-	// TODO get the xx value in figma
+	// to.do get the xx value in figma
 	var description = String(
 		format: AppStrings.Home.EndOfLifeThankYouTile.description,
 		   4
