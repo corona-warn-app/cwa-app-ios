@@ -85,9 +85,9 @@ class DMHibernationOptionsViewModel {
 
 extension DMHibernationOptionsViewModel {
 	enum Sections: Int, CaseIterable {
-		/// The date, that will be used to compare it against the hibernation start date (01.06.2023)
+		/// The date, that will be used to compare it against the hibernation start date.
 		case hibernationComparisonDate
-		/// Reset the stored fake date, the hibernation threshold compares to
+		/// Reset the stored fake date, the hibernation threshold compares to.
 		case reset
 	}
 }
