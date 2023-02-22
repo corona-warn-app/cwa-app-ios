@@ -160,6 +160,7 @@ enum AccessibilityIdentifiers {
 		enum EndOfLifeThankYouCell {
 			static let titleLabel = "AppStrings.Home.EndOfLifeThankYouCell.titleLabel"
 			static let descriptionLabel = "AppStrings.Home.EndOfLifeThankYouCell.descriptionLabel"
+			static let image = "AppStrings.Home.EndOfLifeThankYouCell.image"
 		}
 
 		enum TestRegistrationCell {

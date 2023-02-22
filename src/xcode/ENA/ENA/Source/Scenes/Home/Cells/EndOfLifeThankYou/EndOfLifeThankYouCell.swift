@@ -32,9 +32,12 @@ final class EndOfLifeThankYouCell: UITableViewCell {
 	func configure(with cellModel: EndOfLifeThankYouCellViewModel) {
 		titleLabel.text = cellModel.title
 		titleLabel.accessibilityIdentifier = cellModel.titleAccessibilityIdentifier
+		
 		descriptionLabel.text = cellModel.description
 		descriptionLabel.accessibilityIdentifier = cellModel.descriptionAccessibilityIdentifier
+		
 		illustrationImageView.image = cellModel.image
+		illustrationImageView.accessibilityIdentifier = cellModel.imageAccessibilityIdentifier
 	}
 
 	// MARK: - Private
