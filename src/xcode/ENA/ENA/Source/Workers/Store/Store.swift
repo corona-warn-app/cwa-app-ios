@@ -86,6 +86,8 @@ protocol StoreProtocol: AnyObject {
 	var forceAPITokenAuthorization: Bool { get set }
 	
 	var recentTraceLocationCheckedInto: DMRecentTraceLocationCheckedInto? { get set }
+	
+	var hibernationComparisonDate: Date { get set }
 
 	#endif
 

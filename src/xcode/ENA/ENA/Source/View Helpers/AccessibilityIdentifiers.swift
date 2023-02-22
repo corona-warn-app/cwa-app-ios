@@ -10,6 +10,9 @@ enum AccessibilityIdentifiers {
 		enum InstallationDay {
 			static let datePicker = "AppStrings.DeveloperMenu.InstallationDay.datePicker"
 		}
+		enum Hibernation {
+			static let datePicker = "AppStrings.DeveloperMenu.Hibernation.datePicker"
+		}
 	}
 	
 	enum ExposureNotificationSetting {
