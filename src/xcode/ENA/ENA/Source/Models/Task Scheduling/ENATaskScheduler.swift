@@ -48,6 +48,12 @@ final class ENATaskScheduler {
 	// MARK: - Task registration.
 	@available(iOS 13.0, *)
 	private func registerTask(with taskIdentifier: ENATaskIdentifier, execute: @escaping ((BGTask) -> Void)) {
+		guard !CWAHibernationProvider.shared.isHibernationState else {
+			Log.info("CWA is in hibernation state. The background task with identifier \(taskIdentifier) won't be registered.", log: .api)
+			return
+		}
+
+		BGTaskScheduler.shared.
 		let identifierString = taskIdentifier.backgroundTaskSchedulerIdentifier
 		BGTaskScheduler.shared.register(forTaskWithIdentifier: identifierString, using: .main) { task in
 			self.scheduleTask()
@@ -71,6 +77,10 @@ final class ENATaskScheduler {
 	@available(iOS 13.0, *)
 	func scheduleTask() {
 		do {
+			guard !CWAHibernationProvider.shared.isHibernationState else {
+				Log.info("CWA is in hibernation state, \(#function) won't submit task request.", log: .api)
+				return
+			}
 			let taskRequest = BGProcessingTaskRequest(identifier: ENATaskIdentifier.exposureNotification.backgroundTaskSchedulerIdentifier)
 			taskRequest.requiresNetworkConnectivity = true
 			taskRequest.requiresExternalPower = false

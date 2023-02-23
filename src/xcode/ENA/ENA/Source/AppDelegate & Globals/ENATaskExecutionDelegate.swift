@@ -65,6 +65,12 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 			return
 		}
 		
+		guard !CWAHibernationProvider.shared.isHibernationState else {
+			Log.info("CWA is in hibernation state. Background tasks won't be executed.", log: .background)
+			completion(true)
+			return
+		}
+		
 		let group = DispatchGroup()
 		
 		group.enter()

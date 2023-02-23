@@ -284,7 +284,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	let client: HTTPClient
 	let cachingClient = CachingHTTPClient()
 	let downloadedPackagesStore: DownloadedPackagesStore = DownloadedPackagesSQLLiteStore(fileName: "packages")
-	let taskScheduler: ENATaskScheduler = ENATaskScheduler.shared
+	lazy var taskScheduler: ENATaskScheduler = { ENATaskScheduler.shared }()
 	let contactDiaryStore: DiaryStoringProviding
 	let eventStore: EventStoringProviding = {
 		#if DEBUG

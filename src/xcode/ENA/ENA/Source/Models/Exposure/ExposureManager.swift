@@ -186,7 +186,13 @@ final class ENAExposureManager: NSObject, ExposureManager {
 							Log.error("AppDelegate is not of Type AppDelegate, this should not happen!", log: .background)
 							return
 						}
-						Log.info("Starting backgroundTask via Bluetooth", log: .background)
+						
+						guard !CWAHibernationProvider.shared.isHibernationState else {
+							Log.info("CWA is in hibernation state. Background tasks won't be executed in this state.", log: .background)
+							return
+						}
+
+						Log.info("Starting background task via Bluetooth", log: .background)
 						appDelegate.taskExecutionDelegate.executeENABackgroundTask(completion: { success in
 							Log.info("Background task was: \(success)", log: .background)
 						})
