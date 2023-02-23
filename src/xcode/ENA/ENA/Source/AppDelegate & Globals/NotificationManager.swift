@@ -45,46 +45,52 @@ final class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
 	}
 
 	func userNotificationCenter(_: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
-		switch response.notification.request.identifier {
-		case ActionableNotificationIdentifier.riskDetection.identifier,
-			 ActionableNotificationIdentifier.deviceTimeCheck.identifier,
-			 DeadmanNotificationManager.deadmanNotificationIdentifier:
+		
+		if CWAHibernationProvider.shared.isHibernationState {
 			showHome()
-
-		case ActionableNotificationIdentifier.pcrWarnOthersReminder1.identifier,
-			 ActionableNotificationIdentifier.pcrWarnOthersReminder2.identifier:
-			showPositivePCRTestResultIfNeeded()
-
-		case ActionableNotificationIdentifier.antigenWarnOthersReminder1.identifier,
-			 ActionableNotificationIdentifier.antigenWarnOthersReminder2.identifier:
-			showPositiveAntigenTestResultIfNeeded()
-
-		case ActionableNotificationIdentifier.testResult.identifier:
-			let testIdentifier = ActionableNotificationIdentifier.testResult.identifier
-			let testTypeIdentifier = ActionableNotificationIdentifier.testResultType.identifier
-
-			guard let testResultRawValue = response.notification.request.content.userInfo[testIdentifier] as? Int,
-				  let testResult = TestResult(rawValue: testResultRawValue),
-				  let testResultTypeRawValue = response.notification.request.content.userInfo[testTypeIdentifier] as? Int,
-				  let testResultType = CoronaTestType(rawValue: testResultTypeRawValue) else {
+		} else {
+			switch response.notification.request.identifier {
+			case ActionableNotificationIdentifier.riskDetection.identifier,
+				 ActionableNotificationIdentifier.deviceTimeCheck.identifier,
+				 DeadmanNotificationManager.deadmanNotificationIdentifier:
 				showHome()
-				return
-			}
 
-			switch testResult {
-			case .positive, .negative:
-				showTestResultFromNotification(.testResultFromNotification(testResultType))
-			case .invalid:
-				showHome()
-			case .expired, .pending:
-				assertionFailure("Expired and Pending Test Results should not trigger the Local Notification")
+			case ActionableNotificationIdentifier.pcrWarnOthersReminder1.identifier,
+				 ActionableNotificationIdentifier.pcrWarnOthersReminder2.identifier:
+				showPositivePCRTestResultIfNeeded()
+
+			case ActionableNotificationIdentifier.antigenWarnOthersReminder1.identifier,
+				 ActionableNotificationIdentifier.antigenWarnOthersReminder2.identifier:
+				showPositiveAntigenTestResultIfNeeded()
+
+			case ActionableNotificationIdentifier.testResult.identifier:
+				let testIdentifier = ActionableNotificationIdentifier.testResult.identifier
+				let testTypeIdentifier = ActionableNotificationIdentifier.testResultType.identifier
+
+				guard let testResultRawValue = response.notification.request.content.userInfo[testIdentifier] as? Int,
+					  let testResult = TestResult(rawValue: testResultRawValue),
+					  let testResultTypeRawValue = response.notification.request.content.userInfo[testTypeIdentifier] as? Int,
+					  let testResultType = CoronaTestType(rawValue: testResultTypeRawValue) else {
+					showHome()
+					return
+				}
+
+				switch testResult {
+				case .positive, .negative:
+					showTestResultFromNotification(.testResultFromNotification(testResultType))
+				case .invalid:
+					showHome()
+				case .expired, .pending:
+					assertionFailure("Expired and Pending Test Results should not trigger the Local Notification")
+				}
+			case ActionableNotificationIdentifier.familyTestResult.identifier:
+				showFamilyMemberTests(.familyMemberTestResultFromNotification)
+			default:
+				// special action where we need to extract data from identifier
+				checkForLocalNotificationsActions(response.notification.request.identifier)
 			}
-		case ActionableNotificationIdentifier.familyTestResult.identifier:
-			showFamilyMemberTests(.familyMemberTestResultFromNotification)
-		default:
-			// special action where we need to extract data from identifier
-			checkForLocalNotificationsActions(response.notification.request.identifier)
 		}
+
 		completionHandler()
 	}
 
