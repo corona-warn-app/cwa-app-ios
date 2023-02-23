@@ -53,7 +53,6 @@ final class ENATaskScheduler {
 			return
 		}
 
-		BGTaskScheduler.shared.
 		let identifierString = taskIdentifier.backgroundTaskSchedulerIdentifier
 		BGTaskScheduler.shared.register(forTaskWithIdentifier: identifierString, using: .main) { task in
 			self.scheduleTask()
