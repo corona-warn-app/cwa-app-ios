@@ -42,24 +42,26 @@ extension UserNotificationCenter {
 		in timeInterval: TimeInterval = 1,
 		info: [AnyHashable: Any] = [:]
 	) {
-		let content = UNMutableNotificationContent()
+		if !CWAHibernationProvider.shared.isHibernationState {
+			let content = UNMutableNotificationContent()
 
-		content.title = title
-		content.body = body
-		content.sound = UNNotificationSound.default
-		content.badge = 1
-		content.categoryIdentifier = identifier
-		content.userInfo = info
-		if #available(iOS 15.0, *) {
-			content.interruptionLevel = .timeSensitive
-		}
-		
-		let trigger = UNTimeIntervalNotificationTrigger(timeInterval: timeInterval, repeats: false)
-		let request = UNNotificationRequest(identifier: identifier, content: content, trigger: trigger)
+			content.title = title
+			content.body = body
+			content.sound = UNNotificationSound.default
+			content.badge = 1
+			content.categoryIdentifier = identifier
+			content.userInfo = info
+			if #available(iOS 15.0, *) {
+				content.interruptionLevel = .timeSensitive
+			}
+			
+			let trigger = UNTimeIntervalNotificationTrigger(timeInterval: timeInterval, repeats: false)
+			let request = UNNotificationRequest(identifier: identifier, content: content, trigger: trigger)
 
-		add(request) { error in
-			if let error = error {
-				Log.error(error.localizedDescription, log: .api)
+			add(request) { error in
+				if let error = error {
+					Log.error(error.localizedDescription, log: .api)
+				}
 			}
 		}
 	}

@@ -118,10 +118,11 @@ final class EventCheckoutService {
 			content: content,
 			trigger: trigger
 		)
-
-		userNotificationCenter.add(request) { error in
-			if error != nil {
-				Log.error("Checkout notification could not be scheduled.")
+		if !CWAHibernationProvider.shared.isHibernationState {
+			userNotificationCenter.add(request) { error in
+				if error != nil {
+					Log.error("Checkout notification could not be scheduled.")
+				}
 			}
 		}
 	}

@@ -341,16 +341,18 @@ class HealthCertificateNotificationService {
 
 				return
 			}
-			self?.notificationCenter.add(request) { error in
-				if error != nil {
-					Log.error(
-						"Could not schedule notification: \(private: request.identifier)",
-						log: .vaccination,
-						error: error
-					)
-				}
+			if !CWAHibernationProvider.shared.isHibernationState {
+				self?.notificationCenter.add(request) { error in
+					if error != nil {
+						Log.error(
+							"Could not schedule notification: \(private: request.identifier)",
+							log: .vaccination,
+							error: error
+						)
+					}
 
-				completion()
+					completion()
+				}
 			}
 		}
 	}
