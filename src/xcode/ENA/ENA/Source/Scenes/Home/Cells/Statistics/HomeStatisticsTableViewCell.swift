@@ -387,6 +387,11 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 			}
 		}
 		
+		guard !CWAHibernationProvider.shared.isHibernationState else {
+			trailingConstraint.constant = 12
+			return
+		}
+		
 		if UIDevice.current.userInterfaceIdiom == .phone && UIScreen.main.bounds.size.width <= 320 {
 			trailingConstraint.constant = 12
 		} else {
