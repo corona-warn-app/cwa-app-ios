@@ -350,9 +350,10 @@ class HealthCertificateNotificationService {
 							error: error
 						)
 					}
-
 					completion()
 				}
+			} else {
+				completion()
 			}
 		}
 	}
