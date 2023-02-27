@@ -54,9 +54,7 @@ illustrationImageView.isHidden = traitCollection.preferredContentSizeCategory >=
 	}
 	
 	private func setupAccessibility() {
-		cardView.accessibilityElements = [titleLabel as Any, descriptionLabel as Any]
-
-		titleLabel.accessibilityTraits = [.header, .button]
+		cardView.accessibilityElements = [titleLabel as Any, descriptionLabel as Any, illustrationImageView as Any]
 	}
 
 	@IBOutlet private weak var cardView: HomeCardView!
