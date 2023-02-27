@@ -54,7 +54,7 @@ class AppInformationViewController: DynamicTableViewController, NavigationBarOpa
 			   text: AppStrings.AppInformation.contactNavigation,
 			   accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.contactNavigation,
 			   action: .push(model: AppInformationModel.contactModel, withTitle: AppStrings.AppInformation.contactNavigation)
-		   )
+		    )
 			
 			self.model[.errorReport] = AppInformationCellModel(
 				text: AppStrings.ErrorReport.title,
