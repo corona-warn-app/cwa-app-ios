@@ -293,6 +293,11 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 		
 		linkCardView.accessibilityIdentifier = AccessibilityIdentifiers.LinkCard.PandemicRadar.card
 		
+		guard !CWAHibernationProvider.shared.isHibernationState else {
+			trailingConstraint.constant = 12
+			return
+		}
+		
 		// Pandemic Radar shouldn't be removable
 		linkCardView.set(editMode: false, animated: false)
 	}
@@ -385,11 +390,6 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 				)
 				configureBaselines(statisticsCardView: statisticsCardView)
 			}
-		}
-		
-		guard !CWAHibernationProvider.shared.isHibernationState else {
-			trailingConstraint.constant = 12
-			return
 		}
 		
 		if UIDevice.current.userInterfaceIdiom == .phone && UIScreen.main.bounds.size.width <= 320 {
