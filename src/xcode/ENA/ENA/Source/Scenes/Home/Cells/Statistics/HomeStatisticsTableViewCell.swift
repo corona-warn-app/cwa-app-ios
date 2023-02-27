@@ -150,31 +150,39 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 		onDeviceOfflineInfo: @escaping CompletionVoid
 	) {
 		clearStackView()
-
-		configureManageLocalStatisticsCell(
-			store: store,
-			onAddLocalStatisticsButtonTap: onAddLocalStatisticsButtonTap,
-			onAddDistrict: onAddDistrict,
-			onDismissState: onDismissState,
-			onDismissDistrict: onDismissDistrict,
-			onAccessibilityFocus: onAccessibilityFocus,
-			onDeviceOfflineInfo: onDeviceOfflineInfo
-		)
-		configurePandemicRadarCard(
-			onInfoButtonTap: onInfoButtonTap,
-			onAccessibilityFocus: {},
-			onUpdate: {}
-		)
-		configureLocalStatisticsCards(
-			onInfoButtonTap: onInfoButtonTap,
-			onAccessibilityFocus: onAccessibilityFocus,
-			onUpdate: onUpdate
-		)
-		configureKeyFigureCards(
-			for: keyFigureCellModel.keyFigureCards,
-			onInfoButtonTap: onInfoButtonTap,
-			onAccessibilityFocus: onAccessibilityFocus
-		)
+		
+		if CWAHibernationProvider.shared.isHibernationState {
+			configurePandemicRadarCard(
+				onInfoButtonTap: onInfoButtonTap,
+				onAccessibilityFocus: {},
+				onUpdate: {}
+			)
+		} else {
+			configureManageLocalStatisticsCell(
+				store: store,
+				onAddLocalStatisticsButtonTap: onAddLocalStatisticsButtonTap,
+				onAddDistrict: onAddDistrict,
+				onDismissState: onDismissState,
+				onDismissDistrict: onDismissDistrict,
+				onAccessibilityFocus: onAccessibilityFocus,
+				onDeviceOfflineInfo: onDeviceOfflineInfo
+			)
+			configurePandemicRadarCard(
+				onInfoButtonTap: onInfoButtonTap,
+				onAccessibilityFocus: {},
+				onUpdate: {}
+			)
+			configureLocalStatisticsCards(
+				onInfoButtonTap: onInfoButtonTap,
+				onAccessibilityFocus: onAccessibilityFocus,
+				onUpdate: onUpdate
+			)
+			configureKeyFigureCards(
+				for: keyFigureCellModel.keyFigureCards,
+				onInfoButtonTap: onInfoButtonTap,
+				onAccessibilityFocus: onAccessibilityFocus
+			)
+		}
 
 		onUpdate()
 	}
@@ -263,8 +271,7 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 		let nib = UINib(nibName: nibName, bundle: .main)
 		
 		guard
-			let linkCardView = nib.instantiate(withOwner: self, options: nil).first as? HomeLinkCardView,
-			!stackView.arrangedSubviews.isEmpty
+			let linkCardView = nib.instantiate(withOwner: self, options: nil).first as? HomeLinkCardView
 		else { return }
 		
 		stackView.addArrangedSubview(linkCardView)
@@ -274,6 +281,7 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 
 		linkCardView.configure(
 			viewModel: HomeLinkCardViewModel(for: pandemicLinkCard),
+			isInfoButtonHidden: CWAHibernationProvider.shared.isHibernationState,
 			onInfoButtonTap: {
 				onInfoButtonTap()
 			},
