@@ -538,6 +538,57 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 		XCTAssertEqual(ppasError, .appResetError)
 	}
 	
+	func testGIVEN_SubmissionIsTriggered_WHEN_Hibernation_THEN_HibernationErrorIsReturned() {
+		// GIVEN
+		let store = MockTestStore()
+		store.isPrivacyPreservingAnalyticsConsentGiven = true
+		store.lastSubmissionAnalytics = Calendar.current.date(byAdding: .day, value: -5, to: Date())
+		store.dateOfAcceptedPrivacyNotice = Calendar.current.date(byAdding: .day, value: -5, to: Date())
+
+		var config = SAP_Internal_V2_ApplicationConfigurationIOS()
+		config.privacyPreservingAnalyticsParameters.common.probabilityToSubmit = 3
+
+		let appConfigurationProvider = CachedAppConfigurationMock(with: config)
+
+		#if targetEnvironment(simulator)
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "iPhone")
+		#else
+		let deviceCheck = PPACDeviceCheck()
+		#endif
+
+		let loadResource = LoadResource(result: .success(()), willLoadResource: nil)
+		
+		let cwaHibernationProvider = CWAHibernationProvider(customStore: store)
+		store.hibernationComparisonDate = cwaHibernationProvider.hibernationStartDate
+
+		let sut = PPAnalyticsSubmitter(
+			store: store,
+			restServiceProvider: RestServiceProviderStub(loadResources: [loadResource]),
+			appConfig: appConfigurationProvider,
+			coronaTestService: MockCoronaTestService(),
+			ppacService: PPACService(store: store, deviceCheck: deviceCheck),
+			cwaHibernationProvider: cwaHibernationProvider
+		)
+
+		let expectation = self.expectation(description: "completion handler is called with an error")
+		
+		// WHEN
+		var ppasError: PPASError?
+		sut.triggerSubmitData(ppacToken: nil, completion: { result in
+			switch result {
+			case .success:
+				XCTFail("Test should not success")
+			case let .failure(error):
+				ppasError = error
+				expectation.fulfill()
+			}
+		})
+		
+		// THEN
+		waitForExpectations(timeout: .medium)
+		XCTAssertEqual(ppasError, .hibernationError)
+	}
+	
 	func testGIVEN_SubmissionIsTriggered_WHEN_PpacCouldNotAuthorize_THEN_PpacErrorIsReturned() {
 		// GIVEN
 		let store = MockTestStore()

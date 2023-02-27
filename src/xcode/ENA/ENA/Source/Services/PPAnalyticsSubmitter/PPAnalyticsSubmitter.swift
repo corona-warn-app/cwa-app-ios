@@ -38,7 +38,8 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 		restServiceProvider: RestServiceProviding,
 		appConfig: AppConfigurationProviding,
 		coronaTestService: CoronaTestServiceProviding,
-		ppacService: PrivacyPreservingAccessControl
+		ppacService: PrivacyPreservingAccessControl,
+		cwaHibernationProvider: CWAHibernationProvider = CWAHibernationProvider.shared
 	) {
 		guard let store = store as? (Store & PPAnalyticsData) else {
 			Log.error("I will never submit any analytics data. Could not cast to correct store protocol", log: .ppa)
@@ -50,6 +51,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 		self.configurationProvider = appConfig
 		self.coronaTestService = coronaTestService
 		self.ppacService = ppacService
+		self.cwaHibernationProvider = cwaHibernationProvider
         
         self.fakeRequestService = FakeRequestService(restServiceProvider: restServiceProvider, ppacService: ppacService, appConfiguration: appConfig)
 	}
@@ -128,6 +130,14 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 				completion?(.failure(.appResetError))
 				return
 			}
+			
+			// Hibernation check
+			if strongSelf.cwaHibernationProvider.isHibernationState {
+				Log.warning("Analytics submission \(strongSelf.applicationState) abort due to app is in hibernation state.", log: .ppa)
+				strongSelf.submissionState = .readyForSubmission
+				completion?(.failure(.hibernationError))
+				return
+			}
 
 			if let token = ppacToken {
 				Log.info("Analytics submission \(strongSelf.applicationState)) has an injected ppac token.", log: .ppa)
@@ -179,6 +189,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 	private let coronaTestService: CoronaTestServiceProviding
 	private let ppacService: PrivacyPreservingAccessControl
     private let fakeRequestService: FakeRequestService
+	private let cwaHibernationProvider: CWAHibernationProvider
 	
 	private var submissionState: PPASubmissionState
 	private var subscriptions: Set<AnyCancellable> = []
