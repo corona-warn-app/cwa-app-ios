@@ -30,9 +30,8 @@ class AppInformationViewControllerTests: XCTestCase {
     }
 
 	func testModel_WHEN_modelEntriesInHibernation_THEN_equalCount() throws {
-		// WHEN
+		// GIVEN
 		let store = MockTestStore()
-
 		let sut = AppInformationViewController(
 			elsService: errorLogSubmissionProvidingMock,
 			finishedDeltaOnboardings: store.finishedDeltaOnboardings,
