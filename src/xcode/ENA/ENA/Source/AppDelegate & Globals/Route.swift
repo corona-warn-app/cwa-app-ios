@@ -4,6 +4,7 @@
 
 import Foundation
 
+// swiftlint:disable function_body_length
 enum Route: Equatable {
 
 	// MARK: - Init
@@ -83,6 +84,9 @@ enum Route: Equatable {
 				return
 			}
 			
+			if CWAHibernationProvider.shared.isHibernationState {
+				return nil
+			}
 			self = .rapidAntigen(.success(.antigen(qrCodeInformation: testInformation, qrCodeHash: ENAHasher.sha256(url.absoluteString))))
 		case "p.coronawarn.app":
 			guard let payloadUrl = components?.fragment,
@@ -143,8 +147,14 @@ enum Route: Equatable {
 				return
 			}
 			
+			if CWAHibernationProvider.shared.isHibernationState {
+				return nil
+			}
 			self = .rapidPCR(.success(.rapidPCR(qrCodeInformation: testInformation, qrCodeHash: ENAHasher.sha256(url.absoluteString))))
 		case "e.coronawarn.app":
+			if CWAHibernationProvider.shared.isHibernationState {
+				return nil
+			}
 			self = .checkIn(url.absoluteString)
 		default:
 			return nil
