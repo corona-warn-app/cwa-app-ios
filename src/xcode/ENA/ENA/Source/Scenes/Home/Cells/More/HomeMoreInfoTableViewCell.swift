@@ -24,7 +24,7 @@ class HomeMoreInfoTableViewCell: UITableViewCell {
 		stackView.removeAllArrangedSubviews()
 		
 		if CWAHibernationProvider.shared.isHibernationState {
-			items = MoreInfoItem.allCases.filter({ $0 != .settings && $0 != .share })
+			items = MoreInfoItem.allCases.filter { $0 != .settings && $0 != .share }
 		} else {
 			items = MoreInfoItem.allCases
 		}
