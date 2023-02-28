@@ -32,12 +32,12 @@ class AppInformationViewControllerTests: XCTestCase {
 	func testModel_WHEN_modelEntriesInHibernation_THEN_equalCount() throws {
 		// WHEN
 		let store = MockTestStore()
-		store.hibernationComparisonDate = Calendar.current.date(byAdding: .day, value: 180, to: Date()) ?? Date()
 
 		let sut = AppInformationViewController(
 			elsService: errorLogSubmissionProvidingMock,
 			finishedDeltaOnboardings: store.finishedDeltaOnboardings,
-			cclService: fakeCCSService
+			cclService: fakeCCSService,
+			isHibernationState: true
 		)
 
 		// THEN

@@ -12,7 +12,8 @@ class AppInformationViewController: DynamicTableViewController, NavigationBarOpa
 	init(
 		elsService: ErrorLogSubmissionProviding,
 		finishedDeltaOnboardings: [String: [String]],
-		cclService: CCLServable
+		cclService: CCLServable,
+		isHibernationState: Bool? = CWAHibernationProvider.shared.isHibernationState
 	) {
 		self.cclService = cclService
 		self.finishedDeltaOnboardings = finishedDeltaOnboardings
@@ -49,7 +50,7 @@ class AppInformationViewController: DynamicTableViewController, NavigationBarOpa
 				action: .push(model: AppInformationViewController.legalModel, separators: true, withTitle: AppStrings.AppInformation.legalNavigation)
 			)]
 		
-		if !CWAHibernationProvider.shared.isHibernationState {
+		if let hibernationState = isHibernationState, !hibernationState {
 			self.model[.contact] = AppInformationCellModel(
 			   text: AppStrings.AppInformation.contactNavigation,
 			   accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.contactNavigation,
