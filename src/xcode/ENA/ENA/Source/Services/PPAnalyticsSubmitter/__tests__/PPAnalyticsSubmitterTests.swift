@@ -572,7 +572,6 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 		
 		let mockCWAHibernationProvider = MockCWAHibernationProvider()
 		mockCWAHibernationProvider.isHibernationStateToReturn = true
-//		mockStore.hibernationComparisonDate = mockCWAHibernationProvider.hibernationStartDate
 
 		let sut = PPAnalyticsSubmitter(
 			store: mockStore,
