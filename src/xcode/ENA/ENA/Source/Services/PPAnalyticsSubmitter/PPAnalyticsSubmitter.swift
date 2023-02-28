@@ -98,6 +98,14 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 				return
 			}
 			
+			// Hibernation check
+			if strongSelf.cwaHibernationProvider.isHibernationState {
+				Log.warning("Analytics submission \(strongSelf.applicationState) abort due to app is in hibernation state.", log: .ppa)
+				strongSelf.submissionState = .readyForSubmission
+				completion?(.failure(.hibernationError))
+				return
+			}
+			
 			// Check configuration parameter
 			let random = Double.random(in: 0...1)
 			if random > strongSelf.probabilityToSubmitPPAUsageData {
@@ -128,14 +136,6 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 				Log.warning("Analytics submission \(strongSelf.applicationState)) abort due to app resetted last 24 hours", log: .ppa)
 				strongSelf.submissionState = .readyForSubmission
 				completion?(.failure(.appResetError))
-				return
-			}
-			
-			// Hibernation check
-			if strongSelf.cwaHibernationProvider.isHibernationState {
-				Log.warning("Analytics submission \(strongSelf.applicationState) abort due to app is in hibernation state.", log: .ppa)
-				strongSelf.submissionState = .readyForSubmission
-				completion?(.failure(.hibernationError))
 				return
 			}
 

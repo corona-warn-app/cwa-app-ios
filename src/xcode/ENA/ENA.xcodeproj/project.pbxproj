@@ -14,7 +14,6 @@
 		0104CBCF273EAC5B009A543D /* TicketValidationResultToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0104CBCE273EAC5B009A543D /* TicketValidationResultToken.swift */; };
 		0104CBD1273EAC7A009A543D /* TicketValidationResultToken+Fake.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0104CBD0273EAC7A009A543D /* TicketValidationResultToken+Fake.swift */; };
 		0104CBD3273EACA1009A543D /* MockTicketValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0104CBD2273EACA1009A543D /* MockTicketValidation.swift */; };
-        0104CBD5273EAD72009A543D /* TicketValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0104CBD4273EAD72009A543D /* TicketValidation.swift */; };
 		0104CBD5273EAD72009A543D /* TicketValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0104CBD4273EAD72009A543D /* TicketValidation.swift */; };
 		0105D8AA25B87920007E288B /* SAP_Internal_Stats_KeyFigure+Formatting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0105D8A925B87920007E288B /* SAP_Internal_Stats_KeyFigure+Formatting.swift */; };
 		0109DB8726036E4400624BB3 /* CheckinsOverviewViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0109DB762603682C00624BB3 /* CheckinsOverviewViewModelTest.swift */; };
@@ -1759,9 +1758,9 @@
 		DC7003092858A83800B164AC /* ErrorLogSubmissionProvidingMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC7003082858A83800B164AC /* ErrorLogSubmissionProvidingMock.swift */; };
 		DC8795AC2923ED8D00F478D5 /* UIViewController+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC8795AB2923ED8D00F478D5 /* UIViewController+Helpers.swift */; };
 		DC8BC2BF2953266B003C8CB1 /* InternetConnectivityMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC8BC2BE2953266B003C8CB1 /* InternetConnectivityMonitor.swift */; };
+		DC9390A2299F931A00C2F8F4 /* CWAHibernationProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC9390A1299F931A00C2F8F4 /* CWAHibernationProviderTests.swift */; };
 		DC9390A5299FAB6A00C2F8F4 /* DMHibernationOptionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC9390A4299FAB6A00C2F8F4 /* DMHibernationOptionsViewController.swift */; };
 		DC9390A7299FAB9B00C2F8F4 /* DMHibernationOptionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC9390A6299FAB9B00C2F8F4 /* DMHibernationOptionsViewModel.swift */; };
-		DC9390A2299F931A00C2F8F4 /* CWAHibernationProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC9390A1299F931A00C2F8F4 /* CWAHibernationProviderTests.swift */; };
 		DC9390A9299FC0F300C2F8F4 /* CWAHibernationProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC9390A8299FC0F300C2F8F4 /* CWAHibernationProvider.swift */; };
 		DC95881428BCF9FE00F4D03E /* MaskStateTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC95881328BCF9FE00F4D03E /* MaskStateTableViewCell.swift */; };
 		DC95881628BE3D5500F4D03E /* MaskStateCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC95881528BE3D5500F4D03E /* MaskStateCellModel.swift */; };
@@ -1769,6 +1768,7 @@
 		DC9AB2392908174000A2F9D1 /* String+Attributed.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC9AB2382908174000A2F9D1 /* String+Attributed.swift */; };
 		DCB2897D2948CB51000A3841 /* PPACServiceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCB2897C2948CB51000A3841 /* PPACServiceMock.swift */; };
 		DCB78C47294B2FBC00EAE2AB /* MockRiskProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD2D09F25A86C2A006E4220 /* MockRiskProvider.swift */; };
+		DCBA940329AE21D100905B50 /* MockCWAHibernationProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCBA940229AE21D100905B50 /* MockCWAHibernationProvider.swift */; };
 		DCD345B8291BF7B700E95A2D /* UIView+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCD345B7291BF7B700E95A2D /* UIView+Utils.swift */; };
 		DCDE5FD8292A9DE800F3E733 /* SRSErrorAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCDE5FD7292A9DE800F3E733 /* SRSErrorAlert.swift */; };
 		DCDE5FDA292CFABC00F3E733 /* SRSPreconditionError.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCDE5FD9292CFABC00F3E733 /* SRSPreconditionError.swift */; };
@@ -3662,15 +3662,16 @@
 		DC7003082858A83800B164AC /* ErrorLogSubmissionProvidingMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorLogSubmissionProvidingMock.swift; sourceTree = "<group>"; };
 		DC8795AB2923ED8D00F478D5 /* UIViewController+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Helpers.swift"; sourceTree = "<group>"; };
 		DC8BC2BE2953266B003C8CB1 /* InternetConnectivityMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InternetConnectivityMonitor.swift; sourceTree = "<group>"; };
+		DC9390A1299F931A00C2F8F4 /* CWAHibernationProviderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CWAHibernationProviderTests.swift; sourceTree = "<group>"; };
 		DC9390A4299FAB6A00C2F8F4 /* DMHibernationOptionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMHibernationOptionsViewController.swift; sourceTree = "<group>"; };
 		DC9390A6299FAB9B00C2F8F4 /* DMHibernationOptionsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMHibernationOptionsViewModel.swift; sourceTree = "<group>"; };
-		DC9390A1299F931A00C2F8F4 /* CWAHibernationProviderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CWAHibernationProviderTests.swift; sourceTree = "<group>"; };
 		DC9390A8299FC0F300C2F8F4 /* CWAHibernationProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CWAHibernationProvider.swift; sourceTree = "<group>"; };
 		DC95881328BCF9FE00F4D03E /* MaskStateTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaskStateTableViewCell.swift; sourceTree = "<group>"; };
 		DC95881528BE3D5500F4D03E /* MaskStateCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaskStateCellModel.swift; sourceTree = "<group>"; };
 		DC95881728BE5E2800F4D03E /* MaskStateCellModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaskStateCellModelTests.swift; sourceTree = "<group>"; };
 		DC9AB2382908174000A2F9D1 /* String+Attributed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Attributed.swift"; sourceTree = "<group>"; };
 		DCB2897C2948CB51000A3841 /* PPACServiceMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPACServiceMock.swift; sourceTree = "<group>"; };
+		DCBA940229AE21D100905B50 /* MockCWAHibernationProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockCWAHibernationProvider.swift; sourceTree = "<group>"; };
 		DCD345B7291BF7B700E95A2D /* UIView+Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Utils.swift"; sourceTree = "<group>"; };
 		DCDE5FD7292A9DE800F3E733 /* SRSErrorAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SRSErrorAlert.swift; sourceTree = "<group>"; };
 		DCDE5FD9292CFABC00F3E733 /* SRSPreconditionError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SRSPreconditionError.swift; sourceTree = "<group>"; };
@@ -5643,6 +5644,7 @@
 				BA7F15A02629D3F200CA4783 /* RouteTests.swift */,
 				502AB79826E64E5B00536DD2 /* NotificationManagerTests.swift */,
 				DC9390A1299F931A00C2F8F4 /* CWAHibernationProviderTests.swift */,
+				DCBA940229AE21D100905B50 /* MockCWAHibernationProvider.swift */,
 			);
 			path = __tests__;
 			sourceTree = "<group>";
@@ -12643,6 +12645,7 @@
 				509B1E4426D62BB2007B97E0 /* HealthCertificatePDFGenerationInfoViewModelTests.swift in Sources */,
 				358D780C2632FA7C00070BED /* HTTPClient+SubmitErrorLogFileTests.swift in Sources */,
 				BA7D178E25D55EB1006B9EBF /* DefaultDataDonationViewModelTests.swift in Sources */,
+				DCBA940329AE21D100905B50 /* MockCWAHibernationProvider.swift in Sources */,
 				508266DA278DA60000091991 /* Archive+CBOR.swift in Sources */,
 				50C51CB625CDEA4300D4C33A /* HTTPClient+SubmitAnalyticsDataTests.swift in Sources */,
 				0127B09E272855D6008E30AF /* CoronaTestRestorationHandlerTests.swift in Sources */,
