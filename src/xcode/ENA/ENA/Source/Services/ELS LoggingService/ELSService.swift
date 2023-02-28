@@ -53,12 +53,14 @@ final class ErrorLogSubmissionService: ErrorLogSubmissionProviding {
 		restServicerProvider: RestServiceProviding,
 		store: ErrorLogProviding,
 		ppacService: PrivacyPreservingAccessControl,
-		otpService: OTPServiceProviding
+		otpService: OTPServiceProviding,
+		cwaHibernationProvider: CWAHibernationProvider = CWAHibernationProvider.shared
 	) {
 		self.restServicerProvider = restServicerProvider
 		self.store = store
 		self.ppacService = ppacService
 		self.otpService = otpService
+		self.cwaHibernationProvider = cwaHibernationProvider
 	}
 	
 	// MARK: - Protocol ErrorLogSubmitting
@@ -71,7 +73,7 @@ final class ErrorLogSubmissionService: ErrorLogSubmissionProviding {
 	func submit(completion: @escaping (Result<ELSSubmitReceiveModel, ELSError>) -> Void) {
 
 		// Hibernation
-		guard !CWAHibernationProvider.shared.isHibernationState else {
+		guard !cwaHibernationProvider.isHibernationState else {
 			Log.info("In hibernation status it's not allowed to send error logs.", log: .els)
 			completion(.failure(.hibernation))
 			return
@@ -119,6 +121,7 @@ final class ErrorLogSubmissionService: ErrorLogSubmissionProviding {
 	private let store: ErrorLogProviding
 	private let ppacService: PrivacyPreservingAccessControl
 	private let otpService: OTPServiceProviding
+	private let cwaHibernationProvider: CWAHibernationProvider
 	
 	private lazy var fileLogger = FileLogger()
 	private lazy var fileManager = FileManager.default
