@@ -10,6 +10,50 @@ import HealthCertificateToolkit
 // swiftlint:disable type_body_length
 class HomeTableViewModelTests: CWATestCase {
 
+	func testSectionsRowsAndHeightsInHibernation() throws {
+		let store = MockTestStore()
+
+		let viewModel = HomeTableViewModel(
+			state: .init(
+				store: store,
+				riskProvider: MockRiskProvider(),
+				exposureManagerState: .init(authorized: true, enabled: true, status: .active),
+				enState: .enabled,
+				statisticsProvider: StatisticsProvider(
+					client: CachingHTTPClientMock(),
+					store: store
+				),
+				localStatisticsProvider: LocalStatisticsProvider(
+					client: CachingHTTPClientMock(),
+					store: store
+				)
+			),
+			store: store,
+			appConfiguration: CachedAppConfigurationMock(),
+			coronaTestService: MockCoronaTestService(),
+			familyMemberCoronaTestService: MockFamilyMemberCoronaTestService(),
+			cclService: FakeCCLService(),
+			onTestResultCellTap: { _ in },
+			badgeWrapper: .fake()
+		)
+
+		// Number of Rows per Section
+		viewModel.isHibernationState = true
+		
+		// Number of Sections
+		XCTAssertEqual(viewModel.numberOfSections, 8)
+				
+		// Number of Rows
+		XCTAssertEqual(viewModel.numberOfRows(in: 0), 1) // end of life tile visible
+		XCTAssertEqual(viewModel.numberOfRows(in: 1), 0) // app closure notice invisible
+		XCTAssertEqual(viewModel.numberOfRows(in: 2), 0) // exposure Logging invisible
+		XCTAssertEqual(viewModel.numberOfRows(in: 3), 0) // riskAndTestResults invisible
+		XCTAssertEqual(viewModel.numberOfRows(in: 4), 0) // testRegistration invisible
+		XCTAssertEqual(viewModel.numberOfRows(in: 5), 1) // statistics visible
+		XCTAssertEqual(viewModel.numberOfRows(in: 6), 0) // traceLocations invisible
+		XCTAssertEqual(viewModel.numberOfRows(in: 7), 1) // moreInfo visible
+	}
+	
 	func testSectionsRowsAndHeights() throws {
 		let store = MockTestStore()
 
@@ -40,12 +84,8 @@ class HomeTableViewModelTests: CWATestCase {
 		// Number of Sections
 		XCTAssertEqual(viewModel.numberOfSections, 8)
 		
-		// Number of Rows per Section
-		viewModel.isHibernationState = true
-		XCTAssertEqual(viewModel.numberOfRows(in: 0), 1)
-		viewModel.isHibernationState = false
+		// Number of Rows
 		XCTAssertEqual(viewModel.numberOfRows(in: 0), 0)
-		
 		XCTAssertEqual(viewModel.numberOfRows(in: 1), 0)
 		XCTAssertEqual(viewModel.numberOfRows(in: 2), 1)
 		XCTAssertEqual(viewModel.numberOfRows(in: 3), 1)
@@ -57,7 +97,7 @@ class HomeTableViewModelTests: CWATestCase {
 		// Check riskAndTestResultsRows
 		XCTAssertEqual(viewModel.riskAndTestResultsRows, [.risk])
 	}
-	
+
 	func testFamilyTestCellNotHiddenIfFamilyMemberTestsExist() {
 		let store = MockTestStore()
 		var defaultAppConfig = CachedAppConfigurationMock.defaultAppConfiguration
