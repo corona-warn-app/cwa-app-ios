@@ -38,16 +38,21 @@ class HomeTableViewModelTests: CWATestCase {
 		)
 
 		// Number of Sections
-		XCTAssertEqual(viewModel.numberOfSections, 7)
+		XCTAssertEqual(viewModel.numberOfSections, 8)
 		
 		// Number of Rows per Section
+		viewModel.isHibernationState = true
+		XCTAssertEqual(viewModel.numberOfRows(in: 0), 1)
+		viewModel.isHibernationState = false
 		XCTAssertEqual(viewModel.numberOfRows(in: 0), 0)
-		XCTAssertEqual(viewModel.numberOfRows(in: 1), 1)
+		
+		XCTAssertEqual(viewModel.numberOfRows(in: 1), 0)
 		XCTAssertEqual(viewModel.numberOfRows(in: 2), 1)
 		XCTAssertEqual(viewModel.numberOfRows(in: 3), 1)
 		XCTAssertEqual(viewModel.numberOfRows(in: 4), 1)
 		XCTAssertEqual(viewModel.numberOfRows(in: 5), 1)
 		XCTAssertEqual(viewModel.numberOfRows(in: 6), 1)
+		XCTAssertEqual(viewModel.numberOfRows(in: 7), 1)
 
 		// Check riskAndTestResultsRows
 		XCTAssertEqual(viewModel.riskAndTestResultsRows, [.risk])
@@ -86,7 +91,7 @@ class HomeTableViewModelTests: CWATestCase {
 			badgeWrapper: .fake()
 		)
 
-		XCTAssertEqual(viewModel.numberOfRows(in: 2), 2)
+		XCTAssertEqual(viewModel.numberOfRows(in: 3), 2)
 		XCTAssertEqual(viewModel.riskAndTestResultsRows, [.risk, .familyTestResults])
 	}
 
@@ -168,7 +173,7 @@ class HomeTableViewModelTests: CWATestCase {
 			badgeWrapper: .fake()
 		)
 
-		XCTAssertEqual(viewModel.numberOfRows(in: 2), 2)
+		XCTAssertEqual(viewModel.numberOfRows(in: 3), 2)
 		XCTAssertEqual(viewModel.riskAndTestResultsRows, [.risk, .pcrTestResult(.default)])
 	}
 	
@@ -301,7 +306,7 @@ class HomeTableViewModelTests: CWATestCase {
 			badgeWrapper: .fake()
 		)
 
-		XCTAssertEqual(viewModel.numberOfRows(in: 2), 2)
+		XCTAssertEqual(viewModel.numberOfRows(in: 3), 2)
 		XCTAssertEqual(viewModel.riskAndTestResultsRows, [.risk, .pcrTestResult(.positiveResultWasShown)])
 	}
 
@@ -346,7 +351,7 @@ class HomeTableViewModelTests: CWATestCase {
 			badgeWrapper: .fake()
 		)
 
-		XCTAssertEqual(viewModel.numberOfRows(in: 2), 2)
+		XCTAssertEqual(viewModel.numberOfRows(in: 3), 2)
 		XCTAssertEqual(viewModel.riskAndTestResultsRows, [.risk, .pcrTestResult(.positiveResultWasShown)])
 	}
 
@@ -391,7 +396,7 @@ class HomeTableViewModelTests: CWATestCase {
 			badgeWrapper: .fake()
 		)
 
-		XCTAssertEqual(viewModel.numberOfRows(in: 2), 2)
+		XCTAssertEqual(viewModel.numberOfRows(in: 3), 2)
 		XCTAssertEqual(viewModel.riskAndTestResultsRows, [.risk, .pcrTestResult(.default)])
 	}
 
@@ -434,7 +439,7 @@ class HomeTableViewModelTests: CWATestCase {
 			badgeWrapper: .fake()
 		)
 
-		XCTAssertEqual(viewModel.numberOfRows(in: 2), 2)
+		XCTAssertEqual(viewModel.numberOfRows(in: 3), 2)
 		XCTAssertEqual(viewModel.riskAndTestResultsRows, [.risk, .pcrTestResult(.default)])
 	}
 
@@ -479,7 +484,7 @@ class HomeTableViewModelTests: CWATestCase {
 			badgeWrapper: .fake()
 		)
 
-		XCTAssertEqual(viewModel.numberOfRows(in: 2), 2)
+		XCTAssertEqual(viewModel.numberOfRows(in: 3), 2)
 		XCTAssertEqual(viewModel.riskAndTestResultsRows, [.risk, .antigenTestResult(.default)])
 	}
 
@@ -612,7 +617,7 @@ class HomeTableViewModelTests: CWATestCase {
 			badgeWrapper: .fake()
 		)
 
-		XCTAssertEqual(viewModel.numberOfRows(in: 2), 2)
+		XCTAssertEqual(viewModel.numberOfRows(in: 3), 2)
 		XCTAssertEqual(viewModel.riskAndTestResultsRows, [.risk, .antigenTestResult(.positiveResultWasShown)])
 	}
 
@@ -657,7 +662,7 @@ class HomeTableViewModelTests: CWATestCase {
 			badgeWrapper: .fake()
 		)
 
-		XCTAssertEqual(viewModel.numberOfRows(in: 2), 2)
+		XCTAssertEqual(viewModel.numberOfRows(in: 3), 2)
 		XCTAssertEqual(viewModel.riskAndTestResultsRows, [.risk, .antigenTestResult(.default)])
 	}
 
@@ -702,7 +707,7 @@ class HomeTableViewModelTests: CWATestCase {
 			badgeWrapper: .fake()
 		)
 
-		XCTAssertEqual(viewModel.numberOfRows(in: 2), 2)
+		XCTAssertEqual(viewModel.numberOfRows(in: 3), 2)
 		XCTAssertEqual(viewModel.riskAndTestResultsRows, [.risk, .antigenTestResult(.default)])
 	}
 
@@ -745,7 +750,7 @@ class HomeTableViewModelTests: CWATestCase {
 			badgeWrapper: .fake()
 		)
 
-		XCTAssertEqual(viewModel.numberOfRows(in: 2), 2)
+		XCTAssertEqual(viewModel.numberOfRows(in: 3), 2)
 		XCTAssertEqual(viewModel.riskAndTestResultsRows, [.risk, .antigenTestResult(.default)])
 	}
 

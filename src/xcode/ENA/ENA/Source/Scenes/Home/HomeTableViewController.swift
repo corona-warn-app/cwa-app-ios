@@ -106,8 +106,16 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		viewModel.cclService.shouldShowNoticeTile
 			.receive(on: DispatchQueue.OCombine(.main))
 			.sink { [weak self] shouldShowNoticeTile in
+				let isHibernationState = CWAHibernationProvider.shared.isHibernationState
+				self?.viewModel.isHibernationState = isHibernationState
 				self?.viewModel.shouldShowAppClosureNotice = shouldShowNoticeTile
-				self?.tableView.reloadSections([HomeTableViewModel.Section.appClosureNotice.rawValue], with: .none)
+				self?.tableView.reloadSections(
+					[
+					HomeTableViewModel.Section.appClosureNotice.rawValue,
+					HomeTableViewModel.Section.endOfLifeThankYou.rawValue
+					],
+					with: .none
+				)
 			}
 			.store(in: &subscriptions)
 	}
@@ -161,7 +169,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 
 		#if DEBUG
 		if isUITesting && LaunchArguments.test.common.showTestResultCards.boolValue {
-			tableView.scrollToRow(at: IndexPath(row: 1, section: 2), at: .top, animated: false)
+			tableView.scrollToRow(at: IndexPath(row: 1, section: 3), at: .top, animated: false)
 		}
 		#endif
 		
@@ -181,6 +189,8 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 	// swiftlint:disable:next cyclomatic_complexity
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		switch HomeTableViewModel.Section(rawValue: indexPath.section) {
+		case .endOfLifeThankYou:
+			return endOfLifeThankYouCell(forRowAt: indexPath)
 		case .appClosureNotice:
 			return appClosureNoticeCell(forRowAt: indexPath, statusTabNotice: viewModel.statusTabNotice)
 		case .exposureLogging:
@@ -396,6 +406,10 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		tableView.register(
 			UINib(nibName: String(describing: HomeShownPositiveTestResultTableViewCell.self), bundle: nil),
 			forCellReuseIdentifier: String(describing: HomeShownPositiveTestResultTableViewCell.self)
+		)
+		tableView.register(
+			UINib(nibName: String(describing: EndOfLifeThankYouCell.self), bundle: nil),
+			forCellReuseIdentifier: String(describing: EndOfLifeThankYouCell.self)
 		)
 		tableView.register(
 			UINib(nibName: String(describing: HomeTestRegistrationTableViewCell.self), bundle: nil),
@@ -618,6 +632,15 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		case .antigen:
 			antigenTestShownPositiveResultCell = cell
 		}
+
+		return cell
+	}
+	
+	private func endOfLifeThankYouCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
+		guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: EndOfLifeThankYouCell.self), for: indexPath) as? EndOfLifeThankYouCell else {
+			fatalError("Could not dequeue EndOfLifeThankYouCell")
+		}
+		cell.configure(with: EndOfLifeThankYouCellViewModel())
 
 		return cell
 	}
