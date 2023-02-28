@@ -168,9 +168,13 @@ class ELSServiceTests: CWATestCase {
 	}
 	
 	func testGIVEN_ELSService_WHEN_Hibernation_THEN_HibernationErrorIsReturned() throws {
+		// GIVEN
 		let elsService = createELSService(isHibernation: true)
 
+		// WHEN
 		elsService.submit { result in
+			
+			// THEN
 			switch result {
 			case .success:
 				XCTFail("Test should not succeed")
