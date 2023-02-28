@@ -112,7 +112,13 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 				self?.tableView.reloadSections(
 					[
 					HomeTableViewModel.Section.appClosureNotice.rawValue,
-					HomeTableViewModel.Section.endOfLifeThankYou.rawValue
+					HomeTableViewModel.Section.endOfLifeThankYou.rawValue,
+					HomeTableViewModel.Section.exposureLogging.rawValue,
+					HomeTableViewModel.Section.riskAndTestResults.rawValue,
+					HomeTableViewModel.Section.statistics.rawValue,
+					HomeTableViewModel.Section.testRegistration.rawValue,
+					HomeTableViewModel.Section.traceLocations.rawValue,
+					HomeTableViewModel.Section.moreInfo.rawValue
 					],
 					with: .none
 				)
@@ -376,12 +382,14 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		navigationItem.leftBarButtonItem?.accessibilityLabel = AppStrings.Home.leftBarButtonDescription
 		navigationItem.leftBarButtonItem?.accessibilityIdentifier = AccessibilityIdentifiers.Home.leftBarButtonDescription
 
-		let infoButton = UIButton(type: .infoLight)
-		infoButton.addTarget(self, action: #selector(infoButtonTapped), for: .touchUpInside)
-		navigationItem.rightBarButtonItem = UIBarButtonItem(customView: infoButton)
-		navigationItem.rightBarButtonItem?.isAccessibilityElement = true
-		navigationItem.rightBarButtonItem?.accessibilityLabel = AppStrings.Home.rightBarButtonDescription
-		navigationItem.rightBarButtonItem?.accessibilityIdentifier = AccessibilityIdentifiers.Home.rightBarButtonDescription
+		if !CWAHibernationProvider.shared.isHibernationState {
+			let infoButton = UIButton(type: .infoLight)
+			infoButton.addTarget(self, action: #selector(infoButtonTapped), for: .touchUpInside)
+			navigationItem.rightBarButtonItem = UIBarButtonItem(customView: infoButton)
+			navigationItem.rightBarButtonItem?.isAccessibilityElement = true
+			navigationItem.rightBarButtonItem?.accessibilityLabel = AppStrings.Home.rightBarButtonDescription
+			navigationItem.rightBarButtonItem?.accessibilityIdentifier = AccessibilityIdentifiers.Home.rightBarButtonDescription
+		}
 	}
 
 	private func setupTableView() {

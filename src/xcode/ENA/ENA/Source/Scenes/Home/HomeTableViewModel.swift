@@ -131,15 +131,15 @@ class HomeTableViewModel {
 			#endif
 			return shouldShowAppClosureNotice ? 1 : 0
 		case .exposureLogging:
-			return 1
+			return !isHibernationState ? 1 : 0
 		case .riskAndTestResults:
-			return riskAndTestResultsRows.count
+			return !isHibernationState ? riskAndTestResultsRows.count : 0
 		case .testRegistration:
-			return 1
+			return !isHibernationState ? 1 : 0
 		case .statistics:
 			return 1
 		case .traceLocations:
-			return 1
+			return !isHibernationState ? 1 : 0
 		case .moreInfo:
 			return 1
 		case .none:
