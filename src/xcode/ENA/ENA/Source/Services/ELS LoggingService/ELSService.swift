@@ -69,6 +69,13 @@ final class ErrorLogSubmissionService: ErrorLogSubmissionProviding {
 	private(set) lazy var logFileSizePublisher: AnyPublisher<Int64, ELSError> = setupFileSizePublisher()
 	
 	func submit(completion: @escaping (Result<ELSSubmitReceiveModel, ELSError>) -> Void) {
+
+		// Hibernation
+		guard !CWAHibernationProvider.shared.isHibernationState else {
+			Log.info("In hibernation status it's not allowed to send error logs.", log: .els)
+			completion(.failure(.hibernation))
+			return
+		}
 		
 		// get log data from the 'all logs' file
 		guard
