@@ -29,6 +29,20 @@ class AppInformationViewControllerTests: XCTestCase {
 		fakeCCSService = nil
     }
 
+	func testModel_WHEN_modelEntriesInHibernation_THEN_equalCount() throws {
+		// GIVEN
+		let store = MockTestStore()
+		let sut = AppInformationViewController(
+			elsService: errorLogSubmissionProvidingMock,
+			finishedDeltaOnboardings: store.finishedDeltaOnboardings,
+			cclService: fakeCCSService,
+			isHibernationState: true
+		)
+
+		// THEN
+		XCTAssertEqual(sut.model.count, 7)
+	}
+	
     func testModel_WHEN_modelEntries_THEN_equalCategoryCount() throws {
 		// WHEN
 		let modelEntriesCount = sut.model.count

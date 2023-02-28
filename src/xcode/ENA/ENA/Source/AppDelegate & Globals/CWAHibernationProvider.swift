@@ -24,10 +24,13 @@ class CWAHibernationProvider: RequiresAppDependencies {
 	
 	/// Determines if the CWA is in hibernation state.
 	var isHibernationState: Bool {
-		#if RELEASE
-		return Date() >= hibernationStartDate
-		#else
+		#if DEBUG
+		if isUITesting {
+			return LaunchArguments.endOfLife.isHibernationStateEnabled.boolValue
+		}
 		return secureStore.hibernationComparisonDate >= hibernationStartDate
+		#else
+		return Date() >= hibernationStartDate
 		#endif
 	}
 	

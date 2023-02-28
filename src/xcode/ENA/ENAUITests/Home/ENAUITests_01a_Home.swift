@@ -271,6 +271,16 @@ class ENAUITests_01a_Home: CWATestCase {
 		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.Home.AppClosureNoticeCell.Details.faqLabel].exists)
 	}
 	
+	func test_homescreen_endOfLife_ThankYoutile() throws {
+		app.setPreferredContentSizeCategory(accessibility: .accessibility, size: .XS)
+		app.setLaunchArgument(LaunchArguments.endOfLife.isHibernationStateEnabled, to: true)
+		app.launch()
+		
+		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.Home.EndOfLifeThankYouCell.descriptionLabel].waitForExistence(timeout: .medium))
+		XCTAssertTrue(app.images[AccessibilityIdentifiers.Home.EndOfLifeThankYouCell.image].waitForExistence(timeout: .medium))
+		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.Home.EndOfLifeThankYouCell.titleLabel].waitForExistence(timeout: .medium))
+	}
+	
 	// MARK: - Screenshots
 
 	func test_screenshot_homescreen_riskCardLow_DetailsScreen() throws {
