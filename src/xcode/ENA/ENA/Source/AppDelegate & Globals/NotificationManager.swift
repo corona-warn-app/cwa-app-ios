@@ -44,8 +44,8 @@ final class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
 		}
 	}
 
+	// swiftlint:disable cyclomatic_complexity
 	func userNotificationCenter(_: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
-		
 		if CWAHibernationProvider.shared.isHibernationState {
 			showHome()
 		} else {

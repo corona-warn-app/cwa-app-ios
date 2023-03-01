@@ -165,8 +165,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		UNUserNotificationCenter.current().delegate = notificationManager
 
 		// Setup DeadmanNotification after AppLaunch
-		DeadmanNotificationManager().scheduleDeadmanNotificationIfNeeded()
-
+		if !CWAHibernationProvider.shared.isHibernationState {
+			DeadmanNotificationManager().scheduleDeadmanNotificationIfNeeded()
+		}
 		// Removing pdf documents from temporary directory
 		FileManager.default.removePDFsFromTemporaryDirectory()
 

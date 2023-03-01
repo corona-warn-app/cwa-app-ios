@@ -90,7 +90,7 @@ final class EventCheckoutService {
 						if $0.createJournalEntry {
 							self?.eventStore.updateCheckin($0.updatedCheckin(createJournalEntry: false))
 						}
-					} else {
+					} else if !CWAHibernationProvider.shared.isHibernationState {
 						self?.triggerNotificationForCheckout(of: $0)
 					}
 				}
@@ -118,11 +118,9 @@ final class EventCheckoutService {
 			content: content,
 			trigger: trigger
 		)
-		if !CWAHibernationProvider.shared.isHibernationState {
-			userNotificationCenter.add(request) { error in
-				if error != nil {
-					Log.error("Checkout notification could not be scheduled.")
-				}
+		userNotificationCenter.add(request) { error in
+			if error != nil {
+				Log.error("Checkout notification could not be scheduled.")
 			}
 		}
 	}
