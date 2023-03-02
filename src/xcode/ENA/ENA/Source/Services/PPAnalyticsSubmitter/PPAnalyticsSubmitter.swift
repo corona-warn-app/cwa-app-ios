@@ -64,6 +64,13 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 	) {
 		Log.info("Analytics submission was triggered \(applicationState). Checking now if we can submit...", log: .ppa)
 		
+		// Hibernation check
+		if cwaHibernationProvider.isHibernationState {
+			Log.warning("Analytics submission \(applicationState) abort due to app is in hibernation state.", log: .ppa)
+			completion?(.failure(.hibernationError))
+			return
+		}
+		
 		// Check if a submission is already in progress
 		guard submissionState == .readyForSubmission else {
 			Log.warning("Analytics submission \(applicationState) abort due to submission is already in progress", log: .ppa)
@@ -95,14 +102,6 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 				Log.warning("Analytics submission \(String(describing: self?.applicationState))) abort due fail at creating strong self", log: .ppa)
 				self?.submissionState = .readyForSubmission
 				completion?(.failure(.generalError))
-				return
-			}
-			
-			// Hibernation check
-			if strongSelf.cwaHibernationProvider.isHibernationState {
-				Log.warning("Analytics submission \(strongSelf.applicationState) abort due to app is in hibernation state.", log: .ppa)
-				strongSelf.submissionState = .readyForSubmission
-				completion?(.failure(.hibernationError))
 				return
 			}
 			
