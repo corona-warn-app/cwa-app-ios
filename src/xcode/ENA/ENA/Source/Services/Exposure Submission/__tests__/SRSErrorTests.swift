@@ -7,14 +7,14 @@ import XCTest
 
 final class SRSErrorTests: XCTestCase {
 	
-	override func setUp() async throws {
-		InternetConnectivityMonitor.shared.isDeviceOnlineMock = true
-	}
-	
-	override func tearDown() async throws {
-		InternetConnectivityMonitor.shared.isDeviceOnlineMock = false
-	}
-	
+//	override func setUp() async throws {
+//		InternetConnectivityMonitor.shared.isDeviceOnlineMock = true
+//	}
+//	
+//	override func tearDown() async throws {
+//		InternetConnectivityMonitor.shared.isDeviceOnlineMock = false
+//	}
+//	
 	func testDescription_ppacError() throws {
 		// GIVEN
 		let sut: SRSError = .ppacError(.submissionTooEarly)

@@ -41,14 +41,12 @@ class WarnOthersReminder {
 
 	/// This function takes a `CoronaTestType` as parameter to schedule warn others notifications for this test type
 	func scheduleNotifications(for coronaTestType: CoronaTestType) {
-		if !CWAHibernationProvider.shared.isHibernationState {
-			userNotificationCenter.scheduleWarnOthersNotifications(
-				coronaTestType: coronaTestType,
-				timeIntervalOne: TimeInterval(notificationOneTimeInterval),
-				timeIntervalTwo: TimeInterval(notificationTwoTimeInterval)
-			)
-			Log.info("Warn others reminder: New notifications for type \(coronaTestType) have been scheduled:  #1 \(store.warnOthersNotificationOneTimeInterval)/ #2 \(store.warnOthersNotificationTwoTimeInterval) seconds)")
-		}
+		userNotificationCenter.scheduleWarnOthersNotifications(
+			coronaTestType: coronaTestType,
+			timeIntervalOne: TimeInterval(notificationOneTimeInterval),
+			timeIntervalTwo: TimeInterval(notificationTwoTimeInterval)
+		)
+		Log.info("Warn others reminder: New notifications for type \(coronaTestType) have been scheduled:  #1 \(store.warnOthersNotificationOneTimeInterval)/ #2 \(store.warnOthersNotificationTwoTimeInterval) seconds)")
 	}
 
 	/// In case the user has informed others about the positive result, this function should be called to reset possible pending 'warn others' notifications
