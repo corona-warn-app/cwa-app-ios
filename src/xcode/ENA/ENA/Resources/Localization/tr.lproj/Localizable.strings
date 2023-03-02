@@ -573,7 +573,7 @@
 /* SRS Warn Others Precondition Error Alert */
 "ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_title" = "Diğer Kullanıcıları Uyaramazsınız";
 
-"ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_insufficientAppUsageTime_message" = "Üzgünüz; uygulamayı yakın zamanda yüklediğiniz için şu anda diğer kullanıcıları uyaramazsınız. Bunun amacı, uyarı özelliğinin kötüye kullanımını önlemektir.\nResmi bir test kaydedip bu testi, dilediğiniz zaman diğer kullanıcıları uyarmak için kullanabilirsiniz. (%@)";
+"ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_insufficientAppUsageTime_message" = "Güvenlik nedenleriyle uygulamayı yüklemenizin veya güncellemenizin üzerinden %@ saat geçene kadar bu türde uyarı gönderemezsiniz. Lütfen %@ saat içinde yeniden deneyin. (%@)";
 
 "ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_positiveTestResultWasAlreadySubmittedWithinThresholdDays_message" = "Geçmiş %@ gün içinde zaten pozitif bir test sonucu bildirdiğiniz için şu anda diğer kullanıcıları uyaramazsınız. Bunun amacı, uyarı özelliğinin kötüye kullanımını önlemektir. Resmi bir test kaydedip bu testi, dilediğiniz zaman diğer kullanıcıları uyarmak için kullanabilirsiniz. (%@)";
 

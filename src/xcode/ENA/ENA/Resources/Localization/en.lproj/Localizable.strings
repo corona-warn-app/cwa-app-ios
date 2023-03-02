@@ -573,7 +573,7 @@
 /* SRS Warn Others Precondition Error Alert */
 "ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_title" = "You Cannot Warn Others";
 
-"ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_insufficientAppUsageTime_message" = "Sorry, but you cannot warn others right now, because you only recently installed the app. This is intended to prevent misuse of the warn feature.\nYou can register an official test and use it to warn others at any time. (%@)";
+"ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_insufficientAppUsageTime_message" = "For security reasons, you cannot send this type of warning until %@ hours after you install or update the app. Please try again in %@ hours. (%@)";
 
 "ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_positiveTestResultWasAlreadySubmittedWithinThresholdDays_message" = "You cannot warn others right now because you already reported a positive test result within the last %@ days. This is intended to prevent misuse of the warn feature.\nYou can register an official test and use it to warn others at any time. (%@)";
 

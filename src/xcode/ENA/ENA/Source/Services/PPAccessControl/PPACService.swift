@@ -88,7 +88,7 @@ class PPACService: PrivacyPreservingAccessControl {
 				}
 				// Remaining time
 				else {
-					timeStillToWaitInHours = difference
+					timeStillToWaitInHours = minTimeSinceOnboarding - difference
 				}
 
 				completion(
