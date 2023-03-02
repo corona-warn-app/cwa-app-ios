@@ -37,7 +37,7 @@ class AppClosureNoticeDetailsViewModel {
 					accessibilityIdentifier: AccessibilityIdentifiers.Home.AppClosureNoticeCell.Details.subtitleLabel
 				) { _, cell, _ in
 					cell.contentView.preservesSuperviewLayoutMargins = false
-					
+					cell.contentView.layoutMargins.left += 5
 					cell.contentView.layoutMargins.top = 0
 				}
 			)
