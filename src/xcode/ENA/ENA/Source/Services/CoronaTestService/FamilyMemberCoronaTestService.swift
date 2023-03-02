@@ -674,7 +674,7 @@ class FamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding {
 							}
 						}
 
-						if presentNotification && testResult != previousTestResult && !CWAHibernationProvider.shared.isHibernationState{
+						if presentNotification && testResult != previousTestResult && !CWAHibernationProvider.shared.isHibernationState {
 							Log.info("[FamilyMemberCoronaTestService] Triggering Notification (coronaTest: \(private: coronaTest), testResult: \(testResult))", log: .api)
 
 							// We attach the test result and type to determine which screen to show when user taps the notification

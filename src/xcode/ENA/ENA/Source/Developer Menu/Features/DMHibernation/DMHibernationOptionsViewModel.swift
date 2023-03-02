@@ -27,9 +27,7 @@ class DMHibernationOptionsViewModel {
 		
 		switch section {
 		case .hibernationComparisonDate:
-			var title = "App will shutdown after selecting a new date value in the date picker.\n\nCurrently the hibernation threshold compares against the set date: \(dateFormatter.string(from: store.hibernationComparisonDate))"
-			
-			return title
+			return "App will shutdown after selecting a new date value in the date picker.\n\nCurrently the hibernation threshold compares against the set date: \(dateFormatter.string(from: store.hibernationComparisonDate))"
 		case .reset:
 			return "App will shutdown after reseting to today's date."
 		}
