@@ -167,6 +167,23 @@ class ELSServiceTests: CWATestCase {
 		}
 	}
 	
+	func testGIVEN_ELSService_WHEN_Hibernation_THEN_HibernationErrorIsReturned() throws {
+		// GIVEN
+		let elsService = createELSService(isHibernation: true)
+
+		// WHEN
+		elsService.submit { result in
+			
+			// THEN
+			switch result {
+			case .success:
+				XCTFail("Test should not succeed")
+			case .failure(let error):
+				XCTAssertEqual(ELSError.hibernation, error)
+			}
+		}
+	}
+	
 	func testLogFetching() throws {
 		let elsService = createELSService()
 
@@ -186,7 +203,8 @@ class ELSServiceTests: CWATestCase {
 	private func createELSService(
 		store: Store & PPAnalyticsData = MockTestStore(),
 		restService: RestServiceProviding = RestServiceProviderStub(),
-		ppacSucceeds: Bool = true
+		ppacSucceeds: Bool = true,
+		isHibernation: Bool = false
 	) -> ErrorLogSubmissionService {
 
 		#if targetEnvironment(simulator)
@@ -216,11 +234,14 @@ class ELSServiceTests: CWATestCase {
 			ppacService: ppacService,
 			appConfiguration: CachedAppConfigurationMock()
 		)
+		let mockCWAHibernationProvider = MockCWAHibernationProvider()
+		mockCWAHibernationProvider.isHibernationStateToReturn = isHibernation
 		let elsService = ErrorLogSubmissionService(
 			restServicerProvider: restService,
 			store: store,
 			ppacService: ppacService,
-			otpService: otpService
+			otpService: otpService,
+			cwaHibernationProvider: mockCWAHibernationProvider
 		)
 		return elsService
 	}
