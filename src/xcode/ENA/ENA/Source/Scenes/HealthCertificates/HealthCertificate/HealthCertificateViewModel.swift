@@ -115,7 +115,7 @@ final class HealthCertificateViewModel {
 		let formattedDate = DateFormatter.localizedString(from: healthCertificate.expirationDate, dateStyle: .medium, timeStyle: .short)
 		return HealthCertificateExpirationDateCellViewModel(
 			headline: AppStrings.HealthCertificate.Details.expirationDateTitle,
-			expirationDate: String(format: AppStrings.HealthCertificate.Details.expirationDatePlaceholder, formattedDate) ,
+			expirationDate: String(format: AppStrings.HealthCertificate.Details.expirationDatePlaceholder, formattedDate),
 			content: nil
 		)
 	}

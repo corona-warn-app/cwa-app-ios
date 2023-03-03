@@ -56,8 +56,12 @@ class HealthCertificateCell: UITableViewCell, ReuseIdentifierProviding {
 		currentlyUsedStackView.isHidden = !cellViewModel.isCurrentlyUsedCertificateHintVisible
 		currentlyUsedImageView.image = cellViewModel.currentlyUsedImage
 		
-		validationButton.isEnabled = cellViewModel.isValidationButtonEnabled
-		validationButton.isHidden = !cellViewModel.isValidationButtonVisible
+		if CWAHibernationProvider.shared.isHibernationState {
+			validationButton.isHidden = true
+		} else {
+			validationButton.isEnabled = cellViewModel.isValidationButtonEnabled
+			validationButton.isHidden = !cellViewModel.isValidationButtonVisible
+		}
 
 		unseenNewsIndicator.isHidden = !cellViewModel.isUnseenNewsIndicatorVisible
 	
