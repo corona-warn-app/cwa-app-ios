@@ -7,11 +7,11 @@ import XCTest
 
 final class SRSErrorTests: XCTestCase {
 	
-	override func setUp() async throws {
+	override func setUp() {
 		InternetConnectivityMonitor.shared.isDeviceOnlineMock = true
 	}
 	
-	override func tearDown() async throws {
+	override func tearDown() {
 		InternetConnectivityMonitor.shared.isDeviceOnlineMock = false
 	}
 	
