@@ -18,6 +18,23 @@ class ENAUITests_00_Onboarding: CWATestCase {
 		app.setLaunchArgument(LaunchArguments.consent.isDatadonationConsentGiven, to: false)
 		app.setLaunchArgument(LaunchArguments.common.ENStatus, to: ENStatus.unknown.stringValue)
 	}
+	
+	func test_0000_OnboardingFlow_After_EndOFLife_XXXL() throws {
+		app.setPreferredContentSizeCategory(accessibility: .normal, size: .XXXL)
+		app.setLaunchArgument(LaunchArguments.endOfLife.isHibernationStateEnabled, to: true)
+		app.launch()
+
+		// only run if onboarding screen is present
+		XCTAssertTrue(app.staticTexts["AppStrings.Onboarding.onboardingInfo_togetherAgainstCoronaPage_title"].waitForExistence(timeout: 5.0))
+
+		// tap through the onboarding screens
+		app.buttons["AppStrings.Onboarding.onboardingLetsGo"].waitAndTap()
+
+		app.buttons["AppStrings.Onboarding.onboardingContinue"].waitAndTap()
+
+		// check that the homescreen element AppStrings.home.activateTitle is visible onscreen
+		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.Home.EndOfLifeThankYouCell.descriptionLabel].waitForExistence(timeout: .medium))
+	}
 
 	func test_0000_OnboardingFlow_DisablePermissions_normal_XXXL() throws {
 		app.setPreferredContentSizeCategory(accessibility: .normal, size: .XXXL)
