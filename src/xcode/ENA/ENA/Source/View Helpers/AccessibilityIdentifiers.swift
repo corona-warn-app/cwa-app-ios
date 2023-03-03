@@ -10,6 +10,9 @@ enum AccessibilityIdentifiers {
 		enum InstallationDay {
 			static let datePicker = "AppStrings.DeveloperMenu.InstallationDay.datePicker"
 		}
+		enum Hibernation {
+			static let datePicker = "AppStrings.DeveloperMenu.Hibernation.datePicker"
+		}
 	}
 	
 	enum ExposureNotificationSetting {
@@ -154,6 +157,12 @@ enum AccessibilityIdentifiers {
 			static let shareLabel = "AppStrings.Home.shareActionView"
 		}
 		
+		enum EndOfLifeThankYouCell {
+			static let titleLabel = "AppStrings.Home.EndOfLifeThankYouCell.titleLabel"
+			static let descriptionLabel = "AppStrings.Home.EndOfLifeThankYouCell.descriptionLabel"
+			static let image = "AppStrings.Home.EndOfLifeThankYouCell.image"
+		}
+
 		enum TestRegistrationCell {
 			static let titleLabel = "AppStrings.Home.TestRegistrationCell.titleLabel"
 			static let descriptionLabel = "AppStrings.Home.TestRegistrationCell.descriptionLabel"

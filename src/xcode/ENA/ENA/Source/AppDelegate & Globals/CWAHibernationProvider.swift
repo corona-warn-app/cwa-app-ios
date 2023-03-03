@@ -11,20 +11,30 @@ class CWAHibernationProvider: RequiresAppDependencies {
 	/// Use shared instance instead
 	private init() {}
 	
-	// MARK: - Internal
+	#if DEBUG
+	/// For UI/Unit purposes only
+	init(customStore: Store) {
+		self.customStore = customStore
+	}
+	#endif
+	
+	// MARK: Internal
 	
 	static let shared = CWAHibernationProvider()
 	
 	/// Determines if the CWA is in hibernation state.
 	var isHibernationState: Bool {
-		#if RELEASE
-		return Date() >= hibernationStartDate
+		#if DEBUG
+		if isUITesting {
+			return LaunchArguments.endOfLife.isHibernationStateEnabled.boolValue
+		}
+		return secureStore.hibernationComparisonDate >= hibernationStartDate
 		#else
-		return true // to.do Dev Menu setting, see https://jira-ibs.wbs.net.sap/browse/EXPOSUREAPP-14812
+		return Date() >= hibernationStartDate
 		#endif
 	}
 	
-	/// CWA hibernation 2023 threshold date.
+	/// CWA hibernation threshold date.
 	private let hibernationStartDate: Date = {
 		var hibernationStartDateComponents = DateComponents()
 		hibernationStartDateComponents.year = 2023
@@ -41,4 +51,17 @@ class CWAHibernationProvider: RequiresAppDependencies {
 		
 		return hibernationStartDate
 	}()
+	
+	private var secureStore: Store {
+		#if RELEASE
+		return store
+		#else
+		return customStore ?? store
+		#endif
+	}
+	
+	#if DEBUG
+	/// For UI/Unit Test purposes only
+	private var customStore: Store?
+	#endif
 }

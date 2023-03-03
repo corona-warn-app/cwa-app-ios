@@ -191,6 +191,11 @@ enum LaunchArguments {
 		static let shouldShowExportCertificatesTooltip = LaunchArgument(name: "shouldShowExportCertificatesTooltip")
 	}
 
+	enum endOfLife {
+		/// set this to true if you want to force CWAHibernationProvider.isHibernationState to return true
+		static let isHibernationStateEnabled = LaunchArgument(name: "isHibernationStateEnabled")
+	}
+	
 	enum notifications {
 		/// Turn notifications for the settings screen on or off - does NOT sync or reflect the system setting. But needed to test the different screens.
 		static let isNotificationsEnabled = LaunchArgument(name: "isNotificationsEnabled")

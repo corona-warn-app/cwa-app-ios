@@ -45,7 +45,8 @@ class RootCoordinator: NSObject, RequiresAppDependencies, UITabBarControllerDele
 		recycleBin: RecycleBin,
 		restServiceProvider: RestServiceProviding,
 		badgeWrapper: HomeBadgeWrapper,
-		cache: KeyValueCaching
+		cache: KeyValueCaching,
+		cwaHibernationProvider: CWAHibernationProvider = CWAHibernationProvider.shared
 	) {
 		self.delegate = delegate
 		self.coronaTestService = coronaTestService
@@ -67,6 +68,7 @@ class RootCoordinator: NSObject, RequiresAppDependencies, UITabBarControllerDele
 		self.restServiceProvider = restServiceProvider
 		self.badgeWrapper = badgeWrapper
 		self.cache = cache
+		self.cwaHibernationProvider = cwaHibernationProvider
 	}
 
 	deinit {
@@ -256,22 +258,25 @@ class RootCoordinator: NSObject, RequiresAppDependencies, UITabBarControllerDele
 		certificatesTabBarItem.accessibilityIdentifier = AccessibilityIdentifiers.TabBar.certificates
 		healthCertificatesTabCoordinator.viewController.tabBarItem = certificatesTabBarItem
 
-		let universalScannerTabBarItem = UITabBarItem(
-			title: nil,
-			image: UIImage(named: "Icons_Tabbar_UniversalScanner"),
-			selectedImage: nil
-		)
-		universalScannerTabBarItem.accessibilityLabel = AppStrings.Tabbar.scannerTitle
-		universalScannerTabBarItem.accessibilityIdentifier = AccessibilityIdentifiers.TabBar.scanner
-		universalScannerDummyViewController.tabBarItem = universalScannerTabBarItem
-
-		let eventsTabBarItem = UITabBarItem(
-			title: AppStrings.Tabbar.checkInTitle,
-			image: UIImage(named: "Icons_Tabbar_Checkin"),
-			selectedImage: UIImage(named: "Icons_Tabbar_Checkin_Selected")
-		)
-		eventsTabBarItem.accessibilityIdentifier = AccessibilityIdentifiers.TabBar.checkin
-		checkinTabCoordinator.viewController.tabBarItem = eventsTabBarItem
+		// CWA Hibernation hides scanner and check-in tab
+		if !cwaHibernationProvider.isHibernationState {
+			let universalScannerTabBarItem = UITabBarItem(
+				title: nil,
+				image: UIImage(named: "Icons_Tabbar_UniversalScanner"),
+				selectedImage: nil
+			)
+			universalScannerTabBarItem.accessibilityLabel = AppStrings.Tabbar.scannerTitle
+			universalScannerTabBarItem.accessibilityIdentifier = AccessibilityIdentifiers.TabBar.scanner
+			universalScannerDummyViewController.tabBarItem = universalScannerTabBarItem
+			
+			let eventsTabBarItem = UITabBarItem(
+				title: AppStrings.Tabbar.checkInTitle,
+				image: UIImage(named: "Icons_Tabbar_Checkin"),
+				selectedImage: UIImage(named: "Icons_Tabbar_Checkin_Selected")
+			)
+			eventsTabBarItem.accessibilityIdentifier = AccessibilityIdentifiers.TabBar.checkin
+			checkinTabCoordinator.viewController.tabBarItem = eventsTabBarItem
+		}
 
 		let diaryTabBarItem = UITabBarItem(
 			title: AppStrings.Tabbar.diaryTitle,
@@ -284,7 +289,15 @@ class RootCoordinator: NSObject, RequiresAppDependencies, UITabBarControllerDele
 		tabBarController.tabBar.tintColor = .enaColor(for: .tint)
 		tabBarController.tabBar.unselectedItemTintColor = .enaColor(for: .textPrimary2)
 		tabBarController.delegate = self
-		tabBarController.setViewControllers([homeCoordinator.rootViewController, healthCertificatesTabCoordinator.viewController, universalScannerDummyViewController, checkinTabCoordinator.viewController, diaryCoordinator.viewController], animated: false)
+		
+		let tabBarViewControllers = [
+			homeCoordinator.rootViewController,
+			healthCertificatesTabCoordinator.viewController,
+			cwaHibernationProvider.isHibernationState ? nil : universalScannerDummyViewController,
+			cwaHibernationProvider.isHibernationState ? nil : checkinTabCoordinator.viewController,
+			diaryCoordinator.viewController
+		].compactMap { $0 }
+		tabBarController.setViewControllers(tabBarViewControllers, animated: false)
 
 		viewController.clearChildViewController()
 		viewController.embedViewController(childViewController: tabBarController)
@@ -417,6 +430,7 @@ class RootCoordinator: NSObject, RequiresAppDependencies, UITabBarControllerDele
 	private let badgeWrapper: HomeBadgeWrapper
 	private let cache: KeyValueCaching
 	private let tabBarController = UITabBarController()
+	private let cwaHibernationProvider: CWAHibernationProvider
 
 	private var homeCoordinator: HomeCoordinator?
 	private var homeState: HomeState?

@@ -1521,6 +1521,12 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Home_Finding_Positive_Card_Button_Remove_Test" = "Test löschen";
 
+/* Home End of Life Thank you Card */
+
+"Home_EndOfLifeThankYouTile_Title" = "Vielen Dank!";
+
+"Home_EndOfLifeThankYouTile_description" = "Der Betrieb der Corona-Warn-App wurde eingestellt. Vielen Dank für Ihre Nutzung. Mit Ihrer Unterstützung konnten während der Pandemie mehr als %i Millionen Warnungen verschickt werden. Sie können weiterhin auf Ihre bereits vorhandenen Zertifikate und das Kontakt-Tagebuch zugreifen. Alle anderen Funktionen stehen nicht mehr zur Verfügung. In den Geräteeinstellungen Ihres Smartphones können Sie jetzt die Benachrichtigungen für die App deaktivieren.";
+
 /* Home Test Registration Card */
 
 "Home_TestRegistration_Title" = "Tests erfassen und andere warnen";

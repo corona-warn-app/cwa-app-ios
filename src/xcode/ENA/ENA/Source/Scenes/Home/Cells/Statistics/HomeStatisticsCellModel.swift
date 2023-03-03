@@ -15,7 +15,7 @@ class HomeStatisticsCellModel {
 	) {
 		self.homeState = homeState
 		self.localStatisticsProvider = localStatisticsProvider
-
+		
 		homeState.$statistics
 			.sink { [weak self] statistics in
 				self?.keyFigureCards = statistics.supportedStatisticsCardIDSequence
@@ -74,7 +74,7 @@ class HomeStatisticsCellModel {
 
 	private let homeState: HomeState
 	private let localStatisticsProvider: LocalStatisticsProviding
-
+	
 	private var subscriptions = Set<AnyCancellable>()
 	
 	#if DEBUG

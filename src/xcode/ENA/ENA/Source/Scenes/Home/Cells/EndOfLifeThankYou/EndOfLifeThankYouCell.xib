@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="EndOfLifeThankYouCell" rowHeight="389" id="ruB-Ef-klV" customClass="EndOfLifeThankYouCell" customModule="ENA" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="494" height="389"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ruB-Ef-klV" id="Vgz-D8-sOH">
+                <rect key="frame" x="0.0" y="0.0" width="494" height="389"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="752" verticalCompressionResistancePriority="752" translatesAutoresizingMaskIntoConstraints="NO" id="s03-8Y-fFF" customClass="HomeCardView" customModule="ENA">
+                        <rect key="frame" x="16" y="12" width="462" height="377"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="oW2-4W-XLN">
+                                <rect key="frame" x="0.0" y="18" width="462" height="359"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" insetsLayoutMarginsFromSafeArea="NO" text="Title 2" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GWJ-GG-Lqs" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
+                                        <rect key="frame" x="16" y="0.0" width="446" height="26.333333333333332"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" name="ENA Text Primary 1 Color"/>
+                                        <nil key="highlightedColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="title2"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </label>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" ambiguous="YES" insetsLayoutMarginsFromSafeArea="NO" image="EndOfLifeThankYouIllustration" translatesAutoresizingMaskIntoConstraints="NO" id="MnV-8b-FIK">
+                                        <rect key="frame" x="16" y="30.333333333333329" width="446" height="255.66666666666669"/>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" ambiguous="YES" insetsLayoutMarginsFromSafeArea="NO" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1A0-Sq-ySm" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
+                                        <rect key="frame" x="16" y="290" width="446" height="61"/>
+                                        <string key="text">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</string>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" name="ENA Text Primary 2 Color"/>
+                                        <nil key="highlightedColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="body"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </label>
+                                </subviews>
+                                <edgeInsets key="layoutMargins" top="0.0" left="16" bottom="8" right="0.0"/>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" name="ENA Background Color"/>
+                        <constraints>
+                            <constraint firstItem="oW2-4W-XLN" firstAttribute="top" secondItem="s03-8Y-fFF" secondAttribute="top" constant="18" id="CvC-Eq-CY8"/>
+                            <constraint firstItem="oW2-4W-XLN" firstAttribute="leading" secondItem="s03-8Y-fFF" secondAttribute="leading" id="U3o-4H-uA8"/>
+                            <constraint firstAttribute="bottom" secondItem="oW2-4W-XLN" secondAttribute="bottom" id="nSM-dV-RaM"/>
+                            <constraint firstAttribute="trailing" secondItem="oW2-4W-XLN" secondAttribute="trailing" id="q3F-tO-fVf"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                <constraints>
+                    <constraint firstItem="s03-8Y-fFF" firstAttribute="leading" secondItem="Vgz-D8-sOH" secondAttribute="leading" constant="16" identifier="registertest.card.leading" id="4yY-E6-yv3"/>
+                    <constraint firstItem="s03-8Y-fFF" firstAttribute="top" secondItem="Vgz-D8-sOH" secondAttribute="top" constant="12" identifier="registertest.card.top" id="5Yq-hN-ym9"/>
+                    <constraint firstAttribute="trailing" secondItem="s03-8Y-fFF" secondAttribute="trailing" constant="16" identifier="registertest.card.trailing" id="dMX-cf-5Ik"/>
+                    <constraint firstAttribute="bottom" secondItem="s03-8Y-fFF" secondAttribute="bottom" identifier="registertest.card.bottom" id="uf4-eX-DNC"/>
+                </constraints>
+            </tableViewCellContentView>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <connections>
+                <outlet property="cardView" destination="s03-8Y-fFF" id="U5n-Mg-pg2"/>
+                <outlet property="descriptionLabel" destination="1A0-Sq-ySm" id="YJb-O1-Mqj"/>
+                <outlet property="illustrationImageView" destination="MnV-8b-FIK" id="gGH-zV-bbZ"/>
+                <outlet property="titleLabel" destination="GWJ-GG-Lqs" id="mjI-VS-5JA"/>
+            </connections>
+            <point key="canvasLocation" x="-512.97709923664115" y="10.211267605633804"/>
+        </tableViewCell>
+    </objects>
+    <designables>
+        <designable name="1A0-Sq-ySm">
+            <size key="intrinsicContentSize" width="1199.3333333333333" height="20.333333333333332"/>
+        </designable>
+        <designable name="GWJ-GG-Lqs">
+            <size key="intrinsicContentSize" width="63.333333333333336" height="26.333333333333332"/>
+        </designable>
+    </designables>
+    <resources>
+        <image name="EndOfLifeThankYouIllustration" width="336" height="174"/>
+        <namedColor name="ENA Background Color">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="ENA Text Primary 1 Color">
+            <color red="0.090196078431372548" green="0.098039215686274508" blue="0.10196078431372549" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="ENA Text Primary 2 Color">
+            <color red="0.090196078431372548" green="0.098039215686274508" blue="0.10196078431372549" alpha="0.60000002384185791" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>
