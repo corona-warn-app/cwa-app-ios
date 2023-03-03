@@ -43,7 +43,6 @@ class CWAHibernationProvider: RequiresAppDependencies {
 		hibernationStartDateComponents.hour = 0
 		hibernationStartDateComponents.minute = 0
 		hibernationStartDateComponents.second = 0
-		hibernationStartDateComponents.timeZone = .utcTimeZone
 		
 		guard let hibernationStartDate = Calendar.current.date(from: hibernationStartDateComponents) else {
 			fatalError("The hibernation start date couldn't be created.")
