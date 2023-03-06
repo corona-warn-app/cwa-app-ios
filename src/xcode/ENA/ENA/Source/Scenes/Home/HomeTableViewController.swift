@@ -106,8 +106,22 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		viewModel.cclService.shouldShowNoticeTile
 			.receive(on: DispatchQueue.OCombine(.main))
 			.sink { [weak self] shouldShowNoticeTile in
+				let isHibernationState = CWAHibernationProvider.shared.isHibernationState
+				self?.viewModel.isHibernationState = isHibernationState
 				self?.viewModel.shouldShowAppClosureNotice = shouldShowNoticeTile
-				self?.tableView.reloadSections([HomeTableViewModel.Section.appClosureNotice.rawValue], with: .none)
+				self?.tableView.reloadSections(
+					[
+					HomeTableViewModel.Section.appClosureNotice.rawValue,
+					HomeTableViewModel.Section.endOfLifeThankYou.rawValue,
+					HomeTableViewModel.Section.exposureLogging.rawValue,
+					HomeTableViewModel.Section.riskAndTestResults.rawValue,
+					HomeTableViewModel.Section.statistics.rawValue,
+					HomeTableViewModel.Section.testRegistration.rawValue,
+					HomeTableViewModel.Section.traceLocations.rawValue,
+					HomeTableViewModel.Section.moreInfo.rawValue
+					],
+					with: .none
+				)
 			}
 			.store(in: &subscriptions)
 	}
@@ -181,6 +195,8 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 	// swiftlint:disable:next cyclomatic_complexity
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		switch HomeTableViewModel.Section(rawValue: indexPath.section) {
+		case .endOfLifeThankYou:
+			return endOfLifeThankYouCell(forRowAt: indexPath)
 		case .appClosureNotice:
 			return appClosureNoticeCell(forRowAt: indexPath, statusTabNotice: viewModel.statusTabNotice)
 		case .exposureLogging:
@@ -366,12 +382,14 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		navigationItem.leftBarButtonItem?.accessibilityLabel = AppStrings.Home.leftBarButtonDescription
 		navigationItem.leftBarButtonItem?.accessibilityIdentifier = AccessibilityIdentifiers.Home.leftBarButtonDescription
 
-		let infoButton = UIButton(type: .infoLight)
-		infoButton.addTarget(self, action: #selector(infoButtonTapped), for: .touchUpInside)
-		navigationItem.rightBarButtonItem = UIBarButtonItem(customView: infoButton)
-		navigationItem.rightBarButtonItem?.isAccessibilityElement = true
-		navigationItem.rightBarButtonItem?.accessibilityLabel = AppStrings.Home.rightBarButtonDescription
-		navigationItem.rightBarButtonItem?.accessibilityIdentifier = AccessibilityIdentifiers.Home.rightBarButtonDescription
+		if !CWAHibernationProvider.shared.isHibernationState {
+			let infoButton = UIButton(type: .infoLight)
+			infoButton.addTarget(self, action: #selector(infoButtonTapped), for: .touchUpInside)
+			navigationItem.rightBarButtonItem = UIBarButtonItem(customView: infoButton)
+			navigationItem.rightBarButtonItem?.isAccessibilityElement = true
+			navigationItem.rightBarButtonItem?.accessibilityLabel = AppStrings.Home.rightBarButtonDescription
+			navigationItem.rightBarButtonItem?.accessibilityIdentifier = AccessibilityIdentifiers.Home.rightBarButtonDescription
+		}
 	}
 
 	private func setupTableView() {
@@ -396,6 +414,10 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		tableView.register(
 			UINib(nibName: String(describing: HomeShownPositiveTestResultTableViewCell.self), bundle: nil),
 			forCellReuseIdentifier: String(describing: HomeShownPositiveTestResultTableViewCell.self)
+		)
+		tableView.register(
+			UINib(nibName: String(describing: EndOfLifeThankYouCell.self), bundle: nil),
+			forCellReuseIdentifier: String(describing: EndOfLifeThankYouCell.self)
 		)
 		tableView.register(
 			UINib(nibName: String(describing: HomeTestRegistrationTableViewCell.self), bundle: nil),
@@ -618,6 +640,15 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		case .antigen:
 			antigenTestShownPositiveResultCell = cell
 		}
+
+		return cell
+	}
+	
+	private func endOfLifeThankYouCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
+		guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: EndOfLifeThankYouCell.self), for: indexPath) as? EndOfLifeThankYouCell else {
+			fatalError("Could not dequeue EndOfLifeThankYouCell")
+		}
+		cell.configure(with: EndOfLifeThankYouCellViewModel())
 
 		return cell
 	}

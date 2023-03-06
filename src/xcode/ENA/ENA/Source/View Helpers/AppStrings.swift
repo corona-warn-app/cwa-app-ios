@@ -1100,6 +1100,11 @@ enum AppStrings {
 			}
 		}
 
+		enum EndOfLifeThankYouTile {
+			static let title = NSLocalizedString("Home_EndOfLifeThankYouTile_Title", comment: "")
+			static let description = NSLocalizedString("Home_EndOfLifeThankYouTile_description", comment: "")
+		}
+
 		enum TestRegistration {
 			static let title = NSLocalizedString("Home_TestRegistration_Title", comment: "")
 			static let subtitle = NSLocalizedString("Home_TestRegistration_Subtitle", comment: "")

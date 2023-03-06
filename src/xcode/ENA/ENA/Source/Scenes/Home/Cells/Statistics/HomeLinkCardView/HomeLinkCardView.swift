@@ -57,6 +57,7 @@ class HomeLinkCardView: UIView {
 	
 	func configure(
 		viewModel: HomeLinkCardViewModel,
+		isInfoButtonHidden: Bool,
 		onInfoButtonTap: @escaping CompletionVoid,
 		onDeleteButtonTap: CompletionVoid?,
 		onButtonTap: @escaping CompletionURL
@@ -101,6 +102,8 @@ class HomeLinkCardView: UIView {
 		self.onInfoButtonTap = onInfoButtonTap
 		self.onDeleteButtonTap = onDeleteButtonTap
 		self.onButtonTap = onButtonTap
+		
+		self.infoButton.isHidden = isInfoButtonHidden
 		
 		setupAccessibility()
 	}

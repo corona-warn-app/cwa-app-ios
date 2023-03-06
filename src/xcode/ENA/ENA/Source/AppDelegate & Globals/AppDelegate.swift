@@ -191,6 +191,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		NotificationCenter.default.addObserver(self, selector: #selector(isOnboardedDidChange(_:)), name: .isOnboardedDidChange, object: nil)
 		NotificationCenter.default.addObserver(self, selector: #selector(backgroundRefreshStatusDidChange), name: UIApplication.backgroundRefreshStatusDidChangeNotification, object: nil)
 		
+		if CWAHibernationProvider.shared.isHibernationState {
+			try? elsService.stopAndDeleteLog()
+		}
+		
 		guard #available(iOS 13.5, *) else {
 			// Background task registration on iOS 12.5 requires us to activate the ENManager (https://jira-ibs.wbs.net.sap/browse/EXPOSUREAPP-8919)
 			if store.isOnboarded, exposureManager.exposureManagerState.status == .unknown {

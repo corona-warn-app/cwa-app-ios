@@ -24,10 +24,13 @@ class CWAHibernationProvider: RequiresAppDependencies {
 	
 	/// Determines if the CWA is in hibernation state.
 	var isHibernationState: Bool {
-		#if RELEASE
-		return Date() >= hibernationStartDate
-		#else
+		#if DEBUG
+		if isUITesting {
+			return LaunchArguments.endOfLife.isHibernationStateEnabled.boolValue
+		}
 		return secureStore.hibernationComparisonDate >= hibernationStartDate
+		#else
+		return Date() >= hibernationStartDate
 		#endif
 	}
 	
@@ -40,7 +43,6 @@ class CWAHibernationProvider: RequiresAppDependencies {
 		hibernationStartDateComponents.hour = 0
 		hibernationStartDateComponents.minute = 0
 		hibernationStartDateComponents.second = 0
-		hibernationStartDateComponents.timeZone = .utcTimeZone
 		
 		guard let hibernationStartDate = Calendar.current.date(from: hibernationStartDateComponents) else {
 			fatalError("The hibernation start date couldn't be created.")

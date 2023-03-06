@@ -12,7 +12,6 @@ final class OTPAuthorizationForSRSResourceTests: XCTestCase {
 	func testGIVEN_AuthorizeOTP_WHEN_SuccesWithAuthorization_THEN_ExpirationDateIsReturned() throws {
 		// GIVEN
 		let dateString = "2021-02-16T08:34:00+00:00"
-		let dateFormatter = ISO8601DateFormatter()
 
 		let response: [String: String] = ["expirationDate": dateString]
 
