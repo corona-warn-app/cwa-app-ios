@@ -4,7 +4,6 @@
 
 import Foundation
 
-// swiftlint:disable function_body_length
 enum Route: Equatable {
 
 	// MARK: - Init
