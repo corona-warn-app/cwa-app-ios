@@ -15,8 +15,8 @@ final class CWAHibernationProviderTests: CWATestCase {
 		// WHEN
 		var beforeHibernationStartDateComponents = DateComponents()
 		beforeHibernationStartDateComponents.year = 2023
-		beforeHibernationStartDateComponents.month = 5
-		beforeHibernationStartDateComponents.day = 31
+		beforeHibernationStartDateComponents.month = 4
+		beforeHibernationStartDateComponents.day = 30
 		beforeHibernationStartDateComponents.hour = 23
 		beforeHibernationStartDateComponents.minute = 59
 		beforeHibernationStartDateComponents.second = 59
@@ -38,7 +38,7 @@ final class CWAHibernationProviderTests: CWATestCase {
 		// WHEN
 		var afterHibernationStartDateComponents = DateComponents()
 		afterHibernationStartDateComponents.year = 2023
-		afterHibernationStartDateComponents.month = 6
+		afterHibernationStartDateComponents.month = 5
 		afterHibernationStartDateComponents.day = 1
 		afterHibernationStartDateComponents.hour = 0
 		afterHibernationStartDateComponents.minute = 0
