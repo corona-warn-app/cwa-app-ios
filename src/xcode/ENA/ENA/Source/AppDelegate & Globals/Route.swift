@@ -17,6 +17,10 @@ enum Route: Equatable {
 	}
 	// swiftlint:disable:next cyclomatic_complexity
 	init?(url: URL) {
+		if CWAHibernationProvider.shared.isHibernationState {
+			return nil
+		}
+
 		let components = URLComponents(url: url, resolvingAgainstBaseURL: true)
 		guard let host = components?.host?.lowercased() else {
 			return nil
@@ -82,7 +86,7 @@ enum Route: Equatable {
 				Log.error("recomputed hash: \(recomputedHashString) Doesn't match the original hash \(testInformation.hash)", log: .qrCode)
 				return
 			}
-			
+
 			self = .rapidAntigen(.success(.antigen(qrCodeInformation: testInformation, qrCodeHash: ENAHasher.sha256(url.absoluteString))))
 		case "p.coronawarn.app":
 			guard let payloadUrl = components?.fragment,

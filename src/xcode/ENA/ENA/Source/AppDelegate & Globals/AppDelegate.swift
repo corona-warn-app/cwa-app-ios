@@ -185,11 +185,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		}
 		riskProvider.observeRisk(consumer)
 
-		exposureManager.observeExposureNotificationStatus(observer: self)
-
 		NotificationCenter.default.addObserver(self, selector: #selector(isOnboardedDidChange(_:)), name: .isOnboardedDidChange, object: nil)
 		NotificationCenter.default.addObserver(self, selector: #selector(backgroundRefreshStatusDidChange), name: UIApplication.backgroundRefreshStatusDidChangeNotification, object: nil)
-		
+	
+		// Hibernation
+		if CWAHibernationProvider.shared.isHibernationState {
+			// Stop and delete error logging.
+			try? elsService.stopAndDeleteLog()
+
+			// Disable Exposure Notification (ENF)
+			disableExposureNotification()
+		} else {
+			
+			// Observe Exposure Notification (ENF)
+			exposureManager.observeExposureNotificationStatus(observer: self)
+		}
+
 		guard #available(iOS 13.5, *) else {
 			// Background task registration on iOS 12.5 requires us to activate the ENManager (https://jira-ibs.wbs.net.sap/browse/EXPOSUREAPP-8919)
 			if store.isOnboarded, exposureManager.exposureManagerState.status == .unknown {
@@ -1125,6 +1136,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		window?.makeKeyAndVisible()
 	}
 
+	private func disableExposureNotification() {
+		Log.info("Try to disable exposure notification.")
+
+		exposureManager.disable { exposureNotificationError in
+			if let exposureNotificationError = exposureNotificationError {
+				Log.error("The exposure notification couldn't be disabled by ExposureManager: \(exposureNotificationError.localizedDescription)")
+			} else {
+				Log.info("The exposure notification was disabled.")
+			}
+		}
+	}
 }
 
 private extension Array where Element == URLQueryItem {

@@ -142,7 +142,10 @@ final class HealthCertifiedPersonViewModel {
 	}
 
 	var certificateReissuanceIsVisible: Bool {
-		healthCertifiedPerson.dccWalletInfo?.certificateReissuance?.reissuanceDivision.visible ?? false
+		if CWAHibernationProvider.shared.isHibernationState {
+			healthCertifiedPerson.dccWalletInfo?.certificateReissuance?.reissuanceDivision.visible = false
+		}
+		return healthCertifiedPerson.dccWalletInfo?.certificateReissuance?.reissuanceDivision.visible ?? false
 	}
 
 	var boosterNotificationIsVisible: Bool {
@@ -150,11 +153,17 @@ final class HealthCertifiedPersonViewModel {
 	}
 
 	var vaccinationStateIsVisible: Bool {
-		healthCertifiedPerson.dccWalletInfo?.vaccinationState.visible ?? false
+		if CWAHibernationProvider.shared.isHibernationState {
+			healthCertifiedPerson.dccWalletInfo?.vaccinationState.visible = false
+		}
+		return healthCertifiedPerson.dccWalletInfo?.vaccinationState.visible ?? false
 	}
 	
 	var admissionStateIsVisible: Bool {
-		healthCertifiedPerson.dccWalletInfo?.admissionState.visible ?? false
+		if CWAHibernationProvider.shared.isHibernationState {
+			healthCertifiedPerson.dccWalletInfo?.admissionState.visible = false
+		}
+		return healthCertifiedPerson.dccWalletInfo?.admissionState.visible ?? false
 	}
 
 	var maskStateIsVisible: Bool {
