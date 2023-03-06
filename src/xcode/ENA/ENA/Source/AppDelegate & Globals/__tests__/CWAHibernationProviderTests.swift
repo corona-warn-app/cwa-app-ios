@@ -20,7 +20,6 @@ final class CWAHibernationProviderTests: CWATestCase {
 		beforeHibernationStartDateComponents.hour = 23
 		beforeHibernationStartDateComponents.minute = 59
 		beforeHibernationStartDateComponents.second = 59
-		beforeHibernationStartDateComponents.timeZone = .utcTimeZone
 		
 		guard let hibernationComparisonDate = Calendar.current.date(from: beforeHibernationStartDateComponents) else {
 			return XCTFail("Expect the hibernation comparison date from the corresponding date components.")
@@ -44,7 +43,6 @@ final class CWAHibernationProviderTests: CWATestCase {
 		afterHibernationStartDateComponents.hour = 0
 		afterHibernationStartDateComponents.minute = 0
 		afterHibernationStartDateComponents.second = 0
-		afterHibernationStartDateComponents.timeZone = .utcTimeZone
 
 		guard let hibernationComparisonDate = Calendar.current.date(from: afterHibernationStartDateComponents) else {
 			return XCTFail("Expect the hibernation comparison date from the corresponding date components.")
