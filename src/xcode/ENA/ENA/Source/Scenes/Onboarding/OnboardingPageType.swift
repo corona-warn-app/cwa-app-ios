@@ -17,4 +17,8 @@ enum OnboardingPageType: Int, CaseIterable {
 	func isLast() -> Bool {
 		(self == OnboardingPageType.allCases.last)
 	}
+	
+	func isPrivacyPage() -> Bool {
+		(self == OnboardingPageType.privacyPage)
+	}
 }
