@@ -34,7 +34,8 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 			restServiceProvider: RestServiceProviderStub(loadResources: [loadResource]),
 			appConfig: appConfigurationProvider,
 			coronaTestService: MockCoronaTestService(),
-			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
+			ppacService: PPACService(store: store, deviceCheck: deviceCheck),
+			cwaHibernationProvider: MockCWAHibernationProvider()
 		)
 		
 		let expectation = self.expectation(description: "completion handler is called without an error")
@@ -113,7 +114,8 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 			restServiceProvider: RestServiceProviderStub(loadResources: [loadResource]),
 			appConfig: appConfigurationProvider,
 			coronaTestService: MockCoronaTestService(),
-			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
+			ppacService: PPACService(store: store, deviceCheck: deviceCheck),
+			cwaHibernationProvider: MockCWAHibernationProvider()
 		)
 		
 		store.antigenTest = .mock(testResult: .positive, keysSubmitted: true)
@@ -153,7 +155,8 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 			restServiceProvider: RestServiceProviderStub(loadResources: [loadResource]),
 			appConfig: appConfigurationProvider,
 			coronaTestService: coronaTestService,
-			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
+			ppacService: PPACService(store: store, deviceCheck: deviceCheck),
+			cwaHibernationProvider: MockCWAHibernationProvider()
 		)
 
 		// WHEN
@@ -192,7 +195,8 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 			restServiceProvider: RestServiceProviderStub(loadResources: [loadResource]),
 			appConfig: appConfigurationProvider,
 			coronaTestService: MockCoronaTestService(),
-			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
+			ppacService: PPACService(store: store, deviceCheck: deviceCheck),
+			cwaHibernationProvider: MockCWAHibernationProvider()
 		)
 				
 		// WHEN
@@ -230,7 +234,8 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 			restServiceProvider: RestServiceProviderStub(loadResources: [loadResource]),
 			appConfig: appConfigurationProvider,
 			coronaTestService: MockCoronaTestService(),
-			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
+			ppacService: PPACService(store: store, deviceCheck: deviceCheck),
+			cwaHibernationProvider: MockCWAHibernationProvider()
 		)
 				
 		// WHEN
@@ -260,7 +265,8 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 			restServiceProvider: RestServiceProviderStub(loadResources: [loadResource]),
 			appConfig: appConfigurationProvider,
 			coronaTestService: MockCoronaTestService(),
-			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
+			ppacService: PPACService(store: store, deviceCheck: deviceCheck),
+			cwaHibernationProvider: MockCWAHibernationProvider()
 		)
 				
 		let expectation = self.expectation(description: "completion handler is called with an error")
@@ -301,7 +307,8 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 			restServiceProvider: RestServiceProviderStub(loadResources: [loadResource]),
 			appConfig: appConfigurationProvider,
 			coronaTestService: MockCoronaTestService(),
-			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
+			ppacService: PPACService(store: store, deviceCheck: deviceCheck),
+			cwaHibernationProvider: MockCWAHibernationProvider()
 		)
 				
 		let expectation = self.expectation(description: "completion handler is called with an error")
@@ -342,7 +349,8 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 			restServiceProvider: RestServiceProviderStub(loadResources: [loadResource]),
 			appConfig: appConfigurationProvider,
 			coronaTestService: MockCoronaTestService(),
-			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
+			ppacService: PPACService(store: store, deviceCheck: deviceCheck),
+			cwaHibernationProvider: MockCWAHibernationProvider()
 		)
 
 		let expectation = self.expectation(description: "completion handler is called with an error")
@@ -382,7 +390,8 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 			restServiceProvider: RestServiceProviderStub(loadResources: [loadResource]),
 			appConfig: appConfigurationProvider,
 			coronaTestService: MockCoronaTestService(),
-			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
+			ppacService: PPACService(store: store, deviceCheck: deviceCheck),
+			cwaHibernationProvider: MockCWAHibernationProvider()
 		)
 
 		let expectation = self.expectation(description: "completion handler is called with an error")
@@ -423,7 +432,8 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 			restServiceProvider: RestServiceProviderStub(loadResources: [loadResource]),
 			appConfig: appConfigurationProvider,
 			coronaTestService: MockCoronaTestService(),
-			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
+			ppacService: PPACService(store: store, deviceCheck: deviceCheck),
+			cwaHibernationProvider: MockCWAHibernationProvider()
 		)
 
 		let expectation = self.expectation(description: "completion handler is called with an error")
@@ -467,7 +477,8 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 			restServiceProvider: RestServiceProviderStub(loadResources: [loadResource]),
 			appConfig: appConfigurationProvider,
 			coronaTestService: MockCoronaTestService(),
-			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
+			ppacService: PPACService(store: store, deviceCheck: deviceCheck),
+			cwaHibernationProvider: MockCWAHibernationProvider()
 		)
 
 		let expectation = self.expectation(description: "completion handler is called with an error")
@@ -513,7 +524,8 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 			restServiceProvider: RestServiceProviderStub(loadResources: [loadResource]),
 			appConfig: appConfigurationProvider,
 			coronaTestService: MockCoronaTestService(),
-			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
+			ppacService: PPACService(store: store, deviceCheck: deviceCheck),
+			cwaHibernationProvider: MockCWAHibernationProvider()
 		)
 
 		let expectation = self.expectation(description: "completion handler is called with an error")
@@ -538,6 +550,57 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 		XCTAssertEqual(ppasError, .appResetError)
 	}
 	
+	func testGIVEN_SubmissionIsTriggered_WHEN_Hibernation_THEN_HibernationErrorIsReturned() {
+		// GIVEN
+		let mockStore = MockTestStore()
+		mockStore.isPrivacyPreservingAnalyticsConsentGiven = true
+		mockStore.lastSubmissionAnalytics = Calendar.current.date(byAdding: .day, value: -5, to: Date())
+		mockStore.dateOfAcceptedPrivacyNotice = Calendar.current.date(byAdding: .day, value: -5, to: Date())
+
+		var config = SAP_Internal_V2_ApplicationConfigurationIOS()
+		config.privacyPreservingAnalyticsParameters.common.probabilityToSubmit = 3
+
+		let appConfigurationProvider = CachedAppConfigurationMock(with: config)
+
+		#if targetEnvironment(simulator)
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "iPhone")
+		#else
+		let deviceCheck = PPACDeviceCheck()
+		#endif
+
+		let loadResource = LoadResource(result: .success(()), willLoadResource: nil)
+		
+		let mockCWAHibernationProvider = MockCWAHibernationProvider()
+		mockCWAHibernationProvider.isHibernationStateToReturn = true
+
+		let sut = PPAnalyticsSubmitter(
+			store: mockStore,
+			restServiceProvider: RestServiceProviderStub(loadResources: [loadResource]),
+			appConfig: appConfigurationProvider,
+			coronaTestService: MockCoronaTestService(),
+			ppacService: PPACService(store: mockStore, deviceCheck: deviceCheck),
+			cwaHibernationProvider: mockCWAHibernationProvider
+		)
+
+		let expectation = self.expectation(description: "completion handler is called with an error")
+		
+		// WHEN
+		var ppasError: PPASError?
+		sut.triggerSubmitData(ppacToken: nil, completion: { result in
+			switch result {
+			case .success:
+				XCTFail("Test should not succeed")
+			case let .failure(error):
+				ppasError = error
+				expectation.fulfill()
+			}
+		})
+		
+		// THEN
+		waitForExpectations(timeout: .medium)
+		XCTAssertEqual(ppasError, .hibernationError)
+	}
+	
 	func testGIVEN_SubmissionIsTriggered_WHEN_PpacCouldNotAuthorize_THEN_PpacErrorIsReturned() {
 		// GIVEN
 		let store = MockTestStore()
@@ -556,7 +619,8 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 			restServiceProvider: RestServiceProviderStub(loadResources: [loadResource]),
 			appConfig: appConfigurationProvider,
 			coronaTestService: MockCoronaTestService(),
-			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
+			ppacService: PPACService(store: store, deviceCheck: deviceCheck),
+			cwaHibernationProvider: MockCWAHibernationProvider()
 		)
 
 		let expectation = self.expectation(description: "completion handler is called with an error")
@@ -597,7 +661,8 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 			restServiceProvider: RestServiceProviderStub(loadResources: [loadResource]),
 			appConfig: appConfigurationProvider,
 			coronaTestService: MockCoronaTestService(),
-			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
+			ppacService: PPACService(store: store, deviceCheck: deviceCheck),
+			cwaHibernationProvider: MockCWAHibernationProvider()
 		)
 
 		let expectation = self.expectation(description: "completion handler is called with an error")
@@ -662,7 +727,8 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 			restServiceProvider: restServiceProvider,
 			appConfig: appConfigurationProvider,
 			coronaTestService: MockCoronaTestService(),
-			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
+			ppacService: PPACService(store: store, deviceCheck: deviceCheck),
+			cwaHibernationProvider: MockCWAHibernationProvider()
 		)
 		
 		let expectation = self.expectation(description: "completion handler is called without an error")
@@ -1232,7 +1298,8 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 			restServiceProvider: RestServiceProviderStub(),
 			appConfig: appConfigurationProvider,
 			coronaTestService: MockCoronaTestService(),
-			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
+			ppacService: PPACService(store: store, deviceCheck: deviceCheck),
+			cwaHibernationProvider: MockCWAHibernationProvider()
 		)
 	}
 	

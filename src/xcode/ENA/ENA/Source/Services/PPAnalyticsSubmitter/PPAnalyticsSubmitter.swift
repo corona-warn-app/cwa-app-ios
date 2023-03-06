@@ -38,7 +38,8 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 		restServiceProvider: RestServiceProviding,
 		appConfig: AppConfigurationProviding,
 		coronaTestService: CoronaTestServiceProviding,
-		ppacService: PrivacyPreservingAccessControl
+		ppacService: PrivacyPreservingAccessControl,
+		cwaHibernationProvider: CWAHibernationProvider = CWAHibernationProvider.shared
 	) {
 		guard let store = store as? (Store & PPAnalyticsData) else {
 			Log.error("I will never submit any analytics data. Could not cast to correct store protocol", log: .ppa)
@@ -50,6 +51,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 		self.configurationProvider = appConfig
 		self.coronaTestService = coronaTestService
 		self.ppacService = ppacService
+		self.cwaHibernationProvider = cwaHibernationProvider
         
         self.fakeRequestService = FakeRequestService(restServiceProvider: restServiceProvider, ppacService: ppacService, appConfiguration: appConfig)
 	}
@@ -61,6 +63,13 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 		completion: ((Result<Void, PPASError>) -> Void)? = nil
 	) {
 		Log.info("Analytics submission was triggered \(applicationState). Checking now if we can submit...", log: .ppa)
+		
+		// Hibernation check
+		if cwaHibernationProvider.isHibernationState {
+			Log.warning("Analytics submission \(applicationState) abort due to app is in hibernation state.", log: .ppa)
+			completion?(.failure(.hibernationError))
+			return
+		}
 		
 		// Check if a submission is already in progress
 		guard submissionState == .readyForSubmission else {
@@ -179,6 +188,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 	private let coronaTestService: CoronaTestServiceProviding
 	private let ppacService: PrivacyPreservingAccessControl
     private let fakeRequestService: FakeRequestService
+	private let cwaHibernationProvider: CWAHibernationProvider
 	
 	private var submissionState: PPASubmissionState
 	private var subscriptions: Set<AnyCancellable> = []
