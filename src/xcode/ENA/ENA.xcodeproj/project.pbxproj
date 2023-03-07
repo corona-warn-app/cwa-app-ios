@@ -14,7 +14,6 @@
 		0104CBCF273EAC5B009A543D /* TicketValidationResultToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0104CBCE273EAC5B009A543D /* TicketValidationResultToken.swift */; };
 		0104CBD1273EAC7A009A543D /* TicketValidationResultToken+Fake.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0104CBD0273EAC7A009A543D /* TicketValidationResultToken+Fake.swift */; };
 		0104CBD3273EACA1009A543D /* MockTicketValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0104CBD2273EACA1009A543D /* MockTicketValidation.swift */; };
-        0104CBD5273EAD72009A543D /* TicketValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0104CBD4273EAD72009A543D /* TicketValidation.swift */; };
 		0104CBD5273EAD72009A543D /* TicketValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0104CBD4273EAD72009A543D /* TicketValidation.swift */; };
 		0105D8AA25B87920007E288B /* SAP_Internal_Stats_KeyFigure+Formatting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0105D8A925B87920007E288B /* SAP_Internal_Stats_KeyFigure+Formatting.swift */; };
 		0109DB8726036E4400624BB3 /* CheckinsOverviewViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0109DB762603682C00624BB3 /* CheckinsOverviewViewModelTest.swift */; };

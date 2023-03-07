@@ -38,7 +38,7 @@ class CWAHibernationProvider: RequiresAppDependencies {
 	private let hibernationStartDate: Date = {
 		var hibernationStartDateComponents = DateComponents()
 		hibernationStartDateComponents.year = 2023
-		hibernationStartDateComponents.month = 6
+		hibernationStartDateComponents.month = 5
 		hibernationStartDateComponents.day = 1
 		hibernationStartDateComponents.hour = 0
 		hibernationStartDateComponents.minute = 0

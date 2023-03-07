@@ -71,6 +71,10 @@ final class ENATaskScheduler {
 	@available(iOS 13.0, *)
 	func scheduleTask() {
 		do {
+			guard !CWAHibernationProvider.shared.isHibernationState else {
+				Log.info("CWA is in hibernation state, \(#function) won't submit task request.", log: .api)
+				return
+			}
 			let taskRequest = BGProcessingTaskRequest(identifier: ENATaskIdentifier.exposureNotification.backgroundTaskSchedulerIdentifier)
 			taskRequest.requiresNetworkConnectivity = true
 			taskRequest.requiresExternalPower = false
