@@ -58,6 +58,12 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 	func executeENABackgroundTask(completion: @escaping ((Bool) -> Void)) {
 		Log.info("Starting background task...", log: .background)
 		
+		guard !CWAHibernationProvider.shared.isHibernationState else {
+			Log.info("CWA is in hibernation state. Background tasks won't be executed.", log: .background)
+			completion(true)
+			return
+		}
+		
 		guard store.isOnboarded else {
 			Log.info("Cancelling background task because user is not onboarded yet.", log: .background)
 			

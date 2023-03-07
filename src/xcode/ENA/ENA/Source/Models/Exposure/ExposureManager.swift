@@ -186,7 +186,8 @@ final class ENAExposureManager: NSObject, ExposureManager {
 							Log.error("AppDelegate is not of Type AppDelegate, this should not happen!", log: .background)
 							return
 						}
-						Log.info("Starting backgroundTask via Bluetooth", log: .background)
+
+						Log.info("Starting background task via Bluetooth", log: .background)
 						appDelegate.taskExecutionDelegate.executeENABackgroundTask(completion: { success in
 							Log.info("Background task was: \(success)", log: .background)
 						})
