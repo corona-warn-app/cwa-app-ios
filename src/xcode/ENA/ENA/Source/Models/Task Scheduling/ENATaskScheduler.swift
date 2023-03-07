@@ -41,11 +41,6 @@ final class ENATaskScheduler {
 	// MARK: - Initializer.
 	private init() {
 		if #available(iOS 13.0, *) {
-			guard !CWAHibernationProvider.shared.isHibernationState else {
-				Log.info("CWA is in hibernation state. Background tasks won't be registered.", log: .api)
-				return
-			}
-
 			registerTask(with: .exposureNotification, execute: exposureNotificationTask(_:))
 		}
 	}

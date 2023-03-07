@@ -20,7 +20,7 @@ protocol CoronaWarnAppDelegate: AnyObject {
 	var appConfigurationProvider: AppConfigurationProviding { get }
 	var riskProvider: RiskProvider { get }
 	var exposureManager: ExposureManager { get }
-	var taskScheduler: ENATaskScheduler { get }
+	var taskScheduler: ENATaskScheduler? { get }
 	var environmentProvider: EnvironmentProviding { get }
 	var contactDiaryStore: DiaryStoringProviding { get }
 
@@ -161,7 +161,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		UIDevice.current.isBatteryMonitoringEnabled = true
 
 		// Setting delegates
-		taskScheduler.delegate = taskExecutionDelegate
+		taskScheduler?.delegate = taskExecutionDelegate
 		UNUserNotificationCenter.current().delegate = notificationManager
 
 		// Setup DeadmanNotification after AppLaunch
@@ -261,7 +261,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	func applicationDidEnterBackground(_ application: UIApplication) {
 		showPrivacyProtectionWindow()
 		if #available(iOS 13.0, *) {
-			taskScheduler.scheduleTask()
+			taskScheduler?.scheduleTask()
 		}
 		Log.info("Application did enter background.", log: .appLifecycle)
 	}
@@ -295,7 +295,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	let client: HTTPClient
 	let cachingClient = CachingHTTPClient()
 	let downloadedPackagesStore: DownloadedPackagesStore = DownloadedPackagesSQLLiteStore(fileName: "packages")
-	lazy var taskScheduler: ENATaskScheduler = { ENATaskScheduler.shared }()
+	var taskScheduler: ENATaskScheduler? {
+		guard !CWAHibernationProvider.shared.isHibernationState else {
+			Log.info("CWA is in hibernation state. Background tasks won't be executed.", log: .background)
+			return nil
+		}
+		return ENATaskScheduler.shared
+	}
 	let contactDiaryStore: DiaryStoringProviding
 	let eventStore: EventStoringProviding = {
 		#if DEBUG
