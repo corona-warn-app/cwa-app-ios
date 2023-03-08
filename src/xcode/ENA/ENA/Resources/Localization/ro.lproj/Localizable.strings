@@ -573,7 +573,7 @@
 /* SRS Warn Others Precondition Error Alert */
 "ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_title" = "Nu-i puteți avertiza pe ceilalți";
 
-"ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_insufficientAppUsageTime_message" = "Ne pare rău, dar în acest moment nu-i puteți avertiza pe ceilalți, deoarece abia ați instalat aplicația. Această funcție este destinată prevenirii utilizării greșite a caracteristicii de avertizare.\nPuteți înregistra un test oficial și îl puteți utiliza pentru a-i avertiza pe ceilalți oricând. (%@)";
+"ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_insufficientAppUsageTime_message" = "Din motive de securitate, nu puteți trimite acest tip de avertizare până la %@ (de) ore după ce instalați sau actualizați aplicația. Încercați din nou în %@ (de) ore. (%@)";
 
 "ExposureSubmissionDispatch_SRSWarnOthersPreconditionError_positiveTestResultWasAlreadySubmittedWithinThresholdDays_message" = "În acest moment nu-i puteți avertiza pe ceilalți, deoarece ați raportat deja un rezultat de test pozitiv în ultimele %@ de zile. Această funcție este destinată prevenirii utilizării greșite a caracteristicii de avertizare. Puteți înregistra un test oficial și îl puteți utiliza pentru a-i avertiza pe ceilalți oricând.(%@)";
 
