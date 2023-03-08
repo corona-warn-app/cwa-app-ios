@@ -11,7 +11,7 @@ class CWAHibernationProvider: RequiresAppDependencies {
 	/// Use shared instance instead
 	private init() {}
 	
-	#if DEBUG
+	#if !RELEASE
 	/// For UI/Unit purposes only
 	init(customStore: Store) {
 		self.customStore = customStore
@@ -59,7 +59,7 @@ class CWAHibernationProvider: RequiresAppDependencies {
 		#endif
 	}
 	
-	#if DEBUG
+	#if !RELEASE
 	/// For UI/Unit Test purposes only
 	private var customStore: Store?
 	#endif
