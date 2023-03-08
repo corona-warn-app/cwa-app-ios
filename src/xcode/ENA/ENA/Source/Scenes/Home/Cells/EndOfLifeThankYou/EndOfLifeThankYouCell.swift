@@ -51,6 +51,7 @@ final class EndOfLifeThankYouCell: UITableViewCell {
 		descriptionTextView.isScrollEnabled = false
 		descriptionTextView.isEditable = false
 		descriptionTextView.adjustsFontForContentSizeCategory = true
+		descriptionTextView.backgroundColor = .clear
 		descriptionTextView.delegate = self
 
 		setupAccessibility()
