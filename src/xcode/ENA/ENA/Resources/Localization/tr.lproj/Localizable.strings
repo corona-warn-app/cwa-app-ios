@@ -1477,6 +1477,13 @@
 
 "Home_Finding_Positive_Card_Button_Remove_Test" = "Testi Sil";
 
+/* Home End of Life Thank you Card */
+"Home_EndOfLifeThankYouTile_Title" = "Teşekkür ederiz!";
+
+"Home_EndOfLifeThankYouTile_description" = "Corona-Warn-App'i kullandığınız için teşekkür ederiz. Pandemi sırasında Corona-Warn-App kullanıcıları yaklaşık 9 milyon kez COVID-19 tanılarını paylaştı. Bu pozitif test sonuçlarının paylaşılması sayesinde kullanıcılar, aksi takdirde haberdar olamayacakları yüksek enfeksiyon riski hakkında hızlıca uyarıldı. Uyarılan kullanıcıların çoğuna da daha sonra COVID-19 tanısı kondu. Desteğiniz sayesinde Corona-Warn-App bir erken uyarı sistemi olarak amacını yerine getirdi ve enfeksiyon zincirlerinin kırılmasına yardımcı oldu.\n\nCorona-Warn-App'in geliştirilmesi 1 Haziran 2023 tarihi itibarıyla durdurulacak. Temas güncenizin yanı sıra CWA'ya zaten kaydettiğiniz sertifikalara erişmeye devam edebilirsiniz. Diğer işlevler artık kullanılmayacaktır.\n\nUygulama işlemlerinin sona ermesiyle ilgili daha fazla bilgi için bkz. %@.";
+
+"Home_EndOfLifeThankYouTile_faq" = "SSS";
+
 /* Home Test Registration Card */
 "Home_TestRegistration_Title" = "Testlerinizi Yönetin ve Diğer Kullanıcıları Uyarın";
 
