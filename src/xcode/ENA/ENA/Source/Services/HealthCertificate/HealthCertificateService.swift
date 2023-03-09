@@ -825,8 +825,6 @@ class HealthCertificateService: HealthCertificateServiceServable {
 							dispatchGroup.leave()
 						}
 					)
-				}
-				if !CWAHibernationProvider.shared.isHibernationState {
 					dispatchGroup.enter()
 					self.healthCertificateNotificationService.scheduleCertificateReissuanceNotificationIfNeeded(
 						for: person,
@@ -835,8 +833,6 @@ class HealthCertificateService: HealthCertificateServiceServable {
 							dispatchGroup.leave()
 						}
 					)
-				}
-//				if !CWAHibernationProvider.shared.isHibernationState {
 					dispatchGroup.enter()
 					self.healthCertificateNotificationService.scheduleAdmissionStateChangedNotificationIfNeeded(
 						for: person,
@@ -845,7 +841,7 @@ class HealthCertificateService: HealthCertificateServiceServable {
 							dispatchGroup.leave()
 						}
 					)
-//				}
+				}
 				dispatchGroup.notify(queue: .global()) {
 					completion?()
 				}
