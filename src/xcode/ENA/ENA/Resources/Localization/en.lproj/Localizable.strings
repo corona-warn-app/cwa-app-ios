@@ -1477,6 +1477,13 @@
 
 "Home_Finding_Positive_Card_Button_Remove_Test" = "Delete Test";
 
+/* Home End of Life Thank you Card */
+"Home_EndOfLifeThankYouTile_Title" = "Thank you!";
+
+"Home_EndOfLifeThankYouTile_description" = "Thank you for using the Corona-Warn-App. During the pandemic, users of the Corona-Warn-App shared their COVID-19 diagnoses around 9 million times. Thanks to this sharing of positive test results, people could be warned quickly of an increased risk of infection, which they would otherwise have remained unaware of. Many of those warned were subsequently diagnosed with COVID-19 themselves. With your support, the Corona-Warn-App fulfilled its purpose as an early-warning system and helped to break chains of infection.\n\nFurther development of the Corona-Warn-App will stop as of June 1, 2023. You will still be able to access the certificates you have already saved in the CWA, as well as your contact journal. The other functions will no longer be available.\n\nFor more information about the end of app operations, refer to the %@.";
+
+"Home_EndOfLifeThankYouTile_faq" = "FAQ";
+
 /* Home Test Registration Card */
 "Home_TestRegistration_Title" = "Manage Your Tests and Warn Others";
 
