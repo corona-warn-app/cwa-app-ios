@@ -29,10 +29,10 @@ class CWAHibernationProvider: RequiresAppDependencies {
 			return LaunchArguments.endOfLife.isHibernationStateEnabled.boolValue
 		}
 		Log.debug("current hibernationStartDate \(secureStore.hibernationStartDate)")
-		return secureStore.hibernationStartDate >= hibernationStartDate
+		return secureStore.hibernationStartDate >= Date()
 		#elseif !RELEASE
 		Log.debug("current hibernationStartDate \(secureStore.hibernationStartDate)")
-		return secureStore.hibernationStartDate >= hibernationStartDate
+		return secureStore.hibernationStartDate >= Date()
 		#else
 		return Date() >= hibernationStartDate
 		#endif
