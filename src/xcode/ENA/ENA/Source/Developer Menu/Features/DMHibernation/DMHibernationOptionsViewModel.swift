@@ -12,7 +12,7 @@ class DMHibernationOptionsViewModel {
 	
 	init(store: Store) {
 		self.store = store
-		self.hibernationComparisonDateSelected = store.hibernationComparisonDate
+		self.hibernationComparisonDateSelected = store.hibernationStartDate
 	}
 	
 	// MARK: - Internal
@@ -29,8 +29,8 @@ class DMHibernationOptionsViewModel {
 		}
 		
 		switch section {
-		case .hibernationComparisonDate:
-			return "App will shutdown after selecting a new date value in the date picker.\n\nCurrently the hibernation threshold compares against the set date: \(dateFormatter.string(from: store.hibernationComparisonDate))"
+		case .hibernationStartDate:
+			return "App will shutdown after selecting a new date value in the date picker.\n\nCurrently the hibernation threshold compares against the set date: \(dateFormatter.string(from: store.hibernationStartDate))"
 		case .storeButton:
 			return nil
 		case .reset:
@@ -44,12 +44,12 @@ class DMHibernationOptionsViewModel {
 		}
 		
 		switch section {
-		case .hibernationComparisonDate:
+		case .hibernationStartDate:
 			return DMDatePickerCellViewModel(
-				title: "Hibernation Comparison Date",
+				title: "Hibernation Start Date",
 				accessibilityIdentifier: AccessibilityIdentifiers.DeveloperMenu.Hibernation.datePicker,
 				datePickerMode: .dateAndTime,
-				date: store.hibernationComparisonDate
+				date: store.hibernationStartDate
 			)
 		case .storeButton:
 			return DMButtonCellViewModel(
@@ -58,7 +58,7 @@ class DMHibernationOptionsViewModel {
 				backgroundColor: .enaColor(for: .buttonPrimary)
 			) { [weak self] in
 				guard let self = self else { return }
-				self.store(hibernationComparisonDate: self.hibernationComparisonDateSelected)
+				self.store(hibernationStartDate: self.hibernationComparisonDateSelected)
 			}
 		case .reset:
 			return DMButtonCellViewModel(
@@ -66,7 +66,7 @@ class DMHibernationOptionsViewModel {
 				textColor: .white,
 				backgroundColor: .enaColor(for: .buttonDestructive)
 			) { [weak self] in
-				self?.store(hibernationComparisonDate: Date())
+				self?.store(hibernationStartDate: Date())
 			}
 		}
 	}
@@ -81,9 +81,10 @@ class DMHibernationOptionsViewModel {
 		return dateFormatter
 	}()
 
-	private func store(hibernationComparisonDate: Date) {
-		Log.debug("[Debug-Menu] Set hibernation comparison date to: \(dateFormatter.string(from: hibernationComparisonDate)).")
-		store.hibernationComparisonDate = hibernationComparisonDate
+	private func store(hibernationStartDate: Date) {
+		Log.debug("[Debug-Menu] Set hibernation comparison date to: \(dateFormatter.string(from: hibernationStartDate)).")
+		store.hibernationStartDate = hibernationStartDate
+		Log.debug("did save ")
 		
 		exitApp()
 	}
@@ -98,7 +99,7 @@ class DMHibernationOptionsViewModel {
 extension DMHibernationOptionsViewModel {
 	enum Sections: Int, CaseIterable {
 		/// The date, that will be used to compare it against the hibernation start date.
-		case hibernationComparisonDate
+		case hibernationStartDate
 		/// Store the set hibernation comparison date
 		case storeButton
 		/// Reset the stored fake date, the hibernation threshold compares to.
