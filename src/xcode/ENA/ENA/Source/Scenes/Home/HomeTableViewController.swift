@@ -285,7 +285,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 			onTestRegistrationCellTap()
 		case .traceLocations:
 			onTraceLocationsCellTap()
-		case .statistics, .moreInfo:
+		case .statistics, .moreInfo, .endOfLifeThankYou:
 			break
 		default:
 			fatalError("Invalid section")
