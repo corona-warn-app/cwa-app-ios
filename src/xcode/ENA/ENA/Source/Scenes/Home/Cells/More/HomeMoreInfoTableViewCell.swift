@@ -36,7 +36,7 @@ class HomeMoreInfoTableViewCell: UITableViewCell {
 			if let actionItemView = nib.instantiate(withOwner: self, options: nil).first as? MoreActionItemView {
 				actionItemView.configure(
 					actionItem: item,
-					hideSeparatorView: item == items.last // index == items.count - 1
+					hideSeparatorView: item == items.last
 				) { selectedItem in
 					onItemTap(selectedItem)
 				}
