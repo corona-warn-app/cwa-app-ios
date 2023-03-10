@@ -34,10 +34,10 @@
                                         </userDefinedRuntimeAttributes>
                                     </label>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" insetsLayoutMarginsFromSafeArea="NO" image="EndOfLifeThankYouIllustration" translatesAutoresizingMaskIntoConstraints="NO" id="MnV-8b-FIK">
-                                        <rect key="frame" x="16" y="30.333333333333343" width="446" height="199"/>
+                                        <rect key="frame" x="0.0" y="30.333333333333343" width="462" height="280.33333333333326"/>
                                     </imageView>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalHuggingPriority="251" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="5xM-wZ-d5o">
-                                        <rect key="frame" x="16" y="233.33333333333329" width="446" height="117.66666666666666"/>
+                                        <rect key="frame" x="16" y="314.66666666666669" width="1911" height="36.333333333333314"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </string>
                                         <color key="textColor" name="ENA Text Primary 2 Color"/>
@@ -50,10 +50,14 @@
                         </subviews>
                         <color key="backgroundColor" name="ENA Background Color"/>
                         <constraints>
+                            <constraint firstItem="MnV-8b-FIK" firstAttribute="leading" secondItem="s03-8Y-fFF" secondAttribute="leading" id="76j-HB-jgP"/>
                             <constraint firstItem="oW2-4W-XLN" firstAttribute="top" secondItem="s03-8Y-fFF" secondAttribute="top" constant="18" id="CvC-Eq-CY8"/>
+                            <constraint firstAttribute="trailing" secondItem="MnV-8b-FIK" secondAttribute="trailing" id="L1a-WI-p85"/>
                             <constraint firstItem="oW2-4W-XLN" firstAttribute="leading" secondItem="s03-8Y-fFF" secondAttribute="leading" id="U3o-4H-uA8"/>
+                            <constraint firstAttribute="trailing" secondItem="5xM-wZ-d5o" secondAttribute="trailing" constant="8" id="a8y-o4-M3A"/>
                             <constraint firstAttribute="bottom" secondItem="oW2-4W-XLN" secondAttribute="bottom" id="nSM-dV-RaM"/>
                             <constraint firstAttribute="trailing" secondItem="oW2-4W-XLN" secondAttribute="trailing" id="q3F-tO-fVf"/>
+                            <constraint firstItem="5xM-wZ-d5o" firstAttribute="leading" secondItem="s03-8Y-fFF" secondAttribute="leading" constant="16" id="uxW-NZ-Vux"/>
                         </constraints>
                     </view>
                 </subviews>
