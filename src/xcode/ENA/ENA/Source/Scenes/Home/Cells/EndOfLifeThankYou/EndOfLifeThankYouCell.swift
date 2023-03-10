@@ -24,6 +24,7 @@ final class EndOfLifeThankYouCell: UITableViewCell {
 		super.traitCollectionDidChange(previousTraitCollection)
 
 		updateView(for: traitCollection)
+		setupAccessibility()
 	}
 		
 		
@@ -73,7 +74,11 @@ final class EndOfLifeThankYouCell: UITableViewCell {
 	}
 	
 	private func setupAccessibility() {
-		cardView.accessibilityElements = [titleLabel as Any, descriptionTextView as Any, illustrationImageView as Any]
+		if traitCollection.preferredContentSizeCategory >= .accessibilityLarge {
+			cardView.accessibilityElements = [titleLabelAccessibilityLarge as Any, descriptionTextView as Any, illustrationImageView as Any]
+		} else {
+			cardView.accessibilityElements = [titleLabel as Any, descriptionTextView as Any, illustrationImageView as Any]
+		}
 	}
 
 	@IBOutlet private weak var cardView: HomeCardView!
