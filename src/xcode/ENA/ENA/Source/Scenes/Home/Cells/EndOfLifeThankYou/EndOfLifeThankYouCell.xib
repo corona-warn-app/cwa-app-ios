@@ -99,7 +99,7 @@
         </designable>
     </designables>
     <resources>
-        <image name="EndOfLifeThankYouIllustration" width="336" height="174"/>
+        <image name="EndOfLifeThankYouIllustration" width="336" height="243"/>
         <namedColor name="ENA Background Color">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
