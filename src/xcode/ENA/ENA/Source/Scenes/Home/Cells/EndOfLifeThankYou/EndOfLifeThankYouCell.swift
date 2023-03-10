@@ -11,19 +11,19 @@ final class EndOfLifeThankYouCell: UITableViewCell {
 	override func prepareForInterfaceBuilder() {
 		super.prepareForInterfaceBuilder()
 
-		setup()
+		setupView()
 	}
 
 	override func awakeFromNib() {
 		super.awakeFromNib()
 
-		setup()
+		setupView()
 	}
 	
 	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
 		super.traitCollectionDidChange(previousTraitCollection)
 
-		updateIllustration(for: traitCollection)
+		updateView(for: traitCollection)
 	}
 		
 		
@@ -32,6 +32,9 @@ final class EndOfLifeThankYouCell: UITableViewCell {
 	func configure(with cellModel: EndOfLifeThankYouCellViewModel) {
 		titleLabel.text = cellModel.title
 		titleLabel.accessibilityIdentifier = cellModel.titleAccessibilityIdentifier
+		
+		titleLabelAccessibilityLarge.text = cellModel.title
+		titleLabelAccessibilityLarge.accessibilityIdentifier = cellModel.titleAccessibilityIdentifier
 		
 		descriptionTextView.attributedText = cellModel.description
 		descriptionTextView.accessibilityIdentifier = cellModel.descriptionAccessibilityIdentifier
@@ -42,10 +45,13 @@ final class EndOfLifeThankYouCell: UITableViewCell {
 
 	// MARK: - Private
 	
-	private func setup() {
+	private func setupView() {
 		selectionStyle = .none
-		updateIllustration(for: traitCollection)
-		clipsToBounds = false
+		updateView(for: traitCollection)
+
+		illustrationImageView.clipsToBounds = true
+		illustrationImageView.layer.cornerRadius = HomeCardView.cornerRadius
+		illustrationImageView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
 		
 		descriptionTextView.isUserInteractionEnabled = true
 		descriptionTextView.isScrollEnabled = false
@@ -57,8 +63,13 @@ final class EndOfLifeThankYouCell: UITableViewCell {
 		setupAccessibility()
 	}
 	
-	private func updateIllustration(for traitCollection: UITraitCollection) {
+	private func updateView(for traitCollection: UITraitCollection) {
+		let stackViewTopHeight: CGFloat = traitCollection.preferredContentSizeCategory >= .accessibilityLarge ? 20 : 0
+		stackViewTopConstraint.constant = stackViewTopHeight
+		
 		illustrationImageView.isHidden = traitCollection.preferredContentSizeCategory >= .accessibilityLarge
+		titleLabel.isHidden = traitCollection.preferredContentSizeCategory >= .accessibilityLarge
+		titleLabelAccessibilityLarge.isHidden = traitCollection.preferredContentSizeCategory < .accessibilityLarge
 	}
 	
 	private func setupAccessibility() {
@@ -69,7 +80,12 @@ final class EndOfLifeThankYouCell: UITableViewCell {
 	@IBOutlet private weak var illustrationImageView: UIImageView!
 	@IBOutlet private weak var descriptionTextView: UITextView!
 	@IBOutlet private weak var titleLabel: ENALabel!
+	@IBOutlet private weak var titleLabelAccessibilityLarge: ENALabel!
+	@IBOutlet private weak var stackViewTopConstraint: NSLayoutConstraint!
+	
 }
+
+// MARK: - UITextViewDelegate
 
 extension EndOfLifeThankYouCell: UITextViewDelegate {
 	func textView(_ textView: UITextView, shouldInteractWith url: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
