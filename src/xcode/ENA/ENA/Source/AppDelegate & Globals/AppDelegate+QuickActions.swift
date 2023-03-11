@@ -141,8 +141,19 @@ extension AppDelegate {
 
 		case QuickAction.diaryNewEntry.rawValue:
 			Log.info("Shortcut: Open new diary entry", log: .ui)
-			guard let tabBarController = coordinator.tabBarController else { return }
-			tabBarController.selectedIndex = 4
+			guard let tabBarController = coordinator.tabBarController, let viewControllers = tabBarController.viewControllers else { return }
+			
+			guard let diaryOverviewTableViewControllerIndex = viewControllers.lastIndex(where: {
+				if let topViewController = ($0 as? UINavigationController)?.topViewController {
+					return topViewController is DiaryOverviewTableViewController || topViewController is DiaryDayViewController
+				} else {
+					return false
+				}
+			}) else {
+				return
+			}
+			
+			tabBarController.selectedIndex = diaryOverviewTableViewControllerIndex
 
 			// dismiss an overlaying, modally presented view controller
 			coordinator.diaryCoordinator?.viewController.presentedViewController?.dismiss(animated: false, completion: nil)
