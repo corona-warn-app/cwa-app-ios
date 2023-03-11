@@ -129,7 +129,11 @@ class HomeTableViewModel {
 				return 1
 			}
 			#endif
-			return shouldShowAppClosureNotice ? 1 : 0
+			if shouldShowAppClosureNotice, !isHibernationState {
+				return 1
+			} else {
+				return 0
+			}
 		case .exposureLogging:
 			return !isHibernationState ? 1 : 0
 		case .riskAndTestResults:
