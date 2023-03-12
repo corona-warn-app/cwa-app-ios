@@ -30,15 +30,11 @@ class DMHibernationOptionsViewModel {
 		
 		switch section {
 		case .hibernationStartDate:
-			if let customHibernationStartDate = store.hibernationStartDate {
-				return "App will shutdown after selecting a new date.\nCurrently the (custom) hibernation starts on: \(dateFormatter.string(from: customHibernationStartDate))"
-			} else {
-				return "App will shutdown after selecting a new date.\nCurrently the  (default) hibernation starts on: \(dateFormatter.string(from: CWAHibernationProvider.shared.hibernationStartDateForBuild))"
-			}
+			return "You can select a custom start here for testing. At the moment, the hibernation starts on \(dateFormatter.string(from: customHibernationStartDateSelected))."
 		case .storeButton:
-			return nil
+			return "App will exit after saving."
 		case .reset:
-			return "App will shutdown after reset."
+			return "App will exit after reset."
 		}
 	}
 	
@@ -50,7 +46,7 @@ class DMHibernationOptionsViewModel {
 		switch section {
 		case .hibernationStartDate:
 			return DMDatePickerCellViewModel(
-				title: "Hibernation Comparison Date",
+				title: "Hibernation Start Date",
 				accessibilityIdentifier: AccessibilityIdentifiers.DeveloperMenu.Hibernation.datePicker,
 				datePickerMode: .dateAndTime,
 				date: CWAHibernationProvider.shared.hibernationStartDateForBuild
@@ -81,14 +77,14 @@ class DMHibernationOptionsViewModel {
 	
 	private let dateFormatter: DateFormatter = {
 		let dateFormatter = DateFormatter()
-		dateFormatter.dateFormat = "yyyy-MM-dd, HH:mm"
+		dateFormatter.dateFormat = "dd.MM.yyyy, HH:mm"
 		return dateFormatter
 	}()
 
 	private func store(hibernationStartDate: Date) {
 		Log.debug("[Debug-Menu] Set hibernation start date to: \(dateFormatter.string(from: hibernationStartDate)).")
 		store.hibernationStartDate = hibernationStartDate
-		Log.debug("[Debug-Menu] Set hibernation start saved.")
+		Log.debug("[Debug-Menu] Set hibernation start done.")
 		
 		exitApp()
 	}
