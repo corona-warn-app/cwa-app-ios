@@ -22,10 +22,10 @@
                         <rect key="frame" x="16" y="12" width="462" height="377"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="oW2-4W-XLN">
-                                <rect key="frame" x="0.0" y="18" width="462" height="359"/>
+                                <rect key="frame" x="0.0" y="0.0" width="462" height="377"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" insetsLayoutMarginsFromSafeArea="NO" text="Title 2" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GWJ-GG-Lqs" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                        <rect key="frame" x="16" y="0.0" width="446" height="26.333333333333332"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="25b-YP-GPY" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
+                                        <rect key="frame" x="16" y="0.0" width="446" height="20.333333333333332"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" name="ENA Text Primary 1 Color"/>
                                         <nil key="highlightedColor"/>
@@ -34,10 +34,10 @@
                                         </userDefinedRuntimeAttributes>
                                     </label>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" insetsLayoutMarginsFromSafeArea="NO" image="EndOfLifeThankYouIllustration" translatesAutoresizingMaskIntoConstraints="NO" id="MnV-8b-FIK">
-                                        <rect key="frame" x="0.0" y="30.333333333333343" width="462" height="280.33333333333326"/>
+                                        <rect key="frame" x="0.0" y="24.333333333333343" width="462" height="304.33333333333326"/>
                                     </imageView>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalHuggingPriority="251" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="5xM-wZ-d5o">
-                                        <rect key="frame" x="16" y="314.66666666666669" width="1911" height="36.333333333333314"/>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalHuggingPriority="251" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5xM-wZ-d5o">
+                                        <rect key="frame" x="16" y="332.66666666666669" width="1911" height="36.333333333333314"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </string>
                                         <color key="textColor" name="ENA Text Primary 2 Color"/>
@@ -47,13 +47,25 @@
                                 </subviews>
                                 <edgeInsets key="layoutMargins" top="0.0" left="16" bottom="8" right="0.0"/>
                             </stackView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" insetsLayoutMarginsFromSafeArea="NO" text="Title 2" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GWJ-GG-Lqs" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
+                                <rect key="frame" x="16" y="20" width="430" height="26.333333333333329"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" name="ENA Text Primary 1 Color"/>
+                                <nil key="highlightedColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="title2"/>
+                                </userDefinedRuntimeAttributes>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" name="ENA Background Color"/>
                         <constraints>
                             <constraint firstItem="MnV-8b-FIK" firstAttribute="leading" secondItem="s03-8Y-fFF" secondAttribute="leading" id="76j-HB-jgP"/>
-                            <constraint firstItem="oW2-4W-XLN" firstAttribute="top" secondItem="s03-8Y-fFF" secondAttribute="top" constant="18" id="CvC-Eq-CY8"/>
+                            <constraint firstItem="oW2-4W-XLN" firstAttribute="top" secondItem="s03-8Y-fFF" secondAttribute="top" id="CvC-Eq-CY8"/>
+                            <constraint firstItem="GWJ-GG-Lqs" firstAttribute="leading" secondItem="s03-8Y-fFF" secondAttribute="leading" constant="16" id="F1A-Gx-oUw"/>
+                            <constraint firstItem="GWJ-GG-Lqs" firstAttribute="top" secondItem="s03-8Y-fFF" secondAttribute="top" constant="20" id="Gzp-zm-j2h"/>
                             <constraint firstAttribute="trailing" secondItem="MnV-8b-FIK" secondAttribute="trailing" id="L1a-WI-p85"/>
                             <constraint firstItem="oW2-4W-XLN" firstAttribute="leading" secondItem="s03-8Y-fFF" secondAttribute="leading" id="U3o-4H-uA8"/>
+                            <constraint firstAttribute="trailing" secondItem="GWJ-GG-Lqs" secondAttribute="trailing" constant="16" id="a51-2u-aEQ"/>
                             <constraint firstAttribute="trailing" secondItem="5xM-wZ-d5o" secondAttribute="trailing" constant="8" id="a8y-o4-M3A"/>
                             <constraint firstAttribute="bottom" secondItem="oW2-4W-XLN" secondAttribute="bottom" id="nSM-dV-RaM"/>
                             <constraint firstAttribute="trailing" secondItem="oW2-4W-XLN" secondAttribute="trailing" id="q3F-tO-fVf"/>
@@ -74,7 +86,9 @@
                 <outlet property="cardView" destination="s03-8Y-fFF" id="U5n-Mg-pg2"/>
                 <outlet property="descriptionTextView" destination="5xM-wZ-d5o" id="jmt-mv-MID"/>
                 <outlet property="illustrationImageView" destination="MnV-8b-FIK" id="gGH-zV-bbZ"/>
+                <outlet property="stackViewTopConstraint" destination="CvC-Eq-CY8" id="mbM-cE-UKJ"/>
                 <outlet property="titleLabel" destination="GWJ-GG-Lqs" id="mjI-VS-5JA"/>
+                <outlet property="titleLabelAccessibilityLarge" destination="25b-YP-GPY" id="xbW-8R-c6P"/>
             </connections>
             <point key="canvasLocation" x="-512.97709923664115" y="10.211267605633804"/>
         </tableViewCell>
@@ -85,7 +99,7 @@
         </designable>
     </designables>
     <resources>
-        <image name="EndOfLifeThankYouIllustration" width="336" height="174"/>
+        <image name="EndOfLifeThankYouIllustration" width="336" height="243"/>
         <namedColor name="ENA Background Color">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
