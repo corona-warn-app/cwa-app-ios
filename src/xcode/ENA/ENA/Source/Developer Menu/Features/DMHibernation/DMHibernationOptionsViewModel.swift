@@ -12,12 +12,12 @@ class DMHibernationOptionsViewModel {
 	
 	init(store: Store) {
 		self.store = store
-		self.hibernationComparisonDateSelected = store.hibernationComparisonDate
+		self.customHibernationStartDateSelected = CWAHibernationProvider.shared.hibernationStartDateForBuild
 	}
 	
 	// MARK: - Internal
 	
-	var hibernationComparisonDateSelected: Date
+	var customHibernationStartDateSelected: Date
 	
 	var numberOfSections: Int { Sections.allCases.count }
 	
@@ -29,14 +29,12 @@ class DMHibernationOptionsViewModel {
 		}
 		
 		switch section {
-		case .hibernationComparisonDate:
-			var title = "App will shutdown after selecting a new date value in the date picker. Currently the hibernation threshold compares against the set date: \(dateFormatter.string(from: store.hibernationComparisonDate))"
-			
-			return title
+		case .hibernationStartDate:
+			return "You can select a custom start here for testing. At the moment, the hibernation starts on \(dateFormatter.string(from: customHibernationStartDateSelected))."
 		case .storeButton:
-			return nil
+			return "App will exit after saving."
 		case .reset:
-			return "App will shutdown after reseting to today's date."
+			return "App will exit after reset."
 		}
 	}
 	
@@ -46,29 +44,29 @@ class DMHibernationOptionsViewModel {
 		}
 		
 		switch section {
-		case .hibernationComparisonDate:
+		case .hibernationStartDate:
 			return DMDatePickerCellViewModel(
-				title: "Hibernation Comparison Date",
+				title: "Hibernation Start Date",
 				accessibilityIdentifier: AccessibilityIdentifiers.DeveloperMenu.Hibernation.datePicker,
 				datePickerMode: .dateAndTime,
-				date: store.hibernationComparisonDate
+				date: CWAHibernationProvider.shared.hibernationStartDateForBuild
 			)
 		case .storeButton:
 			return DMButtonCellViewModel(
-				text: "Save Comparison Date",
+				text: "Save Custom Start Date",
 				textColor: .white,
 				backgroundColor: .enaColor(for: .buttonPrimary)
 			) { [weak self] in
 				guard let self = self else { return }
-				self.store(hibernationComparisonDate: self.hibernationComparisonDateSelected)
+				self.store(hibernationStartDate: self.customHibernationStartDateSelected)
 			}
 		case .reset:
 			return DMButtonCellViewModel(
-				text: "Reset Comparison Date",
+				text: "Reset",
 				textColor: .white,
 				backgroundColor: .enaColor(for: .buttonDestructive)
 			) { [weak self] in
-				self?.store(hibernationComparisonDate: Date())
+				self?.store(hibernationStartDate: CWAHibernationProvider.shared.hibernationStartDateDefault)
 			}
 		}
 	}
@@ -79,13 +77,14 @@ class DMHibernationOptionsViewModel {
 	
 	private let dateFormatter: DateFormatter = {
 		let dateFormatter = DateFormatter()
-		dateFormatter.dateFormat = "yyyy-MM-dd, HH:mm"
+		dateFormatter.dateFormat = "dd.MM.yyyy, HH:mm"
 		return dateFormatter
 	}()
 
-	private func store(hibernationComparisonDate: Date) {
-		Log.debug("[Debug-Menu] Set hibernation comparison date to: \(dateFormatter.string(from: hibernationComparisonDate)).")
-		store.hibernationComparisonDate = hibernationComparisonDate
+	private func store(hibernationStartDate: Date) {
+		Log.debug("[Debug-Menu] Set hibernation start date to: \(dateFormatter.string(from: hibernationStartDate)).")
+		store.hibernationStartDate = hibernationStartDate
+		Log.debug("[Debug-Menu] Set hibernation start done.")
 		
 		exitApp()
 	}
@@ -100,7 +99,7 @@ class DMHibernationOptionsViewModel {
 extension DMHibernationOptionsViewModel {
 	enum Sections: Int, CaseIterable {
 		/// The date, that will be used to compare it against the hibernation start date.
-		case hibernationComparisonDate
+		case hibernationStartDate
 		/// Store the set hibernation comparison date
 		case storeButton
 		/// Reset the stored fake date, the hibernation threshold compares to.
