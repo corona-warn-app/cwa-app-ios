@@ -28,18 +28,11 @@ class CWAHibernationProvider: RequiresAppDependencies {
 		if isUITesting {
 			return LaunchArguments.endOfLife.isHibernationStateEnabled.boolValue
 		}
-		Log.debug("current hibernationStartDate \(secureStore.hibernationStartDate)")
-		return secureStore.hibernationStartDate >= Date()
-		#elseif !RELEASE
-		Log.debug("current hibernationStartDate \(secureStore.hibernationStartDate)")
-		return secureStore.hibernationStartDate >= Date()
-		#else
-		return Date() >= hibernationStartDate
 		#endif
+		return Date() >= hibernationStartDateForBuild
 	}
 	
-	/// CWA hibernation threshold date.
-	private let hibernationStartDate: Date = {
+	let hibernationStartDateDefault: Date = {
 		var hibernationStartDateComponents = DateComponents()
 		hibernationStartDateComponents.year = 2023
 		hibernationStartDateComponents.month = 5
@@ -48,12 +41,23 @@ class CWAHibernationProvider: RequiresAppDependencies {
 		hibernationStartDateComponents.minute = 0
 		hibernationStartDateComponents.second = 0
 		
-		guard let hibernationStartDate = Calendar.current.date(from: hibernationStartDateComponents) else {
+		guard let hibernationStartDateDefault = Calendar.current.date(from: hibernationStartDateComponents) else {
 			fatalError("The hibernation start date couldn't be created.")
 		}
 		
-		return hibernationStartDate
+		return hibernationStartDateDefault
 	}()
+	
+	/// CWA hibernation threshold date.
+	var hibernationStartDateForBuild: Date {
+		#if !RELEASE
+		Log.debug("current hibernationStartDate \(String(describing: secureStore.hibernationStartDate))")
+		return secureStore.hibernationStartDate ?? hibernationStartDateDefault
+
+		#else
+		return hibernationStartDateDefault
+		#endif
+	}
 	
 	private var secureStore: Store {
 		#if RELEASE
@@ -62,7 +66,7 @@ class CWAHibernationProvider: RequiresAppDependencies {
 		return customStore ?? store
 		#endif
 	}
-	
+
 	#if !RELEASE
 	/// For UI/Unit Test purposes only
 	private var customStore: Store?
