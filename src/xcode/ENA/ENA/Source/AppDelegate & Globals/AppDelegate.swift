@@ -256,6 +256,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 
 		// Cleanup recycle-bin. Remove old entries.
 		recycleBin.cleanup()
+		
+		// Refresh Tabbar if needed
+		coordinator.updateTabbarIfNeeded()
 	}
 
 	func applicationDidEnterBackground(_ application: UIApplication) {
