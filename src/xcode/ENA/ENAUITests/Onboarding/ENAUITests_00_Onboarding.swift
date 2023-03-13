@@ -33,7 +33,7 @@ class ENAUITests_00_Onboarding: CWATestCase {
 		app.buttons["AppStrings.Onboarding.onboardingContinue"].waitAndTap()
 
 		// check that the homescreen element AppStrings.home.activateTitle is visible onscreen
-		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.Home.EndOfLifeThankYouCell.descriptionLabel].waitForExistence(timeout: .medium))
+		XCTAssertTrue(app.textViews[AccessibilityIdentifiers.Home.EndOfLifeThankYouCell.descriptionLabel].waitForExistence(timeout: .medium))
 	}
 
 	func test_0000_OnboardingFlow_DisablePermissions_normal_XXXL() throws {
