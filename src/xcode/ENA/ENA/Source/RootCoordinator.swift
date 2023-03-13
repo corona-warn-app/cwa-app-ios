@@ -241,6 +241,23 @@ class RootCoordinator: NSObject, RequiresAppDependencies, UITabBarControllerDele
 		)
 		self.diaryCoordinator = diaryCoordinator
 		
+		setupTabbar()
+	}
+	
+	func updateTabbarIfNeeded() {
+		guard let viewControllers = tabBarController.viewControllers else { return }
+		
+		// Hibernation
+		if CWAHibernationProvider.shared.isHibernationState, viewControllers.count == 5 {
+			setupTabbar()
+		}
+		// No Hibernation
+		else if !CWAHibernationProvider.shared.isHibernationState, viewControllers.count == 3 {
+			setupTabbar()
+		}
+	}
+	
+	private func setupTabbar() {
 		// Tabbar
 		let startTabBarItem = UITabBarItem(
 			title: AppStrings.Tabbar.homeTitle,
@@ -248,7 +265,7 @@ class RootCoordinator: NSObject, RequiresAppDependencies, UITabBarControllerDele
 			selectedImage: UIImage(named: "Icons_Tabbar_Home_Selected")
 		)
 		startTabBarItem.accessibilityIdentifier = AccessibilityIdentifiers.TabBar.home
-		homeCoordinator.rootViewController.tabBarItem = startTabBarItem
+		homeCoordinator?.rootViewController.tabBarItem = startTabBarItem
 
 		let certificatesTabBarItem = UITabBarItem(
 			title: AppStrings.Tabbar.certificatesTitle,
@@ -256,7 +273,7 @@ class RootCoordinator: NSObject, RequiresAppDependencies, UITabBarControllerDele
 			selectedImage: UIImage(named: "Icons_Tabbar_Certificates_Selected")
 		)
 		certificatesTabBarItem.accessibilityIdentifier = AccessibilityIdentifiers.TabBar.certificates
-		healthCertificatesTabCoordinator.viewController.tabBarItem = certificatesTabBarItem
+		healthCertificatesTabCoordinator?.viewController.tabBarItem = certificatesTabBarItem
 
 		// CWA Hibernation hides scanner and check-in tab
 		if !cwaHibernationProvider.isHibernationState {
@@ -275,7 +292,7 @@ class RootCoordinator: NSObject, RequiresAppDependencies, UITabBarControllerDele
 				selectedImage: UIImage(named: "Icons_Tabbar_Checkin_Selected")
 			)
 			eventsTabBarItem.accessibilityIdentifier = AccessibilityIdentifiers.TabBar.checkin
-			checkinTabCoordinator.viewController.tabBarItem = eventsTabBarItem
+			checkinTabCoordinator?.viewController.tabBarItem = eventsTabBarItem
 		}
 
 		let diaryTabBarItem = UITabBarItem(
@@ -284,18 +301,18 @@ class RootCoordinator: NSObject, RequiresAppDependencies, UITabBarControllerDele
 			selectedImage: UIImage(named: "Icons_Tabbar_Diary_Selected")
 		)
 		diaryTabBarItem.accessibilityIdentifier = AccessibilityIdentifiers.TabBar.diary
-		diaryCoordinator.viewController.tabBarItem = diaryTabBarItem
+		diaryCoordinator?.viewController.tabBarItem = diaryTabBarItem
 
 		tabBarController.tabBar.tintColor = .enaColor(for: .tint)
 		tabBarController.tabBar.unselectedItemTintColor = .enaColor(for: .textPrimary2)
 		tabBarController.delegate = self
 		
 		let tabBarViewControllers = [
-			homeCoordinator.rootViewController,
-			healthCertificatesTabCoordinator.viewController,
+			homeCoordinator?.rootViewController,
+			healthCertificatesTabCoordinator?.viewController,
 			cwaHibernationProvider.isHibernationState ? nil : universalScannerDummyViewController,
-			cwaHibernationProvider.isHibernationState ? nil : checkinTabCoordinator.viewController,
-			diaryCoordinator.viewController
+			cwaHibernationProvider.isHibernationState ? nil : checkinTabCoordinator?.viewController,
+			diaryCoordinator?.viewController
 		].compactMap { $0 }
 		tabBarController.setViewControllers(tabBarViewControllers, animated: false)
 
