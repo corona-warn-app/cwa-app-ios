@@ -134,9 +134,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 	// MARK: - Deinit
 	
 	deinit {
-		if let didBecomeActiveNotificationObserver = didBecomeActiveNotificationObserver {
-			NotificationCenter.default.removeObserver(didBecomeActiveNotificationObserver)
-		}
+		NotificationCenter.default.removeObserver(self, name: UIApplication.didBecomeActiveNotification, object: nil)
 	}
 
 	// MARK: - Overrides
@@ -152,7 +150,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 
 		NotificationCenter.default.addObserver(self, selector: #selector(refreshUIAfterResumingFromBackground), name: UIApplication.willEnterForegroundNotification, object: nil)
 		NotificationCenter.default.addObserver(self, selector: #selector(updateStatistics), name: NSNotification.Name.NSCalendarDayChanged, object: nil)
-		didBecomeActiveNotificationObserver = NotificationCenter.default.addObserver(
+		NotificationCenter.default.addObserver(
 			self,
 			selector: #selector(onDidBecomeActiveNotification),
 			name: UIApplication.didBecomeActiveNotification,
@@ -387,8 +385,6 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 	private var familyTestCell: FamilyTestsHomeCell?
 
 	private var subscriptions = Set<AnyCancellable>()
-	
-	private var didBecomeActiveNotificationObserver: NSObjectProtocol?
 
 	private func setupBarButtonItems() {
 		navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "Corona-Warn-App"), style: .plain, target: nil, action: nil)
