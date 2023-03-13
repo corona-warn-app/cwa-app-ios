@@ -50,11 +50,7 @@ class CWAHibernationProvider: RequiresAppDependencies {
 	
 	/// CWA hibernation threshold date.
 	var hibernationStartDateForBuild: Date {
-		#if DEBUG
-		Log.debug("current hibernationStartDate \(String(describing: secureStore.hibernationStartDate))")
-		return secureStore.hibernationStartDate ?? hibernationStartDateDefault
-
-		#elseif !RELEASE
+		#if !RELEASE
 		Log.debug("current hibernationStartDate \(String(describing: secureStore.hibernationStartDate))")
 		return secureStore.hibernationStartDate ?? hibernationStartDateDefault
 
