@@ -124,12 +124,7 @@ class HomeTableViewModel {
 		case .endOfLifeThankYou:
 			return isHibernationState ? 1 : 0
 		case .appClosureNotice:
-			#if DEBUG
-			if isUITesting, LaunchArguments.appClosureNotice.showAppClosureNoticeTile.boolValue {
-				return 1
-			}
-			#endif
-			return shouldShowAppClosureNotice ? 1 : 0
+			return numberOfRowsForAppClosureNotice()
 		case .exposureLogging:
 			return !isHibernationState ? 1 : 0
 		case .riskAndTestResults:
@@ -365,4 +360,16 @@ class HomeTableViewModel {
 		}
 	}
 
+	private func numberOfRowsForAppClosureNotice() -> Int {
+		#if DEBUG
+		if isUITesting, LaunchArguments.appClosureNotice.showAppClosureNoticeTile.boolValue {
+			return 1
+		}
+		#endif
+		if shouldShowAppClosureNotice, !isHibernationState {
+			return 1
+		} else {
+			return 0
+		}
+	}
 }
