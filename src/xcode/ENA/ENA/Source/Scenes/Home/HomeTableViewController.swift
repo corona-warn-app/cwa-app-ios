@@ -130,6 +130,14 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 	required init?(coder _: NSCoder) {
 		fatalError("init(coder:) has intentionally not been implemented")
 	}
+	
+	// MARK: - Deinit
+	
+	deinit {
+		if let didBecomeActiveNotificationObserver = didBecomeActiveNotificationObserver {
+			NotificationCenter.default.removeObserver(didBecomeActiveNotificationObserver)
+		}
+	}
 
 	// MARK: - Overrides
 
@@ -144,6 +152,12 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 
 		NotificationCenter.default.addObserver(self, selector: #selector(refreshUIAfterResumingFromBackground), name: UIApplication.willEnterForegroundNotification, object: nil)
 		NotificationCenter.default.addObserver(self, selector: #selector(updateStatistics), name: NSNotification.Name.NSCalendarDayChanged, object: nil)
+		didBecomeActiveNotificationObserver = NotificationCenter.default.addObserver(
+			self,
+			selector: #selector(onDidBecomeActiveNotification),
+			name: UIApplication.didBecomeActiveNotification,
+			object: nil
+		)
 
 		refreshUI()
 	}
@@ -373,6 +387,8 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 	private var familyTestCell: FamilyTestsHomeCell?
 
 	private var subscriptions = Set<AnyCancellable>()
+	
+	private var didBecomeActiveNotificationObserver: NSObjectProtocol?
 
 	private func setupBarButtonItems() {
 		navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "Corona-Warn-App"), style: .plain, target: nil, action: nil)
@@ -1113,6 +1129,11 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		DispatchQueue.main.async { [weak self] in
 			self?.viewModel.state.updateStatistics()
 		}
+	}
+	
+	@objc
+	private func onDidBecomeActiveNotification() {
+		setupBarButtonItems()
 	}
 
 	// swiftlint:disable:next file_length
