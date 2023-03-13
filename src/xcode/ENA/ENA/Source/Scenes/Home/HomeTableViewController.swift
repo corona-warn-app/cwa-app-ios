@@ -393,14 +393,18 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		navigationItem.leftBarButtonItem?.accessibilityTraits = .none
 		navigationItem.leftBarButtonItem?.accessibilityLabel = AppStrings.Home.leftBarButtonDescription
 		navigationItem.leftBarButtonItem?.accessibilityIdentifier = AccessibilityIdentifiers.Home.leftBarButtonDescription
-
-		if !CWAHibernationProvider.shared.isHibernationState {
+	}
+	
+	private func setupRightBarButtonItem() {
+		if CWAHibernationProvider.shared.isHibernationState {
+			navigationItem.rightBarButtonItem = nil
+		} else {
 			let infoButton = UIButton(type: .infoLight)
 			infoButton.addTarget(self, action: #selector(infoButtonTapped), for: .touchUpInside)
 			navigationItem.rightBarButtonItem = UIBarButtonItem(customView: infoButton)
 			navigationItem.rightBarButtonItem?.isAccessibilityElement = true
-			navigationItem.rightBarButtonItem?.accessibilityLabel = AppStrings.Home.rightBarButtonDescription
 			navigationItem.rightBarButtonItem?.accessibilityIdentifier = AccessibilityIdentifiers.Home.rightBarButtonDescription
+			navigationItem.rightBarButtonItem?.accessibilityLabel = AppStrings.Home.rightBarButtonDescription
 		}
 	}
 
@@ -1129,7 +1133,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 	
 	@objc
 	private func onDidBecomeActiveNotification() {
-		setupBarButtonItems()
+		setupRightBarButtonItem()
 	}
 
 	// swiftlint:disable:next file_length
