@@ -276,7 +276,7 @@ class ENAUITests_01a_Home: CWATestCase {
 		app.setLaunchArgument(LaunchArguments.endOfLife.isHibernationStateEnabled, to: true)
 		app.launch()
 		
-		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.Home.EndOfLifeThankYouCell.descriptionLabel].waitForExistence(timeout: .medium))
+		XCTAssertTrue(app.textViews[AccessibilityIdentifiers.Home.EndOfLifeThankYouCell.descriptionLabel].waitForExistence(timeout: .medium))
 		XCTAssertTrue(app.images[AccessibilityIdentifiers.Home.EndOfLifeThankYouCell.image].waitForExistence(timeout: .medium))
 		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.Home.EndOfLifeThankYouCell.titleLabel].waitForExistence(timeout: .medium))
 	}
