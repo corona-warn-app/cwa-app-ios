@@ -118,7 +118,6 @@ class RootCoordinator: NSObject, RequiresAppDependencies, UITabBarControllerDele
 		return viewController
 	}()
 
-	// swiftlint:disable function_body_length
 	func showHome(enStateHandler: ENStateHandler, route: Route?, startupErrors: [Error]) {
 		// only create and init the whole view stack if not done before
 		// there for we check if the homeCoordinator exists
