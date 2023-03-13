@@ -130,6 +130,12 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 	required init?(coder _: NSCoder) {
 		fatalError("init(coder:) has intentionally not been implemented")
 	}
+	
+	// MARK: - Deinit
+	
+	deinit {
+		NotificationCenter.default.removeObserver(self, name: UIApplication.didBecomeActiveNotification, object: nil)
+	}
 
 	// MARK: - Overrides
 
@@ -144,6 +150,12 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 
 		NotificationCenter.default.addObserver(self, selector: #selector(refreshUIAfterResumingFromBackground), name: UIApplication.willEnterForegroundNotification, object: nil)
 		NotificationCenter.default.addObserver(self, selector: #selector(updateStatistics), name: NSNotification.Name.NSCalendarDayChanged, object: nil)
+		NotificationCenter.default.addObserver(
+			self,
+			selector: #selector(onDidBecomeActiveNotification),
+			name: UIApplication.didBecomeActiveNotification,
+			object: nil
+		)
 
 		refreshUI()
 	}
@@ -381,14 +393,18 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		navigationItem.leftBarButtonItem?.accessibilityTraits = .none
 		navigationItem.leftBarButtonItem?.accessibilityLabel = AppStrings.Home.leftBarButtonDescription
 		navigationItem.leftBarButtonItem?.accessibilityIdentifier = AccessibilityIdentifiers.Home.leftBarButtonDescription
-
-		if !CWAHibernationProvider.shared.isHibernationState {
+	}
+	
+	private func setupRightBarButtonItem() {
+		if CWAHibernationProvider.shared.isHibernationState {
+			navigationItem.rightBarButtonItem = nil
+		} else {
 			let infoButton = UIButton(type: .infoLight)
 			infoButton.addTarget(self, action: #selector(infoButtonTapped), for: .touchUpInside)
 			navigationItem.rightBarButtonItem = UIBarButtonItem(customView: infoButton)
 			navigationItem.rightBarButtonItem?.isAccessibilityElement = true
-			navigationItem.rightBarButtonItem?.accessibilityLabel = AppStrings.Home.rightBarButtonDescription
 			navigationItem.rightBarButtonItem?.accessibilityIdentifier = AccessibilityIdentifiers.Home.rightBarButtonDescription
+			navigationItem.rightBarButtonItem?.accessibilityLabel = AppStrings.Home.rightBarButtonDescription
 		}
 	}
 
@@ -1113,6 +1129,11 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		DispatchQueue.main.async { [weak self] in
 			self?.viewModel.state.updateStatistics()
 		}
+	}
+	
+	@objc
+	private func onDidBecomeActiveNotification() {
+		setupRightBarButtonItem()
 	}
 
 	// swiftlint:disable:next file_length
