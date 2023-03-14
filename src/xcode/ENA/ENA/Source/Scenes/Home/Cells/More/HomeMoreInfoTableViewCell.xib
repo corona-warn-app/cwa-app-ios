@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -22,16 +22,16 @@
                         <rect key="frame" x="16" y="12" width="339" height="262"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="More" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kdX-dE-9Ab" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                <rect key="frame" x="16" y="20" width="62.5" height="31.5"/>
+                                <rect key="frame" x="16" y="20" width="53" height="26.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" name="ENA Text Primary 1 Color"/>
                                 <nil key="highlightedColor"/>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="title1"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="title2"/>
                                 </userDefinedRuntimeAttributes>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="ZAY-jg-r7t">
-                                <rect key="frame" x="0.0" y="61.5" width="339" height="190.5"/>
+                                <rect key="frame" x="0.0" y="56.5" width="339" height="195.5"/>
                             </stackView>
                         </subviews>
                         <color key="backgroundColor" name="ENA Background Color"/>
@@ -64,7 +64,7 @@
     </objects>
     <designables>
         <designable name="kdX-dE-9Ab">
-            <size key="intrinsicContentSize" width="62.5" height="31.5"/>
+            <size key="intrinsicContentSize" width="53" height="26.5"/>
         </designable>
     </designables>
     <resources>
