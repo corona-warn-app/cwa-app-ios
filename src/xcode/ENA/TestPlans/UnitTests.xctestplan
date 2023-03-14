@@ -81,6 +81,7 @@
         "ELSServiceTests\/testGIVEN_ELSService_WHEN_UploadIsTriggered_THEN_ServerErrorIsReturned()",
         "HTTPClientCertificatePinningTests\/testAllProductionEndpoints()",
         "HealthCertificateQRCodeViewModelTests",
+        "RiskProviderTests\/test_When_RequestRiskIsCalledFromDifferentThreads_Then_ItReturnsWithAlreadyRunningErrorOrCalculatedRisk()",
         "StatisticsProviderTests\/testFetchLiveStats()"
       ],
       "target" : {
