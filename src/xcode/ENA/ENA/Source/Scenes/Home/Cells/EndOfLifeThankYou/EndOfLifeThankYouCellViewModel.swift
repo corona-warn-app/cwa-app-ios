@@ -32,11 +32,10 @@ class EndOfLifeThankYouCellViewModel {
 			attributes: textAttributes
 		)
 
-		// to.do 08.03.2023: wait for final decision whether the FAQ link is tappable or not
-		// attributedString.mark(
-		// 	 faqLinkText,
-		//	 with: LinkHelper.urlString(suffix: faqLinkAnchor, type: .faq)
-		// )
+		 attributedString.mark(
+		 	 faqLinkText,
+			 with: faqLinkAnchor
+		 )
 
 		return attributedString
 	}
