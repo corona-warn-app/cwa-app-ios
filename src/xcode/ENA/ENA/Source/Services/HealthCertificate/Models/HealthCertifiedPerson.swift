@@ -275,6 +275,9 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 	}
 
 	var unseenNewsCount: Int {
+		// Hibernation
+		guard !CWAHibernationProvider.shared.isHibernationState else { return 0 }
+		
 		let certificatesWithNews = healthCertificates.filter { $0.isNew || $0.isValidityStateNew }
 
 		return certificatesWithNews.count
