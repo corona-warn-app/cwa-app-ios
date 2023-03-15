@@ -63,8 +63,12 @@ class HealthCertificateCell: UITableViewCell, ReuseIdentifierProviding {
 			validationButton.isHidden = !cellViewModel.isValidationButtonVisible
 		}
 
-		unseenNewsIndicator.isHidden = !cellViewModel.isUnseenNewsIndicatorVisible
-	
+		if CWAHibernationProvider.shared.isHibernationState {
+			unseenNewsIndicator.isHidden = true
+		} else {
+			unseenNewsIndicator.isHidden = !cellViewModel.isUnseenNewsIndicatorVisible
+		}
+
 		disclosureImageView.isHidden = !withDisclosureIndicator
 
 		setupAccessibility()
