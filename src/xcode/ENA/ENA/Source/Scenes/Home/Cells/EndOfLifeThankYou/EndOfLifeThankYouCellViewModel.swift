@@ -14,7 +14,6 @@ class EndOfLifeThankYouCellViewModel {
 	
 	var description: NSAttributedString {
 		let faqLinkText = AppStrings.Home.EndOfLifeThankYouTile.faqLinkText
-		let faqLinkAnchor = AppStrings.Home.EndOfLifeThankYouTile.faqLinkAnchor
 
 		let string = String(
 			format: AppStrings.Home.EndOfLifeThankYouTile.description,
@@ -32,10 +31,7 @@ class EndOfLifeThankYouCellViewModel {
 			attributes: textAttributes
 		)
 
-		 attributedString.mark(
-		 	 faqLinkText,
-			 with: faqLinkAnchor
-		 )
+		 attributedString.mark(faqLinkText, with: AppStrings.Home.EndOfLifeThankYouTile.faqLinkAnchor)
 
 		return attributedString
 	}
