@@ -10,7 +10,6 @@ class HealthCertifiedPersonCellModel {
 
 	// MARK: - Init
 
-	// swiftlint:disable:next cyclomatic_complexity
 	init?(
 		healthCertifiedPerson: HealthCertifiedPerson,
 		cclService: CCLServable,
