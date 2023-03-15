@@ -39,7 +39,7 @@ class CertificateReissuanceTableViewCell: UITableViewCell, ReuseIdentifierProvid
 
 		if CWAHibernationProvider.shared.isHibernationState {
 			unseenNewsIndicator.isHidden = true
-		} else {		
+		} else {
 			unseenNewsIndicator.isHidden = !cellModel.isUnseenNewsIndicatorVisible
 		}
 	}
