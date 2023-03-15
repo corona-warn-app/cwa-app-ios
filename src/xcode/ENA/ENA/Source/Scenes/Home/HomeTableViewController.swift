@@ -142,7 +142,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
-		setupBarButtonItems()
+		setupLeftBarButtonItem()
 		setupTableView()
 
 		navigationItem.largeTitleDisplayMode = .automatic
@@ -177,6 +177,8 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		/** navigationbar is a shared property - so we need to trigger a resizing because others could have set it to true*/
 		navigationController?.navigationBar.prefersLargeTitles = false
 		navigationController?.navigationBar.sizeToFit()
+		
+		setupRightBarButtonItem()
 
 		viewModel.state.requestRisk(userInitiated: false)
 		viewModel.resetBadgeCount()
@@ -386,7 +388,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 
 	private var subscriptions = Set<AnyCancellable>()
 
-	private func setupBarButtonItems() {
+	private func setupLeftBarButtonItem() {
 		navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "Corona-Warn-App"), style: .plain, target: nil, action: nil)
 		navigationItem.leftBarButtonItem?.customView = UIImageView(image: navigationItem.leftBarButtonItem?.image)
 		navigationItem.leftBarButtonItem?.isAccessibilityElement = true
