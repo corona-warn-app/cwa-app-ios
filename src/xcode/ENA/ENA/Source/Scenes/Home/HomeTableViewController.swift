@@ -102,28 +102,6 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 				)
 			}
 			.store(in: &subscriptions)
-		
-		viewModel.cclService.shouldShowNoticeTile
-			.receive(on: DispatchQueue.OCombine(.main))
-			.sink { [weak self] shouldShowNoticeTile in
-				let isHibernationState = CWAHibernationProvider.shared.isHibernationState
-				self?.viewModel.isHibernationState = isHibernationState
-				self?.viewModel.shouldShowAppClosureNotice = shouldShowNoticeTile
-				self?.tableView.reloadSections(
-					[
-					HomeTableViewModel.Section.appClosureNotice.rawValue,
-					HomeTableViewModel.Section.endOfLifeThankYou.rawValue,
-					HomeTableViewModel.Section.exposureLogging.rawValue,
-					HomeTableViewModel.Section.riskAndTestResults.rawValue,
-					HomeTableViewModel.Section.statistics.rawValue,
-					HomeTableViewModel.Section.testRegistration.rawValue,
-					HomeTableViewModel.Section.traceLocations.rawValue,
-					HomeTableViewModel.Section.moreInfo.rawValue
-					],
-					with: .none
-				)
-			}
-			.store(in: &subscriptions)
 	}
 
 	@available(*, unavailable)
@@ -1134,6 +1112,12 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 	@objc
 	private func onDidBecomeActiveNotification() {
 		setupRightBarButtonItem()
+		
+		let isHibernationState = CWAHibernationProvider.shared.isHibernationState
+		viewModel.isHibernationState = isHibernationState
+		DispatchQueue.main.async {
+			self.tableView.reloadData()
+		}
 	}
 
 	// swiftlint:disable:next file_length
