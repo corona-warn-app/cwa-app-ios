@@ -46,6 +46,15 @@ class AntigenTestProfileViewController: UIViewController, UITableViewDataSource,
 
 		setupBackground()
 		setupTableView()
+		
+		navigationItem.largeTitleDisplayMode = .never
+	}
+
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+		
+		setupNavigationBar(animated: animated)
+		tableView.reloadData()
 	}
 
 	override func viewWillDisappear(_ animated: Bool) {
@@ -53,21 +62,7 @@ class AntigenTestProfileViewController: UIViewController, UITableViewDataSource,
 		navigationController?.navigationBar.setBackgroundImage(originalBackgroundImage, for: .default)
 		navigationController?.navigationBar.shadowImage = originalShadowImage
 		
-		navigationController?.navigationBar.prefersLargeTitles = true
-
-		if traitCollection.userInterfaceStyle == .dark {
-			navigationController?.navigationBar.tintColor = .enaColor(for: .textContrast)
-		} else {
-			navigationController?.navigationBar.tintColor = .enaColor(for: .tint)
-		}
-	}
-	
-	override func viewWillAppear(_ animated: Bool) {
-		super.viewWillAppear(animated)
-
-		setupNavigationBar(animated: animated)
-
-		tableView.reloadData()
+		navigationController?.navigationBar.tintColor = .enaColor(for: .tint)
 	}
 
 	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -207,7 +202,6 @@ class AntigenTestProfileViewController: UIViewController, UITableViewDataSource,
 		navigationController?.navigationBar.isTranslucent = true
 		navigationController?.view.backgroundColor = .clear
 		
-		navigationController?.navigationBar.prefersLargeTitles = false
 		navigationController?.navigationBar.sizeToFit()
 		navigationItem.largeTitleDisplayMode = .never
 	}

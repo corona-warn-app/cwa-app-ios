@@ -25,7 +25,7 @@ class ENAUITests_01a_Home: CWATestCase {
 		app.launch()
 
 		// only run if home screen is present
-		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.rightBarButtonDescription].waitForExistence(timeout: .medium))
+		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Home.AppClosureNoticeCell.container].waitForExistence(timeout: .medium))
 
 		app.swipeUp()
 		// assert cells
@@ -52,7 +52,7 @@ class ENAUITests_01a_Home: CWATestCase {
 		app.launch()
 
 		// only run if home screen is present
-		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.rightBarButtonDescription].waitForExistence(timeout: .medium))
+		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Home.AppClosureNoticeCell.container].waitForExistence(timeout: .medium))
 
 		app.swipeUp()
 		// assert cells
@@ -79,7 +79,7 @@ class ENAUITests_01a_Home: CWATestCase {
 		app.launch()
 
 		// only run if home screen is present
-		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.rightBarButtonDescription].waitForExistence(timeout: .medium))
+		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Home.AppClosureNoticeCell.container].waitForExistence(timeout: .medium))
 
 		app.swipeUp()
 		app.swipeUp()
@@ -144,7 +144,7 @@ class ENAUITests_01a_Home: CWATestCase {
 		let highRiskTitle = String(format: AccessibilityLabels.localized(AppStrings.Home.riskCardHighNumberContactsItemTitle), 4)
 		XCTAssertTrue(app.otherElements[highRiskTitle].waitForExistence(timeout: .medium))
 		
-		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.rightBarButtonDescription].waitForExistence(timeout: .short))
+		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Home.AppClosureNoticeCell.container].waitForExistence(timeout: .medium))
 	}
 	
 	func test_homescreen_riskCardLow_riskMultipleDays() throws {
@@ -167,7 +167,7 @@ class ENAUITests_01a_Home: CWATestCase {
 		let lowRiskTitle = String(format: AccessibilityLabels.localized(AppStrings.Home.riskCardLowNumberContactsItemTitle), 4)
 		XCTAssertTrue(app.otherElements[lowRiskTitle].waitForExistence(timeout: .short))
 		
-		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.rightBarButtonDescription].waitForExistence(timeout: .short))
+		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Home.AppClosureNoticeCell.container].waitForExistence(timeout: .medium))
 	}
 	
 	func test_homescreen_riskCardLow_Ndays() throws {
@@ -213,7 +213,7 @@ class ENAUITests_01a_Home: CWATestCase {
 		// Inactive risk card title "Risiko-Ermittlung gestoppt"
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.RiskTableViewCell.topContainer].waitForExistence(timeout: .short))
 		
-		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.rightBarButtonDescription].waitForExistence(timeout: .short))
+		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Home.AppClosureNoticeCell.container].waitForExistence(timeout: .medium))
 	}
 	
 
@@ -377,7 +377,7 @@ class ENAUITests_01a_Home: CWATestCase {
 		let highRiskTitle = String(format: AccessibilityLabels.localized(AppStrings.Home.riskCardHighNumberContactsItemTitle), 1)
 		XCTAssertTrue(app.otherElements[highRiskTitle].waitForExistence(timeout: .short))
 		
-		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.rightBarButtonDescription].waitForExistence(timeout: .short))
+		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Home.AppClosureNoticeCell.container].waitForExistence(timeout: .medium))
 		snapshot("homescreenrisk_level_\(riskLevel)_risk_one_day_\(String(format: "%04d", (screenshotCounter.inc() )))")
 	}
 
@@ -401,7 +401,7 @@ class ENAUITests_01a_Home: CWATestCase {
 		let lowRiskTitle = String(format: AccessibilityLabels.localized(AppStrings.Home.riskCardLowNumberContactsItemTitle), numberOfDaysWithLowRisk)
 		XCTAssertTrue(app.otherElements[lowRiskTitle].waitForExistence(timeout: .long))
 		
-		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.rightBarButtonDescription].waitForExistence(timeout: .short))
+		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Home.AppClosureNoticeCell.container].waitForExistence(timeout: .medium))
 		snapshot("homescreenrisk_level_\(riskLevel)_risk_no_days_\(String(format: "%04d", (screenshotCounter.inc() )))")
 	}
 
@@ -426,7 +426,7 @@ class ENAUITests_01a_Home: CWATestCase {
 		let lowRiskTitle = String(format: AccessibilityLabels.localized(AppStrings.Home.riskCardLowNumberContactsItemTitle), 1)
 		XCTAssertTrue(app.otherElements[lowRiskTitle].waitForExistence(timeout: .short))
 		
-		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.rightBarButtonDescription].waitForExistence(timeout: .short))
+		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Home.AppClosureNoticeCell.container].waitForExistence(timeout: .medium))
 		snapshot("homescreenrisk_level_\(riskLevel)_risk_one_day_\(String(format: "%04d", (screenshotCounter.inc() )))")
 	}
 

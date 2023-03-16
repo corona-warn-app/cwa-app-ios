@@ -17,11 +17,15 @@ class HealthCertificateNotificationService {
 	}
 
 	// MARK: - Internal
-
+	
 	func createNotifications(
 		for healthCertificate: HealthCertificate,
 		completion: @escaping () -> Void
 	) {
+		guard !isHibernationState else {
+			completion()
+			return
+		}
 		guard healthCertificate.type != .test else {
 			completion()
 			return
@@ -100,6 +104,10 @@ class HealthCertificateNotificationService {
 		previousBoosterNotificationIdentifier: String?,
 		completion: @escaping () -> Void
 	) {
+		guard !isHibernationState else {
+			completion()
+			return
+		}
 		let name = person.name?.standardizedName
 		guard let newBoosterNotificationIdentifier = person.dccWalletInfo?.boosterNotification.identifier else {
 			Log.info("No booster notification identifier found for person \(private: String(describing: name))", log: .vaccination)
@@ -130,6 +138,10 @@ class HealthCertificateNotificationService {
 		previousCertificateReissuance: DCCCertificateReissuance?,
 		completion: @escaping () -> Void
 	) {
+		guard !isHibernationState else {
+			completion()
+			return
+		}
 		let name = person.name?.standardizedName
 		guard let newCertificateReissuance = person.dccWalletInfo?.certificateReissuance,
 			  let newIdentifier = newCertificateReissuance.reissuanceDivision.identifier,
@@ -161,6 +173,10 @@ class HealthCertificateNotificationService {
 		previousAdmissionStateIdentifier: String?,
 		completion: @escaping () -> Void
 	) {
+		guard !isHibernationState else {
+			completion()
+			return
+		}
 		let name = person.name?.standardizedName
 		guard let newAdmissionStateIdentifier = person.dccWalletInfo?.admissionState.identifier else {
 			Log.info("No New admissionState found for person \(private: String(describing: name))", log: .vaccination)
@@ -353,5 +369,7 @@ class HealthCertificateNotificationService {
 			}
 		}
 	}
+	
+	private let isHibernationState = CWAHibernationProvider.shared.isHibernationState
 	
 }

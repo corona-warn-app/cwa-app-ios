@@ -23,7 +23,7 @@ class ENAUITests_18_RecycleBin: CWATestCase {
 		app.launch()
 
 		/// Wait until Home Screen is ready
-		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.rightBarButtonDescription].waitForExistence(timeout: .medium))
+		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Home.AppClosureNoticeCell.container].waitForExistence(timeout: .medium))
 
 		/// Open Recycling Bin screen
 		let moreCell = app.cells[AccessibilityIdentifiers.Home.MoreInfoCell.moreCell]
@@ -81,7 +81,7 @@ class ENAUITests_18_RecycleBin: CWATestCase {
 		app.launch()
 
 		/// Wait until Home Screen is ready
-		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.rightBarButtonDescription].waitForExistence(timeout: .medium))
+		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Home.AppClosureNoticeCell.container].waitForExistence(timeout: .medium))
 
 		/// Open recycle bin screen
 		let moreCell = app.cells[AccessibilityIdentifiers.Home.MoreInfoCell.moreCell]
