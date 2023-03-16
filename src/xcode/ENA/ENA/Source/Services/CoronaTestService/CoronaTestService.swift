@@ -954,9 +954,9 @@ class CoronaTestService: CoronaTestServiceProviding {
 							}
 						}
 
-						if presentNotification {
+						if presentNotification && !CWAHibernationProvider.shared.isHibernationState {
 							Log.info("[CoronaTestService] Triggering Notification (coronaTestType: \(coronaTestType), testResult: \(testResult))", log: .api)
-
+							
 							// We attach the test result and type to determine which screen to show when user taps the notification
 							self.notificationCenter.presentNotification(
 								title: AppStrings.LocalNotifications.testResultsTitle,
@@ -1024,7 +1024,7 @@ class CoronaTestService: CoronaTestServiceProviding {
 		if let coronaTest = coronaTest(ofType: coronaTestType), coronaTest.testResult == .positive, coronaTest.positiveTestResultWasShown {
 			DeadmanNotificationManager().resetDeadmanNotification()
 
-			if !coronaTest.isSubmissionConsentGiven, !coronaTest.keysSubmitted {
+			if !coronaTest.isSubmissionConsentGiven, !coronaTest.keysSubmitted, !CWAHibernationProvider.shared.isHibernationState {
 				warnOthersReminder.scheduleNotifications(for: coronaTestType)
 			}
 		}

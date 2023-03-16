@@ -20,7 +20,7 @@ class ENAUITests_02_AppInformation: CWATestCase {
 	func test_0020_AppInformationFlow() throws {
 		app.launch()
 		// only run if onboarding screen is present
-		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.rightBarButtonDescription].waitForExistence(timeout: .medium))
+		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Home.AppClosureNoticeCell.container].waitForExistence(timeout: .medium))
 
 		// assert cells
 		let moreCell = app.cells[AccessibilityIdentifiers.Home.MoreInfoCell.moreCell]
@@ -39,7 +39,7 @@ class ENAUITests_02_AppInformation: CWATestCase {
 		app.launch()
 
 		// only run if onboarding screen is present
-		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.rightBarButtonDescription].waitForExistence(timeout: .medium))
+		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Home.AppClosureNoticeCell.container].waitForExistence(timeout: .medium))
 
 		// assert cells
 		let moreCell = app.cells[AccessibilityIdentifiers.Home.MoreInfoCell.moreCell]
@@ -55,7 +55,7 @@ class ENAUITests_02_AppInformation: CWATestCase {
 		app.launch()
 
 		// only run if onboarding screen is present
-		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.rightBarButtonDescription].waitForExistence(timeout: .medium))
+		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Home.AppClosureNoticeCell.container].waitForExistence(timeout: .medium))
 
 		// assert cells
 		let moreCell = app.cells[AccessibilityIdentifiers.Home.MoreInfoCell.moreCell]
@@ -71,7 +71,7 @@ class ENAUITests_02_AppInformation: CWATestCase {
 		app.launch()
 
 		// only run if onboarding screen is present
-		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.rightBarButtonDescription].waitForExistence(timeout: .long))
+		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Home.AppClosureNoticeCell.container].waitForExistence(timeout: .long))
 
 		// assert cells
 		let moreCell = app.cells[AccessibilityIdentifiers.Home.MoreInfoCell.moreCell]
@@ -92,7 +92,7 @@ class ENAUITests_02_AppInformation: CWATestCase {
 		app.launch()
 
 		// only run if onboarding screen is present
-		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.rightBarButtonDescription].waitForExistence(timeout: .medium))
+		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Home.AppClosureNoticeCell.container].waitForExistence(timeout: .medium))
 
 		// assert cells
 		let moreCell = app.cells[AccessibilityIdentifiers.Home.MoreInfoCell.moreCell]
@@ -166,7 +166,7 @@ class ENAUITests_02_AppInformation: CWATestCase {
 	func test_0028_AppInformationFlow_PrivacyScreen() throws {
 		app.setLaunchArgument(LaunchArguments.errorReport.elsLogActive, to: false)
 		app.launch()
-		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.rightBarButtonDescription].waitForExistence(timeout: .short))
+		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Home.AppClosureNoticeCell.container].waitForExistence(timeout: .long))
 		navigateToErrorReporting()
 		
 		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.ErrorReport.topBody].waitForExistence(timeout: .short))
@@ -179,7 +179,7 @@ class ENAUITests_02_AppInformation: CWATestCase {
 		app.launch()
 
 		// only run if onboarding screen is present
-		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.rightBarButtonDescription].waitForExistence(timeout: .medium))
+		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Home.AppClosureNoticeCell.container].waitForExistence(timeout: .medium))
 
 		// assert cells
 		let moreCell = app.cells[AccessibilityIdentifiers.Home.MoreInfoCell.moreCell]

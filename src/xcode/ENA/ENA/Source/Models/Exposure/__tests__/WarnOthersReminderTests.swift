@@ -45,8 +45,9 @@ class WarnOthersReminderTests: CWATestCase {
 
 		XCTAssertTrue(mockNotificationCenter.notificationRequests.isEmpty)
 
-		warnOthersReminder.scheduleNotifications(for: .pcr)
-
+		if !CWAHibernationProvider.shared.isHibernationState {
+			warnOthersReminder.scheduleNotifications(for: .pcr)
+		}
 		XCTAssertEqual(mockNotificationCenter.notificationRequests.count, 2)
 
 		XCTAssertEqual(
@@ -98,9 +99,9 @@ class WarnOthersReminderTests: CWATestCase {
 		)
 
 		XCTAssertTrue(mockNotificationCenter.notificationRequests.isEmpty)
-
-		warnOthersReminder.scheduleNotifications(for: .antigen)
-
+		if !CWAHibernationProvider.shared.isHibernationState {
+			warnOthersReminder.scheduleNotifications(for: .antigen)
+		}
 		XCTAssertEqual(mockNotificationCenter.notificationRequests.count, 2)
 
 		XCTAssertEqual(
@@ -152,10 +153,10 @@ class WarnOthersReminderTests: CWATestCase {
 		)
 
 		XCTAssertTrue(mockNotificationCenter.notificationRequests.isEmpty)
-
-		warnOthersReminder.scheduleNotifications(for: .pcr)
-		warnOthersReminder.scheduleNotifications(for: .antigen)
-
+		if !CWAHibernationProvider.shared.isHibernationState {
+			warnOthersReminder.scheduleNotifications(for: .pcr)
+			warnOthersReminder.scheduleNotifications(for: .antigen)
+		}
 		XCTAssertEqual(mockNotificationCenter.notificationRequests.count, 4)
 
 		warnOthersReminder.cancelNotifications(for: .pcr)
@@ -181,10 +182,10 @@ class WarnOthersReminderTests: CWATestCase {
 		)
 
 		XCTAssertTrue(mockNotificationCenter.notificationRequests.isEmpty)
-
-		warnOthersReminder.scheduleNotifications(for: .pcr)
-		warnOthersReminder.scheduleNotifications(for: .antigen)
-
+		if !CWAHibernationProvider.shared.isHibernationState {
+			warnOthersReminder.scheduleNotifications(for: .pcr)
+			warnOthersReminder.scheduleNotifications(for: .antigen)
+		}
 		XCTAssertEqual(mockNotificationCenter.notificationRequests.count, 4)
 
 		warnOthersReminder.cancelNotifications(for: .antigen)
@@ -210,10 +211,10 @@ class WarnOthersReminderTests: CWATestCase {
 		)
 
 		XCTAssertTrue(mockNotificationCenter.notificationRequests.isEmpty)
-
-		warnOthersReminder.scheduleNotifications(for: .pcr)
-		warnOthersReminder.scheduleNotifications(for: .antigen)
-
+		if !CWAHibernationProvider.shared.isHibernationState {
+			warnOthersReminder.scheduleNotifications(for: .pcr)
+			warnOthersReminder.scheduleNotifications(for: .antigen)
+		}
 		XCTAssertEqual(mockNotificationCenter.notificationRequests.count, 4)
 
 		warnOthersReminder.reset()

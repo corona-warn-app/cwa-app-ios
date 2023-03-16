@@ -43,7 +43,7 @@ extension UserNotificationCenter {
 		info: [AnyHashable: Any] = [:]
 	) {
 		let content = UNMutableNotificationContent()
-
+		
 		content.title = title
 		content.body = body
 		content.sound = UNNotificationSound.default
@@ -56,7 +56,7 @@ extension UserNotificationCenter {
 		
 		let trigger = UNTimeIntervalNotificationTrigger(timeInterval: timeInterval, repeats: false)
 		let request = UNNotificationRequest(identifier: identifier, content: content, trigger: trigger)
-
+		
 		add(request) { error in
 			if let error = error {
 				Log.error(error.localizedDescription, log: .api)

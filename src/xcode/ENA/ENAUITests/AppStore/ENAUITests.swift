@@ -44,7 +44,7 @@ class ENAUITests: CWATestCase {
 
 		// ScreenShot_0002: Homescreen (low risk)
 		try navigateThroughOnboarding()
-		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.rightBarButtonDescription].waitForExistence(timeout: .medium))
+		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Home.AppClosureNoticeCell.container].waitForExistence(timeout: .medium))
 		if snapshotsActive { snapshot("AppStore_0002") }
 
 		// ScreenShot_0003: Risk view (low risk)
@@ -54,7 +54,7 @@ class ENAUITests: CWATestCase {
 
 		// ScreenShot_0004: Settings > Risk exposure
 		app.buttons["AppStrings.AccessibilityLabel.close"].waitAndTap()
-		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.rightBarButtonDescription].waitForExistence(timeout: .medium))
+		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Home.AppClosureNoticeCell.container].waitForExistence(timeout: .medium))
 		app.swipeUp(velocity: .slow)
 		// ScreenShot_0004: Settings > Risk exposure
 		app.swipeUp() // the home screen got longer and for some reason we have to scroll to `tap()`
