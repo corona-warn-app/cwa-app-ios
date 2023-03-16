@@ -37,6 +37,10 @@ class AntigenTestProfileInputViewController: UITableViewController, FooterViewHa
 		super.viewDidLoad()
 		setupView()
 		setupBindings()
+		
+		navigationItem.largeTitleDisplayMode = .always
+		
+		navigationController?.navigationBar.tintColor = .enaColor(for: .tint)
 	}
 	
 	override func viewWillDisappear(_ animated: Bool) {
