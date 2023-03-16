@@ -196,6 +196,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 
 			// Disable Exposure Notification (ENF)
 			disableExposureNotification()
+			
+			// cancel pending notifications
+			UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
 		} else {
 			
 			// Observe Exposure Notification (ENF)
