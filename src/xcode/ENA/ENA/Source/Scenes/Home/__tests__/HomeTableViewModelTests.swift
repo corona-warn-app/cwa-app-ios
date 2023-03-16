@@ -93,7 +93,6 @@ class HomeTableViewModelTests: CWATestCase {
 		// Is hibernation and should show app closure notice
 		sut.isHibernationState = true
 		sut.shouldShowAppClosureNotice = true
-		
 		// THEN
 		
 		// Number of Sections

@@ -26,7 +26,7 @@ class ENAUITests_04c_ExposureLogging: CWATestCase {
 		app.launch()
 
 		// only run if home screen is present
-		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.rightBarButtonDescription].waitForExistence(timeout: 5.0))
+		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Home.AppClosureNoticeCell.container].waitForExistence(timeout: .medium))
 		
 		app.cells["AppStrings.Home.activateCardOnTitle"].waitAndTap()
 	}
@@ -38,7 +38,7 @@ class ENAUITests_04c_ExposureLogging: CWATestCase {
 		app.launch()
 
 		// only run if home screen is present
-		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.rightBarButtonDescription].waitForExistence(timeout: 5.0))
+		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Home.AppClosureNoticeCell.container].waitForExistence(timeout: .medium))
 
 		app.cells["AppStrings.Home.activateCardOffTitle"].waitAndTap()
 	}
