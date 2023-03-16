@@ -342,7 +342,7 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 			switch error {
 			case .failedRiskDetection(let reason):
 				if case .wrongDeviceTime = reason {
-					if !self.dependencies.store.wasDeviceTimeErrorShown {
+					if !self.dependencies.store.wasDeviceTimeErrorShown && !CWAHibernationProvider.shared.isHibernationState {
 						UNUserNotificationCenter.current().presentNotification(
 							title: AppStrings.WrongDeviceTime.errorPushNotificationTitle,
 							body: AppStrings.WrongDeviceTime.errorPushNotificationText,

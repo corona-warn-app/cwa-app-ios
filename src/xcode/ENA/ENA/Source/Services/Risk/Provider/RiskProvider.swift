@@ -444,11 +444,13 @@ final class RiskProvider: RiskProviding {
 	}
 
 	private func triggerRiskChangeNotification() {
-		UNUserNotificationCenter.current().presentNotification(
-			title: AppStrings.LocalNotifications.detectExposureTitle,
-			body: AppStrings.LocalNotifications.detectExposureBody,
-			identifier: ActionableNotificationIdentifier.riskDetection.identifier
-		)
+		if !CWAHibernationProvider.shared.isHibernationState {
+			UNUserNotificationCenter.current().presentNotification(
+				title: AppStrings.LocalNotifications.detectExposureTitle,
+				body: AppStrings.LocalNotifications.detectExposureBody,
+				identifier: ActionableNotificationIdentifier.riskDetection.identifier
+			)
+		}
 	}
 
 	private func checkIfRiskStatusLoweredAlertShouldBeShown(_ risk: Risk) {

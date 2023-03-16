@@ -94,8 +94,8 @@ class ENAUITests_00_Onboarding: CWATestCase {
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.General.primaryFooterButton].waitForExistence(timeout: 5.0))
 		app.buttons[AccessibilityIdentifiers.General.secondaryFooterButton].waitAndTap()
 
-		// check that the homescreen element AppStrings.home.activateTitle is visible onscreen
-		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.rightBarButtonDescription].waitForExistence(timeout: 5.0))
+		// check that the homescreen element AccessibilityIdentifiers.Home.AppClosureNoticeCell is visible onscreen
+		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Home.AppClosureNoticeCell.container].waitForExistence(timeout: 5.0))
 	}
 
 	func test_0001_OnboardingFlow_EnablePermissions_normal_XS() throws {
@@ -153,8 +153,8 @@ class ENAUITests_00_Onboarding: CWATestCase {
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.General.primaryFooterButton].waitForExistence(timeout: 5.0))
 		app.buttons[AccessibilityIdentifiers.General.secondaryFooterButton].waitAndTap()
 
-		// check that the homescreen element AppStrings.home.activateTitle is visible onscreen
-		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.rightBarButtonDescription].waitForExistence(timeout: 5.0))
+		// check that the homescreen element AccessibilityIdentifiers.Home.AppClosureNoticeCell is visible onscreen
+		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Home.AppClosureNoticeCell.container].waitForExistence(timeout: 5.0))
 	}
 
 	

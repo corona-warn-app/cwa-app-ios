@@ -300,14 +300,13 @@ class HealthCertificateService: HealthCertificateServiceServable {
 			updateValidityState(for: newHealthCertificate, person: person)
 			scheduleTimer()
 			
-			dispatchGroup.enter()
-			healthCertificateNotificationService.createNotifications(
-				for: newHealthCertificate,
-				completion: {
-					dispatchGroup.leave()
-				}
-			)
-			
+				dispatchGroup.enter()
+				healthCertificateNotificationService.createNotifications(
+					for: newHealthCertificate,
+					completion: {
+						dispatchGroup.leave()
+					}
+				)
 			for relation in certificateRef.relations where relation.action == "replace" {
 				if relation.index < requestCertificates.count {
 					let certificateBase45 = requestCertificates[relation.index]
@@ -353,12 +352,10 @@ class HealthCertificateService: HealthCertificateServiceServable {
 		
 		updateValidityState(for: healthCertificate, person: healthCertifiedPerson)
 		scheduleTimer()
-
-		healthCertificateNotificationService.createNotifications(
-			for: healthCertificate,
-			completion: completedNotificationRegistration
-		)
-		
+			healthCertificateNotificationService.createNotifications(
+				for: healthCertificate,
+				completion: completedNotificationRegistration
+			)
 		if isNewPersonAdded {
 			Log.info("[HealthCertificateService] Successfully registered health certificate for a new person", log: .api)
 			// Manual update needed as the person subscriptions were not set up when the certificate was added
@@ -562,6 +559,7 @@ class HealthCertificateService: HealthCertificateServiceServable {
 				}
 			)
 		}
+			
 
 		dispatchGroup.notify(queue: .global()) {
 			completion()
@@ -809,9 +807,9 @@ class HealthCertificateService: HealthCertificateServiceServable {
 					}
 				}
 				#endif
-
+				
 				let dispatchGroup = DispatchGroup()
-
+				
 				dispatchGroup.enter()
 				self.healthCertificateNotificationService.scheduleBoosterNotificationIfNeeded(
 					for: person,
@@ -820,7 +818,6 @@ class HealthCertificateService: HealthCertificateServiceServable {
 						dispatchGroup.leave()
 					}
 				)
-
 				dispatchGroup.enter()
 				self.healthCertificateNotificationService.scheduleCertificateReissuanceNotificationIfNeeded(
 					for: person,
@@ -829,7 +826,6 @@ class HealthCertificateService: HealthCertificateServiceServable {
 						dispatchGroup.leave()
 					}
 				)
-				
 				dispatchGroup.enter()
 				self.healthCertificateNotificationService.scheduleAdmissionStateChangedNotificationIfNeeded(
 					for: person,
@@ -838,11 +834,10 @@ class HealthCertificateService: HealthCertificateServiceServable {
 						dispatchGroup.leave()
 					}
 				)
-
 				dispatchGroup.notify(queue: .global()) {
 					completion?()
 				}
-
+				
 			case .failure(let error):
 				Log.error("Wallet info update failed", error: error)
 				person.mostRecentWalletInfoUpdateFailed = true

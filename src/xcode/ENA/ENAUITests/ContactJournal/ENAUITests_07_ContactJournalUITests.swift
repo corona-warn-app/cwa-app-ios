@@ -717,7 +717,7 @@ class ENAUITests_07_ContactJournal: CWATestCase {
 
 	private func launch() {
 		app.launch()
-		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.rightBarButtonDescription].waitForExistence(timeout: .long))
+		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Home.AppClosureNoticeCell.container].waitForExistence(timeout: .long))
 	}
 
 	/// we will search for the given identifier inside a scrollable element
