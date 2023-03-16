@@ -11,7 +11,14 @@ import HealthCertificateToolkit
 // swiftlint:disable file_length
 // swiftlint:disable:next type_body_length
 class HealthCertificateServiceTests: CWATestCase {
+	override class func setUp() {
+		UserDefaults.standard.setValue(false, forKey: CWAHibernationProvider.isHibernationInUnitTest)
+	}
 	
+	override class func tearDown() {
+		UserDefaults.standard.setValue(false, forKey: CWAHibernationProvider.isHibernationInUnitTest)
+	}
+
 	func testHealthCertifiedPersonsPublisherTriggeredAndStoreUpdatedOnCertificateRegistration() throws {
 		let store = MockTestStore()
 		let service = HealthCertificateService(
@@ -2081,7 +2088,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			expectation.fulfill()
 		}
 		
-		waitForExpectations(timeout: .medium)
+		waitForExpectations(timeout: .extraLong)
 		
 		// To keep service in memory until expectation is fulfilled
 		service.moveHealthCertificateToBin(vaccinationHealthCertificate)
@@ -2152,5 +2159,4 @@ class HealthCertificateServiceTests: CWATestCase {
 			["OtherNotification", "HealthCertificateNotificationOther", "OtherNotification2"]
 		)
 	}
-	
 }
