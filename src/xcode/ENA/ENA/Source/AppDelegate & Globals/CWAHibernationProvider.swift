@@ -33,7 +33,7 @@ class CWAHibernationProvider: RequiresAppDependencies {
 			return LaunchArguments.endOfLife.isHibernationStateEnabled.boolValue
 		}
 		// check if we are using unit testing environment then we return an expected value true or false based on the unit test
-		if ProcessInfo.processInfo.environment["XCTestConfigurationFilePath"] != nil {
+		if ProcessInfo.processInfo.environment["XCTestConfigurationFilePath"] != nil && customStore == nil {
 			return UserDefaults.standard.bool(forKey: CWAHibernationProvider.isHibernationInUnitTest)
 		}
 		#endif
