@@ -25,7 +25,7 @@ class ENAUITests_01a_Home: CWATestCase {
 		app.launch()
 
 		// only run if home screen is present
-		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.rightBarButtonDescription].waitForExistence(timeout: .medium))
+		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Home.AppClosureNoticeCell.container].waitForExistence(timeout: .medium))
 
 		app.swipeUp()
 		// assert cells
@@ -52,7 +52,7 @@ class ENAUITests_01a_Home: CWATestCase {
 		app.launch()
 
 		// only run if home screen is present
-		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.rightBarButtonDescription].waitForExistence(timeout: .medium))
+		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Home.AppClosureNoticeCell.container].waitForExistence(timeout: .medium))
 
 		app.swipeUp()
 		// assert cells
@@ -79,7 +79,7 @@ class ENAUITests_01a_Home: CWATestCase {
 		app.launch()
 
 		// only run if home screen is present
-		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.rightBarButtonDescription].waitForExistence(timeout: .medium))
+		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Home.AppClosureNoticeCell.container].waitForExistence(timeout: .medium))
 
 		app.swipeUp()
 		app.swipeUp()

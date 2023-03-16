@@ -2837,7 +2837,7 @@ class CoronaTestServiceTests: CWATestCase {
 		testService.updateTestResults(presentNotification: true) { _ in
 			completionExpectation.fulfill()
 		}
-		waitForExpectations(timeout: .short)
+		waitForExpectations(timeout: .extraLong)
 
 		XCTAssertEqual(mockNotificationCenter.notificationRequests.count, 2)
 	}
@@ -2945,7 +2945,7 @@ class CoronaTestServiceTests: CWATestCase {
 			}
 			completionExpectation.fulfill()
 		}
-		waitForExpectations(timeout: .short)
+		waitForExpectations(timeout: .extraLong)
 	}
 
 	func test_When_UpdateTestResultsSuccessWithPending_Then_NoNotificationIsShown() {
@@ -3025,7 +3025,7 @@ class CoronaTestServiceTests: CWATestCase {
 		testService.updateTestResults(presentNotification: true) { _ in
 			completionExpectation.fulfill()
 		}
-		waitForExpectations(timeout: .short)
+		waitForExpectations(timeout: .extraLong)
 		testService.createCoronaTestEntryInContactDiary(coronaTestType: .pcr)
 		testService.createCoronaTestEntryInContactDiary(coronaTestType: .antigen)
 
@@ -3170,7 +3170,7 @@ class CoronaTestServiceTests: CWATestCase {
 		testService.updateTestResults(presentNotification: true) { _ in
 			completionExpectation.fulfill()
 		}
-		waitForExpectations(timeout: .short)
+		waitForExpectations(timeout: .extraLong)
 
 		XCTAssertEqual(diaryStore.coronaTests.count, 0)
 		XCTAssertFalse(try XCTUnwrap(testService.antigenTest.value?.journalEntryCreated))

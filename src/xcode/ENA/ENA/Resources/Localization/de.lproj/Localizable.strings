@@ -730,6 +730,8 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionSuccess_RAT_listItem3" = "Das Gesundheitsamt wird sich möglicherweise in den nächsten Tagen bei Ihnen melden.";
 
+"ExposureSubmissionSuccess_RAT_listItem4" = "Teilen Sie Ihre Zufalls-IDs, damit andere gewarnt werden können.";
+
 "ExposureSubmissionSuccess_SRS_listItem0" = "Sie sind sehr wahrscheinlich ansteckend. Isolieren Sie sich von anderen Personen.";
 
 "ExposureSubmissionSuccess_SRS_listItem1" = "Ihre Warnung wird dem Kontakt-Tagebuch hinzugefügt.";

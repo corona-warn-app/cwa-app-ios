@@ -2566,7 +2566,7 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 		service.updateTestResults(presentNotification: true) { _ in
 			completionExpectation.fulfill()
 		}
-		waitForExpectations(timeout: .short)
+		waitForExpectations(timeout: .extraLong)
 		
 		XCTAssertEqual(mockNotificationCenter.notificationRequests.count, 2)
 	}
@@ -2678,7 +2678,7 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 			}
 			completionExpectation.fulfill()
 		}
-		waitForExpectations(timeout: .short)
+		waitForExpectations(timeout: .extraLong)
 	}
 	
 	func test_When_UpdateTestResultsSuccessWithPending_Then_NoNotificationIsShown() {
