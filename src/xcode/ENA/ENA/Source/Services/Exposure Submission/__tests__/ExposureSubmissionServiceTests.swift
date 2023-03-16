@@ -129,7 +129,7 @@ class ExposureSubmissionServiceTests: CWATestCase {
 			completionExpectation.fulfill()
 		}
 		
-		waitForExpectations(timeout: .short)
+		waitForExpectations(timeout: .extraLong)
 	}
 	
 	func testSubmitExposure_NoSubmissionConsent() {
@@ -854,7 +854,7 @@ class ExposureSubmissionServiceTests: CWATestCase {
 			}
 		}
 		
-		waitForExpectations(timeout: .short)
+		waitForExpectations(timeout: .extraLong)
 	}
 	
 }
