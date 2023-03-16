@@ -1113,8 +1113,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 	private func onDidBecomeActiveNotification() {
 		setupRightBarButtonItem()
 		
-		let isHibernationState = CWAHibernationProvider.shared.isHibernationState
-		viewModel.isHibernationState = isHibernationState
+		viewModel.isHibernationState = CWAHibernationProvider.shared.isHibernationState
 		DispatchQueue.main.async { [weak self] in
 			self?.tableView.reloadData()
 		}
