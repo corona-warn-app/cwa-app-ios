@@ -1115,8 +1115,8 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		
 		let isHibernationState = CWAHibernationProvider.shared.isHibernationState
 		viewModel.isHibernationState = isHibernationState
-		DispatchQueue.main.async {
-			self.tableView.reloadData()
+		DispatchQueue.main.async { [weak self] in
+			self?.tableView.reloadData()
 		}
 	}
 
