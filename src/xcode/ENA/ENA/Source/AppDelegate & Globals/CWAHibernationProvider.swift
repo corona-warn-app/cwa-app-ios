@@ -36,8 +36,6 @@ class CWAHibernationProvider: RequiresAppDependencies {
 		if ProcessInfo.processInfo.environment["XCTestConfigurationFilePath"] != nil {
 			return UserDefaults.standard.bool(forKey: CWAHibernationProvider.isHibernationInUnitTest)
 		}
-		#else
-		return Date() >= hibernationStartDateForBuild
 		#endif
 		return Date() >= hibernationStartDateForBuild
 	}
