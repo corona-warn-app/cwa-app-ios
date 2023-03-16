@@ -677,7 +677,7 @@
 
 "ExposureSubmissionQRInfo_QRCodeExpired_Alert_Title" = "Codul QR nu mai este valabil";
 
-"ExposureSubmissionQRInfo_QRCodeExpired_Alert_Text" = "Testul dvs. are o vechime de peste 21 de zile și nu mai poate fi înregistrat în aplicație. Dacă sunteți testat din nou în viitor, nu uitați să scanați codul QR imediat ce îl primiți.";
+"ExposureSubmissionQRInfo_QRCodeExpired_Alert_Text" = "Testul dvs. are o vechime de peste 2 de zile și nu mai poate fi înregistrat în aplicație. Dacă sunteți testat din nou în viitor, nu uitați să scanați codul QR imediat ce îl primiți.";
 
 "ExposureSubmission_RAT_QR_Invalid_Alert_Title" = "Eroare";
 
@@ -713,6 +713,8 @@
 "ExposureSubmissionSuccess_RAT_listItem2" = "Efectuați un test PCR pentru a verifica rezultatul acestui test.";
 
 "ExposureSubmissionSuccess_RAT_listItem3" = "Autoritatea de sănătate publică vă poate contacta în următoarele zile.";
+
+"ExposureSubmissionSuccess_RAT_listItem4" = "Trimiteți ID-ul dvs. aleatoriu pentru a-i avertiza și pe alții.";
 
 "ExposureSubmissionSuccess_SRS_listItem0" = "Există o probabilitate mare să fiți contagios. Izolați-vă de alte persoane.";
 
@@ -1480,9 +1482,9 @@
 /* Home End of Life Thank you Card */
 "Home_EndOfLifeThankYouTile_Title" = "Vă mulțumim!";
 
-"Home_EndOfLifeThankYouTile_description" = "Vă mulțumim că ați utilizat aplicația Corona-Warn. În timpul pandemiei, utilizatorii aplicației Corona-Warn și-au partajat diagnosticul de COVID-19 în jur de 9 milioane de ori. Datorită partajării rezultatelor de test pozitive, oamenii au putut fi avertizați rapid de existența unui risc crescut de infectare, de care altfel nu ar fi știut. Multe dintre persoanele avertizate au fost ulterior diagnosticate chiar ele cu COVID-19. Cu susținerea dvs., aplicația Corona-Warn și-a îndeplinit scopul de sistem de avertizare timpurie și a ajutat la întreruperea lanțurilor de infectare.\n\nDezvoltarea suplimentară a aplicației Corona-Warn va înceta de la 1 iunie 2023. Veți putea accesa în continuare certificatele pe care le-ați salvat deja în aplicație, precum și jurnalul de contacte. Celelalte funcții nu vor mai fi disponibile.\n\nPentru mai multe informații despre sfârșitul operațiunilor aplicației, consultați secțiunea %@.";
+"Home_EndOfLifeThankYouTile_description" = "Vă mulțumim că ați utilizat aplicația Corona-Warn. În timpul pandemiei, utilizatorii aplicației Corona-Warn și-au partajat diagnosticul de COVID-19 în jur de 9 milioane de ori. Datorită partajării rezultatelor de test pozitive, oamenii au putut fi avertizați rapid de existența unui risc crescut de infectare, de care altfel nu ar fi știut. Multe dintre persoanele avertizate au fost ulterior diagnosticate chiar ele cu COVID-19. Cu susținerea dvs., aplicația Corona-Warn și-a îndeplinit scopul de sistem de avertizare timpurie și a ajutat la întreruperea lanțurilor de infectare.\n\nDezvoltarea aplicației Corona-Warn va înceta de la 1 iunie 2023. Veți putea accesa în continuare certificatele pe care le-ați salvat deja în aplicație, precum și jurnalul de contacte. Celelalte funcții nu vor mai fi disponibile.";
 
-"Home_EndOfLifeThankYouTile_faq" = "Întrebări frecvente";
+"Home_EndOfLifeThankYouTile_faq" = "Pentru mai multe informații, consultați pagina noastră de întrebări frecvente.";
 
 /* Home Test Registration Card */
 "Home_TestRegistration_Title" = "Gestionarea testelor dvs. și avertizarea celorlalți";
