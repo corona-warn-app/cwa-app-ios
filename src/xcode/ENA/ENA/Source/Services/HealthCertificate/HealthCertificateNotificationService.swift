@@ -338,7 +338,7 @@ class HealthCertificateNotificationService {
 					log: .vaccination
 				)
 				completion()
-
+				
 				return
 			}
 			self?.notificationCenter.add(request) { error in
@@ -349,10 +349,9 @@ class HealthCertificateNotificationService {
 						error: error
 					)
 				}
-
 				completion()
 			}
 		}
 	}
-
+	
 }

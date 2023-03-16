@@ -300,14 +300,15 @@ class HealthCertificateService: HealthCertificateServiceServable {
 			updateValidityState(for: newHealthCertificate, person: person)
 			scheduleTimer()
 			
-			dispatchGroup.enter()
-			healthCertificateNotificationService.createNotifications(
-				for: newHealthCertificate,
-				completion: {
-					dispatchGroup.leave()
-				}
-			)
-			
+			if !CWAHibernationProvider.shared.isHibernationState {
+				dispatchGroup.enter()
+				healthCertificateNotificationService.createNotifications(
+					for: newHealthCertificate,
+					completion: {
+						dispatchGroup.leave()
+					}
+				)
+			}
 			for relation in certificateRef.relations where relation.action == "replace" {
 				if relation.index < requestCertificates.count {
 					let certificateBase45 = requestCertificates[relation.index]
@@ -353,12 +354,12 @@ class HealthCertificateService: HealthCertificateServiceServable {
 		
 		updateValidityState(for: healthCertificate, person: healthCertifiedPerson)
 		scheduleTimer()
-
-		healthCertificateNotificationService.createNotifications(
-			for: healthCertificate,
-			completion: completedNotificationRegistration
-		)
-		
+		if !CWAHibernationProvider.shared.isHibernationState {
+			healthCertificateNotificationService.createNotifications(
+				for: healthCertificate,
+				completion: completedNotificationRegistration
+			)
+		}
 		if isNewPersonAdded {
 			Log.info("[HealthCertificateService] Successfully registered health certificate for a new person", log: .api)
 			// Manual update needed as the person subscriptions were not set up when the certificate was added
@@ -554,14 +555,17 @@ class HealthCertificateService: HealthCertificateServiceServable {
 		let dispatchGroup = DispatchGroup()
 		certificateTuples.forEach { healthCertificateTuple in
 			updateValidityState(for: healthCertificateTuple.certificate, person: healthCertificateTuple.person)
-			dispatchGroup.enter()
-			healthCertificateNotificationService.createNotifications(
-				for: healthCertificateTuple.certificate,
-				completion: {
-					dispatchGroup.leave()
-				}
-			)
+			if !CWAHibernationProvider.shared.isHibernationState {
+				dispatchGroup.enter()
+				healthCertificateNotificationService.createNotifications(
+					for: healthCertificateTuple.certificate,
+					completion: {
+						dispatchGroup.leave()
+					}
+				)
+			}
 		}
+			
 
 		dispatchGroup.notify(queue: .global()) {
 			completion()
@@ -812,33 +816,32 @@ class HealthCertificateService: HealthCertificateServiceServable {
 
 				let dispatchGroup = DispatchGroup()
 
-				dispatchGroup.enter()
-				self.healthCertificateNotificationService.scheduleBoosterNotificationIfNeeded(
-					for: person,
-					previousBoosterNotificationIdentifier: previousBoosterNotificationIdentifier,
-					completion: {
-						dispatchGroup.leave()
-					}
-				)
-
-				dispatchGroup.enter()
-				self.healthCertificateNotificationService.scheduleCertificateReissuanceNotificationIfNeeded(
-					for: person,
-					previousCertificateReissuance: previousCertificateReissuance,
-					completion: {
-						dispatchGroup.leave()
-					}
-				)
-				
-				dispatchGroup.enter()
-				self.healthCertificateNotificationService.scheduleAdmissionStateChangedNotificationIfNeeded(
-					for: person,
-					previousAdmissionStateIdentifier: previousAdmissionStateIdentifier,
-					completion: {
-						dispatchGroup.leave()
-					}
-				)
-
+				if !CWAHibernationProvider.shared.isHibernationState {
+					dispatchGroup.enter()
+					self.healthCertificateNotificationService.scheduleBoosterNotificationIfNeeded(
+						for: person,
+						previousBoosterNotificationIdentifier: previousBoosterNotificationIdentifier,
+						completion: {
+							dispatchGroup.leave()
+						}
+					)
+					dispatchGroup.enter()
+					self.healthCertificateNotificationService.scheduleCertificateReissuanceNotificationIfNeeded(
+						for: person,
+						previousCertificateReissuance: previousCertificateReissuance,
+						completion: {
+							dispatchGroup.leave()
+						}
+					)
+					dispatchGroup.enter()
+					self.healthCertificateNotificationService.scheduleAdmissionStateChangedNotificationIfNeeded(
+						for: person,
+						previousAdmissionStateIdentifier: previousAdmissionStateIdentifier,
+						completion: {
+							dispatchGroup.leave()
+						}
+					)
+				}
 				dispatchGroup.notify(queue: .global()) {
 					completion?()
 				}
@@ -859,7 +862,9 @@ class HealthCertificateService: HealthCertificateServiceServable {
 			   $0.certificateRef.barcodeData == healthCertificate.base45
 		   }) {
 			healthCertificate.validityState = .blocked
-			healthCertificateNotificationService.createNotifications(for: healthCertificate, completion: {})
+			if !CWAHibernationProvider.shared.isHibernationState {
+				healthCertificateNotificationService.createNotifications(for: healthCertificate, completion: {})
+			}
 			return true
 		}
 		return false
