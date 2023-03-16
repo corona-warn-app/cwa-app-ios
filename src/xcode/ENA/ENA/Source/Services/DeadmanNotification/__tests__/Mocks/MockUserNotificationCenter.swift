@@ -21,10 +21,13 @@ class MockUserNotificationCenter: UserNotificationCenter {
 	func removePendingNotificationRequests(withIdentifiers identifiers: [String]) {
 		notificationRequests.removeAll(where: { identifiers.contains($0.identifier) })
 	}
+	
+	func removeAllPendingNotificationRequests() {
+	}
+	
 
 	// MARK: - Internal
 
 	var notificationRequests = [UNNotificationRequest]()
 	var onAdding: ((UNNotificationRequest) -> Void)?
-
 }

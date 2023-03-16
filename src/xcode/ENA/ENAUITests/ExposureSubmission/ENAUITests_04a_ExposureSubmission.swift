@@ -885,7 +885,7 @@ extension ENAUITests_04a_ExposureSubmission {
 	/// Launch and wait until the app is ready.
 	private func launch() {
 		app.launch()
-		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.rightBarButtonDescription].waitForExistence(timeout: .long))
+		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Home.AppClosureNoticeCell.container].waitForExistence(timeout: .long))
 		// "COVID-19-Begegnungsmitteilungen aktivieren …" popup
 		guard app.alerts.firstMatch.buttons["Aktivieren"].waitForExistence(timeout: 2) else {
 			return
