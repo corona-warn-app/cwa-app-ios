@@ -34,7 +34,10 @@ class HomeMoreInfoTableViewCell: UITableViewCell {
 			let nib = UINib(nibName: nibName, bundle: .main)
 
 			if let actionItemView = nib.instantiate(withOwner: self, options: nil).first as? MoreActionItemView {
-				actionItemView.configure(actionItem: item) { selectedItem in
+				actionItemView.configure(
+					actionItem: item,
+					hideSeparatorView: item == items.last
+				) { selectedItem in
 					onItemTap(selectedItem)
 				}
 				stackView.addArrangedSubview(actionItemView)

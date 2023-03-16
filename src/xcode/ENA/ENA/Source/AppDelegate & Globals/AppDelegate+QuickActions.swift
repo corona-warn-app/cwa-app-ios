@@ -111,11 +111,17 @@ extension AppDelegate {
 	/// - Parameter shortcutItem: the item to launch
 	func handleShortcutItem(_ shortcutItem: UIApplicationShortcutItem) {
 		Log.debug("Did open app via shortcut \(shortcutItem.type)", log: .ui)
+		
+		guard let tabBarController = coordinator.tabBarController else { return }
+
 		switch shortcutItem.type {
 		case QuickAction.qrCodeScanner.rawValue:
 			Log.info("Shortcut: QR code scanner", log: .ui)
-			guard let tabBarController = coordinator.tabBarController else { return }
-			tabBarController.selectedIndex = 0
+			
+			guard let indexToSelect = tabBarController.tabBar.items?.firstIndex(where: { $0.title == AppStrings.Tabbar.scannerTitle }) else {
+				return
+			}
+			tabBarController.selectedIndex = indexToSelect
 			
 			// dismiss an overlaying, modally presented view controller
 			coordinator.checkinTabCoordinator?.viewController.presentedViewController?.dismiss(animated: false, completion: nil)
@@ -125,24 +131,33 @@ extension AppDelegate {
 			
 		case QuickAction.showCertificates.rawValue:
 			Log.info("Shortcut: Certificates", log: .ui)
-			guard let tabBarController = coordinator.tabBarController else { return }
-			tabBarController.selectedIndex = 1
+
+			guard let indexToSelect = tabBarController.tabBar.items?.firstIndex(where: { $0.title == AppStrings.Tabbar.certificatesTitle }) else {
+				return
+			}
+			tabBarController.selectedIndex = indexToSelect
 			
 			// dismiss an overlaying, modally presented view controller
 			coordinator.checkinTabCoordinator?.viewController.presentedViewController?.dismiss(animated: false, completion: nil)
 			
 		case QuickAction.eventCheckin.rawValue:
 			Log.info("Shortcut: Event checkin 📷", log: .ui)
-			guard let tabBarController = coordinator.tabBarController else { return }
-			tabBarController.selectedIndex = 3
+
+			guard let indexToSelect = tabBarController.tabBar.items?.firstIndex(where: { $0.title == AppStrings.Tabbar.checkInTitle }) else {
+				return
+			}
+			tabBarController.selectedIndex = indexToSelect
 			
 			// dismiss an overlaying, modally presented view controller
 			coordinator.checkinTabCoordinator?.viewController.presentedViewController?.dismiss(animated: false, completion: nil)
 
 		case QuickAction.diaryNewEntry.rawValue:
 			Log.info("Shortcut: Open new diary entry", log: .ui)
-			guard let tabBarController = coordinator.tabBarController else { return }
-			tabBarController.selectedIndex = 4
+
+			guard let indexToSelect = tabBarController.tabBar.items?.firstIndex(where: { $0.title == AppStrings.Tabbar.diaryTitle }) else {
+				return
+			}
+			tabBarController.selectedIndex = indexToSelect
 
 			// dismiss an overlaying, modally presented view controller
 			coordinator.diaryCoordinator?.viewController.presentedViewController?.dismiss(animated: false, completion: nil)

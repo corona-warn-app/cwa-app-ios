@@ -10,10 +10,11 @@ import HealthCertificateToolkit
 // swiftlint:disable type_body_length
 class HomeTableViewModelTests: CWATestCase {
 
-	func testSectionsRowsAndHeightsInHibernation() throws {
+	func testNumberOfSections_isHibernation_true_showAppClosureNotice_false() throws {
+		// GIVEN
 		let store = MockTestStore()
 
-		let viewModel = HomeTableViewModel(
+		let sut = HomeTableViewModel(
 			state: .init(
 				store: store,
 				riskProvider: MockRiskProvider(),
@@ -36,22 +37,77 @@ class HomeTableViewModelTests: CWATestCase {
 			onTestResultCellTap: { _ in },
 			badgeWrapper: .fake()
 		)
+		
+		// WHEN
 
-		// Number of Rows per Section
-		viewModel.isHibernationState = true
+		// Is hibernation and should not show app closure notice
+		sut.isHibernationState = true
+		sut.shouldShowAppClosureNotice = false
+		
+		// THEN
 		
 		// Number of Sections
-		XCTAssertEqual(viewModel.numberOfSections, 8)
+		XCTAssertEqual(sut.numberOfSections, 8)
 				
 		// Number of Rows
-		XCTAssertEqual(viewModel.numberOfRows(in: 0), 1) // end of life tile visible
-		XCTAssertEqual(viewModel.numberOfRows(in: 1), 0) // app closure notice invisible
-		XCTAssertEqual(viewModel.numberOfRows(in: 2), 0) // exposure Logging invisible
-		XCTAssertEqual(viewModel.numberOfRows(in: 3), 0) // riskAndTestResults invisible
-		XCTAssertEqual(viewModel.numberOfRows(in: 4), 0) // testRegistration invisible
-		XCTAssertEqual(viewModel.numberOfRows(in: 5), 1) // statistics visible
-		XCTAssertEqual(viewModel.numberOfRows(in: 6), 0) // traceLocations invisible
-		XCTAssertEqual(viewModel.numberOfRows(in: 7), 1) // moreInfo visible
+		XCTAssertEqual(sut.numberOfRows(in: 0), 1) // end of life tile visible
+		XCTAssertEqual(sut.numberOfRows(in: 1), 0) // app closure notice invisible
+		XCTAssertEqual(sut.numberOfRows(in: 2), 0) // exposure Logging invisible
+		XCTAssertEqual(sut.numberOfRows(in: 3), 0) // riskAndTestResults invisible
+		XCTAssertEqual(sut.numberOfRows(in: 4), 0) // testRegistration invisible
+		XCTAssertEqual(sut.numberOfRows(in: 5), 1) // statistics visible
+		XCTAssertEqual(sut.numberOfRows(in: 6), 0) // traceLocations invisible
+		XCTAssertEqual(sut.numberOfRows(in: 7), 1) // moreInfo visible
+	}
+	
+	func testNumberOfSections_isHibernation_true_showAppClosureNotice_true() throws {
+		// GIVEN
+		let store = MockTestStore()
+
+		let sut = HomeTableViewModel(
+			state: .init(
+				store: store,
+				riskProvider: MockRiskProvider(),
+				exposureManagerState: .init(authorized: true, enabled: true, status: .active),
+				enState: .enabled,
+				statisticsProvider: StatisticsProvider(
+					client: CachingHTTPClientMock(),
+					store: store
+				),
+				localStatisticsProvider: LocalStatisticsProvider(
+					client: CachingHTTPClientMock(),
+					store: store
+				)
+			),
+			store: store,
+			appConfiguration: CachedAppConfigurationMock(),
+			coronaTestService: MockCoronaTestService(),
+			familyMemberCoronaTestService: MockFamilyMemberCoronaTestService(),
+			cclService: FakeCCLService(),
+			onTestResultCellTap: { _ in },
+			badgeWrapper: .fake()
+		)
+		
+		// WHEN
+
+		// Is hibernation and should show app closure notice
+		sut.isHibernationState = true
+		sut.shouldShowAppClosureNotice = true
+		
+		// THEN
+		
+		// Number of Sections
+		XCTAssertEqual(sut.numberOfSections, 8)
+				
+		// Number of Rows
+		XCTAssertEqual(sut.numberOfRows(in: 0), 1) // end of life tile visible
+		XCTAssertEqual(sut.numberOfRows(in: 1), 0) // app closure notice invisible in hibernation although should show
+		XCTAssertEqual(sut.numberOfRows(in: 2), 0) // exposure Logging invisible
+		XCTAssertEqual(sut.numberOfRows(in: 3), 0) // riskAndTestResults invisible
+		XCTAssertEqual(sut.numberOfRows(in: 4), 0) // testRegistration invisible
+		XCTAssertEqual(sut.numberOfRows(in: 5), 1) // statistics visible
+		XCTAssertEqual(sut.numberOfRows(in: 6), 0) // traceLocations invisible
+		XCTAssertEqual(sut.numberOfRows(in: 7), 1) // moreInfo visible
 	}
 	
 	func testSectionsRowsAndHeights() throws {
