@@ -135,16 +135,18 @@ final class DMLocalNotificationsViewModel {
 				)
 				return
 			}
-			self?.notificationCenter.add(request) { error in
-				guard error == nil else {
-					Log.error(
-						"Could not schedule notification: \(private: request.identifier)",
-						log: .vaccination,
-						error: error
-					)
-					return
+			if !CWAHibernationProvider.shared.isHibernationState {
+				self?.notificationCenter.add(request) { error in
+					guard error == nil else {
+						Log.error(
+							"Could not schedule notification: \(private: request.identifier)",
+							log: .vaccination,
+							error: error
+						)
+						return
+					}
+					exit(0)
 				}
-				exit(0)
 			}
 		}
 	}
