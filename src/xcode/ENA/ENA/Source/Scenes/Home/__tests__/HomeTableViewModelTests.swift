@@ -10,7 +10,7 @@ import HealthCertificateToolkit
 // swiftlint:disable type_body_length
 class HomeTableViewModelTests: CWATestCase {
 
-	func testNumberOfSections_isHibernation_true() throws {
+	func testNumberOfSections_isHibernation_true_showAppClosureNotice_false() throws {
 		// GIVEN
 		let store = MockTestStore()
 
@@ -42,6 +42,7 @@ class HomeTableViewModelTests: CWATestCase {
 
 		// Is hibernation and should not show app closure notice
 		sut.isHibernationState = true
+		sut.shouldShowAppClosureNotice = false
 		
 		// THEN
 		
@@ -59,7 +60,7 @@ class HomeTableViewModelTests: CWATestCase {
 		XCTAssertEqual(sut.numberOfRows(in: 7), 1) // moreInfo visible
 	}
 	
-	func testNumberOfSections_isHibernation_false() throws {
+	func testNumberOfSections_isHibernation_true_showAppClosureNotice_true() throws {
 		// GIVEN
 		let store = MockTestStore()
 
@@ -90,8 +91,8 @@ class HomeTableViewModelTests: CWATestCase {
 		// WHEN
 
 		// Is hibernation and should show app closure notice
-		sut.isHibernationState = false
-		
+		sut.isHibernationState = true
+		sut.shouldShowAppClosureNotice = true
 		// THEN
 		
 		// Number of Sections

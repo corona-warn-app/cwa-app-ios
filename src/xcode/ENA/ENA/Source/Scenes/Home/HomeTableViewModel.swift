@@ -94,6 +94,7 @@ class HomeTableViewModel {
 	let familyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding
 	let cclService: CCLServable
 	var isUpdating: Bool = false
+	var shouldShowAppClosureNotice: Bool = false
 	var isHibernationState: Bool = false
 
 	@OpenCombine.Published var testResultLoadingError: Error?
@@ -365,7 +366,7 @@ class HomeTableViewModel {
 			return 1
 		}
 		#endif
-		if !isHibernationState {
+		if shouldShowAppClosureNotice, !isHibernationState {
 			return 1
 		} else {
 			return 0
