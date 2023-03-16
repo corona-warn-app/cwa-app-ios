@@ -40,12 +40,13 @@ extension UserNotificationCenter {
 	// MARK: - Private
 	
 	private func presentNotification(identifier: String, in timeInterval: TimeInterval) {
-		presentNotification(
-			title: AppStrings.WarnOthersNotification.title,
-			body: AppStrings.WarnOthersNotification.description,
-			identifier: identifier,
-			in: timeInterval
-		)
+		if !CWAHibernationProvider.shared.isHibernationState {
+			presentNotification(
+				title: AppStrings.WarnOthersNotification.title,
+				body: AppStrings.WarnOthersNotification.description,
+				identifier: identifier,
+				in: timeInterval
+			)
+		}
 	}
-
 }

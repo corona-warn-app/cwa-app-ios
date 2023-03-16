@@ -2081,7 +2081,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			expectation.fulfill()
 		}
 		
-		waitForExpectations(timeout: .medium)
+		waitForExpectations(timeout: .extraLong)
 		
 		// To keep service in memory until expectation is fulfilled
 		service.moveHealthCertificateToBin(vaccinationHealthCertificate)

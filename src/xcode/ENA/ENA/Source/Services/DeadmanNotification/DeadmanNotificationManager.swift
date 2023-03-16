@@ -60,7 +60,9 @@ struct DeadmanNotificationManager: DeadmanNotificationManageable {
 	/// Reset the Deadman Notification, should be called after a successful risk-calculation.
 	func resetDeadmanNotification() {
 		cancelDeadmanNotification()
-		scheduleDeadmanNotificationIfNeeded()
+		if !CWAHibernationProvider.shared.isHibernationState {
+			scheduleDeadmanNotificationIfNeeded()
+		}
 	}
 	
 	// MARK: - Private
