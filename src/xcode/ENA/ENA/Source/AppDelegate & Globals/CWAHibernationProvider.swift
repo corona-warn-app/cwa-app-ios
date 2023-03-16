@@ -37,8 +37,9 @@ class CWAHibernationProvider: RequiresAppDependencies {
 			return UserDefaults.standard.bool(forKey: CWAHibernationProvider.isHibernationInUnitTest)
 		}
 		#else
-		return Date() >= hibernationStartDate
+		return Date() >= hibernationStartDateForBuild
 		#endif
+		return Date() >= hibernationStartDateForBuild
 	}
 	
 	let hibernationStartDateDefault: Date = {
