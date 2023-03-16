@@ -106,24 +106,16 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		viewModel.cclService.shouldShowNoticeTile
 			.receive(on: DispatchQueue.OCombine(.main))
 			.sink { [weak self] shouldShowNoticeTile in
-				let isHibernationState = CWAHibernationProvider.shared.isHibernationState
-				self?.viewModel.isHibernationState = isHibernationState
 				self?.viewModel.shouldShowAppClosureNotice = shouldShowNoticeTile
 				self?.tableView.reloadSections(
 					[
-					HomeTableViewModel.Section.appClosureNotice.rawValue,
-					HomeTableViewModel.Section.endOfLifeThankYou.rawValue,
-					HomeTableViewModel.Section.exposureLogging.rawValue,
-					HomeTableViewModel.Section.riskAndTestResults.rawValue,
-					HomeTableViewModel.Section.statistics.rawValue,
-					HomeTableViewModel.Section.testRegistration.rawValue,
-					HomeTableViewModel.Section.traceLocations.rawValue,
-					HomeTableViewModel.Section.moreInfo.rawValue
+					HomeTableViewModel.Section.appClosureNotice.rawValue
 					],
 					with: .none
 				)
 			}
 			.store(in: &subscriptions)
+
 	}
 
 	@available(*, unavailable)
@@ -142,7 +134,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
-		setupBarButtonItems()
+		setupLeftBarButtonItem()
 		setupTableView()
 
 		navigationItem.largeTitleDisplayMode = .automatic
@@ -177,6 +169,8 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		/** navigationbar is a shared property - so we need to trigger a resizing because others could have set it to true*/
 		navigationController?.navigationBar.prefersLargeTitles = false
 		navigationController?.navigationBar.sizeToFit()
+		
+		setupRightBarButtonItem()
 
 		viewModel.state.requestRisk(userInitiated: false)
 		viewModel.resetBadgeCount()
@@ -386,7 +380,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 
 	private var subscriptions = Set<AnyCancellable>()
 
-	private func setupBarButtonItems() {
+	private func setupLeftBarButtonItem() {
 		navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "Corona-Warn-App"), style: .plain, target: nil, action: nil)
 		navigationItem.leftBarButtonItem?.customView = UIImageView(image: navigationItem.leftBarButtonItem?.image)
 		navigationItem.leftBarButtonItem?.isAccessibilityElement = true
@@ -1134,6 +1128,11 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 	@objc
 	private func onDidBecomeActiveNotification() {
 		setupRightBarButtonItem()
+		
+		viewModel.isHibernationState = CWAHibernationProvider.shared.isHibernationState
+		DispatchQueue.main.async { [weak self] in
+			self?.tableView.reloadData()
+		}
 	}
 
 	// swiftlint:disable:next file_length

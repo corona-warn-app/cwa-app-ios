@@ -31,6 +31,10 @@ class AntigenTestProfileInformationViewController: DynamicTableViewController, F
 
 		navigationItem.title = viewModel.title
 		navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton
+		navigationItem.largeTitleDisplayMode = .always
+
+		navigationController?.navigationBar.tintColor = .enaColor(for: .tint)
+
 		setupView()
 	}
 
