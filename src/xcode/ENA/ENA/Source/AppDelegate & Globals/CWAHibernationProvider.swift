@@ -76,7 +76,7 @@ class CWAHibernationProvider: RequiresAppDependencies {
 		return customStore ?? store
 		#endif
 	}
-	
+
 	#if !RELEASE
 	/// For UI/Unit Test purposes only
 	private var customStore: Store?
