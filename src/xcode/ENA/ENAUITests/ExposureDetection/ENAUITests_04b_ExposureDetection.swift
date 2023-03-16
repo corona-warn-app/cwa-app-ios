@@ -55,7 +55,7 @@ class ENAUITests_04b_ExposureDetection: CWATestCase {
 
 	private func launch() {
 		app.launch()
-		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.rightBarButtonDescription].waitForExistence(timeout: .long))
+		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Home.AppClosureNoticeCell.container].waitForExistence(timeout: .long))
 	}
 
 }
