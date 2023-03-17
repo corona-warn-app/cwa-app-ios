@@ -48,7 +48,11 @@ class HealthCertificateQRCodeCell: UITableViewCell, ReuseIdentifierProviding {
 		validityStateDescriptionLabel.text = cellViewModel.validityStateDescription
 		validityStateDescriptionLabel.isHidden = cellViewModel.validityStateDescription == nil
 
-		unseenNewsIndicator.isHidden = !cellViewModel.isUnseenNewsIndicatorVisible
+		if CWAHibernationProvider.shared.isHibernationState {
+			unseenNewsIndicator.isHidden = true
+		} else {
+			unseenNewsIndicator.isHidden = !cellViewModel.isUnseenNewsIndicatorVisible
+		}
 
 		setupAccessibility(
 			titleLabelIsVisible: cellViewModel.title != nil,

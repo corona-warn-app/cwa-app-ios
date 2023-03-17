@@ -325,6 +325,7 @@ final class HealthCertificatesTabCoordinator {
 		healthCertificateService.unseenNewsCount
 			.receive(on: DispatchQueue.main.ocombine)
 			.sink { [weak self] in
+				guard !CWAHibernationProvider.shared.isHibernationState else { return }
 				self?.viewController.tabBarItem.badgeValue = $0 > 0 ? String($0) : nil
 			}
 			.store(in: &subscriptions)
@@ -475,6 +476,8 @@ final class HealthCertificatesTabCoordinator {
 				DispatchQueue.main.async { [weak self] in
 					self?.showActivityIndicator(from: navigationController.view)
 				}
+				
+				guard !CWAHibernationProvider.shared.isHibernationState else { return }
 				self?.healthCertificateService.updateDCCWalletInfosIfNeeded(
 					isForced: true
 				) { [weak self] in

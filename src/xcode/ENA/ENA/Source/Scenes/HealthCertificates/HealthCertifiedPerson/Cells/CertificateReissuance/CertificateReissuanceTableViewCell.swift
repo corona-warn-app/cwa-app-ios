@@ -37,7 +37,11 @@ class CertificateReissuanceTableViewCell: UITableViewCell, ReuseIdentifierProvid
 		subtitleLabel.text = cellModel.subtitle
 		subtitleLabel.isHidden = (cellModel.subtitle ?? "").isEmpty
 
-		unseenNewsIndicator.isHidden = !cellModel.isUnseenNewsIndicatorVisible
+		if CWAHibernationProvider.shared.isHibernationState {
+			unseenNewsIndicator.isHidden = true
+		} else {
+			unseenNewsIndicator.isHidden = !cellModel.isUnseenNewsIndicatorVisible
+		}
 	}
 
 	// MARK: - Private

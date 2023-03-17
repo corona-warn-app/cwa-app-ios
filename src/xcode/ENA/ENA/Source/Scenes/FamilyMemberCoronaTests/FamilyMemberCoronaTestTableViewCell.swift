@@ -110,9 +110,13 @@ final class FamilyMemberCoronaTestTableViewCell: UITableViewCell {
 			}
 			.store(in: &subscriptions)
 
-		cellModel.$isUnseenNewsIndicatorHidden
-			.assign(to: \.isHidden, on: unseenNewsIndicator)
-			.store(in: &subscriptions)
+		if CWAHibernationProvider.shared.isHibernationState {
+			unseenNewsIndicator.isHidden = true
+		} else {
+			cellModel.$isUnseenNewsIndicatorHidden
+				.assign(to: \.isHidden, on: unseenNewsIndicator)
+				.store(in: &subscriptions)
+		}
 
 		cellModel.$isDisclosureIndicatorHidden
 			.assign(to: \.isHidden, on: disclosureIndicatorView)
