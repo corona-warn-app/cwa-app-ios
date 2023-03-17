@@ -117,11 +117,11 @@ class HomeShownPositiveTestResultCellModelTest: CWATestCase {
 		XCTAssertFalse(cellModel.isRemoveTestButtonHidden)
 
 		let homeItemViewModels = cellModel.homeItemViewModels
-		XCTAssertEqual(homeItemViewModels.count, 3)
+		XCTAssertEqual(homeItemViewModels.count, 4)
 
 		XCTAssertEqual(homeItemViewModels[0].title, AppStrings.Home.TestResult.ShownPositive.itemRAT0)
 		XCTAssertEqual(homeItemViewModels[0].titleColor, .enaColor(for: .textPrimary1))
-		XCTAssertEqual(homeItemViewModels[0].iconImageName, "Icons - Home")
+		XCTAssertEqual(homeItemViewModels[0].iconImageName, "Icons - Test Tube")
 		XCTAssertEqual(homeItemViewModels[0].iconTintColor, .enaColor(for: .riskHigh))
 		XCTAssertEqual(homeItemViewModels[0].color, .clear)
 		XCTAssertEqual(homeItemViewModels[0].separatorColor, .clear)
@@ -129,7 +129,7 @@ class HomeShownPositiveTestResultCellModelTest: CWATestCase {
 
 		XCTAssertEqual(homeItemViewModels[1].title, AppStrings.Home.TestResult.ShownPositive.itemRAT1)
 		XCTAssertEqual(homeItemViewModels[1].titleColor, .enaColor(for: .textPrimary1))
-		XCTAssertEqual(homeItemViewModels[1].iconImageName, "Icons - Test Tube")
+		XCTAssertEqual(homeItemViewModels[1].iconImageName, "Icons - Hotline")
 		XCTAssertEqual(homeItemViewModels[1].iconTintColor, .enaColor(for: .riskHigh))
 		XCTAssertEqual(homeItemViewModels[1].color, .clear)
 		XCTAssertEqual(homeItemViewModels[1].separatorColor, .clear)
@@ -137,11 +137,19 @@ class HomeShownPositiveTestResultCellModelTest: CWATestCase {
 
 		XCTAssertEqual(homeItemViewModels[2].title, AppStrings.Home.TestResult.ShownPositive.itemRAT2)
 		XCTAssertEqual(homeItemViewModels[2].titleColor, .enaColor(for: .textPrimary1))
-		XCTAssertEqual(homeItemViewModels[2].iconImageName, "Icons - Hotline")
+		XCTAssertEqual(homeItemViewModels[2].iconImageName, "Icons - Home")
 		XCTAssertEqual(homeItemViewModels[2].iconTintColor, .enaColor(for: .riskHigh))
 		XCTAssertEqual(homeItemViewModels[2].color, .clear)
 		XCTAssertEqual(homeItemViewModels[2].separatorColor, .clear)
 		XCTAssertEqual(homeItemViewModels[2].containerInsets, .init(top: 10.0, left: 0.0, bottom: 10.0, right: 0))
+		
+		XCTAssertEqual(homeItemViewModels[3].title, AppStrings.Home.TestResult.ShownPositive.itemRAT3)
+		XCTAssertEqual(homeItemViewModels[3].titleColor, .enaColor(for: .textPrimary1))
+		XCTAssertEqual(homeItemViewModels[3].iconImageName, "Icons - Warnen")
+		XCTAssertEqual(homeItemViewModels[3].iconTintColor, .enaColor(for: .riskHigh))
+		XCTAssertEqual(homeItemViewModels[3].color, .clear)
+		XCTAssertEqual(homeItemViewModels[3].separatorColor, .clear)
+		XCTAssertEqual(homeItemViewModels[3].containerInsets, .init(top: 10.0, left: 0.0, bottom: 10.0, right: 0))
 
 		coronaTestService.antigenTest.value?.keysSubmitted = true
 
@@ -149,11 +157,11 @@ class HomeShownPositiveTestResultCellModelTest: CWATestCase {
 		XCTAssertTrue(cellModel.isRemoveTestButtonHidden)
 
 		let newHomeItemViewModels = cellModel.homeItemViewModels
-		XCTAssertEqual(newHomeItemViewModels.count, 3)
+		XCTAssertEqual(newHomeItemViewModels.count, 4)
 
 		XCTAssertEqual(newHomeItemViewModels[0].title, AppStrings.Home.TestResult.ShownPositive.itemRAT0)
 		XCTAssertEqual(newHomeItemViewModels[0].titleColor, .enaColor(for: .textPrimary1))
-		XCTAssertEqual(newHomeItemViewModels[0].iconImageName, "Icons - Home")
+		XCTAssertEqual(newHomeItemViewModels[0].iconImageName, "Icons - Test Tube")
 		XCTAssertEqual(newHomeItemViewModels[0].iconTintColor, .enaColor(for: .riskHigh))
 		XCTAssertEqual(newHomeItemViewModels[0].color, .clear)
 		XCTAssertEqual(newHomeItemViewModels[0].separatorColor, .clear)
@@ -161,7 +169,7 @@ class HomeShownPositiveTestResultCellModelTest: CWATestCase {
 
 		XCTAssertEqual(newHomeItemViewModels[1].title, AppStrings.Home.TestResult.ShownPositive.itemRAT1)
 		XCTAssertEqual(newHomeItemViewModels[1].titleColor, .enaColor(for: .textPrimary1))
-		XCTAssertEqual(newHomeItemViewModels[1].iconImageName, "Icons - Test Tube")
+		XCTAssertEqual(newHomeItemViewModels[1].iconImageName, "Icons - Hotline")
 		XCTAssertEqual(newHomeItemViewModels[1].iconTintColor, .enaColor(for: .riskHigh))
 		XCTAssertEqual(newHomeItemViewModels[1].color, .clear)
 		XCTAssertEqual(newHomeItemViewModels[1].separatorColor, .clear)
@@ -169,11 +177,19 @@ class HomeShownPositiveTestResultCellModelTest: CWATestCase {
 
 		XCTAssertEqual(newHomeItemViewModels[2].title, AppStrings.Home.TestResult.ShownPositive.itemRAT2)
 		XCTAssertEqual(newHomeItemViewModels[2].titleColor, .enaColor(for: .textPrimary1))
-		XCTAssertEqual(newHomeItemViewModels[2].iconImageName, "Icons - Hotline")
+		XCTAssertEqual(newHomeItemViewModels[2].iconImageName, "Icons - Home")
 		XCTAssertEqual(newHomeItemViewModels[2].iconTintColor, .enaColor(for: .riskHigh))
 		XCTAssertEqual(newHomeItemViewModels[2].color, .clear)
 		XCTAssertEqual(newHomeItemViewModels[2].separatorColor, .clear)
 		XCTAssertEqual(newHomeItemViewModels[2].containerInsets, .init(top: 10.0, left: 0.0, bottom: 10.0, right: 0))
+		
+		XCTAssertEqual(newHomeItemViewModels[3].title, AppStrings.Home.TestResult.ShownPositive.itemRAT3)
+		XCTAssertEqual(newHomeItemViewModels[3].titleColor, .enaColor(for: .textPrimary1))
+		XCTAssertEqual(newHomeItemViewModels[3].iconImageName, "Icons - Warnen")
+		XCTAssertEqual(newHomeItemViewModels[3].iconTintColor, .enaColor(for: .riskHigh))
+		XCTAssertEqual(newHomeItemViewModels[3].color, .clear)
+		XCTAssertEqual(newHomeItemViewModels[3].separatorColor, .clear)
+		XCTAssertEqual(newHomeItemViewModels[3].containerInsets, .init(top: 10.0, left: 0.0, bottom: 10.0, right: 0))
 	}
 
 }

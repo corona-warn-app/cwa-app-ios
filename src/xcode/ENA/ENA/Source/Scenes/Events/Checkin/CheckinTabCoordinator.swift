@@ -278,6 +278,7 @@ final class CheckinTabCoordinator {
 		eventStore.checkinsPublisher
 			.receive(on: DispatchQueue.main.ocombine)
 			.sink { [weak self] checkins in
+				guard !CWAHibernationProvider.shared.isHibernationState else { return }
 				let activeCheckinCount = checkins.filter { !$0.checkinCompleted }.count
 				self?.viewController.tabBarItem.badgeValue = activeCheckinCount > 0 ? String(activeCheckinCount) : nil
 			}

@@ -388,6 +388,8 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 
 	private func executeDCCWalletInfoUpdatesAndTriggerBoosterNotificationsIfNeeded(completion: @escaping () -> Void) {
 		Log.info("[ENATaskExecutionDelegate] Checking if DCC wallet infos need to be updated and booster notifications need to be triggered...", log: .vaccination)
+		
+		guard !CWAHibernationProvider.shared.isHibernationState else { return }
 		healthCertificateService.updateDCCWalletInfosIfNeeded(completion: completion)
 	}
 

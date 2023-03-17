@@ -229,7 +229,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		Analytics.triggerAnalyticsSubmission()
 		appUpdateChecker.checkAppVersionDialog(for: window?.rootViewController)
 		healthCertificateService.updateValidityStatesAndNotifications(completion: { })
-		healthCertificateService.updateDCCWalletInfosIfNeeded()
+		
+		if CWAHibernationProvider.shared.isHibernationState {
+			healthCertificateService.healthCertifiedPersons.forEach { healthCertifiedPerson in
+				healthCertifiedPerson.dccWalletInfo = nil
+			}
+		} else {
+			healthCertificateService.updateDCCWalletInfosIfNeeded()
+		}
 	}
 	
 	func applicationWillTerminate(_ application: UIApplication) {
