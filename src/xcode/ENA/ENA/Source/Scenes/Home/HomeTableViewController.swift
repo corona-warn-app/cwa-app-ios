@@ -136,6 +136,8 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 
 		setupLeftBarButtonItem()
 		setupTableView()
+		/// call onDidBecomeActiveNotification() one time at app start to check for Hibernation state as it will not be called unless the app moves from background to foreground
+		onDidBecomeActiveNotification()
 
 		navigationItem.largeTitleDisplayMode = .automatic
 		tableView.backgroundColor = .enaColor(for: .darkBackground)
