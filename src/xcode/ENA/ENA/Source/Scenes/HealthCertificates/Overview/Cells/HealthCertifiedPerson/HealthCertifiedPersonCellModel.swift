@@ -10,6 +10,7 @@ class HealthCertifiedPersonCellModel {
 
 	// MARK: - Init
 
+	// swiftlint:disable:next cyclomatic_complexity
 	init?(
 		healthCertifiedPerson: HealthCertifiedPerson,
 		cclService: CCLServable,
@@ -79,9 +80,15 @@ class HealthCertifiedPersonCellModel {
 		}
 
 		if let certificates = healthCertifiedPerson.dccWalletInfo?.verification.certificates.prefix(3), certificates.count == 2 || certificates.count == 3 {
-			switchableHealthCertificates = certificates.reduce(into: OrderedDictionary<String, HealthCertificate>()) {
-				if let certificate = healthCertifiedPerson.healthCertificate(for: $1.certificateRef) {
-					$0[$1.buttonText.localized(cclService: cclService)] = certificate
+			
+			// Hibernation
+			if CWAHibernationProvider.shared.isHibernationState {
+				switchableHealthCertificates = [:]
+			} else {
+				switchableHealthCertificates = certificates.reduce(into: OrderedDictionary<String, HealthCertificate>()) {
+					if let certificate = healthCertifiedPerson.healthCertificate(for: $1.certificateRef) {
+						$0[$1.buttonText.localized(cclService: cclService)] = certificate
+					}
 				}
 			}
 		} else {
