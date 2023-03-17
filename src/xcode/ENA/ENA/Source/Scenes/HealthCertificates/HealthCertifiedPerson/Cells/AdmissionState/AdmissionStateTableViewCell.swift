@@ -53,7 +53,11 @@ class AdmissionStateTableViewCell: UITableViewCell, UITextViewDelegate, ReuseIde
 		)
 		roundedLabeledView.isHidden = (cellModel.shortTitle ?? "").isEmpty
 		
-		unseenNewsIndicator.isHidden = !cellModel.isAdmissionStateChanged
+		if CWAHibernationProvider.shared.isHibernationState {
+			unseenNewsIndicator.isHidden = true
+		} else {
+			unseenNewsIndicator.isHidden = !cellModel.isAdmissionStateChanged
+		}
 	}
 
 	// MARK: - Private

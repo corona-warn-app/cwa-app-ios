@@ -61,8 +61,12 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 		case .unseenNews(count: let unseenNewsCount):
 			captionImageView.isHidden = true
 
-			captionCountLabel.text = String(unseenNewsCount)
-			captionLabel.text = AppStrings.HealthCertificate.Overview.news
+			if CWAHibernationProvider.shared.isHibernationState {
+				captionStackView.arrangedSubviews.forEach { $0.isHidden = true }
+			} else {
+				captionCountLabel.text = String(unseenNewsCount)
+				captionLabel.text = AppStrings.HealthCertificate.Overview.news
+			}
 		case let .validityState(image: validityStateIcon, description: validityStateDescription):
 			captionCountView.isHidden = true
 

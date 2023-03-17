@@ -568,6 +568,7 @@ class HomeCoordinator: RequiresAppDependencies {
 		badgeWrapper.$stringValue
 			.receive(on: DispatchQueue.main.ocombine)
 			.sink { [weak self] badgeStringValue in
+				guard !CWAHibernationProvider.shared.isHibernationState else { return }
 				self?.rootViewController.tabBarItem.badgeValue = badgeStringValue
 			}
 			.store(in: &subscriptions)
