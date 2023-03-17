@@ -107,14 +107,26 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 			.receive(on: DispatchQueue.OCombine(.main))
 			.sink { [weak self] shouldShowNoticeTile in
 				self?.viewModel.shouldShowAppClosureNotice = shouldShowNoticeTile
-				self?.tableView.reloadSections([HomeTableViewModel.Section.appClosureNotice.rawValue], with: .none)
+				self?.tableView.reloadSections(
+					[
+					HomeTableViewModel.Section.appClosureNotice.rawValue
+					],
+					with: .none
+				)
 			}
 			.store(in: &subscriptions)
+
 	}
 
 	@available(*, unavailable)
 	required init?(coder _: NSCoder) {
 		fatalError("init(coder:) has intentionally not been implemented")
+	}
+	
+	// MARK: - Deinit
+	
+	deinit {
+		NotificationCenter.default.removeObserver(self, name: UIApplication.didBecomeActiveNotification, object: nil)
 	}
 
 	// MARK: - Overrides
@@ -122,14 +134,22 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
-		setupBarButtonItems()
+		setupLeftBarButtonItem()
 		setupTableView()
+		/// call onDidBecomeActiveNotification() one time at app start to check for Hibernation state as it will not be called unless the app moves from background to foreground
+		onDidBecomeActiveNotification()
 
 		navigationItem.largeTitleDisplayMode = .automatic
 		tableView.backgroundColor = .enaColor(for: .darkBackground)
 
 		NotificationCenter.default.addObserver(self, selector: #selector(refreshUIAfterResumingFromBackground), name: UIApplication.willEnterForegroundNotification, object: nil)
 		NotificationCenter.default.addObserver(self, selector: #selector(updateStatistics), name: NSNotification.Name.NSCalendarDayChanged, object: nil)
+		NotificationCenter.default.addObserver(
+			self,
+			selector: #selector(onDidBecomeActiveNotification),
+			name: UIApplication.didBecomeActiveNotification,
+			object: nil
+		)
 
 		refreshUI()
 	}
@@ -151,6 +171,8 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		/** navigationbar is a shared property - so we need to trigger a resizing because others could have set it to true*/
 		navigationController?.navigationBar.prefersLargeTitles = false
 		navigationController?.navigationBar.sizeToFit()
+		
+		setupRightBarButtonItem()
 
 		viewModel.state.requestRisk(userInitiated: false)
 		viewModel.resetBadgeCount()
@@ -161,7 +183,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 
 		#if DEBUG
 		if isUITesting && LaunchArguments.test.common.showTestResultCards.boolValue {
-			tableView.scrollToRow(at: IndexPath(row: 1, section: 2), at: .top, animated: false)
+			tableView.scrollToRow(at: IndexPath(row: 1, section: 3), at: .top, animated: false)
 		}
 		#endif
 		
@@ -181,6 +203,8 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 	// swiftlint:disable:next cyclomatic_complexity
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		switch HomeTableViewModel.Section(rawValue: indexPath.section) {
+		case .endOfLifeThankYou:
+			return endOfLifeThankYouCell(forRowAt: indexPath)
 		case .appClosureNotice:
 			return appClosureNoticeCell(forRowAt: indexPath, statusTabNotice: viewModel.statusTabNotice)
 		case .exposureLogging:
@@ -269,7 +293,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 			onTestRegistrationCellTap()
 		case .traceLocations:
 			onTraceLocationsCellTap()
-		case .statistics, .moreInfo:
+		case .statistics, .moreInfo, .endOfLifeThankYou:
 			break
 		default:
 			fatalError("Invalid section")
@@ -358,20 +382,26 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 
 	private var subscriptions = Set<AnyCancellable>()
 
-	private func setupBarButtonItems() {
+	private func setupLeftBarButtonItem() {
 		navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "Corona-Warn-App"), style: .plain, target: nil, action: nil)
 		navigationItem.leftBarButtonItem?.customView = UIImageView(image: navigationItem.leftBarButtonItem?.image)
 		navigationItem.leftBarButtonItem?.isAccessibilityElement = true
 		navigationItem.leftBarButtonItem?.accessibilityTraits = .none
 		navigationItem.leftBarButtonItem?.accessibilityLabel = AppStrings.Home.leftBarButtonDescription
 		navigationItem.leftBarButtonItem?.accessibilityIdentifier = AccessibilityIdentifiers.Home.leftBarButtonDescription
-
-		let infoButton = UIButton(type: .infoLight)
-		infoButton.addTarget(self, action: #selector(infoButtonTapped), for: .touchUpInside)
-		navigationItem.rightBarButtonItem = UIBarButtonItem(customView: infoButton)
-		navigationItem.rightBarButtonItem?.isAccessibilityElement = true
-		navigationItem.rightBarButtonItem?.accessibilityLabel = AppStrings.Home.rightBarButtonDescription
-		navigationItem.rightBarButtonItem?.accessibilityIdentifier = AccessibilityIdentifiers.Home.rightBarButtonDescription
+	}
+	
+	private func setupRightBarButtonItem() {
+		if CWAHibernationProvider.shared.isHibernationState {
+			navigationItem.rightBarButtonItem = nil
+		} else {
+			let infoButton = UIButton(type: .infoLight)
+			infoButton.addTarget(self, action: #selector(infoButtonTapped), for: .touchUpInside)
+			navigationItem.rightBarButtonItem = UIBarButtonItem(customView: infoButton)
+			navigationItem.rightBarButtonItem?.isAccessibilityElement = true
+			navigationItem.rightBarButtonItem?.accessibilityIdentifier = AccessibilityIdentifiers.Home.rightBarButtonDescription
+			navigationItem.rightBarButtonItem?.accessibilityLabel = AppStrings.Home.rightBarButtonDescription
+		}
 	}
 
 	private func setupTableView() {
@@ -396,6 +426,10 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		tableView.register(
 			UINib(nibName: String(describing: HomeShownPositiveTestResultTableViewCell.self), bundle: nil),
 			forCellReuseIdentifier: String(describing: HomeShownPositiveTestResultTableViewCell.self)
+		)
+		tableView.register(
+			UINib(nibName: String(describing: EndOfLifeThankYouCell.self), bundle: nil),
+			forCellReuseIdentifier: String(describing: EndOfLifeThankYouCell.self)
 		)
 		tableView.register(
 			UINib(nibName: String(describing: HomeTestRegistrationTableViewCell.self), bundle: nil),
@@ -618,6 +652,15 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		case .antigen:
 			antigenTestShownPositiveResultCell = cell
 		}
+
+		return cell
+	}
+	
+	private func endOfLifeThankYouCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
+		guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: EndOfLifeThankYouCell.self), for: indexPath) as? EndOfLifeThankYouCell else {
+			fatalError("Could not dequeue EndOfLifeThankYouCell")
+		}
+		cell.configure(with: EndOfLifeThankYouCellViewModel())
 
 		return cell
 	}
@@ -1081,6 +1124,16 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 
 		DispatchQueue.main.async { [weak self] in
 			self?.viewModel.state.updateStatistics()
+		}
+	}
+	
+	@objc
+	private func onDidBecomeActiveNotification() {
+		setupRightBarButtonItem()
+		
+		viewModel.isHibernationState = CWAHibernationProvider.shared.isHibernationState
+		DispatchQueue.main.async { [weak self] in
+			self?.tableView.reloadData()
 		}
 	}
 

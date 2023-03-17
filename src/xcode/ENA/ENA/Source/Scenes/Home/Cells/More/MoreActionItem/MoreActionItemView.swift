@@ -23,6 +23,7 @@ class MoreActionItemView: UIView {
 	
 	func configure(
 		actionItem: MoreInfoItem,
+		hideSeparatorView: Bool = false,
 		completion: @escaping ((MoreInfoItem) -> Void)
 	) {
 		imageView.image = actionItem.image
@@ -31,7 +32,7 @@ class MoreActionItemView: UIView {
 		accessibilityIdentifier = actionItem.accessibilityIdentifier
 		accessibilityLabel = actionItem.title
 
-		separatorView.isHidden = actionItem == .share
+		separatorView.isHidden = hideSeparatorView
 
 		self.actionItem = actionItem
 		self.completion = completion

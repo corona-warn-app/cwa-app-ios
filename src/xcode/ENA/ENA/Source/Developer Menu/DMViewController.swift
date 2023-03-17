@@ -87,11 +87,7 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 		case .healthCertificateMigration:
 			vc = DMHealthCertificateMigrationViewController(store: store)
 		case .cclConfig:
-			vc = DMCCLConfigurationViewController(
-				viewModel: DMCCLConfigurationViewModel(
-					restService: restServiceProvider
-				)
-			)
+			vc = DMCCLConfigurationViewController(viewModel: DMCCLConfigurationViewModel(restService: restServiceProvider))
 		case .revocationList:
 			vc = DMRevocationListViewController()
 		case .newHttp:
@@ -183,6 +179,8 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 			vc = DMCrashAppViewController()
 		case .srs:
 			vc = DMSRSOptionsViewController(store: store)
+		case .hibernation:
+			vc = DMHibernationOptionsViewController(store: store)
 		}
 
 		if let vc = vc {

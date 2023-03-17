@@ -30,6 +30,10 @@ struct TraceLocation: Equatable {
 		guard let base64URLEncodedString = qrCodePayloadData?.base64URLEncodedString() else {
 			return nil
 		}
+		
+		if CWAHibernationProvider.shared.isHibernationState {
+			return nil
+		}
 
 		return String(format: "https://e.coronawarn.app?v=1#%@", base64URLEncodedString)
 	}

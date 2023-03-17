@@ -8,6 +8,7 @@ protocol UserNotificationCenter {
 	func getPendingNotificationRequests(completionHandler: @escaping ([UNNotificationRequest]) -> Void)
 	func add(_ request: UNNotificationRequest, withCompletionHandler completionHandler: ((Error?) -> Void)?)
 	func removePendingNotificationRequests(withIdentifiers identifiers: [String])
+	func removeAllPendingNotificationRequests()
 }
 
 extension UNUserNotificationCenter: UserNotificationCenter { }

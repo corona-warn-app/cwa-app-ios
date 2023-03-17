@@ -13,25 +13,31 @@ class HomeMoreInfoTableViewCell: UITableViewCell {
 		
 		accessibilityIdentifier = AccessibilityIdentifiers.Home.MoreInfoCell.moreCell
 		isAccessibilityElement = false
-
-
 	}
 	
 	// MARK: - Internal
 	
 	func configure(onItemTap: @escaping ((MoreInfoItem) -> Void)) {
-		guard !isCellConfigured else {
-			return
-		}
-
 		titleLabel.text = AppStrings.Home.MoreInfoCard.title
 
-		for item in MoreInfoItem.allCases {
+		var items: [MoreInfoItem] = []
+		stackView.removeAllArrangedSubviews()
+		
+		if CWAHibernationProvider.shared.isHibernationState {
+			items = MoreInfoItem.allCases.filter { $0 != .settings && $0 != .share }
+		} else {
+			items = MoreInfoItem.allCases
+		}
+		
+		for item in items {
 			let nibName = String(describing: MoreActionItemView.self)
 			let nib = UINib(nibName: nibName, bundle: .main)
 
 			if let actionItemView = nib.instantiate(withOwner: self, options: nil).first as? MoreActionItemView {
-				actionItemView.configure(actionItem: item) { selectedItem in
+				actionItemView.configure(
+					actionItem: item,
+					hideSeparatorView: item == items.last
+				) { selectedItem in
 					onItemTap(selectedItem)
 				}
 				stackView.addArrangedSubview(actionItemView)
@@ -39,8 +45,6 @@ class HomeMoreInfoTableViewCell: UITableViewCell {
 		}
 
 		accessibilityElements = [titleLabel as Any] + stackView.arrangedSubviews
-
-		isCellConfigured = true
 	}
 	
 	// MARK: - Private

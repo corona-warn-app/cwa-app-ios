@@ -46,6 +46,7 @@ enum DMMenuItem: Int, CaseIterable {
 	case boosterRules
 	case crashApp
 	case srs
+	case hibernation
 }
 
 extension DMMenuItem {
@@ -101,6 +102,7 @@ extension DMMenuItem {
 		case .boosterRules: return "Download Booster rules"
 		case .crashApp: return "Crash App"
 		case .srs: return "SRS Options"
+		case .hibernation: return "CWA Hibernation"
 		}
 	}
 	var subtitle: String {
@@ -144,6 +146,7 @@ extension DMMenuItem {
 		case .boosterRules: return "Download Booster rules and trigger the notification"
 		case .crashApp: return "Crash the App to test crash reporting."
 		case .srs: return "Configure SRS Behavior"
+		case .hibernation: return "Change date and time to trigger hibernation."
 		}
 	}
 }
