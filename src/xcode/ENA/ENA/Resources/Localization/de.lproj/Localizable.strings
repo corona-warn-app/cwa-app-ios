@@ -1513,11 +1513,13 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Home_Finding_Positive_Card_PCR_Item2" = "Falls Sie Risikofaktoren für eine schwere COVID-19-Erkrankung haben, lassen Sie sich ärztlich beraten. Bekannte Risikofaktoren sind z.B. Alter über 60 Jahre, Immunschwäche, Diabetes und hohes Übergewicht.";
 
-"Home_Finding_Positive_Card_RAT_Item0" = "Sie sind sehr wahrscheinlich ansteckend. Isolieren Sie sich von anderen Personen.";
+"Home_Finding_Positive_Card_RAT_Item0" = "Machen Sie einen PCR-Test, um dieses Test-Ergebnis zu verifizieren.";
 
-"Home_Finding_Positive_Card_RAT_Item1" = "Machen Sie einen PCR-Test, um dieses Test-Ergebnis zu verifizieren.";
+"Home_Finding_Positive_Card_RAT_Item1" = "Das Gesundheitsamt wird sich möglicherweise in den nächsten Tagen bei Ihnen melden.";
 
-"Home_Finding_Positive_Card_RAT_Item2" = "Das Gesundheitsamt wird sich möglicherweise in den nächsten Tagen bei Ihnen melden.";
+"Home_Finding_Positive_Card_RAT_Item2" = "Sie sind sehr wahrscheinlich ansteckend. Isolieren Sie sich von anderen Personen.";
+
+"Home_Finding_Positive_Card_RAT_Item3" = "Teilen Sie Ihre Zufalls-IDs, damit andere gewarnt werden können.";
 
 "Home_Finding_Positive_Card_Button" = "Andere warnen";
 

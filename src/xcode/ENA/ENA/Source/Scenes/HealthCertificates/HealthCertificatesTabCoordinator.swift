@@ -476,6 +476,8 @@ final class HealthCertificatesTabCoordinator {
 				DispatchQueue.main.async { [weak self] in
 					self?.showActivityIndicator(from: navigationController.view)
 				}
+				
+				guard !CWAHibernationProvider.shared.isHibernationState else { return }
 				self?.healthCertificateService.updateDCCWalletInfosIfNeeded(
 					isForced: true
 				) { [weak self] in
