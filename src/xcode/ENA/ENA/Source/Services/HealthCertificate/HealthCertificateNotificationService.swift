@@ -17,12 +17,12 @@ class HealthCertificateNotificationService {
 	}
 
 	// MARK: - Internal
-	
+
 	func createNotifications(
 		for healthCertificate: HealthCertificate,
 		completion: @escaping () -> Void
 	) {
-		guard !isHibernationState else {
+		guard !CWAHibernationProvider.shared.isHibernationState else {
 			completion()
 			return
 		}
@@ -104,7 +104,7 @@ class HealthCertificateNotificationService {
 		previousBoosterNotificationIdentifier: String?,
 		completion: @escaping () -> Void
 	) {
-		guard !isHibernationState else {
+		guard !CWAHibernationProvider.shared.isHibernationState else {
 			completion()
 			return
 		}
@@ -138,7 +138,7 @@ class HealthCertificateNotificationService {
 		previousCertificateReissuance: DCCCertificateReissuance?,
 		completion: @escaping () -> Void
 	) {
-		guard !isHibernationState else {
+		guard !CWAHibernationProvider.shared.isHibernationState else {
 			completion()
 			return
 		}
@@ -173,7 +173,7 @@ class HealthCertificateNotificationService {
 		previousAdmissionStateIdentifier: String?,
 		completion: @escaping () -> Void
 	) {
-		guard !isHibernationState else {
+		guard !CWAHibernationProvider.shared.isHibernationState else {
 			completion()
 			return
 		}
@@ -370,6 +370,5 @@ class HealthCertificateNotificationService {
 		}
 	}
 	
-	private let isHibernationState = CWAHibernationProvider.shared.isHibernationState
 	
 }

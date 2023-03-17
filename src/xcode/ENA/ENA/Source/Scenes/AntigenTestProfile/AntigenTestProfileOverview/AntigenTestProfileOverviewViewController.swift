@@ -56,9 +56,9 @@ class AntigenTestProfileOverviewViewController: UITableViewController, DismissHa
 		super.viewWillAppear(animated)
 		
 		viewModel.refreshFromStore()
-		
-		parent?.navigationController?.navigationBar.prefersLargeTitles = true
+
 		parent?.navigationController?.navigationBar.sizeToFit()
+		navigationController?.navigationBar.tintColor = .enaColor(for: .tint)
 	}
 
 	override func viewDidAppear(_ animated: Bool) {
