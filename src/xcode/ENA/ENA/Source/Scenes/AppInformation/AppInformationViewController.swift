@@ -12,7 +12,8 @@ class AppInformationViewController: DynamicTableViewController, NavigationBarOpa
 	init(
 		elsService: ErrorLogSubmissionProviding,
 		finishedDeltaOnboardings: [String: [String]],
-		cclService: CCLServable
+		cclService: CCLServable,
+		isHibernationState: Bool? = CWAHibernationProvider.shared.isHibernationState
 	) {
 		self.cclService = cclService
 		self.finishedDeltaOnboardings = finishedDeltaOnboardings
@@ -47,25 +48,27 @@ class AppInformationViewController: DynamicTableViewController, NavigationBarOpa
 				text: AppStrings.AppInformation.legalNavigation,
 				accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.legalNavigation,
 				action: .push(model: AppInformationViewController.legalModel, separators: true, withTitle: AppStrings.AppInformation.legalNavigation)
-			),
-			.contact: AppInformationCellModel(
-				text: AppStrings.AppInformation.contactNavigation,
-				accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.contactNavigation,
-				action: .push(model: AppInformationModel.contactModel, withTitle: AppStrings.AppInformation.contactNavigation)
-			),
-			.errorReport: AppInformationCellModel(
+			)]
+		
+		if let hibernationState = isHibernationState, !hibernationState {
+			self.model[.contact] = AppInformationCellModel(
+			   text: AppStrings.AppInformation.contactNavigation,
+			   accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.contactNavigation,
+			   action: .push(model: AppInformationModel.contactModel, withTitle: AppStrings.AppInformation.contactNavigation)
+		    )
+			
+			self.model[.errorReport] = AppInformationCellModel(
 				text: AppStrings.ErrorReport.title,
 				accessibilityIdentifier: AccessibilityIdentifiers.ErrorReport.navigation,
-				action: .pushErrorLogsCoordinator(
-					elsService: elsService
-				)
-			),
-			.imprint: AppInformationCellModel(
-				text: AppStrings.AppInformation.imprintNavigation,
-				accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.imprintNavigation,
-				action: .push(model: imprintViewModel.dynamicTable, withTitle: AppStrings.AppInformation.imprintNavigation)
+				action: .pushErrorLogsCoordinator(elsService: elsService)
 			)
-		]
+		}
+
+		self.model[.imprint] = AppInformationCellModel(
+			text: AppStrings.AppInformation.imprintNavigation,
+			accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.imprintNavigation,
+			action: .push(model: imprintViewModel.dynamicTable, withTitle: AppStrings.AppInformation.imprintNavigation)
+		)
 		
 		super.init(nibName: nil, bundle: nil)
 	}

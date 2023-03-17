@@ -10,6 +10,105 @@ import HealthCertificateToolkit
 // swiftlint:disable type_body_length
 class HomeTableViewModelTests: CWATestCase {
 
+	func testNumberOfSections_isHibernation_true_showAppClosureNotice_false() throws {
+		// GIVEN
+		let store = MockTestStore()
+
+		let sut = HomeTableViewModel(
+			state: .init(
+				store: store,
+				riskProvider: MockRiskProvider(),
+				exposureManagerState: .init(authorized: true, enabled: true, status: .active),
+				enState: .enabled,
+				statisticsProvider: StatisticsProvider(
+					client: CachingHTTPClientMock(),
+					store: store
+				),
+				localStatisticsProvider: LocalStatisticsProvider(
+					client: CachingHTTPClientMock(),
+					store: store
+				)
+			),
+			store: store,
+			appConfiguration: CachedAppConfigurationMock(),
+			coronaTestService: MockCoronaTestService(),
+			familyMemberCoronaTestService: MockFamilyMemberCoronaTestService(),
+			cclService: FakeCCLService(),
+			onTestResultCellTap: { _ in },
+			badgeWrapper: .fake()
+		)
+		
+		// WHEN
+
+		// Is hibernation and should not show app closure notice
+		sut.isHibernationState = true
+		sut.shouldShowAppClosureNotice = false
+		
+		// THEN
+		
+		// Number of Sections
+		XCTAssertEqual(sut.numberOfSections, 8)
+				
+		// Number of Rows
+		XCTAssertEqual(sut.numberOfRows(in: 0), 1) // end of life tile visible
+		XCTAssertEqual(sut.numberOfRows(in: 1), 0) // app closure notice invisible
+		XCTAssertEqual(sut.numberOfRows(in: 2), 0) // exposure Logging invisible
+		XCTAssertEqual(sut.numberOfRows(in: 3), 0) // riskAndTestResults invisible
+		XCTAssertEqual(sut.numberOfRows(in: 4), 0) // testRegistration invisible
+		XCTAssertEqual(sut.numberOfRows(in: 5), 1) // statistics visible
+		XCTAssertEqual(sut.numberOfRows(in: 6), 0) // traceLocations invisible
+		XCTAssertEqual(sut.numberOfRows(in: 7), 1) // moreInfo visible
+	}
+	
+	func testNumberOfSections_isHibernation_true_showAppClosureNotice_true() throws {
+		// GIVEN
+		let store = MockTestStore()
+
+		let sut = HomeTableViewModel(
+			state: .init(
+				store: store,
+				riskProvider: MockRiskProvider(),
+				exposureManagerState: .init(authorized: true, enabled: true, status: .active),
+				enState: .enabled,
+				statisticsProvider: StatisticsProvider(
+					client: CachingHTTPClientMock(),
+					store: store
+				),
+				localStatisticsProvider: LocalStatisticsProvider(
+					client: CachingHTTPClientMock(),
+					store: store
+				)
+			),
+			store: store,
+			appConfiguration: CachedAppConfigurationMock(),
+			coronaTestService: MockCoronaTestService(),
+			familyMemberCoronaTestService: MockFamilyMemberCoronaTestService(),
+			cclService: FakeCCLService(),
+			onTestResultCellTap: { _ in },
+			badgeWrapper: .fake()
+		)
+		
+		// WHEN
+
+		// Is hibernation and should show app closure notice
+		sut.isHibernationState = true
+		sut.shouldShowAppClosureNotice = true
+		// THEN
+		
+		// Number of Sections
+		XCTAssertEqual(sut.numberOfSections, 8)
+				
+		// Number of Rows
+		XCTAssertEqual(sut.numberOfRows(in: 0), 1) // end of life tile visible
+		XCTAssertEqual(sut.numberOfRows(in: 1), 0) // app closure notice invisible in hibernation although should show
+		XCTAssertEqual(sut.numberOfRows(in: 2), 0) // exposure Logging invisible
+		XCTAssertEqual(sut.numberOfRows(in: 3), 0) // riskAndTestResults invisible
+		XCTAssertEqual(sut.numberOfRows(in: 4), 0) // testRegistration invisible
+		XCTAssertEqual(sut.numberOfRows(in: 5), 1) // statistics visible
+		XCTAssertEqual(sut.numberOfRows(in: 6), 0) // traceLocations invisible
+		XCTAssertEqual(sut.numberOfRows(in: 7), 1) // moreInfo visible
+	}
+	
 	func testSectionsRowsAndHeights() throws {
 		let store = MockTestStore()
 
@@ -38,21 +137,22 @@ class HomeTableViewModelTests: CWATestCase {
 		)
 
 		// Number of Sections
-		XCTAssertEqual(viewModel.numberOfSections, 7)
+		XCTAssertEqual(viewModel.numberOfSections, 8)
 		
-		// Number of Rows per Section
+		// Number of Rows
 		XCTAssertEqual(viewModel.numberOfRows(in: 0), 0)
-		XCTAssertEqual(viewModel.numberOfRows(in: 1), 1)
+		XCTAssertEqual(viewModel.numberOfRows(in: 1), 0)
 		XCTAssertEqual(viewModel.numberOfRows(in: 2), 1)
 		XCTAssertEqual(viewModel.numberOfRows(in: 3), 1)
 		XCTAssertEqual(viewModel.numberOfRows(in: 4), 1)
 		XCTAssertEqual(viewModel.numberOfRows(in: 5), 1)
 		XCTAssertEqual(viewModel.numberOfRows(in: 6), 1)
+		XCTAssertEqual(viewModel.numberOfRows(in: 7), 1)
 
 		// Check riskAndTestResultsRows
 		XCTAssertEqual(viewModel.riskAndTestResultsRows, [.risk])
 	}
-	
+
 	func testFamilyTestCellNotHiddenIfFamilyMemberTestsExist() {
 		let store = MockTestStore()
 		var defaultAppConfig = CachedAppConfigurationMock.defaultAppConfiguration
@@ -86,7 +186,7 @@ class HomeTableViewModelTests: CWATestCase {
 			badgeWrapper: .fake()
 		)
 
-		XCTAssertEqual(viewModel.numberOfRows(in: 2), 2)
+		XCTAssertEqual(viewModel.numberOfRows(in: 3), 2)
 		XCTAssertEqual(viewModel.riskAndTestResultsRows, [.risk, .familyTestResults])
 	}
 
@@ -168,7 +268,7 @@ class HomeTableViewModelTests: CWATestCase {
 			badgeWrapper: .fake()
 		)
 
-		XCTAssertEqual(viewModel.numberOfRows(in: 2), 2)
+		XCTAssertEqual(viewModel.numberOfRows(in: 3), 2)
 		XCTAssertEqual(viewModel.riskAndTestResultsRows, [.risk, .pcrTestResult(.default)])
 	}
 	
@@ -301,7 +401,7 @@ class HomeTableViewModelTests: CWATestCase {
 			badgeWrapper: .fake()
 		)
 
-		XCTAssertEqual(viewModel.numberOfRows(in: 2), 2)
+		XCTAssertEqual(viewModel.numberOfRows(in: 3), 2)
 		XCTAssertEqual(viewModel.riskAndTestResultsRows, [.risk, .pcrTestResult(.positiveResultWasShown)])
 	}
 
@@ -346,7 +446,7 @@ class HomeTableViewModelTests: CWATestCase {
 			badgeWrapper: .fake()
 		)
 
-		XCTAssertEqual(viewModel.numberOfRows(in: 2), 2)
+		XCTAssertEqual(viewModel.numberOfRows(in: 3), 2)
 		XCTAssertEqual(viewModel.riskAndTestResultsRows, [.risk, .pcrTestResult(.positiveResultWasShown)])
 	}
 
@@ -391,7 +491,7 @@ class HomeTableViewModelTests: CWATestCase {
 			badgeWrapper: .fake()
 		)
 
-		XCTAssertEqual(viewModel.numberOfRows(in: 2), 2)
+		XCTAssertEqual(viewModel.numberOfRows(in: 3), 2)
 		XCTAssertEqual(viewModel.riskAndTestResultsRows, [.risk, .pcrTestResult(.default)])
 	}
 
@@ -434,7 +534,7 @@ class HomeTableViewModelTests: CWATestCase {
 			badgeWrapper: .fake()
 		)
 
-		XCTAssertEqual(viewModel.numberOfRows(in: 2), 2)
+		XCTAssertEqual(viewModel.numberOfRows(in: 3), 2)
 		XCTAssertEqual(viewModel.riskAndTestResultsRows, [.risk, .pcrTestResult(.default)])
 	}
 
@@ -479,7 +579,7 @@ class HomeTableViewModelTests: CWATestCase {
 			badgeWrapper: .fake()
 		)
 
-		XCTAssertEqual(viewModel.numberOfRows(in: 2), 2)
+		XCTAssertEqual(viewModel.numberOfRows(in: 3), 2)
 		XCTAssertEqual(viewModel.riskAndTestResultsRows, [.risk, .antigenTestResult(.default)])
 	}
 
@@ -612,7 +712,7 @@ class HomeTableViewModelTests: CWATestCase {
 			badgeWrapper: .fake()
 		)
 
-		XCTAssertEqual(viewModel.numberOfRows(in: 2), 2)
+		XCTAssertEqual(viewModel.numberOfRows(in: 3), 2)
 		XCTAssertEqual(viewModel.riskAndTestResultsRows, [.risk, .antigenTestResult(.positiveResultWasShown)])
 	}
 
@@ -657,7 +757,7 @@ class HomeTableViewModelTests: CWATestCase {
 			badgeWrapper: .fake()
 		)
 
-		XCTAssertEqual(viewModel.numberOfRows(in: 2), 2)
+		XCTAssertEqual(viewModel.numberOfRows(in: 3), 2)
 		XCTAssertEqual(viewModel.riskAndTestResultsRows, [.risk, .antigenTestResult(.default)])
 	}
 
@@ -702,7 +802,7 @@ class HomeTableViewModelTests: CWATestCase {
 			badgeWrapper: .fake()
 		)
 
-		XCTAssertEqual(viewModel.numberOfRows(in: 2), 2)
+		XCTAssertEqual(viewModel.numberOfRows(in: 3), 2)
 		XCTAssertEqual(viewModel.riskAndTestResultsRows, [.risk, .antigenTestResult(.default)])
 	}
 
@@ -745,7 +845,7 @@ class HomeTableViewModelTests: CWATestCase {
 			badgeWrapper: .fake()
 		)
 
-		XCTAssertEqual(viewModel.numberOfRows(in: 2), 2)
+		XCTAssertEqual(viewModel.numberOfRows(in: 3), 2)
 		XCTAssertEqual(viewModel.riskAndTestResultsRows, [.risk, .antigenTestResult(.default)])
 	}
 

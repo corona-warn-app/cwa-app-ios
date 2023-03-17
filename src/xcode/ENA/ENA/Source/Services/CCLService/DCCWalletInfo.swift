@@ -25,14 +25,14 @@ struct StatusTabNotice: Codable, Equatable {
 
 struct DCCWalletInfo: Codable, Equatable {
 
-	let admissionState: DCCAdmissionState
-	let vaccinationState: DCCVaccinationState
+	var admissionState: DCCAdmissionState
+	var vaccinationState: DCCVaccinationState
 	let maskState: DCCMaskState?
 	let boosterNotification: DCCBoosterNotification
 	let mostRelevantCertificate: DCCCertificateContainer
 	let verification: DCCVerification
 	let validUntil: Date?
-	let certificateReissuance: DCCCertificateReissuance?
+	var certificateReissuance: DCCCertificateReissuance?
 	let certificatesRevokedByInvalidationRules: [DCCCertificateContainer]?
 
 }
@@ -63,7 +63,7 @@ struct DCCScenarioSelectionItem: Codable, Equatable {
 struct DCCAdmissionState: Codable, Equatable {
 
 	let identifier: String?
-	let visible: Bool
+	var visible: Bool
 	let badgeText: DCCUIText?
 	let titleText: DCCUIText?
 	let subtitleText: DCCUIText?
@@ -76,7 +76,7 @@ struct DCCAdmissionState: Codable, Equatable {
 
 struct DCCVaccinationState: Codable, Equatable {
 
-	let visible: Bool
+	var visible: Bool
 	let titleText: DCCUIText?
 	let subtitleText: DCCUIText?
 	let longText: DCCUIText?
@@ -142,7 +142,7 @@ struct DCCCertificateReference: Codable, Equatable {
 
 struct DCCCertificateReissuance: Codable, Equatable {
 
-	let reissuanceDivision: DCCCertificateReissuanceDivision
+	var reissuanceDivision: DCCCertificateReissuanceDivision
 	// legacy from CCL config-v2 - needed for backward compatibility
 	let certificateToReissue: DCCCertificateContainer?
 	// legacy from CCL config-v2 - needed for backward compatibility
@@ -153,7 +153,7 @@ struct DCCCertificateReissuance: Codable, Equatable {
 
 struct DCCCertificateReissuanceDivision: Codable, Equatable {
 
-	let visible: Bool
+	var visible: Bool
 	let titleText: DCCUIText?
 	let subtitleText: DCCUIText?
 	let longText: DCCUIText?

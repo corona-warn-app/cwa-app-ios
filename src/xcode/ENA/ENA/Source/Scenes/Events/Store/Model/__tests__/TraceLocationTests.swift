@@ -188,6 +188,18 @@ class TraceLocationTests: CWATestCase {
 		// fallback length is 120 min
 		XCTAssertEqual(traceLocation.suggestedOnBehalfWarningDurationInMinutes, 120)
 	}
+	
+	func testQRCodeURL_Hibernation_ShouldReturnNil() {
+		// GIVEN
+		let sut = createMockTraceLocation(id: Data())
+		
+		// THEN
+		if CWAHibernationProvider.shared.isHibernationState {
+			XCTAssertNil(sut.qrCodeURL)
+		} else {
+			XCTAssertNotNil(sut.qrCodeURL)
+		}
+	}
 
 	// MARK: - Private
 

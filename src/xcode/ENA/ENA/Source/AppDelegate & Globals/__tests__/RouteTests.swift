@@ -6,6 +6,25 @@ import XCTest
 @testable import ENA
 
 class RouteTests: CWATestCase {
+	
+	func testInitURL_Hibernation_ShouldReturnNil() {
+		// GIVEN
+		let validRATTestURLString = "https://s.coronawarn.app?v=1#eyJ0aW1lc3RhbXAiOjE2MTk2MTcyNjksInNhbHQiOiI3QkZBMDZCNUFEOTMxMUI4NzE5QkI4MDY2MUM1NEVBRCIsInRlc3RpZCI6ImI0YTQwYzZjLWUwMmMtNDQ0OC1iOGFiLTBiNWI3YzM0ZDYwYSIsImhhc2giOiIxZWE0YzIyMmZmMGMwZTRlZDczNzNmMjc0Y2FhN2Y3NWQxMGZjY2JkYWM1NmM2MzI3NzFjZDk1OTIxMDJhNTU1IiwiZm4iOiJIZW5yeSIsImxuIjoiUGluemFuaSIsImRvYiI6IjE5ODktMDgtMzAifQ"
+		
+		guard let url = URL(string: validRATTestURLString) else {
+			return XCTFail("Expect a valid URL from a valid URL string.")
+		}
+		
+		// WHEN
+		let sut = Route(url: url)
+		
+		// THEN
+		if CWAHibernationProvider.shared.isHibernationState {
+			XCTAssertNil(sut)
+		} else {
+			XCTAssertNotNil(sut)
+		}
+	}
 
 	func testGIVEN_validRATUrlWithoutDGCInfo_WHEN_parseRoute_THEN_isValid() {
 		// GIVEN

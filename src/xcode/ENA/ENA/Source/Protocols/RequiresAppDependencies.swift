@@ -11,7 +11,7 @@ typealias DownloadedPackagesSQLLiteStore = DownloadedPackagesSQLLiteStoreV3
 protocol RequiresAppDependencies {
 	var client: HTTPClient { get }
 	var store: Store { get }
-	var taskScheduler: ENATaskScheduler { get }
+	var taskScheduler: ENATaskScheduler? { get }
 	var downloadedPackagesStore: DownloadedPackagesStore { get }
 	var appConfigurationProvider: AppConfigurationProviding { get }
 	var riskProvider: RiskProviding { get }
@@ -43,7 +43,7 @@ extension RequiresAppDependencies {
 		UIApplication.coronaWarnDelegate().exposureManager
 	}
 
-	var taskScheduler: ENATaskScheduler {
+	var taskScheduler: ENATaskScheduler? {
 		UIApplication.coronaWarnDelegate().taskScheduler
 	}
 }

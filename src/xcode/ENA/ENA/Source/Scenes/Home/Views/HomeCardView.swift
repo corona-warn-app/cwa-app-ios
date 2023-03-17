@@ -32,21 +32,21 @@ class HomeCardView: UIView {
 	}
 
 	// MARK: - Internal
-
+	
+	static let cornerRadius: CGFloat = 14.0
+	
 	func setHighlighted(_ highlighted: Bool, animated: Bool) {
 		highlightView.backgroundColor = highlighted ? .enaColor(for: .listHighlight) : .clear
 	}
 
 	// MARK: - Private
 
-	private let cornerRadius: CGFloat = 14.0
-
 	private let highlightView = UIView()
 
 	private func setupView() {
 		translatesAutoresizingMaskIntoConstraints = false
 		clipsToBounds = false
-		layer.cornerRadius = cornerRadius
+		layer.cornerRadius = Self.cornerRadius
 
 		layer.shadowColor = UIColor.enaColor(for: .shadow).cgColor
 		layer.shadowOffset = .init(width: 0.0, height: 10.0)
@@ -54,7 +54,7 @@ class HomeCardView: UIView {
 		layer.shadowOpacity = 1
 
 		highlightView.backgroundColor = .clear
-		highlightView.layer.cornerRadius = cornerRadius
+		highlightView.layer.cornerRadius = Self.cornerRadius
 
 		highlightView.isUserInteractionEnabled = false
 

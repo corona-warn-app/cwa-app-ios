@@ -15,23 +15,7 @@ enum SettingAction {
 
 class ActionTableViewCell: UITableViewCell {
 	
-	private var actionTitleLabel: ENALabel!
-	private var actionSwitch: ENASwitch!
-	private var detailLabel: ENALabel!
-	private var detailLabelTrailingAnchorConstrint: NSLayoutConstraint?
-	private var line: SeperatorLineLayer!
-	private var askForConsent = false
-
-	weak var delegate: ActionTableViewCellDelegate?
-	
-	@objc
-	private func switchValueDidChange() {
-		if askForConsent {
-			delegate?.performAction(action: .askConsent)
-		} else {
-			delegate?.performAction(action: .enable(actionSwitch.isOn))
-		}
-	}
+	// MARK: - Init
 	
 	override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
 		super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -84,6 +68,13 @@ class ActionTableViewCell: UITableViewCell {
 		fatalError("init(coder:) has not been implemented")
 	}
 	
+	// MARK: - Overrides
+	
+	override func accessibilityActivate() -> Bool {
+		toggle(self)
+		return true
+	}
+	
 	override func layoutSubviews() {
 		super.layoutSubviews()
 		let path = UIBezierPath()
@@ -95,9 +86,7 @@ class ActionTableViewCell: UITableViewCell {
 		line.path = path.cgPath
 	}
 	
-	func turnSwitch(to on: Bool) {
-		actionSwitch.setOn(on, animated: true)
-	}
+	// MARK: Internal
 
 	func configure(for state: ENStateHandler.State) {
 		askForConsent = false
@@ -133,13 +122,17 @@ class ActionTableViewCell: UITableViewCell {
 		self.delegate = delegate
 		configure(for: state)
 	}
+	
+	// MARK: - Private
+	
+	private var actionTitleLabel: ENALabel!
+	private var actionSwitch: ENASwitch!
+	private var detailLabel: ENALabel!
+	private var detailLabelTrailingAnchorConstrint: NSLayoutConstraint?
+	private var line: SeperatorLineLayer!
+	private var askForConsent = false
 
-	@objc
-	func toggle(_ sender: Any) {
-		actionSwitch.isOn.toggle()
-		switchValueDidChange()
-		setupAccessibility()
-	}
+	private weak var delegate: ActionTableViewCellDelegate?
 
 	private func setupAccessibility() {
 		accessibilityIdentifier = AccessibilityIdentifiers.ExposureNotificationSetting.enableTracing
@@ -179,9 +172,24 @@ class ActionTableViewCell: UITableViewCell {
 			detailLabelTrailingAnchorConstrint?.isActive = true
 		}
 	}
-
-	override func accessibilityActivate() -> Bool {
-		toggle(self)
-		return true
+	
+	@objc
+	private func switchValueDidChange() {
+		if askForConsent {
+			delegate?.performAction(action: .askConsent)
+		} else {
+			delegate?.performAction(action: .enable(actionSwitch.isOn))
+		}
+	}
+	
+	@objc
+	private func toggle(_ sender: Any) {
+		actionSwitch.isOn.toggle()
+		switchValueDidChange()
+		setupAccessibility()
+	}
+	
+	private func turnSwitch(to on: Bool) {
+		actionSwitch.setOn(on, animated: true)
 	}
 }

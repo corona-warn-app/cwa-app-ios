@@ -247,6 +247,25 @@ class ENAUITests_13_CreateHealthCertificate: CWATestCase {
 		XCTAssertTrue(healthCertificateCell.waitForExistence(timeout: .short))
 	}
 
+	func test_CompleteVaccinationProtectionWithTestCertificate_EndOfLifeState() throws {
+		app.setLaunchArgument(LaunchArguments.endOfLife.isHibernationStateEnabled, to: true)
+		app.setLaunchArgument(LaunchArguments.healthCertificate.firstAndSecondHealthCertificate, to: true)
+		app.setLaunchArgument(LaunchArguments.infoScreen.healthCertificateInfoScreenShown, to: true)
+		app.setLaunchArgument(LaunchArguments.healthCertificate.testCertificateRegistered, to: true)
+		app.launch()
+		
+		// Navigate to Certificates Tab.
+		app.buttons[AccessibilityIdentifiers.TabBar.certificates].waitAndTap()
+		
+		let healthCertificateCell = app.cells[AccessibilityIdentifiers.HealthCertificate.Overview.healthCertifiedPersonCell]
+		XCTAssertTrue(healthCertificateCell.waitForExistence(timeout: .medium))
+		
+		// Navigate to Persons Tab.
+		app.cells[AccessibilityIdentifiers.HealthCertificate.Overview.healthCertifiedPersonCell].waitAndTap()
+		
+		XCTAssertTrue(app.cells[AccessibilityIdentifiers.HealthCertificate.Overview.healthCertifiedPersonCell].waitForExistence(timeout: .medium))
+	}
+		
 	func test_CompleteVaccination_AdmissionState() {
 		app.setLaunchArgument(LaunchArguments.healthCertificate.firstAndSecondHealthCertificate, to: true)
 		app.setLaunchArgument(LaunchArguments.infoScreen.healthCertificateInfoScreenShown, to: true)

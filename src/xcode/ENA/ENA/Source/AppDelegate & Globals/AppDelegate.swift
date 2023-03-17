@@ -20,7 +20,7 @@ protocol CoronaWarnAppDelegate: AnyObject {
 	var appConfigurationProvider: AppConfigurationProviding { get }
 	var riskProvider: RiskProvider { get }
 	var exposureManager: ExposureManager { get }
-	var taskScheduler: ENATaskScheduler { get }
+	var taskScheduler: ENATaskScheduler? { get }
 	var environmentProvider: EnvironmentProviding { get }
 	var contactDiaryStore: DiaryStoringProviding { get }
 
@@ -161,12 +161,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		UIDevice.current.isBatteryMonitoringEnabled = true
 
 		// Setting delegates
-		taskScheduler.delegate = taskExecutionDelegate
+		taskScheduler?.delegate = taskExecutionDelegate
 		UNUserNotificationCenter.current().delegate = notificationManager
 
 		// Setup DeadmanNotification after AppLaunch
-		DeadmanNotificationManager().scheduleDeadmanNotificationIfNeeded()
-
+		if !CWAHibernationProvider.shared.isHibernationState {
+			DeadmanNotificationManager().scheduleDeadmanNotificationIfNeeded()
+		}
 		// Removing pdf documents from temporary directory
 		FileManager.default.removePDFsFromTemporaryDirectory()
 
@@ -185,11 +186,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		}
 		riskProvider.observeRisk(consumer)
 
-		exposureManager.observeExposureNotificationStatus(observer: self)
-
 		NotificationCenter.default.addObserver(self, selector: #selector(isOnboardedDidChange(_:)), name: .isOnboardedDidChange, object: nil)
 		NotificationCenter.default.addObserver(self, selector: #selector(backgroundRefreshStatusDidChange), name: UIApplication.backgroundRefreshStatusDidChangeNotification, object: nil)
-		
+	
+		// Hibernation
+		if CWAHibernationProvider.shared.isHibernationState {
+			// Stop and delete error logging.
+			try? elsService.stopAndDeleteLog()
+
+			// Disable Exposure Notification (ENF)
+			disableExposureNotification()
+			
+			// cancel pending notifications
+			UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+		} else {
+			
+			// Observe Exposure Notification (ENF)
+			exposureManager.observeExposureNotificationStatus(observer: self)
+		}
+
 		guard #available(iOS 13.5, *) else {
 			// Background task registration on iOS 12.5 requires us to activate the ENManager (https://jira-ibs.wbs.net.sap/browse/EXPOSUREAPP-8919)
 			if store.isOnboarded, exposureManager.exposureManagerState.status == .unknown {
@@ -245,12 +260,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 
 		// Cleanup recycle-bin. Remove old entries.
 		recycleBin.cleanup()
+		
+		// Refresh Tabbar if needed
+		coordinator.updateTabbarIfNeeded()
 	}
 
 	func applicationDidEnterBackground(_ application: UIApplication) {
 		showPrivacyProtectionWindow()
 		if #available(iOS 13.0, *) {
-			taskScheduler.scheduleTask()
+			taskScheduler?.scheduleTask()
 		}
 		Log.info("Application did enter background.", log: .appLifecycle)
 	}
@@ -284,7 +302,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	let client: HTTPClient
 	let cachingClient = CachingHTTPClient()
 	let downloadedPackagesStore: DownloadedPackagesStore = DownloadedPackagesSQLLiteStore(fileName: "packages")
-	let taskScheduler: ENATaskScheduler = ENATaskScheduler.shared
+	var taskScheduler: ENATaskScheduler? {
+		guard !CWAHibernationProvider.shared.isHibernationState else {
+			Log.info("CWA is in hibernation state. Background tasks won't be executed.", log: .background)
+			return nil
+		}
+		return ENATaskScheduler.shared
+	}
 	let contactDiaryStore: DiaryStoringProviding
 	let eventStore: EventStoringProviding = {
 		#if DEBUG
@@ -1125,6 +1149,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		window?.makeKeyAndVisible()
 	}
 
+	private func disableExposureNotification() {
+		Log.info("Try to disable exposure notification.")
+
+		exposureManager.disable { exposureNotificationError in
+			if let exposureNotificationError = exposureNotificationError {
+				Log.error("The exposure notification couldn't be disabled by ExposureManager: \(exposureNotificationError.localizedDescription)")
+			} else {
+				Log.info("The exposure notification was disabled.")
+			}
+		}
+	}
 }
 
 private extension Array where Element == URLQueryItem {

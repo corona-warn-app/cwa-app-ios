@@ -15,7 +15,7 @@ indirect enum ELSError: Error {
 	case emptyLogFile
 	case couldNotReadLogfile(_ message: String? = nil)
 	case restServiceError(ServiceError<ELSSubmitResource.CustomError>)
-
+	case hibernation
 }
 
 extension ELSError: Equatable {

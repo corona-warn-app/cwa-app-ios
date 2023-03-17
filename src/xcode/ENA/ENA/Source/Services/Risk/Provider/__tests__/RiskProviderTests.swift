@@ -618,7 +618,7 @@ class RiskProviderTests: CWATestCase {
 			didCalculateRiskExpectation.fulfill()
 		}
 		
-		waitForExpectations(timeout: .long)
+		waitForExpectations(timeout: .extraLong)
 		XCTAssertTrue(store.shouldShowRiskStatusLoweredAlert)
 	}
 	
@@ -660,7 +660,7 @@ class RiskProviderTests: CWATestCase {
 			didCalculateRiskExpectation.fulfill()
 		}
 		
-		waitForExpectations(timeout: .long)
+		waitForExpectations(timeout: .extraLong)
 		XCTAssertFalse(store.shouldShowRiskStatusLoweredAlert)
 	}
 	

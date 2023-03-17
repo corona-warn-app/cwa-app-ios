@@ -677,7 +677,7 @@
 
 "ExposureSubmissionQRInfo_QRCodeExpired_Alert_Title" = "Kod QR stracił ważność";
 
-"ExposureSubmissionQRInfo_QRCodeExpired_Alert_Text" = "Twój test ma więcej niż 21 dni i nie można go już zarejestrować w aplikacji. Jeśli w przyszłości będziesz ponownie poddawać się testowi, zeskanuj kod QR, gdy tylko go otrzymasz.";
+"ExposureSubmissionQRInfo_QRCodeExpired_Alert_Text" = "Twój test ma więcej niż 2 dni i nie można go już zarejestrować w aplikacji. Jeśli w przyszłości będziesz ponownie poddawać się testowi, zeskanuj kod QR, gdy tylko go otrzymasz.";
 
 "ExposureSubmission_RAT_QR_Invalid_Alert_Title" = "Błąd";
 
@@ -713,6 +713,8 @@
 "ExposureSubmissionSuccess_RAT_listItem2" = "Wykonaj test PCR, aby zweryfikować wynik tego testu.";
 
 "ExposureSubmissionSuccess_RAT_listItem3" = "Organ ds. zdrowia publicznego może skontaktować się z Tobą w ciągu kilku najbliższych dni.";
+
+"ExposureSubmissionSuccess_RAT_listItem4" = "Udostępnij swoje losowe identyfikatory, aby umożliwić ostrzeganie innych osób.";
 
 "ExposureSubmissionSuccess_SRS_listItem0" = "Istnieje duże prawdopodobieństwo, że możesz zakażać. Odizoluj się od innych ludzi.";
 
@@ -1480,9 +1482,9 @@
 /* Home End of Life Thank you Card */
 "Home_EndOfLifeThankYouTile_Title" = "Dziękujemy!";
 
-"Home_EndOfLifeThankYouTile_description" = "Dziękujemy za korzystanie z aplikacji Corona-Warn-App. Podczas pandemii użytkownicy aplikacji Corona-Warn-App udostępniali swoje diagnozy COVID-19 około 9 milionów razy. Udostępnianie pozytywnych wyników testów umożliwiło szybkie ostrzeganie osób przed zwiększonym ryzykiem zakażenia, którego w przeciwnym razie nie byliby nieświadomi. U wielu z ostrzeżonych osób zdiagnozowano później COVID-19. Dzięki Waszemu wsparciu aplikacja Corona-Warn-App spełniła swoje zadanie jako system wczesnego ostrzegania i pomogła przerwać łańcuchy infekcji.\n\nDalszy rozwój aplikacji Corona-Warn-App zostanie wstrzymany z dniem 1 czerwca 2023 r. Nadal będziesz mieć dostęp do certyfikatów zapisanych w CWA, a także do dziennika kontaktów. Pozostałe funkcje nie będą już dostępne.\n\nAby uzyskać więcej informacji na temat zakończenia działania aplikacji, zapoznaj się z %@.";
+"Home_EndOfLifeThankYouTile_description" = "Dziękujemy za korzystanie z aplikacji Corona-Warn-App. Podczas pandemii użytkownicy aplikacji Corona-Warn-App udostępniali swoje diagnozy COVID-19 około 9 milionów razy. Udostępnianie pozytywnych wyników testów umożliwiło szybkie ostrzeganie osób przed zwiększonym ryzykiem zakażenia, którego w przeciwnym razie nie byliby nieświadomi. U wielu z ostrzeżonych osób zdiagnozowano później COVID-19. Dzięki Waszemu wsparciu aplikacja Corona-Warn-App spełniła swoje zadanie jako system wczesnego ostrzegania i pomogła przerwać łańcuchy infekcji.\n\nRozwój aplikacji Corona-Warn-App zostanie wstrzymany z dniem 1 czerwca 2023 r. Nadal będziesz mieć dostęp do certyfikatów zapisanych w aplikacji, a także do dziennika kontaktów. Pozostałe funkcje nie będą już dostępne.";
 
-"Home_EndOfLifeThankYouTile_faq" = "Często zadawane pytania";
+"Home_EndOfLifeThankYouTile_faq" = "Więcej informacji znajduje się na naszej stronie „Często zadawane pytania”.";
 
 /* Home Test Registration Card */
 "Home_TestRegistration_Title" = "Zarządzaj swoimi testami i ostrzegaj innych";
