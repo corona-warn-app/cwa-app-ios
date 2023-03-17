@@ -60,6 +60,7 @@ final class EndOfLifeThankYouCell: UITableViewCell {
 		descriptionTextView.adjustsFontForContentSizeCategory = true
 		descriptionTextView.backgroundColor = .clear
 		descriptionTextView.delegate = self
+		descriptionTextView.linkTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.enaColor(for: .textTint)]
 
 		setupAccessibility()
 	}

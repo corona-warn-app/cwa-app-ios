@@ -25,7 +25,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="462" height="377"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="25b-YP-GPY" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                        <rect key="frame" x="16" y="0.0" width="446" height="20.333333333333332"/>
+                                        <rect key="frame" x="16" y="0.0" width="446" height="26.333333333333332"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" name="ENA Text Primary 1 Color"/>
                                         <nil key="highlightedColor"/>
@@ -34,9 +34,9 @@
                                         </userDefinedRuntimeAttributes>
                                     </label>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" insetsLayoutMarginsFromSafeArea="NO" image="EndOfLifeThankYouIllustration" translatesAutoresizingMaskIntoConstraints="NO" id="MnV-8b-FIK">
-                                        <rect key="frame" x="0.0" y="24.333333333333343" width="462" height="304.33333333333326"/>
+                                        <rect key="frame" x="0.0" y="30.333333333333343" width="462" height="298.33333333333326"/>
                                     </imageView>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalHuggingPriority="251" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5xM-wZ-d5o">
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalHuggingPriority="251" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="5xM-wZ-d5o">
                                         <rect key="frame" x="16" y="332.66666666666669" width="1911" height="36.333333333333314"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </string>
@@ -94,6 +94,9 @@
         </tableViewCell>
     </objects>
     <designables>
+        <designable name="25b-YP-GPY">
+            <size key="intrinsicContentSize" width="56" height="26.333333333333332"/>
+        </designable>
         <designable name="GWJ-GG-Lqs">
             <size key="intrinsicContentSize" width="63.333333333333336" height="26.333333333333332"/>
         </designable>
