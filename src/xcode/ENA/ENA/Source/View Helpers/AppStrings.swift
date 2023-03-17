@@ -1095,6 +1095,7 @@ enum AppStrings {
 				static let itemRAT0 = NSLocalizedString("Home_Finding_Positive_Card_RAT_Item0", comment: "")
 				static let itemRAT1 = NSLocalizedString("Home_Finding_Positive_Card_RAT_Item1", comment: "")
 				static let itemRAT2 = NSLocalizedString("Home_Finding_Positive_Card_RAT_Item2", comment: "")
+				static let itemRAT3 = NSLocalizedString("Home_Finding_Positive_Card_RAT_Item3", comment: "")
 				static let button = NSLocalizedString("Home_Finding_Positive_Card_Button", comment: "")
 				static let removeTestButton = NSLocalizedString("Home_Finding_Positive_Card_Button_Remove_Test", comment: "")
 			}
