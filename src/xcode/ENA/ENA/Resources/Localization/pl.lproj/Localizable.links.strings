@@ -68,4 +68,4 @@
 
 "ExposureSubmission_WarnWithoutTAN_FAQLink" = "https://www.coronawarn.app/en/faq/results/#warn_without_tan";
 
-"Home_EndOfLifeThankYouTile_FAQLink" = "https://www.coronawarn.app/de/faq/"; // to.do final URL
+"Home_EndOfLifeThankYouTile_FAQLink" = "https://www.coronawarn.app/en/faq/#ramp_down";
