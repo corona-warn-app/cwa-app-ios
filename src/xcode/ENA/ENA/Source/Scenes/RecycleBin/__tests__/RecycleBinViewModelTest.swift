@@ -52,6 +52,25 @@ class RecycleBinViewModelTest: CWATestCase {
 		XCTAssertEqual(viewModel.numberOfRows(in: 1), 3)
 	}
 
+	func testNumberOfRowsWithNonEmptyEntriesSectionInEOL() throws {
+		UserDefaults.standard.setValue(true, forKey: CWAHibernationProvider.isHibernationInUnitTest)
+		let store = MockTestStore()
+		store.recycleBinItems = [
+			RecycleBinItem(recycledAt: Date(), item: .certificate(.mock())),
+			RecycleBinItem(recycledAt: Date(), item: .userCoronaTest(.pcr(.mock(uniqueCertificateIdentifier: "a")))),
+			RecycleBinItem(recycledAt: Date(), item: .userCoronaTest(.antigen(.mock(uniqueCertificateIdentifier: "b"))))
+		]
+
+		let viewModel = RecycleBinViewModel(
+			store: store,
+			recycleBin: RecycleBin(store: store),
+			onOverwrite: { _ in }
+		)
+
+		XCTAssertEqual(viewModel.numberOfRows(in: 0), 1)
+		XCTAssertEqual(viewModel.numberOfRows(in: 1), 1)
+	}
+
 	func testIsEmptyOnEmptyEntriesSection() throws {
 		let store = MockTestStore()
 
