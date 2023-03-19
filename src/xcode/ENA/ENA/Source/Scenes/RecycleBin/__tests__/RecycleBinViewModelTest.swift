@@ -69,6 +69,7 @@ class RecycleBinViewModelTest: CWATestCase {
 
 		XCTAssertEqual(viewModel.numberOfRows(in: 0), 1)
 		XCTAssertEqual(viewModel.numberOfRows(in: 1), 1)
+		UserDefaults.standard.setValue(false, forKey: CWAHibernationProvider.isHibernationInUnitTest)
 	}
 
 	func testIsEmptyOnEmptyEntriesSection() throws {
