@@ -439,6 +439,11 @@ class CoronaTestService: CoronaTestServiceProviding {
 	}
 
 	func updateTestResults(force: Bool = true, presentNotification: Bool, completion: @escaping VoidResultHandler) {
+		if CWAHibernationProvider.shared.isHibernationState {
+			Log.info("[CoronaTestService] Will not Update test results because of End of Life state. force: \(force), presentNotification: \(presentNotification)", log: .api)
+			completion(.success(()))
+			return
+		}
 		Log.info("[CoronaTestService] Update all test results. force: \(force), presentNotification: \(presentNotification)", log: .api)
 
 		let group = DispatchGroup()
@@ -477,8 +482,19 @@ class CoronaTestService: CoronaTestServiceProviding {
 		presentNotification: Bool = false,
 		completion: @escaping TestResultHandler
 	) {
-		Log.info("[CoronaTestService] Updating test result (coronaTestType: \(coronaTestType)), force: \(force), presentNotification: \(presentNotification)", log: .api)
+		if CWAHibernationProvider.shared.isHibernationState {
+			Log.info("[CoronaTestService] Will not Update test result because of End of Life state. force: \(force), presentNotification: \(presentNotification)", log: .api)
+			guard let coronaTest = coronaTest(ofType: coronaTestType) else {
+				Log.error("[CoronaTestService] Getting test result failed: No corona test of requested type", log: .api)
 
+				completion(.failure(.noCoronaTestOfRequestedType))
+				return
+			}
+			Log.info("[CoronaTestService] Will return the latest cached test result because of End of Life state. force: \(force), presentNotification: \(presentNotification)", log: .api)
+			completion(.success(coronaTest.testResult))
+		}
+		Log.info("[CoronaTestService] Updating test result (coronaTestType: \(coronaTestType)), force: \(force), presentNotification: \(presentNotification)", log: .api)
+		
 		getTestResult(for: coronaTestType, force: force, duringRegistration: false, presentNotification: presentNotification) { [weak self] result in
 			Log.info("[CoronaTestService] Received test result from getTestResult: \(private: result)")
 			
