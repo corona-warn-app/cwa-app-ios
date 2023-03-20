@@ -13,10 +13,11 @@ class AppInformationViewController: DynamicTableViewController, NavigationBarOpa
 		elsService: ErrorLogSubmissionProviding,
 		finishedDeltaOnboardings: [String: [String]],
 		cclService: CCLServable,
-		isHibernationState: Bool? = CWAHibernationProvider.shared.isHibernationState
+		cwaHibernationProvider: CWAHibernationProvider = CWAHibernationProvider.shared
 	) {
 		self.cclService = cclService
 		self.finishedDeltaOnboardings = finishedDeltaOnboardings
+		self.cwaHibernationProvider = cwaHibernationProvider
 
 		self.model = [
 			.versionInfo: AppInformationCellModel(
@@ -48,27 +49,23 @@ class AppInformationViewController: DynamicTableViewController, NavigationBarOpa
 				text: AppStrings.AppInformation.legalNavigation,
 				accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.legalNavigation,
 				action: .push(model: AppInformationViewController.legalModel, separators: true, withTitle: AppStrings.AppInformation.legalNavigation)
-			)]
-		
-		if let hibernationState = isHibernationState, !hibernationState {
-			self.model[.contact] = AppInformationCellModel(
-			   text: AppStrings.AppInformation.contactNavigation,
-			   accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.contactNavigation,
-			   action: .push(model: AppInformationModel.contactModel, withTitle: AppStrings.AppInformation.contactNavigation)
-		    )
-			
-			self.model[.errorReport] = AppInformationCellModel(
+			),
+			.contact: AppInformationCellModel(
+				text: AppStrings.AppInformation.contactNavigation,
+				accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.contactNavigation,
+				action: .push(model: AppInformationModel.contactModel, withTitle: AppStrings.AppInformation.contactNavigation)
+			),
+			.errorReport: AppInformationCellModel(
 				text: AppStrings.ErrorReport.title,
 				accessibilityIdentifier: AccessibilityIdentifiers.ErrorReport.navigation,
 				action: .pushErrorLogsCoordinator(elsService: elsService)
+			),
+			.imprint: AppInformationCellModel(
+				text: AppStrings.AppInformation.imprintNavigation,
+				accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.imprintNavigation,
+				action: .push(model: imprintViewModel.dynamicTable, withTitle: AppStrings.AppInformation.imprintNavigation)
 			)
-		}
-
-		self.model[.imprint] = AppInformationCellModel(
-			text: AppStrings.AppInformation.imprintNavigation,
-			accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.imprintNavigation,
-			action: .push(model: imprintViewModel.dynamicTable, withTitle: AppStrings.AppInformation.imprintNavigation)
-		)
+		]
 		
 		super.init(nibName: nil, bundle: nil)
 	}
@@ -143,6 +140,20 @@ class AppInformationViewController: DynamicTableViewController, NavigationBarOpa
 		}
 	}
 	
+	override func tableView(_: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+		guard cwaHibernationProvider.isHibernationState else {
+			return UITableView.automaticDimension
+		}
+
+		switch Category(rawValue: indexPath.row) {
+			// Hibernation: hide the following cells
+		case .contact, .errorReport:
+			return 0
+		default:
+			return UITableView.automaticDimension
+		}
+	}
+	
 	// MARK: - Public
 	
 	// MARK: - Internal
@@ -169,6 +180,7 @@ class AppInformationViewController: DynamicTableViewController, NavigationBarOpa
 
 	private var cclService: CCLServable
 	private var finishedDeltaOnboardings: [String: [String]]
+	private let cwaHibernationProvider: CWAHibernationProvider
 	
 	private func footerView() -> UIView {
 		let versionLabel = ENALabel()
