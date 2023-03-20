@@ -2536,6 +2536,8 @@ class CoronaTestServiceTests: CWATestCase {
 		service.updateTestResult(for: .pcr) { result in
 			UserDefaults.standard.setValue(false, forKey: CWAHibernationProvider.isHibernationInUnitTest)
 			expectation.fulfill()
+
+		        // THEN
 			switch result {
 			case .failure:
 				XCTFail("This test should always return the latest test result before the request.")
