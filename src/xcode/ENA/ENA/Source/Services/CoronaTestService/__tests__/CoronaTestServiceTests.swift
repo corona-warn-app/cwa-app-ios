@@ -2532,6 +2532,7 @@ class CoronaTestServiceTests: CWATestCase {
 
 		let expectation = self.expectation(description: "Expect to receive a result.")
 
+		// WHEN
 		service.updateTestResult(for: .pcr) { result in
 			UserDefaults.standard.setValue(false, forKey: CWAHibernationProvider.isHibernationInUnitTest)
 			expectation.fulfill()
