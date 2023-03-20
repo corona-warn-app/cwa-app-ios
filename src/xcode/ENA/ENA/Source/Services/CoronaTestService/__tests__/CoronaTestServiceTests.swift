@@ -2492,7 +2492,7 @@ class CoronaTestServiceTests: CWATestCase {
 		UserDefaults.standard.setValue(true, forKey: CWAHibernationProvider.isHibernationInUnitTest)
 		let restServiceProvider = RestServiceProviderStub(results: [
 			.success(TestResultReceiveModel(testResult: TestResult.serverResponse(for: .positive, on: .pcr), sc: nil, labId: nil)),
-			.success(RegistrationTokenReceiveModel(submissionTAN: "fake"))
+			.success(RegistrationTokenReceiveModel(submissionTAN: "some-submission-tan"))
 		])
 
 		let store = MockTestStore()
