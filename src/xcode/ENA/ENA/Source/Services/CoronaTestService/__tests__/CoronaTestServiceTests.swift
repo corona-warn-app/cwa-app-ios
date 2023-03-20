@@ -2528,7 +2528,7 @@ class CoronaTestServiceTests: CWATestCase {
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
-		service.pcrTest.value = .mock(registrationToken: "regToken")
+		service.pcrTest.value = .mock(registrationToken: "some-registration-token")
 
 		let expectation = self.expectation(description: "Expect to receive a result.")
 
