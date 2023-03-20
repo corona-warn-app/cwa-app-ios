@@ -256,7 +256,12 @@ final class ENAExposureManager: NSObject, ExposureManager {
 	/// Asks user for permission to enable ExposureNotification and enables it, if the user grants permission
 	/// Expects the callee to invoke `ExposureManager.activate` prior to this function call
 	func enable(completion: @escaping CompletionHandler) {
-		changeEnabled(to: true, completion: completion)
+		if !CWAHibernationProvider.shared.isHibernationState {
+			changeEnabled(to: true, completion: completion)
+		} else {
+			// We do not return an error in Hibernation mode otherwise we show an error popup so we return nil instead
+			completion(nil)
+		}
 	}
 
 	/// Disables the ExposureNotification framework
