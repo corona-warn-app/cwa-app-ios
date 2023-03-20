@@ -2486,6 +2486,69 @@ class CoronaTestServiceTests: CWATestCase {
 			accuracy: 10
 		)
 	}
+	
+	func testUpdatePCRTestResult_EOL_success_WithPreviousState() {
+		// GIVEN
+		UserDefaults.standard.setValue(true, forKey: CWAHibernationProvider.isHibernationInUnitTest)
+		let restServiceProvider = RestServiceProviderStub(results: [
+			.success(TestResultReceiveModel(testResult: TestResult.serverResponse(for: .positive, on: .pcr), sc: nil, labId: nil)),
+			.success(RegistrationTokenReceiveModel(submissionTAN: "some-submission-tan"))
+		])
+
+		let store = MockTestStore()
+		let appConfiguration = CachedAppConfigurationMock()
+
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake(),
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
+		)
+
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "some-device-token")
+		let ppacService = PPACService(store: store, deviceCheck: deviceCheck)
+		
+		let service = CoronaTestService(
+			restServiceProvider: restServiceProvider,
+			store: store,
+			eventStore: MockEventStore(),
+			diaryStore: MockDiaryStore(),
+			appConfiguration: appConfiguration,
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
+				store: store,
+				restServiceProvider: RestServiceProviderStub(),
+				appConfiguration: appConfiguration,
+				healthCertificateService: healthCertificateService
+			),
+			ppacService: ppacService,
+			recycleBin: .fake(),
+			badgeWrapper: .fake()
+		)
+		service.pcrTest.value = .mock(registrationToken: "some-registration-token")
+
+		let expectation = self.expectation(description: "Expect to receive a result.")
+
+		// WHEN
+		service.updateTestResult(for: .pcr) { result in
+			UserDefaults.standard.setValue(false, forKey: CWAHibernationProvider.isHibernationInUnitTest)
+			expectation.fulfill()
+
+		        // THEN
+			switch result {
+			case .failure:
+				XCTFail("This test should always return the latest test result before the request.")
+			case .success(let testResult):
+				XCTAssertEqual(testResult, TestResult.pending)
+				
+			}
+		}
+
+		waitForExpectations(timeout: .short)
+	}
 
 	func testUpdateAntigenTestResult_success() {
 		let restServiceProvider = RestServiceProviderStub(results: [
