@@ -9,6 +9,7 @@ import ExposureNotification
 class ExposureManagerTests: CWATestCase {
 	
 	func testRequestEnableUserPermission_EOL_noError() {
+                // GIVEN
 		UserDefaults.standard.setValue(true, forKey: CWAHibernationProvider.isHibernationInUnitTest)
 		let managerSpy = ManagerSpy()
 		let exposureManager = ENAExposureManager(manager: managerSpy)
