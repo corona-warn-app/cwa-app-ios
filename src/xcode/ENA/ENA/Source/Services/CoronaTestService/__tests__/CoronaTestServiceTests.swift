@@ -2508,7 +2508,7 @@ class CoronaTestServiceTests: CWATestCase {
 			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 
-		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "SomeToken")
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "some-device-token")
 		let ppacService = PPACService(store: store, deviceCheck: deviceCheck)
 		
 		let service = CoronaTestService(
