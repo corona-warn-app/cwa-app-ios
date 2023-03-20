@@ -2536,9 +2536,8 @@ class CoronaTestServiceTests: CWATestCase {
 			expectation.fulfill()
 			switch result {
 			case .failure:
-				XCTFail("This test should always return a successful result.")
-			case .success(let testResult):
 				XCTFail("This test should always return the latest test result before the request.")
+			case .success(let testResult):
 				XCTAssertEqual(testResult, TestResult.pending)
 				
 			}
