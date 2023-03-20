@@ -19,8 +19,19 @@ class RecycleBinViewModel {
 		self.onOverwrite = onOverwrite
 
 		store.recycleBinItemsSubject
-			.sink { [weak self] in
-				self?.recycleBinItems = $0
+			.sink { [weak self] recycleBinItems in
+				var items = recycleBinItems
+				// If we are in Hibernation we filter the Recycle bin items from user and family tests. i.e return only certificates
+				if CWAHibernationProvider.shared.isHibernationState {
+					items = recycleBinItems.filter({
+						if case .certificate = $0.item {
+							return true
+						}
+						return false
+					})
+				}
+				// now we store the sorted filtered items
+				self?.recycleBinItems = items
 					.sorted {
 						$0.recycledAt > $1.recycledAt
 					}
