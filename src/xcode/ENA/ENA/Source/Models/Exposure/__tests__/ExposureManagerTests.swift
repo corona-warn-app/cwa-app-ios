@@ -14,8 +14,11 @@ class ExposureManagerTests: CWATestCase {
 		let exposureManager = ENAExposureManager(manager: managerSpy)
 		let expectation = expectation(description: "Risk permission in EOl should return nil")
 	
+                // WHEN
 		exposureManager.enable { error in
 			UserDefaults.standard.setValue(false, forKey: CWAHibernationProvider.isHibernationInUnitTest)
+			
+			// THEN
 			XCTAssertNil(error)
 			expectation.fulfill()
 		}
