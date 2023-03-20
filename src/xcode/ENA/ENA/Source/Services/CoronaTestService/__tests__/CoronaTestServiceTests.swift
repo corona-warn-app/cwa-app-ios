@@ -2488,6 +2488,7 @@ class CoronaTestServiceTests: CWATestCase {
 	}
 	
 	func testUpdatePCRTestResult_EOL_success_WithPreviousState() {
+		// GIVEN
 		UserDefaults.standard.setValue(true, forKey: CWAHibernationProvider.isHibernationInUnitTest)
 		let restServiceProvider = RestServiceProviderStub(results: [
 			.success(TestResultReceiveModel(testResult: TestResult.serverResponse(for: .positive, on: .pcr), sc: nil, labId: nil)),
