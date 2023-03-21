@@ -234,6 +234,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			healthCertificateService.healthCertifiedPersons.forEach { healthCertifiedPerson in
 				healthCertifiedPerson.dccWalletInfo = nil
 			}
+			DeadmanNotificationManager().resetDeadmanNotification()
+			UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+			disableExposureNotification()
+			
 		} else {
 			healthCertificateService.updateDCCWalletInfosIfNeeded()
 		}
