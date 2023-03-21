@@ -186,6 +186,10 @@ class LocalStatisticsProvider: LocalStatisticsProviding {
 		store: LocalStatisticsCaching,
 		groupID: StatisticsGroupIdentifier
 	) -> Bool {
+		guard !CWAHibernationProvider.shared.isHibernationState else {
+			return false
+		}
+		
 		guard let localStatistics = self.store.localStatistics.first(where: { $0.groupID == groupID }) else {
 			return true
 		}

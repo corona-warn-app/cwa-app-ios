@@ -124,6 +124,11 @@ class HomeState: ENStateHandlerUpdating {
 	}
 
 	func updateStatistics() {
+		// Hibernation
+		guard !CWAHibernationProvider.shared.isHibernationState else {
+			return
+		}
+		
 		statisticsProvider.statistics()
 			.sink(
 				receiveCompletion: { [weak self] result in
