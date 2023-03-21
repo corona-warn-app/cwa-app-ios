@@ -13,7 +13,7 @@ struct DeltaOnboardingNewVersionFeaturesViewModel {
 		
 		// ADD NEW FEATURES HERE
 		
-		self.featureVersion = "3.1"
+		self.featureVersion = "3.2"
 		self.finishedDeltaOnboarding = finishedDeltaOnboardings
 	}
 
