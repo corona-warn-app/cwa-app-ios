@@ -137,7 +137,6 @@ class RiskProviderTests: CWATestCase {
 		consumer.didCalculateRisk = { calculatedRisk in
 			risk = calculatedRisk
 			didCalculateRiskExpectation.fulfill()
-			UserDefaults.standard.setValue(false, forKey: CWAHibernationProvider.isHibernationInUnitTest)
 		}
 		
 		riskProvider.observeRisk(consumer)
@@ -150,8 +149,9 @@ class RiskProviderTests: CWATestCase {
 		
 		waitForExpectations(timeout: .long)
 		XCTAssertNil(risk, "Risk should not be calculated so the object should remain nil")
-		
+		UserDefaults.standard.setValue(false, forKey: CWAHibernationProvider.isHibernationInUnitTest)
 	}
+	
 	func testGIVEN_RiskCalculation_WHEN_ENFRiskLowAndCheckinRiskHigh_THEN_RiskConsumerReturnsRiskHigh() {
 		// GIVEN
 		let store = MockTestStore()
