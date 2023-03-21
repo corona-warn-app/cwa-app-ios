@@ -137,6 +137,7 @@ class RiskProviderTests: CWATestCase {
 		consumer.didCalculateRisk = { calculatedRisk in
 			risk = calculatedRisk
 			didCalculateRiskExpectation.fulfill()
+			UserDefaults.standard.setValue(false, forKey: CWAHibernationProvider.isHibernationInUnitTest)
 		}
 		
 		riskProvider.observeRisk(consumer)

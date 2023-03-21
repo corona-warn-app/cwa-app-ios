@@ -86,7 +86,7 @@ final class RiskProvider: RiskProviding {
 		}
 		#endif
 
-		if CWAHibernationProvider.shared.isHibernationState {
+		guard !CWAHibernationProvider.shared.isHibernationState else {
 			Log.info("RiskProvider: Request risk was Not called because of EOL state. UserInitiated: \(userInitiated)", log: .riskDetection)
 			return
 		}
