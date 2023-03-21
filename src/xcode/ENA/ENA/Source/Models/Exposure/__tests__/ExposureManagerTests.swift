@@ -7,6 +7,25 @@ import ExposureNotification
 @testable import ENA
 
 class ExposureManagerTests: CWATestCase {
+	
+	func testRequestEnableUserPermission_EOL_noError() {
+                // GIVEN
+		UserDefaults.standard.setValue(true, forKey: CWAHibernationProvider.isHibernationInUnitTest)
+		let managerSpy = ManagerSpy()
+		let exposureManager = ENAExposureManager(manager: managerSpy)
+		let expectation = expectation(description: "Risk permission in EOl should return nil")
+	
+                // WHEN
+		exposureManager.enable { error in
+			UserDefaults.standard.setValue(false, forKey: CWAHibernationProvider.isHibernationInUnitTest)
+			
+			// THEN
+			XCTAssertNil(error)
+			expectation.fulfill()
+		}
+		waitForExpectations(timeout: .medium)
+		
+	}
 
 	func test_GIVEN_RunningDetection_When_StartNewDetection_Then_SameProgressReturned() {
 		let managerSpy = ManagerSpy()
