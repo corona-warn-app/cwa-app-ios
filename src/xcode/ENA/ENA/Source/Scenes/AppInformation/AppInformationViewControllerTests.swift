@@ -29,20 +29,6 @@ class AppInformationViewControllerTests: XCTestCase {
 		fakeCCSService = nil
     }
 
-	func testModel_WHEN_modelEntriesInHibernation_THEN_equalCount() throws {
-		// GIVEN
-		let store = MockTestStore()
-		let sut = AppInformationViewController(
-			elsService: errorLogSubmissionProvidingMock,
-			finishedDeltaOnboardings: store.finishedDeltaOnboardings,
-			cclService: fakeCCSService,
-			isHibernationState: true
-		)
-
-		// THEN
-		XCTAssertEqual(sut.model.count, 7)
-	}
-	
     func testModel_WHEN_modelEntries_THEN_equalCategoryCount() throws {
 		// WHEN
 		let modelEntriesCount = sut.model.count
@@ -50,4 +36,68 @@ class AppInformationViewControllerTests: XCTestCase {
         // THEN
 		XCTAssertEqual(modelEntriesCount, AppInformationViewController.Category.allCases.count)
     }
+	
+	func testHeightForRowAt_shouldShowAllCategories() {
+		// GIVEN
+		let mockCWAHibernationProvider = MockCWAHibernationProvider()
+		mockCWAHibernationProvider.isHibernationStateToReturn = false
+		let mockTestStore = MockTestStore()
+		let sut = AppInformationViewController(
+			elsService: errorLogSubmissionProvidingMock,
+			finishedDeltaOnboardings: mockTestStore.finishedDeltaOnboardings,
+			cclService: fakeCCSService,
+			cwaHibernationProvider: mockCWAHibernationProvider
+		)
+		
+		AppInformationViewController.Category.allCases.forEach { category in
+
+			// WHEN
+			let heightForRow = sut.tableView(
+				sut.tableView,
+				heightForRowAt: IndexPath(
+					row: category.rawValue,
+					section: 0
+				)
+			)
+
+			// THEN
+			switch category {
+			case .about, .accessibility, .contact, .errorReport, .imprint, .legal, .privacy, .terms, .versionInfo:
+				XCTAssertEqual(heightForRow, UITableView.automaticDimension)
+			}
+		}
+	}
+	
+	func testHeightForRowAt_EOL_shouldHideSomeCategories() {
+		// GIVEN
+		let mockCWAHibernationProvider = MockCWAHibernationProvider()
+		mockCWAHibernationProvider.isHibernationStateToReturn = true
+		let mockTestStore = MockTestStore()
+		let sut = AppInformationViewController(
+			elsService: errorLogSubmissionProvidingMock,
+			finishedDeltaOnboardings: mockTestStore.finishedDeltaOnboardings,
+			cclService: fakeCCSService,
+			cwaHibernationProvider: mockCWAHibernationProvider
+		)
+		
+		AppInformationViewController.Category.allCases.forEach { category in
+
+			// WHEN
+			let heightForRow = sut.tableView(
+				sut.tableView,
+				heightForRowAt: IndexPath(
+					row: category.rawValue,
+					section: 0
+				)
+			)
+
+			// THEN
+			switch category {
+			case .contact, .errorReport:
+				XCTAssertEqual(heightForRow, 0)
+			case .about, .accessibility, .imprint, .legal, .privacy, .terms, .versionInfo:
+				XCTAssertEqual(heightForRow, UITableView.automaticDimension)
+			}
+		}
+	}
 }
