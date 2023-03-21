@@ -86,6 +86,72 @@ class RiskProviderTests: CWATestCase {
 		
 	}
 	
+	func testGIVEN_RiskCalculation_WHEN_ENFRiskHighAndCheckinRiskLow_THEN_RiskConsumerReturnsRiskHigh_EOL() {
+		// GIVEN
+		UserDefaults.standard.setValue(true, forKey: CWAHibernationProvider.isHibernationInUnitTest)
+		let store = MockTestStore()
+
+		let duration = DateComponents(day: 1)
+		
+		store.enfRiskCalculationResult = nil
+		
+		let config = RiskProvidingConfiguration(
+			exposureDetectionValidityDuration: duration,
+			exposureDetectionInterval: duration
+		)
+		let exposureDetectionDelegateStub = ExposureDetectionDelegateStub(result: .success([MutableENExposureWindow()]))
+		
+		let cachedAppConfig = CachedAppConfigurationMock(with: SAP_Internal_V2_ApplicationConfigurationIOS())
+		
+		let eventStore = MockEventStore()
+		let traceWarningPackageDownload = TraceWarningPackageDownload(
+			restServiceProvider: RestServiceProviderStub(),
+			store: store,
+			eventStore: eventStore
+		)
+		let today = Calendar.utcCalendar.startOfDay(for: Date())
+		let riskLevelPerDateENF = [today: RiskLevel.high]
+		let riskLevelPerDateCheckin = [today: RiskLevel.low]
+		
+		let riskProvider = RiskProvider(
+			configuration: config,
+			store: store,
+			appConfigurationProvider: cachedAppConfig,
+			exposureManagerState: .init(authorized: true, enabled: true, status: .active),
+			enfRiskCalculation: ENFRiskCalculationFake(riskLevelPerDate: riskLevelPerDateENF),
+			checkinRiskCalculation: CheckinRiskCalculationFake(riskLevelPerDate: riskLevelPerDateCheckin),
+			keyPackageDownload: makeKeyPackageDownloadMock(with: store),
+			traceWarningPackageDownload: traceWarningPackageDownload,
+			exposureDetectionExecutor: exposureDetectionDelegateStub,
+			coronaTestService: MockCoronaTestService(),
+			downloadedPackagesStore: DownloadedPackagesSQLLiteStore.inMemory()
+		)
+		
+		let consumer = RiskConsumer()
+		
+		let didCalculateRiskExpectation = expectation(description: "expect didCalculateRisk Nol to be called")
+		didCalculateRiskExpectation.isInverted = true
+		
+		
+		var risk: Risk?
+		consumer.didCalculateRisk = { calculatedRisk in
+			risk = calculatedRisk
+			didCalculateRiskExpectation.fulfill()
+		}
+		
+		riskProvider.observeRisk(consumer)
+		
+		// WHEN
+		
+		riskProvider.requestRisk(userInitiated: true)
+		
+		// THEN
+		
+		waitForExpectations(timeout: .long)
+		XCTAssertNil(risk, "Risk should not be calculated so the object should remain nil")
+		UserDefaults.standard.setValue(false, forKey: CWAHibernationProvider.isHibernationInUnitTest)
+	}
+	
 	func testGIVEN_RiskCalculation_WHEN_ENFRiskLowAndCheckinRiskHigh_THEN_RiskConsumerReturnsRiskHigh() {
 		// GIVEN
 		let store = MockTestStore()
