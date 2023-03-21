@@ -40,6 +40,12 @@ class LocalStatisticsProvider: LocalStatisticsProviding {
 	}
 
 	func updateLocalStatistics(completion: ((Result<Void, Error>) -> Void)? = nil) {
+		guard !CWAHibernationProvider.shared.isHibernationState else {
+			Log.info("\(#function) will not execute in hibernation state.")
+			completion?(.success(()))
+			return
+		}
+		
 		let fetchedLocalStatisticsQueue = DispatchQueue(label: "com.sap.LocalStatisticsProvider.fetchedLocalStatistics")
 
 		var _fetchedLocalStatistics = [LocalStatisticsMetadata]()
