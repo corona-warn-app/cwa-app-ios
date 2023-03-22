@@ -106,6 +106,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		viewModel.cclService.shouldShowNoticeTile
 			.receive(on: DispatchQueue.OCombine(.main))
 			.sink { [weak self] shouldShowNoticeTile in
+				self?.viewModel.isHibernationState = CWAHibernationProvider.shared.isHibernationState
 				self?.viewModel.shouldShowAppClosureNotice = shouldShowNoticeTile
 				self?.tableView.reloadSections(
 					[
