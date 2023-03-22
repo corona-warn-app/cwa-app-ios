@@ -40,6 +40,7 @@ class LocalStatisticsProvider: LocalStatisticsProviding {
 	}
 
 	func updateLocalStatistics(completion: ((Result<Void, Error>) -> Void)? = nil) {
+		// Hibernation
 		guard !CWAHibernationProvider.shared.isHibernationState else {
 			Log.info("\(#function) will not execute in hibernation state.")
 			completion?(.success(()))
