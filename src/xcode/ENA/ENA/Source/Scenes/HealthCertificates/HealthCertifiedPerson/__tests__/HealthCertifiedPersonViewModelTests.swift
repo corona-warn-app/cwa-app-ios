@@ -402,6 +402,43 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 		XCTAssertEqual(viewModel.numberOfItems(in: .boosterNotification), 0)
 	}
 	
+	func testGIVEN_HealthCertifiedPersonViewModel_WHEN_EOL_THEN_BoosterCellIsNotVisible() {
+		// GIVEN
+		UserDefaults.standard.setValue(true, forKey: CWAHibernationProvider.isHibernationInUnitTest)
+		let cclService = FakeCCLService()
+		let service = HealthCertificateService(
+			store: MockTestStore(),
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: CachedAppConfigurationMock(),
+			cclService: cclService,
+			recycleBin: .fake(),
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
+		)
+		
+		let viewModel = HealthCertifiedPersonViewModel(
+			cclService: cclService,
+			healthCertificateService: service,
+			healthCertifiedPerson: HealthCertifiedPerson(
+				healthCertificates: [HealthCertificate.mock()],
+				dccWalletInfo: .fake(
+					boosterNotification: .fake(visible: true)
+				)
+			),
+			healthCertificateValueSetsProvider: VaccinationValueSetsProvider(client: CachingHTTPClientMock(), store: MockTestStore()),
+			dismiss: {},
+			didTapBoosterNotification: { _ in },
+			didTapValidationButton: { _, _ in },
+			showInfoHit: { },
+			didTapCertificateReissuance: { _ in }
+		)
+		
+		// THEN
+		XCTAssertEqual(viewModel.numberOfItems(in: .boosterNotification), 0)
+		UserDefaults.standard.setValue(false, forKey: CWAHibernationProvider.isHibernationInUnitTest)
+	}
+	
+
 	func testGIVEN_HealthCertifiedPersonViewModel_WHEN_VaccinationStateIsSetToVisible_THEN_CellIsVisible() {
 		// GIVEN
 		let cclService = FakeCCLService()
