@@ -106,6 +106,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		viewModel.cclService.shouldShowNoticeTile
 			.receive(on: DispatchQueue.OCombine(.main))
 			.sink { [weak self] shouldShowNoticeTile in
+				self?.viewModel.isHibernationState = CWAHibernationProvider.shared.isHibernationState
 				self?.viewModel.shouldShowAppClosureNotice = shouldShowNoticeTile
 				self?.tableView.reloadSections(
 					[
@@ -1000,6 +1001,12 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 	}
 
 	private func showQRScannerTooltipIfNeeded(completion: @escaping () -> Void = {}) {
+		// Hibernation
+		guard !CWAHibernationProvider.shared.isHibernationState else {
+			completion()
+			return
+		}
+
 		guard viewModel.store.shouldShowQRScannerTooltip,
 			let tabBar = tabBarController?.tabBar else {
 			completion()
