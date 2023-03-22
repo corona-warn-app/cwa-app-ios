@@ -193,7 +193,9 @@ class LocalStatisticsProvider: LocalStatisticsProviding {
 		store: LocalStatisticsCaching,
 		groupID: StatisticsGroupIdentifier
 	) -> Bool {
+		// Hibernation
 		guard !CWAHibernationProvider.shared.isHibernationState else {
+			Log.info("\(#function) will not execute in hibernation state.")
 			return false
 		}
 		
