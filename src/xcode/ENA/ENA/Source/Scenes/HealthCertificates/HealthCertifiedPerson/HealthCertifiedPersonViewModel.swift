@@ -149,7 +149,10 @@ final class HealthCertifiedPersonViewModel {
 	}
 
 	var boosterNotificationIsVisible: Bool {
-		healthCertifiedPerson.dccWalletInfo?.boosterNotification.visible ?? false
+		guard !CWAHibernationProvider.shared.isHibernationState else {
+			return false
+		}
+		return healthCertifiedPerson.dccWalletInfo?.boosterNotification.visible ?? false
 	}
 
 	var vaccinationStateIsVisible: Bool {
