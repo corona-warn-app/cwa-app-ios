@@ -1000,6 +1000,12 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 	}
 
 	private func showQRScannerTooltipIfNeeded(completion: @escaping () -> Void = {}) {
+		// Hibernation
+		guard !CWAHibernationProvider.shared.isHibernationState else {
+			completion()
+			return
+		}
+
 		guard viewModel.store.shouldShowQRScannerTooltip,
 			let tabBar = tabBarController?.tabBar else {
 			completion()
