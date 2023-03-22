@@ -126,6 +126,7 @@ class HomeState: ENStateHandlerUpdating {
 	func updateStatistics() {
 		// Hibernation
 		guard !CWAHibernationProvider.shared.isHibernationState else {
+			Log.info("\(#function) will not execute in hibernation state.")
 			return
 		}
 		
