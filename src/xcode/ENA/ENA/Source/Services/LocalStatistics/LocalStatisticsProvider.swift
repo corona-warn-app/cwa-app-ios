@@ -40,6 +40,13 @@ class LocalStatisticsProvider: LocalStatisticsProviding {
 	}
 
 	func updateLocalStatistics(completion: ((Result<Void, Error>) -> Void)? = nil) {
+		// Hibernation
+		guard !CWAHibernationProvider.shared.isHibernationState else {
+			Log.info("\(#function) will not execute in hibernation state.")
+			completion?(.success(()))
+			return
+		}
+		
 		let fetchedLocalStatisticsQueue = DispatchQueue(label: "com.sap.LocalStatisticsProvider.fetchedLocalStatistics")
 
 		var _fetchedLocalStatistics = [LocalStatisticsMetadata]()
@@ -186,6 +193,12 @@ class LocalStatisticsProvider: LocalStatisticsProviding {
 		store: LocalStatisticsCaching,
 		groupID: StatisticsGroupIdentifier
 	) -> Bool {
+		// Hibernation
+		guard !CWAHibernationProvider.shared.isHibernationState else {
+			Log.info("\(#function) will not execute in hibernation state.")
+			return false
+		}
+		
 		guard let localStatistics = self.store.localStatistics.first(where: { $0.groupID == groupID }) else {
 			return true
 		}
