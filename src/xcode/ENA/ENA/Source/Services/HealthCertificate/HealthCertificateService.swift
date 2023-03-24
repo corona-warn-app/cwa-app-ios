@@ -34,7 +34,8 @@ class HealthCertificateService: HealthCertificateServiceServable {
 		notificationCenter: UserNotificationCenter = UNUserNotificationCenter.current(),
 		cclService: CCLServable,
 		recycleBin: RecycleBin,
-		revocationProvider: RevocationProviding
+		revocationProvider: RevocationProviding,
+		cwaHibernationProvider: CWAHibernationProvider = .shared
 	) {
 		#if DEBUG
 		if isUITesting {
@@ -53,6 +54,7 @@ class HealthCertificateService: HealthCertificateServiceServable {
 			self.cclService = cclService
 			self.recycleBin = recycleBin
 			self.revocationProvider = revocationProvider
+			self.cwaHibernationProvider = cwaHibernationProvider
 
 			return
 		}
@@ -677,6 +679,7 @@ class HealthCertificateService: HealthCertificateServiceServable {
 	private let recycleBin: RecycleBin
 	private let cclService: CCLServable
 	private let revocationProvider: RevocationProviding
+	private let cwaHibernationProvider: cwaHibernationProvider
 
 	private let setupQueue = DispatchQueue(label: "com.sap.HealthCertificateService.setup")
 	private let healthCertifiedPersonsQueue = DispatchQueue(label: "com.sap.HealthCertificateService.healthCertifiedPersons")
@@ -861,6 +864,11 @@ class HealthCertificateService: HealthCertificateServiceServable {
 	}
 	
 	private func updateValidityState(for healthCertificate: HealthCertificate, person: HealthCertifiedPerson) {
+		guard !cwaHibernationProvider.shared.isHibernationState else {
+			healthCertificate.validityState = .valid
+			return
+		}
+
 		let previousValidityState = healthCertificate.validityState
 
 		if revocationProvider.isRevokedFromRevocationList(healthCertificate: healthCertificate) {
