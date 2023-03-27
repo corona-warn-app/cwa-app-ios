@@ -118,6 +118,7 @@ final class HealthCertificateCoordinator {
 			secondaryButtonName: AppStrings.HealthCertificate.Details.moreButtonTitle,
 			isPrimaryButtonEnabled: true,
 			isSecondaryButtonEnabled: true,
+			isPrimaryButtonHidden: CWAHibernationProvider.shared.isHibernationState,
 			isSecondaryButtonHidden: false,
 			primaryButtonInverted: false,
 			secondaryButtonInverted: true,
