@@ -861,6 +861,12 @@ class HealthCertificateService: HealthCertificateServiceServable {
 	}
 	
 	private func updateValidityState(for healthCertificate: HealthCertificate, person: HealthCertifiedPerson) {
+		guard !CWAHibernationProvider.shared.isHibernationState else {
+			// In hibernation we set the validity state of any health certificate to valid.
+			healthCertificate.validityState = .valid
+			return
+		}
+
 		let previousValidityState = healthCertificate.validityState
 
 		if revocationProvider.isRevokedFromRevocationList(healthCertificate: healthCertificate) {
