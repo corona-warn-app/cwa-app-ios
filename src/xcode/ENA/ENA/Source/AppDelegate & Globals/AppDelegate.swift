@@ -797,6 +797,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		)
 	}()
 
+	private func applyEndOfLifeChanges() {
+		// Clear ddc Wallet cache
+		healthCertificateService.healthCertifiedPersons.forEach { healthCertifiedPerson in
+			healthCertifiedPerson.dccWalletInfo = nil
+		}
+		
+		// Clear all notifications including deadman notification
+		UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+		
+		// Disable ExposureNotification
+		disableExposureNotification()
+		
+		// Stop and delete error logging.
+		try? elsService.stopAndDeleteLog()
+		
+		Log.debug("App entered EndofLife stage...")
+	}
+	
 	/// - Parameter launchOptions: Launch options passed on app launch
 	/// - Returns: `true` if `launchOptions` contains user activity of type `NSUserActivityTypeBrowsingWeb`, returns `false` otherwhise.
 	private func appLaunchedFromUserActicityURL(_ launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
