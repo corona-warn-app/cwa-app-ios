@@ -220,13 +220,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		healthCertificateService.updateValidityStatesAndNotifications(completion: { })
 		
 		if CWAHibernationProvider.shared.isHibernationState {
-			healthCertificateService.healthCertifiedPersons.forEach { healthCertifiedPerson in
-				healthCertifiedPerson.dccWalletInfo = nil
-			}
-			DeadmanNotificationManager().resetDeadmanNotification()
-			UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
-			disableExposureNotification()
-			
+			applyEndOfLifeChanges()
 		} else {
 			healthCertificateService.updateDCCWalletInfosIfNeeded()
 		}
