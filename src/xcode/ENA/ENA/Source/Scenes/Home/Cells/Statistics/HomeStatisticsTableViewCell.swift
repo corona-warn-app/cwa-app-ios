@@ -31,22 +31,24 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 	override func layoutSubviews() {
 		super.layoutSubviews()
 
-		if !wasAlreadyShown {
-			scrollView.scrollRectToVisible(stackView.arrangedSubviews[safe: 1]?.frame ?? .zero, animated: true)
-		}
-		// Scroll to first statistics card initially if local statistics exist, and when entering/leaving edit mode
-		if let cellModel = cellModel, !cellModel.regionStatisticsData.isEmpty,
-			scrollView.bounds.origin.x == 0,
-			let firstStatisticsCard = stackView.arrangedSubviews[safe: 1],
-			let secondStatisticsCard = stackView.arrangedSubviews[safe: 2] {
-			DispatchQueue.main.async { [weak self] in
-				var animated = false
-				if #available(iOS 13.0, *) {
-					animated = true
+		if !CWAHibernationProvider.shared.isHibernationState {
+			if !wasAlreadyShown {
+				scrollView.scrollRectToVisible(stackView.arrangedSubviews[safe: 1]?.frame ?? .zero, animated: true)
+			}
+			// Scroll to first statistics card initially if local statistics exist, and when entering/leaving edit mode
+			if let cellModel = cellModel, !cellModel.regionStatisticsData.isEmpty,
+				scrollView.bounds.origin.x == 0,
+				let firstStatisticsCard = stackView.arrangedSubviews[safe: 1],
+				let secondStatisticsCard = stackView.arrangedSubviews[safe: 2] {
+				DispatchQueue.main.async { [weak self] in
+					var animated = false
+					if #available(iOS 13.0, *) {
+						animated = true
+					}
+					let shouldScrollToLocalStatistics = HomeStatisticsTableViewCell.editingStatistics || cellModel.hasNewRegion
+					self?.scrollView.scrollRectToVisible(shouldScrollToLocalStatistics ? secondStatisticsCard.frame : firstStatisticsCard.frame, animated: animated)
+					self?.wasAlreadyShown = true
 				}
-				let shouldScrollToLocalStatistics = HomeStatisticsTableViewCell.editingStatistics || cellModel.hasNewRegion
-				self?.scrollView.scrollRectToVisible(shouldScrollToLocalStatistics ? secondStatisticsCard.frame : firstStatisticsCard.frame, animated: animated)
-				self?.wasAlreadyShown = true
 			}
 		}
 	}
@@ -54,11 +56,13 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 	override func setEditing(_ editing: Bool, animated: Bool) {
 		super.setEditing(editing, animated: animated)
 
-		Self.editingStatistics = editing
-		
-		stackView.arrangedSubviews.forEach { view in
-			let card = view as? HomeStatisticsCardView
-			card?.setEditMode(editing, animated: animated)
+		if !CWAHibernationProvider.shared.isHibernationState {
+			Self.editingStatistics = editing
+			
+			stackView.arrangedSubviews.forEach { view in
+				let card = view as? HomeStatisticsCardView
+				card?.setEditMode(editing, animated: animated)
+			}
 		}
 	}
 
