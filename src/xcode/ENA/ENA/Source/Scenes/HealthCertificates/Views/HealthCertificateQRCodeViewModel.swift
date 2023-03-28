@@ -32,7 +32,7 @@ struct HealthCertificateQRCodeViewModel {
 	init(
 		base45: Base45,
 		shouldBlockCertificateCode: Bool,
-		shouldHideCovPassNotice: Bool,
+		shouldHideCovPassNotice: Bool = false
 		imageAccessibilityTraits: UIAccessibilityTraits,
 		accessibilityLabel: String,
 		qrCodeAccessibilityIdentifier: String,
