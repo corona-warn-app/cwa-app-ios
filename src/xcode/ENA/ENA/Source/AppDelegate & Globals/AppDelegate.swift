@@ -243,7 +243,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 
 	func applicationDidBecomeActive(_ application: UIApplication) {
 		Log.info("Application did become active.", log: .appLifecycle)
-
+		
+		if CWAHibernationProvider.shared.isHibernationState {
+			applyEndOfLifeChanges()
+		}
+		
 		// If the UI was not setup before, and the app was NOT started from an user activity,
 		// 'applicationDidBecomeActive' is the last delegate callback and needs to build up the UI.
 		if !didSetupUI && !appLaunchedFromUserActivityURL {
