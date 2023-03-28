@@ -189,18 +189,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		NotificationCenter.default.addObserver(self, selector: #selector(isOnboardedDidChange(_:)), name: .isOnboardedDidChange, object: nil)
 		NotificationCenter.default.addObserver(self, selector: #selector(backgroundRefreshStatusDidChange), name: UIApplication.backgroundRefreshStatusDidChangeNotification, object: nil)
 	
-		// Hibernation
-		if CWAHibernationProvider.shared.isHibernationState {
-			// Stop and delete error logging.
-			try? elsService.stopAndDeleteLog()
-
-			// Disable Exposure Notification (ENF)
-			disableExposureNotification()
-			
-			// cancel pending notifications
-			UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
-		} else {
-			
+		if !CWAHibernationProvider.shared.isHibernationState {
 			// Observe Exposure Notification (ENF)
 			exposureManager.observeExposureNotificationStatus(observer: self)
 		}
