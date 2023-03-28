@@ -32,6 +32,7 @@ struct HealthCertificateQRCodeViewModel {
 	init(
 		base45: Base45,
 		shouldBlockCertificateCode: Bool,
+		shouldHideCovPassNotice: Bool = false
 		imageAccessibilityTraits: UIAccessibilityTraits,
 		accessibilityLabel: String,
 		qrCodeAccessibilityIdentifier: String,
@@ -39,7 +40,7 @@ struct HealthCertificateQRCodeViewModel {
 		onCovPassCheckInfoButtonTap: @escaping () -> Void
 	) {
 		self.shouldBlockCertificateCode = shouldBlockCertificateCode
-		self.shouldHideCovPassNotice = false
+		self.shouldHideCovPassNotice = shouldHideCovPassNotice
 		self.imageAccessibilityTraits = imageAccessibilityTraits
 		self.accessibilityLabel = accessibilityLabel
 		self.qrCodeAccessibilityIdentifier = qrCodeAccessibilityIdentifier
