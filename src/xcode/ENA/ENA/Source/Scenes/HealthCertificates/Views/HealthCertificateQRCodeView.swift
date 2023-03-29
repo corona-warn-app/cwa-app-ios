@@ -46,7 +46,7 @@ class HealthCertificateQRCodeView: UIView {
 		qrCodeImageView.accessibilityLabel = viewModel.accessibilityLabel
 		qrCodeImageView.accessibilityIdentifier = viewModel.qrCodeAccessibilityIdentifier
 		blockingView.isHidden = !viewModel.shouldBlockCertificateCode
-		covPassCheckInfoStackView.isHidden = viewModel.shouldBlockCertificateCode
+		covPassCheckInfoStackView.isHidden = viewModel.shouldBlockCertificateCode || viewModel.shouldHideCovPassNotice
 		onCovPassCheckInfoButtonTap = viewModel.onCovPassCheckInfoButtonTap
 
 		subscriptions.removeAll()
