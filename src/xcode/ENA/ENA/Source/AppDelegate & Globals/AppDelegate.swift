@@ -189,18 +189,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		NotificationCenter.default.addObserver(self, selector: #selector(isOnboardedDidChange(_:)), name: .isOnboardedDidChange, object: nil)
 		NotificationCenter.default.addObserver(self, selector: #selector(backgroundRefreshStatusDidChange), name: UIApplication.backgroundRefreshStatusDidChangeNotification, object: nil)
 	
-		// Hibernation
-		if CWAHibernationProvider.shared.isHibernationState {
-			// Stop and delete error logging.
-			try? elsService.stopAndDeleteLog()
-
-			// Disable Exposure Notification (ENF)
-			disableExposureNotification()
-			
-			// cancel pending notifications
-			UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
-		} else {
-			
+		if !CWAHibernationProvider.shared.isHibernationState {
 			// Observe Exposure Notification (ENF)
 			exposureManager.observeExposureNotificationStatus(observer: self)
 		}
@@ -231,13 +220,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		healthCertificateService.updateValidityStatesAndNotifications(completion: { })
 		
 		if CWAHibernationProvider.shared.isHibernationState {
-			healthCertificateService.healthCertifiedPersons.forEach { healthCertifiedPerson in
-				healthCertifiedPerson.dccWalletInfo = nil
-			}
-			DeadmanNotificationManager().resetDeadmanNotification()
-			UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
-			disableExposureNotification()
-			
+			applyEndOfLifeChanges()
 		} else {
 			healthCertificateService.updateDCCWalletInfosIfNeeded()
 		}
@@ -254,7 +237,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 
 	func applicationDidBecomeActive(_ application: UIApplication) {
 		Log.info("Application did become active.", log: .appLifecycle)
-
+		
+		if CWAHibernationProvider.shared.isHibernationState {
+			applyEndOfLifeChanges()
+		}
+		
 		// If the UI was not setup before, and the app was NOT started from an user activity,
 		// 'applicationDidBecomeActive' is the last delegate callback and needs to build up the UI.
 		if !didSetupUI && !appLaunchedFromUserActivityURL {
@@ -810,6 +797,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		)
 	}()
 
+	private func applyEndOfLifeChanges() {
+		// Clear ddc Wallet cache
+		healthCertificateService.healthCertifiedPersons.forEach { healthCertifiedPerson in
+			healthCertifiedPerson.dccWalletInfo = nil
+		}
+		
+		// Clear all notifications including deadman notification
+		UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+		
+		// Disable ExposureNotification
+		disableExposureNotification()
+		
+		// Stop and delete error logging.
+		try? elsService.stopAndDeleteLog()
+		
+		Log.debug("App entered EndofLife stage...")
+	}
+	
 	/// - Parameter launchOptions: Launch options passed on app launch
 	/// - Returns: `true` if `launchOptions` contains user activity of type `NSUserActivityTypeBrowsingWeb`, returns `false` otherwhise.
 	private func appLaunchedFromUserActicityURL(_ launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
