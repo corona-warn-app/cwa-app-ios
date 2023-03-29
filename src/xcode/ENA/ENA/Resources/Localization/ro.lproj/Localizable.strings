@@ -1469,11 +1469,13 @@
 
 "Home_Finding_Positive_Card_PCR_Item2" = "Dacă aveți risc crescut de boală gravă în urma infectării cu COVID-19, adresați-vă medicului pentru un consult. Factorii de risc cunoscuți includ vârsta de peste 60 de ani, imunodepresia, diabetul și obezitatea.";
 
-"Home_Finding_Positive_Card_RAT_Item0" = "Există o probabilitate mare să fiți contagios. Izolați-vă de alte persoane.";
+"Home_Finding_Positive_Card_RAT_Item0" = "Efectuați un test PCR pentru a verifica rezultatul acestui test.";
 
-"Home_Finding_Positive_Card_RAT_Item1" = "Efectuați un test PCR pentru a verifica rezultatul acestui test.";
+"Home_Finding_Positive_Card_RAT_Item1" = "Autoritatea de sănătate publică vă poate contacta în următoarele zile.";
 
-"Home_Finding_Positive_Card_RAT_Item2" = "Autoritatea de sănătate publică vă poate contacta în următoarele zile.";
+"Home_Finding_Positive_Card_RAT_Item2" = "Există o probabilitate mare să fiți contagios. Izolați-vă de alte persoane.";
+
+"Home_Finding_Positive_Card_RAT_Item3" = "Trimiteți ID-ul dvs. aleatoriu pentru a-i avertiza și pe alții.";
 
 "Home_Finding_Positive_Card_Button" = "Avertizați-i pe ceilalți";
 
