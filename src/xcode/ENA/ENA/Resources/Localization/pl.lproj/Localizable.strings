@@ -1469,11 +1469,13 @@
 
 "Home_Finding_Positive_Card_PCR_Item2" = "Jeśli masz podwyższone ryzyko wystąpienia ciężkiej choroby spowodowanej COVID-19, zasięgnij porady lekarza. Znane czynniki ryzyka obejmują wiek powyżej 60 lat, immunosupresję, cukrzycę i otyłość.";
 
-"Home_Finding_Positive_Card_RAT_Item0" = "Istnieje duże prawdopodobieństwo, że możesz zakażać. Odizoluj się od innych ludzi.";
+"Home_Finding_Positive_Card_RAT_Item0" = "Wykonaj test PCR, aby zweryfikować wynik tego testu.";
 
-"Home_Finding_Positive_Card_RAT_Item1" = "Wykonaj test PCR, aby zweryfikować wynik tego testu.";
+"Home_Finding_Positive_Card_RAT_Item1" = "Organ ds. zdrowia publicznego może skontaktować się z Tobą w ciągu kilku najbliższych dni.";
 
-"Home_Finding_Positive_Card_RAT_Item2" = "Organ ds. zdrowia publicznego może skontaktować się z Tobą w ciągu kilku najbliższych dni.";
+"Home_Finding_Positive_Card_RAT_Item2" = "Istnieje duże prawdopodobieństwo, że możesz zakażać. Odizoluj się od innych ludzi.";
+
+"Home_Finding_Positive_Card_RAT_Item3" = "Udostępnij swoje losowe identyfikatory, aby umożliwić ostrzeganie innych osób.";
 
 "Home_Finding_Positive_Card_Button" = "Ostrzegaj innych";
 
