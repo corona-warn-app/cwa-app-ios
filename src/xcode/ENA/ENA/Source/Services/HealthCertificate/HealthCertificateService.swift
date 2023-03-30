@@ -894,6 +894,8 @@ class HealthCertificateService: HealthCertificateServiceServable {
 		if healthCertificate.validityState != previousValidityState {
 			// Only validity states that are considered newsworthy (and trigger a notification) should be marked as new for the user.
 			healthCertificate.isValidityStateNew = healthCertificate.validityStateIsConsideredNewsworthy
+			
+			guard !CWAHibernationProvider.shared.isHibernationState else { return }
 			updateDCCWalletInfo(for: person)
 		}
 	}
