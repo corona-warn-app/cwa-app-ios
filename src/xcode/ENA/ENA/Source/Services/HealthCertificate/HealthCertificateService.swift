@@ -861,6 +861,19 @@ class HealthCertificateService: HealthCertificateServiceServable {
 	}
 	
 	private func updateValidityState(for healthCertificate: HealthCertificate, person: HealthCertifiedPerson) {
+		// Hibernation
+		guard !CWAHibernationProvider.shared.isHibernationState else {
+			
+			// In hibernation we set the validity state of any health certificate to expired or valid.
+			if Date() >= healthCertificate.expirationDate {
+				healthCertificate.validityState = .expired
+			} else {
+				healthCertificate.validityState = .valid
+			}
+
+			return
+		}
+
 		let previousValidityState = healthCertificate.validityState
 
 		if revocationProvider.isRevokedFromRevocationList(healthCertificate: healthCertificate) {

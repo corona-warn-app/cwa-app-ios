@@ -189,31 +189,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		NotificationCenter.default.addObserver(self, selector: #selector(isOnboardedDidChange(_:)), name: .isOnboardedDidChange, object: nil)
 		NotificationCenter.default.addObserver(self, selector: #selector(backgroundRefreshStatusDidChange), name: UIApplication.backgroundRefreshStatusDidChangeNotification, object: nil)
 	
-		// Hibernation
-		if CWAHibernationProvider.shared.isHibernationState {
-			// Stop and delete error logging.
-			try? elsService.stopAndDeleteLog()
-
-			// Disable Exposure Notification (ENF)
-			disableExposureNotification()
-			
-			// cancel pending notifications
-			UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
-		} else {
-			
+		if !CWAHibernationProvider.shared.isHibernationState {
 			// Observe Exposure Notification (ENF)
 			exposureManager.observeExposureNotificationStatus(observer: self)
 		}
 
 		guard #available(iOS 13.5, *) else {
 			// Background task registration on iOS 12.5 requires us to activate the ENManager (https://jira-ibs.wbs.net.sap/browse/EXPOSUREAPP-8919)
-			if store.isOnboarded, exposureManager.exposureManagerState.status == .unknown {
-				self.exposureManager.activate { error in
-					if let error = error {
-						Log.error("[ENATaskExecutionDelegate] Cannot activate the ENManager.", log: .api, error: error)
-					}
-				}
-			}
 			return handleQuickActions(with: launchOptions)
 		}
 		return handleQuickActions(with: launchOptions)
@@ -231,13 +213,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		healthCertificateService.updateValidityStatesAndNotifications(completion: { })
 		
 		if CWAHibernationProvider.shared.isHibernationState {
-			healthCertificateService.healthCertifiedPersons.forEach { healthCertifiedPerson in
-				healthCertifiedPerson.dccWalletInfo = nil
-			}
-			DeadmanNotificationManager().resetDeadmanNotification()
-			UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
-			disableExposureNotification()
-			
+			applyEndOfLifeChanges()
 		} else {
 			healthCertificateService.updateDCCWalletInfosIfNeeded()
 		}
@@ -254,7 +230,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 
 	func applicationDidBecomeActive(_ application: UIApplication) {
 		Log.info("Application did become active.", log: .appLifecycle)
-
+		
+		if CWAHibernationProvider.shared.isHibernationState {
+			applyEndOfLifeChanges()
+		}
+		
 		// If the UI was not setup before, and the app was NOT started from an user activity,
 		// 'applicationDidBecomeActive' is the last delegate callback and needs to build up the UI.
 		if !didSetupUI && !appLaunchedFromUserActivityURL {
@@ -601,7 +581,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		return MockExposureManager(exposureNotificationError: nil, diagnosisKeysResult: (keys, nil))
 	}()
 	#else
-	lazy var exposureManager: ExposureManager = ENAExposureManager()
+	lazy var exposureManager: ExposureManager = {
+		if Date() >= CWAHibernationProvider.shared.hibernationStartDateDefault {
+			return ENAExposureManager(manager: MockENManager())
+		} else {
+			return ENAExposureManager()
+		}
+	}()
 	#endif
 
 	/// A set of required dependencies
@@ -814,6 +800,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		)
 	}()
 
+	private func applyEndOfLifeChanges() {
+		// Clear ddc Wallet cache
+		healthCertificateService.healthCertifiedPersons.forEach { healthCertifiedPerson in
+			healthCertifiedPerson.dccWalletInfo = nil
+		}
+		
+		// Clear all notifications including deadman notification
+		UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+		
+		// Disable ExposureNotification
+		disableExposureNotification()
+		
+		// Stop and delete error logging.
+		try? elsService.stopAndDeleteLog()
+		
+		Log.debug("App entered EndofLife stage...")
+	}
+	
 	/// - Parameter launchOptions: Launch options passed on app launch
 	/// - Returns: `true` if `launchOptions` contains user activity of type `NSUserActivityTypeBrowsingWeb`, returns `false` otherwhise.
 	private func appLaunchedFromUserActicityURL(_ launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
@@ -1030,16 +1034,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		// On iOS 12.5 ENManager is already activated in didFinishLaunching (https://jira-ibs.wbs.net.sap/browse/EXPOSUREAPP-8919)
 		Log.debug("showHome Flow is called with current route: \(String(describing: route?.routeInformation)))")
 		if #available(iOS 13.5, *) {
-			if exposureManager.exposureManagerState.status == .unknown {
-				exposureManager.activate { [weak self] error in
-					if let error = error {
-						Log.error("Cannot activate the ENManager.", log: .api, error: error)
-					}
-					self?.presentHomeVC(route)
-				}
-			} else {
 				presentHomeVC(route)
-			}
 		} else if NSClassFromString("ENManager") != nil { // Make sure that ENManager is available. -> iOS 12.5.x
 			presentHomeVC(route)
 		}

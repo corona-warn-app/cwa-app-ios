@@ -113,6 +113,7 @@ class HealthCertifiedPersonCellModel {
 		qrCodeViewModel = HealthCertificateQRCodeViewModel(
 			base45: decodingFailedHealthCertificate.base45,
 			shouldBlockCertificateCode: false,
+			shouldHideCovPassNotice: false,
 			imageAccessibilityTraits: .image,
 			accessibilityLabel: AppStrings.HealthCertificate.Overview.covidDescription,
 			qrCodeAccessibilityIdentifier: AccessibilityIdentifiers.HealthCertificate.qrCodeView(of: decodingFailedHealthCertificate.base45),

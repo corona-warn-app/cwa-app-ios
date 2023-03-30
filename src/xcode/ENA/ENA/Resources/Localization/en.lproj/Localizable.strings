@@ -1469,11 +1469,13 @@
 
 "Home_Finding_Positive_Card_PCR_Item2" = "If you have an increased risk for severe illness from COVID-19, obtain medical advice. Known risk factors include being over 60 years of age, immunosuppression, diabetes, and obesity.";
 
-"Home_Finding_Positive_Card_RAT_Item0" = "There is a high probability that you are infectious. Isolate yourself from other people.";
+"Home_Finding_Positive_Card_RAT_Item0" = "Take a PCR test to verify this test result.";
 
-"Home_Finding_Positive_Card_RAT_Item1" = "Take a PCR test to verify this test result.";
+"Home_Finding_Positive_Card_RAT_Item1" = "The public health authority may contact you within the next few days.";
 
-"Home_Finding_Positive_Card_RAT_Item2" = "The public health authority may contact you within the next few days.";
+"Home_Finding_Positive_Card_RAT_Item2" = "There is a high probability that you are infectious. Isolate yourself from other people.";
+
+"Home_Finding_Positive_Card_RAT_Item3" = "Share your random IDs so that others can be warned.";
 
 "Home_Finding_Positive_Card_Button" = "Warn Others";
 
