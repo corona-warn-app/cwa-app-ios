@@ -864,10 +864,8 @@ class HealthCertificateService: HealthCertificateServiceServable {
 		// Hibernation
 		guard !CWAHibernationProvider.shared.isHibernationState else {
 			
-			// In hibernation we set the validity state of any health certificate to expired or valid.
-			if Date() >= healthCertificate.expirationDate {
-				healthCertificate.validityState = .expired
-			} else {
+			// In hibernation we set the validity state of blocked health certificate to valid.
+			if healthCertificate.validityState == .blocked {
 				healthCertificate.validityState = .valid
 			}
 
