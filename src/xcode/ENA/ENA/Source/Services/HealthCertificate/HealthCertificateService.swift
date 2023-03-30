@@ -861,14 +861,10 @@ class HealthCertificateService: HealthCertificateServiceServable {
 	}
 	
 	private func updateValidityState(for healthCertificate: HealthCertificate, person: HealthCertifiedPerson) {
-		// Hibernation
-		guard !CWAHibernationProvider.shared.isHibernationState else {
-			
-			// In hibernation we set the validity state of blocked health certificate to valid.
-			if healthCertificate.validityState == .blocked {
-				healthCertificate.validityState = .valid
-			}
 
+		if CWAHibernationProvider.shared.isHibernationState, healthCertificate.validityState == .blocked {
+			// In hibernation we set the validity state of blocked health certificate to valid.
+			healthCertificate.validityState = .valid
 			return
 		}
 
