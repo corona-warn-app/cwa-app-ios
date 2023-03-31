@@ -257,6 +257,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		// Refresh Tabbar if needed
 		coordinator.updateTabbarIfNeeded()
 	}
+	
+	func applicationWillResignActive(_ application: UIApplication) {
+		removeAllPendingNotificationRequestsForHibernationIfNeeded()
+	}
 
 	func applicationDidEnterBackground(_ application: UIApplication) {
 		showPrivacyProtectionWindow()
