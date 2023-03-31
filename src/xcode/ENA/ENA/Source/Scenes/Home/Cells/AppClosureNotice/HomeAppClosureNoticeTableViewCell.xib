@@ -5,7 +5,6 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -22,9 +21,9 @@
                         <rect key="frame" x="16" y="28" width="382" height="95"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="gPv-89-hDP">
-                                <rect key="frame" x="16" y="16" width="332" height="63"/>
+                                <rect key="frame" x="16" y="16" width="346" height="63"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WVU-zu-rID">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WVU-zu-rID">
                                         <rect key="frame" x="0.0" y="0.0" width="32" height="32"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="32" id="2NB-Vd-3uF"/>
@@ -32,10 +31,10 @@
                                         </constraints>
                                     </imageView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="ARB-i8-3Em">
-                                        <rect key="frame" x="40" y="0.0" width="265" height="48.666666666666664"/>
+                                        <rect key="frame" x="40" y="0.0" width="280" height="48.666666666666664"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zt9-fL-aWe" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="0.0" width="265" height="20.333333333333332"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="280" height="20.333333333333332"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <color key="textColor" name="ENA Text Primary 1 Contrast Color"/>
                                                 <nil key="highlightedColor"/>
@@ -44,7 +43,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Subtitle" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BDV-jb-o80" userLabel="Subtitle Label" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="28.333333333333329" width="265" height="20.333333333333329"/>
+                                                <rect key="frame" x="0.0" y="28.333333333333329" width="280" height="20.333333333333329"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                 <color key="textColor" name="ENA App Closure Text Subtitle Color"/>
                                                 <nil key="highlightedColor"/>
@@ -53,33 +52,21 @@
                                                 </userDefinedRuntimeAttributes>
                                             </label>
                                         </subviews>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="265" id="y0n-9m-z2A"/>
-                                        </constraints>
                                     </stackView>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xUm-zt-CGT">
-                                        <rect key="frame" x="313" y="0.0" width="19" height="52"/>
-                                        <subviews>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" insetsLayoutMarginsFromSafeArea="NO" image="Icons_Chevron_plain" adjustsImageSizeForAccessibilityContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zpw-WN-fM1">
-                                                <rect key="frame" x="0.0" y="4" width="7" height="12"/>
-                                                <color key="tintColor" name="ENA Chevron Dark Color"/>
-                                            </imageView>
-                                        </subviews>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" insetsLayoutMarginsFromSafeArea="NO" image="Icons_Chevron_plain" adjustsImageSizeForAccessibilityContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zpw-WN-fM1">
+                                        <rect key="frame" x="328" y="0.0" width="18" height="12"/>
+                                        <color key="tintColor" name="ENA Chevron Dark Color"/>
                                         <constraints>
-                                            <constraint firstItem="zpw-WN-fM1" firstAttribute="leading" secondItem="xUm-zt-CGT" secondAttribute="leading" id="2CP-cN-e7W"/>
+                                            <constraint firstAttribute="width" constant="18" id="37w-md-noR"/>
                                         </constraints>
-                                    </view>
+                                    </imageView>
                                 </subviews>
-                                <constraints>
-                                    <constraint firstItem="zpw-WN-fM1" firstAttribute="top" secondItem="zt9-fL-aWe" secondAttribute="top" constant="4" id="vY1-nU-xwH"/>
-                                </constraints>
                             </stackView>
                         </subviews>
                         <color key="backgroundColor" name="ENA App Closure Notice Color"/>
                         <constraints>
                             <constraint firstItem="gPv-89-hDP" firstAttribute="top" secondItem="BJI-OH-UMx" secondAttribute="topMargin" id="Khe-Cd-lZh"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="gPv-89-hDP" secondAttribute="trailing" constant="18" id="gov-5N-nei"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="gPv-89-hDP" secondAttribute="trailing" constant="4" id="gov-5N-nei"/>
                             <constraint firstAttribute="bottomMargin" secondItem="gPv-89-hDP" secondAttribute="bottom" id="pyD-MP-qPD"/>
                             <constraint firstItem="gPv-89-hDP" firstAttribute="leading" secondItem="BJI-OH-UMx" secondAttribute="leadingMargin" id="yjm-g3-1px"/>
                         </constraints>
@@ -118,7 +105,7 @@
             <color red="1" green="0.96862745098039216" blue="0.79607843137254897" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="ENA App Closure Text Subtitle Color">
-            <color red="0.090196078431372548" green="0.098039215686274508" blue="0.10196078431372549" alpha="0.64999998569488526" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.090196078431372548" green="0.098039215686274508" blue="0.10196078431372549" alpha="0.64999997615814209" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="ENA Chevron Dark Color">
             <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.30000001192092896" colorSpace="custom" customColorSpace="sRGB"/>
@@ -126,8 +113,5 @@
         <namedColor name="ENA Text Primary 1 Contrast Color">
             <color red="0.090196078431372548" green="0.098039215686274508" blue="0.10196078431372549" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
     </resources>
 </document>
