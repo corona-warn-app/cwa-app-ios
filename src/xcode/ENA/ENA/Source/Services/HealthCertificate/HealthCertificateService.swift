@@ -861,16 +861,10 @@ class HealthCertificateService: HealthCertificateServiceServable {
 	}
 	
 	private func updateValidityState(for healthCertificate: HealthCertificate, person: HealthCertifiedPerson) {
-		// Hibernation
-		guard !CWAHibernationProvider.shared.isHibernationState else {
-			
-			// In hibernation we set the validity state of any health certificate to expired or valid.
-			if Date() >= healthCertificate.expirationDate {
-				healthCertificate.validityState = .expired
-			} else {
-				healthCertificate.validityState = .valid
-			}
 
+		// In hibernation we set the validity state of blocked health certificate to valid.
+		if CWAHibernationProvider.shared.isHibernationState, healthCertificate.validityState == .blocked {
+			healthCertificate.validityState = .valid
 			return
 		}
 
@@ -896,6 +890,8 @@ class HealthCertificateService: HealthCertificateServiceServable {
 		if healthCertificate.validityState != previousValidityState {
 			// Only validity states that are considered newsworthy (and trigger a notification) should be marked as new for the user.
 			healthCertificate.isValidityStateNew = healthCertificate.validityStateIsConsideredNewsworthy
+			
+			guard !CWAHibernationProvider.shared.isHibernationState else { return }
 			updateDCCWalletInfo(for: person)
 		}
 	}
