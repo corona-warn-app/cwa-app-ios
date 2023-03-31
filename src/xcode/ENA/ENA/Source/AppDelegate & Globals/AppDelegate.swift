@@ -802,11 +802,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 
 	private func applyEndOfLifeChanges() {
 		// Clear ddc Wallet cache
-		healthCertificateService.healthCertifiedPersons.forEach {
+		store.healthCertifiedPersons.forEach {
 			$0.dccWalletInfo = nil
-			$0.healthCertificates = $0.healthCertificates.filter {
-				$0.testEntry == nil
-			}
 		}
 		
 		// Clear all notifications including deadman notification
