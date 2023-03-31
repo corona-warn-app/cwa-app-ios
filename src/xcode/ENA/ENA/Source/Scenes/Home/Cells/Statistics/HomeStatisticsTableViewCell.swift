@@ -135,6 +135,22 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 			}
 			.store(in: &subscriptions)
 	}
+	
+	func configureForHibernation(
+		with keyFigureCellModel: HomeStatisticsCellModel,
+		onInfoButtonTap: @escaping () -> Void
+	) {
+		// Retaining cell model so it gets updated
+		self.cellModel = keyFigureCellModel
+		
+		clearStackView()
+		
+		configurePandemicRadarCard(
+			onInfoButtonTap: onInfoButtonTap,
+			onAccessibilityFocus: {},
+			onUpdate: {}
+		)
+	}
 
 	// swiftlint:disable:next function_parameter_count
 	func configureStatisticsCards(

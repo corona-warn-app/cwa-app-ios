@@ -108,12 +108,10 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 			.sink { [weak self] shouldShowNoticeTile in
 				self?.viewModel.isHibernationState = CWAHibernationProvider.shared.isHibernationState
 				self?.viewModel.shouldShowAppClosureNotice = shouldShowNoticeTile
-				self?.tableView.reloadSections(
-					[
-					HomeTableViewModel.Section.appClosureNotice.rawValue
-					],
-					with: .none
-				)
+				
+				DispatchQueue.main.async { [weak self] in
+					self?.tableView.reloadData()
+				}
 			}
 			.store(in: &subscriptions)
 
@@ -683,61 +681,82 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 
 	private func statisticsCell(forRowAt indexPath: IndexPath) -> HomeStatisticsTableViewCell {
 		let cellHeight = viewModel.heightForRow(at: indexPath)
-		if let statisticsCell = statisticsCell {
-			statisticsCell.isHidden = cellHeight == 0
-			return statisticsCell
-		}
-
-		guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: HomeStatisticsTableViewCell.self), for: indexPath) as? HomeStatisticsTableViewCell else {
-			fatalError("Could not dequeue HomeStatisticsTableViewCell")
-		}
-		Log.debug("Configure statistics cell", log: .localStatistics)
-
-		cell.configure(
-			with: HomeStatisticsCellModel(
-				homeState: viewModel.state,
-				localStatisticsProvider: viewModel.state.localStatisticsProvider
-			),
-			store: viewModel.store,
-			onInfoButtonTap: { [weak self] in
-				self?.onStatisticsInfoButtonTap()
-			},
-			onAddLocalStatisticsButtonTap: { [weak self] selectValueViewController in
-				self?.onAddStateButtonTap(selectValueViewController)
-				self?.statisticsCell?.updateManagementCellState()
-			},
-			onAddDistrict: { [weak self] selectValueViewController in
-				self?.onAddDistrict(selectValueViewController)
-				self?.statisticsCell?.updateManagementCellState()
-			},
-			onDismissState: { [weak self] in
-				self?.onDismissState()
-			},
-			onDismissDistrict: { [weak self] dismissToRoot in
-				self?.onDismissDistrict(dismissToRoot)
-			},
-			onAccessibilityFocus: { [weak self] in
-				self?.tableView.contentOffset.x = 0
-				self?.tableView.scrollToRow(at: indexPath, at: .top, animated: true)
-			},
-			onUpdate: { [weak self] in
-				DispatchQueue.main.async { [weak self] in
-					let isEditing = HomeStatisticsTableViewCell.editingStatistics
-					self?.tableView.reloadSections([HomeTableViewModel.Section.statistics.rawValue], with: .none)
-					self?.statisticsCell?.setEditing(isEditing, animated: false)
-					self?.statisticsCell?.updateManagementCellState()
-				}
-			},
-			onDeviceOfflineInfo: { [weak self] in
-				self?.showDeviceOfflineAlert()
-			}
+		let cellModel = HomeStatisticsCellModel(
+			homeState: viewModel.state,
+			localStatisticsProvider: viewModel.state.localStatisticsProvider
 		)
+		let onInfoButtonTap: CompletionVoid = { [weak self] in
+			self?.onStatisticsInfoButtonTap()
+		}
 		
-		cell.isHidden = cellHeight == 0
+		// Hibernation
+		if CWAHibernationProvider.shared.isHibernationState {
+			guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: HomeStatisticsTableViewCell.self), for: indexPath) as? HomeStatisticsTableViewCell else {
+				fatalError("Could not dequeue HomeStatisticsTableViewCell")
+			}
+			Log.debug("Configure statistics cell", log: .localStatistics)
+			
+			cell.configureForHibernation(
+				with: cellModel,
+				onInfoButtonTap: onInfoButtonTap
+			)
+			
+			cell.isHidden = cellHeight == 0
+			statisticsCell = cell
+			return cell
+		}
 
-		statisticsCell = cell
+		// No Hibernation
+		else {
+			if let statisticsCell = statisticsCell {
+				statisticsCell.isHidden = cellHeight == 0
+				return statisticsCell
+			}
+			
+			guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: HomeStatisticsTableViewCell.self), for: indexPath) as? HomeStatisticsTableViewCell else {
+				fatalError("Could not dequeue HomeStatisticsTableViewCell")
+			}
+			Log.debug("Configure statistics cell", log: .localStatistics)
+			
+			cell.configure(
+				with: cellModel,
+				store: viewModel.store,
+				onInfoButtonTap: onInfoButtonTap,
+				onAddLocalStatisticsButtonTap: { [weak self] selectValueViewController in
+					self?.onAddStateButtonTap(selectValueViewController)
+					self?.statisticsCell?.updateManagementCellState()
+				},
+				onAddDistrict: { [weak self] selectValueViewController in
+					self?.onAddDistrict(selectValueViewController)
+					self?.statisticsCell?.updateManagementCellState()
+				},
+				onDismissState: { [weak self] in
+					self?.onDismissState()
+				},
+				onDismissDistrict: { [weak self] dismissToRoot in
+					self?.onDismissDistrict(dismissToRoot)
+				},
+				onAccessibilityFocus: { [weak self] in
+					self?.tableView.contentOffset.x = 0
+					self?.tableView.scrollToRow(at: indexPath, at: .top, animated: true)
+				},
+				onUpdate: { [weak self] in
+					DispatchQueue.main.async { [weak self] in
+						let isEditing = HomeStatisticsTableViewCell.editingStatistics
+						self?.tableView.reloadSections([HomeTableViewModel.Section.statistics.rawValue], with: .none)
+						self?.statisticsCell?.setEditing(isEditing, animated: false)
+						self?.statisticsCell?.updateManagementCellState()
+					}
+				},
+				onDeviceOfflineInfo: { [weak self] in
+					self?.showDeviceOfflineAlert()
+				}
+			)
 
-		return cell
+			cell.isHidden = cellHeight == 0
+			statisticsCell = cell
+			return cell
+		}
 	}
 
 	private func traceLocationsCell(forRowAt indexPath: IndexPath) -> UITableViewCell {

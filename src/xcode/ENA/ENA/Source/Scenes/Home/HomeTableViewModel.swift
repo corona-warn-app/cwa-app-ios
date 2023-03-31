@@ -366,10 +366,10 @@ class HomeTableViewModel {
 			return 1
 		}
 		#endif
-		if shouldShowAppClosureNotice, !isHibernationState {
-			return 1
-		} else {
+		
+		guard !isHibernationState else {
 			return 0
 		}
+		return shouldShowAppClosureNotice ? 1 : 0
 	}
 }
