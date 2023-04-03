@@ -222,6 +222,12 @@ final class ENAExposureManager: NSObject, ExposureManager {
 	/// Activates `ENManager`
 	/// Needs to be called before `ExposureManager.enable()`
 	func activate(completion: @escaping CompletionHandler) {
+		guard !CWAHibernationProvider.shared.isHibernationState else {
+			Log.error("ENF is will not be enabled - EOL state - no error should be triggered")
+			completion(nil)
+			return
+		}
+		
 		guard manager.exposureNotificationStatus != .active else {
 			Log.error("ENF is already enabled - do not trigger it twice")
 			completion(nil)
