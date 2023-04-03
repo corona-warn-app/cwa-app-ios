@@ -185,7 +185,9 @@ class HealthCertificateRequestService {
 		NotificationCenter.default.ocombine
 			.publisher(for: UIApplication.didBecomeActiveNotification)
 			.sink { [weak self] _ in
-				guard let self = self, self.healthCertificateService.isSetUp else {
+				guard let self = self,
+					  self.healthCertificateService.isSetUp,
+					  !CWAHibernationProvider.shared.isHibernationState else {
 					return
 				}
 
@@ -197,7 +199,7 @@ class HealthCertificateRequestService {
 
 		healthCertificateService.$isSetUp
 			.sink { [weak self] isSetUp in
-				guard isSetUp else {
+				guard isSetUp, !CWAHibernationProvider.shared.isHibernationState else {
 					return
 				}
 

@@ -49,6 +49,12 @@ class TestCertificateRequestCellModel {
 	private var subscriptions = Set<AnyCancellable>()
 
 	private func updateLoadingState(isLoading: Bool) {
+		guard !CWAHibernationProvider.shared.isHibernationState else {
+			subtitle = AppStrings.HealthCertificate.Overview.TestCertificateRequest.errorSubtitle
+			isLoadingStateHidden = true
+			buttonsHidden = false
+			return
+		}
 		if isLoading {
 			subtitle = AppStrings.HealthCertificate.Overview.TestCertificateRequest.loadingSubtitle
 		} else {
