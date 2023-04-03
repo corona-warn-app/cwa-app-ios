@@ -268,8 +268,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			taskScheduler?.scheduleTask()
 		}
 		
-		removeAllPendingNotificationRequestsForHibernationIfNeeded()
-
 		Log.info("Application did enter background.", log: .appLifecycle)
 	}
 
@@ -752,8 +750,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		}
 
 		// Remove all pending notifications
-		UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
-
+		removeAllPendingNotificationRequestsForHibernationIfNeeded()
+		
 		// Reset contact diary
 		contactDiaryStore.reset()
 
@@ -1178,24 +1176,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	
 	/// Remove pending notification requests, if their trigger date is later than hibernation start date.
 	private func removeAllPendingNotificationRequestsForHibernationIfNeeded() {
-		Log.info("UNUserNotificationCenter: Get pending Notification requests...")
-		UNUserNotificationCenter.current().getPendingNotificationRequests { pendingNotificationRequests in
-			
-			Log.info("UNUserNotificationCenter: \(pendingNotificationRequests.count) pending notification requests were found.")
-			
-			/// The pending notification request identifiers, where the next trigger date is after hibernation start date
-			let relevantNotificationRequestIdentifiers = pendingNotificationRequests.filter { notificationRequest in
-
-				guard let notificationRequest = notificationRequest.trigger as? UNTimeIntervalNotificationTrigger, let nextTriggerDate = notificationRequest.nextTriggerDate() else {
-					return false
-				}
-
-				return nextTriggerDate > CWAHibernationProvider.shared.hibernationStartDateForBuild
-			}.map { $0.identifier }
-			
-			Log.info("UNUserNotificationCenter: \(relevantNotificationRequestIdentifiers.count) pending notification requests will be removed now, cause the trigger date is later than hibernation begins.")
-
-			UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: relevantNotificationRequestIdentifiers)
+		if CWAHibernationProvider.shared.isHibernationState {
+			Log.info("UNUserNotificationCenter: pending notification requests will be removed now because of EOL state")
+			UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
 		}
 	}
 }
