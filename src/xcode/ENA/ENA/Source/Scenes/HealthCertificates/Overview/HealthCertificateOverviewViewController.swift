@@ -282,7 +282,13 @@ class HealthCertificateOverviewViewController: UITableViewController {
 			fatalError("Could not dequeue OverviewLabelTableCell")
 		}
 
-		cell.configure(text: AppStrings.HealthCertificate.Overview.scanningInfo, color: .enaColor(for: .textPrimary2), textAlignment: textAlignment)
+		if !CWAHibernationProvider.shared.isHibernationState {
+			cell.configure(
+				text: AppStrings.HealthCertificate.Overview.scanningInfo,
+				color: .enaColor(for: .textPrimary2),
+				textAlignment: textAlignment
+			)
+		}
 		return cell
 	}
 	
