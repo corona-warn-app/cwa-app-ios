@@ -196,6 +196,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 
 		guard #available(iOS 13.5, *) else {
 			// Background task registration on iOS 12.5 requires us to activate the ENManager (https://jira-ibs.wbs.net.sap/browse/EXPOSUREAPP-8919)
+			if store.isOnboarded, exposureManager.exposureManagerState.status == .unknown {
+				self.exposureManager.activate { error in
+					if let error = error {
+						Log.error("[ENATaskExecutionDelegate] Cannot activate the ENManager.", log: .api, error: error)
+					}
+				}
+			}
 			return handleQuickActions(with: launchOptions)
 		}
 		return handleQuickActions(with: launchOptions)
@@ -268,8 +275,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			taskScheduler?.scheduleTask()
 		}
 		
-		removeAllPendingNotificationRequestsForHibernationIfNeeded()
-
 		Log.info("Application did enter background.", log: .appLifecycle)
 	}
 
@@ -752,8 +757,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		}
 
 		// Remove all pending notifications
-		UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
-
+		removeAllPendingNotificationRequestsForHibernationIfNeeded()
+		
 		// Reset contact diary
 		contactDiaryStore.reset()
 
@@ -1034,7 +1039,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		// On iOS 12.5 ENManager is already activated in didFinishLaunching (https://jira-ibs.wbs.net.sap/browse/EXPOSUREAPP-8919)
 		Log.debug("showHome Flow is called with current route: \(String(describing: route?.routeInformation)))")
 		if #available(iOS 13.5, *) {
+			if exposureManager.exposureManagerState.status == .unknown {
+				exposureManager.activate { [weak self] error in
+					if let error = error {
+						Log.error("Cannot activate the ENManager.", log: .api, error: error)
+					}
+					self?.presentHomeVC(route)
+				}
+			} else {
 				presentHomeVC(route)
+			}
 		} else if NSClassFromString("ENManager") != nil { // Make sure that ENManager is available. -> iOS 12.5.x
 			presentHomeVC(route)
 		}
@@ -1178,24 +1192,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	
 	/// Remove pending notification requests, if their trigger date is later than hibernation start date.
 	private func removeAllPendingNotificationRequestsForHibernationIfNeeded() {
-		Log.info("UNUserNotificationCenter: Get pending Notification requests...")
-		UNUserNotificationCenter.current().getPendingNotificationRequests { pendingNotificationRequests in
-			
-			Log.info("UNUserNotificationCenter: \(pendingNotificationRequests.count) pending notification requests were found.")
-			
-			/// The pending notification request identifiers, where the next trigger date is after hibernation start date
-			let relevantNotificationRequestIdentifiers = pendingNotificationRequests.filter { notificationRequest in
-
-				guard let notificationRequest = notificationRequest.trigger as? UNTimeIntervalNotificationTrigger, let nextTriggerDate = notificationRequest.nextTriggerDate() else {
-					return false
-				}
-
-				return nextTriggerDate > CWAHibernationProvider.shared.hibernationStartDateForBuild
-			}.map { $0.identifier }
-			
-			Log.info("UNUserNotificationCenter: \(relevantNotificationRequestIdentifiers.count) pending notification requests will be removed now, cause the trigger date is later than hibernation begins.")
-
-			UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: relevantNotificationRequestIdentifiers)
+		if CWAHibernationProvider.shared.isHibernationState {
+			Log.info("UNUserNotificationCenter: pending notification requests will be removed now because of EOL state")
+			UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
 		}
 	}
 }
