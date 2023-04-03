@@ -196,6 +196,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 
 		guard #available(iOS 13.5, *) else {
 			// Background task registration on iOS 12.5 requires us to activate the ENManager (https://jira-ibs.wbs.net.sap/browse/EXPOSUREAPP-8919)
+			if store.isOnboarded, exposureManager.exposureManagerState.status == .unknown {
+				self.exposureManager.activate { error in
+					if let error = error {
+						Log.error("[ENATaskExecutionDelegate] Cannot activate the ENManager.", log: .api, error: error)
+					}
+				}
+			}
 			return handleQuickActions(with: launchOptions)
 		}
 		return handleQuickActions(with: launchOptions)
@@ -1034,7 +1041,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		// On iOS 12.5 ENManager is already activated in didFinishLaunching (https://jira-ibs.wbs.net.sap/browse/EXPOSUREAPP-8919)
 		Log.debug("showHome Flow is called with current route: \(String(describing: route?.routeInformation)))")
 		if #available(iOS 13.5, *) {
+			if exposureManager.exposureManagerState.status == .unknown {
+				exposureManager.activate { [weak self] error in
+					if let error = error {
+						Log.error("Cannot activate the ENManager.", log: .api, error: error)
+					}
+					self?.presentHomeVC(route)
+				}
+			} else {
 				presentHomeVC(route)
+			}
 		} else if NSClassFromString("ENManager") != nil { // Make sure that ENManager is available. -> iOS 12.5.x
 			presentHomeVC(route)
 		}
