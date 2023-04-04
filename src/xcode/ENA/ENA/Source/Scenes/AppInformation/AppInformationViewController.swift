@@ -147,7 +147,7 @@ class AppInformationViewController: DynamicTableViewController, NavigationBarOpa
 
 		switch Category(rawValue: indexPath.row) {
 			// Hibernation: hide the following cells
-		case .about, .contact, .errorReport:
+		case .contact, .errorReport:
 			return 0
 		default:
 			return UITableView.automaticDimension

@@ -147,7 +147,7 @@ class HomeTableViewModel {
 		let isGlobalStatisticsNotLoaded = state.statistics.supportedStatisticsCardIDSequence.isEmpty
 		let isLocalStatisticsNotCached = state.store.selectedLocalStatisticsRegions.isEmpty
 		
-		if isStatisticsCell && isGlobalStatisticsNotLoaded && isLocalStatisticsNotCached {
+		if isStatisticsCell && isGlobalStatisticsNotLoaded && isLocalStatisticsNotCached, !CWAHibernationProvider.shared.isHibernationState {
 			Log.debug("[Autolayout] Layout issues due to preloading of statistics cell! ", log: .ui)
 			// if this causes (further?) crashes we have to refactor the preloading of the statistics cell
 			return 0

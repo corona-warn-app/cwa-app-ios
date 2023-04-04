@@ -208,6 +208,7 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 	@IBOutlet private weak var scrollView: UIScrollView!
 	@IBOutlet private weak var stackView: UIStackView!
 	@IBOutlet private weak var trailingConstraint: NSLayoutConstraint!
+	@IBOutlet private weak var bottomConstraint: NSLayoutConstraint!
 
 	private var cellModel: HomeStatisticsCellModel?
 	private var subscriptions = Set<AnyCancellable>()
@@ -311,6 +312,7 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 		
 		guard !CWAHibernationProvider.shared.isHibernationState else {
 			trailingConstraint.constant = 12
+			bottomConstraint.constant = 12
 			return
 		}
 		
