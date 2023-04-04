@@ -28,7 +28,7 @@ struct DeadmanNotificationManager: DeadmanNotificationManageable {
 		/// Check if Deadman Notification is already scheduled
 		///
 		let numberOfHoursUntilEOL: Int
-		if ProcessInfo.processInfo.environment["XCTestConfigurationFilePath"] != nil  {
+		if ProcessInfo.processInfo.environment["XCTestConfigurationFilePath"] != nil {
 			// set numberOfHoursUntilEOL for unit testing as store is not initilized in the CWAHibernationProvider
 			numberOfHoursUntilEOL = 40
 		} else {
@@ -49,7 +49,7 @@ struct DeadmanNotificationManager: DeadmanNotificationManageable {
 				return
 			} else {
 				// check if we reach EOL will be reached in 36 hours or less then we do NOT schedule a deadman notification.
-				guard numberOfHoursUntilEOL < 36 else {
+				guard numberOfHoursUntilEOL > 36 else {
 					Log.debug("EOL will be reached in \(numberOfHoursUntilEOL) hours, so no need to schedule a deadman notification.")
 					return
 				}
