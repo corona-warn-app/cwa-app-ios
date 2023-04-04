@@ -58,6 +58,7 @@
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <connections>
+                <outlet property="bottomConstraint" destination="fhD-NG-SgH" id="KOo-8I-zKr"/>
                 <outlet property="scrollView" destination="Baz-s9-y9N" id="SMK-kU-UM8"/>
                 <outlet property="stackView" destination="zyc-lh-yUE" id="Uqs-gy-wdr"/>
                 <outlet property="trailingConstraint" destination="hFj-JQ-gfN" id="jcg-VR-hR4"/>

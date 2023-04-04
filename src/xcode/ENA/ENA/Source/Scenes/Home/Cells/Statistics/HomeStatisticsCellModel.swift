@@ -23,10 +23,15 @@ class HomeStatisticsCellModel {
 						statistics.keyFigureCards.first { $0.header.cardID == cardID }
 					}
 				
-				self?.linkCards = statistics.supportedLinkCardIDSequence
-					.compactMap { cardID in
-						statistics.linkCards.first { $0.header.cardID == cardID }
-					}
+				if CWAHibernationProvider.shared.isHibernationState, statistics.linkCards.isEmpty {
+					// In hibernation, we don't have a server response, thatswhy we use the information hard coded
+					self?.linkCards = [.mock(cardID: HomeLinkCard.bmgPandemicRadar.rawValue)]
+				} else {
+					self?.linkCards = statistics.supportedLinkCardIDSequence
+						.compactMap { cardID in
+							statistics.linkCards.first { $0.header.cardID == cardID }
+						}
+				}
 				#if DEBUG
 				if isUITesting {
 					self?.setupMockLinkCards()
