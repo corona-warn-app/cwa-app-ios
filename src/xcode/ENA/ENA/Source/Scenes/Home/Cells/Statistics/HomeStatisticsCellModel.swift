@@ -24,7 +24,7 @@ class HomeStatisticsCellModel {
 					}
 				
 				if CWAHibernationProvider.shared.isHibernationState, statistics.linkCards.isEmpty {
-					// In hibernation, we don't have a server response, thatswhy we use the information hard coded
+					// In hibernation, we don't have a server's response, thats why we use the hard-coded information
 					self?.linkCards = [.mock(cardID: HomeLinkCard.bmgPandemicRadar.rawValue)]
 				} else {
 					self?.linkCards = statistics.supportedLinkCardIDSequence
