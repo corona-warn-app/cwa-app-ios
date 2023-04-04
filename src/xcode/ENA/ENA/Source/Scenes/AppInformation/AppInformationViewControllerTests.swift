@@ -93,9 +93,9 @@ class AppInformationViewControllerTests: XCTestCase {
 
 			// THEN
 			switch category {
-			case .contact, .errorReport, .about:
+			case .contact, .errorReport:
 				XCTAssertEqual(heightForRow, 0)
-			case .accessibility, .imprint, .legal, .privacy, .terms, .versionInfo:
+			case .accessibility, .about, .imprint, .legal, .privacy, .terms, .versionInfo:
 				XCTAssertEqual(heightForRow, UITableView.automaticDimension)
 			}
 		}
