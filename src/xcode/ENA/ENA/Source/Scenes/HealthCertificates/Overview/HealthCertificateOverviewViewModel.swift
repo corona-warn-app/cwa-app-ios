@@ -27,6 +27,7 @@ class HealthCertificateOverviewViewModel {
 					.filter { !$0.healthCertificates.isEmpty }
 				self.decodingFailedHealthCertificates = $0
 					.flatMap { $0.decodingFailedHealthCertificates }
+				
 			}
 			.store(in: &subscriptions)
 

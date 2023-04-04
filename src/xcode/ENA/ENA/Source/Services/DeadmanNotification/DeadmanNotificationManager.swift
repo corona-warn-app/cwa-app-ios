@@ -42,6 +42,11 @@ struct DeadmanNotificationManager: DeadmanNotificationManageable {
 				/// Deadman Notification already setup -> return
 				return
 			} else {
+				// check if we reach EOL will be reached in 36 hours or less then we do NOT schedule a deadman notification.
+				guard numberOfHoursUntilEOL < 36 else {
+					Log.debug("EOL will be reached in \(numberOfHoursUntilEOL) hours, so no need to schedule a deadman notification.")
+					return
+				}
 				/// No Deadman Notification setup, continue to setup a new one
 				let content = UNMutableNotificationContent()
 				content.title = AppStrings.Common.deadmanAlertTitle
