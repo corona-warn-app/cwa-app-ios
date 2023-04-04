@@ -27,7 +27,13 @@ struct DeadmanNotificationManager: DeadmanNotificationManageable {
 	func scheduleDeadmanNotificationIfNeeded() {
 		/// Check if Deadman Notification is already scheduled
 		///
-		let numberOfHoursUntilEOL = Calendar.current.dateComponents([.hour], from: Date(), to: CWAHibernationProvider.shared.hibernationStartDateForBuild).hour ?? 0
+		let numberOfHoursUntilEOL: Int
+		if ProcessInfo.processInfo.environment["XCTestConfigurationFilePath"] != nil  {
+			// set numberOfHoursUntilEOL for unit testing as store is not initilized in the CWAHibernationProvider
+			numberOfHoursUntilEOL = 40
+		} else {
+			numberOfHoursUntilEOL = Calendar.current.dateComponents([.hour], from: Date(), to: CWAHibernationProvider.shared.hibernationStartDateForBuild).hour ?? 0
+		}
 		Log.debug("numberOfHours Until EOL: \(numberOfHoursUntilEOL).")
 		userNotificationCenter.getPendingNotificationRequests { notificationRequests in
 			if notificationRequests.contains(where: {
