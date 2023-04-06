@@ -13,10 +13,12 @@ class EndOfLifeThankYouCellViewModel {
 	var image = UIImage(named: "EndOfLifeThankYouIllustration")
 	
 	var description: NSAttributedString {
+		let warnAppNINALinkText = AppStrings.Home.EndOfLifeThankYouTile.warnAppNINALinkText
 		let faqLinkText = AppStrings.Home.EndOfLifeThankYouTile.faqLinkText
 
 		let string = String(
 			format: AppStrings.Home.EndOfLifeThankYouTile.description,
+			warnAppNINALinkText,
 			faqLinkText
 		)
 
@@ -31,7 +33,8 @@ class EndOfLifeThankYouCellViewModel {
 			attributes: textAttributes
 		)
 
-		 attributedString.mark(faqLinkText, with: AppStrings.Home.EndOfLifeThankYouTile.faqLinkAnchor)
+		attributedString.mark(warnAppNINALinkText, with: AppStrings.Home.EndOfLifeThankYouTile.warnAppNINALinkAnchor)
+		attributedString.mark(faqLinkText, with: AppStrings.Home.EndOfLifeThankYouTile.faqLinkAnchor)
 
 		return attributedString
 	}

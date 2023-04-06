@@ -1105,6 +1105,8 @@ enum AppStrings {
 		enum EndOfLifeThankYouTile {
 			static let title = NSLocalizedString("Home_EndOfLifeThankYouTile_Title", comment: "")
 			static let description = NSLocalizedString("Home_EndOfLifeThankYouTile_description", comment: "")
+			static let warnAppNINALinkText = NSLocalizedString("Home_EndOfLifeThankYouTile_warnAppNINA", comment: "")
+			static let warnAppNINALinkAnchor = NSLocalizedString("Home_EndOfLifeThankYouTile_warnAppNINALink", tableName: "Localizable.links", comment: "")
 			static let faqLinkText = NSLocalizedString("Home_EndOfLifeThankYouTile_faq", comment: "")
 			static let faqLinkAnchor = NSLocalizedString("Home_EndOfLifeThankYouTile_FAQLink", tableName: "Localizable.links", comment: "")
 		}
