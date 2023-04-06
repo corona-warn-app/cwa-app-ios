@@ -60,6 +60,22 @@ class TraceLocationConfigurationViewController: UIViewController, FooterViewHand
 		permanentDefaultLengthFootnoteLabel.text = AppStrings.TraceLocations.Configuration.defaultCheckinLengthFootnote
 
 	}
+	
+	override func viewWillAppear(_ animated: Bool) {
+		// Fix an overlay bug for iPhone SE 1st
+		DispatchQueue.main.async { [weak self] in
+			self?.navigationController?.navigationBar.isTranslucent = false
+			self?.navigationController?.navigationBar.backgroundColor = .enaColor(for: .background)
+		}
+	}
+	
+	override func viewWillDisappear(_ animated: Bool) {
+		// Fix an overlay bug for iPhone SE 1st
+		DispatchQueue.main.async { [weak self] in
+			self?.navigationController?.navigationBar.isTranslucent = true
+			self?.navigationController?.navigationBar.backgroundColor = nil
+		}
+	}
 
 	// MARK: - Protocol FooterViewHandling
 
