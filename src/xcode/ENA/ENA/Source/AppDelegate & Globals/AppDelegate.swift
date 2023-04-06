@@ -812,6 +812,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			$0.objectDidChange.send($0)
 		}
 		healthCertificateService.updatePublishersFromStore()
+		healthCertificateService.updateValidityStatesAndNotifications(completion: { })
 		// Clear all notifications including deadman notification
 		UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
 		
