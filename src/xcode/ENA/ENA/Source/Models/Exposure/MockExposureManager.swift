@@ -29,6 +29,17 @@ final class MockExposureManager {
 		preconditionFailure("Don't use this mock in production!")
 		#endif
 	}
+	
+	// MARK: - Private
+	
+	private var _exposureManagerState = ExposureManagerState(authorized: true, enabled: true, status: .active) {
+		didSet {
+			guard let appDelegate = UIApplication.shared.delegate as? ENStateHandlerUpdating else {
+				return
+			}
+			appDelegate.updateEnState(_exposureManagerState.status == .active ? .enabled : .disabled)
+		}
+	}
 }
 
 extension MockExposureManager: ExposureManager {
@@ -49,15 +60,17 @@ extension MockExposureManager: ExposureManager {
 	}
 
 	func enable(completion: @escaping CompletionHandler) {
+		_exposureManagerState = ExposureManagerState(authorized: true, enabled: true, status: .active)
 		completion(exposureNotificationError)
 	}
 
 	func disable(completion: @escaping CompletionHandler) {
+		_exposureManagerState = ExposureManagerState(authorized: true, enabled: true, status: .disabled)
 		completion(exposureNotificationError)
 	}
 
 	var exposureManagerState: ExposureManagerState {
-		ExposureManagerState(authorized: true, enabled: true, status: .active)
+		_exposureManagerState
 	}
 
 	func detectExposures(configuration _: ENExposureConfiguration, diagnosisKeyURLs _: [URL], completionHandler: @escaping ENDetectExposuresHandler) -> Progress {
