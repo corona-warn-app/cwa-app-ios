@@ -923,6 +923,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 	private func showBackgroundFetchAlertIfNeeded(completion: @escaping () -> Void = {}) {
 		if CWAHibernationProvider.shared.isHibernationState {
 			completion()
+			return
 		}
 		
 		let status = UIApplication.shared.backgroundRefreshStatus
