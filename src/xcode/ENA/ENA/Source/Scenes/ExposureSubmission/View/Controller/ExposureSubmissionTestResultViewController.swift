@@ -152,10 +152,14 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, Fo
 
 		viewModel.errorPublisher
 			.sink { [weak self] error in
-				guard let self = self, let error = error else { return }
+				guard let self = self,
+					  let error = error,
+					  !CWAHibernationProvider.shared.isHibernationState else {
+					return
+				}
 
 				self.viewModel.errorPublisher.value = nil
-
+				
 				let alert = self.setupErrorAlert(message: error.localizedDescription)
 				self.present(alert, animated: true)
 			}

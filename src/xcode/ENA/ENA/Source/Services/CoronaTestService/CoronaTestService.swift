@@ -492,6 +492,7 @@ class CoronaTestService: CoronaTestServiceProviding {
 			}
 			Log.info("[CoronaTestService] Will return the latest cached test result because of End of Life state. force: \(force), presentNotification: \(presentNotification)", log: .api)
 			completion(.success(coronaTest.testResult))
+			return
 		}
 		Log.info("[CoronaTestService] Updating test result (coronaTestType: \(coronaTestType)), force: \(force), presentNotification: \(presentNotification)", log: .api)
 		
