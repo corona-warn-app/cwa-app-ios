@@ -921,8 +921,9 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 	/// This method checks whether the below conditions in regards to background fetching have been met
 	/// and shows the corresponding alert.
 	private func showBackgroundFetchAlertIfNeeded(completion: @escaping () -> Void = {}) {
-		if CWAHibernationProvider.shared.isHibernationState {
+		guard !CWAHibernationProvider.shared.isHibernationState else {
 			completion()
+			return
 		}
 		
 		let status = UIApplication.shared.backgroundRefreshStatus
@@ -960,7 +961,8 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 	}
 
 	private func showAnotherHighExposureAlertIfNeeded(completion: @escaping () -> Void) {
-		guard viewModel.store.showAnotherHighExposureAlert else {
+		guard viewModel.store.showAnotherHighExposureAlert,
+		!CWAHibernationProvider.shared.isHibernationState else {
 			completion()
 			return
 		}
