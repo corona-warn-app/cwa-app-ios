@@ -665,6 +665,28 @@ class HealthCertificateService: HealthCertificateServiceServable {
 				$0 == decodingFailedHealthCertificate
 			}
 	}
+	
+	func updateGradients() {
+		let gradientTypes: [GradientView.GradientType] = [.lightBlue, .mediumBlue, .darkBlue]
+		self.healthCertifiedPersons
+			.enumerated()
+			.forEach { index, person in
+				let healthCertificate = person.mostRelevantHealthCertificate
+
+				if healthCertificate?.validityState == .valid ||
+					healthCertificate?.validityState == .expiringSoon ||
+					(healthCertificate?.type == .test && healthCertificate?.validityState == .expired) {
+					person.gradientType = gradientTypes[index % 3]
+				} else {
+					person.gradientType = .solidGrey
+				}
+				
+				// Overwrite the blue or grey with green when mask state is optional
+				if person.isMaskOptional {
+					person.gradientType = .green
+				}
+			}
+	}
 
 	// MARK: - Private
 
@@ -746,28 +768,6 @@ class HealthCertificateService: HealthCertificateServiceServable {
 				}
 				.store(in: &healthCertifiedPersonSubscriptions)
 		}
-	}
-
-	private func updateGradients() {
-		let gradientTypes: [GradientView.GradientType] = [.lightBlue, .mediumBlue, .darkBlue]
-		self.healthCertifiedPersons
-			.enumerated()
-			.forEach { index, person in
-				let healthCertificate = person.mostRelevantHealthCertificate
-
-				if healthCertificate?.validityState == .valid ||
-					healthCertificate?.validityState == .expiringSoon ||
-					(healthCertificate?.type == .test && healthCertificate?.validityState == .expired) {
-					person.gradientType = gradientTypes[index % 3]
-				} else {
-					person.gradientType = .solidGrey
-				}
-				
-				// Overwrite the blue or grey with green when mask state is optional
-				if person.isMaskOptional {
-					person.gradientType = .green
-				}
-			}
 	}
 
 	private func updateDCCWalletInfo(for person: HealthCertifiedPerson, completion: (() -> Void)? = nil) {
