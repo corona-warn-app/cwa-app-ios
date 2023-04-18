@@ -16,7 +16,7 @@ class AppClosureNoticeDetailsViewModelTests: CWATestCase {
 			quantity: nil,
 			quantityParameterIndex: nil,
 			functionName: nil,
-			localizedText: ["de": "Betriebsende"],
+			localizedText: ["de": "Achtung!", "en": "Important!"],
 			parameters: []
 		)
 
@@ -25,16 +25,16 @@ class AppClosureNoticeDetailsViewModelTests: CWATestCase {
 			quantity: nil,
 			quantityParameterIndex: nil,
 			functionName: nil,
-			localizedText: ["de": "Der Betrieb der Corona-Warn-App wird am xx.xx.xxxx eingestellt."],
+			localizedText: ["de": "Es wird nur noch bis zum 30. April 2023 möglich sein, andere Personen über die Corona-Warn-App zu warnen!", "en": "You will only be able to warn others through the Corona-Warn-App until April 30, 2023."],
 			parameters: []
 		)
-		
+
 		let longText = DCCUIText(
 			type: "string",
 			quantity: nil,
 			quantityParameterIndex: nil,
 			functionName: nil,
-			localizedText: ["de": "Sie erhalten dann keine Warnungen mehr über Risiko-Begegnungen und können selbst andere nicht mehr warnen. Sie können keine Tests mehr registrieren und erhalten keine Testergebnisse mehr über die App. Auf Ihre Zertifikate und das Kontakt-Tagebuch haben Sie weiterhin Zugriff. Allerdings können Sie keine neuen Zertifikate mehr hinzufügen."],
+			localizedText: ["de": "Ab dem 1. Mai 2023 können Sie andere Personen hinsichtlich eines erhöhten Infektionsrisikos nicht mehr warnen und Sie erhalten keine Warnungen mehr über Risikobegegnungen. Ab dem 1. Juni 2023 wird die Corona-Warn-App nicht mehr weiterentwickelt. Auf Ihre in der App gespeicherten Zertifikate und das Kontakt-Tagebuch haben Sie jedoch weiterhin Zugriff. Allerdings können Sie keine neuen Zertifikate mehr hinzufügen."],
 			parameters: []
 		)
 		
