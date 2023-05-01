@@ -586,13 +586,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		return MockExposureManager(exposureNotificationError: nil, diagnosisKeysResult: (keys, nil))
 	}()
 	#else
-	lazy var exposureManager: ExposureManager = {
-		if Date() >= CWAHibernationProvider.shared.hibernationStartDateDefault {
-			return ENAExposureManager(manager: MockENManager())
-		} else {
-			return ENAExposureManager()
-		}
-	}()
+	lazy var exposureManager: ExposureManager = ENAExposureManager()
 	#endif
 
 	/// A set of required dependencies
