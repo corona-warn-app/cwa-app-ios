@@ -13,6 +13,13 @@ final class MockENManager: NSObject {
 	) {
 		super.init()
 		self.diagnosisKeysResult = (keys, enError)
+
+		#if RELEASE
+		// This whole class would/should be wrapped in a DEBUG block. However, there were some
+		// issues with the handling of community and debug builds so we chose this way to prevent
+		// malicious usage
+		preconditionFailure("Don't use this mock in production!")
+		#endif
 	}
 	
 	// MARK: - Activating
