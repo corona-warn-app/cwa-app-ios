@@ -3,7 +3,7 @@
 //
 
 extension SAP_Internal_Stats_LinkCard {
-	static let bmgPandemicRadarURLMock: String = "https://corona-pandemieradar.de/de"
+	static let bmgPandemicRadarURLMock: String = AppStrings.Links.pandemicRadarLink
 	
 	/**
 	 Returns a mocked `SAP_Internal_Stats_LinkCard`
