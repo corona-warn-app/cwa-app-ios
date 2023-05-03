@@ -108,7 +108,13 @@ final class HealthCertificateCoordinator {
 	private var validationCoordinator: HealthCertificateValidationCoordinator?
 	
 	private var infoScreenShown: Bool {
-		get { store.healthCertificateInfoScreenShown }
+		get {
+			if CWAHibernationProvider.shared.isHibernationState {
+				return true
+			} else {
+				return store.healthCertificateInfoScreenShown
+			}
+		}
 		set { store.healthCertificateInfoScreenShown = newValue }
 	}
 	

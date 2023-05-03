@@ -51,21 +51,40 @@ enum QuickAction: String {
 			application.shortcutItems = nil
 			return
 		}
-
-		var shortcutItems = [
-			UIApplicationShortcutItem(type: QuickAction.diaryNewEntry.rawValue, localizedTitle: AppStrings.QuickActions.contactDiaryNewEntry, localizedSubtitle: nil, icon: UIApplicationShortcutIcon(templateImageName: "book.closed")),
-			UIApplicationShortcutItem(type: QuickAction.showCertificates.rawValue, localizedTitle: AppStrings.QuickActions.showCertificates, localizedSubtitle: nil, icon: UIApplicationShortcutIcon(templateImageName: "Icons_Tabbar_Certificates"))
-		]
 		
-		let status = AVCaptureDevice.authorizationStatus(for: .video)
-		if status == .authorized || status == .notDetermined {
-			// dont show camera related actions if no camera access is granted
-			shortcutItems.append(
-				contentsOf: [
-					UIApplicationShortcutItem(type: QuickAction.eventCheckin.rawValue, localizedTitle: AppStrings.QuickActions.eventCheckin, localizedSubtitle: nil, icon: UIApplicationShortcutIcon(templateImageName: "Icons_Tabbar_Checkin")),
-					UIApplicationShortcutItem(type: QuickAction.qrCodeScanner.rawValue, localizedTitle: AppStrings.QuickActions.qrCodeScanner, localizedSubtitle: nil, icon: UIApplicationShortcutIcon(templateImageName: "qrcode.viewfinder"))
-				]
-			)
+		var shortcutItems = [UIApplicationShortcutItem]()
+		
+		if CWAHibernationProvider.shared.isHibernationState {
+			shortcutItems = [
+				UIApplicationShortcutItem(
+					type: QuickAction.diaryNewEntry.rawValue,
+					localizedTitle: AppStrings.QuickActions.contactDiaryNewEntry,
+					localizedSubtitle: nil,
+					icon: UIApplicationShortcutIcon(templateImageName: "book.closed")
+				),
+				UIApplicationShortcutItem(
+					type: QuickAction.showCertificates.rawValue,
+					localizedTitle: AppStrings.QuickActions.showCertificates,
+					localizedSubtitle: nil,
+					icon: UIApplicationShortcutIcon(templateImageName: "Icons_Tabbar_Certificates")
+				)
+			]
+		} else {
+			shortcutItems = [
+				UIApplicationShortcutItem(type: QuickAction.diaryNewEntry.rawValue, localizedTitle: AppStrings.QuickActions.contactDiaryNewEntry, localizedSubtitle: nil, icon: UIApplicationShortcutIcon(templateImageName: "book.closed")),
+				UIApplicationShortcutItem(type: QuickAction.showCertificates.rawValue, localizedTitle: AppStrings.QuickActions.showCertificates, localizedSubtitle: nil, icon: UIApplicationShortcutIcon(templateImageName: "Icons_Tabbar_Certificates"))
+			]
+			
+			let status = AVCaptureDevice.authorizationStatus(for: .video)
+			if status == .authorized || status == .notDetermined {
+				// dont show camera related actions if no camera access is granted
+				shortcutItems.append(
+					contentsOf: [
+						UIApplicationShortcutItem(type: QuickAction.eventCheckin.rawValue, localizedTitle: AppStrings.QuickActions.eventCheckin, localizedSubtitle: nil, icon: UIApplicationShortcutIcon(templateImageName: "Icons_Tabbar_Checkin")),
+						UIApplicationShortcutItem(type: QuickAction.qrCodeScanner.rawValue, localizedTitle: AppStrings.QuickActions.qrCodeScanner, localizedSubtitle: nil, icon: UIApplicationShortcutIcon(templateImageName: "qrcode.viewfinder"))
+					]
+				)
+			}
 		}
 		
 		application.shortcutItems = shortcutItems
