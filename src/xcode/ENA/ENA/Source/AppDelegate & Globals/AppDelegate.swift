@@ -1184,8 +1184,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 
 	private func disableExposureNotification() {
 		Log.info("Try to disable exposure notification.")
-
-		exposureManager.disable { exposureNotificationError in
+		ENAExposureManager().disable { exposureNotificationError in
 			if let exposureNotificationError = exposureNotificationError {
 				Log.error("The exposure notification couldn't be disabled by ExposureManager: \(exposureNotificationError.localizedDescription)")
 			} else {
