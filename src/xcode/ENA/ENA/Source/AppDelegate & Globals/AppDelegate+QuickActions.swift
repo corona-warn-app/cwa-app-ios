@@ -87,7 +87,7 @@ enum QuickAction: String {
 			
 			let status = AVCaptureDevice.authorizationStatus(for: .video)
 			if status == .authorized || status == .notDetermined {
-				// dont show camera related actions if no camera access is granted
+				// don't show the camera related actions if no camera access is granted
 				shortcutItems.append(
 					contentsOf: [
 						UIApplicationShortcutItem(
