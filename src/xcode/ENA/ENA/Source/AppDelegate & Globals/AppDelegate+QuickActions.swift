@@ -71,8 +71,18 @@ enum QuickAction: String {
 			]
 		} else {
 			shortcutItems = [
-				UIApplicationShortcutItem(type: QuickAction.diaryNewEntry.rawValue, localizedTitle: AppStrings.QuickActions.contactDiaryNewEntry, localizedSubtitle: nil, icon: UIApplicationShortcutIcon(templateImageName: "book.closed")),
-				UIApplicationShortcutItem(type: QuickAction.showCertificates.rawValue, localizedTitle: AppStrings.QuickActions.showCertificates, localizedSubtitle: nil, icon: UIApplicationShortcutIcon(templateImageName: "Icons_Tabbar_Certificates"))
+				UIApplicationShortcutItem(
+					type: QuickAction.diaryNewEntry.rawValue,
+					localizedTitle: AppStrings.QuickActions.contactDiaryNewEntry,
+					localizedSubtitle: nil,
+					icon: UIApplicationShortcutIcon(templateImageName: "book.closed")
+				),
+				UIApplicationShortcutItem(
+					type: QuickAction.showCertificates.rawValue,
+					localizedTitle: AppStrings.QuickActions.showCertificates,
+					localizedSubtitle: nil,
+					icon: UIApplicationShortcutIcon(templateImageName: "Icons_Tabbar_Certificates")
+				)
 			]
 			
 			let status = AVCaptureDevice.authorizationStatus(for: .video)
@@ -80,8 +90,18 @@ enum QuickAction: String {
 				// dont show camera related actions if no camera access is granted
 				shortcutItems.append(
 					contentsOf: [
-						UIApplicationShortcutItem(type: QuickAction.eventCheckin.rawValue, localizedTitle: AppStrings.QuickActions.eventCheckin, localizedSubtitle: nil, icon: UIApplicationShortcutIcon(templateImageName: "Icons_Tabbar_Checkin")),
-						UIApplicationShortcutItem(type: QuickAction.qrCodeScanner.rawValue, localizedTitle: AppStrings.QuickActions.qrCodeScanner, localizedSubtitle: nil, icon: UIApplicationShortcutIcon(templateImageName: "qrcode.viewfinder"))
+						UIApplicationShortcutItem(
+							type: QuickAction.eventCheckin.rawValue,
+							localizedTitle: AppStrings.QuickActions.eventCheckin,
+							localizedSubtitle: nil,
+							icon: UIApplicationShortcutIcon(templateImageName: "Icons_Tabbar_Checkin")
+						),
+						UIApplicationShortcutItem(
+							type: QuickAction.qrCodeScanner.rawValue,
+							localizedTitle: AppStrings.QuickActions.qrCodeScanner,
+							localizedSubtitle: nil,
+							icon: UIApplicationShortcutIcon(templateImageName: "qrcode.viewfinder")
+						)
 					]
 				)
 			}
