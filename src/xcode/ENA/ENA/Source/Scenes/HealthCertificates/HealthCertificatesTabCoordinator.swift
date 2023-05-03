@@ -106,7 +106,13 @@ final class HealthCertificatesTabCoordinator {
 	private var printNavigationController: UINavigationController!
 	
 	private var infoScreenShown: Bool {
-		get { store.healthCertificateInfoScreenShown }
+		get {
+			if CWAHibernationProvider.shared.isHibernationState {
+				return true
+			} else {
+				return store.healthCertificateInfoScreenShown
+			}
+		}
 		set { store.healthCertificateInfoScreenShown = newValue }
 	}
 
