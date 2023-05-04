@@ -819,7 +819,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
 		
 		// Disable ExposureNotification
-		disableExposureNotification()
+		if ENAExposureManager().exposureManagerState.enabled {
+			disableExposureNotification()
+		}
 		
 		// Stop and delete error logging.
 		try? elsService.stopAndDeleteLog()
