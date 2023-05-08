@@ -118,8 +118,10 @@ class AppInformationViewController: DynamicTableViewController, NavigationBarOpa
 				imageView.adjustsImageSizeForAccessibilityContentSizeCategory = true
 				imageView.contentMode = .scaleAspectFill
 				cell.accessoryView = imageView
-			case .about, .contact, .errorReport, .imprint, .legal, .privacy, .versionInfo, .terms:
+			case .about, .imprint, .legal, .privacy, .versionInfo, .terms:
 				cell.accessoryType = .disclosureIndicator
+			case .contact, .errorReport:
+				cell.accessoryType = .none
 			}
 		}
 
