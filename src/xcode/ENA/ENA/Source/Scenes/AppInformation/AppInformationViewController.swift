@@ -121,7 +121,11 @@ class AppInformationViewController: DynamicTableViewController, NavigationBarOpa
 			case .about, .imprint, .legal, .privacy, .versionInfo, .terms:
 				cell.accessoryType = .disclosureIndicator
 			case .contact, .errorReport:
-				cell.accessoryType = .none
+				if cwaHibernationProvider.isHibernationState {
+					cell.accessoryType = .none
+				} else {
+					cell.accessoryType = .disclosureIndicator
+				}
 			}
 		}
 
